@@ -72,7 +72,7 @@
 <p>Meanwhile, create aruco detector with default parameters.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">arucoParams = aruco.DetectorParameters_create()</div></pre></td></tr></table></figure></p>
 <p>And, after having this aruco square marker printed, the edge length of this particular marker is to be measured and stored in a variable.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">markerLength = 20 # Here, our measurement unit is centimetre.</div></pre></td></tr></table></figure></p>
 <p></p><h2>Finally</h2><br>Estimate camera postures. Here, we are testing a sequence of images, rather than video streams. We first list all file names in sequence.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">imgDir = &quot;imgSequence&quot;  # Specify the image directory</div><div class="line">imgFileNames = [os.path.join(imgDir, fn) for fn in next(os.walk(imgDir))[2]]</div><div class="line">nbOfImgs = len(imgFileNames)</div></pre></td></tr></table></figure><p></p>
-<p>Then, we calculate the camera posture frame by frame:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">for i in range(0, nbOfImgs):</div><div class="line">    img = cv2.imread(imgFileNames[i], cv2.IMREAD_GRAYSCALE)</div><div class="line">    imgRemapped = cv2.remap(img, map1, map2, cv2.INTER_LINEAR, cv2.BORDER_CONSTANT) # for fisheye remapping</div><div class="line">    imRemapped_color = cv2.cvtColor(imgRemapped, cv2.COLOR_GRAY2BGR)  # for later display in color</div><div class="line">    corners, ids, rejectedImgPoints = aruco.detectMarkers(imgRemapped, aruco_dict, parameters=arucoParams) # Detect aruco</div><div class="line">    if ids != None: # if aruco marker detected</div><div class="line">        rvec, tvec = aruco.estimatePoseSingleMarkers(corners, markerLength, camera_matrix, dist_coeffs) # For a single marker</div><div class="line">    imgWithAruco = aruco.drawDetectedMarkers(imRemapped_color, corners, ids, (0,255,0))</div><div class="line">    imgWithAruco = aruco.drawAxis(imgWithAruco, camera_matrix, dist_coeffs, rvec, tvec, 100)  # axis length 100 can be changed according to your requirement</div><div class="line">    else: # if aruco marker is NOT detected</div><div class="line">        imgWithAruco = imRemapped_color # assign imRemapped_color to imgWithAruco directly</div><div class="line">    cv2.imshow(&quot;aruco&quot;, imgWithAruco) # display</div><div class="line">    if cv2.waitKey(2) &amp; 0xFF == ord(&apos;q&apos;): # if &apos;q&apos; is pressed, quit.</div><div class="line">        break</div></pre></td></tr></table></figure></p>
+<p>Then, we calculate the camera posture frame by frame:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">for i in range(0, nbOfImgs):</div><div class="line">    img = cv2.imread(imgFileNames[i], cv2.IMREAD_COLOR)</div><div class="line">    imgRemapped = cv2.remap(img, map1, map2, cv2.INTER_LINEAR, cv2.BORDER_CONSTANT) # for fisheye remapping</div><div class="line">    imgRemapped_gray = cv2.cvtColor(imgRemapped, cv2.COLOR_BGR2GRAY)    # aruco.etectMarkers() requires gray image</div><div class="line">    corners, ids, rejectedImgPoints = aruco.detectMarkers(imgRemapped_gray, aruco_dict, parameters=arucoParams) # Detect aruco</div><div class="line">    if ids != None: # if aruco marker detected</div><div class="line">        rvec, tvec = aruco.estimatePoseSingleMarkers(corners, markerLength, camera_matrix, dist_coeffs) # For a single marker</div><div class="line">        imgWithAruco = aruco.drawDetectedMarkers(imgRemapped, corners, ids, (0,255,0))</div><div class="line">        imgWithAruco = aruco.drawAxis(imgWithAruco, camera_matrix, dist_coeffs, rvec, tvec, 100)    # axis length 100 can be changed according to your requirement</div><div class="line">    else:   # if aruco marker is NOT detected</div><div class="line">        imgWithAruco = imgRemapped  # assign imRemapped_color to imgWithAruco directly</div><div class="line"></div><div class="line">    cv2.imshow(&quot;aruco&quot;, imgWithAruco)   # display</div><div class="line"></div><div class="line">    if cv2.waitKey(2) &amp; 0xFF == ord(&apos;q&apos;):   # if &apos;q&apos; is pressed, quit.</div><div class="line">        break</div></pre></td></tr></table></figure></p>
 <p>The drawn axis is just the world coordinators and orientations estimated from the images taken by the testing camera.</p>
 
       
@@ -112,7 +112,7 @@
 
 
 <section id="comment">
-  <h1 class="title">Komentarai</h1>
+  <h1 class="title">Comments</h1>
 
   
       <div id="fb-root"></div>
@@ -135,7 +135,7 @@
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Ieškoti">
+    <input type="search" name="q" results="0" placeholder="Search">
     <input type="hidden" name="q" value="site:longervision.github.io">
   </form>
 </div>
@@ -144,7 +144,7 @@
 
   
 <div class="widget tag">
-  <h3 class="title">Žymos</h3>
+  <h3 class="title">Tags</h3>
   <ul class="entry">
   
     <li><a href="/tags/Camera-Posture-Estimation-aruco-Diamond-Marker-Pattern-OpenCV-Python/">Camera Posture Estimation, aruco, Diamond Marker, Pattern, OpenCV, Python</a><small>1</small></li>
