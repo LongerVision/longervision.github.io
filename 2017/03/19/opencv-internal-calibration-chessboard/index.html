@@ -63,7 +63,7 @@
       
         <p></p><h2>Preparation</h2><br>Traditionally, a camera is calibrated using a chessboard. Existing documentations are already out there and have discussed camera calibration in detail, for example, <a href="http://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_calib3d/py_calibration/py_calibration.html" target="_blank" rel="external">OpenCV-Python Tutorials</a>.<p></p>
 <p></p><h2>Coding</h2><br>Our code can be found at <a href="https://github.com/LongerVision/OpenCV_Examples/blob/master/01_internal_camera_calibration/chessboard.py" target="_blank" rel="external">OpenCV Examples</a>.<p></p>
-<p></p><h3>First of all</h3><br>Unlike estimating camera postures which is dealing with the extrinsic parameters, camera calibration is to calculate the intrinsic parameters. In such a case, there is <strong>NO</strong> need for us to measure the cell size of the chessboard. Anyway, the adopted chessboard is just an ordinary chessboard as:<br><img src="https://raw.githubusercontent.com/LongerVision/OpenCV_Examples/master/markers/pattern_chessboard.png" alt="pattern_chessboard" title="pattern_chessboard"><p></p>
+<h3>First of all</h3><br>Unlike estimating camera postures which is dealing with the extrinsic parameters, camera calibration is to calculate the intrinsic parameters. In such a case, there is <strong>NO</strong> need for us to measure the cell size of the chessboard. Anyway, the adopted chessboard is just an ordinary chessboard as:<br><img src="https://raw.githubusercontent.com/LongerVision/OpenCV_Examples/master/markers/pattern_chessboard.png" alt="pattern_chessboard" title="pattern_chessboard"><br><h3>Secondly</h3><br>Required packages need to be imported.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import numpy as np</div><div class="line">import cv2</div><div class="line">import yaml</div></pre></td></tr></table></figure><br><br><h3>Thirdly</h3><br>Some initialization work need to be done, including: 1) define the termination criteria when refine the corner sub-pixel later on; 2) object points coordinators initialization.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"># termination criteria</div><div class="line">criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)</div><div class="line"></div><div class="line"># prepare object points, like (0,0,0), (1,0,0), (2,0,0) ....,(6,5,0)</div><div class="line">objp = np.zeros((6*7,3), np.float32)</div><div class="line">objp[:,:2] = np.mgrid[0:7,0:6].T.reshape(-1,2)</div><div class="line"></div><div class="line"># Arrays to store object points and image points from all the images.</div><div class="line">objpoints = [] # 3d point in real world space</div><div class="line">imgpoints = [] # 2d points in image plane.</div></pre></td></tr></table></figure><br><br><h3>Fourthly</h3>
 
       
     </div>
@@ -102,7 +102,7 @@
 
 
 <section id="comment">
-  <h1 class="title">Kommentare</h1>
+  <h1 class="title">Comments</h1>
 
   
       <div id="fb-root"></div>
@@ -125,7 +125,7 @@
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Suche">
+    <input type="search" name="q" results="0" placeholder="Search">
     <input type="hidden" name="q" value="site:longervision.github.io">
   </form>
 </div>
