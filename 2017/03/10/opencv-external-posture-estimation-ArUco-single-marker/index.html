@@ -1,196 +1,247 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   
-  <title>Camera Posture Estimation Using A Single aruco Marker | Longer Vision</title>
-  <meta name="author" content="Nobody">
+
   
-  <meta name="description" content="PreparationBefore start coding, you need to ensure your camera has already been calibrated. (Camera calibration is covered in our blog as well.) In th">
-  
-  
+  <title>Camera Posture Estimation Using A Single ArUco Marker | Longer Vision Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-  <meta property="og:title" content="Camera Posture Estimation Using A Single aruco Marker"/>
-  <meta property="og:site_name" content="Longer Vision"/>
-
+  <meta name="description" content="PreparationBefore start coding, you need to ensure your camera has already been calibrated. (Camera calibration is covered in our blog as well.) In the coding section, it’s assumed that you can succes">
+<meta name="keywords" content="Camera Posture Estimation, ArUco, Marker, Pattern, OpenCV, Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Camera Posture Estimation Using A Single ArUco Marker">
+<meta property="og:url" content="https://longervision.github.io/2017/03/10/opencv-external-posture-estimation-ArUco-single-marker/index.html">
+<meta property="og:site_name" content="Longer Vision Blog">
+<meta property="og:description" content="PreparationBefore start coding, you need to ensure your camera has already been calibrated. (Camera calibration is covered in our blog as well.) In the coding section, it’s assumed that you can succes">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/OpenCV_Examples/master/markers/marker_66.jpg">
+<meta property="og:updated_time" content="2018-02-26T08:07:35.279Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Camera Posture Estimation Using A Single ArUco Marker">
+<meta name="twitter:description" content="PreparationBefore start coding, you need to ensure your camera has already been calibrated. (Camera calibration is covered in our blog as well.) In the coding section, it’s assumed that you can succes">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/OpenCV_Examples/master/markers/marker_66.jpg">
   
-    <meta property="og:image" content="undefined"/>
+    <link rel="alternate" href="/atom.xml" title="Longer Vision Blog" type="application/atom+xml">
   
-
-  <link href="/favicon.png" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="Longer Vision" type="application/atom+xml">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
   
-
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
-
 <body>
-  <header id="header" class="inner"><div class="alignleft">
-  <h1><a href="/">Longer Vision</a></h1>
-  <h2><a href="/"></a></h2>
-</div>
-<nav id="main-nav" class="alignright">
-  <ul>
-    
-      <li><a href="/">Home</a></li>
-    
-      <li><a href="/archives">Archives</a></li>
-    
-  </ul>
-  <div class="clearfix"></div>
-</nav>
-<div class="clearfix"></div>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Longer Vision Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://longervision.github.io"></form>
+      </div>
+    </div>
+  </div>
 </header>
-  <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+      <div class="outer">
+        <section id="main"><article id="post-opencv-external-posture-estimation-ArUco-single-marker" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/10/opencv-external-posture-estimation-ArUco-single-marker/" class="article-date">
+  <time datetime="2017-03-11T06:22:22.000Z" itemprop="datePublished">2017-03-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2017-03-11T07:11:07.000Z"><a href="/2017/03/10/opencv-external-posture-estimation-ArUco-single-marker/">2017-03-10</a></time>
-      
-      
-  
-    <h1 class="title">Camera Posture Estimation Using A Single aruco Marker</h1>
+    <h1 class="article-title" itemprop="name">
+      Camera Posture Estimation Using A Single ArUco Marker
+    </h1>
   
 
-    </header>
-    <div class="entry">
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
       
-        <p></p><h2>Preparation</h2><br>Before start coding, you need to ensure your camera has already been calibrated. (Camera calibration is covered in our blog as well.) In the coding section, it’s assumed that you can successfully load the camera calibration parameters.<p></p>
-<p></p><h2>Coding</h2><br>The code can be found at <a href="https://github.com/LongerVision/OpenCV_Examples/blob/master/02_external_camera_posture_estimation/ArUco_single_marker.py" target="_blank" rel="external">OpenCV Examples</a>.<p></p>
-<p></p><h3>First of all</h3><br>We need to ensure <strong>cv2.so</strong> is under our system path. <strong>cv2.so</strong> is specifically for OpenCV Python.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">import sys</div><div class="line">sys.path.append(&apos;/usr/local/python/3.5&apos;)</div></pre></td></tr></table></figure><p></p>
-<p>Then, we import some packages to be used.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">import os</div><div class="line">import cv2</div><div class="line">from cv2 import aruco</div><div class="line">import numpy as np</div></pre></td></tr></table></figure></p>
-<p></p><h3>Secondly</h3><br>We now load all camera calibration parameters, including: <strong>cameraMatrix</strong>, <strong>distCoeffs</strong>, etc. For example, your code might look like the following:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">calibrationFile = &quot;calibrationFileName.xml&quot;</div><div class="line">calibrationParams = cv2.FileStorage(calibrationFile, cv2.FILE_STORAGE_READ)</div><div class="line">camera_matrix = calibrationParams.getNode(&quot;cameraMatrix&quot;).mat()</div><div class="line">dist_coeffs = calibrationParams.getNode(&quot;distCoeffs&quot;).mat()</div></pre></td></tr></table></figure><p></p>
-<p>Since we are testing a calibrated fisheye camera, two extra parameters are to be loaded from the calibration file.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">r = calibrationParams.getNode(&quot;R&quot;).mat()</div><div class="line">new_camera_matrix = calibrationParams.getNode(&quot;newCameraMatrix&quot;).mat()</div></pre></td></tr></table></figure></p>
-<p>Afterwards, two mapping matrices are pre-calculated by calling function <a href="http://docs.opencv.org/trunk/da/d54/group__imgproc__transform.html#ga7dfb72c9cf9780a347fbe3d1c47e5d5a" target="_blank" rel="external">cv2.fisheye.initUndistortRectifyMap()</a> as (supposing the images to be processed are of 1080P):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">image_size = (1920, 1080)</div><div class="line">map1, map2 = cv2.fisheye.initUndistortRectifyMap(camera_matrix, dist_coeffs, r, new_camera_matrix, image_size, cv2.CV_16SC2)</div></pre></td></tr></table></figure></p>
-<p></p><h3>Thirdly</h3><br>A dictionary is to be loaded. Current OpenCV provides four groups of <a href="http://docs.opencv.org/trunk/d9/d6a/group__aruco.html" target="_blank" rel="external">aruco</a> patterns, <strong>4X4</strong>, <strong>5X5</strong>, <strong>6X6</strong>, <strong>7X7</strong>, etc. Here, <strong>aruco.DICT_6X6_1000</strong> is randomly selected as our example, which looks like:<br><img src="https://raw.githubusercontent.com/LongerVision/OpenCV_Examples/master/markers/marker_66.jpg" alt="aruco.DICT_6X6_1000" title="aruco.DICT_6X6_1000"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">aruco_dict = aruco.Dictionary_get( aruco.DICT_6X6_1000 )</div></pre></td></tr></table></figure><p></p>
-<p>After having this aruco square marker printed, the edge length of this particular marker is to be measured and stored in a variable <strong>markerLength</strong>.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">markerLength = 20 # Here, our measurement unit is centimetre.</div></pre></td></tr></table></figure></p>
-<p>Meanwhile, create aruco detector with default parameters.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">arucoParams = aruco.DetectorParameters_create()</div></pre></td></tr></table></figure></p>
-<p></p><h3>Finally</h3><br>Estimate camera postures. Here, we are testing a sequence of images, rather than video streams. We first list all file names in sequence.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">imgDir = &quot;imgSequence&quot;  # Specify the image directory</div><div class="line">imgFileNames = [os.path.join(imgDir, fn) for fn in next(os.walk(imgDir))[2]]</div><div class="line">nbOfImgs = len(imgFileNames)</div></pre></td></tr></table></figure><p></p>
-<p>Then, we calculate the camera posture frame by frame:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">for i in range(0, nbOfImgs):</div><div class="line">    img = cv2.imread(imgFileNames[i], cv2.IMREAD_COLOR)</div><div class="line">    imgRemapped = cv2.remap(img, map1, map2, cv2.INTER_LINEAR, cv2.BORDER_CONSTANT) # for fisheye remapping</div><div class="line">    imgRemapped_gray = cv2.cvtColor(imgRemapped, cv2.COLOR_BGR2GRAY)    # aruco.etectMarkers() requires gray image</div><div class="line">    corners, ids, rejectedImgPoints = aruco.detectMarkers(imgRemapped_gray, aruco_dict, parameters=arucoParams) # Detect aruco</div><div class="line">    if ids != None: # if aruco marker detected</div><div class="line">        rvec, tvec = aruco.estimatePoseSingleMarkers(corners, markerLength, camera_matrix, dist_coeffs) # For a single marker</div><div class="line">        imgWithAruco = aruco.drawDetectedMarkers(imgRemapped, corners, ids, (0,255,0))</div><div class="line">        imgWithAruco = aruco.drawAxis(imgWithAruco, camera_matrix, dist_coeffs, rvec, tvec, 100)    # axis length 100 can be changed according to your requirement</div><div class="line">    else:   # if aruco marker is NOT detected</div><div class="line">        imgWithAruco = imgRemapped  # assign imRemapped_color to imgWithAruco directly</div><div class="line"></div><div class="line">    cv2.imshow(&quot;aruco&quot;, imgWithAruco)   # display</div><div class="line"></div><div class="line">    if cv2.waitKey(2) &amp; 0xFF == ord(&apos;q&apos;):   # if &apos;q&apos; is pressed, quit.</div><div class="line">        break</div></pre></td></tr></table></figure></p>
+        <h2 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h2><p>Before start coding, you need to ensure your camera has already been calibrated. (Camera calibration is covered in our blog as well.) In the coding section, it’s assumed that you can successfully load the camera calibration parameters.</p>
+<h2 id="Coding"><a href="#Coding" class="headerlink" title="Coding"></a>Coding</h2><p>The code can be found at <a href="https://github.com/LongerVision/OpenCV_Examples/blob/master/02_external_camera_posture_estimation/ArUco_single_marker.py" target="_blank" rel="noopener">OpenCV Examples</a>.</p>
+<h3 id="First-of-all"><a href="#First-of-all" class="headerlink" title="First of all"></a>First of all</h3><p>We need to ensure <strong>cv2.so</strong> is under our system path. <strong>cv2.so</strong> is specifically for OpenCV Python.  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import sys</span><br><span class="line">sys.path.append(&apos;/usr/local/python/3.5&apos;)</span><br></pre></td></tr></table></figure>
+<p>Then, we import some packages to be used.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import cv2</span><br><span class="line">from cv2 import aruco</span><br><span class="line">import numpy as np</span><br></pre></td></tr></table></figure></p>
+<h3 id="Secondly"><a href="#Secondly" class="headerlink" title="Secondly"></a>Secondly</h3><p>We now load all camera calibration parameters, including: <strong>cameraMatrix</strong>, <strong>distCoeffs</strong>, etc. For example, your code might look like the following:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">calibrationFile = &quot;calibrationFileName.xml&quot;</span><br><span class="line">calibrationParams = cv2.FileStorage(calibrationFile, cv2.FILE_STORAGE_READ)</span><br><span class="line">camera_matrix = calibrationParams.getNode(&quot;cameraMatrix&quot;).mat()</span><br><span class="line">dist_coeffs = calibrationParams.getNode(&quot;distCoeffs&quot;).mat()</span><br></pre></td></tr></table></figure></p>
+<p>Since we are testing a calibrated fisheye camera, two extra parameters are to be loaded from the calibration file.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">r = calibrationParams.getNode(&quot;R&quot;).mat()</span><br><span class="line">new_camera_matrix = calibrationParams.getNode(&quot;newCameraMatrix&quot;).mat()</span><br></pre></td></tr></table></figure></p>
+<p>Afterwards, two mapping matrices are pre-calculated by calling function <a href="http://docs.opencv.org/trunk/da/d54/group__imgproc__transform.html#ga7dfb72c9cf9780a347fbe3d1c47e5d5a" target="_blank" rel="noopener">cv2.fisheye.initUndistortRectifyMap()</a> as (supposing the images to be processed are of 1080P):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">image_size = (1920, 1080)</span><br><span class="line">map1, map2 = cv2.fisheye.initUndistortRectifyMap(camera_matrix, dist_coeffs, r, new_camera_matrix, image_size, cv2.CV_16SC2)</span><br></pre></td></tr></table></figure></p>
+<h3 id="Thirdly"><a href="#Thirdly" class="headerlink" title="Thirdly"></a>Thirdly</h3><p>A dictionary is to be loaded. Current OpenCV provides four groups of <a href="http://docs.opencv.org/trunk/d9/d6a/group__aruco.html" target="_blank" rel="noopener">aruco</a> patterns, <strong>4X4</strong>, <strong>5X5</strong>, <strong>6X6</strong>, <strong>7X7</strong>, etc. Here, <strong>aruco.DICT_6X6_1000</strong> is randomly selected as our example, which looks like:<br><img src="https://raw.githubusercontent.com/LongerVision/OpenCV_Examples/master/markers/marker_66.jpg" alt="aruco.DICT_6X6_1000" title="aruco.DICT_6X6_1000"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aruco_dict = aruco.Dictionary_get( aruco.DICT_6X6_1000 )</span><br></pre></td></tr></table></figure>
+<p>After having this aruco square marker printed, the edge length of this particular marker is to be measured and stored in a variable <strong>markerLength</strong>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">markerLength = 20 # Here, our measurement unit is centimetre.</span><br></pre></td></tr></table></figure>
+<p>Meanwhile, create aruco detector with default parameters.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arucoParams = aruco.DetectorParameters_create()</span><br></pre></td></tr></table></figure>
+<h3 id="Finally"><a href="#Finally" class="headerlink" title="Finally"></a>Finally</h3><p>Estimate camera postures. Here, we are testing a sequence of images, rather than video streams. We first list all file names in sequence.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">imgDir = &quot;imgSequence&quot;  # Specify the image directory</span><br><span class="line">imgFileNames = [os.path.join(imgDir, fn) for fn in next(os.walk(imgDir))[2]]</span><br><span class="line">nbOfImgs = len(imgFileNames)</span><br></pre></td></tr></table></figure>
+<p>Then, we calculate the camera posture frame by frame:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">for i in range(0, nbOfImgs):</span><br><span class="line">    img = cv2.imread(imgFileNames[i], cv2.IMREAD_COLOR)</span><br><span class="line">    imgRemapped = cv2.remap(img, map1, map2, cv2.INTER_LINEAR, cv2.BORDER_CONSTANT) # for fisheye remapping</span><br><span class="line">    imgRemapped_gray = cv2.cvtColor(imgRemapped, cv2.COLOR_BGR2GRAY)    # aruco.etectMarkers() requires gray image</span><br><span class="line">    corners, ids, rejectedImgPoints = aruco.detectMarkers(imgRemapped_gray, aruco_dict, parameters=arucoParams) # Detect aruco</span><br><span class="line">    if ids != None: # if aruco marker detected</span><br><span class="line">        rvec, tvec = aruco.estimatePoseSingleMarkers(corners, markerLength, camera_matrix, dist_coeffs) # For a single marker</span><br><span class="line">        imgWithAruco = aruco.drawDetectedMarkers(imgRemapped, corners, ids, (0,255,0))</span><br><span class="line">        imgWithAruco = aruco.drawAxis(imgWithAruco, camera_matrix, dist_coeffs, rvec, tvec, 100)    # axis length 100 can be changed according to your requirement</span><br><span class="line">    else:   # if aruco marker is NOT detected</span><br><span class="line">        imgWithAruco = imgRemapped  # assign imRemapped_color to imgWithAruco directly</span><br><span class="line"></span><br><span class="line">    cv2.imshow(&quot;aruco&quot;, imgWithAruco)   # display</span><br><span class="line">    </span><br><span class="line">    if cv2.waitKey(2) &amp; 0xFF == ord(&apos;q&apos;):   # if &apos;q&apos; is pressed, quit.</span><br><span class="line">        break</span><br></pre></td></tr></table></figure></p>
 <p>The drawn axis is just the world coordinators and orientations estimated from the images taken by the testing camera.</p>
 
       
     </div>
-    <footer>
+    <footer class="article-footer">
+      <a data-url="https://longervision.github.io/2017/03/10/opencv-external-posture-estimation-ArUco-single-marker/" data-id="cje3ww2gd00072ry79bpyjo18" class="article-share-link">Longer Vision</a>
       
-        
-        
-  
-  <div class="tags">
-    <a href="/tags/Camera-Posture-Estimation-aruco-Marker-Pattern-OpenCV-Python/">Camera Posture Estimation, aruco, Marker, Pattern, OpenCV, Python</a>
-  </div>
-
-        
-  <div class="addthis addthis_toolbox addthis_default_style">
-    
-      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-    
-    
-      <a class="addthis_button_tweet"></a>
-    
-    
-      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-    
-    
-      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
-    
-    <a class="addthis_counter addthis_pill_style"></a>
-  </div>
-  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
-
       
-      <div class="clearfix"></div>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Camera-Posture-Estimation-ArUco-Marker-Pattern-OpenCV-Python/">Camera Posture Estimation, ArUco, Marker, Pattern, OpenCV, Python</a></li></ul>
+
     </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/03/11/opencv-external-posture-estimation-ArUco-diamond/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Camera Posture Estimation Using An ArUco Diamond Marker
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/10/hi-nobody/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hi, Everyone...</div>
+    </a>
+  
+</nav>
+
+  
 </article>
 
-
-<section id="comment">
-  <h1 class="title">Kommentare</h1>
-
-  
-      <div id="fb-root"></div>
-<script>
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-</script>
-
-<div class="fb-comments" data-href="http://longervision.github.io/2017/03/10/opencv-external-posture-estimation-ArUco-single-marker/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
-      
-  
 </section>
-
-</div></div>
-    <aside id="sidebar" class="alignright">
-  <div class="search">
-  <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Suche">
-    <input type="hidden" name="q" value="site:longervision.github.io">
-  </form>
-</div>
+        
+          <aside id="sidebar">
+  
+    
 
   
-
-  
-<div class="widget tag">
-  <h3 class="title">Tags</h3>
-  <ul class="entry">
-  
-    <li><a href="/tags/ArUco-Marker-Pattern-OpenCV-Python/">ArUco, Marker, Pattern, OpenCV, Python</a><small>1</small></li>
-  
-    <li><a href="/tags/Camera-Calibration-Chessboard-Marker-Pattern-OpenCV-Python/">Camera Calibration, Chessboard, Marker, Pattern, OpenCV, Python</a><small>1</small></li>
-  
-    <li><a href="/tags/Camera-Calibration-Circle-Grid-Marker-Pattern-OpenCV-Python/">Camera Calibration, Circle Grid, Marker, Pattern, OpenCV, Python</a><small>1</small></li>
-  
-    <li><a href="/tags/Camera-Posture-Estimation-Circle-Grid-Marker-Pattern-OpenCV-Python/">Camera Posture Estimation, Circle Grid, Marker, Pattern, OpenCV, Python</a><small>1</small></li>
-  
-    <li><a href="/tags/Camera-Posture-Estimation-aruco-Board-Pattern-OpenCV-Python/">Camera Posture Estimation, aruco Board, Pattern, OpenCV, Python</a><small>1</small></li>
-  
-    <li><a href="/tags/Camera-Posture-Estimation-aruco-Diamond-Marker-Pattern-OpenCV-Python/">Camera Posture Estimation, aruco, Diamond Marker, Pattern, OpenCV, Python</a><small>1</small></li>
-  
-    <li><a href="/tags/Camera-Posture-Estimation-aruco-Marker-Pattern-OpenCV-Python/">Camera Posture Estimation, aruco, Marker, Pattern, OpenCV, Python</a><small>1</small></li>
-  
-    <li><a href="/tags/Camera-Posture-Estimation-charuco-Board-Pattern-OpenCV-Python/">Camera Posture Estimation, charuco Board, Pattern, OpenCV, Python</a><small>1</small></li>
-  
-    <li><a href="/tags/Longer-Vision-Technology-Computer-Vision-Machine-Vision/">Longer Vision Technology, Computer Vision, Machine Vision</a><small>1</small></li>
-  
-  </ul>
-</div>
-
-</aside>
-    <div class="clearfix"></div>
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ArUco-Marker-Pattern-OpenCV-Python/">ArUco, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Beaglebone-Beaglebone-Black-Linaro-GCC-U-Boot-Linux-Kernel-BSP/">Beaglebone, Beaglebone Black, Linaro GCC, U-Boot, Linux Kernel, BSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Calibration-Chessboard-Marker-Pattern-OpenCV-Python/">Camera Calibration, Chessboard, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Calibration-Circle-Grid-Marker-Pattern-OpenCV-Python/">Camera Calibration, Circle Grid, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-ArUco-Board-Pattern-OpenCV-Python/">Camera Posture Estimation, ArUco Board, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-ArUco-Diamond-Marker-Pattern-OpenCV-Python/">Camera Posture Estimation, ArUco, Diamond Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-ArUco-Marker-Pattern-OpenCV-Python/">Camera Posture Estimation, ArUco, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-ChArUco-Board-Pattern-OpenCV-Python/">Camera Posture Estimation, ChArUco Board, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-Circle-Grid-Marker-Pattern-OpenCV-Python/">Camera Posture Estimation, Circle Grid, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Longer-Vision-Technology-Computer-Vision-Machine-Vision/">Longer Vision Technology, Computer Vision, Machine Vision</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NanoPi-NEO-AllWinner-H3-Armbian-Linaro-GCC-Linum-Mainline-Kernel-BSP/">NanoPi NEO, AllWinner H3, Armbian, Linaro GCC, Linum Mainline Kernel, BSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orange-Pi-AllWinner-H3-Linaro-GCC-U-Boot-Linux-Kernel-BSP/">Orange Pi, AllWinner H3, Linaro GCC, U-Boot, Linux Kernel, BSP</a></li></ul>
+    </div>
   </div>
-  <footer id="footer" class="inner"><div class="alignleft">
+
+
   
-  &copy; 2017 Nobody
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ArUco-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">ArUco, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Beaglebone-Beaglebone-Black-Linaro-GCC-U-Boot-Linux-Kernel-BSP/" style="font-size: 10px;">Beaglebone, Beaglebone Black, Linaro GCC, U-Boot, Linux Kernel, BSP</a> <a href="/tags/Camera-Calibration-Chessboard-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Calibration, Chessboard, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Calibration-Circle-Grid-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Calibration, Circle Grid, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-ArUco-Board-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, ArUco Board, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-ArUco-Diamond-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, ArUco, Diamond Marker, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-ArUco-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, ArUco, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-ChArUco-Board-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, ChArUco Board, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-Circle-Grid-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, Circle Grid, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Longer-Vision-Technology-Computer-Vision-Machine-Vision/" style="font-size: 10px;">Longer Vision Technology, Computer Vision, Machine Vision</a> <a href="/tags/NanoPi-NEO-AllWinner-H3-Armbian-Linaro-GCC-Linum-Mainline-Kernel-BSP/" style="font-size: 10px;">NanoPi NEO, AllWinner H3, Armbian, Linaro GCC, Linum Mainline Kernel, BSP</a> <a href="/tags/Orange-Pi-AllWinner-H3-Linaro-GCC-U-Boot-Linux-Kernel-BSP/" style="font-size: 10px;">Orange Pi, AllWinner H3, Linaro GCC, U-Boot, Linux Kernel, BSP</a>
+    </div>
+  </div>
+
   
-</div>
-<div class="clearfix"></div></footer>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/02/24/nanopi-neo-armbian/">Install Armbian with the Newest Mainline Kernel onto NanoPi NEO</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/orange-pi-plus-2-uboot-kernel-mali/">Build U-Boot, Linux Kernel and Mali Driver for Orange Pi 2 Plus</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/10/beaglebone-black-uboot-kernel/">Build U-Boot and Linux Kernel for Beaglebone and Beaglebone Black</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/20/opencv-internal-calibration-circle-grid/">Camera Calibration Using a Circle Grid</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/19/opencv-internal-calibration-chessboard/">Camera Calibration Using a Chessboard</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Longer Vision<br>
+      Powered by <a href="http://www.longervision.com/" target="_blank">Longer Vision</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
 
 
 
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
-
+  </div>
 </body>
 </html>
