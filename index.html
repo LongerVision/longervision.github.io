@@ -173,16 +173,59 @@
 <p>Hold the reset button until lights flash (10-30sec) or 30-30-30 if appropriate for your router. (DO NOT 30-30-30 ARM routers.)</p>
 </blockquote>
 <h2 id="2-Visit-http-192-168-1-1"><a href="#2-Visit-http-192-168-1-1" class="headerlink" title="2. Visit http://192.168.1.1:"></a>2. Visit <a href="http://192.168.1.1" target="_blank" rel="noopener">http://192.168.1.1</a>:</h2><p>After successfully reset DD-WRT router to factory default, connect it with your host computer via a <strong>WIRED</strong> cable, for better stablity. Then, we change our network connection from our <strong>router 1</strong> to <strong>router 2: dd-wrt router</strong>. Afterwards, let’s visit <a href="http://192.168.1.1" target="_blank" rel="noopener">http://192.168.1.1</a>. DD-WRT home page looks like:<br><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/01_FirstLogin.jpg" alt="DD-WRT First Login">.<br>And it’s suggested we input a new router username <strong>root</strong> and password <strong>admin</strong>. After the button <strong>Change Password</strong> is clicked, we are entering the very first page of DD-WRT Web GUI.<br><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/02_FirstPage.jpg" alt="DD-WRT First Page">.</p>
-<p>We can easily tell the firmware’s version on the top right corner.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Firmware: DD-WRT v24-sp2 (10/10/09) std</span><br><span class="line">Time: 00:01:13 up 1 min, load average: 0.12, 0.04, 0.00</span><br><span class="line">WAN IP: 0.0.0.0</span><br></pre></td></tr></table></figure></p>
-<p>And, we can also easily tell from the bottom of this page that for now, only 1 DHCP client is connected to this router, which is just our host computer: <strong>jiapei-GT72-6QE</strong>.</p>
-<h2 id="2-Wireless-gt-Basic-Settings"><a href="#2-Wireless-gt-Basic-Settings" class="headerlink" title="2.  Wireless -&gt; Basic Settings"></a>2.  Wireless -&gt; Basic Settings</h2><h3 id="Required"><a href="#Required" class="headerlink" title="Required"></a>Required</h3><pre><code>* WAN Connection Type -&gt; Connection Type : Disabled
-* Router IP -&gt; Local IP Address: 192.168.0.2 (i.e. different from primary router&apos;s IP address and out of primary router&apos;s DHCP pool)
-* Router IP -&gt; Subnet Mask: 255.255.255.0 (i.e. same as primary router)
-* Network Address Server Settings (DHCP) -&gt; DHCP Server: Disable (also uncheck DNSmasq options)
-</code></pre><h3 id="Recommended"><a href="#Recommended" class="headerlink" title="Recommended"></a>Recommended</h3><pre><code>* Router IP -&gt; Gateway/Local DNS: 192.168.0.1 (i.e. IP address of primary router. Many things will fail without this as your router will not be able to access the internet or another network without it)
-</code></pre><h3 id="Optional"><a href="#Optional" class="headerlink" title="Optional"></a>Optional</h3><pre><code>* WAN Port -&gt; Assign WAN Port to Switch (visible only with WAN WAN Connection Type -&gt; Connection Type set to disabled): Enable this if you want to use WAN port as a switch port
-* Time Settings -&gt; NTP Client: Enable/Disable (if Enabled, specify Gateway/Local DNS above) Help
-</code></pre><h2 id="3-Wireless-gt-Wireless-Security"><a href="#3-Wireless-gt-Wireless-Security" class="headerlink" title="3. Wireless -&gt; Wireless Security"></a>3. Wireless -&gt; Wireless Security</h2><h2 id="4-Security-gt-Firewall"><a href="#4-Security-gt-Firewall" class="headerlink" title="4. Security -&gt; Firewall"></a>4. Security -&gt; Firewall</h2><h2 id="5-Services-gt-Services"><a href="#5-Services-gt-Services" class="headerlink" title="5. Services -&gt; Services"></a>5. Services -&gt; Services</h2><h2 id="6-Setup-gt-Basic-Setup"><a href="#6-Setup-gt-Basic-Setup" class="headerlink" title="6. Setup -&gt; Basic Setup"></a>6. Setup -&gt; Basic Setup</h2><h2 id="7-Setup-gt-Advanced-Routing"><a href="#7-Setup-gt-Advanced-Routing" class="headerlink" title="7. Setup -&gt; Advanced Routing"></a>7. Setup -&gt; Advanced Routing</h2>
+<ul>
+<li><p>We can easily tell the firmware’s version on the top right corner.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Firmware: DD-WRT v24-sp2 (10/10/09) std</span><br><span class="line">Time: 00:01:13 up 1 min, load average: 0.12, 0.04, 0.00</span><br><span class="line">WAN IP: 0.0.0.0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>And, we can also easily tell from the bottom of this page that for now, only 1 DHCP client is connected to this router, which is just our host computer: <strong>jiapei-GT72-6QE</strong>.</p>
+</li>
+</ul>
+<h2 id="3-Wireless-gt-Basic-Settings"><a href="#3-Wireless-gt-Basic-Settings" class="headerlink" title="3.  Wireless -&gt; Basic Settings"></a>3.  Wireless -&gt; Basic Settings</h2><p>We modify the parameters accordingly (Cited from <a href="https://www.dd-wrt.com/wiki/index.php/Repeater_Bridge" target="_blank" rel="noopener">DD-WRT Repeater Bridge</a>):</p>
+<ul>
+<li><strong>Physical Interface Section</strong><ul>
+<li><strong>Wireless Mode</strong>: Repeater Bridge</li>
+<li><strong>Wireless Network Mode</strong>: Match Primary Router<br>  Usually N*-Mixed (or G-Only for pre-N routers), as Mixed may not work)</li>
+<li><strong>Wireless Network Name (SSID)</strong>: Must Match Primary Router EXACTLY including case<br>Note: some devices may not properly handle special characters, spaces, etc.</li>
+<li><strong>Wireless Channel</strong>: Usually leave at <strong>Auto</strong> for DD-WRT to determine the channel</li>
+<li><strong>Channel Width</strong>: Match Primary Router</li>
+</ul>
+</li>
+<li><strong>Virtual Interfaces Section</strong><br>Click <strong>Add</strong> first, then:<ul>
+<li><strong>Wireless Network Name (SSID)</strong>: Same as Primary SSID.<br>If having problems, try a different one. (k2.4 (broadcom folder) builds may require using a different SSID from the Primary)</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/03_Wireless_BasicSettings_BeforeSave.jpg" alt="DD-WRT Wireless Basic Settings (Before Save)"><br>Then, click <strong>Save</strong> without <strong>Apply</strong>, you can tell some difference on this page:<br><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/04_Wireless_BasicSettings_AfterSave.jpg" alt="DD-WRT Wireless Basic Settings (After Save)"></p>
+<h2 id="4-Wireless-gt-Wireless-Security"><a href="#4-Wireless-gt-Wireless-Security" class="headerlink" title="4. Wireless -&gt; Wireless Security"></a>4. Wireless -&gt; Wireless Security</h2><ul>
+<li><strong>Physical Interface section</strong> (WPA2-AES strongly advised)<ul>
+<li><strong>Security Mode</strong>: Must Match Primary Router</li>
+<li><strong>WPA Algorithms</strong>: Must Match Primary Router</li>
+<li><strong>Shared Key</strong>: Must Match Primary Router</li>
+</ul>
+</li>
+<li><strong>Virtual Interfaces Section</strong><ul>
+<li><strong>Security Mode</strong>: Must Match Physical Interface for k2.4</li>
+<li><strong>WPA Algorithms</strong>: Must Match Physical Interface for k2.4</li>
+<li><strong>Shared Key</strong>: Must Match Physical Interface for k2.4<ul>
+<li><strong>WPA2-AES</strong> should be able to use a different password on k2.6 and newer</li>
+<li><strong>WEP</strong> (with any password) or Open (disabled) should work on any kernel</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Then, click <strong>Save</strong> without <strong>Apply</strong>.</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/05_Wireless_WirelessSecurity.jpg" alt="DD-WRT Wireless Security"></p>
+<h2 id="5-Security-gt-Firewall"><a href="#5-Security-gt-Firewall" class="headerlink" title="5. Security -&gt; Firewall"></a>5. Security -&gt; Firewall</h2><ul>
+<li><strong>Uncheck all boxes except Filter Multicast</strong></li>
+<li><strong>Disable SPI Firewall</strong></li>
+</ul>
+<p>Then, click <strong>Save</strong> without <strong>Apply</strong>.</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/06_Security_Firewall.jpg" alt="DD-WRT Security Firewall"></p>
+<h2 id="6-Services-gt-Services"><a href="#6-Services-gt-Services" class="headerlink" title="6. Services -&gt; Services"></a>6. Services -&gt; Services</h2><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/07_Service_Service_DNSMasq.jpg" alt="DD-WRT Service DNSMasq"></p>
+<h2 id="7-Setup-gt-Basic-Setup"><a href="#7-Setup-gt-Basic-Setup" class="headerlink" title="7. Setup -&gt; Basic Setup"></a>7. Setup -&gt; Basic Setup</h2><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/08_Setup_BasicSetup.jpg" alt="DD-WRT Basic Setup"></p>
+<h2 id="8-Setup-gt-Advanced-Routing"><a href="#8-Setup-gt-Advanced-Routing" class="headerlink" title="8. Setup -&gt; Advanced Routing"></a>8. Setup -&gt; Advanced Routing</h2><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/09_Setup_AdvancedRouting.jpg" alt="DD-WRT Advanced Routing"></p>
+
       
     </div>
     <footer class="article-footer">
