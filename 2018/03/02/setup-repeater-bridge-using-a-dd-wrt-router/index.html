@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Setup Repeater Bridge Using A dd-wrt Router | Longer Vision Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Hi, today, I’m going to revisit a very old topic, Setup Repeater Bridge Using A dd-wrt Router. This reminds me of my FIRST startup Misc Vision that used to resell Foscam home security IP cameras. That">
+<meta name="keywords" content="dd-wrt, Wireless, Repeater Bridge">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Setup Repeater Bridge Using A dd-wrt Router">
+<meta property="og:url" content="https://longervision.github.io/2018/03/02/setup-repeater-bridge-using-a-dd-wrt-router/index.html">
+<meta property="og:site_name" content="Longer Vision Blog">
+<meta property="og:description" content="Hi, today, I’m going to revisit a very old topic, Setup Repeater Bridge Using A dd-wrt Router. This reminds me of my FIRST startup Misc Vision that used to resell Foscam home security IP cameras. That">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/mv_mv-7202_top.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/mv_mv-7202_palmsize_01.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/Access_point.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/Repeater_Bridge.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/Client_Bridge.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/mv_mv-7202_back.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/01_FirstLogin.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/02_FirstPage.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/08_Setup_BasicSetup.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/03_Wireless_BasicSettings_BeforeSave.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/04_Wireless_BasicSettings_AfterSave.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/05_Wireless_WirelessSecurity.jpg">
+<meta property="og:updated_time" content="2018-03-13T05:50:13.337Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Setup Repeater Bridge Using A dd-wrt Router">
+<meta name="twitter:description" content="Hi, today, I’m going to revisit a very old topic, Setup Repeater Bridge Using A dd-wrt Router. This reminds me of my FIRST startup Misc Vision that used to resell Foscam home security IP cameras. That">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/mv_mv-7202_top.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Longer Vision Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Longer Vision Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://longervision.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-setup-repeater-bridge-using-a-dd-wrt-router" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/02/setup-repeater-bridge-using-a-dd-wrt-router/" class="article-date">
+  <time datetime="2018-03-03T07:23:13.000Z" itemprop="datePublished">2018-03-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Setup Repeater Bridge Using A dd-wrt Router
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Hi, today, I’m going to revisit a very old topic, <strong>Setup Repeater Bridge Using A dd-wrt Router</strong>. This reminds me of my <strong>FIRST</strong> startup <a href="http://visionmisc.com/" target="_blank" rel="noopener">Misc Vision</a> that used to resell <a href="https://foscam.com/" target="_blank" rel="noopener">Foscam home security IP cameras</a>. That is a long story. Anyway, this blog is going to heavily cite the contents on <a href="https://www.dd-wrt.com/wiki/index.php/Repeater_Bridge" target="_blank" rel="noopener">this page</a>.</p>
+<h1 id="PART-A-Flash-A-Supported-Router-with-DD-WRT-Firmware"><a href="#PART-A-Flash-A-Supported-Router-with-DD-WRT-Firmware" class="headerlink" title="PART A: Flash A Supported Router with DD-WRT Firmware"></a>PART A: Flash A Supported Router with DD-WRT Firmware</h1><p>Before we start to tackle <strong>the problem</strong>, the open source firmware <a href="https://www.dd-wrt.com" target="_blank" rel="noopener">DD-WRT</a> is strongly recommended to flash your router.</p>
+<h2 id="1-DD-WRT-and-OpenWRT"><a href="#1-DD-WRT-and-OpenWRT" class="headerlink" title="1. DD-WRT and OpenWRT"></a>1. DD-WRT and OpenWRT</h2><p>Two widely used open source router firmware have been published online for quite a bit of time:</p>
+<ul>
+<li><a href="https://www.dd-wrt.com" target="_blank" rel="noopener"><strong>DD-WRT</strong></a></li>
+<li><a href="https://openwrt.org/" target="_blank" rel="noopener"><strong>OpenWRT</strong></a><br>In fact, each of these two are OK for router firmware flashing.</li>
+</ul>
+<h2 id="2-DD-WRT-Supported-Routers"><a href="#2-DD-WRT-Supported-Routers" class="headerlink" title="2. DD-WRT Supported Routers"></a>2. DD-WRT Supported Routers</h2><p>To check if your router is supported by <a href="https://www.dd-wrt.com" target="_blank" rel="noopener">DD-WRT</a>, you need to check <a href="https://www.dd-wrt.com/site/support/router-database" target="_blank" rel="noopener">this page</a>.</p>
+<h2 id="3-DD-WRT-SL-R7202"><a href="#3-DD-WRT-SL-R7202" class="headerlink" title="3. DD-WRT SL-R7202"></a>3. DD-WRT SL-R7202</h2><p>In my case, I got a lot of such routers in hand and am selling them on <a href="https://vancouver.craigslist.ca/rds/sop/d/brandnew-300m-dd-wrt-router/6516713575.html" target="_blank" rel="noopener">Craigslist</a> (if anybody is interested in it, please let me know). You can also find some either <strong>continued</strong> or <strong>discontinued</strong> such products on the market, such as <a href="https://www.gearbest.com/network-devices/pp_65336.html" target="_blank" rel="noopener">Gearbest</a>.</p>
+<p>DD-WRT SL-R7202 looks good:<br><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/mv_mv-7202_top.jpg" alt="DD-WRT SL-R7202 Top"><br><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/mv_mv-7202_palmsize_01.jpg" alt="DD-WRT SL-R7202 Size"></p>
+<p><strong>In one word, find some DD-WRT supported router, and have it successfully flashed FIRST.</strong> As a lazy man, I’m <strong>NOT</strong> going to flash anything but just use a router coming with an existing DD-WRT firmware, namely, <strong>DD-WRT SL-R7202</strong>.</p>
+<h1 id="PART-B-The-Problem"><a href="#PART-B-The-Problem" class="headerlink" title="PART B: The Problem"></a>PART B: The Problem</h1><p>The problem that we are going to deal with is how to connect multiple routers, so that the Internet range can be expanded. For routers with dd-wrt firmware, there are mulitple ways to connect routers, please refer to <a href="https://www.dd-wrt.com/wiki/index.php/Linking_Routers" target="_blank" rel="noopener">https://www.dd-wrt.com/wiki/index.php/Linking_Routers</a>. </p>
+<h2 id="1-Linking-Routers"><a href="#1-Linking-Routers" class="headerlink" title="1. Linking Routers"></a>1. Linking Routers</h2><p>In the following, most contents are <strong>CITED</strong> directly from <a href="https://www.dd-wrt.com/wiki/index.php/Linking_Routers" target="_blank" rel="noopener">Linking Routers</a> and its extended webpages.</p>
+<ul>
+<li><p><strong>Access Point / Switch</strong></p>
+<blockquote>
+<p>Extend the Wireless access area using more routers, with <strong>WIRED</strong> connections between routers, or turn a <strong>WIRED</strong> port on an existing network into a Wireless Access Point. All computers will be on the same network segment, and will be able to see one another in Windows Network. This works with all devices with LAN ports, and does not require dd-wrt to be installed. “</p>
+</blockquote>
+<ul>
+<li><a href="https://www.dd-wrt.com/wiki/index.php/Wireless_access_point" target="_blank" rel="noopener">Wireless Access Point</a> - Extend Wi-Fi &amp; LAN (Requires physical(just <strong>WIRED</strong>) ethernet connection between routers)</li>
+<li><p><a href="https://www.dd-wrt.com/wiki/index.php/Switch" target="_blank" rel="noopener">Switch</a> - Similar config as WAP, but radio disabled (accepts only <strong>WIRED</strong> connections)</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/Access_point.jpg" alt="DD-WRT Access Point Mode">.</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>Repeater / Repeater Bridge</strong></p>
+<blockquote>
+<p>Extend the Wireless access area using a second router <strong>WIRELESSLY</strong> connected to the primary. The secondary router must have dd-wrt installed; the primary does not need dd-wrt.</p>
+</blockquote>
+<ul>
+<li><a href="https://www.dd-wrt.com/wiki/index.php/Repeater_Bridge" target="_blank" rel="noopener">Repeater Bridge</a> - A wireless repeater with DHCP &amp; NAT disabled, clients on same subnet as host AP (primary router). That is, all computers can see one another in Windows Network.</li>
+<li><a href="https://www.dd-wrt.com/wiki/index.php/Wlan_Repeater" target="_blank" rel="noopener">Repeater</a> - A wireless repeater with DHCP &amp; NAT enabled, clients on different subnet from host AP (primary router). Computers connected to one router can not see computers connected to other routers in Windows Network.</li>
+<li><p><a href="https://www.dd-wrt.com/wiki/index.php/Universal_Wireless_Repeater" target="_blank" rel="noopener">Universal Wireless Repeater</a> - Uses a program/script called AutoAP to keep a connection to the nearest/best host AP.</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/Repeater_Bridge.jpg" alt="DD-WRT Repeater Bridge Mode">.</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>Client / Client Bridge</strong></p>
+<blockquote>
+<p>Connect two wired networks using a WiFi link (<strong>WIRELESS</strong> connection between two routers). The secondary router must have dd-wrt installed; the primary router does not need to have dd-wrt.</p>
+</blockquote>
+<ul>
+<li><a href="https://www.dd-wrt.com/wiki/index.php/Client_Bridged" target="_blank" rel="noopener">Client Bridged</a> - Join two wired networks by two Wireless routers building a bridge. All computers can see one another in Windows Network.</li>
+<li><p><a href="https://www.dd-wrt.com/wiki/index.php/Client_Mode" target="_blank" rel="noopener">Client Mode</a> - Join two wired networks by two Wireless routers (unbridged). Computers on one wired network can not see computers on other wired network in Windows Network.</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/Client_Bridge.jpg" alt="DD-WRT Client Bridge Mode">.</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>WDS</strong></p>
+<blockquote>
+<p>Extend the Wireless access area using more routers connected WIRELESSLY. WDS is a mesh network. Routers must almost always have the SAME chipset type for WDS to work, and any non dd-wrt routers must be WDS compatible. Using identical routers is best, but not always necessary if all devices have the same chipset types. (All Broadcom or all Atheros etc)</p>
+</blockquote>
+<ul>
+<li><a href="https://www.dd-wrt.com/wiki/index.php/WDS_Linked_router_network" target="_blank" rel="noopener">WDS Linked router network</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>OLSR</strong></p>
+<blockquote>
+<p>Extend the Wireless access area using more routers. Extra routers do not need any wired connections to each other. Use several ISP (Internet) connections. OLSR is a mesh network.</p>
+</blockquote>
+<ul>
+<li><a href="https://www.dd-wrt.com/wiki/index.php/Mesh_Networking_with_OLSR" target="_blank" rel="noopener">Mesh Networking with OLSR</a></li>
+<li><a href="http://dev.wifidog.org/wiki/doc/gateway-server/WifiDogAndOlsr%7CWifiDog" target="_blank" rel="noopener">+ OLSR</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="2-Down-to-earth-Case"><a href="#2-Down-to-earth-Case" class="headerlink" title="2. Down-to-earth Case"></a>2. Down-to-earth Case</h2><p>In my case, my laptop and some of my IoT devices can be easily connected to the <a href="https://www.shaw.ca/" target="_blank" rel="noopener">ShawCable</a> Modem/Router combo, which is on the <strong>2nd floor</strong> in my living room and directly connected to the Internet. However, my R&amp;D office is located in my garage on the <strong>1st floor</strong>, where dd-wrt router is put in. In such a case, my dd-wrt router must be connected to my <a href="https://www.shaw.ca/" target="_blank" rel="noopener">ShawCable</a> Modem/Router <strong>WIRELESSLY</strong>. </p>
+<p>Due to the reason explained in the section <strong>Difference between Client Bridge and Repeater Bridge</strong>,</p>
+<blockquote>
+<p>A standard wireless bridge (<strong>Client Bridge</strong>) connects wired clients to a secondary router as if they were connected to your main router with a cable. Secondary clients share the bandwidth of a wireless connection back to your main router. Of course, you can still connect clients to your main router using either a cable connection or a wireless connection.</p>
+<p>The <strong>limitation</strong> with standard bridging is that it only allows <strong>WIRED</strong> clients to connect to your secondary router. <strong>WIRELESS</strong> clients cannot connect to your secondary router configured as a standard bridge. Repeater Bridge <strong>allows both WIRELESS AND WIRED</strong> clients to connect to a the <strong>Repeater Bridge</strong> router, and through that device <strong>WIRELESSLY</strong> to a primary router. You can still use this mode if you only need to bridge wired clients; the extra wireless repeater capability comes along for free; however, you are not required to use it.</p>
+</blockquote>
+<p>Therefore, we select <strong>Repeater Bridge</strong> as our solution. Here, <strong>DD-WRT SL-R7202</strong> is selected as the <strong>Repeater Bridge</strong>. The difficulty is <strong>how to setup DD-WRT SL-R7202 to make it work as a wireless Repeater Bridge</strong>?</p>
+<h1 id="PART-C-Firmware-Upgrading"><a href="#PART-C-Firmware-Upgrading" class="headerlink" title="PART C: Firmware Upgrading"></a>PART C: Firmware Upgrading</h1><p>Actually, before I come to this step, I’ve already:</p>
+<ul>
+<li>strictly followed the configuration process written on <a href="https://www.dd-wrt.com/wiki/index.php/Repeater_Bridge" target="_blank" rel="noopener">https://www.dd-wrt.com/wiki/index.php/Repeater_Bridge</a>, but <strong>FAILED</strong> many times. </li>
+<li>and afterwards, I found a video solution at<a href="https://www.youtube.com/watch?v=ByB8vVGBjh4" target="_blank" rel="noopener">https://www.youtube.com/watch?v=ByB8vVGBjh4</a>, which seems to be suitable for my case. However, it finally turns out that my <strong>DD-WRT SL-R7202</strong> router comes with a firmware version <strong>DD-WRT (build 13064)</strong>, but the tutorial on <strong>Youtube</strong> uses a router with firmware version <strong>DD-WRT (build 21061)</strong>.</li>
+</ul>
+<p>It seems to me that a firmware upgrading is a must before we setup the <strong>Wireless Repeater Bridge Mode</strong>.</p>
+<h1 id="PART-D-Wireless-Repeater-Bridge-Same-Subset"><a href="#PART-D-Wireless-Repeater-Bridge-Same-Subset" class="headerlink" title="PART D: Wireless Repeater Bridge (Same Subset)"></a>PART D: Wireless Repeater Bridge (Same Subset)</h1><p>Since my host computer’s IP address on the <strong>FIRST</strong> router, namely, <strong>ShawCable</strong> Modem/Router is staticly set as <strong>192.168.0.8</strong> (which is able to connect to the Internet). After I switch to the Wifi <strong>dd-wrt</strong>, my host’s IP is NOW <strong>192.168.1.8</strong>. The gateway on <strong>ShawCable</strong> is <strong>192.168.0.1</strong>, which is different from the gateway on <strong>dd-wrt</strong> <strong>192.168.1.1</strong> by default.</p>
+<h2 id="1-Reset-to-Factory-Defaults-on-DD-WRT-Router-The-2nd-Router"><a href="#1-Reset-to-Factory-Defaults-on-DD-WRT-Router-The-2nd-Router" class="headerlink" title="1. Reset to Factory Defaults on DD-WRT Router (The 2nd Router)"></a>1. Reset to Factory Defaults on DD-WRT Router (The 2nd Router)</h2><p>First of all, we need to reset DD-WRT. There is a black button on my <strong>DD-WRT SL-R7202</strong>, as shown:<br><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/mv_mv-7202_back.jpg" alt="Reset Button at DD-WRT&#39;s Back">.</p>
+<p>In fact, how to reset <strong>DD-WRT</strong> needs to be paid attention to. </p>
+<blockquote>
+<p>Hold the reset button until lights flash (10-30sec) or 30-30-30 if appropriate for your router. (DO NOT 30-30-30 ARM routers.)</p>
+</blockquote>
+<h2 id="2-Visit-http-192-168-1-1"><a href="#2-Visit-http-192-168-1-1" class="headerlink" title="2. Visit http://192.168.1.1:"></a>2. Visit <a href="http://192.168.1.1" target="_blank" rel="noopener">http://192.168.1.1</a>:</h2><p>After successfully reset DD-WRT router to factory default, connect it with your host computer via a <strong>WIRED</strong> cable, for better stablity. Then, we change our network connection from our <strong>router 1</strong> to <strong>router 2: dd-wrt router</strong>. Afterwards, let’s visit <a href="http://192.168.1.1" target="_blank" rel="noopener">http://192.168.1.1</a>. DD-WRT home page looks like:<br><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/01_FirstLogin.jpg" alt="DD-WRT First Login">.<br>And it’s suggested we input a new router username <strong>root</strong> and password <strong>admin</strong>. After the button <strong>Change Password</strong> is clicked, we are entering the very first page of DD-WRT Web GUI.<br><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/02_FirstPage.jpg" alt="DD-WRT First Page">.</p>
+<ul>
+<li><p>We can easily tell the firmware’s version on the top right corner.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Firmware: DD-WRT v24-sp2 (10/10/09) std</span><br><span class="line">Time: 00:01:13 up 1 min, load average: 0.12, 0.04, 0.00</span><br><span class="line">WAN IP: 0.0.0.0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>And, we can also easily tell from the bottom of this page that for now, only 1 DHCP client is connected to this router, which is just our host computer: <strong>jiapei-GT72-6QE</strong>.</p>
+</li>
+</ul>
+<h2 id="3-Setup-gt-Basic-Setup"><a href="#3-Setup-gt-Basic-Setup" class="headerlink" title="3. Setup -&gt; Basic Setup"></a>3. Setup -&gt; Basic Setup</h2><ul>
+<li><strong>WAN Connection Type Section</strong><ul>
+<li><strong>Connection Type</strong>: Disabled</li>
+</ul>
+</li>
+<li><strong>Optional Settings</strong><ul>
+<li><strong>Router Name</strong>: DD-WRT</li>
+</ul>
+</li>
+<li><strong>Router IP</strong><ul>
+<li><strong>IP Address</strong>: 192.168.0.2 (in my case, my Primary Router IP is 192.168.0.1, and 192.168.0.2 has <strong>NOT</strong> been used yet.)</li>
+<li><strong>Subnet Mask</strong>: 255.255.255.0</li>
+<li><strong>Gateway</strong>: 192.168.0.1 (just Primary Router IP)</li>
+<li><strong>Local DNS</strong>: 192.168.0.1 (just Primary Router IP)</li>
+</ul>
+</li>
+<li><strong>WAN Port</strong><ul>
+<li><strong>Assign WAN Port to Switch</strong>: tick</li>
+</ul>
+</li>
+<li><strong>Time Settings</strong><ul>
+<li><strong>Time Zone</strong>: set correspondingly</li>
+</ul>
+</li>
+</ul>
+<p>Then, click <strong>Save</strong> without <strong>Apply</strong>.</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/08_Setup_BasicSetup.jpg" alt="DD-WRT Basic Setup"></p>
+<h2 id="4-Wireless-gt-Basic-Settings"><a href="#4-Wireless-gt-Basic-Settings" class="headerlink" title="4.  Wireless -&gt; Basic Settings"></a>4.  Wireless -&gt; Basic Settings</h2><p>We modify the parameters accordingly (Cited from <a href="https://www.dd-wrt.com/wiki/index.php/Repeater_Bridge" target="_blank" rel="noopener">DD-WRT Repeater Bridge</a>):</p>
+<ul>
+<li><strong>Physical Interface Section</strong><ul>
+<li><strong>Wireless Mode</strong>: Repeater Bridge</li>
+<li><strong>Wireless Network Mode</strong>: Match Primary Router<br>  Usually N*-Mixed (or G-Only for pre-N routers), as Mixed may not work)</li>
+<li><strong>Wireless Network Name (SSID)</strong>: Must Match Primary Router EXACTLY including case<br>Note: some devices may not properly handle special characters, spaces, etc.</li>
+<li><strong>Wireless Channel</strong>: Usually leave at <strong>Auto</strong> for DD-WRT to determine the channel</li>
+<li><strong>Channel Width</strong>: Match Primary Router</li>
+</ul>
+</li>
+<li><strong>Virtual Interfaces Section</strong><br>Click <strong>Add</strong> first, then:<ul>
+<li><strong>Wireless Network Name (SSID)</strong>: Same as Primary SSID.<br>If having problems, try a different one. (k2.4 (broadcom folder) builds may require using a different SSID from the Primary)</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/03_Wireless_BasicSettings_BeforeSave.jpg" alt="DD-WRT Wireless Basic Settings (Before Save)"><br>Then, click <strong>Save</strong> without <strong>Apply</strong>, you can tell some difference on this page:<br><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/04_Wireless_BasicSettings_AfterSave.jpg" alt="DD-WRT Wireless Basic Settings (After Save)"></p>
+<h2 id="5-Status-gt-Wireless"><a href="#5-Status-gt-Wireless" class="headerlink" title="5. Status -&gt; Wireless"></a>5. Status -&gt; Wireless</h2><p>Site Survey<br>Join</p>
+<h2 id="6-Wireless-gt-Wireless-Security"><a href="#6-Wireless-gt-Wireless-Security" class="headerlink" title="6. Wireless -&gt; Wireless Security"></a>6. Wireless -&gt; Wireless Security</h2><ul>
+<li><strong>Physical Interface section</strong> (WPA2-AES strongly advised)<ul>
+<li><strong>Security Mode</strong>: Must Match Primary Router</li>
+<li><strong>WPA Algorithms</strong>: Must Match Primary Router</li>
+<li><strong>Shared Key</strong>: Must Match Primary Router</li>
+</ul>
+</li>
+<li><strong>Virtual Interfaces Section</strong><ul>
+<li><strong>Security Mode</strong>: Must Match Physical Interface for k2.4</li>
+<li><strong>WPA Algorithms</strong>: Must Match Physical Interface for k2.4</li>
+<li><strong>Shared Key</strong>: Must Match Physical Interface for k2.4<ul>
+<li><strong>WPA2-AES</strong> should be able to use a different password on k2.6 and newer</li>
+<li><strong>WEP</strong> (with any password) or Open (disabled) should work on any kernel</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Then, click <strong>Save</strong> without <strong>Apply</strong>.</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/05_Wireless_WirelessSecurity.jpg" alt="DD-WRT Wireless Security"></p>
+<p>Finally, click <strong>Apply Settings</strong>, and let the router to reboot.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://longervision.github.io/2018/03/02/setup-repeater-bridge-using-a-dd-wrt-router/" data-id="cjepcnt8z0000y5y7oi9u70hj" class="article-share-link">Longer Vision</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dd-wrt-Wireless-Repeater-Bridge/">dd-wrt, Wireless, Repeater Bridge</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/02/27/orange-pi-plus-2-armbian/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Install Armbian Ubuntu Desktop with the Newest Supported Mainline Linux Kernel onto Orange Pi Plus 2</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ArUco-Marker-Pattern-OpenCV-Python/">ArUco, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Beaglebone-Beaglebone-Black-Linaro-GCC-U-Boot-Linux-Kernel-BSP/">Beaglebone, Beaglebone Black, Linaro GCC, U-Boot, Linux Kernel, BSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Calibration-Chessboard-Marker-Pattern-OpenCV-Python/">Camera Calibration, Chessboard, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Calibration-Circle-Grid-Marker-Pattern-OpenCV-Python/">Camera Calibration, Circle Grid, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-ArUco-Board-Pattern-OpenCV-Python/">Camera Posture Estimation, ArUco Board, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-ArUco-Diamond-Marker-Pattern-OpenCV-Python/">Camera Posture Estimation, ArUco, Diamond Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-ArUco-Marker-Pattern-OpenCV-Python/">Camera Posture Estimation, ArUco, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-ChArUco-Board-Pattern-OpenCV-Python/">Camera Posture Estimation, ChArUco Board, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-Circle-Grid-Marker-Pattern-OpenCV-Python/">Camera Posture Estimation, Circle Grid, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Longer-Vision-Technology-Computer-Vision-Machine-Vision/">Longer Vision Technology, Computer Vision, Machine Vision</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NanoPi-NEO-AllWinner-H3-Armbian-Debian-BSP/">NanoPi NEO, AllWinner H3, Armbian, Debian, BSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orange-Pi-Plus-2-AllWinner-H3-Armbian-Ubuntu-Mainline-Linux-Kernel-BSP/">Orange Pi Plus 2, AllWinner H3, Armbian, Ubuntu, Mainline Linux Kernel, BSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dd-wrt-Wireless-Repeater-Bridge/">dd-wrt, Wireless, Repeater Bridge</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ArUco-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">ArUco, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Beaglebone-Beaglebone-Black-Linaro-GCC-U-Boot-Linux-Kernel-BSP/" style="font-size: 10px;">Beaglebone, Beaglebone Black, Linaro GCC, U-Boot, Linux Kernel, BSP</a> <a href="/tags/Camera-Calibration-Chessboard-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Calibration, Chessboard, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Calibration-Circle-Grid-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Calibration, Circle Grid, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-ArUco-Board-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, ArUco Board, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-ArUco-Diamond-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, ArUco, Diamond Marker, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-ArUco-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, ArUco, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-ChArUco-Board-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, ChArUco Board, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-Circle-Grid-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, Circle Grid, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Longer-Vision-Technology-Computer-Vision-Machine-Vision/" style="font-size: 10px;">Longer Vision Technology, Computer Vision, Machine Vision</a> <a href="/tags/NanoPi-NEO-AllWinner-H3-Armbian-Debian-BSP/" style="font-size: 10px;">NanoPi NEO, AllWinner H3, Armbian, Debian, BSP</a> <a href="/tags/Orange-Pi-Plus-2-AllWinner-H3-Armbian-Ubuntu-Mainline-Linux-Kernel-BSP/" style="font-size: 10px;">Orange Pi Plus 2, AllWinner H3, Armbian, Ubuntu, Mainline Linux Kernel, BSP</a> <a href="/tags/dd-wrt-Wireless-Repeater-Bridge/" style="font-size: 10px;">dd-wrt, Wireless, Repeater Bridge</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/03/02/setup-repeater-bridge-using-a-dd-wrt-router/">Setup Repeater Bridge Using A dd-wrt Router</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/27/orange-pi-plus-2-armbian/">Install Armbian Ubuntu Desktop with the Newest Supported Mainline Linux Kernel onto Orange Pi Plus 2</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/24/nanopi-neo-armbian/">Install Armbian Debian Server onto NanoPi NEO</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/10/beaglebone-black-uboot-kernel/">Build U-Boot and Linux Kernel for Beaglebone and Beaglebone Black</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/20/opencv-internal-calibration-circle-grid/">Camera Calibration Using a Circle Grid</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Longer Vision<br>
+      Powered by <a href="http://www.longervision.com/" target="_blank">Longer Vision</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
