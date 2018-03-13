@@ -26,12 +26,15 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/03_Status_BeforeUpgrading.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/04_dd-wrt_WHR-G300N.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/05_dd-wrt_WHR-G300N_Firmware.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/06_Status_AfterUpgrading.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/06_Firmware_Upgrade.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/07_Upgrade_Successful.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/08_Setup_AfterUpgrading.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/09_Status_AfterUpgrading.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/08_Setup_BasicSetup.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/03_Wireless_BasicSettings_BeforeSave.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/04_Wireless_BasicSettings_AfterSave.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/05_Wireless_WirelessSecurity.jpg">
-<meta property="og:updated_time" content="2018-03-13T23:14:21.566Z">
+<meta property="og:updated_time" content="2018-03-13T23:49:26.927Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Setup Repeater Bridge Using A dd-wrt Router">
 <meta name="twitter:description" content="Hi, today, I’m going to revisit a very old topic, Setup Repeater Bridge Using A dd-wrt Router. This reminds me of my FIRST startup Misc Vision that used to resell Foscam home security IP cameras. That">
@@ -185,7 +188,7 @@
 <p>The <strong>limitation</strong> with standard bridging is that it only allows <strong>WIRED</strong> clients to connect to your secondary router. <strong>WIRELESS</strong> clients cannot connect to your secondary router configured as a standard bridge. Repeater Bridge <strong>allows both WIRELESS AND WIRED</strong> clients to connect to a the <strong>Repeater Bridge</strong> router, and through that device <strong>WIRELESSLY</strong> to a primary router. You can still use this mode if you only need to bridge wired clients; the extra wireless repeater capability comes along for free; however, you are not required to use it.</p>
 </blockquote>
 <p>Therefore, we select <strong>Repeater Bridge</strong> as our solution. Here, <strong>DD-WRT SL-R7202</strong> is selected as the <strong>Repeater Bridge</strong>. The difficulty is <strong>how to setup DD-WRT SL-R7202 to make it work as a wireless Repeater Bridge</strong>?</p>
-<h1 id="PART-C-Firmware-Upgrading"><a href="#PART-C-Firmware-Upgrading" class="headerlink" title="PART C: Firmware Upgrading"></a>PART C: Firmware Upgrading</h1><h2 id="1-Why-SL-R7202"><a href="#1-Why-SL-R7202" class="headerlink" title="1. Why? SL-R7202"></a>1. Why? SL-R7202</h2><p>Actually, before I come to this step, I’ve already:</p>
+<h1 id="PART-C-Firmware-Upgrading"><a href="#PART-C-Firmware-Upgrading" class="headerlink" title="PART C: Firmware Upgrading"></a>PART C: Firmware Upgrading</h1><h2 id="1-Why"><a href="#1-Why" class="headerlink" title="1. Why?"></a>1. Why?</h2><p>Actually, before I come to this step, I’ve already:</p>
 <ul>
 <li>strictly followed the configuration process written on <a href="https://www.dd-wrt.com/wiki/index.php/Repeater_Bridge" target="_blank" rel="noopener">https://www.dd-wrt.com/wiki/index.php/Repeater_Bridge</a>, but <strong>FAILED</strong> many times. </li>
 <li>and afterwards, I found a video solution at <a href="https://www.youtube.com/watch?v=ByB8vVGBjh4" target="_blank" rel="noopener">https://www.youtube.com/watch?v=ByB8vVGBjh4</a>, which seems to be suitable for my case. However, it finally turns out that my <strong>DD-WRT SL-R7202</strong> router comes with a firmware version <strong>DD-WRT (build 13064)</strong>, but the tutorial on <strong>Youtube</strong> uses a router with firmware version <strong>DD-WRT (build 21061)</strong>.</li>
@@ -196,10 +199,13 @@
 <blockquote>
 <p>Hold the reset button until lights flash (10-30sec) or 30-30-30 if appropriate for your router. (DO NOT 30-30-30 ARM routers.)</p>
 </blockquote>
-<h2 id="3-Visit-http-192-168-1-1"><a href="#3-Visit-http-192-168-1-1" class="headerlink" title="3. Visit http://192.168.1.1:"></a>3. Visit <a href="http://192.168.1.1" target="_blank" rel="noopener">http://192.168.1.1</a>:</h2><p>After successfully reset DD-WRT router to factory default, connect it with your host computer via a <strong>WIRED</strong> cable, for better stablity. Then, we change our network connection from our <strong>router 1</strong> to <strong>router 2: dd-wrt router</strong>. Afterwards, let’s visit <a href="http://192.168.1.1" target="_blank" rel="noopener">http://192.168.1.1</a>. </p>
+<h2 id="3-Visit-http-192-168-1-1"><a href="#3-Visit-http-192-168-1-1" class="headerlink" title="3. Visit http://192.168.1.1:"></a>3. Visit <a href="http://192.168.1.1" target="_blank" rel="noopener">http://192.168.1.1</a>:</h2><p>After successfully reset DD-WRT router to factory default, connect it with your host computer via a <strong>WIRED</strong> cable, for better stablity. Then, we change our network connection from our <strong>FIRST router</strong> to <strong>SECOND router: dd-wrt router</strong>. Afterwards, let’s visit <a href="http://192.168.1.1" target="_blank" rel="noopener">http://192.168.1.1</a>. </p>
+<ul>
+<li><strong>NOTE</strong>: My host computer’s IP address on the <strong>FIRST</strong> router, namely, <strong>ShawCable</strong> Modem/Router is staticly set as <strong>192.168.0.8</strong> (which is able to connect to the Internet). After I switch to the Wifi <strong>dd-wrt</strong>, my host’s IP is <strong>DHCP</strong> allocated to <strong>192.168.1.103</strong>. The gateway on <strong>ShawCable</strong> is <strong>192.168.0.1</strong>, which is different from the gateway on <strong>dd-wrt</strong> <strong>192.168.1.1</strong> by default.</li>
+</ul>
 <h3 id="1-FIRST-Page"><a href="#1-FIRST-Page" class="headerlink" title="1) FIRST Page"></a>1) FIRST Page</h3><p>DD-WRT home page looks like:<br><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/01_FirstLogin.jpg" alt="DD-WRT First Login">.<br>And it’s suggested we input a new router username <strong>root</strong> and password <strong>admin</strong>. After the button <strong>Change Password</strong> is clicked, we are entering the very first page of DD-WRT Web GUI.<br><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/02_FirstPage.jpg" alt="DD-WRT First Page">.</p>
 <ul>
-<li><p>We can easily tell the firmware’s version on the top right corner.</p>
+<li><p>We can easily tell the firmware’s info on the top right corner.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Firmware: DD-WRT v24-sp2 (10/10/09) std</span><br><span class="line">Time: 00:01:13 up 1 min, load average: 0.12, 0.04, 0.00</span><br><span class="line">WAN IP: 0.0.0.0</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>And, we can also easily tell from the bottom of this page that for now, only 1 DHCP client is connected to this router, which is just our host computer: <strong>jiapei-GT72-6QE</strong>.</p>
@@ -210,14 +216,15 @@
 <p>By click the <strong>FIRST</strong> one, namely <strong>v1</strong>, we get:<br><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/05_dd-wrt_WHR-G300N_Firmware.jpg" alt="DD-WRT WHR-G300N v1: from 13064 to 14896"></p>
 <p>Clearly, we should be able to upgrade from our current firmware version <strong>13064</strong> to the newer one <strong>14896</strong>.</p>
 <p>With the existing firmware version <strong>13064</strong> installed on the router <strong>SL-R7202</strong>, we can directly upgrade the firmware through web flash by downloading the firmware <strong>WHR-G300N-webflash.bin</strong>, but ignoring downloading all <strong>TFTP</strong> and <strong>openvpn</strong> files.</p>
-<h3 id="4-Firmware-Upgrading"><a href="#4-Firmware-Upgrading" class="headerlink" title="4) Firmware Upgrading"></a>4) Firmware Upgrading</h3><p>Just click <strong>Administration</strong> -&gt; <strong>Firmware Upgrade</strong>, and then choose <strong>WHR-G300N-webflash.bin</strong> after clicking <strong>Choose file</strong>, the system is automatically upgraded after several minutes.</p>
+<h3 id="4-Firmware-Upgrading"><a href="#4-Firmware-Upgrading" class="headerlink" title="4) Firmware Upgrading"></a>4) Firmware Upgrading</h3><p>Just click <strong>Administration</strong> -&gt; <strong>Firmware Upgrade</strong>, and then choose <strong>WHR-G300N-webflash.bin</strong>.<br><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/06_Firmware_Upgrade.jpg" alt="DD-WRT Administration - Firmware Upgrade"></p>
+<p>After clicking <strong>Choose file</strong>, the system is automatically upgraded after several minutes.</p>
 <ul>
-<li><strong>NOTE: Do NOT touch anything during the upgrading process.</strong></li>
+<li><strong>NOTE: Do NOT touch anything during the upgrading process.</strong><br><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/07_Upgrade_Successful.jpg" alt="DD-WRT Upgrade Successful"></li>
 </ul>
-<p>After firmware upgrading, we can see from the <strong>Status Page</strong> that the firmware version is now <strong>14896</strong>.</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/06_Status_AfterUpgrading.jpg" alt="DD-WRT Status - After Upgrading"></p>
-<h1 id="PART-D-Wireless-Repeater-Bridge-Same-Subset"><a href="#PART-D-Wireless-Repeater-Bridge-Same-Subset" class="headerlink" title="PART D: Wireless Repeater Bridge (Same Subset)"></a>PART D: Wireless Repeater Bridge (Same Subset)</h1><p>Since my host computer’s IP address on the <strong>FIRST</strong> router, namely, <strong>ShawCable</strong> Modem/Router is staticly set as <strong>192.168.0.8</strong> (which is able to connect to the Internet). After I switch to the Wifi <strong>dd-wrt</strong>, my host’s IP is NOW <strong>192.168.1.8</strong>. The gateway on <strong>ShawCable</strong> is <strong>192.168.0.1</strong>, which is different from the gateway on <strong>dd-wrt</strong> <strong>192.168.1.1</strong> by default.</p>
-<h2 id="3-Setup-gt-Basic-Setup"><a href="#3-Setup-gt-Basic-Setup" class="headerlink" title="3. Setup -&gt; Basic Setup"></a>3. Setup -&gt; Basic Setup</h2><ul>
+<p>After firmware upgrading, we can easily tell some difference:<br>From <strong>Setup Page</strong>, on the left-top corner, we can see the builder version is now <strong>14896</strong>. And from the right-top corner, the current firmware info is:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Firmware: DD-WRT v24-sp2 (08/07/10) std</span><br><span class="line">Time: 00:08:20 up 8 min, load average: 0.00, 0.02, 0.00</span><br><span class="line">WAN IP: 0.0.0.0</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/08_Setup_AfterUpgrading.jpg" alt="DD-WRT Setup - Basic Setup"></p>
+<p>From the <strong>Status Page</strong>, we can doublecheck the firmware version is now <strong>14896</strong>.<br><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/09_Status_AfterUpgrading.jpg" alt="DD-WRT Status - After Upgrading"></p>
+<h1 id="PART-D-Wireless-Repeater-Bridge-Same-Subset"><a href="#PART-D-Wireless-Repeater-Bridge-Same-Subset" class="headerlink" title="PART D: Wireless Repeater Bridge (Same Subset)"></a>PART D: Wireless Repeater Bridge (Same Subset)</h1><h2 id="1-Setup-gt-Basic-Setup"><a href="#1-Setup-gt-Basic-Setup" class="headerlink" title="1. Setup -&gt; Basic Setup"></a>1. Setup -&gt; Basic Setup</h2><ul>
 <li><strong>WAN Connection Type Section</strong><ul>
 <li><strong>Connection Type</strong>: Disabled</li>
 </ul>
@@ -244,7 +251,7 @@
 </ul>
 <p>Then, click <strong>Save</strong> without <strong>Apply</strong>.</p>
 <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/08_Setup_BasicSetup.jpg" alt="DD-WRT Basic Setup"></p>
-<h2 id="4-Wireless-gt-Basic-Settings"><a href="#4-Wireless-gt-Basic-Settings" class="headerlink" title="4.  Wireless -&gt; Basic Settings"></a>4.  Wireless -&gt; Basic Settings</h2><p>We modify the parameters accordingly (Cited from <a href="https://www.dd-wrt.com/wiki/index.php/Repeater_Bridge" target="_blank" rel="noopener">DD-WRT Repeater Bridge</a>):</p>
+<h2 id="2-Wireless-gt-Basic-Settings"><a href="#2-Wireless-gt-Basic-Settings" class="headerlink" title="2.  Wireless -&gt; Basic Settings"></a>2.  Wireless -&gt; Basic Settings</h2><p>We modify the parameters accordingly (Cited from <a href="https://www.dd-wrt.com/wiki/index.php/Repeater_Bridge" target="_blank" rel="noopener">DD-WRT Repeater Bridge</a>):</p>
 <ul>
 <li><strong>Physical Interface Section</strong><ul>
 <li><strong>Wireless Mode</strong>: Repeater Bridge</li>
@@ -260,8 +267,8 @@
 </li>
 </ul>
 <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/03_Wireless_BasicSettings_BeforeSave.jpg" alt="DD-WRT Wireless Basic Settings (Before Save)"><br>Then, click <strong>Save</strong> without <strong>Apply</strong>, you can tell some difference on this page:<br><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/04_Wireless_BasicSettings_AfterSave.jpg" alt="DD-WRT Wireless Basic Settings (After Save)"></p>
-<h2 id="5-Status-gt-Wireless"><a href="#5-Status-gt-Wireless" class="headerlink" title="5. Status -&gt; Wireless"></a>5. Status -&gt; Wireless</h2><p>Site Survey<br>Join</p>
-<h2 id="6-Wireless-gt-Wireless-Security"><a href="#6-Wireless-gt-Wireless-Security" class="headerlink" title="6. Wireless -&gt; Wireless Security"></a>6. Wireless -&gt; Wireless Security</h2><ul>
+<h2 id="3-Status-gt-Wireless"><a href="#3-Status-gt-Wireless" class="headerlink" title="3. Status -&gt; Wireless"></a>3. Status -&gt; Wireless</h2><p>Site Survey<br>Join</p>
+<h2 id="4-Wireless-gt-Wireless-Security"><a href="#4-Wireless-gt-Wireless-Security" class="headerlink" title="4. Wireless -&gt; Wireless Security"></a>4. Wireless -&gt; Wireless Security</h2><ul>
 <li><strong>Physical Interface section</strong> (WPA2-AES strongly advised)<ul>
 <li><strong>Security Mode</strong>: Must Match Primary Router</li>
 <li><strong>WPA Algorithms</strong>: Must Match Primary Router</li>
