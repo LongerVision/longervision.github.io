@@ -23,14 +23,11 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/mv_mv-7202_back.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/01_FirstLogin.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/02_FirstPage.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/08_Setup_BasicSetup.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/03_Wireless_BasicSettings_BeforeSave.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/04_Wireless_BasicSettings_AfterSave.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/05_Wireless_WirelessSecurity.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/06_Security_Firewall.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/07_Service_Service_DNSMasq.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/08_Setup_BasicSetup.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/09_Setup_AdvancedRouting.jpg">
-<meta property="og:updated_time" content="2018-03-12T11:47:06.006Z">
+<meta property="og:updated_time" content="2018-03-13T05:50:13.337Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Setup Repeater Bridge Using A dd-wrt Router">
 <meta name="twitter:description" content="Hi, today, I’m going to revisit a very old topic, Setup Repeater Bridge Using A dd-wrt Router. This reminds me of my FIRST startup Misc Vision that used to resell Foscam home security IP cameras. That">
@@ -184,8 +181,13 @@
 <p>The <strong>limitation</strong> with standard bridging is that it only allows <strong>WIRED</strong> clients to connect to your secondary router. <strong>WIRELESS</strong> clients cannot connect to your secondary router configured as a standard bridge. Repeater Bridge <strong>allows both WIRELESS AND WIRED</strong> clients to connect to a the <strong>Repeater Bridge</strong> router, and through that device <strong>WIRELESSLY</strong> to a primary router. You can still use this mode if you only need to bridge wired clients; the extra wireless repeater capability comes along for free; however, you are not required to use it.</p>
 </blockquote>
 <p>Therefore, we select <strong>Repeater Bridge</strong> as our solution. Here, <strong>DD-WRT SL-R7202</strong> is selected as the <strong>Repeater Bridge</strong>. The difficulty is <strong>how to setup DD-WRT SL-R7202 to make it work as a wireless Repeater Bridge</strong>?</p>
-<h1 id="PART-C-Wireless-Repeater-Bridge-Same-Subset"><a href="#PART-C-Wireless-Repeater-Bridge-Same-Subset" class="headerlink" title="PART C: Wireless Repeater Bridge (Same Subset)"></a>PART C: Wireless Repeater Bridge (Same Subset)</h1><p>Since my host computer’s IP address on the <strong>FIRST</strong> router, namely, <strong>ShawCable</strong> Modem/Router is staticly set as <strong>192.168.0.8</strong> (which is able to connect to the Internet). After I switch to the Wifi <strong>dd-wrt</strong>, my host’s IP is NOW <strong>192.168.1.8</strong>. The gateway on <strong>ShawCable</strong> is <strong>192.168.0.1</strong>, which is different from the gateway on <strong>dd-wrt</strong> <strong>192.168.1.1</strong> by default.</p>
-<p>In the following, the configuration process is mostly directly cited from <a href="https://www.dd-wrt.com/wiki/index.php/Repeater_Bridge" target="_blank" rel="noopener">https://www.dd-wrt.com/wiki/index.php/Repeater_Bridge</a>.</p>
+<h1 id="PART-C-Firmware-Upgrading"><a href="#PART-C-Firmware-Upgrading" class="headerlink" title="PART C: Firmware Upgrading"></a>PART C: Firmware Upgrading</h1><p>Actually, before I come to this step, I’ve already:</p>
+<ul>
+<li>strictly followed the configuration process written on <a href="https://www.dd-wrt.com/wiki/index.php/Repeater_Bridge" target="_blank" rel="noopener">https://www.dd-wrt.com/wiki/index.php/Repeater_Bridge</a>, but <strong>FAILED</strong> many times. </li>
+<li>and afterwards, I found a video solution at<a href="https://www.youtube.com/watch?v=ByB8vVGBjh4" target="_blank" rel="noopener">https://www.youtube.com/watch?v=ByB8vVGBjh4</a>, which seems to be suitable for my case. However, it finally turns out that my <strong>DD-WRT SL-R7202</strong> router comes with a firmware version <strong>DD-WRT (build 13064)</strong>, but the tutorial on <strong>Youtube</strong> uses a router with firmware version <strong>DD-WRT (build 21061)</strong>.</li>
+</ul>
+<p>It seems to me that a firmware upgrading is a must before we setup the <strong>Wireless Repeater Bridge Mode</strong>.</p>
+<h1 id="PART-D-Wireless-Repeater-Bridge-Same-Subset"><a href="#PART-D-Wireless-Repeater-Bridge-Same-Subset" class="headerlink" title="PART D: Wireless Repeater Bridge (Same Subset)"></a>PART D: Wireless Repeater Bridge (Same Subset)</h1><p>Since my host computer’s IP address on the <strong>FIRST</strong> router, namely, <strong>ShawCable</strong> Modem/Router is staticly set as <strong>192.168.0.8</strong> (which is able to connect to the Internet). After I switch to the Wifi <strong>dd-wrt</strong>, my host’s IP is NOW <strong>192.168.1.8</strong>. The gateway on <strong>ShawCable</strong> is <strong>192.168.0.1</strong>, which is different from the gateway on <strong>dd-wrt</strong> <strong>192.168.1.1</strong> by default.</p>
 <h2 id="1-Reset-to-Factory-Defaults-on-DD-WRT-Router-The-2nd-Router"><a href="#1-Reset-to-Factory-Defaults-on-DD-WRT-Router-The-2nd-Router" class="headerlink" title="1. Reset to Factory Defaults on DD-WRT Router (The 2nd Router)"></a>1. Reset to Factory Defaults on DD-WRT Router (The 2nd Router)</h2><p>First of all, we need to reset DD-WRT. There is a black button on my <strong>DD-WRT SL-R7202</strong>, as shown:<br><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/mv_mv-7202_back.jpg" alt="Reset Button at DD-WRT&#39;s Back">.</p>
 <p>In fact, how to reset <strong>DD-WRT</strong> needs to be paid attention to. </p>
 <blockquote>
@@ -199,54 +201,7 @@
 <li><p>And, we can also easily tell from the bottom of this page that for now, only 1 DHCP client is connected to this router, which is just our host computer: <strong>jiapei-GT72-6QE</strong>.</p>
 </li>
 </ul>
-<h2 id="3-Wireless-gt-Basic-Settings"><a href="#3-Wireless-gt-Basic-Settings" class="headerlink" title="3.  Wireless -&gt; Basic Settings"></a>3.  Wireless -&gt; Basic Settings</h2><p>We modify the parameters accordingly (Cited from <a href="https://www.dd-wrt.com/wiki/index.php/Repeater_Bridge" target="_blank" rel="noopener">DD-WRT Repeater Bridge</a>):</p>
-<ul>
-<li><strong>Physical Interface Section</strong><ul>
-<li><strong>Wireless Mode</strong>: Repeater Bridge</li>
-<li><strong>Wireless Network Mode</strong>: Match Primary Router<br>  Usually N*-Mixed (or G-Only for pre-N routers), as Mixed may not work)</li>
-<li><strong>Wireless Network Name (SSID)</strong>: Must Match Primary Router EXACTLY including case<br>Note: some devices may not properly handle special characters, spaces, etc.</li>
-<li><strong>Wireless Channel</strong>: Usually leave at <strong>Auto</strong> for DD-WRT to determine the channel</li>
-<li><strong>Channel Width</strong>: Match Primary Router</li>
-</ul>
-</li>
-<li><strong>Virtual Interfaces Section</strong><br>Click <strong>Add</strong> first, then:<ul>
-<li><strong>Wireless Network Name (SSID)</strong>: Same as Primary SSID.<br>If having problems, try a different one. (k2.4 (broadcom folder) builds may require using a different SSID from the Primary)</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/03_Wireless_BasicSettings_BeforeSave.jpg" alt="DD-WRT Wireless Basic Settings (Before Save)"><br>Then, click <strong>Save</strong> without <strong>Apply</strong>, you can tell some difference on this page:<br><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/04_Wireless_BasicSettings_AfterSave.jpg" alt="DD-WRT Wireless Basic Settings (After Save)"></p>
-<h2 id="4-Wireless-gt-Wireless-Security"><a href="#4-Wireless-gt-Wireless-Security" class="headerlink" title="4. Wireless -&gt; Wireless Security"></a>4. Wireless -&gt; Wireless Security</h2><ul>
-<li><strong>Physical Interface section</strong> (WPA2-AES strongly advised)<ul>
-<li><strong>Security Mode</strong>: Must Match Primary Router</li>
-<li><strong>WPA Algorithms</strong>: Must Match Primary Router</li>
-<li><strong>Shared Key</strong>: Must Match Primary Router</li>
-</ul>
-</li>
-<li><strong>Virtual Interfaces Section</strong><ul>
-<li><strong>Security Mode</strong>: Must Match Physical Interface for k2.4</li>
-<li><strong>WPA Algorithms</strong>: Must Match Physical Interface for k2.4</li>
-<li><strong>Shared Key</strong>: Must Match Physical Interface for k2.4<ul>
-<li><strong>WPA2-AES</strong> should be able to use a different password on k2.6 and newer</li>
-<li><strong>WEP</strong> (with any password) or Open (disabled) should work on any kernel</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>Then, click <strong>Save</strong> without <strong>Apply</strong>.</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/05_Wireless_WirelessSecurity.jpg" alt="DD-WRT Wireless Security"></p>
-<h2 id="5-Security-gt-Firewall"><a href="#5-Security-gt-Firewall" class="headerlink" title="5. Security -&gt; Firewall"></a>5. Security -&gt; Firewall</h2><ul>
-<li><strong>Uncheck all boxes except Filter Multicast</strong></li>
-<li><strong>Disable SPI Firewall</strong></li>
-</ul>
-<p>Then, click <strong>Save</strong> without <strong>Apply</strong>.</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/06_Security_Firewall.jpg" alt="DD-WRT Security Firewall"></p>
-<h2 id="6-Services-gt-Services"><a href="#6-Services-gt-Services" class="headerlink" title="6. Services -&gt; Services"></a>6. Services -&gt; Services</h2><ul>
-<li><strong>DNSMasq</strong> disabled</li>
-</ul>
-<p>Then, click <strong>Save</strong> without <strong>Apply</strong>.</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/07_Service_Service_DNSMasq.jpg" alt="DD-WRT Service DNSMasq"></p>
-<h2 id="7-Setup-gt-Basic-Setup"><a href="#7-Setup-gt-Basic-Setup" class="headerlink" title="7. Setup -&gt; Basic Setup"></a>7. Setup -&gt; Basic Setup</h2><ul>
+<h2 id="3-Setup-gt-Basic-Setup"><a href="#3-Setup-gt-Basic-Setup" class="headerlink" title="3. Setup -&gt; Basic Setup"></a>3. Setup -&gt; Basic Setup</h2><ul>
 <li><strong>WAN Connection Type Section</strong><ul>
 <li><strong>Connection Type</strong>: Disabled</li>
 </ul>
@@ -273,11 +228,43 @@
 </ul>
 <p>Then, click <strong>Save</strong> without <strong>Apply</strong>.</p>
 <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/08_Setup_BasicSetup.jpg" alt="DD-WRT Basic Setup"></p>
-<h2 id="8-Setup-gt-Advanced-Routing"><a href="#8-Setup-gt-Advanced-Routing" class="headerlink" title="8. Setup -&gt; Advanced Routing"></a>8. Setup -&gt; Advanced Routing</h2><ul>
-<li><strong>Operating Mode</strong>: Router</li>
+<h2 id="4-Wireless-gt-Basic-Settings"><a href="#4-Wireless-gt-Basic-Settings" class="headerlink" title="4.  Wireless -&gt; Basic Settings"></a>4.  Wireless -&gt; Basic Settings</h2><p>We modify the parameters accordingly (Cited from <a href="https://www.dd-wrt.com/wiki/index.php/Repeater_Bridge" target="_blank" rel="noopener">DD-WRT Repeater Bridge</a>):</p>
+<ul>
+<li><strong>Physical Interface Section</strong><ul>
+<li><strong>Wireless Mode</strong>: Repeater Bridge</li>
+<li><strong>Wireless Network Mode</strong>: Match Primary Router<br>  Usually N*-Mixed (or G-Only for pre-N routers), as Mixed may not work)</li>
+<li><strong>Wireless Network Name (SSID)</strong>: Must Match Primary Router EXACTLY including case<br>Note: some devices may not properly handle special characters, spaces, etc.</li>
+<li><strong>Wireless Channel</strong>: Usually leave at <strong>Auto</strong> for DD-WRT to determine the channel</li>
+<li><strong>Channel Width</strong>: Match Primary Router</li>
+</ul>
+</li>
+<li><strong>Virtual Interfaces Section</strong><br>Click <strong>Add</strong> first, then:<ul>
+<li><strong>Wireless Network Name (SSID)</strong>: Same as Primary SSID.<br>If having problems, try a different one. (k2.4 (broadcom folder) builds may require using a different SSID from the Primary)</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/03_Wireless_BasicSettings_BeforeSave.jpg" alt="DD-WRT Wireless Basic Settings (Before Save)"><br>Then, click <strong>Save</strong> without <strong>Apply</strong>, you can tell some difference on this page:<br><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/04_Wireless_BasicSettings_AfterSave.jpg" alt="DD-WRT Wireless Basic Settings (After Save)"></p>
+<h2 id="5-Status-gt-Wireless"><a href="#5-Status-gt-Wireless" class="headerlink" title="5. Status -&gt; Wireless"></a>5. Status -&gt; Wireless</h2><p>Site Survey<br>Join</p>
+<h2 id="6-Wireless-gt-Wireless-Security"><a href="#6-Wireless-gt-Wireless-Security" class="headerlink" title="6. Wireless -&gt; Wireless Security"></a>6. Wireless -&gt; Wireless Security</h2><ul>
+<li><strong>Physical Interface section</strong> (WPA2-AES strongly advised)<ul>
+<li><strong>Security Mode</strong>: Must Match Primary Router</li>
+<li><strong>WPA Algorithms</strong>: Must Match Primary Router</li>
+<li><strong>Shared Key</strong>: Must Match Primary Router</li>
+</ul>
+</li>
+<li><strong>Virtual Interfaces Section</strong><ul>
+<li><strong>Security Mode</strong>: Must Match Physical Interface for k2.4</li>
+<li><strong>WPA Algorithms</strong>: Must Match Physical Interface for k2.4</li>
+<li><strong>Shared Key</strong>: Must Match Physical Interface for k2.4<ul>
+<li><strong>WPA2-AES</strong> should be able to use a different password on k2.6 and newer</li>
+<li><strong>WEP</strong> (with any password) or Open (disabled) should work on any kernel</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <p>Then, click <strong>Save</strong> without <strong>Apply</strong>.</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/09_Setup_AdvancedRouting.jpg" alt="DD-WRT Advanced Routing"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/dd-wrt/05_Wireless_WirelessSecurity.jpg" alt="DD-WRT Wireless Security"></p>
 <p>Finally, click <strong>Apply Settings</strong>, and let the router to reboot.</p>
 
       
