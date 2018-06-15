@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+
+  
+  <title>Camera Calibration Using a Circle Grid | Longer Vision Technology</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="PreparationBy reading two of our previous blogs Camera Calibration Using a Chessboard and Camera Posture Estimation Using Circle Grid Pattern, it wouldn’t be hard to replace the chessboard by a circle">
+<meta name="keywords" content="Camera Calibration, Circle Grid, Marker, Pattern, OpenCV, Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Camera Calibration Using a Circle Grid">
+<meta property="og:url" content="http://longervision.github.io/2017/03/18/opencv-internal-calibration-circle-grid/index.html">
+<meta property="og:site_name" content="Longer Vision Technology">
+<meta property="og:description" content="PreparationBy reading two of our previous blogs Camera Calibration Using a Chessboard and Camera Posture Estimation Using Circle Grid Pattern, it wouldn’t be hard to replace the chessboard by a circle">
+<meta property="og:locale" content="English">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/OpenCV_Examples/master/markers/pattern_acircles.png">
+<meta property="og:updated_time" content="2018-06-15T05:04:00.781Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Camera Calibration Using a Circle Grid">
+<meta name="twitter:description" content="PreparationBy reading two of our previous blogs Camera Calibration Using a Chessboard and Camera Posture Estimation Using Circle Grid Pattern, it wouldn’t be hard to replace the chessboard by a circle">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/OpenCV_Examples/master/markers/pattern_acircles.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Longer Vision Technology" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Longer Vision Technology</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Github Blog</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://longervision.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-opencv-internal-calibration-circle-grid" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/18/opencv-internal-calibration-circle-grid/" class="article-date">
+  <time datetime="2017-03-18T07:00:00.000Z" itemprop="datePublished">2017-03-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Camera Calibration Using a Circle Grid
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h1><p>By reading two of our previous blogs <a href="https://longervision.github.io/2017/03/19/opencv-internal-calibration-chessboard/">Camera Calibration Using a Chessboard</a> and <a href="https://longervision.github.io/2017/03/13/opencv-external-posture-estimation-circle-grid/">Camera Posture Estimation Using Circle Grid Pattern</a>, it wouldn’t be hard to replace the chessboard by a circle grid to calculate camera calibration parameters.</p>
+<h1 id="Coding"><a href="#Coding" class="headerlink" title="Coding"></a>Coding</h1><p>Our code can be found at <a href="https://github.com/LongerVision/OpenCV_Examples/blob/master/01_internal_camera_calibration/circle_grid.py" target="_blank" rel="noopener">OpenCV Examples</a>.</p>
+<h2 id="First-of-all"><a href="#First-of-all" class="headerlink" title="First of all"></a>First of all</h2><p>As mentioned in <a href="https://longervision.github.io/2017/03/19/opencv-internal-calibration-chessboard/">Camera Calibration Using a Chessboard</a>, for intrinsic parameters estimation, namely, camera calibration, there is <strong>NO</strong> need to measure the circle unit size. And the circle gird is to be adopted is exactly the same one as used in <a href="https://longervision.github.io/2017/03/13/opencv-external-posture-estimation-circle-grid/">Camera Posture Estimation Using Circle Grid Pattern</a>:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/OpenCV_Examples/master/markers/pattern_acircles.png" alt="asymmetric_circle_grid"></p>
+<h2 id="Secondly"><a href="#Secondly" class="headerlink" title="Secondly"></a>Secondly</h2><p>Required packages need to be imported.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> yam</span><br></pre></td></tr></table></figure>
+<h2 id="Thirdly"><a href="#Thirdly" class="headerlink" title="Thirdly"></a>Thirdly</h2><p>Some initialization work need to be done, including: 1) define the termination criteria when refine the corner sub-pixel later on; 2) blob detection parameters; 3) object points coordinators initialization.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># termination criteria</span></span><br><span class="line">criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, <span class="number">30</span>, <span class="number">0.001</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">########################################Blob Detector##############################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Setup SimpleBlobDetector parameters.</span></span><br><span class="line">blobParams = cv2.SimpleBlobDetector_Params()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Change thresholds</span></span><br><span class="line">blobParams.minThreshold = <span class="number">8</span></span><br><span class="line">blobParams.maxThreshold = <span class="number">255</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Filter by Area.</span></span><br><span class="line">blobParams.filterByArea = <span class="keyword">True</span></span><br><span class="line">blobParams.minArea = <span class="number">64</span>     <span class="comment"># minArea may be adjusted to suit for your experiment</span></span><br><span class="line">blobParams.maxArea = <span class="number">2500</span>   <span class="comment"># maxArea may be adjusted to suit for your experiment</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Filter by Circularity</span></span><br><span class="line">blobParams.filterByCircularity = <span class="keyword">True</span></span><br><span class="line">blobParams.minCircularity = <span class="number">0.1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Filter by Convexity</span></span><br><span class="line">blobParams.filterByConvexity = <span class="keyword">True</span></span><br><span class="line">blobParams.minConvexity = <span class="number">0.87</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Filter by Inertia</span></span><br><span class="line">blobParams.filterByInertia = <span class="keyword">True</span></span><br><span class="line">blobParams.minInertiaRatio = <span class="number">0.01</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a detector with the parameters</span></span><br><span class="line">blobDetector = cv2.SimpleBlobDetector_create(blobParams)</span><br><span class="line"></span><br><span class="line"><span class="comment">###################################################################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment">###################################################################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Original blob coordinates, supposing all blobs are of z-coordinates 0</span></span><br><span class="line"><span class="comment"># And, the distance between every two neighbour blob circle centers is 72 centimetres</span></span><br><span class="line"><span class="comment"># In fact, any number can be used to replace 72.</span></span><br><span class="line"><span class="comment"># Namely, the real size of the circle is pointless while calculating camera calibration parameters.</span></span><br><span class="line">objp = np.zeros((<span class="number">44</span>, <span class="number">3</span>), np.float32)</span><br><span class="line">objp[<span class="number">0</span>]  = (<span class="number">0</span>  , <span class="number">0</span>  , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">1</span>]  = (<span class="number">0</span>  , <span class="number">72</span> , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">2</span>]  = (<span class="number">0</span>  , <span class="number">144</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">3</span>]  = (<span class="number">0</span>  , <span class="number">216</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">4</span>]  = (<span class="number">36</span> , <span class="number">36</span> , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">5</span>]  = (<span class="number">36</span> , <span class="number">108</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">6</span>]  = (<span class="number">36</span> , <span class="number">180</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">7</span>]  = (<span class="number">36</span> , <span class="number">252</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">8</span>]  = (<span class="number">72</span> , <span class="number">0</span>  , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">9</span>]  = (<span class="number">72</span> , <span class="number">72</span> , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">10</span>] = (<span class="number">72</span> , <span class="number">144</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">11</span>] = (<span class="number">72</span> , <span class="number">216</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">12</span>] = (<span class="number">108</span>, <span class="number">36</span>,  <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">13</span>] = (<span class="number">108</span>, <span class="number">108</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">14</span>] = (<span class="number">108</span>, <span class="number">180</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">15</span>] = (<span class="number">108</span>, <span class="number">252</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">16</span>] = (<span class="number">144</span>, <span class="number">0</span>  , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">17</span>] = (<span class="number">144</span>, <span class="number">72</span> , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">18</span>] = (<span class="number">144</span>, <span class="number">144</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">19</span>] = (<span class="number">144</span>, <span class="number">216</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">20</span>] = (<span class="number">180</span>, <span class="number">36</span> , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">21</span>] = (<span class="number">180</span>, <span class="number">108</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">22</span>] = (<span class="number">180</span>, <span class="number">180</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">23</span>] = (<span class="number">180</span>, <span class="number">252</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">24</span>] = (<span class="number">216</span>, <span class="number">0</span>  , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">25</span>] = (<span class="number">216</span>, <span class="number">72</span> , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">26</span>] = (<span class="number">216</span>, <span class="number">144</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">27</span>] = (<span class="number">216</span>, <span class="number">216</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">28</span>] = (<span class="number">252</span>, <span class="number">36</span> , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">29</span>] = (<span class="number">252</span>, <span class="number">108</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">30</span>] = (<span class="number">252</span>, <span class="number">180</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">31</span>] = (<span class="number">252</span>, <span class="number">252</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">32</span>] = (<span class="number">288</span>, <span class="number">0</span>  , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">33</span>] = (<span class="number">288</span>, <span class="number">72</span> , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">34</span>] = (<span class="number">288</span>, <span class="number">144</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">35</span>] = (<span class="number">288</span>, <span class="number">216</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">36</span>] = (<span class="number">324</span>, <span class="number">36</span> , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">37</span>] = (<span class="number">324</span>, <span class="number">108</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">38</span>] = (<span class="number">324</span>, <span class="number">180</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">39</span>] = (<span class="number">324</span>, <span class="number">252</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">40</span>] = (<span class="number">360</span>, <span class="number">0</span>  , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">41</span>] = (<span class="number">360</span>, <span class="number">72</span> , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">42</span>] = (<span class="number">360</span>, <span class="number">144</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">43</span>] = (<span class="number">360</span>, <span class="number">216</span>, <span class="number">0</span>)</span><br><span class="line"><span class="comment">###################################################################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Arrays to store object points and image points from all the images.</span></span><br><span class="line">objpoints = [] <span class="comment"># 3d point in real world space</span></span><br><span class="line">imgpoints = [] <span class="comment"># 2d points in image plane.</span></span><br></pre></td></tr></table></figure>
+<h2 id="Fourthly"><a href="#Fourthly" class="headerlink" title="Fourthly"></a>Fourthly</h2><p>After localizing 10 frames (<strong>10</strong> can be changed to any positive integer as you wish) of a grid of 2D circles, camera matrix and distortion coefficients can be calculated by invoking the function <strong>calibrateCamera</strong>. Here, we are testing on a real-time camera stream. Similar to Camera Posture Estimation Using Circle Grid Pattern, the trick is to do <strong>blobDetector.detect()</strong> and draw the detected blobs using <strong>cv2.drawKeypoints()</strong> before invoking <strong>cv2.findCirclesGrid()</strong>, so that the entire grid is easier to be found.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">cap = cv2.VideoCapture(<span class="number">0</span>)</span><br><span class="line">found = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span>(found &lt; <span class="number">10</span>):  <span class="comment"># Here, 10 can be changed to whatever number you like to choose</span></span><br><span class="line">    ret, img = cap.read() <span class="comment"># Capture frame-by-frame</span></span><br><span class="line">    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)</span><br><span class="line"></span><br><span class="line">    keypoints = blobDetector.detect(gray) <span class="comment"># Detect blobs.</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Draw detected blobs as red circles. This helps cv2.findCirclesGrid() .</span></span><br><span class="line">    im_with_keypoints = cv2.drawKeypoints(img, keypoints, np.array([]), (<span class="number">0</span>,<span class="number">255</span>,<span class="number">0</span>), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)</span><br><span class="line">    im_with_keypoints_gray = cv2.cvtColor(im_with_keypoints, cv2.COLOR_BGR2GRAY)</span><br><span class="line">    ret, corners = cv2.findCirclesGrid(im_with_keypoints, (<span class="number">4</span>,<span class="number">11</span>), <span class="keyword">None</span>, flags = cv2.CALIB_CB_ASYMMETRIC_GRID)   <span class="comment"># Find the circle grid</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ret == <span class="keyword">True</span>:</span><br><span class="line">        objpoints.append(objp)  <span class="comment"># Certainly, every loop objp is the same, in 3D.</span></span><br><span class="line"></span><br><span class="line">        corners2 = cv2.cornerSubPix(im_with_keypoints_gray, corners, (<span class="number">11</span>,<span class="number">11</span>), (<span class="number">-1</span>,<span class="number">-1</span>), criteria)    <span class="comment"># Refines the corner locations.</span></span><br><span class="line">        imgpoints.append(corners2)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Draw and display the corners.</span></span><br><span class="line">        im_with_keypoints = cv2.drawChessboardCorners(img, (<span class="number">4</span>,<span class="number">11</span>), corners2, ret)</span><br><span class="line">        found += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    cv2.imshow(<span class="string">"img"</span>, im_with_keypoints) <span class="comment"># display</span></span><br><span class="line">    cv2.waitKey(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># When everything done, release the capture</span></span><br><span class="line">cap.release()</span><br><span class="line">cv2.destroyAllWindows()</span><br><span class="line"></span><br><span class="line">ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::<span class="number">-1</span>], <span class="keyword">None</span>, <span class="keyword">None</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="Finally"><a href="#Finally" class="headerlink" title="Finally"></a>Finally</h2><p>Write the calculated calibration parameters into a yaml file. Here, it is a bit tricky. Please bear in mind that you <strong>MUST</strong> call function tolist() to transform a numpy array to a list.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># It's very important to transform the matrix to list.</span></span><br><span class="line">data = &#123;<span class="string">'camera_matrix'</span>: np.asarray(mtx).tolist(), <span class="string">'dist_coeff'</span>: np.asarray(dist).tolist()&#125;</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">"calibration.yaml"</span>, <span class="string">"w"</span>) <span class="keyword">as</span> f:</span><br><span class="line">    yaml.dump(data, f)</span><br></pre></td></tr></table></figure>
+<h2 id="Additionally"><a href="#Additionally" class="headerlink" title="Additionally"></a>Additionally</h2><p>You may use the following piece of code to load the calibration parameters from file “calibration.yaml”.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(<span class="string">'calibration.yaml'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    loadeddict = yaml.load(f)</span><br><span class="line">mtxloaded = loadeddict.get(<span class="string">'camera_matrix'</span>)</span><br><span class="line">distloaded = loadeddict.get(<span class="string">'dist_coeff'</span>)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://longervision.github.io/2017/03/18/opencv-internal-calibration-circle-grid/" data-id="cjigfg55q000jdcy739k7b3qp" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Camera-Calibration-Circle-Grid-Marker-Pattern-OpenCV-Python/">Camera Calibration, Circle Grid, Marker, Pattern, OpenCV, Python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/01/10/beaglebone-black-uboot-kernel/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Build U-Boot and Linux Kernel for Beaglebone and Beaglebone Black
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/16/opencv-internal-calibration-chessboard/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Camera Calibration Using a Chessboard</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ArUco-Marker-Pattern-OpenCV-Python/">ArUco, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Beaglebone-Beaglebone-Black-Linaro-GCC-U-Boot-Linux-Kernel-BSP/">Beaglebone, Beaglebone Black, Linaro GCC, U-Boot, Linux Kernel, BSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN-PyTorch-Deep-Learning-Machine-Learning/">CNN, PyTorch, Deep Learning, Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Calibration-Chessboard-Marker-Pattern-OpenCV-Python/">Camera Calibration, Chessboard, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Calibration-Circle-Grid-Marker-Pattern-OpenCV-Python/">Camera Calibration, Circle Grid, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-ArUco-Board-Pattern-OpenCV-Python/">Camera Posture Estimation, ArUco Board, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-ArUco-Diamond-Marker-Pattern-OpenCV-Python/">Camera Posture Estimation, ArUco, Diamond Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-ArUco-Marker-Pattern-OpenCV-Python/">Camera Posture Estimation, ArUco, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-ChArUco-Board-Pattern-OpenCV-Python/">Camera Posture Estimation, ChArUco Board, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-Circle-Grid-Marker-Pattern-OpenCV-Python/">Camera Posture Estimation, Circle Grid, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Longer-Vision-Technology-Computer-Vision-Machine-Vision/">Longer Vision Technology, Computer Vision, Machine Vision</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NanoPi-NEO-AllWinner-H3-Armbian-Debian-BSP/">NanoPi NEO, AllWinner H3, Armbian, Debian, BSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orange-Pi-Plus-2-AllWinner-H3-Armbian-Ubuntu-Mainline-Linux-Kernel-BSP/">Orange Pi Plus 2, AllWinner H3, Armbian, Ubuntu, Mainline Linux Kernel, BSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dd-wrt-Wireless-Repeater-Bridge/">dd-wrt, Wireless, Repeater Bridge</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ArUco-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">ArUco, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Beaglebone-Beaglebone-Black-Linaro-GCC-U-Boot-Linux-Kernel-BSP/" style="font-size: 10px;">Beaglebone, Beaglebone Black, Linaro GCC, U-Boot, Linux Kernel, BSP</a> <a href="/tags/CNN-PyTorch-Deep-Learning-Machine-Learning/" style="font-size: 10px;">CNN, PyTorch, Deep Learning, Machine Learning</a> <a href="/tags/Camera-Calibration-Chessboard-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Calibration, Chessboard, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Calibration-Circle-Grid-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Calibration, Circle Grid, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-ArUco-Board-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, ArUco Board, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-ArUco-Diamond-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, ArUco, Diamond Marker, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-ArUco-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, ArUco, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-ChArUco-Board-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, ChArUco Board, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-Circle-Grid-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, Circle Grid, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Longer-Vision-Technology-Computer-Vision-Machine-Vision/" style="font-size: 10px;">Longer Vision Technology, Computer Vision, Machine Vision</a> <a href="/tags/NanoPi-NEO-AllWinner-H3-Armbian-Debian-BSP/" style="font-size: 10px;">NanoPi NEO, AllWinner H3, Armbian, Debian, BSP</a> <a href="/tags/Orange-Pi-Plus-2-AllWinner-H3-Armbian-Ubuntu-Mainline-Linux-Kernel-BSP/" style="font-size: 10px;">Orange Pi Plus 2, AllWinner H3, Armbian, Ubuntu, Mainline Linux Kernel, BSP</a> <a href="/tags/dd-wrt-Wireless-Repeater-Bridge/" style="font-size: 10px;">dd-wrt, Wireless, Repeater Bridge</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/04/01/CNN-by-PyTorch/">CNN by PyTorch</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/02/setup-repeater-bridge-using-a-dd-wrt-router/">Setup Repeater Bridge Using A dd-wrt Router</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/27/orange-pi-plus-2-armbian/">Install Armbian Ubuntu Desktop with the Newest Supported Mainline Linux Kernel onto Orange Pi Plus 2</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/24/nanopi-neo-armbian/">Install Armbian Debian Server onto NanoPi NEO</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/10/beaglebone-black-uboot-kernel/">Build U-Boot and Linux Kernel for Beaglebone and Beaglebone Black</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Pei Jia<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
