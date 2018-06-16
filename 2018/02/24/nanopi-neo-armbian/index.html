@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta charset="utf-8">
   
 
   
-  <title>Install Armbian Debian Server onto NanoPi NEO | Longer Vision Technology</title>
+  <title>Install Armbian Debian Server onto NanoPi NEO | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Hi, all, I flied back and forth between ShenZhen China and Vancouver Canada in January 2018, and took a holiday break in California USA during Chinese Spring Festival in Febrary 2018. Now, I’m back to">
 <meta name="keywords" content="NanoPi NEO, AllWinner H3, Armbian, Debian, BSP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Install Armbian Debian Server onto NanoPi NEO">
-<meta property="og:url" content="http://longervision.github.io/2018/02/24/nanopi-neo-armbian/index.html">
-<meta property="og:site_name" content="Longer Vision Technology">
+<meta property="og:url" content="http://yoursite.com/2018/02/24/nanopi-neo-armbian/index.html">
+<meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Hi, all, I flied back and forth between ShenZhen China and Vancouver Canada in January 2018, and took a holiday break in California USA during Chinese Spring Festival in Febrary 2018. Now, I’m back to">
-<meta property="og:locale" content="English">
+<meta property="og:locale" content="default">
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/BSP/master/AllWinner/H3/friendlyarm/nanopineo/images/NanoPi_NEO.jpg">
 <meta property="og:updated_time" content="2018-06-15T05:08:00.708Z">
 <meta name="twitter:card" content="summary">
@@ -22,7 +22,7 @@
 <meta name="twitter:description" content="Hi, all, I flied back and forth between ShenZhen China and Vancouver Canada in January 2018, and took a holiday break in California USA during Chinese Spring Festival in Febrary 2018. Now, I’m back to">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/BSP/master/AllWinner/H3/friendlyarm/nanopineo/images/NanoPi_NEO.jpg">
   
-    <link rel="alternate" href="/atom.xml" title="Longer Vision Technology" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -30,23 +30,19 @@
   
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
-  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+  <div id="container">
     <div id="wrap">
       <header id="header">
   <div id="banner"></div>
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/" id="logo">Longer Vision Technology</a>
+        <a href="/" id="logo">Hexo</a>
       </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">Github Blog</a>
-        </h2>
       
     </div>
     <div id="header-inner" class="inner">
@@ -65,7 +61,7 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://longervision.github.io"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
       </div>
     </div>
   </div>
@@ -95,7 +91,7 @@
       
         <p>Hi, all, I flied back and forth between ShenZhen China and Vancouver Canada in January 2018, and took a holiday break in California USA during Chinese Spring Festival in Febrary 2018. Now, I’m back to Vancouver and write this blog. Today, we are going to talk about how to flash the most recent <a href="https://www.kernel.org/" target="_blank" rel="noopener">Linux Kernel</a> onto an <a href="http://www.friendlyarm.net/products/nanopi-neo" target="_blank" rel="noopener">NanoPi NEO</a>. The board looks like (cited from <a href="http://wiki.friendlyarm.com/wiki/index.php/NanoPi_NEO" target="_blank" rel="noopener">NanoPi NEO</a> ):</p>
 <p><img src="https://raw.githubusercontent.com/LongerVision/BSP/master/AllWinner/H3/friendlyarm/nanopineo/images/NanoPi_NEO.jpg" alt="NanoPi NEO"></p>
-<p>Different from <a href="https://longervision.github.io/2018/01/10/beaglebone-black-uboot-kernel/">our previous blog</a> where <a href="http://www.denx.de/wiki/U-Boot/WebHome" target="_blank" rel="noopener">U-Boot</a> and <a href="https://www.kernel.org/" target="_blank" rel="noopener">Linux Kernel</a> are manually built, here, we download and install the <a href="https://www.armbian.com/nanopi-neo/" target="_blank" rel="noopener">built Ubuntu from Armbian</a> directly.</p>
+<p>Different from <a href="https://longervision.github.io/2018/01/10/beaglebone-black-uboot-kernel/" target="_blank" rel="noopener">our previous blog</a> where <a href="http://www.denx.de/wiki/U-Boot/WebHome" target="_blank" rel="noopener">U-Boot</a> and <a href="https://www.kernel.org/" target="_blank" rel="noopener">Linux Kernel</a> are manually built, here, we download and install the <a href="https://www.armbian.com/nanopi-neo/" target="_blank" rel="noopener">built Ubuntu from Armbian</a> directly.</p>
 <p>Before starting, the following paragraph is cited to explain the relationships among <a href="http://allwinnertech.com/" target="_blank" rel="noopener">AllWinner</a>, <a href="http://linux-sunxi.org/Allwinner" target="_blank" rel="noopener">Sunxi</a> and <a href="https://www.linaro.org/" target="_blank" rel="noopener">Linaro</a>. </p>
 <blockquote>
 <p>In march 2014, <a href="http://allwinnertech.com/" target="_blank" rel="noopener">Allwinner</a> joined Linaro as part of the new linaro digital home group. After this, <a href="http://allwinnertech.com/" target="_blank" rel="noopener">Allwinner</a> stopped communicating with the <a href="http://linux-sunxi.org/Allwinner" target="_blank" rel="noopener">sunxi community</a>, as linaro membership apparently satisfies the marketing need to be seen as an open source friendly company. Despite <a href="https://www.linaro.org/" target="_blank" rel="noopener">Linaro</a> membership, <a href="http://allwinnertech.com/" target="_blank" rel="noopener">Allwinner</a> still violates the <a href="http://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank" rel="noopener">GPL</a> on many counts. (cited from <a href="http://linux-sunxi.org/Allwinner" target="_blank" rel="noopener">http://linux-sunxi.org/Allwinner</a> .)</p>
@@ -129,7 +125,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://longervision.github.io/2018/02/24/nanopi-neo-armbian/" data-id="cjigfg55g0004dcy7r0zcjx3p" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/02/24/nanopi-neo-armbian/" data-id="cjign9l0m0005nxy7z3x9wsbk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NanoPi-NEO-AllWinner-H3-Armbian-Debian-BSP/">NanoPi NEO, AllWinner H3, Armbian, Debian, BSP</a></li></ul>
@@ -171,7 +167,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ArUco-Marker-Pattern-OpenCV-Python/">ArUco, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Beaglebone-Beaglebone-Black-Linaro-GCC-U-Boot-Linux-Kernel-BSP/">Beaglebone, Beaglebone Black, Linaro GCC, U-Boot, Linux Kernel, BSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN-PyTorch-Deep-Learning-Machine-Learning/">CNN, PyTorch, Deep Learning, Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Calibration-Chessboard-Marker-Pattern-OpenCV-Python/">Camera Calibration, Chessboard, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Calibration-Circle-Grid-Marker-Pattern-OpenCV-Python/">Camera Calibration, Circle Grid, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-ArUco-Board-Pattern-OpenCV-Python/">Camera Posture Estimation, ArUco Board, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-ArUco-Diamond-Marker-Pattern-OpenCV-Python/">Camera Posture Estimation, ArUco, Diamond Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-ArUco-Marker-Pattern-OpenCV-Python/">Camera Posture Estimation, ArUco, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-ChArUco-Board-Pattern-OpenCV-Python/">Camera Posture Estimation, ChArUco Board, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-Circle-Grid-Marker-Pattern-OpenCV-Python/">Camera Posture Estimation, Circle Grid, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Longer-Vision-Technology-Computer-Vision-Machine-Vision/">Longer Vision Technology, Computer Vision, Machine Vision</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NanoPi-NEO-AllWinner-H3-Armbian-Debian-BSP/">NanoPi NEO, AllWinner H3, Armbian, Debian, BSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orange-Pi-Plus-2-AllWinner-H3-Armbian-Ubuntu-Mainline-Linux-Kernel-BSP/">Orange Pi Plus 2, AllWinner H3, Armbian, Ubuntu, Mainline Linux Kernel, BSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dd-wrt-Wireless-Repeater-Bridge/">dd-wrt, Wireless, Repeater Bridge</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ArUco-Marker-Pattern-OpenCV-Python/">ArUco, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Beaglebone-Beaglebone-Black-Linaro-GCC-U-Boot-Linux-Kernel-BSP/">Beaglebone, Beaglebone Black, Linaro GCC, U-Boot, Linux Kernel, BSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN-PyTorch-Anaconda-Deep-Learning-Machine-Learning/">CNN, PyTorch, Anaconda, Deep Learning, Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Calibration-Chessboard-Marker-Pattern-OpenCV-Python/">Camera Calibration, Chessboard, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Calibration-Circle-Grid-Marker-Pattern-OpenCV-Python/">Camera Calibration, Circle Grid, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-ArUco-Board-Pattern-OpenCV-Python/">Camera Posture Estimation, ArUco Board, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-ArUco-Diamond-Marker-Pattern-OpenCV-Python/">Camera Posture Estimation, ArUco, Diamond Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-ArUco-Marker-Pattern-OpenCV-Python/">Camera Posture Estimation, ArUco, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-ChArUco-Board-Pattern-OpenCV-Python/">Camera Posture Estimation, ChArUco Board, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera-Posture-Estimation-Circle-Grid-Marker-Pattern-OpenCV-Python/">Camera Posture Estimation, Circle Grid, Marker, Pattern, OpenCV, Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Longer-Vision-Technology-Computer-Vision-Machine-Vision/">Longer Vision Technology, Computer Vision, Machine Vision</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NanoPi-NEO-AllWinner-H3-Armbian-Debian-BSP/">NanoPi NEO, AllWinner H3, Armbian, Debian, BSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orange-Pi-Plus-2-AllWinner-H3-Armbian-Ubuntu-Mainline-Linux-Kernel-BSP/">Orange Pi Plus 2, AllWinner H3, Armbian, Ubuntu, Mainline Linux Kernel, BSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dd-wrt-Wireless-Repeater-Bridge/">dd-wrt, Wireless, Repeater Bridge</a></li></ul>
     </div>
   </div>
 
@@ -181,7 +177,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ArUco-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">ArUco, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Beaglebone-Beaglebone-Black-Linaro-GCC-U-Boot-Linux-Kernel-BSP/" style="font-size: 10px;">Beaglebone, Beaglebone Black, Linaro GCC, U-Boot, Linux Kernel, BSP</a> <a href="/tags/CNN-PyTorch-Deep-Learning-Machine-Learning/" style="font-size: 10px;">CNN, PyTorch, Deep Learning, Machine Learning</a> <a href="/tags/Camera-Calibration-Chessboard-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Calibration, Chessboard, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Calibration-Circle-Grid-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Calibration, Circle Grid, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-ArUco-Board-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, ArUco Board, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-ArUco-Diamond-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, ArUco, Diamond Marker, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-ArUco-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, ArUco, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-ChArUco-Board-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, ChArUco Board, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-Circle-Grid-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, Circle Grid, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Longer-Vision-Technology-Computer-Vision-Machine-Vision/" style="font-size: 10px;">Longer Vision Technology, Computer Vision, Machine Vision</a> <a href="/tags/NanoPi-NEO-AllWinner-H3-Armbian-Debian-BSP/" style="font-size: 10px;">NanoPi NEO, AllWinner H3, Armbian, Debian, BSP</a> <a href="/tags/Orange-Pi-Plus-2-AllWinner-H3-Armbian-Ubuntu-Mainline-Linux-Kernel-BSP/" style="font-size: 10px;">Orange Pi Plus 2, AllWinner H3, Armbian, Ubuntu, Mainline Linux Kernel, BSP</a> <a href="/tags/dd-wrt-Wireless-Repeater-Bridge/" style="font-size: 10px;">dd-wrt, Wireless, Repeater Bridge</a>
+      <a href="/tags/ArUco-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">ArUco, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Beaglebone-Beaglebone-Black-Linaro-GCC-U-Boot-Linux-Kernel-BSP/" style="font-size: 10px;">Beaglebone, Beaglebone Black, Linaro GCC, U-Boot, Linux Kernel, BSP</a> <a href="/tags/CNN-PyTorch-Anaconda-Deep-Learning-Machine-Learning/" style="font-size: 10px;">CNN, PyTorch, Anaconda, Deep Learning, Machine Learning</a> <a href="/tags/Camera-Calibration-Chessboard-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Calibration, Chessboard, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Calibration-Circle-Grid-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Calibration, Circle Grid, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-ArUco-Board-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, ArUco Board, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-ArUco-Diamond-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, ArUco, Diamond Marker, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-ArUco-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, ArUco, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-ChArUco-Board-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, ChArUco Board, Pattern, OpenCV, Python</a> <a href="/tags/Camera-Posture-Estimation-Circle-Grid-Marker-Pattern-OpenCV-Python/" style="font-size: 10px;">Camera Posture Estimation, Circle Grid, Marker, Pattern, OpenCV, Python</a> <a href="/tags/Longer-Vision-Technology-Computer-Vision-Machine-Vision/" style="font-size: 10px;">Longer Vision Technology, Computer Vision, Machine Vision</a> <a href="/tags/NanoPi-NEO-AllWinner-H3-Armbian-Debian-BSP/" style="font-size: 10px;">NanoPi NEO, AllWinner H3, Armbian, Debian, BSP</a> <a href="/tags/Orange-Pi-Plus-2-AllWinner-H3-Armbian-Ubuntu-Mainline-Linux-Kernel-BSP/" style="font-size: 10px;">Orange Pi Plus 2, AllWinner H3, Armbian, Ubuntu, Mainline Linux Kernel, BSP</a> <a href="/tags/dd-wrt-Wireless-Repeater-Bridge/" style="font-size: 10px;">dd-wrt, Wireless, Repeater Bridge</a>
     </div>
   </div>
 
@@ -203,7 +199,7 @@
       <ul>
         
           <li>
-            <a href="/2018/04/01/CNN-by-PyTorch/">CNN by PyTorch</a>
+            <a href="/2018/04/01/CNN-by-PyTorch-via-Anaconda/">CNN by PyTorch via Anaconda</a>
           </li>
         
           <li>
@@ -234,7 +230,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2018 Pei Jia<br>
+      &copy; 2018 John Doe<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
@@ -260,23 +256,6 @@
 
 
 
-  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config("");
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+  </div>
 </body>
 </html>
