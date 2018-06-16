@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/PyTorch/00_AnacondaVirtualEnv4Python.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/PyTorch/00_HelloPyTorch.jpg">
 <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/6/63/Typical_cnn.png">
-<meta property="og:updated_time" content="2018-06-16T00:08:48.369Z">
+<meta property="og:updated_time" content="2018-06-16T05:38:00.533Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CNN by PyTorch via Anaconda">
 <meta name="twitter:description" content="Finally, I’ve got some time to write something about PyTorch, a popular deep learning tool. We suppose you have had fundamental understanding of Anaconda Python, created Anaconda virtual environment (">
@@ -98,7 +98,9 @@
 <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/PyTorch/00_AnacondaVirtualEnv4Python.jpg" alt="Anaconda Python Virtual Environment"></p>
 <p>Clearly, Anaconda comes with the <strong>NEWEST</strong> version. So far, it is <strong>Python 3.6.4</strong>.</p>
 <h1 id="PART-A-Hello-PyTorch"><a href="#PART-A-Hello-PyTorch" class="headerlink" title="PART A: Hello PyTorch"></a>PART A: Hello PyTorch</h1><p>Our very <strong>FIRST</strong> test code is of only 6 lines including an empty line:</p>
-<p><script text="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><br>
+<script text="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
 <iframe id="ipynb" marginheight="0" frameborder="0" width="924px" srcdoc="<!DOCTYPE html>
 <html>
 <head><meta charset='utf-8' />
@@ -11929,18 +11931,18 @@ document.getElementById('ipynb').height=$("#ipynb").contents().find("#notebook")
 })
 </script> 
     
-</p>
+
 <p>After popping up <a href="http://jupyter.org/" target="_blank" rel="noopener">Jupyter Notebook</a> server, and click <strong>Run</strong>, you will see this view:</p>
 <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/PyTorch/00_HelloPyTorch.jpg" alt="Jupyter Notebook Hello PyTorch"></p>
 <p>Clearly, the current <strong>torch</strong> is of version <strong>0.3.1</strong>, and <strong>torchvision</strong> is of version <strong>0.2.0</strong>.</p>
 <h1 id="PART-B-Convolutional-Neural-Network-in-PyTorch"><a href="#PART-B-Convolutional-Neural-Network-in-PyTorch" class="headerlink" title="PART B: Convolutional Neural Network in PyTorch"></a>PART B: Convolutional Neural Network in PyTorch</h1><h2 id="1-General-Concepts"><a href="#1-General-Concepts" class="headerlink" title="1. General Concepts"></a>1. General Concepts</h2><h3 id="1-Online-Resource"><a href="#1-Online-Resource" class="headerlink" title="1) Online Resource"></a>1) Online Resource</h3><p>We are <strong>NOT</strong> going to discuss the background details of Convolutional Neural Network. A lot online frameworks/courses are available for you to catch up:</p>
 <ul>
-<li>CS231n</li>
-<li>Caffe2</li>
-<li>MXNet</li>
-<li>ConvNetJS</li>
-<li>TensorFlow</li>
-<li>OpenAI</li>
+<li><a href="http://cs231n.stanford.edu/" target="_blank" rel="noopener">CS231n</a></li>
+<li><a href="https://caffe2.ai/" target="_blank" rel="noopener">Caffe2</a></li>
+<li><a href="https://mxnet.apache.org/" target="_blank" rel="noopener">MXNet</a></li>
+<li><a href="https://cs.stanford.edu/people/karpathy/convnetjs/?spm=5176.100239.blogcont43089.256.HCgoHQ" target="_blank" rel="noopener">ConvNetJS</a></li>
+<li><a href="https://www.tensorflow.org/" target="_blank" rel="noopener">TensorFlow</a></li>
+<li><a href="https://openai.com/" target="_blank" rel="noopener">OpenAI</a></li>
 <li>…</li>
 </ul>
 <p>Several fabulous blogs are strongly recommended, including:</p>
@@ -11975,7 +11977,9 @@ document.getElementById('ipynb').height=$("#ipynb").contents().find("#notebook")
 <h4 id="BP-Deduction-Conclusions"><a href="#BP-Deduction-Conclusions" class="headerlink" title="BP Deduction Conclusions"></a>BP Deduction Conclusions</h4><p>Only <a href="https://en.wikipedia.org/wiki/Mean_squared_error" target="_blank" rel="noopener">MSE</a> is considered here (Please refer to <a href="https://brilliant.org/wiki/backpropagation/)" target="_blank" rel="noopener">https://brilliant.org/wiki/backpropagation/)</a>:</p>
 <p>$$<br>\frac {\partial {E(X,\theta)}} {\partial w_{ij}^k} = \frac {1}{N} \sum_{d=1}^N \frac {\partial}{\partial w_{ij}^k} \Big( {\frac{1}{2} (\vec{y_d}-y_d)^2 } \Big) = \frac{1}{N} \sum_{d=1}^N {\frac{\partial E_d}{\partial w_{ij}^k}}<br>$$</p>
 <p>The updating weights is also determined as:<br>$$<br>\Delta w_{ij}^k = - \alpha \frac {\partial {E(X,\theta)}} {\partial w_{ij}^k}<br>$$</p>
-<h2 id="2-PyTorch-Implementation-of-Canonical-CNN"><a href="#2-PyTorch-Implementation-of-Canonical-CNN" class="headerlink" title="2. PyTorch Implementation of Canonical CNN"></a>2. PyTorch Implementation of Canonical CNN</h2><p><script text="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><br>
+<h2 id="2-PyTorch-Implementation-of-Canonical-CNN"><a href="#2-PyTorch-Implementation-of-Canonical-CNN" class="headerlink" title="2. PyTorch Implementation of Canonical CNN"></a>2. PyTorch Implementation of Canonical CNN</h2><script text="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
 <iframe id="ipynb" marginheight="0" frameborder="0" width="924px" srcdoc="<!DOCTYPE html>
 <html>
 <head><meta charset='utf-8' />
@@ -24894,12 +24898,12 @@ document.getElementById('ipynb').height=$("#ipynb").contents().find("#notebook")
 })
 </script> 
     
-</p>
+
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/01/CNN-by-PyTorch-via-Anaconda/" data-id="cjign9l0d0000nxy7z5kqarfb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/04/01/CNN-by-PyTorch-via-Anaconda/" data-id="cjigxufkg00001ly7o4tgz5fw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CNN-PyTorch-Anaconda-Deep-Learning-Machine-Learning/">CNN, PyTorch, Anaconda, Deep Learning, Machine Learning</a></li></ul>
