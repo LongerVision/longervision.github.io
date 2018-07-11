@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="English">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo3d.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo3d_32X32.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo3d_16x16.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo3d.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="I’m quite busy today. So, I’d just post some videos to show the performance about jiu bu gao su ni 😆 Click on the pictures to open an uploaded Facebook video.  1. Key Point Localization  1.1 Nobody -">
+<meta name="keywords" content="OpenCV, Face, Key Point Localization, Orientation">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Face Key Point Localization &amp; Orientation">
+<meta property="og:url" content="http://longervision.ca/2018/07/05/Face/face_keypoint_orientation/index.html">
+<meta property="og:site_name" content="Longer Vision Technology">
+<meta property="og:description" content="I’m quite busy today. So, I’d just post some videos to show the performance about jiu bu gao su ni 😆 Click on the pictures to open an uploaded Facebook video.  1. Key Point Localization  1.1 Nobody -">
+<meta property="og:locale" content="English">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/keypoints/nobody_snapshot.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/keypoints/franck_snapshot.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/01_snapshot_al_pacino.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/02_snapshot_alanis_morissette.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/03_snapshot_anderson_cooper.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/04_snapshot_angelina_jolie.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/05_snapshot_bill_clinton.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/06_snapshot_bill_gates.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/07_snapshot_gloria_estefan.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/08_snapshot_jet_li.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/09_snapshot_julia_roberts.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/10_snapshot_noam_chomsky.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/11_snapshot_sylvester_stallone.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/12_snapshot_tony_blair.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/13_snapshot_victoria_beckham.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/14_snapshot_vladimir_putin.png">
+<meta property="og:updated_time" content="2018-07-11T06:24:34.286Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Face Key Point Localization &amp; Orientation">
+<meta name="twitter:description" content="I’m quite busy today. So, I’d just post some videos to show the performance about jiu bu gao su ni 😆 Click on the pictures to open an uploaded Facebook video.  1. Key Point Localization  1.1 Nobody -">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/keypoints/nobody_snapshot.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://longervision.ca/2018/07/05/Face/face_keypoint_orientation/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Face Key Point Localization & Orientation | Longer Vision Technology</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="English">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Longer Vision Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Github Blog</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/07/05/Face/face_keypoint_orientation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Face Key Point Localization & Orientation
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-05 00:00:00" itemprop="dateCreated datePublished" datetime="2018-07-05T00:00:00-07:00">2018-07-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-07-10 23:24:34" itemprop="dateModified" datetime="2018-07-10T23:24:34-07:00">2018-07-10</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Face/" itemprop="url" rel="index"><span itemprop="name">Face</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>I’m quite busy today. So, I’d just post some videos to show the performance about <strong>jiu bu gao su ni</strong> 😆<br>
+Click on the pictures to open an uploaded Facebook video.</p>
+<h1 id="1-key-point-localization"><a class="markdownIt-Anchor" href="#1-key-point-localization"></a> 1. Key Point Localization</h1>
+<h2 id="11-nobody-yeah-its-me-10-years-ago-how-time-flies"><a class="markdownIt-Anchor" href="#11-nobody-yeah-its-me-10-years-ago-how-time-flies"></a> 1.1 Nobody - Yeah, it’s ME, 10 YEARS ago. How time flies…</h2>
+<p><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054002684756934/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/keypoints/nobody_snapshot.png" alt="Nobody - Yeah, it's ME"></a></p>
+<h2 id="12-franck-what-a-canonical-annotated-face-dataset"><a class="markdownIt-Anchor" href="#12-franck-what-a-canonical-annotated-face-dataset"></a> 1.2 FRANCK - What a Canonical Annotated Face Dataset</h2>
+<p><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054003711423498/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/keypoints/franck_snapshot.png" alt="FRANCK"></a></p>
+<h1 id="2-orientation"><a class="markdownIt-Anchor" href="#2-orientation"></a> 2. Orientation</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">01_al_pacino</th>
+<th style="text-align:center">02_alanis_morissette</th>
+<th style="text-align:center">03_anderson_cooper</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054033554753847/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/01_snapshot_al_pacino.png" alt="01_al_pacino.mp4"></a></td>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054036881420181/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/02_snapshot_alanis_morissette.png" alt="02_alanis_morissette.mp4"></a></td>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054038041420065/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/03_snapshot_anderson_cooper.png" alt="03_anderson_cooper.mp4"></a></td>
+</tr>
+<tr>
+<td style="text-align:center">04_angelina_jolie</td>
+<td style="text-align:center">05_bill_clinton</td>
+<td style="text-align:center">06_bill_gates</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054041144753088/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/04_snapshot_angelina_jolie.png" alt="04_angelina_jolie.mp4"></a></td>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054042951419574/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/05_snapshot_bill_clinton.png" alt="05_bill_clinton.mp4"></a></td>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054044151419454/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/06_snapshot_bill_gates.png" alt="06_bill_gates.mp4"></a></td>
+</tr>
+<tr>
+<td style="text-align:center">07_gloria_estefan</td>
+<td style="text-align:center">08_jet_li</td>
+<td style="text-align:center">09_julia_roberts</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054045324752670/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/07_snapshot_gloria_estefan.png" alt="07_gloria_estefan.mp4"></a></td>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054046601419209/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/08_snapshot_jet_li.png" alt="08_jet_li.mp4"></a></td>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054048371419032/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/09_snapshot_julia_roberts.png" alt="09_julia_roberts.mp4"></a></td>
+</tr>
+<tr>
+<td style="text-align:center">10_noam_chomsky</td>
+<td style="text-align:center">11_sylvester_stallone</td>
+<td style="text-align:center">12_tony_blair</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054049451418924/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/10_snapshot_noam_chomsky.png" alt="10_noam_chomsky.mp4"></a></td>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054051491418720/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/11_snapshot_sylvester_stallone.png" alt="11_sylvester_stallone.mp4"></a></td>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054052961418573/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/12_snapshot_tony_blair.png" alt="12_tony_blair.mp4"></a></td>
+</tr>
+<tr>
+<td style="text-align:center">13_victoria_beckham</td>
+<td style="text-align:center">14_vladimir_putin</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054064601417409/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/13_snapshot_victoria_beckham.png" alt="13_victoria_beckham.mp4"></a></td>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054065608083975/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/14_snapshot_vladimir_putin.png" alt="14_vladimir_putin.mp4"></a></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/OpenCV-Face-Key-Point-Localization-Orientation/" rel="tag"># OpenCV, Face, Key Point Localization, Orientation</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/02/DeepLearning/ImageAI-Happy-Canada-Day/" rel="next" title="ImageAI - Happy Canada Day">
+                <i class="fa fa-chevron-left"></i> ImageAI - Happy Canada Day
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/10/DeepLearning/tensorflow-keras-build-from-source/" rel="prev" title="Tensorflow & Keras - Build from Source">
+                Tensorflow & Keras - Build from Source <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Nobody</p>
+              <p class="site-description motion-element" itemprop="description">Longer Vision Technology Github Blog</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-key-point-localization"><span class="nav-number">1.</span> <span class="nav-text"> 1. Key Point Localization</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#11-nobody-yeah-its-me-10-years-ago-how-time-flies"><span class="nav-number">1.1.</span> <span class="nav-text"> 1.1 Nobody - Yeah, it’s ME, 10 YEARS ago. How time flies…</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-franck-what-a-canonical-annotated-face-dataset"><span class="nav-number">1.2.</span> <span class="nav-text"> 1.2 FRANCK - What a Canonical Annotated Face Dataset</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-orientation"><span class="nav-number">2.</span> <span class="nav-text"> 2. Orientation</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nobody</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+   
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
