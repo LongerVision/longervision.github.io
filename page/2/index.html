@@ -309,6 +309,215 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/09/15/Embedded/uPyCraft_PyQt5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/15/Embedded/uPyCraft_PyQt5/" itemprop="url">
+                  uPyCraft_PyQt5
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-09-15 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-15T00:00:00-07:00">2018-09-15</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-11-04 00:20:23" itemprop="dateModified" datetime="2018-11-04T00:20:23-07:00">2018-11-04</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Embedded-Systems/" itemprop="url" rel="index"><span itemprop="name">Embedded Systems</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>I’ve been looking for an IDE for debugging various microcontroller boards, such as <a href="https://openmv.io/" target="_blank" rel="noopener">OpenMV</a> and <a href="http://micropython.org/" target="_blank" rel="noopener">PyBoard</a>, etc. There are some fundamental requirements:</p>
+<ul>
+<li>Open source</li>
+<li>Python debugger, <a href="http://micropython.org/" target="_blank" rel="noopener">MicroPython</a> support</li>
+<li>Any GUI is fine, but <a href="https://www.qt.io/" target="_blank" rel="noopener">Qt</a> preferred</li>
+</ul>
+<p>Therefore, after a careful search, I found <a href="https://dfrobot.gitbooks.io/upycraft/" target="_blank" rel="noopener">uPyCraft</a>, which seems to be designed by a Chinese team? Because I found the <a href="http://docs.dfrobot.com.cn/upycraft/" target="_blank" rel="noopener">Chinese version of uPyCraft documentation</a> as well.</p>
+<p>However, it seems Linux support for uPyCraft is <strong>NOT</strong> very good. My working environment:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID: Ubuntu</span><br><span class="line">Description:    Ubuntu 18.04.1 LTS</span><br><span class="line">Release:        18.04</span><br><span class="line">Codename:       bionic</span><br><span class="line">$ uname -a</span><br><span class="line">Linux jiapei-GT72-6QE 4.18.7-041807-generic <span class="comment">#201809090930 SMP Sun Sep 9 09:33:16 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux</span></span><br><span class="line">$ python --version</span><br><span class="line">Python 3.6.5</span><br><span class="line">$ qmake --version</span><br><span class="line">QMake version 3.1</span><br><span class="line">Using Qt version 5.11.1 <span class="keyword">in</span> /opt/Qt/Current/gcc_64/lib</span><br></pre></td></tr></table></figure>
+<h1 id="part-a-test-built-upycraft"><a class="markdownIt-Anchor" href="#part-a-test-built-upycraft"></a> PART A: Test Built uPyCraft</h1>
+<h2 id="1-try-the-executable"><a class="markdownIt-Anchor" href="#1-try-the-executable"></a> 1. Try the Executable</h2>
+<p>In fact, there is one executable <a href="https://gitee.com/dfrobot/upycraft/raw/master/uPyCraft_linux_V1.0" target="_blank" rel="noopener">Linux version for uPyCraft</a>. However, to run it after downloading, I obtained the following ERROR messages:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ./uPyCraft_linux_V1.0 </span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"uPyCraft.py"</span>, line 2, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">  File <span class="string">"/usr/local/lib/python3.5/dist-packages/PyInstaller/loader/pyimod03_importers.py"</span>, line 714, <span class="keyword">in</span> load_module</span><br><span class="line">ImportError: /tmp/_MEIoq8Xi8/libz.so.1: version `ZLIB_1.2.9<span class="string">' not found (required by /usr/lib/x86_64-linux-gnu/libpng16.so.16)</span></span><br><span class="line"><span class="string">[324] Failed to execute script uPyCraft</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-try-source-code"><a class="markdownIt-Anchor" href="#2-try-source-code"></a> 2. Try source code</h2>
+<p>We can also clone <a href="https://github.com/DFRobot/uPyCraft_src" target="_blank" rel="noopener">uPyCraft source code</a> and build it from scratch. However, clearly, current <a href="https://github.com/DFRobot/uPyCraft_src" target="_blank" rel="noopener">uPyCraft</a> relies on <a href="https://www.riverbankcomputing.com/software/pyqt/download" target="_blank" rel="noopener">PyQt4</a> instead of <a href="http://pyqt.sourceforge.net/Docs/PyQt5/" target="_blank" rel="noopener">PyQt5</a>.</p>
+<p>Therefore, I’ve got to modify <a href="https://github.com/DFRobot/uPyCraft_src" target="_blank" rel="noopener">uPyCraft</a> a bit to have this <a href="https://github.com/jiapei100/uPyCraft_PyQt5" target="_blank" rel="noopener">uPyCraft_PyQt5</a>.</p>
+<h1 id="part-b-build-upycraft-with-pyqt5"><a class="markdownIt-Anchor" href="#part-b-build-upycraft-with-pyqt5"></a> PART B: Build uPyCraft with PyQt5</h1>
+<p>Before testing <a href="https://github.com/jiapei100/uPyCraft_PyQt5" target="_blank" rel="noopener">uPyCraft_PyQt5</a>, you need to make sure</p>
+<ul>
+<li><a href="https://www.python.org/" target="_blank" rel="noopener">python3</a></li>
+<li><a href="https://www.qt.io/download" target="_blank" rel="noopener">Qt5</a><br>
+have been installed.</li>
+</ul>
+<p><span style="color:red">**What’s more important: Please uninstall enum34 but keep the original enum.</span> Please refer to <a href="https://stackoverflow.com/questions/43124775/why-python-3-6-1-throws-attributeerror-module-enum-has-no-attribute-intflag" target="_blank" rel="noopener">Stack Overflow</a> for more details.</p>
+<h2 id="1-check-out-and-build-my-modified-code-of-upycraft_pyqt5"><a class="markdownIt-Anchor" href="#1-check-out-and-build-my-modified-code-of-upycraft_pyqt5"></a> 1. Check out and build my modified code of uPyCraft_PyQt5</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> git@github.com:jiapei100/uPyCraft_PyQt5.git</span><br><span class="line">$ <span class="built_in">cd</span> uPyCraft_PyQt5</span><br><span class="line">$ pyinstaller -F uPyCraft.py</span><br><span class="line">47 INFO: PyInstaller: 3.4</span><br><span class="line">47 INFO: Python: 3.6.5</span><br><span class="line">47 INFO: Platform: Linux-4.18.7-041807-generic-x86_64-with-Ubuntu-18.04-bionic</span><br><span class="line">48 INFO: wrote ....../uPyCraft_PyQt5/uPyCraft.spec</span><br><span class="line">50 INFO: UPX is not available.</span><br><span class="line">51 INFO: Extending PYTHONPATH with paths</span><br><span class="line">[<span class="string">'....../uPyCraft_PyQt5'</span>,</span><br><span class="line"> <span class="string">'....../uPyCraft_PyQt5'</span>]</span><br><span class="line">52 INFO: checking Analysis</span><br><span class="line">54 INFO: Building because inputs changed</span><br><span class="line">54 INFO: Initializing module dependency graph...</span><br><span class="line">57 INFO: Initializing module graph hooks...</span><br><span class="line">59 INFO: Analyzing base_library.zip ...</span><br><span class="line">2747 INFO: running Analysis Analysis-00.toc</span><br><span class="line">2776 INFO: Caching module hooks...</span><br><span class="line">2779 INFO: Analyzing ....../uPyCraft_PyQt5/uPyCraft.py</span><br><span class="line">3619 INFO: Loading module hooks...</span><br><span class="line">3619 INFO: Loading module hook <span class="string">"hook-PyQt5.QtGui.py"</span>...</span><br><span class="line">3749 INFO: Loading module hook <span class="string">"hook-pydoc.py"</span>...</span><br><span class="line">3750 INFO: Loading module hook <span class="string">"hook-PyQt5.QtWidgets.py"</span>...</span><br><span class="line">3832 INFO: Loading module hook <span class="string">"hook-xml.py"</span>...</span><br><span class="line">3914 INFO: Loading module hook <span class="string">"hook-PyQt5.QtCore.py"</span>...</span><br><span class="line">3933 INFO: Loading module hook <span class="string">"hook-PyQt5.QtPrintSupport.py"</span>...</span><br><span class="line">4057 INFO: Loading module hook <span class="string">"hook-encodings.py"</span>...</span><br><span class="line">4126 INFO: Loading module hook <span class="string">"hook-PyQt5.py"</span>...</span><br><span class="line">4170 WARNING: Hidden import <span class="string">"sip"</span> not found!</span><br><span class="line">4179 INFO: Looking <span class="keyword">for</span> ctypes DLLs</span><br><span class="line">4274 WARNING: library setupapi required via ctypes not found</span><br><span class="line">4299 WARNING: library Advapi32 required via ctypes not found</span><br><span class="line">4367 INFO: Analyzing run-time hooks ...</span><br><span class="line">4370 INFO: Including run-time hook <span class="string">'pyi_rth_qt5.py'</span></span><br><span class="line">4376 INFO: Looking <span class="keyword">for</span> dynamic libraries</span><br><span class="line">8225 INFO: Looking <span class="keyword">for</span> eggs</span><br><span class="line">8225 INFO: Python library not <span class="keyword">in</span> binary dependencies. Doing additional searching...</span><br><span class="line">8292 INFO: Using Python library /usr/lib/x86_64-linux-gnu/libpython3.6m.so.1.0</span><br><span class="line">8301 INFO: Warnings written to ....../uPyCraft_PyQt5/build/uPyCraft/warn-uPyCraft.txt</span><br><span class="line">8339 INFO: Graph cross-reference written to ....../uPyCraft_PyQt5/build/uPyCraft/xref-uPyCraft.html</span><br><span class="line">8352 INFO: checking PYZ</span><br><span class="line">8354 INFO: Building because name changed</span><br><span class="line">8354 INFO: Building PYZ (ZlibArchive) ....../uPyCraft_PyQt5/build/uPyCraft/PYZ-00.pyz</span><br><span class="line">8762 INFO: Building PYZ (ZlibArchive) ....../uPyCraft_PyQt5/build/uPyCraft/PYZ-00.pyz completed successfully.</span><br><span class="line">8765 INFO: checking PKG</span><br><span class="line">8767 INFO: Building because name changed</span><br><span class="line">8767 INFO: Building PKG (CArchive) PKG-00.pkg</span><br><span class="line">33163 INFO: Building PKG (CArchive) PKG-00.pkg completed successfully.</span><br><span class="line">33168 INFO: Bootloader ~/.<span class="built_in">local</span>/lib/python3.6/site-packages/PyInstaller/bootloader/Linux-64bit/run</span><br><span class="line">33168 INFO: checking EXE</span><br><span class="line">33170 INFO: Building because name changed</span><br><span class="line">33170 INFO: Building EXE from EXE-00.toc</span><br><span class="line">33175 INFO: Appending archive to ELF section <span class="keyword">in</span> EXE ....../uPyCraft_PyQt5/dist/uPyCraft</span><br><span class="line">33753 INFO: Building EXE from EXE-00.toc completed successfully.</span><br></pre></td></tr></table></figure>
+<h2 id="2-run-and-test-upycraft_pyqt5"><a class="markdownIt-Anchor" href="#2-run-and-test-upycraft_pyqt5"></a> 2. Run and test uPyCraft_PyQt5</h2>
+<p>To run <strong>uPyCraft_PyQt5</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> dist</span><br><span class="line">$ ./uPyCraft</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/uPyCraft/uPyCraft.jpg" alt="uPyCraft"></p>
+<p>So far, 6 boards are particularly supported:</p>
+<ul>
+<li><a href="https://arduino-esp8266.readthedocs.io/en/latest/boards.html" target="_blank" rel="noopener">ESP8266</a></li>
+<li><a href="https://www.espressif.com/en/products/hardware/development-boards" target="_blank" rel="noopener">ESP32</a></li>
+<li><a href="http://micropython.org/" target="_blank" rel="noopener">PyBoard</a></li>
+<li><a href="https://github.com/TPYBoard" target="_blank" rel="noopener">TPYBoardV202</a></li>
+<li><a href="http://tpyboard.com/" target="_blank" rel="noopener">TPYBoardV102</a></li>
+<li><a href="https://microbit.org/" target="_blank" rel="noopener">micro:bit</a></li>
+</ul>
+<p>For the sake of our requirements, <a href="https://openmv.io/" target="_blank" rel="noopener">openmv</a> is going to be supported in particular.</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/09/04/Embedded/banana-pi-pro-armbian/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2094,189 +2303,6 @@ Click on the pictures to open an uploaded Facebook video.</p>
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/06/22/Tools/download-youtube-videos/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/22/Tools/download-youtube-videos/" itemprop="url">
-                  Use VLC To Download Youtube Videos
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-06-22 00:00:00" itemprop="dateCreated datePublished" datetime="2018-06-22T00:00:00-07:00">2018-06-22</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-09-04 20:39:15" itemprop="dateModified" datetime="2018-09-04T20:39:15-07:00">2018-09-04</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>To download videos from <a href="https://www.youtube.com/" target="_blank" rel="noopener">Youtube</a> is sometimes <strong>required</strong>. Some Chrome plugins can be used to download Youtube videos, such as: <a href="https://chrome.google.com/webstore/detail/youtube-downloader/glpiomfohibbgeedfmcnahlanpehojdd" target="_blank" rel="noopener">Youtube Downloader</a>. Other methods can also be found on various resources, such as: <a href="https://www.wikihow.com/Download-YouTube-Videos" target="_blank" rel="noopener">WikiHow</a>.</p>
-<p>In this blog, I’m going to <strong>cite (copy and paste)</strong> from <a href="https://www.wikihow.com/Download-YouTube-Videos" target="_blank" rel="noopener">WikiHow</a> about <strong>How to download Youtube videos by using VLC</strong>.</p>
-<h1 id="step1-copy-youtube-url"><a class="markdownIt-Anchor" href="#step1-copy-youtube-url"></a> STEP1: Copy Youtube URL</h1>
-<p>Find the Youtube video that you would like to download, and copy the Youtube URL.</p>
-<h1 id="step-2-broadcast-youtube-video-in-vlc"><a class="markdownIt-Anchor" href="#step-2-broadcast-youtube-video-in-vlc"></a> STEP 2: Broadcast Youtube Video in VLC</h1>
-<p>Paste the URL under <strong>VLC Media Player</strong>-&gt;<strong>Media</strong>-&gt;<strong>Open Network Stream</strong>-&gt;<strong>Network Tab</strong>-&gt;<strong>Please enter a network URL:</strong>, and <strong>Play</strong>:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/youtube/Broadcasting.jpg" alt="Video Broadcasting"></p>
-<h1 id="step-3-get-the-real-location-of-youtube-video"><a class="markdownIt-Anchor" href="#step-3-get-the-real-location-of-youtube-video"></a> STEP 3: Get the Real Location of Youtube Video</h1>
-<p>Then, copy the URL under <strong>Tools</strong>-&gt;<strong>Codec Information</strong>-&gt;<strong>Codec</strong>-&gt;<strong>Location</strong>:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/youtube/CurrentMediaInformation.jpg" alt="Current Media Information"></p>
-<h1 id="step-4-save-video-as"><a class="markdownIt-Anchor" href="#step-4-save-video-as"></a> STEP 4: Save Video As</h1>
-<p>Finally, paste the URL in Chrome:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/youtube/SaveVideoAs.jpg" alt="Save Video As"></p>
-<p>and <strong>Save video as…</strong>.</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/06/22/Tools/irc-via-weechat-in-Linux/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2528,7 +2554,7 @@ Click on the pictures to open an uploaded Facebook video.</p>
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">35</span>
+                    <span class="site-state-item-count">36</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2652,7 +2678,9 @@ Click on the pictures to open an uploaded Facebook video.</p>
                     
                       
                     
-                    <span class="site-state-item-count">35</span>
+                      
+                    
+                    <span class="site-state-item-count">36</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -2692,7 +2720,7 @@ Click on the pictures to open an uploaded Facebook video.</p>
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
