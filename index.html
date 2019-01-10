@@ -309,6 +309,196 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/10/Kaggle/petfinder-adoption-prediction/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/10/Kaggle/petfinder-adoption-prediction/" itemprop="url">
+                  Kaggle Competition - PetFinder.my Adoption Prediction
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-01-10 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-10T00:00:00-08:00">2019-01-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-01-09 22:45:33" itemprop="dateModified" datetime="2019-01-09T22:45:33-08:00">2019-01-09</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Happy new year everybody. 2019 comes. Let’s have some <a href="https://www.kaggle.com" target="_blank" rel="noopener">Kaggle</a> fun. Today, we’re going to try</p>
+<h1 id="system-preparation"><a class="markdownIt-Anchor" href="#system-preparation"></a> System Preparation</h1>
+<p>Supposing you’ve already correctly set up all your configurations on:</p>
+<h2 id="python"><a class="markdownIt-Anchor" href="#python"></a> <a href="https://www.python.org/" target="_blank" rel="noopener">Python</a></h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python --version</span><br><span class="line">Python 3.6.7</span><br><span class="line">➜  ~ which python</span><br><span class="line">/usr/bin/python</span><br></pre></td></tr></table></figure>
+<h2 id="kaggle"><a class="markdownIt-Anchor" href="#kaggle"></a> <a href="https://www.kaggle.com" target="_blank" rel="noopener">Kaggle</a></h2>
+<p>Please follow <a href="https://github.com/Kaggle/kaggle-api" target="_blank" rel="noopener">Kaggle Github</a> to install <strong>Python Kaggle</strong>. After installation, you’ll get:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip show kaggle</span><br><span class="line">Name: kaggle</span><br><span class="line">Version: 1.5.1.1</span><br><span class="line">Summary: Kaggle API</span><br><span class="line">Home-page: https://github.com/Kaggle/kaggle-api</span><br><span class="line">Author: Kaggle</span><br><span class="line">Author-email: support@kaggle.com</span><br><span class="line">License: Apache 2.0</span><br><span class="line">Location: ~/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: requests, certifi, tqdm, six, python-dateutil, python-slugify, urllib3</span><br><span class="line">Required-by:</span><br></pre></td></tr></table></figure>
+<h2 id="cuda"><a class="markdownIt-Anchor" href="#cuda"></a> <a href="https://developer.nvidia.com/cuda-toolkit" target="_blank" rel="noopener">Cuda</a></h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ nvidia-smi</span><br><span class="line">Wed Jan  2 15:52:06 2019       </span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| NVIDIA-SMI 410.78       Driver Version: 410.78       CUDA Version: 10.0     |</span><br><span class="line">|-------------------------------+----------------------+----------------------+</span><br><span class="line">| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |</span><br><span class="line">| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |</span><br><span class="line">|===============================+======================+======================|</span><br><span class="line">|   0  GeForce GTX 980M    Off  | 00000000:01:00.0  On |                  N/A |</span><br><span class="line">| N/A   32C    P8     8W /  N/A |    779MiB /  4035MiB |      0%      Default |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line">                                                                               </span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| Processes:                                                       GPU Memory |</span><br><span class="line">|  GPU       PID   Type   Process name                             Usage      |</span><br><span class="line">|=============================================================================|</span><br><span class="line">|    0      1842      G   /usr/lib/xorg/Xorg                            15MiB |</span><br><span class="line">|    0      1952      G   /usr/bin/gnome-shell                          48MiB |</span><br><span class="line">|    0      2923      G   /usr/lib/xorg/Xorg                           188MiB |</span><br><span class="line">|    0      3039      G   /usr/bin/gnome-shell                         163MiB |</span><br><span class="line">|    0      3801      G   ...uest-channel-token=14688497433927674620   220MiB |</span><br><span class="line">|    0      7109      G   ...-token=FECD30C79B74E3AD9CF815BF4CB9EB09    70MiB |</span><br><span class="line">|    0     28276      G   ...-token=8CC4669488D477BE118BBC69F71B724E    64MiB |</span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">➜  ~ /usr/local/cuda/samples/bin/x86_64/linux/release/deviceQuery</span><br><span class="line">/usr/local/cuda/samples/bin/x86_64/linux/release/deviceQuery Starting...</span><br><span class="line"></span><br><span class="line"> CUDA Device Query (Runtime API) version (CUDART static linking)</span><br><span class="line"></span><br><span class="line">Detected 1 CUDA Capable device(s)</span><br><span class="line"></span><br><span class="line">Device 0: "GeForce GTX 980M"</span><br><span class="line">  CUDA Driver Version / Runtime Version          10.0 / 10.0</span><br><span class="line">  CUDA Capability Major/Minor version number:    5.2</span><br><span class="line">  Total amount of global memory:                 4035 MBytes (4231331840 bytes)</span><br><span class="line">  (12) Multiprocessors, (128) CUDA Cores/MP:     1536 CUDA Cores</span><br><span class="line">  GPU Max Clock rate:                            1126 MHz (1.13 GHz)</span><br><span class="line">  Memory Clock rate:                             2505 Mhz</span><br><span class="line">  Memory Bus Width:                              256-bit</span><br><span class="line">  L2 Cache Size:                                 2097152 bytes</span><br><span class="line">  Maximum Texture Dimension Size (x,y,z)         1D=(65536), 2D=(65536, 65536), 3D=(4096, 4096, 4096)</span><br><span class="line">  Maximum Layered 1D Texture Size, (num) layers  1D=(16384), 2048 layers</span><br><span class="line">  Maximum Layered 2D Texture Size, (num) layers  2D=(16384, 16384), 2048 layers</span><br><span class="line">  Total amount of constant memory:               65536 bytes</span><br><span class="line">  Total amount of shared memory per block:       49152 bytes</span><br><span class="line">  Total number of registers available per block: 65536</span><br><span class="line">  Warp size:                                     32</span><br><span class="line">  Maximum number of threads per multiprocessor:  2048</span><br><span class="line">  Maximum number of threads per block:           1024</span><br><span class="line">  Max dimension size of a thread block (x,y,z): (1024, 1024, 64)</span><br><span class="line">  Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)</span><br><span class="line">  Maximum memory pitch:                          2147483647 bytes</span><br><span class="line">  Texture alignment:                             512 bytes</span><br><span class="line">  Concurrent copy and kernel execution:          Yes with 2 copy engine(s)</span><br><span class="line">  Run time limit on kernels:                     Yes</span><br><span class="line">  Integrated GPU sharing Host Memory:            No</span><br><span class="line">  Support host page-locked memory mapping:       Yes</span><br><span class="line">  Alignment requirement for Surfaces:            Yes</span><br><span class="line">  Device has ECC support:                        Disabled</span><br><span class="line">  Device supports Unified Addressing (UVA):      Yes</span><br><span class="line">  Device supports Compute Preemption:            No</span><br><span class="line">  Supports Cooperative Kernel Launch:            No</span><br><span class="line">  Supports MultiDevice Co-op Kernel Launch:      No</span><br><span class="line">  Device PCI Domain ID / Bus ID / location ID:   0 / 1 / 0</span><br><span class="line">  Compute Mode:</span><br><span class="line">     &lt; Default (multiple host threads can use ::cudaSetDevice() with device simultaneously) &gt;</span><br><span class="line"></span><br><span class="line">deviceQuery, CUDA Driver = CUDART, CUDA Driver Version = 10.0, CUDA Runtime Version = 10.0, NumDevs = 1</span><br><span class="line">Result = PASS</span><br></pre></td></tr></table></figure>
+<h1 id="data-preparation"><a class="markdownIt-Anchor" href="#data-preparation"></a> Data Preparation</h1>
+<h2 id="data-download"><a class="markdownIt-Anchor" href="#data-download"></a> Data Download</h2>
+<p>Please refer to <a href="https://www.kaggle.com/c/petfinder-adoption-prediction/data" target="_blank" rel="noopener">Kaggle petfinder-adoption-prediction Data</a> and have the data prepared.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ kaggle competitions download -c petfinder-adoption-prediction</span><br><span class="line">➜  cd petfinder-adoption-prediction</span><br><span class="line">➜  petfinder-adoption-prediction ls</span><br><span class="line">breed_labels.csv  color_labels.csv  state_labels.csv  test_images.zip  test_metadata.zip  test_sentiment.zip  test.zip  train_images.zip  train_metadata.zip  train_sentiment.zip  train.zip</span><br></pre></td></tr></table></figure>
+<h2 id="data-exploration"><a class="markdownIt-Anchor" href="#data-exploration"></a> Data Exploration</h2>
+<p>We can then use <a href="https://www.kaggle.com/artgor/exploration-of-data-step-by-step" target="_blank" rel="noopener">Andrew Lukyanenko’s existing kernel code</a> to explore how the data look like. It’s <strong>NOT hard</strong> to re-produce the following resultant pictures:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/classcounts.jpg" alt="Number of Samples (both cats and dogs) in Each Classes -- Classified by Adoption Speed"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/nbofcatsdogs.jpg" alt="Number of Cats &amp; Dogs in Train and Test Datasets"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/pettype.jpg" alt="Number of Samples (respectively for cats and dogs) in Each Classes -- Classified by Adoption Speed "></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/wordcount.jpg" alt="Word Count for Cats &amp; Dogs"></p>
+<h1 id=""><a class="markdownIt-Anchor" href="#"></a> </h1>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/09/Bugs/matplotlib-path-home/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -658,196 +848,6 @@
 <p>If we run <a href="https://github.com/NVIDIA/vid2vid#testing" target="_blank" rel="noopener">Testing</a> on <a href="https://github.com/NVIDIA/vid2vid" target="_blank" rel="noopener">vid2vid homepage</a>, it gives the following <strong>ERROR</strong>:</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">➜  vid2vid git:(master) python test.py --name label2city_2048 --label_nc 35 --loadSize 2048 --n_scales_spatial 3 --use_instance --fg --use_single_G</span><br><span class="line">------------ Options -------------</span><br><span class="line">add_face_disc: False</span><br><span class="line">aspect_ratio: 1.0</span><br><span class="line">basic_point_only: False</span><br><span class="line">batchSize: 1</span><br><span class="line">checkpoints_dir: ./checkpoints</span><br><span class="line">dataroot: datasets/Cityscapes/</span><br><span class="line">dataset_mode: temporal</span><br><span class="line">debug: False</span><br><span class="line">densepose_only: False</span><br><span class="line">display_id: 0</span><br><span class="line">display_winsize: 512</span><br><span class="line">feat_num: 3</span><br><span class="line">fg: True</span><br><span class="line">fg_labels: [26]</span><br><span class="line">fineSize: 512</span><br><span class="line">gpu_ids: [0]</span><br><span class="line">how_many: 300</span><br><span class="line">input_nc: 3</span><br><span class="line">isTrain: False</span><br><span class="line">label_feat: False</span><br><span class="line">label_nc: 35</span><br><span class="line">loadSize: 2048</span><br><span class="line">load_features: False</span><br><span class="line">load_pretrain: </span><br><span class="line">max_dataset_size: inf</span><br><span class="line">model: vid2vid</span><br><span class="line">nThreads: 2</span><br><span class="line">n_blocks: 9</span><br><span class="line">n_blocks_local: 3</span><br><span class="line">n_downsample_E: 3</span><br><span class="line">n_downsample_G: 3</span><br><span class="line">n_frames_G: 3</span><br><span class="line">n_gpus_gen: 1</span><br><span class="line">n_local_enhancers: 1</span><br><span class="line">n_scales_spatial: 3</span><br><span class="line">name: label2city_2048</span><br><span class="line">ndf: 64</span><br><span class="line">nef: 32</span><br><span class="line">netE: simple</span><br><span class="line">netG: composite</span><br><span class="line">ngf: 128</span><br><span class="line">no_canny_edge: False</span><br><span class="line">no_dist_map: False</span><br><span class="line">no_first_img: False</span><br><span class="line">no_flip: False</span><br><span class="line">no_flow: False</span><br><span class="line">norm: batch</span><br><span class="line">ntest: inf</span><br><span class="line">openpose_only: False</span><br><span class="line">output_nc: 3</span><br><span class="line">phase: test</span><br><span class="line">random_drop_prob: 0.05</span><br><span class="line">random_scale_points: False</span><br><span class="line">remove_face_labels: False</span><br><span class="line">resize_or_crop: scaleWidth</span><br><span class="line">results_dir: ./results/</span><br><span class="line">serial_batches: False</span><br><span class="line">start_frame: 0</span><br><span class="line">tf_log: False</span><br><span class="line">use_instance: True</span><br><span class="line">use_real_img: False</span><br><span class="line">use_single_G: True</span><br><span class="line">which_epoch: latest</span><br><span class="line">-------------- End ----------------</span><br><span class="line">CustomDatasetDataLoader</span><br><span class="line">dataset [TestDataset] was created</span><br><span class="line">vid2vid</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File "test.py", line 25, in &lt;module&gt;</span><br><span class="line">    model = create_model(opt)</span><br><span class="line">  File "....../vid2vid/models/models.py", line 7, in create_model</span><br><span class="line">    from .vid2vid_model_G import Vid2VidModelG</span><br><span class="line">  File "....../vid2vid/models/vid2vid_model_G.py", line 13, in &lt;module&gt;</span><br><span class="line">    from . import networks</span><br><span class="line">  File "....../vid2vid/models/networks.py", line 12, in &lt;module&gt;</span><br><span class="line">    from .flownet2_pytorch.networks.resample2d_package.resample2d import Resample2d</span><br><span class="line">  File "....../vid2vid/models/flownet2_pytorch/networks/resample2d_package/resample2d.py", line 2, in &lt;module&gt;</span><br><span class="line">    from .functions.resample2d import Resample2dFunction</span><br><span class="line">  File "....../vid2vid/models/flownet2_pytorch/networks/resample2d_package/functions/resample2d.py", line 3, in &lt;module&gt;</span><br><span class="line">    from .._ext import resample2d</span><br><span class="line">ModuleNotFoundError: No module named 'models.flownet2_pytorch.networks.resample2d_package._ext'</span><br></pre></td></tr></table></figure>
 <p>This is still annoying me. <a href="https://github.com/NVIDIA/vid2vid/issues/86" target="_blank" rel="noopener">A detailed github issue</a> has been posted today. Please give me a hand. Thanks…</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/02/Kaggle/petfinder-adoption-prediction/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/02/Kaggle/petfinder-adoption-prediction/" itemprop="url">
-                  Kaggle Competition - PetFinder.my Adoption Prediction
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-01-02 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-02T00:00:00-08:00">2019-01-02</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-01-04 01:47:48" itemprop="dateModified" datetime="2019-01-04T01:47:48-08:00">2019-01-04</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Happy new year everybody. 2019 comes. Let’s have some <a href="https://www.kaggle.com" target="_blank" rel="noopener">Kaggle</a> fun. Today, we’re going to try</p>
-<h1 id="system-preparation"><a class="markdownIt-Anchor" href="#system-preparation"></a> System Preparation</h1>
-<p>Supposing you’ve already correctly set up all your configurations on:</p>
-<h2 id="python"><a class="markdownIt-Anchor" href="#python"></a> <a href="https://www.python.org/" target="_blank" rel="noopener">Python</a></h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python --version</span><br><span class="line">Python 3.6.7</span><br><span class="line">➜  ~ which python</span><br><span class="line">/usr/bin/python</span><br></pre></td></tr></table></figure>
-<h2 id="kaggle"><a class="markdownIt-Anchor" href="#kaggle"></a> <a href="https://www.kaggle.com" target="_blank" rel="noopener">Kaggle</a></h2>
-<p>Please follow <a href="https://github.com/Kaggle/kaggle-api" target="_blank" rel="noopener">Kaggle Github</a> to install <strong>Python Kaggle</strong>. After installation, you’ll get:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip show kaggle</span><br><span class="line">Name: kaggle</span><br><span class="line">Version: 1.5.1.1</span><br><span class="line">Summary: Kaggle API</span><br><span class="line">Home-page: https://github.com/Kaggle/kaggle-api</span><br><span class="line">Author: Kaggle</span><br><span class="line">Author-email: support@kaggle.com</span><br><span class="line">License: Apache 2.0</span><br><span class="line">Location: ~/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: requests, certifi, tqdm, six, python-dateutil, python-slugify, urllib3</span><br><span class="line">Required-by:</span><br></pre></td></tr></table></figure>
-<h2 id="cuda"><a class="markdownIt-Anchor" href="#cuda"></a> <a href="https://developer.nvidia.com/cuda-toolkit" target="_blank" rel="noopener">Cuda</a></h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ nvidia-smi</span><br><span class="line">Wed Jan  2 15:52:06 2019       </span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| NVIDIA-SMI 410.78       Driver Version: 410.78       CUDA Version: 10.0     |</span><br><span class="line">|-------------------------------+----------------------+----------------------+</span><br><span class="line">| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |</span><br><span class="line">| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |</span><br><span class="line">|===============================+======================+======================|</span><br><span class="line">|   0  GeForce GTX 980M    Off  | 00000000:01:00.0  On |                  N/A |</span><br><span class="line">| N/A   32C    P8     8W /  N/A |    779MiB /  4035MiB |      0%      Default |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line">                                                                               </span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| Processes:                                                       GPU Memory |</span><br><span class="line">|  GPU       PID   Type   Process name                             Usage      |</span><br><span class="line">|=============================================================================|</span><br><span class="line">|    0      1842      G   /usr/lib/xorg/Xorg                            15MiB |</span><br><span class="line">|    0      1952      G   /usr/bin/gnome-shell                          48MiB |</span><br><span class="line">|    0      2923      G   /usr/lib/xorg/Xorg                           188MiB |</span><br><span class="line">|    0      3039      G   /usr/bin/gnome-shell                         163MiB |</span><br><span class="line">|    0      3801      G   ...uest-channel-token=14688497433927674620   220MiB |</span><br><span class="line">|    0      7109      G   ...-token=FECD30C79B74E3AD9CF815BF4CB9EB09    70MiB |</span><br><span class="line">|    0     28276      G   ...-token=8CC4669488D477BE118BBC69F71B724E    64MiB |</span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">➜  ~ /usr/local/cuda/samples/bin/x86_64/linux/release/deviceQuery</span><br><span class="line">/usr/local/cuda/samples/bin/x86_64/linux/release/deviceQuery Starting...</span><br><span class="line"></span><br><span class="line"> CUDA Device Query (Runtime API) version (CUDART static linking)</span><br><span class="line"></span><br><span class="line">Detected 1 CUDA Capable device(s)</span><br><span class="line"></span><br><span class="line">Device 0: "GeForce GTX 980M"</span><br><span class="line">  CUDA Driver Version / Runtime Version          10.0 / 10.0</span><br><span class="line">  CUDA Capability Major/Minor version number:    5.2</span><br><span class="line">  Total amount of global memory:                 4035 MBytes (4231331840 bytes)</span><br><span class="line">  (12) Multiprocessors, (128) CUDA Cores/MP:     1536 CUDA Cores</span><br><span class="line">  GPU Max Clock rate:                            1126 MHz (1.13 GHz)</span><br><span class="line">  Memory Clock rate:                             2505 Mhz</span><br><span class="line">  Memory Bus Width:                              256-bit</span><br><span class="line">  L2 Cache Size:                                 2097152 bytes</span><br><span class="line">  Maximum Texture Dimension Size (x,y,z)         1D=(65536), 2D=(65536, 65536), 3D=(4096, 4096, 4096)</span><br><span class="line">  Maximum Layered 1D Texture Size, (num) layers  1D=(16384), 2048 layers</span><br><span class="line">  Maximum Layered 2D Texture Size, (num) layers  2D=(16384, 16384), 2048 layers</span><br><span class="line">  Total amount of constant memory:               65536 bytes</span><br><span class="line">  Total amount of shared memory per block:       49152 bytes</span><br><span class="line">  Total number of registers available per block: 65536</span><br><span class="line">  Warp size:                                     32</span><br><span class="line">  Maximum number of threads per multiprocessor:  2048</span><br><span class="line">  Maximum number of threads per block:           1024</span><br><span class="line">  Max dimension size of a thread block (x,y,z): (1024, 1024, 64)</span><br><span class="line">  Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)</span><br><span class="line">  Maximum memory pitch:                          2147483647 bytes</span><br><span class="line">  Texture alignment:                             512 bytes</span><br><span class="line">  Concurrent copy and kernel execution:          Yes with 2 copy engine(s)</span><br><span class="line">  Run time limit on kernels:                     Yes</span><br><span class="line">  Integrated GPU sharing Host Memory:            No</span><br><span class="line">  Support host page-locked memory mapping:       Yes</span><br><span class="line">  Alignment requirement for Surfaces:            Yes</span><br><span class="line">  Device has ECC support:                        Disabled</span><br><span class="line">  Device supports Unified Addressing (UVA):      Yes</span><br><span class="line">  Device supports Compute Preemption:            No</span><br><span class="line">  Supports Cooperative Kernel Launch:            No</span><br><span class="line">  Supports MultiDevice Co-op Kernel Launch:      No</span><br><span class="line">  Device PCI Domain ID / Bus ID / location ID:   0 / 1 / 0</span><br><span class="line">  Compute Mode:</span><br><span class="line">     &lt; Default (multiple host threads can use ::cudaSetDevice() with device simultaneously) &gt;</span><br><span class="line"></span><br><span class="line">deviceQuery, CUDA Driver = CUDART, CUDA Driver Version = 10.0, CUDA Runtime Version = 10.0, NumDevs = 1</span><br><span class="line">Result = PASS</span><br></pre></td></tr></table></figure>
-<h1 id="data-preparation"><a class="markdownIt-Anchor" href="#data-preparation"></a> Data Preparation</h1>
-<h2 id="data-download"><a class="markdownIt-Anchor" href="#data-download"></a> Data Download</h2>
-<p>Please refer to <a href="https://www.kaggle.com/c/petfinder-adoption-prediction/data" target="_blank" rel="noopener">Kaggle petfinder-adoption-prediction Data</a> and have the data prepared.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ kaggle competitions download -c petfinder-adoption-prediction</span><br><span class="line">➜  cd petfinder-adoption-prediction</span><br><span class="line">➜  petfinder-adoption-prediction ls</span><br><span class="line">breed_labels.csv  color_labels.csv  state_labels.csv  test_images.zip  test_metadata.zip  test_sentiment.zip  test.zip  train_images.zip  train_metadata.zip  train_sentiment.zip  train.zip</span><br></pre></td></tr></table></figure>
-<h2 id="data-exploration"><a class="markdownIt-Anchor" href="#data-exploration"></a> Data Exploration</h2>
-<p>We can then use <a href="https://www.kaggle.com/artgor/exploration-of-data-step-by-step" target="_blank" rel="noopener">Andrew Lukyanenko’s existing kernel code</a> to explore how the data look like. It’s <strong>NOT hard</strong> to re-produce the following resultant pictures:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/classcounts.jpg" alt="Number of Samples (both cats and dogs) in Each Classes -- Classified by Adoption Speed"></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/nbofcatsdogs.jpg" alt="Number of Cats &amp; Dogs in Train and Test Datasets"></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/pettype.jpg" alt="Number of Samples (respectively for cats and dogs) in Each Classes -- Classified by Adoption Speed "></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/wordcount.jpg" alt="Word Count for Cats &amp; Dogs"></p>
-<h1 id=""><a class="markdownIt-Anchor" href="#"></a> </h1>
 
           
         
