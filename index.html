@@ -309,6 +309,186 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/09/Bugs/matplotlib-path-home/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/09/Bugs/matplotlib-path-home/" itemprop="url">
+                  Matplotlib.pyplot - AttributeError - type object 'Path' has no attribute 'home'
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-01-09 00:00:00 / Modified: 22:34:16" itemprop="dateCreated datePublished" datetime="2019-01-09T00:00:00-08:00">2019-01-09</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Bug/" itemprop="url" rel="index"><span itemprop="name">Bug</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="attributeerror-type-object-path-has-no-attribute-home"><a class="markdownIt-Anchor" href="#attributeerror-type-object-path-has-no-attribute-home"></a> AttributeError: type object ‘Path’ has no attribute ‘home’</h1>
+<p>This error message is found while I was trying to <strong>from matplotlib.pyplot as plt</strong> today. I’ve got <strong>NO</strong> idea what had happened to my <strong>python</strong>. But, it seems this issue had been met and solved in some public posts. For instance:</p>
+<ul>
+<li><a href="https://github.com/addok/addok/issues/280" target="_blank" rel="noopener">github addok</a></li>
+</ul>
+<h1 id="solutions"><a class="markdownIt-Anchor" href="#solutions"></a> Solutions:</h1>
+<p>In my case, I need to manually modify 3 files under folder <strong>~/.local/lib/python3.6/site-packages/matplotlib</strong>.</p>
+<h2 id="pathhome-ospathexpanduser~"><a class="markdownIt-Anchor" href="#pathhome-ospathexpanduser~"></a> Path.home() -&gt; os.path.expanduser(’~’)</h2>
+<ul>
+<li>In file <strong>~/.local/lib/python3.6/site-packages/matplotlib/font_manager.py</strong>, around line 135, change</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> USE_FONTCONFIG <span class="keyword">and</span> sys.platform != <span class="string">'win32'</span>:</span><br><span class="line">    OSXFontDirectories.append(str(Path.home() / <span class="string">"Library/Fonts"</span>))</span><br><span class="line">    X11FontDirectories.append(str(Path.home() / <span class="string">".fonts"</span>))</span><br></pre></td></tr></table></figure>
+<p>to</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> USE_FONTCONFIG <span class="keyword">and</span> sys.platform != <span class="string">'win32'</span>:</span><br><span class="line">    OSXFontDirectories.append(str(os.path.expanduser(<span class="string">'~'</span>)+<span class="string">'/'</span>+<span class="string">"Library/Fonts"</span>))</span><br><span class="line">    X11FontDirectories.append(str(os.path.expanduser(<span class="string">'~'</span>)+<span class="string">'/'</span>+<span class="string">".fonts"</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="remove-exist_oktrue-in-function-mkdir"><a class="markdownIt-Anchor" href="#remove-exist_oktrue-in-function-mkdir"></a> Remove exist_ok=True in function mkdir()</h2>
+<ul>
+<li>In file <strong>~/.local/lib/python3.6/site-packages/matplotlib/<strong>init</strong>.py</strong>, around line 615</li>
+<li>In file <strong>~/.local/lib/python3.6/site-packages/matplotlib/texmanager.py</strong>, around line 56 and 104</li>
+</ul>
+<p>change all</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir(parents=<span class="keyword">True</span>, exist_ok=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+<p>to</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir(parents=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/06/Bugs/flownet2-pytorch-vid2vid/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2146,281 +2326,6 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/11/03/DeepLearning/Pose-AI-Happy-Halloween/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/03/DeepLearning/Pose-AI-Happy-Halloween/" itemprop="url">
-                  Pose AI - Happy Birthday to Me and Happy Halloween
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-03 00:00:00 / Modified: 01:24:34" itemprop="dateCreated datePublished" datetime="2018-11-03T00:00:00-07:00">2018-11-03</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>October 31, 2018 is <a href="https://en.wikipedia.org/wiki/Halloween" target="_blank" rel="noopener">Halloween</a>… <sup>_</sup> Happy <a href="https://en.wikipedia.org/wiki/Halloween" target="_blank" rel="noopener">Halloween</a> everyone…</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/Halloween.jpg" alt="Happy Halloween"></p>
-<p>And, <strong>Happy Birthday To Myself</strong>. Such an old <strong>NOBODY</strong>… <strong>DON’T ask my age.</strong> Anyway, enjoy life…</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/MyBirthday2018.jpg" alt="Happy Birthday"></p>
-<p>Today, we are testing out some pose estimation open source, based on various open source AI frameworks, including:</p>
-<ul>
-<li><a href="https://pytorch.org/" target="_blank" rel="noopener">PyTorch</a></li>
-<li><a href="https://www.tensorflow.org/" target="_blank" rel="noopener">Tensorflow</a></li>
-<li><a href="https://caffe2.ai/" target="_blank" rel="noopener">Caffe2</a></li>
-<li><a href="http://caffe.berkeleyvision.org/" target="_blank" rel="noopener">Caffe</a></li>
-</ul>
-<h1 id="1-openpose"><a class="markdownIt-Anchor" href="#1-openpose"></a> 1. <a href="https://github.com/CMU-Perceptual-Computing-Lab/openpose" target="_blank" rel="noopener">OpenPose</a></h1>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Body Tracking</th>
-<th style="text-align:center">Body Foot</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://www.facebook.com/jiapei100/videos/1147677908722943/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/openpose/01_bodytracking.jpg" alt="Tracking Body ONLY"></a></td>
-<td style="text-align:center"><a href="https://www.facebook.com/jiapei100/videos/1147678282056239/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/openpose/02_bodyfoot.jpg" alt="Body and Foot"></a></td>
-</tr>
-<tr>
-<td style="text-align:center">Body Hand</td>
-<td style="text-align:center">Body Face</td>
-</tr>
-<tr>
-<td style="text-align:center"><a href="https://www.facebook.com/jiapei100/videos/1147679872056080/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/openpose/03_bodyhand.jpg" alt="Body and Hand"></a></td>
-<td style="text-align:center"><a href="https://www.facebook.com/jiapei100/videos/1147679998722734/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/openpose/04_bodyface.jpg" alt="Body and Face"></a></td>
-</tr>
-</tbody>
-</table>
-<p>The related paper can be found at <a href="https://github.com/ZheC/Realtime_Multi-Person_Pose_Estimation.git" target="_blank" rel="noopener">Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields</a>.</p>
-<h1 id="2-tf-pose-estimation"><a class="markdownIt-Anchor" href="#2-tf-pose-estimation"></a> 2. <a href="https://github.com/ildoonet/tf-pose-estimation" target="_blank" rel="noopener">tf-pose-estimation</a></h1>
-<p>Please refer to <a href="../../../../2018/07/12/DeepLearning/posture_recognition_by_a_single_2d_webcam">Posture Recognition by A Single 2D Webcam</a></p>
-<h1 id="3-pose-tensorflow"><a class="markdownIt-Anchor" href="#3-pose-tensorflow"></a> 3. <a href="https://github.com/eldar/pose-tensorflow" target="_blank" rel="noopener">pose-tensorflow</a></h1>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Single Person</th>
-<th style="text-align:center">Multiple Persons</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/pose-tensorflow/01_singleperson.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/pose-tensorflow/01_singleperson.jpg" alt="Single Person"></a></td>
-<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/pose-tensorflow/02_multiplepersons.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/pose-tensorflow/02_multiplepersons.jpg" alt="Multiple Persons"></a></td>
-</tr>
-</tbody>
-</table>
-<h1 id="4-facebook-detectron"><a class="markdownIt-Anchor" href="#4-facebook-detectron"></a> 4. <a href="https://github.com/facebookresearch/Detectron.git" target="_blank" rel="noopener">Facebook Detectron</a></h1>
-<h1 id="5-facebook-detectandtrack"><a class="markdownIt-Anchor" href="#5-facebook-detectandtrack"></a> 5. <a href="https://github.com/facebookresearch/DetectAndTrack.git" target="_blank" rel="noopener">Facebook DetectAndTrack</a></h1>
-<h1 id="6-facebook-densepose"><a class="markdownIt-Anchor" href="#6-facebook-densepose"></a> 6. <a href="https://github.com/facebookresearch/DensePose.git" target="_blank" rel="noopener">Facebook DensePose</a></h1>
-<h2 id="61-coco-visualize"><a class="markdownIt-Anchor" href="#61-coco-visualize"></a> 6.1 COCO Visualize</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Original Image</th>
-<th style="text-align:center">Collected Points</th>
-<th style="text-align:center">Subplots</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-COCO-Visualize/01_image.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-COCO-Visualize/01_image.jpg" alt="Original Image"></a></td>
-<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-COCO-Visualize/02_collectedpoints.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-COCO-Visualize/02_collectedpoints.jpg" alt="Collected Points"></a></td>
-<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-COCO-Visualize/03_subplots.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-COCO-Visualize/03_subplots.jpg" alt="Subplots"></a></td>
-</tr>
-</tbody>
-</table>
-<h2 id="62-rcnn-texture-transfer"><a class="markdownIt-Anchor" href="#62-rcnn-texture-transfer"></a> 6.2 RCNN Texture Transfer</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Texture</th>
-<th style="text-align:center">Mesh</th>
-<th style="text-align:center">Synth UV</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/01_texture.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/01_texture.jpg" alt="Texture"></a></td>
-<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/02_mesh.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/02_mesh.jpg" alt="Mesh"></a></td>
-<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/03_synthuv.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/03_synthuv.jpg" alt="Synth UV"></a></td>
-</tr>
-<tr>
-<td style="text-align:center">IUV</td>
-<td style="text-align:center">Texture Transfer</td>
-<td style="text-align:center">Original Image</td>
-</tr>
-<tr>
-<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/04_im_IUV.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/04_im_IUV.jpg" alt="IUV"></a></td>
-<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/05_texturetransfer.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/05_texturetransfer.jpg" alt="Mesh"></a></td>
-<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/06_im.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/06_im.jpg" alt="Original Image"></a></td>
-</tr>
-</tbody>
-</table>
-<h2 id="63-rcnn-visualize"><a class="markdownIt-Anchor" href="#63-rcnn-visualize"></a> 6.3 RCNN Visualize</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">IUV</th>
-<th style="text-align:center">Mesh</th>
-<th style="text-align:center">Contour</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Visualize-Results/01_IUV.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Visualize-Results/01_IUV.jpg" alt="IUV"></a></td>
-<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Visualize-Results/02_mesh.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Visualize-Results/02_mesh.jpg" alt="Mesh"></a></td>
-<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Visualize-Results/03_contour.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Visualize-Results/03_contour.jpg" alt="Contour"></a></td>
-</tr>
-</tbody>
-</table>
-<h1 id="7-facebook-maskrcnn-benchmark"><a class="markdownIt-Anchor" href="#7-facebook-maskrcnn-benchmark"></a> 7. <a href="https://github.com/facebookresearch/maskrcnn-benchmark.git" target="_blank" rel="noopener">Facebook maskrcnn-benchmark</a></h1>
-<p><a href="https://www.facebook.com/jiapei100/videos/1148866891937378/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/maskrcnn-benchmark/maskrcnn-benchmark.jpg" alt="Test on maskrcnn-benchmark"></a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2468,7 +2373,7 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">38</span>
+                    <span class="site-state-item-count">39</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2594,7 +2499,9 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
                     
                       
                     
-                    <span class="site-state-item-count">38</span>
+                      
+                    
+                    <span class="site-state-item-count">39</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
