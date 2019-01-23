@@ -119,7 +119,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/prophet/01_originaldata.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/prophet/02_forcast.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/prophet/03_forcast_components.jpg">
-<meta property="og:updated_time" content="2019-01-22T10:15:59.178Z">
+<meta property="og:updated_time" content="2019-01-23T12:13:50.054Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Time Series Forecasting with Facebook Prophet">
 <meta name="twitter:description" content="Today, we are going to test out Facebook Prophet by following this DigitalOcean Tutorial.  Preparation  Required Python Packages We FIRST make sure 2 Python packages - Prophet and PyStan have been suc">
@@ -355,12 +355,24 @@
                 
               
 
-              <time title="Created: 2019-01-22 00:00:00 / Modified: 02:15:59" itemprop="dateCreated datePublished" datetime="2019-01-22T00:00:00-08:00">2019-01-22</time>
+              <time title="Created: 2019-01-22 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-22T00:00:00-08:00">2019-01-22</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-01-23 04:13:50" itemprop="dateModified" datetime="2019-01-23T04:13:50-08:00">2019-01-23</time>
               
             
           </span>
@@ -421,6 +433,7 @@
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  facebookprophet curl -O https://assets.digitalocean.com/articles/eng_python/prophet/AirPassengers.csv</span><br><span class="line"><span class="meta">  %</span><span class="bash"> Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</span></span><br><span class="line">                                 Dload  Upload   Total   Spent    Left  Speed</span><br><span class="line">100  1748  100  1748    0     0   2281      0 --:--:-- --:--:-- --:--:--  2279</span><br></pre></td></tr></table></figure>
 <h1 id="test"><a class="markdownIt-Anchor" href="#test"></a> Test</h1>
 <h2 id="the-code"><a class="markdownIt-Anchor" href="#the-code"></a> The Code</h2>
+<p>Trivial modifications have been done upon the code on <a href="https://www.digitalocean.com/community/tutorials/a-guide-to-time-series-forecasting-with-prophet-in-python-3" target="_blank" rel="noopener">this DigitalOcean Tutorial</a>, as follows:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> fbprophet <span class="keyword">import</span> Prophet</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.style.use(<span class="string">'fivethirtyeight'</span>)</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">'AirPassengers.csv'</span>)</span><br><span class="line">df.head(<span class="number">5</span>)</span><br><span class="line">df.dtypes</span><br><span class="line"></span><br><span class="line">df[<span class="string">'Month'</span>] = pd.DatetimeIndex(df[<span class="string">'Month'</span>])</span><br><span class="line">df.dtypes</span><br><span class="line"></span><br><span class="line">df = df.rename(columns=&#123;<span class="string">'Month'</span>: <span class="string">'ds'</span>, <span class="string">'AirPassengers'</span>: <span class="string">'y'</span>&#125;)</span><br><span class="line">df.head(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">ax = df.set_index(<span class="string">'ds'</span>).plot(figsize=(<span class="number">12</span>, <span class="number">8</span>))</span><br><span class="line">ax.set_ylabel(<span class="string">'Monthly Number of Airline Passengers'</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">'Date'</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># set the uncertainty interval to 95% (the Prophet default is 80%)</span></span><br><span class="line">my_model = Prophet(interval_width=<span class="number">0.95</span>)</span><br><span class="line">my_model.fit(df)</span><br><span class="line">future_dates = my_model.make_future_dataframe(periods=<span class="number">36</span>, freq=<span class="string">'MS'</span>)</span><br><span class="line">future_dates.tail()</span><br><span class="line">forecast = my_model.predict(future_dates)</span><br><span class="line">forecast[[<span class="string">'ds'</span>, <span class="string">'yhat'</span>, <span class="string">'yhat_lower'</span>, <span class="string">'yhat_upper'</span>]].tail()</span><br><span class="line">fig1 = my_model.plot(forecast, uncertainty=<span class="keyword">True</span>)</span><br><span class="line">fig1.show()</span><br><span class="line"></span><br><span class="line">my_model.plot_components(forecast).savefig(<span class="string">'prophet_forcast.png'</span>);</span><br></pre></td></tr></table></figure>
 <h2 id="outcome"><a class="markdownIt-Anchor" href="#outcome"></a> Outcome</h2>
 <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/prophet/01_originaldata.jpg" alt="Original Data"></p>
@@ -468,6 +481,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/23/Kaggle/PyTorch-dataset-dataloader/" rel="prev" title="Kaggle Competition - PyTorch Dataset and DataLoader">
+                Kaggle Competition - PyTorch Dataset and DataLoader <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -541,7 +558,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">41</span>
+                    <span class="site-state-item-count">43</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -671,7 +688,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">40</span>
+                      
+                    
+                    <span class="site-state-item-count">41</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
