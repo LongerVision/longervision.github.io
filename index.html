@@ -309,6 +309,204 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/25/DeepLearning/TorchSeg-HUST/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/25/DeepLearning/TorchSeg-HUST/" itemprop="url">
+                  TorchSeg - HUST's Semantic Segmentation algorithms in PyTorch
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-01-25 00:00:00 / Modified: 01:53:21" itemprop="dateCreated datePublished" datetime="2019-01-25T00:00:00-08:00">2019-01-25</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Happily got the info that my Master’s supervisor’s lab released <a href="https://github.com/ycszen/TorchSeg" target="_blank" rel="noopener">TorchSeg</a> just yesterday. I can’t helping testing it out.</p>
+<h1 id="preparation"><a class="markdownIt-Anchor" href="#preparation"></a> Preparation</h1>
+<h2 id="python-packages"><a class="markdownIt-Anchor" href="#python-packages"></a> Python Packages</h2>
+<p>According to the <a href="https://github.com/ycszen/TorchSeg/blob/master/README.md" target="_blank" rel="noopener">README.md</a> on <a href="https://github.com/ycszen/TorchSeg" target="_blank" rel="noopener">TorchSeg</a>, serveral packages need to be prepared <strong>FIRST</strong>:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip show torch</span><br><span class="line">Name: torch</span><br><span class="line">Version: 1.1.0a0+b6a8c45</span><br><span class="line">Summary: Tensors and Dynamic neural networks in Python with strong GPU acceleration</span><br><span class="line">Home-page: UNKNOWN</span><br><span class="line">Author: UNKNOWN</span><br><span class="line">Author-email: UNKNOWN</span><br><span class="line">License: UNKNOWN</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: </span><br><span class="line">Required-by: torchvision, torchtext, torchgan, pytorch-pretrained-bert, pyro-ppl, flair, autokeras</span><br><span class="line">➜  ~ pip show torchvision</span><br><span class="line">Name: torchvision</span><br><span class="line">Version: 0.2.1</span><br><span class="line">Summary: image and video datasets and models for torch deep learning</span><br><span class="line">Home-page: https://github.com/pytorch/vision</span><br><span class="line">Author: PyTorch Core Team</span><br><span class="line">Author-email: soumith@pytorch.org</span><br><span class="line">License: BSD</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: numpy, torch, pillow, six</span><br><span class="line">Required-by: torchgan, torchfusion, autokeras</span><br><span class="line">➜  ~ pip show easydict</span><br><span class="line">Name: easydict</span><br><span class="line">Version: 1.9</span><br><span class="line">Summary: Access dict values as attributes (works recursively).</span><br><span class="line">Home-page: https://github.com/makinacorpus/easydict</span><br><span class="line">Author: Mathieu Leplatre</span><br><span class="line">Author-email: mathieu.leplatre@makina-corpus.com</span><br><span class="line">License: LPGL, see LICENSE file.</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: </span><br><span class="line">Required-by: luminoth</span><br><span class="line">➜  ~ pip show apex</span><br><span class="line">Name: apex</span><br><span class="line">Version: 0.1</span><br><span class="line">Summary: PyTorch Extensions written by NVIDIA</span><br><span class="line">Home-page: UNKNOWN</span><br><span class="line">Author: UNKNOWN</span><br><span class="line">Author-email: UNKNOWN</span><br><span class="line">License: UNKNOWN</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages/apex-0.1-py3.6.egg</span><br><span class="line">Requires: </span><br><span class="line">Required-by: </span><br><span class="line">➜  ~ pip show tqdm</span><br><span class="line">Name: tqdm</span><br><span class="line">Version: 4.29.1</span><br><span class="line">Summary: Fast, Extensible Progress Meter</span><br><span class="line">Home-page: https://github.com/tqdm/tqdm</span><br><span class="line">Author: Noam Yorav-Raphael</span><br><span class="line">Author-email: noamraph@gmail.com</span><br><span class="line">License: MPLv2.0, MIT Licences</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: </span><br><span class="line">Required-by: TPOT, torchtext, torchfusion, thinc, tensorpack, skorch, shap, pytorch-pretrained-bert, pyro-ppl, optimuspyspark, kaggle, flair, autokeras, tf-pose</span><br></pre></td></tr></table></figure>
+<h2 id="pytorch-models"><a class="markdownIt-Anchor" href="#pytorch-models"></a> PyTorch Models</h2>
+<p>Download all PyTorch models provided from within all <strong>.py</strong> files from <a href="https://github.com/pytorch/vision/tree/master/torchvision/models" target="_blank" rel="noopener">PyTorch Vision Models</a>. Let’s briefly summarize the models as follows:</p>
+<ul>
+<li><strong>alexnet</strong>: <a href="https://download.pytorch.org/models/alexnet-owt-4df8aa71.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/alexnet-owt-4df8aa71.pth</a></li>
+<li><strong>densenet121</strong>: <a href="https://download.pytorch.org/models/densenet121-a639ec97.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/densenet121-a639ec97.pth</a></li>
+<li><strong>densenet169</strong>: <a href="https://download.pytorch.org/models/densenet169-b2777c0a.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/densenet169-b2777c0a.pth</a></li>
+<li><strong>densenet201</strong>: <a href="https://download.pytorch.org/models/densenet201-c1103571.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/densenet201-c1103571.pth</a></li>
+<li><strong>densenet161</strong>: <a href="https://download.pytorch.org/models/densenet161-8d451a50.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/densenet161-8d451a50.pth</a></li>
+<li><strong>inception_v3_google</strong>: <a href="https://download.pytorch.org/models/inception_v3_google-1a9a5a14.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/inception_v3_google-1a9a5a14.pth</a></li>
+<li><strong>resnet18</strong>: <a href="https://download.pytorch.org/models/resnet18-5c106cde.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/resnet18-5c106cde.pth</a></li>
+<li><strong>resnet34</strong>: <a href="https://download.pytorch.org/models/resnet34-333f7ec4.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/resnet34-333f7ec4.pth</a></li>
+<li><strong>resnet50</strong>: <a href="https://download.pytorch.org/models/resnet50-19c8e357.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/resnet50-19c8e357.pth</a></li>
+<li><strong>resnet101</strong>: <a href="https://download.pytorch.org/models/resnet101-5d3b4d8f.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/resnet101-5d3b4d8f.pth</a></li>
+<li><strong>resnet152</strong>: <a href="https://download.pytorch.org/models/resnet152-b121ed2d.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/resnet152-b121ed2d.pth</a></li>
+<li><strong>squeezenet1_0</strong>: <a href="https://download.pytorch.org/models/squeezenet1_0-a815701f.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/squeezenet1_0-a815701f.pth</a></li>
+<li><strong>squeezenet1_1</strong>: <a href="https://download.pytorch.org/models/squeezenet1_1-f364aa15.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/squeezenet1_1-f364aa15.pth</a></li>
+<li><strong>vgg11</strong>: <a href="https://download.pytorch.org/models/vgg11-bbd30ac9.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/vgg11-bbd30ac9.pth</a></li>
+<li><strong>vgg13</strong>: <a href="https://download.pytorch.org/models/vgg13-c768596a.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/vgg13-c768596a.pth</a></li>
+<li><strong>vgg16</strong>: <a href="https://download.pytorch.org/models/vgg16-397923af.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/vgg16-397923af.pth</a></li>
+<li><strong>vgg19</strong>: <a href="https://download.pytorch.org/models/vgg19-dcbb9e9d.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/vgg19-dcbb9e9d.pth</a></li>
+<li><strong>vgg11_bn</strong>: <a href="https://download.pytorch.org/models/vgg11_bn-6002323d.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/vgg11_bn-6002323d.pth</a></li>
+<li><strong>vgg13_bn</strong>: <a href="https://download.pytorch.org/models/vgg13_bn-abd245e5.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/vgg13_bn-abd245e5.pth</a></li>
+<li><strong>vgg16_bn</strong>: <a href="https://download.pytorch.org/models/vgg16_bn-6c64b313.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/vgg16_bn-6c64b313.pth</a></li>
+<li><strong>vgg19_bn</strong>: <a href="https://download.pytorch.org/models/vgg19_bn-c79401a0.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/vgg19_bn-c79401a0.pth</a></li>
+</ul>
+<h1 id="test"><a class="markdownIt-Anchor" href="#test"></a> Test</h1>
+<h2 id="torchseg-configpy-modification"><a class="markdownIt-Anchor" href="#torchseg-configpy-modification"></a> TorchSeg <a href="http://config.py" target="_blank" rel="noopener">config.py</a> modification</h2>
+<p>After <a href="https://github.com/ycszen/TorchSeg" target="_blank" rel="noopener">TorchSeg</a> is checked out, we need to modify all the <strong><a href="http://config.py" target="_blank" rel="noopener">config.py</a></strong> files and ensure all variables <strong>C.pretrained_model</strong> are specified to the <strong>RIGHT</strong> location and with the <strong>RIGHT</strong> names. In my case, I just downloaded all <strong>PyTorch models</strong> under the same directory as <a href="https://github.com/ycszen/TorchSeg" target="_blank" rel="noopener">TorchSeg</a>, therefore, all <strong>C.pretrained_model</strong> are designated as:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C.pretrained_model = <span class="string">"./resnet18-5c106cde.pth"</span></span><br><span class="line">C.pretrained_model = <span class="string">"./resnet50-19c8e357.pth"</span></span><br><span class="line">C.pretrained_model = <span class="string">"./resnet101-5d3b4d8f.pth"</span></span><br></pre></td></tr></table></figure>
+<p>etc.</p>
+<p>We <strong>also</strong> need to modify all variables <strong>C.dataset_path</strong> and make sure we are using the <strong>RIGHT</strong> dataset. In fact, <strong>ONLY</strong> two datasets are directly adopted in the originally checked-out code of <a href="https://github.com/ycszen/TorchSeg" target="_blank" rel="noopener">TorchSeg</a>.</p>
+<ul>
+<li><a href="https://www.cityscapes-dataset.com/" target="_blank" rel="noopener">Cityscapes</a></li>
+<li><a href="http://groups.csail.mit.edu/vision/datasets/ADE20K/" target="_blank" rel="noopener">ADE20K</a></li>
+</ul>
+<p>Currently, it seems there is still some tricks about how to configure these <strong>datasets</strong>, please refer to <a href="https://github.com/ycszen/TorchSeg/issues/4" target="_blank" rel="noopener">my Github issue</a>.</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/24/Kaggle/Airbus-Ship-Detection-Challenge-Mask-RCNN-and-COCO-Transfer-Learning/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -355,24 +553,12 @@
                 
               
 
-              <time title="Created: 2019-01-24 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-24T00:00:00-08:00">2019-01-24</time>
+              <time title="Created: 2019-01-24 00:00:00 / Modified: 04:33:57" itemprop="dateCreated datePublished" datetime="2019-01-24T00:00:00-08:00">2019-01-24</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-01-23 13:33:55" itemprop="dateModified" datetime="2019-01-23T13:33:55-08:00">2019-01-23</time>
               
             
           </span>
@@ -389,7 +575,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Kaggle/" itemprop="url" rel="index"><span itemprop="name">Kaggle</span></a></span>
 
                 
                 
@@ -548,12 +734,24 @@ I believe you’ve already got accustomed to the data preparation.</p>
                 
               
 
-              <time title="Created: 2019-01-23 00:00:00 / Modified: 04:19:10" itemprop="dateCreated datePublished" datetime="2019-01-23T00:00:00-08:00">2019-01-23</time>
+              <time title="Created: 2019-01-23 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-23T00:00:00-08:00">2019-01-23</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-01-24 04:34:31" itemprop="dateModified" datetime="2019-01-24T04:34:31-08:00">2019-01-24</time>
               
             
           </span>
@@ -570,7 +768,7 @@ I believe you’ve already got accustomed to the data preparation.</p>
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Kaggle/" itemprop="url" rel="index"><span itemprop="name">Kaggle</span></a></span>
 
                 
                 
@@ -904,12 +1102,24 @@ I believe you’ve already got accustomed to the data preparation.</p>
                 
               
 
-              <time title="Created: 2019-01-17 00:00:00 / Modified: 03:35:34" itemprop="dateCreated datePublished" datetime="2019-01-17T00:00:00-08:00">2019-01-17</time>
+              <time title="Created: 2019-01-17 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-17T00:00:00-08:00">2019-01-17</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-01-24 04:34:03" itemprop="dateModified" datetime="2019-01-24T04:34:03-08:00">2019-01-24</time>
               
             
           </span>
@@ -926,7 +1136,7 @@ I believe you’ve already got accustomed to the data preparation.</p>
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Kaggle/" itemprop="url" rel="index"><span itemprop="name">Kaggle</span></a></span>
 
                 
                 
@@ -1089,7 +1299,7 @@ I believe you’ve already got accustomed to the data preparation.</p>
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-01-17 02:45:52" itemprop="dateModified" datetime="2019-01-17T02:45:52-08:00">2019-01-17</time>
+                <time title="Modified: 2019-01-24 04:34:25" itemprop="dateModified" datetime="2019-01-24T04:34:25-08:00">2019-01-24</time>
               
             
           </span>
@@ -1106,7 +1316,7 @@ I believe you’ve already got accustomed to the data preparation.</p>
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Kaggle/" itemprop="url" rel="index"><span itemprop="name">Kaggle</span></a></span>
 
                 
                 
@@ -1984,215 +2194,6 @@ I believe you’ve already got accustomed to the data preparation.</p>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/12/20/Finance/time-series-4-python-with-pyflux/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/20/Finance/time-series-4-python-with-pyflux/" itemprop="url">
-                  Time Series for Python with PyFlux
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-12-20 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-20T00:00:00-08:00">2018-12-20</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-22 14:16:01" itemprop="dateModified" datetime="2018-12-22T14:16:01-08:00">2018-12-22</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Finance/" itemprop="url" rel="index"><span itemprop="name">Finance</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Merry Christmas buddy!</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/Christmas2018.jpg" alt="Christmas Lights in Surrey"></p>
-<p>It’s been quite a while without writing anything. Today, we are going to introduce <a href="https://pyflux.readthedocs.io/" target="_blank" rel="noopener">PyFlux</a> for time seriers analysis. Cannonical models are to be directly adopted from <a href="https://pyflux.readthedocs.io/" target="_blank" rel="noopener">PyFlux Documents</a> and tested in this blog.</p>
-<h1 id="get-started"><a class="markdownIt-Anchor" href="#get-started"></a> Get Started</h1>
-<p>Copy and paste that piece of code from <a href="https://pyflux.readthedocs.io/" target="_blank" rel="noopener">PyFlux Documents</a> with trivial modifications as follows:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> pandas_datareader.data <span class="keyword">import</span> DataReader</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> pyflux <span class="keyword">as</span> pf</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = DataReader(<span class="string">'JPM'</span>,  <span class="string">'yahoo'</span>, datetime(<span class="number">2006</span>,<span class="number">6</span>,<span class="number">1</span>), datetime(<span class="number">2016</span>,<span class="number">6</span>,<span class="number">1</span>))</span><br><span class="line">a_returns = pd.DataFrame(np.diff(a[<span class="string">'Adj Close'</span>].values))</span><br><span class="line">a_returns.index = a.index.values[<span class="number">1</span>:a.index.values.shape[<span class="number">0</span>]]</span><br><span class="line">a_returns.columns = [<span class="string">"JPM Returns"</span>]</span><br><span class="line"></span><br><span class="line">print(a_returns.head())</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">15</span>, <span class="number">5</span>))</span><br><span class="line">plt.ylabel(<span class="string">"Returns"</span>)</span><br><span class="line">plt.plot(a_returns)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line">pf.acf_plot(a_returns.values.T[<span class="number">0</span>])</span><br><span class="line">pf.acf_plot(np.square(a_returns.values.T[<span class="number">0</span>]))</span><br></pre></td></tr></table></figure>
-<p>After running the above piece of code, we’ll get the following time series loaded:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">            JPM Returns</span><br><span class="line"><span class="number">2006</span><span class="number">-06</span><span class="number">-02</span>     <span class="number">0.167995</span></span><br><span class="line"><span class="number">2006</span><span class="number">-06</span><span class="number">-05</span>    <span class="number">-0.613506</span></span><br><span class="line"><span class="number">2006</span><span class="number">-06</span><span class="number">-06</span>    <span class="number">-0.430914</span></span><br><span class="line"><span class="number">2006</span><span class="number">-06</span><span class="number">-07</span>    <span class="number">-0.094942</span></span><br><span class="line"><span class="number">2006</span><span class="number">-06</span><span class="number">-08</span>     <span class="number">0.073048</span></span><br></pre></td></tr></table></figure>
-<p>and the following resultant figures:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pyflux/GetStarted/timeseries.jpg" alt="Time Series"></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pyflux/GetStarted/ACFPlot.jpg" alt="Autocorrelation"></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pyflux/GetStarted/ACFSquarePlot.jpg" alt="Squared Autocorrelation"></p>
-<h1 id="cannonical-models"><a class="markdownIt-Anchor" href="#cannonical-models"></a> Cannonical Models</h1>
-<h2 id="arima"><a class="markdownIt-Anchor" href="#arima"></a> ARIMA</h2>
-<p>We can load and test <strong>ARIMA</strong> model using the following piece of code:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">my_model = pf.ARIMA(data=a_returns, ar=<span class="number">4</span>, ma=<span class="number">4</span>, family=pf.Normal())</span><br><span class="line">print(my_model.latent_variables)</span><br><span class="line"></span><br><span class="line">result = my_model.fit(<span class="string">"MLE"</span>)</span><br><span class="line">result.summary()</span><br><span class="line"></span><br><span class="line">my_model.plot_z(figsize=(<span class="number">15</span>,<span class="number">5</span>))</span><br><span class="line">my_model.plot_fit(figsize=(<span class="number">15</span>,<span class="number">10</span>))</span><br><span class="line">my_model.plot_predict_is(h=<span class="number">50</span>, figsize=(<span class="number">15</span>,<span class="number">5</span>))</span><br><span class="line">my_model.plot_predict(h=<span class="number">20</span>,past_values=<span class="number">20</span>,figsize=(<span class="number">15</span>,<span class="number">5</span>))</span><br></pre></td></tr></table></figure>
-<p>ARIMA’s latent variables are printed as:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Index    Latent Variable           Prior           Prior Hyperparameters     V.I. Dist  Transform</span><br><span class="line">======== ========================= =============== ========================= ========== ==========</span><br><span class="line">0        Constant                  Normal          mu0: 0, sigma0: 3         Normal     None</span><br><span class="line">1        AR(1)                     Normal          mu0: 0, sigma0: 0.5       Normal     None</span><br><span class="line">2        AR(2)                     Normal          mu0: 0, sigma0: 0.5       Normal     None</span><br><span class="line">3        AR(3)                     Normal          mu0: 0, sigma0: 0.5       Normal     None</span><br><span class="line">4        AR(4)                     Normal          mu0: 0, sigma0: 0.5       Normal     None</span><br><span class="line">5        MA(1)                     Normal          mu0: 0, sigma0: 0.5       Normal     None</span><br><span class="line">6        MA(2)                     Normal          mu0: 0, sigma0: 0.5       Normal     None</span><br><span class="line">7        MA(3)                     Normal          mu0: 0, sigma0: 0.5       Normal     None</span><br><span class="line">8        MA(4)                     Normal          mu0: 0, sigma0: 0.5       Normal     None</span><br><span class="line">9        Normal Scale              Flat            n/a (non-informative)     Normal     exp</span><br></pre></td></tr></table></figure>
-<p>And the fitting result is summarized as:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Normal ARIMA(4,0,4)</span><br><span class="line">======================================================= ==================================================</span><br><span class="line">Dependent Variable: JPM Returns                         Method: MLE</span><br><span class="line">Start Date: 2006-06-08 00:00:00                         Log Likelihood: -3106.9508</span><br><span class="line">End Date: 2016-06-02 00:00:00                           AIC: 6233.9016</span><br><span class="line">Number of observations: 2514                            BIC: 6292.1979</span><br><span class="line">==========================================================================================================</span><br><span class="line">Latent Variable                          Estimate   Std Error  z        P&gt;|z|    95% C.I.</span><br><span class="line">======================================== ========== ========== ======== ======== =========================</span><br><span class="line">Constant                                 0.0126     0.0136     0.9273   0.3538   (-0.0141 | 0.0394)</span><br><span class="line">AR(1)                                    0.0596     0.198      0.3008   0.7635   (-0.3284 | 0.4475)</span><br><span class="line">AR(2)                                    -0.3591    0.1858     -1.9331  0.0532   (-0.7231 | 0.005)</span><br><span class="line">AR(3)                                    -0.2205    0.2687     -0.8208  0.4118   (-0.7471 | 0.3061)</span><br><span class="line">AR(4)                                    0.5272     0.1373     3.8406   0.0001   (0.2581 | 0.7962)</span><br><span class="line">MA(1)                                    -0.1667    0.1995     -0.8354  0.4035   (-0.5578 | 0.2244)</span><br><span class="line">MA(2)                                    0.3234     0.202      1.6008   0.1094   (-0.0726 | 0.7193)</span><br><span class="line">MA(3)                                    0.1603     0.2396     0.6692   0.5033   (-0.3093 | 0.63)</span><br><span class="line">MA(4)                                    -0.5817    0.1618     -3.5942  0.0003   (-0.8989 | -0.2645)</span><br><span class="line">Normal Scale                             0.8331</span><br><span class="line">==========================================================================================================</span><br></pre></td></tr></table></figure>
-<p>And 4 images are to be produced as:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pyflux/ARIMA/LatentVariablePlot.jpg" alt="ARIMA Latent Variable Plot"></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pyflux/ARIMA/ARIMAFit.jpg" alt="ARIMA Model vs. Data"></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pyflux/ARIMA/ForcastAgainstData.jpg" alt="ARIMA Forcast vs. Data"></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pyflux/ARIMA/ForcastONLY.jpg" alt="ARIMA Forcast"></p>
-<h2 id="garch"><a class="markdownIt-Anchor" href="#garch"></a> GARCH</h2>
-<p>We can load and test <strong>GARCH</strong> model using the following piece of code:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">my_model = pf.GARCH(p=<span class="number">1</span>, q=<span class="number">1</span>, data=a_returns)</span><br><span class="line">print(my_model.latent_variables)</span><br><span class="line"></span><br><span class="line">my_model.adjust_prior(<span class="number">1</span>, pf.TruncatedNormal(<span class="number">0.01</span>, <span class="number">0.5</span>, lower=<span class="number">0.0</span>, upper=<span class="number">1.0</span>))</span><br><span class="line">my_model.adjust_prior(<span class="number">2</span>, pf.TruncatedNormal(<span class="number">0.97</span>, <span class="number">0.5</span>, lower=<span class="number">0.0</span>, upper=<span class="number">1.0</span>))</span><br><span class="line"></span><br><span class="line">result = my_model.fit(<span class="string">'M-H'</span>, nsims=<span class="number">20000</span>)</span><br><span class="line">result.summary()</span><br><span class="line"></span><br><span class="line">my_model.plot_z([<span class="number">1</span>,<span class="number">2</span>])</span><br><span class="line">my_model.plot_fit(figsize=(<span class="number">15</span>,<span class="number">5</span>))</span><br><span class="line">my_model.plot_sample(nsims=<span class="number">10</span>, figsize=(<span class="number">15</span>,<span class="number">7</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> scipy.stats <span class="keyword">import</span> kurtosis</span><br><span class="line">my_model.plot_ppc(T=kurtosis)</span><br><span class="line">my_model.plot_predict(h=<span class="number">30</span>, figsize=(<span class="number">15</span>,<span class="number">5</span>))</span><br></pre></td></tr></table></figure>
-<p>GARCH’s latent variables are printed as:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Index    Latent Variable           Prior           Prior Hyperparameters     V.I. Dist  Transform</span><br><span class="line">======== ========================= =============== ========================= ========== ==========</span><br><span class="line">0        Vol Constant              Normal          mu0: 0, sigma0: 3         Normal     exp</span><br><span class="line">1        q(1)                      Normal          mu0: 0, sigma0: 0.5       Normal     logit</span><br><span class="line">2        p(1)                      Normal          mu0: 0, sigma0: 0.5       Normal     logit</span><br><span class="line">3        Returns Constant          Normal          mu0: 0, sigma0: 3         Normal     None</span><br></pre></td></tr></table></figure>
-<p>And the fitting result is summarized as:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">~/.local/lib/python3.6/site-packages/numdifftools/limits.py:126: UserWarning: All-NaN slice encountered</span><br><span class="line">  warnings.warn(str(msg))</span><br><span class="line">Acceptance rate of Metropolis-Hastings is 0.000125</span><br><span class="line">Acceptance rate of Metropolis-Hastings is 0.00075</span><br><span class="line">Acceptance rate of Metropolis-Hastings is 0.105525</span><br><span class="line">Acceptance rate of Metropolis-Hastings is 0.13335</span><br><span class="line">Acceptance rate of Metropolis-Hastings is 0.1907</span><br><span class="line">Acceptance rate of Metropolis-Hastings is 0.232</span><br><span class="line">Acceptance rate of Metropolis-Hastings is 0.299</span><br><span class="line"></span><br><span class="line">Tuning complete! Now sampling.</span><br><span class="line">Acceptance rate of Metropolis-Hastings is 0.36655</span><br><span class="line">GARCH(1,1)</span><br><span class="line">======================================================= ==================================================</span><br><span class="line">Dependent Variable: JPM Returns                         Method: Metropolis Hastings</span><br><span class="line">Start Date: 2006-06-05 00:00:00                         Unnormalized Log Posterior: -2671.5492</span><br><span class="line">End Date: 2016-06-02 00:00:00                           AIC: 5351.717896880396</span><br><span class="line">Number of observations: 2517                            BIC: 5375.041188860938</span><br><span class="line">==========================================================================================================</span><br><span class="line">Latent Variable                          Median             Mean               95% Credibility Interval</span><br><span class="line">======================================== ================== ================== =========================</span><br><span class="line">Vol Constant                             0.0059             0.0057             (0.004 | 0.0076)</span><br><span class="line">q(1)                                     0.0721             0.0728             (0.0556 | 0.0921)</span><br><span class="line">p(1)                                     0.9202             0.9199             (0.9013 | 0.9373)</span><br><span class="line">Returns Constant                         0.0311             0.0311             (0.0109 | 0.0511)</span><br><span class="line">==========================================================================================================</span><br></pre></td></tr></table></figure>
-<p>And 5 images are to be produced as:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pyflux/GARCH/LatentVariablePlot.jpg" alt="GARCH Latent Variable Plot"></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pyflux/GARCH/Volatility.jpg" alt="GARCH Volatility"></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pyflux/GARCH/VolatilitySampling.jpg" alt="GARCH Volatility Sampling"></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pyflux/GARCH/PosteriorPredictive.jpg" alt="GARCH Posterior Predictive"></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pyflux/GARCH/Forcast.jpg" alt="GARCH Forcast"></p>
-<h2 id="gas"><a class="markdownIt-Anchor" href="#gas"></a> GAS</h2>
-<h2 id="var"><a class="markdownIt-Anchor" href="#var"></a> VAR</h2>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2240,7 +2241,7 @@ I believe you’ve already got accustomed to the data preparation.</p>
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">43</span>
+                    <span class="site-state-item-count">44</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2277,7 +2278,9 @@ I believe you’ve already got accustomed to the data preparation.</p>
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -2372,7 +2375,9 @@ I believe you’ve already got accustomed to the data preparation.</p>
                     
                       
                     
-                    <span class="site-state-item-count">41</span>
+                      
+                    
+                    <span class="site-state-item-count">42</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
