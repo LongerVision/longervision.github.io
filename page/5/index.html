@@ -309,6 +309,217 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/02/24/Embedded/nanopi-neo-armbian/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/24/Embedded/nanopi-neo-armbian/" itemprop="url">
+                  Install Armbian Debian Server onto NanoPi NEO
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-02-24 00:00:00" itemprop="dateCreated datePublished" datetime="2018-02-24T00:00:00-08:00">2018-02-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-16 23:03:47" itemprop="dateModified" datetime="2019-04-16T23:03:47-07:00">2019-04-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Embedded-Systems/" itemprop="url" rel="index"><span itemprop="name">Embedded Systems</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Hi, all, I flied back and forth between ShenZhen China and Vancouver Canada in January 2018, and took a holiday break in California USA during Chinese Spring Festival in Febrary 2018. Now, I’m back to Vancouver and write this blog. Today, we are going to talk about how to flash the most recent <a href="https://www.kernel.org/" target="_blank" rel="noopener">Linux Kernel</a> onto an <a href="http://www.friendlyarm.net/products/nanopi-neo" target="_blank" rel="noopener">NanoPi NEO</a>. The board looks like (cited from <a href="http://wiki.friendlyarm.com/wiki/index.php/NanoPi_NEO" target="_blank" rel="noopener">NanoPi NEO</a> ):</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/BSP/master/Embedded/AllWinner/NanoPi_NEO_H3.jpg" alt="NanoPi NEO"></p>
+<p>Different from <a href="../../../../../2018/01/10/SBC/beaglebone-black-uboot-kernel/">our previous blog</a> where <a href="http://www.denx.de/wiki/U-Boot/WebHome" target="_blank" rel="noopener">U-Boot</a> and <a href="https://www.kernel.org/" target="_blank" rel="noopener">Linux Kernel</a> are manually built, here, we download and install the <a href="https://www.armbian.com/nanopi-neo/" target="_blank" rel="noopener">built Ubuntu from Armbian</a> directly.</p>
+<p>Before starting, the following paragraph is cited to explain the relationships among <a href="http://allwinnertech.com/" target="_blank" rel="noopener">AllWinner</a>, <a href="http://linux-sunxi.org/Allwinner" target="_blank" rel="noopener">Sunxi</a> and <a href="https://www.linaro.org/" target="_blank" rel="noopener">Linaro</a>.</p>
+<blockquote>
+<p>In march 2014, <a href="http://allwinnertech.com/" target="_blank" rel="noopener">Allwinner</a> joined Linaro as part of the new linaro digital home group. After this, <a href="http://allwinnertech.com/" target="_blank" rel="noopener">Allwinner</a> stopped communicating with the <a href="http://linux-sunxi.org/Allwinner" target="_blank" rel="noopener">sunxi community</a>, as linaro membership apparently satisfies the marketing need to be seen as an open source friendly company. Despite <a href="https://www.linaro.org/" target="_blank" rel="noopener">Linaro</a> membership, <a href="http://allwinnertech.com/" target="_blank" rel="noopener">Allwinner</a> still violates the <a href="http://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank" rel="noopener">GPL</a> on many counts. (cited from <a href="http://linux-sunxi.org/Allwinner" target="_blank" rel="noopener">http://linux-sunxi.org/Allwinner</a> .)</p>
+</blockquote>
+<h1 id="part-a-install-debian-server-built-by-armbian-onto-nanopi-neo"><a class="markdownIt-Anchor" href="#part-a-install-debian-server-built-by-armbian-onto-nanopi-neo"></a> PART A: Install Debian Server Built By Armbian onto NanoPi NEO</h1>
+<h2 id="1-download-armbian-debian-server-for-nanopi-neo"><a class="markdownIt-Anchor" href="#1-download-armbian-debian-server-for-nanopi-neo"></a> 1. Download Armbian Debian Server for NanoPi NEO</h2>
+<p>We <strong>FIRST</strong> go visiting the website <a href="https://www.armbian.com/nanopi-neo/" target="_blank" rel="noopener">https://www.armbian.com/nanopi-neo/</a> and click <strong>Debian server – mainline kernel</strong> icon, a file named <strong>Armbian_5.38_Nanopineo_Debian_stretch_next_4.14.14.7z</strong> will be automatically downloaded.</p>
+<p>Then, we extract this .<strong>7z</strong> file by</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ 7za e Armbian_5.38_Nanopineo_Debian_stretch_next_4.14.14.7z</span><br><span class="line"></span><br><span class="line">7-Zip (A) [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18</span><br><span class="line">p7zip Version 9.20 (locale=en_CA.UTF-8,Utf16=on,HugeFiles=on,8 CPUs)</span><br><span class="line"></span><br><span class="line">Processing archive: Armbian_5.38_Nanopineo_Debian_stretch_next_4.14.14.7z</span><br><span class="line"></span><br><span class="line">Extracting  Armbian_5.38_Nanopineo_Debian_stretch_next_4.14.14.img</span><br><span class="line">Extracting  armbian.txt</span><br><span class="line">Extracting  armbian.txt.asc</span><br><span class="line">Extracting  Armbian_5.38_Nanopineo_Debian_stretch_next_4.14.14.img.asc</span><br><span class="line">Extracting  sha256sum.sha</span><br><span class="line"></span><br><span class="line">Everything is Ok</span><br><span class="line"></span><br><span class="line">Files: 5</span><br><span class="line">Size:       1396723567</span><br><span class="line">Compressed: 256174798</span><br></pre></td></tr></table></figure>
+<h2 id="2-install-armbian-debian-server-for-nanopi-neo"><a class="markdownIt-Anchor" href="#2-install-armbian-debian-server-for-nanopi-neo"></a> 2. Install Armbian Debian Server for NanoPi NEO</h2>
+<p>After the extracted image file is prepared, it’s the time to install the Armbian Debian Server onto our TF card. We <strong>FIRST</strong> format the TF card:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ sudo mkfs.ext4 /dev/mmcblk0 </span><br><span class="line">[sudo] password <span class="keyword">for</span> jiapei: </span><br><span class="line">mke2fs 1.42.13 (17-May-2015)</span><br><span class="line">Found a dos partition table <span class="keyword">in</span> /dev/mmcblk0</span><br><span class="line">Proceed anyway? (y,n) y</span><br><span class="line">Discarding device blocks: <span class="keyword">done</span>                            </span><br><span class="line">Creating filesystem with 3942144 4k blocks and 987360 inodes</span><br><span class="line">Filesystem UUID: bf3f62c9-283d-48fe-a0f3-56ab357f7b94</span><br><span class="line">Superblock backups stored on blocks: </span><br><span class="line">        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208</span><br><span class="line"></span><br><span class="line">Allocating group tables: <span class="keyword">done</span>                            </span><br><span class="line">Writing inode tables: <span class="keyword">done</span>                            </span><br><span class="line">Creating journal (32768 blocks): <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>Afterwards, use <strong>dd</strong> to install the downloaded Armbian Ubuntu Desktop image.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dd bs=4M <span class="keyword">if</span>=Armbian_5.38_Nanopineo_Debian_stretch_next_4.14.14.img of=/dev/mmcblk0 conv=fsync</span><br><span class="line">[sudo] password <span class="keyword">for</span> jiapei: </span><br><span class="line">333+0 records <span class="keyword">in</span></span><br><span class="line">333+0 records out</span><br><span class="line">1396703232 bytes (1.4 GB, 1.3 GiB) copied, 157.712 s, 8.9 MB/s</span><br></pre></td></tr></table></figure>
+<h1 id="part-b-boot-into-armbian-network-configuration-and-armbian-upgrading"><a class="markdownIt-Anchor" href="#part-b-boot-into-armbian-network-configuration-and-armbian-upgrading"></a> PART B: Boot Into Armbian, Network Configuration and Armbian Upgrading</h1>
+<p>As known, <a href="http://www.friendlyarm.net/products/nanopi-neo" target="_blank" rel="noopener">NanoPi NEO</a> comes with <strong>NEITHER</strong> a <strong>HDMI</strong> interface for display, <strong>NOR</strong> a <strong>Wifi</strong> interface for wireless network connection. Therefore, we may have to find a wired cable, and connect our <a href="http://www.friendlyarm.net/products/nanopi-neo" target="_blank" rel="noopener">NanoPi NEO</a> to a router, which also connects with our host computer. Afterwards, we’ll have to find our <a href="http://www.friendlyarm.net/products/nanopi-neo" target="_blank" rel="noopener">NanoPi NEO</a> connection via router settings. Here in my case, I’m using a <a href="https://www.cogeco.ca/web/resources/pdf/support/user_guides/internet/cisco_wireless_residential_gateway_model_DPC3848_DPC3848V_DPC3848VM_DOCSIS_3_0.pdf" target="_blank" rel="noopener">Cisco DPC3848V DOCSIS 3.0 Gateway</a>, with the <strong>gateway IP: 192.168.0.1</strong>. By visiting <strong><a href="http://192.168.0.1" target="_blank" rel="noopener">http://192.168.0.1</a> -&gt; Setup -&gt; LAN Setup -&gt; Connected Devices Summary</strong>, you should be able to find out which is the newly connected network device, namely <a href="http://www.friendlyarm.net/products/nanopi-neo" target="_blank" rel="noopener">NanoPi NEO</a>.</p>
+<h2 id="1-ssh-into-nanopi-neo"><a class="markdownIt-Anchor" href="#1-ssh-into-nanopi-neo"></a> 1. SSH Into NanoPi NEO</h2>
+<p>Through our host computer, <strong>SSH</strong> into <a href="http://www.friendlyarm.net/products/nanopi-neo" target="_blank" rel="noopener">NanoPi NEO</a>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ssh root@192.168.0.76</span><br><span class="line">The authenticity of host <span class="string">'192.168.0.76 (192.168.0.76)'</span> can<span class="string">'t be established.</span></span><br><span class="line"><span class="string">ECDSA key fingerprint is SHA256:L0qZCYEGGallJo9jSpM63TWAYJ4vU/JzIbMJS80Lx8I.</span></span><br><span class="line"><span class="string">Are you sure you want to continue connecting (yes/no)? yes</span></span><br><span class="line"><span class="string">Warning: Permanently added '</span>192.168.0.76<span class="string">' (ECDSA) to the list of known hosts.</span></span><br><span class="line"><span class="string">root@192.168.0.76'</span>s password:</span><br></pre></td></tr></table></figure>
+<p>Then you input <strong>1234</strong> as the password, you’ll be asked to change your password right away.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">You are required to change your password immediately (root enforced)</span><br><span class="line"> _   _                   ____  _   _   _            </span><br><span class="line">| \ | | __ _ _ __   ___ |  _ \(_) | \ | | ___  ___  </span><br><span class="line">|  \| |/ _` | <span class="string">'_ \ / _ \| |_) | | |  \| |/ _ \/ _ \ </span></span><br><span class="line"><span class="string">| |\  | (_| | | | | (_) |  __/| | | |\  |  __/ (_) |</span></span><br><span class="line"><span class="string">|_| \_|\__,_|_| |_|\___/|_|   |_| |_| \_|\___|\___/ </span></span><br><span class="line"><span class="string">                                                    </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Welcome to ARMBIAN 5.38 stable Debian GNU/Linux 9 (stretch) 4.14.14-sunxi   </span></span><br><span class="line"><span class="string">System load:   0.07 0.04 0.07   Up time:       15 min</span></span><br><span class="line"><span class="string">Memory usage:  16 % of 240MB    IP:            192.168.0.76</span></span><br><span class="line"><span class="string">CPU temp:      37°C           </span></span><br><span class="line"><span class="string">Usage of /:    7% of 15G    </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[ General system configuration (beta): armbian-config ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">New to Armbian? Check the documentation first: https://docs.armbian.com</span></span><br><span class="line"><span class="string">Changing password for root.</span></span><br><span class="line"><span class="string">(current) UNIX password: </span></span><br><span class="line"><span class="string">Enter new UNIX password: </span></span><br><span class="line"><span class="string">Retype new UNIX password: </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Thank you for choosing Armbian! Support: www.armbian.com</span></span><br></pre></td></tr></table></figure>
+<p>And then you will be asked to create a new user account.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">Creating a new user account. Press &lt;Ctrl-C&gt; to abort</span><br><span class="line"></span><br><span class="line">Please provide a username (eg. your forename): nanopineo</span><br><span class="line">Trying to add user nanopineo</span><br><span class="line">perl: warning: Setting locale failed.</span><br><span class="line">perl: warning: Please check that your locale settings:</span><br><span class="line">        LANGUAGE = <span class="string">"en_US.UTF-8"</span>,</span><br><span class="line">        LC_ALL = (<span class="built_in">unset</span>),</span><br><span class="line">        LC_MEASUREMENT = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_PAPER = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_MONETARY = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_NAME = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_ADDRESS = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_NUMERIC = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_MESSAGES = <span class="string">"en_US.UTF-8"</span>,</span><br><span class="line">        LC_TELEPHONE = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_IDENTIFICATION = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_TIME = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LANG = <span class="string">"en_US.UTF-8"</span></span><br><span class="line">    are supported and installed on your system.</span><br><span class="line">perl: warning: Falling back to a fallback locale (<span class="string">"en_US.UTF-8"</span>).</span><br><span class="line">Adding user `nanopineo<span class="string">' ...</span></span><br><span class="line"><span class="string">Adding new group `nanopineo'</span> (1000) ...</span><br><span class="line">Adding new user `nanopineo<span class="string">' (1000) with group `nanopineo'</span> ...</span><br><span class="line">Creating home directory `/home/nanopineo<span class="string">' ...</span></span><br><span class="line"><span class="string">Copying files from `/etc/skel'</span> ...</span><br><span class="line">Enter new UNIX password: </span><br><span class="line">Retype new UNIX password: </span><br><span class="line">passwd: password updated successfully</span><br><span class="line">Changing the user information <span class="keyword">for</span> nanopineo</span><br><span class="line">Enter the new value, or press ENTER <span class="keyword">for</span> the default</span><br><span class="line">        Full Name []: </span><br><span class="line">        Room Number []: </span><br><span class="line">        Work Phone []: </span><br><span class="line">        Home Phone []: </span><br><span class="line">        Other []: </span><br><span class="line">Is the information correct? [Y/n] Y</span><br><span class="line"></span><br><span class="line">Dear nanopineo, your account nanopineo has been created and is sudo enabled.</span><br><span class="line">Please use this account <span class="keyword">for</span> your daily work from now on.</span><br><span class="line"></span><br><span class="line">root@nanopineo:~<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-network-configuration"><a class="markdownIt-Anchor" href="#2-network-configuration"></a> 2. Network Configuration</h2>
+<h3 id="1-doublecheck-ip-address"><a class="markdownIt-Anchor" href="#1-doublecheck-ip-address"></a> 1) Doublecheck IP address</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">root@nanopineo:~<span class="comment"># ifconfig</span></span><br><span class="line">eth0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">        inet 192.168.0.76  netmask 255.255.255.0  broadcast 192.168.0.255</span><br><span class="line">        inet6 fe80::dc0b:3cff:fe76:8606  prefixlen 64  scopeid 0x20&lt;link&gt;</span><br><span class="line">        ether de:0b:3c:76:86:06  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 1544  bytes 145676 (142.2 KiB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 667  bytes 63483 (61.9 KiB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line">        device interrupt 33  </span><br><span class="line"></span><br><span class="line">lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536</span><br><span class="line">        inet 127.0.0.1  netmask 255.0.0.0</span><br><span class="line">        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;</span><br><span class="line">        loop  txqueuelen 1000  (Local Loopback)</span><br><span class="line">        RX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br></pre></td></tr></table></figure>
+<h3 id="2-modify-etcnetworkinterfaces"><a class="markdownIt-Anchor" href="#2-modify-etcnetworkinterfaces"></a> 2) Modify /etc/network/interfaces</h3>
+<p>I noticed that when you reboot <a href="http://www.friendlyarm.net/products/nanopi-neo" target="_blank" rel="noopener">NanoPi NEO</a>, the IP address changed from time to time. The reason why it is so is because the MAC address of <a href="http://www.friendlyarm.net/products/nanopi-neo" target="_blank" rel="noopener">NanoPi NEO</a> change randomly after Armbian reboot. Therefore, it’s recommended to manually set a static MAC address for <a href="http://www.friendlyarm.net/products/nanopi-neo" target="_blank" rel="noopener">NanoPi NEO</a> in file /<strong>etc/network/interfaces</strong>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@nanopineo:~<span class="comment"># vim /etc/network/interfaces</span></span><br></pre></td></tr></table></figure>
+<p>Just make sure to uncomment this line <strong>hwaddress ether # if you want to set MAC manually</strong> and write in a fixed MAC address. The final /<strong>etc/network/interfaces</strong> for my <a href="http://www.friendlyarm.net/products/nanopi-neo" target="_blank" rel="noopener">NanoPi NEO</a> is as follows:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">root@nanopineo:~<span class="comment"># cat /etc/network/interfaces</span></span><br><span class="line"><span class="built_in">source</span> /etc/network/interfaces.d/*</span><br><span class="line"></span><br><span class="line"><span class="comment"># Wired adapter #1</span></span><br><span class="line">allow-hotplug eth0</span><br><span class="line">no-auto-down eth0</span><br><span class="line">iface eth0 inet dhcp</span><br><span class="line"><span class="comment">#address 192.168.0.100</span></span><br><span class="line"><span class="comment">#netmask 255.255.255.0</span></span><br><span class="line"><span class="comment">#gateway 192.168.0.1</span></span><br><span class="line"><span class="comment">#dns-nameservers 8.8.8.8 8.8.4.4</span></span><br><span class="line">        hwaddress ether  d2:d0:78:47:06:b3 <span class="comment"># if you want to set MAC manually</span></span><br><span class="line"><span class="comment">#       pre-up /sbin/ifconfig eth0 mtu 3838 # setting MTU for DHCP, static just: mtu 3838</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Wireless adapter #1</span></span><br><span class="line"><span class="comment"># Armbian ships with network-manager installed by default. To save you time</span></span><br><span class="line"><span class="comment"># and hassles consider using 'sudo nmtui' instead of configuring Wi-Fi settings</span></span><br><span class="line"><span class="comment"># manually. The below lines are only meant as an example how configuration could</span></span><br><span class="line"><span class="comment"># be done in an anachronistic way:</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment">#allow-hotplug wlan0</span></span><br><span class="line"><span class="comment">#iface wlan0 inet dhcp</span></span><br><span class="line"><span class="comment">#address 192.168.0.100</span></span><br><span class="line"><span class="comment">#netmask 255.255.255.0</span></span><br><span class="line"><span class="comment">#gateway 192.168.0.1</span></span><br><span class="line"><span class="comment">#dns-nameservers 8.8.8.8 8.8.4.4</span></span><br><span class="line"><span class="comment">#   wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf</span></span><br><span class="line"><span class="comment"># Disable power saving on compatible chipsets (prevents SSH/connection dropouts over WiFi)</span></span><br><span class="line"><span class="comment">#wireless-mode Managed</span></span><br><span class="line"><span class="comment">#wireless-power off</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Local loopback</span></span><br><span class="line">auto lo</span><br><span class="line">iface lo inet loopback</span><br><span class="line"></span><br><span class="line">And before reboot Armbian, we also need to <span class="built_in">set</span> a **FIXED** IP address (Here <span class="keyword">in</span> my <span class="keyword">case</span>: 192.168.0.36) <span class="keyword">for</span> the device with the static MAC address you just specified (Here <span class="keyword">in</span> my <span class="keyword">case</span>: **d2:d0:78:47:06:b3**).</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 3. Reboot Armbian</span></span><br><span class="line"></span><br><span class="line">Now, reboot Armbian.</span><br><span class="line"></span><br><span class="line">```console</span><br><span class="line">root@nanopineo:~<span class="comment"># sudo reboot</span></span><br></pre></td></tr></table></figure>
+<p>After a while, ssh into Armbian with created user <strong>nanopineo</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">$ ssh nanopineo@192.168.0.36</span><br><span class="line">The authenticity of host <span class="string">'192.168.0.36 (192.168.0.36)'</span> can<span class="string">'t be established.</span></span><br><span class="line"><span class="string">ECDSA key fingerprint is SHA256:L0qZCYEGGallJo9jSpM63TWAYJ4vU/JzIbMJS80Lx8I.</span></span><br><span class="line"><span class="string">Are you sure you want to continue connecting (yes/no)? yes</span></span><br><span class="line"><span class="string">Warning: Permanently added '</span>192.168.0.36<span class="string">' (ECDSA) to the list of known hosts.</span></span><br><span class="line"><span class="string">nanopineo@192.168.0.36'</span>s password: </span><br><span class="line"> _   _                   ____  _   _   _            </span><br><span class="line">| \ | | __ _ _ __   ___ |  _ \(_) | \ | | ___  ___  </span><br><span class="line">|  \| |/ _` | <span class="string">'_ \ / _ \| |_) | | |  \| |/ _ \/ _ \ </span></span><br><span class="line"><span class="string">| |\  | (_| | | | | (_) |  __/| | | |\  |  __/ (_) |</span></span><br><span class="line"><span class="string">|_| \_|\__,_|_| |_|\___/|_|   |_| |_| \_|\___|\___/ </span></span><br><span class="line"><span class="string">                                                    </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Welcome to ARMBIAN 5.38 stable Debian GNU/Linux 9 (stretch) 4.14.14-sunxi   </span></span><br><span class="line"><span class="string">System load:   0.99 0.30 0.10   Up time:       0 min</span></span><br><span class="line"><span class="string">Memory usage:  16 % of 240MB    IP:            192.168.0.36</span></span><br><span class="line"><span class="string">CPU temp:      43°C           </span></span><br><span class="line"><span class="string">Usage of /:    8% of 15G    </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[ 0 security updates available, 3 updates total: apt upgrade ]</span></span><br><span class="line"><span class="string">Last check: 2018-03-01 06:30</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[ General system configuration (beta): armbian-config ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">nanopineo@nanopineo:~$</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-armbian-upgrading"><a class="markdownIt-Anchor" href="#4-armbian-upgrading"></a> 4. Armbian Upgrading</h2>
+<p>Then we simply <strong>upgrade</strong> Armbian.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">nanopineo@nanopineo:~$ sudo apt update</span><br><span class="line"></span><br><span class="line">We trust you have received the usual lecture from the <span class="built_in">local</span> System</span><br><span class="line">Administrator. It usually boils down to these three things:</span><br><span class="line"></span><br><span class="line">    <span class="comment">#1) Respect the privacy of others.</span></span><br><span class="line">    <span class="comment">#2) Think before you type.</span></span><br><span class="line">    <span class="comment">#3) With great power comes great responsibility.</span></span><br><span class="line"></span><br><span class="line">[sudo] password <span class="keyword">for</span> nanopineo: </span><br><span class="line">Hit:1 http://security.debian.org stretch/updates InRelease</span><br><span class="line">Hit:4 http://apt.armbian.com stretch InRelease                                                                                    </span><br><span class="line">Ign:2 http://cdn-fastly.deb.debian.org/debian stretch InRelease                              </span><br><span class="line">Hit:3 http://cdn-fastly.deb.debian.org/debian stretch-updates InRelease</span><br><span class="line">Hit:5 http://cdn-fastly.deb.debian.org/debian stretch-backports InRelease</span><br><span class="line">Hit:6 http://cdn-fastly.deb.debian.org/debian stretch Release</span><br><span class="line">Reading package lists... Done</span><br><span class="line">Building dependency tree       </span><br><span class="line">Reading state information... Done</span><br><span class="line">3 packages can be upgraded. Run <span class="string">'apt list --upgradable'</span> to see them.</span><br><span class="line">nanopineo@nanopineo:~$ apt list --upgradable</span><br><span class="line">Listing... Done</span><br><span class="line">linux-dtb-next-sunxi/stretch 5.41 armhf [upgradable from: 5.38]</span><br><span class="line">linux-image-next-sunxi/stretch 5.41 armhf [upgradable from: 5.38]</span><br><span class="line">tzdata/stable-updates 2018c-0+deb9u1 all [upgradable from: 2017c-0+deb9u1]</span><br><span class="line">nanopineo@nanopineo:~$ sudo apt upgrade</span><br><span class="line">Reading package lists... Done</span><br><span class="line">Building dependency tree       </span><br><span class="line">Reading state information... Done</span><br><span class="line">Calculating upgrade... Done</span><br><span class="line">The following packages will be upgraded:</span><br><span class="line">  linux-dtb-next-sunxi linux-image-next-sunxi tzdata</span><br><span class="line">3 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.</span><br><span class="line">Need to get 20.2 MB of archives.</span><br><span class="line">After this operation, 240 kB of additional disk space will be used.</span><br><span class="line">Do you want to <span class="built_in">continue</span>? [Y/n] Y</span><br><span class="line">Get:1 http://cdn-fastly.deb.debian.org/debian stretch-updates/main armhf tzdata all 2018c-0+deb9u1 [264 kB]</span><br><span class="line">Get:2 http://apt.armbian.com stretch/main armhf linux-dtb-next-sunxi armhf 5.41 [175 kB]</span><br><span class="line">Get:3 http://apt.armbian.com stretch/main armhf linux-image-next-sunxi armhf 5.41 [19.7 MB]</span><br><span class="line">Fetched 20.2 MB <span class="keyword">in</span> 14s (1387 kB/s)</span><br><span class="line">perl: warning: Setting locale failed.</span><br><span class="line">perl: warning: Please check that your locale settings:</span><br><span class="line">        LANGUAGE = <span class="string">"en_US.UTF-8"</span>,</span><br><span class="line">        LC_ALL = (<span class="built_in">unset</span>),</span><br><span class="line">        LC_TIME = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_MONETARY = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_ADDRESS = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_TELEPHONE = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_MESSAGES = <span class="string">"en_US.UTF-8"</span>,</span><br><span class="line">        LC_NAME = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_MEASUREMENT = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_IDENTIFICATION = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_NUMERIC = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_PAPER = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LANG = <span class="string">"en_US.UTF-8"</span></span><br><span class="line">    are supported and installed on your system.</span><br><span class="line">perl: warning: Falling back to a fallback locale (<span class="string">"en_US.UTF-8"</span>).</span><br><span class="line">locale: Cannot <span class="built_in">set</span> LC_ALL to default locale: No such file or directory</span><br><span class="line">Preconfiguring packages ...</span><br><span class="line">(Reading database ... 32833 files and directories currently installed.)</span><br><span class="line">Preparing to unpack .../tzdata_2018c-0+deb9u1_all.deb ...</span><br><span class="line">Unpacking tzdata (2018c-0+deb9u1) over (2017c-0+deb9u1) ...</span><br><span class="line">Preparing to unpack .../linux-dtb-next-sunxi_5.41_armhf.deb ...</span><br><span class="line">Unpacking linux-dtb-next-sunxi (5.41) over (5.38) ...</span><br><span class="line">Preparing to unpack .../linux-image-next-sunxi_5.41_armhf.deb ...</span><br><span class="line">update-initramfs: Deleting /boot/initrd.img-4.14.14-sunxi</span><br><span class="line">Removing obsolete file uInitrd-4.14.14-sunxi</span><br><span class="line">Unpacking linux-image-next-sunxi (5.41) over (5.38) ...</span><br><span class="line">Setting up linux-dtb-next-sunxi (5.41) ...</span><br><span class="line">Setting up tzdata (2018c-0+deb9u1) ...</span><br><span class="line">locale: Cannot <span class="built_in">set</span> LC_ALL to default locale: No such file or directory</span><br><span class="line"></span><br><span class="line">Current default time zone: <span class="string">'Etc/UTC'</span></span><br><span class="line">Local time is now:      Thu Mar  1 06:34:05 UTC 2018.</span><br><span class="line">Universal Time is now:  Thu Mar  1 06:34:05 UTC 2018.</span><br><span class="line">Run <span class="string">'dpkg-reconfigure tzdata'</span> <span class="keyword">if</span> you wish to change it.</span><br><span class="line"></span><br><span class="line">Setting up linux-image-next-sunxi (5.41) ...</span><br><span class="line">update-initramfs: Generating /boot/initrd.img-4.14.18-sunxi</span><br><span class="line">update-initramfs: Converting to u-boot format</span><br><span class="line">nanopineo@nanopineo:~$</span><br></pre></td></tr></table></figure>
+<h2 id="5-kernel-doublechecking"><a class="markdownIt-Anchor" href="#5-kernel-doublechecking"></a> 5. Kernel Doublechecking</h2>
+<p>Finally, we have the system and kernel doublechecked.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">nanopineo@nanopineo:~$ uname -r</span><br><span class="line">4.14.14-sunxi</span><br><span class="line">nanopineo@nanopineo:~$ uname -a</span><br><span class="line">Linux nanopineo 4.14.14-sunxi <span class="comment">#1 SMP Thu Jan 25 12:20:57 CET 2018 armv7l GNU/Linux</span></span><br><span class="line">nanopineo@nanopineo:~$ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID: Debian</span><br><span class="line">Description:    Debian GNU/Linux 9.3 (stretch)</span><br><span class="line">Release:        9.3</span><br><span class="line">Codename:       stretch</span><br><span class="line">nanopineo@nanopineo:~$</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/01/10/Embedded/beaglebone-black-uboot-kernel/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2117,163 +2328,11 @@ At the end of the code, we release the video capture handle and destroy all open
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2017/03/09/Events/hi-nobody/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/03/09/Events/hi-nobody/" itemprop="url">
-                  Hi, Everyone...
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-03-09 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-09T00:00:00-08:00">2017-03-09</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-06-16 13:50:32" itemprop="dateModified" datetime="2018-06-16T13:50:32-07:00">2018-06-16</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Hi, everyone. This is Nobody from <a href="http://www.longervision.ca/" target="_blank" rel="noopener">Longer Vision Technology</a>. I come back to life, at least, half life. And finally, I decided to write something, either useful, or useless. Hope my blogs will be able to help some of the pure researchers, as well as the students, in the field of Computer Vision &amp; Machine Vision. By the way, our products will be put on sale soon. Keep an eye on our blogs please. Thank you…</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2316,7 +2375,7 @@ At the end of the code, we release the video capture handle and destroy all open
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">51</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2476,7 +2535,9 @@ At the end of the code, we release the video capture handle and destroy all open
                     
                       
                     
-                    <span class="site-state-item-count">48</span>
+                      
+                    
+                    <span class="site-state-item-count">49</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
