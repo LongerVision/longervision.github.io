@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="English">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo3d.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo3d_32X32.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo3d_16x16.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo3d.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Back to Vancouver, Canada now. Start writing something again. Just wanna write down some very useful bash scripts.  Skill 1 - How to upgrade all Python packages with pip?  Solution Please refer to htt">
+<meta name="keywords" content="pip, nmap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bash Skills - 01">
+<meta property="og:url" content="http://longervision.ca/2019/06/03/Coding/bash_skills_01/index.html">
+<meta property="og:site_name" content="Longer Vision Technology">
+<meta property="og:description" content="Back to Vancouver, Canada now. Start writing something again. Just wanna write down some very useful bash scripts.  Skill 1 - How to upgrade all Python packages with pip?  Solution Please refer to htt">
+<meta property="og:locale" content="English">
+<meta property="og:updated_time" content="2019-06-03T16:15:35.308Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bash Skills - 01">
+<meta name="twitter:description" content="Back to Vancouver, Canada now. Start writing something again. Just wanna write down some very useful bash scripts.  Skill 1 - How to upgrade all Python packages with pip?  Solution Please refer to htt">
+
+
+
+
+
+
+  <link rel="canonical" href="http://longervision.ca/2019/06/03/Coding/bash_skills_01/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Bash Skills - 01 | Longer Vision Technology</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="English">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Longer Vision Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Github Blog</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/06/03/Coding/bash_skills_01/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Bash Skills - 01
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-06-03 00:00:00 / Modified: 09:15:35" itemprop="dateCreated datePublished" datetime="2019-06-03T00:00:00-07:00">2019-06-03</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Back to Vancouver, Canada now. Start writing something again. Just wanna write down some very useful bash scripts.</p>
+<h1 id="skill-1-how-to-upgrade-all-python-packages-with-pip"><a class="markdownIt-Anchor" href="#skill-1-how-to-upgrade-all-python-packages-with-pip"></a> Skill 1 - How to upgrade all Python packages with pip?</h1>
+<h2 id="solution"><a class="markdownIt-Anchor" href="#solution"></a> Solution</h2>
+<p>Please refer to <a href="https://stackoverflow.com/questions/2720014/how-to-upgrade-all-python-packages-with-pip" target="_blank" rel="noopener">https://stackoverflow.com/questions/2720014/how-to-upgrade-all-python-packages-with-pip</a>. Bash script is:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip list --outdated --format=freeze | grep -v <span class="string">'^\-e'</span> | cut -d = -f 1  | xargs -n1 pip install -U --user</span><br></pre></td></tr></table></figure>
+<h2 id="test"><a class="markdownIt-Anchor" href="#test"></a> Test</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip list --outdated --format=freeze | grep -v <span class="string">'^\-e'</span> | cut -d = -f 1  | xargs -n1 pip install -U --user</span><br><span class="line">Collecting distro-info</span><br><span class="line">Installing collected packages: distro-info</span><br><span class="line">  Found existing installation: distro-info 0.0.0</span><br><span class="line">    Uninstalling distro-info-0.0.0:</span><br><span class="line">      Successfully uninstalled distro-info-0.0.0</span><br><span class="line">Successfully installed distro-info-0.0.0</span><br><span class="line">Collecting Markdown</span><br><span class="line">  Downloading https://files.pythonhosted.org/packages/c0/4e/fd492e91abdc2d2fcb70ef453064d980688762079397f779758e055f6575/Markdown-3.1.1-py2.py3-none-any.whl (87kB)</span><br><span class="line">     |████████████████████████████████| 92kB 4.5MB/s </span><br><span class="line">Requirement already satisfied, skipping upgrade: setuptools&gt;=36 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.7/site-packages (from Markdown) (41.0.1)</span><br><span class="line">Installing collected packages: Markdown</span><br><span class="line">  WARNING: The script markdown_py is installed <span class="keyword">in</span> <span class="string">'/home/lvision/.local/bin'</span> <span class="built_in">which</span> is not on PATH.</span><br><span class="line">  Consider adding this directory to PATH or, <span class="keyword">if</span> you prefer to suppress this warning, use --no-warn-script-location.</span><br><span class="line">Successfully installed Markdown-3.1.1</span><br><span class="line">Collecting pycups</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/00/ce/836a0deb8b24bcd5f850f8fb97f99fb4abd7374e078b9e6df5a0838f8eb5/pycups-1.9.74.tar.bz2</span><br><span class="line">Building wheels <span class="keyword">for</span> collected packages: pycups</span><br><span class="line">  Building wheel <span class="keyword">for</span> pycups (setup.py) ... error</span><br><span class="line">  ERROR: Complete output from <span class="built_in">command</span> /usr/bin/python3 -u -c <span class="string">'import setuptools, tokenize;__file__='</span><span class="string">"'"</span><span class="string">'/tmp/pip-install-9jc5iw0k/pycups/setup.py'</span><span class="string">"'"</span><span class="string">';f=getattr(tokenize, '</span><span class="string">"'"</span><span class="string">'open'</span><span class="string">"'"</span><span class="string">', open)(__file__);code=f.read().replace('</span><span class="string">"'"</span><span class="string">'\r\n'</span><span class="string">"'"</span><span class="string">', '</span><span class="string">"'"</span><span class="string">'\n'</span><span class="string">"'"</span><span class="string">');f.close();exec(compile(code, __file__, '</span><span class="string">"'"</span><span class="string">'exec'</span><span class="string">"'"</span><span class="string">'))'</span> bdist_wheel -d /tmp/pip-wheel-k2dtuswe --python-tag cp37:</span><br><span class="line">  ERROR: running bdist_wheel</span><br><span class="line">  running build</span><br><span class="line">  running build_ext</span><br><span class="line">  building <span class="string">'cups'</span> extension</span><br><span class="line">  creating build</span><br><span class="line">  creating build/temp.linux-x86_64-3.7</span><br><span class="line">  x86_64-linux-gnu-gcc -pthread -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -DVERSION=<span class="string">"1.9.74"</span> -I/usr/include/python3.7m -c cupsmodule.c -o build/temp.linux-x86_64-3.7/cupsmodule.o</span><br><span class="line">  cupsmodule.c:23:10: fatal error: cups/cups.h: No such file or directory</span><br><span class="line">   <span class="comment">#include &lt;cups/cups.h&gt;</span></span><br><span class="line">            ^~~~~~~~~~~~~</span><br><span class="line">  compilation terminated.</span><br><span class="line">  error: <span class="built_in">command</span> <span class="string">'x86_64-linux-gnu-gcc'</span> failed with <span class="built_in">exit</span> status 1</span><br><span class="line">  ----------------------------------------</span><br><span class="line">  ERROR: Failed building wheel <span class="keyword">for</span> pycups</span><br><span class="line">  Running setup.py clean <span class="keyword">for</span> pycups</span><br><span class="line">Failed to build pycups</span><br><span class="line">Installing collected packages: pycups</span><br><span class="line">  Running setup.py install <span class="keyword">for</span> pycups ... error</span><br><span class="line">    ERROR: Complete output from <span class="built_in">command</span> /usr/bin/python3 -u -c <span class="string">'import setuptools, tokenize;__file__='</span><span class="string">"'"</span><span class="string">'/tmp/pip-install-9jc5iw0k/pycups/setup.py'</span><span class="string">"'"</span><span class="string">';f=getattr(tokenize, '</span><span class="string">"'"</span><span class="string">'open'</span><span class="string">"'"</span><span class="string">', open)(__file__);code=f.read().replace('</span><span class="string">"'"</span><span class="string">'\r\n'</span><span class="string">"'"</span><span class="string">', '</span><span class="string">"'"</span><span class="string">'\n'</span><span class="string">"'"</span><span class="string">');f.close();exec(compile(code, __file__, '</span><span class="string">"'"</span><span class="string">'exec'</span><span class="string">"'"</span><span class="string">'))'</span> install --record /tmp/pip-record-imbt0ikc/install-record.txt --single-version-externally-managed --compile --user --prefix=:</span><br><span class="line">    ERROR: running install</span><br><span class="line">    running build</span><br><span class="line">    running build_ext</span><br><span class="line">    building <span class="string">'cups'</span> extension</span><br><span class="line">    creating build</span><br><span class="line">    creating build/temp.linux-x86_64-3.7</span><br><span class="line">    x86_64-linux-gnu-gcc -pthread -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -DVERSION=<span class="string">"1.9.74"</span> -I/usr/include/python3.7m -c cupsmodule.c -o build/temp.linux-x86_64-3.7/cupsmodule.o</span><br><span class="line">    cupsmodule.c:23:10: fatal error: cups/cups.h: No such file or directory</span><br><span class="line">     <span class="comment">#include &lt;cups/cups.h&gt;</span></span><br><span class="line">              ^~~~~~~~~~~~~</span><br><span class="line">    compilation terminated.</span><br><span class="line">    error: <span class="built_in">command</span> <span class="string">'x86_64-linux-gnu-gcc'</span> failed with <span class="built_in">exit</span> status 1</span><br><span class="line">    ----------------------------------------</span><br><span class="line">ERROR: Command <span class="string">"/usr/bin/python3 -u -c 'import setuptools, tokenize;__file__='"</span><span class="string">'"'</span>/tmp/pip-install-9jc5iw0k/pycups/setup.py<span class="string">'"'</span><span class="string">"';f=getattr(tokenize, '"</span><span class="string">'"'</span>open<span class="string">'"'</span><span class="string">"', open)(__file__);code=f.read().replace('"</span><span class="string">'"'</span>\r\n<span class="string">'"'</span><span class="string">"', '"</span><span class="string">'"'</span>\n<span class="string">'"'</span><span class="string">"');f.close();exec(compile(code, __file__, '"</span><span class="string">'"'</span><span class="built_in">exec</span><span class="string">'"'</span><span class="string">"'))' install --record /tmp/pip-record-imbt0ikc/install-record.txt --single-version-externally-managed --compile --user --prefix="</span> failed with error code 1 <span class="keyword">in</span> /tmp/pip-install-9jc5iw0k/pycups/</span><br><span class="line">Collecting Pygments</span><br><span class="line">  Downloading https://files.pythonhosted.org/packages/5c/73/1dfa428150e3ccb0fa3e68db406e5be48698f2a979ccbcec795f28f44048/Pygments-2.4.2-py2.py3-none-any.whl (883kB)</span><br><span class="line">     |████████████████████████████████| 890kB 3.8MB/s </span><br><span class="line">Installing collected packages: Pygments</span><br><span class="line">  WARNING: The script pygmentize is installed <span class="keyword">in</span> <span class="string">'/home/lvision/.local/bin'</span> <span class="built_in">which</span> is not on PATH.</span><br><span class="line">  Consider adding this directory to PATH or, <span class="keyword">if</span> you prefer to suppress this warning, use --no-warn-script-location.</span><br><span class="line">Successfully installed Pygments-2.4.2</span><br><span class="line">Collecting PyGObject</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/c1/36/c31a6ce9411b22a8ac0759c9b5ffda09368d5e0643450bb8ed83c271588c/PyGObject-3.32.1.tar.gz</span><br><span class="line">  Installing build dependencies ... <span class="keyword">done</span></span><br><span class="line">  Getting requirements to build wheel ... <span class="keyword">done</span></span><br><span class="line">    Preparing wheel metadata ... <span class="keyword">done</span></span><br><span class="line">Requirement already satisfied, skipping upgrade: pycairo&gt;=1.11.1 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.7/site-packages (from PyGObject) (1.18.1)</span><br><span class="line">Building wheels <span class="keyword">for</span> collected packages: PyGObject</span><br><span class="line">  Building wheel <span class="keyword">for</span> PyGObject (PEP 517) ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: /home/lvision/.cache/pip/wheels/30/7a/00/cdefec8644e21ce0d5a438f96ce0ba65b51eb648c4e4614d62</span><br><span class="line">Successfully built PyGObject</span><br><span class="line">Installing collected packages: PyGObject</span><br><span class="line">Successfully installed PyGObject-3.32.1</span><br><span class="line">➜  ~ pip list --outdated --format=freeze | grep -v <span class="string">'^\-e'</span> | cut -d = -f 1  | xargs -n1 pip install -U --user</span><br><span class="line">Collecting distro-info</span><br><span class="line">Installing collected packages: distro-info</span><br><span class="line">  Found existing installation: distro-info 0.0.0</span><br><span class="line">    Uninstalling distro-info-0.0.0:</span><br><span class="line">      Successfully uninstalled distro-info-0.0.0</span><br><span class="line">Successfully installed distro-info-0.0.0</span><br><span class="line">Collecting pycups</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/00/ce/836a0deb8b24bcd5f850f8fb97f99fb4abd7374e078b9e6df5a0838f8eb5/pycups-1.9.74.tar.bz2</span><br><span class="line">Building wheels <span class="keyword">for</span> collected packages: pycups</span><br><span class="line">  Building wheel <span class="keyword">for</span> pycups (setup.py) ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: /home/lvision/.cache/pip/wheels/bb/4a/db/d9ea6edeead55ff1b909f3e7aa4384db28ff6ce3ecef0c94f7</span><br><span class="line">Successfully built pycups</span><br><span class="line">Installing collected packages: pycups</span><br><span class="line">Successfully installed pycups-1.9.74</span><br><span class="line">➜  ~ pip list --outdated</span><br><span class="line">Package     Version Latest Type </span><br><span class="line">----------- ------- ------ -----</span><br><span class="line">distro-info 0.0.0   0.10   sdist</span><br><span class="line">➜  ~</span><br></pre></td></tr></table></figure>
+<p>In the above test, clearly, we ran the following <strong>bash script</strong> twice:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip list --outdated --format=freeze | grep -v <span class="string">'^\-e'</span> | cut -d = -f 1  | xargs -n1 pip install -U --user</span><br></pre></td></tr></table></figure>
+<p>For the 1st time, we successfully had <strong>distro-info, Markdown, Pygments, PyGObject</strong> installed, but failed to install <strong>pycups</strong>.<br>
+For the 2nd time, after <strong>libcups2-dev</strong> had been installed from Ubuntu repository, we had <strong>pycups</strong> installed successfully.</p>
+<p>However, we still have <strong>one LAST issue</strong>: why <strong>distro-info</strong> is still oudated? <sup>_</sup> Can anybody give me an explanation?</p>
+<h1 id="skill-2-how-to-find-all-connected-devices-with-nmap"><a class="markdownIt-Anchor" href="#skill-2-how-to-find-all-connected-devices-with-nmap"></a> Skill 2 - How to find all connected devices with nmap?</h1>
+<h2 id="solution-2"><a class="markdownIt-Anchor" href="#solution-2"></a> Solution</h2>
+<p>Please refer to <a href="https://vitux.com/find-devices-connected-to-your-network-with-nmap/" target="_blank" rel="noopener">https://vitux.com/find-devices-connected-to-your-network-with-nmap/</a>. Bash script is:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sP 192.168.1.254/24</span><br></pre></td></tr></table></figure>
+<h2 id="test-2"><a class="markdownIt-Anchor" href="#test-2"></a> Test</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ nmap -sP 192.168.1.254/24</span><br><span class="line">Starting Nmap 7.70 ( https://nmap.org ) at 2019-06-03 08:03 PDT</span><br><span class="line">Nmap scan report <span class="keyword">for</span> 192.168.1.64</span><br><span class="line">Host is up (0.082s latency).</span><br><span class="line">Nmap scan report <span class="keyword">for</span> 192.168.1.65</span><br><span class="line">Host is up (0.0092s latency).</span><br><span class="line">Nmap scan report <span class="keyword">for</span> 192.168.1.66</span><br><span class="line">Host is up (0.010s latency).</span><br><span class="line">Nmap scan report <span class="keyword">for</span> 192.168.1.67</span><br><span class="line">Host is up (0.037s latency).</span><br><span class="line">Nmap scan report <span class="keyword">for</span> 192.168.1.71</span><br><span class="line">Host is up (0.032s latency).</span><br><span class="line">Nmap scan report <span class="keyword">for</span> 192.168.1.73</span><br><span class="line">Host is up (0.032s latency).</span><br><span class="line">Nmap scan report <span class="keyword">for</span> 192.168.1.74</span><br><span class="line">Host is up (0.061s latency).</span><br><span class="line">Nmap scan report <span class="keyword">for</span> 192.168.1.98</span><br><span class="line">Host is up (0.044s latency).</span><br><span class="line">Nmap scan report <span class="keyword">for</span> 192.168.1.103</span><br><span class="line">Host is up (0.15s latency).</span><br><span class="line">Nmap scan report <span class="keyword">for</span> lvision-GT72-6QE (192.168.1.200)</span><br><span class="line">Host is up (0.00047s latency).</span><br><span class="line">Nmap scan report <span class="keyword">for</span> _gateway (192.168.1.254)</span><br><span class="line">Host is up (0.015s latency).</span><br><span class="line">Nmap <span class="keyword">done</span>: 256 IP addresses (11 hosts up) scanned <span class="keyword">in</span> 8.21 seconds</span><br><span class="line">➜  ~</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/pip-nmap/" rel="tag"># pip, nmap</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/12/Embedded/orange-pi-3-armbian/" rel="next" title="Install Armbian Ubuntu Desktop Nightly Built onto Orange Pi 3">
+                <i class="fa fa-chevron-left"></i> Install Armbian Ubuntu Desktop Nightly Built onto Orange Pi 3
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Nobody</p>
+              <p class="site-description motion-element" itemprop="description">Longer Vision Technology Github Blog</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">52</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#skill-1-how-to-upgrade-all-python-packages-with-pip"><span class="nav-number">1.</span> <span class="nav-text"> Skill 1 - How to upgrade all Python packages with pip?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#solution"><span class="nav-number">1.1.</span> <span class="nav-text"> Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#test"><span class="nav-number">1.2.</span> <span class="nav-text"> Test</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#skill-2-how-to-find-all-connected-devices-with-nmap"><span class="nav-number">2.</span> <span class="nav-text"> Skill 2 - How to find all connected devices with nmap?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#solution-2"><span class="nav-number">2.1.</span> <span class="nav-text"> Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#test-2"><span class="nav-number">2.2.</span> <span class="nav-text"> Test</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nobody</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+   
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
