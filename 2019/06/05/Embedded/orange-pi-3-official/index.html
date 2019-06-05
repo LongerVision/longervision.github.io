@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="English">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo3d.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo3d_32X32.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo3d_16x16.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo3d.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="According to our previous blog Install Armbian Ubuntu Desktop Nightly Built onto Orange Pi 3, Wifi module of Orange Pi 3 with Armbian nightly built for Orange Pi 3 does NOT function well. Therefore, t">
+<meta name="keywords" content="Orange Pi 3, AllWinner H6, Ubuntu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Install Ubuntu Desktop from Official Orange Pi Website onto Orange Pi 3">
+<meta property="og:url" content="http://longervision.ca/2019/06/05/Embedded/orange-pi-3-official/index.html">
+<meta property="og:site_name" content="Longer Vision Technology">
+<meta property="og:description" content="According to our previous blog Install Armbian Ubuntu Desktop Nightly Built onto Orange Pi 3, Wifi module of Orange Pi 3 with Armbian nightly built for Orange Pi 3 does NOT function well. Therefore, t">
+<meta property="og:locale" content="English">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/orangepi/orangepi3/00_login_overview.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/orangepi/orangepi3/01_ssh_service_auto_start.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/orangepi/orangepi3/02_OrangePi3_SystemLocale_America.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/orangepi/orangepi3/03_OrangePi3_SystemLocale_Vancouver.jpg">
+<meta property="og:updated_time" content="2019-06-05T19:10:11.864Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Install Ubuntu Desktop from Official Orange Pi Website onto Orange Pi 3">
+<meta name="twitter:description" content="According to our previous blog Install Armbian Ubuntu Desktop Nightly Built onto Orange Pi 3, Wifi module of Orange Pi 3 with Armbian nightly built for Orange Pi 3 does NOT function well. Therefore, t">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/orangepi/orangepi3/00_login_overview.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://longervision.ca/2019/06/05/Embedded/orange-pi-3-official/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Install Ubuntu Desktop from Official Orange Pi Website onto Orange Pi 3 | Longer Vision Technology</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="English">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Longer Vision Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Github Blog</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/06/05/Embedded/orange-pi-3-official/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Install Ubuntu Desktop from Official Orange Pi Website onto Orange Pi 3
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-06-05 00:00:00 / Modified: 12:10:11" itemprop="dateCreated datePublished" datetime="2019-06-05T00:00:00-07:00">2019-06-05</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Embedded-Systems/" itemprop="url" rel="index"><span itemprop="name">Embedded Systems</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>According to our previous blog <a href="../../../../../2019/05/12/Embedded/orange-pi-3-armbian/">Install Armbian Ubuntu Desktop Nightly Built onto Orange Pi 3</a>, Wifi module of <a href="http://www.orangepi.org/Orange%20Pi%203/" target="_blank" rel="noopener">Orange Pi 3</a> with <a href="https://dl.armbian.com/orangepi3/nightly/" target="_blank" rel="noopener">Armbian nightly built for Orange Pi 3</a> does <strong>NOT</strong> function well. Therefore, today, we resort back to the Ubuntu Desktop distro from Orange Pi’s official website.</p>
+<h1 id="part-a-install-ubuntu-desktop-from-official-orange-pi-website-onto-orange-pi-3"><a class="markdownIt-Anchor" href="#part-a-install-ubuntu-desktop-from-official-orange-pi-website-onto-orange-pi-3"></a> PART A: Install Ubuntu Desktop from Official Orange Pi Website onto Orange Pi 3</h1>
+<h2 id="1-download-ubuntu-desktop-for-orange-pi-3-from-official-orange-pi-website"><a class="markdownIt-Anchor" href="#1-download-ubuntu-desktop-for-orange-pi-3-from-official-orange-pi-website"></a> 1. Download Ubuntu Desktop for Orange Pi 3 from Official Orange Pi Website</h2>
+<p>We <strong>FIRST</strong> go visiting Orange Pi’s official website <a href="http://www.orangepi.org/downloadresources/" target="_blank" rel="noopener">http://www.orangepi.org/downloadresources/</a> and find the <a href="http://www.orangepi.org/downloadresources/OrangePi3/2019-01-23/orangepi3_82ad209229e957e13fa953491c.html" target="_blank" rel="noopener">Ubuntu Desktop distro</a> for <a href="http://www.orangepi.org/Orange%20Pi%203/" target="_blank" rel="noopener">Orange Pi 3</a>.</p>
+<p>After <strong>OrangePi_3_xenial_desktop_linux4.9_v1.3.img.tar.gz</strong> has been downloaded, we had it extracted as follows:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  orangepi tar xvf OrangePi_3_xenial_desktop_linux4.9_v1.3.img.tar.gz </span><br><span class="line">OrangePi_3_xenial_desktop_linux4.9_v1.3.img</span><br><span class="line">OrangePi_3_xenial_desktop_linux4.9_v1.3.img.md5sum</span><br></pre></td></tr></table></figure>
+<h2 id="2-install-orange-pis-official-ubuntu-desktop-for-orange-pi-3"><a class="markdownIt-Anchor" href="#2-install-orange-pis-official-ubuntu-desktop-for-orange-pi-3"></a> 2. Install Orange Pi’s Official Ubuntu Desktop for Orange Pi 3</h2>
+<p>Exactly the same as in our previous blog <a href="../../../../../2018/02/27/Embedded/orange-pi-plus-2-armbian/">Install Armbian Ubuntu Desktop with the Newest Supported Mainline Linux Kernel onto Orange Pi Plus 2</a>, we have the TF card formatted and <strong>dd</strong> the system into it.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜  orangepi sudo dd bs=4M <span class="keyword">if</span>=OrangePi_3_xenial_desktop_linux4.9_v1.3.img of=/dev/mmcblk0 conv=fsync</span><br><span class="line">[sudo] password <span class="keyword">for</span> lvision: </span><br><span class="line">950+0 records <span class="keyword">in</span></span><br><span class="line">950+0 records out</span><br><span class="line">3984588800 bytes (4.0 GB, 3.7 GiB) copied, 170.284 s, 23.4 MB/s</span><br></pre></td></tr></table></figure>
+<h1 id="part-b-boot-into-orange-pi-3-enable-ssh-update-upgrade-network-configuration-locale-configuration"><a class="markdownIt-Anchor" href="#part-b-boot-into-orange-pi-3-enable-ssh-update-upgrade-network-configuration-locale-configuration"></a> PART B: Boot Into Orange Pi 3, Enable SSH, Update &amp; Upgrade, Network Configuration, Locale Configuration</h1>
+<p>Different from our previous blog <a href="../../../../../2019/04/16/Embedded/banana-pi-m3-armbian/">Install Armbian Ubuntu Desktop With Kernel 5.0 onto Banana Pi M3</a>, <strong>SSH service</strong> on <a href="http://www.orangepi.org/downloadresources/OrangePi3/2019-01-23/orangepi3_82ad209229e957e13fa953491c.html" target="_blank" rel="noopener">Orange Pi’s Official Ubuntu Desktop</a> for Orange Pi 3 is <strong>NOT</strong> enabled by default. Therefore, we’ve got to enable <strong>SSH</strong> during out <strong>FIRST</strong> boot.</p>
+<h2 id="1-boot-into-orange-pi-3"><a class="markdownIt-Anchor" href="#1-boot-into-orange-pi-3"></a> 1. Boot into Orange Pi 3</h2>
+<p>The overview of Official Orange Pi’s Ubuntu Desktop for Orange Pi 3 looks as:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/orangepi/orangepi3/00_login_overview.jpg" alt="Overview of Official Orange Pi's Ubuntu Desktop"></p>
+<h2 id="2-kernel-doublechecking"><a class="markdownIt-Anchor" href="#2-kernel-doublechecking"></a> 2. Kernel Doublechecking</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">orangepi@OrangePi:~$ uname -r</span><br><span class="line">4.9.118+</span><br><span class="line">orangepi@OrangePi:~$ uname -a</span><br><span class="line">Linux OrangePi 4.9.118+ <span class="comment">#5 SMP PREEMPT Mon Apr 15 09:45:02 CST 2019 aarch64 aarch64 aarch64 GNU/Linux</span></span><br><span class="line">orangepi@OrangePi:~$ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID: Ubuntu</span><br><span class="line">Description:    Ubuntu 16.04.6 LTS</span><br><span class="line">Release:        16.04</span><br><span class="line">Codename:       xenial</span><br></pre></td></tr></table></figure>
+<h2 id="3-enable-ssh"><a class="markdownIt-Anchor" href="#3-enable-ssh"></a> 3. Enable SSH</h2>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/orangepi/orangepi3/01_ssh_service_auto_start.jpg" alt="Auto Start SSH Service After Booting"></p>
+<p>After having successfully enabled <strong>SSH</strong>, you are able to login <a href="http://www.orangepi.org/Orange%20Pi%203/" target="_blank" rel="noopener">Orange Pi 3</a> remotely. Well, you may need to figure out how to:</p>
+<ul>
+<li>set up Wifi for <a href="http://www.orangepi.org/Orange%20Pi%203/" target="_blank" rel="noopener">Orange Pi 3</a>, which is pretty simple with Ubuntu Desktop GUI</li>
+<li>further setup static IP addresses in your router for both Wifi and Wired connections</li>
+</ul>
+<h2 id="4-update-upgrade"><a class="markdownIt-Anchor" href="#4-update-upgrade"></a> 4. Update &amp; Upgrade</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">orangepi@OrangePi:~$ sudo apt update</span><br><span class="line">[sudo] password <span class="keyword">for</span> orangepi: </span><br><span class="line">Hit:1 http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports xenial InRelease</span><br><span class="line">Hit:2 http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports xenial-updates InRelease</span><br><span class="line">Hit:3 http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports xenial-backports InRelease</span><br><span class="line">Hit:4 http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports xenial-security InRelease</span><br><span class="line">Reading package lists... Done                     </span><br><span class="line">Building dependency tree       </span><br><span class="line">Reading state information... Done</span><br><span class="line">All packages are up to date.</span><br><span class="line">root@orangepi3:~<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<p>Since I’ve already update/upgrade all packages, it’ll tell you from terminal that <strong>All packages are up to date.</strong>. BTW, it seems <a href="http://www.orangepi.org" target="_blank" rel="noopener">Orange Pi</a> is a team from <a href="https://www.tsinghua.edu.cn/" target="_blank" rel="noopener">TsingHua Universiity</a>?</p>
+<h2 id="5-locale-configuration"><a class="markdownIt-Anchor" href="#5-locale-configuration"></a> 5. Locale Configuration</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">orangepi@OrangePi:~$ sudo dpkg-reconfigure tzdata</span><br><span class="line">perl: warning: Setting locale failed.</span><br><span class="line">perl: warning: Please check that your locale settings:</span><br><span class="line">        LANGUAGE = (<span class="built_in">unset</span>),</span><br><span class="line">        LC_ALL = (<span class="built_in">unset</span>),</span><br><span class="line">        LC_PAPER = <span class="string">"en"</span>,</span><br><span class="line">        LC_ADDRESS = <span class="string">"en"</span>,</span><br><span class="line">        LC_MONETARY = <span class="string">"en"</span>,</span><br><span class="line">        LC_NUMERIC = <span class="string">"en"</span>,</span><br><span class="line">        LC_TELEPHONE = <span class="string">"en"</span>,</span><br><span class="line">        LC_IDENTIFICATION = <span class="string">"en"</span>,</span><br><span class="line">        LC_MEASUREMENT = <span class="string">"en"</span>,</span><br><span class="line">        LC_CTYPE = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_TIME = <span class="string">"en"</span>,</span><br><span class="line">        LC_NAME = <span class="string">"en"</span>,</span><br><span class="line">        LANG = <span class="string">"en_CA.UTF-8"</span></span><br><span class="line">    are supported and installed on your system.</span><br><span class="line">perl: warning: Falling back to the standard locale (<span class="string">"C"</span>).</span><br><span class="line">locale: Cannot <span class="built_in">set</span> LC_CTYPE to default locale: No such file or directory</span><br><span class="line">locale: Cannot <span class="built_in">set</span> LC_MESSAGES to default locale: No such file or directory</span><br><span class="line">locale: Cannot <span class="built_in">set</span> LC_ALL to default locale: No such file or directory</span><br><span class="line">/usr/bin/locale: Cannot <span class="built_in">set</span> LC_CTYPE to default locale: No such file or directory</span><br><span class="line">/usr/bin/locale: Cannot <span class="built_in">set</span> LC_MESSAGES to default locale: No such file or directory</span><br><span class="line">/usr/bin/locale: Cannot <span class="built_in">set</span> LC_ALL to default locale: No such file or directory</span><br><span class="line"></span><br><span class="line">Current default time zone: <span class="string">'America/Vancouver'</span></span><br><span class="line">Local time is now:      Wed Jun  5 09:43:12 PDT 2019.</span><br><span class="line">Universal Time is now:  Wed Jun  5 16:43:12 UTC 2019.</span><br></pre></td></tr></table></figure>
+<p>During the above process, you’ll set the following 2 pages correspondingly:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/orangepi/orangepi3/02_OrangePi3_SystemLocale_America.jpg" alt="System Locale America"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/orangepi/orangepi3/03_OrangePi3_SystemLocale_Vancouver.jpg" alt="System Locale Vancouver"></p>
+<p>By using the command <strong>date</strong>, we can see the timezone has been successfully reset.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">orangepi@OrangePi:~<span class="comment"># date</span></span><br><span class="line">Wed Jun  5 12:05:40 PDT 2019</span><br></pre></td></tr></table></figure>
+<h2 id="6-network-configuration"><a class="markdownIt-Anchor" href="#6-network-configuration"></a> 6. Network Configuration</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">orangepi@OrangePi:~$ ip -c address</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    link/ether 36:c9:e3:f1:b8:05 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.1.78/24 brd 192.168.1.255 scope global eth0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 2001:569:7e6d:1b00:4cbf:8fff:88e0:e68c/64 scope global temporary dynamic </span><br><span class="line">       valid_lft 7488sec preferred_lft 7188sec</span><br><span class="line">    inet6 2001:569:7e6d:1b00:c145:4c18:8c39:e90a/64 scope global mngtmpaddr noprefixroute dynamic </span><br><span class="line">       valid_lft 7488sec preferred_lft 7188sec</span><br><span class="line">    inet6 fe80::5ca:d7da:797:33af/64 scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">3: tunl0@NONE: &lt;NOARP&gt; mtu 1480 qdisc noop state DOWN group default qlen 1</span><br><span class="line">    link/ipip 0.0.0.0 brd 0.0.0.0</span><br><span class="line">4: gre0@NONE: &lt;NOARP&gt; mtu 1476 qdisc noop state DOWN group default qlen 1</span><br><span class="line">    link/gre 0.0.0.0 brd 0.0.0.0</span><br><span class="line">5: gretap0@NONE: &lt;BROADCAST,MULTICAST&gt; mtu 1462 qdisc noop state DOWN group default qlen 1000</span><br><span class="line">    link/ether 00:00:00:00:00:00 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">6: ip_vti0@NONE: &lt;NOARP&gt; mtu 1480 qdisc noop state DOWN group default qlen 1</span><br><span class="line">    link/ipip 0.0.0.0 brd 0.0.0.0</span><br><span class="line">7: ip6_vti0@NONE: &lt;NOARP&gt; mtu 1500 qdisc noop state DOWN group default qlen 1</span><br><span class="line">    link/tunnel6 :: brd ::</span><br><span class="line">8: sit0@NONE: &lt;NOARP&gt; mtu 1480 qdisc noop state DOWN group default qlen 1</span><br><span class="line">    link/sit 0.0.0.0 brd 0.0.0.0</span><br><span class="line">9: ip6tnl0@NONE: &lt;NOARP&gt; mtu 1452 qdisc noop state DOWN group default qlen 1</span><br><span class="line">    link/tunnel6 :: brd ::</span><br><span class="line">10: wlan0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    link/ether 6c:21:a2:14:cc:ce brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.1.79/24 brd 192.168.1.255 scope global dynamic wlan0</span><br><span class="line">       valid_lft 86384sec preferred_lft 86384sec</span><br><span class="line">    inet6 2001:569:7e6d:1b00:9055:86f5:5b5:82ae/64 scope global temporary dynamic </span><br><span class="line">       valid_lft 7488sec preferred_lft 7188sec</span><br><span class="line">    inet6 2001:569:7e6d:1b00:a76:2b2e:4c08:f7cd/64 scope global mngtmpaddr noprefixroute dynamic </span><br><span class="line">       valid_lft 7488sec preferred_lft 7188sec</span><br><span class="line">    inet6 fe80::200d:cbb5:fc23:f6e4/64 scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+<p>As you can see, I set up static IP address as follows:</p>
+<ul>
+<li>eth0: 192.168.1.78</li>
+<li>wlan0: 192.168.1.79</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Orange-Pi-3-AllWinner-H6-Ubuntu/" rel="tag"># Orange Pi 3, AllWinner H6, Ubuntu</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/03/Coding/bash_skills_01/" rel="next" title="Bash Skills - 01">
+                <i class="fa fa-chevron-left"></i> Bash Skills - 01
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Nobody</p>
+              <p class="site-description motion-element" itemprop="description">Longer Vision Technology Github Blog</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">53</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">51</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#part-a-install-ubuntu-desktop-from-official-orange-pi-website-onto-orange-pi-3"><span class="nav-number">1.</span> <span class="nav-text"> PART A: Install Ubuntu Desktop from Official Orange Pi Website onto Orange Pi 3</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-download-ubuntu-desktop-for-orange-pi-3-from-official-orange-pi-website"><span class="nav-number">1.1.</span> <span class="nav-text"> 1. Download Ubuntu Desktop for Orange Pi 3 from Official Orange Pi Website</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-install-orange-pis-official-ubuntu-desktop-for-orange-pi-3"><span class="nav-number">1.2.</span> <span class="nav-text"> 2. Install Orange Pi’s Official Ubuntu Desktop for Orange Pi 3</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#part-b-boot-into-orange-pi-3-enable-ssh-update-upgrade-network-configuration-locale-configuration"><span class="nav-number">2.</span> <span class="nav-text"> PART B: Boot Into Orange Pi 3, Enable SSH, Update &amp; Upgrade, Network Configuration, Locale Configuration</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-boot-into-orange-pi-3"><span class="nav-number">2.1.</span> <span class="nav-text"> 1. Boot into Orange Pi 3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-kernel-doublechecking"><span class="nav-number">2.2.</span> <span class="nav-text"> 2. Kernel Doublechecking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-enable-ssh"><span class="nav-number">2.3.</span> <span class="nav-text"> 3. Enable SSH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-update-upgrade"><span class="nav-number">2.4.</span> <span class="nav-text"> 4. Update &amp; Upgrade</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-locale-configuration"><span class="nav-number">2.5.</span> <span class="nav-text"> 5. Locale Configuration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-network-configuration"><span class="nav-number">2.6.</span> <span class="nav-text"> 6. Network Configuration</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nobody</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+   
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
