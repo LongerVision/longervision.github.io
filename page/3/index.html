@@ -309,6 +309,215 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/12/20/Finance/time-series-4-python-with-pyflux/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/20/Finance/time-series-4-python-with-pyflux/" itemprop="url">
+                  Time Series for Python with PyFlux
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-12-20 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-20T00:00:00-08:00">2018-12-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-22 14:16:01" itemprop="dateModified" datetime="2018-12-22T14:16:01-08:00">2018-12-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Finance/" itemprop="url" rel="index"><span itemprop="name">Finance</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Merry Christmas buddy!</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/Christmas2018.jpg" alt="Christmas Lights in Surrey"></p>
+<p>It’s been quite a while without writing anything. Today, we are going to introduce <a href="https://pyflux.readthedocs.io/" target="_blank" rel="noopener">PyFlux</a> for time seriers analysis. Cannonical models are to be directly adopted from <a href="https://pyflux.readthedocs.io/" target="_blank" rel="noopener">PyFlux Documents</a> and tested in this blog.</p>
+<h1 id="get-started"><a class="markdownIt-Anchor" href="#get-started"></a> Get Started</h1>
+<p>Copy and paste that piece of code from <a href="https://pyflux.readthedocs.io/" target="_blank" rel="noopener">PyFlux Documents</a> with trivial modifications as follows:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> pandas_datareader.data <span class="keyword">import</span> DataReader</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> pyflux <span class="keyword">as</span> pf</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = DataReader(<span class="string">'JPM'</span>,  <span class="string">'yahoo'</span>, datetime(<span class="number">2006</span>,<span class="number">6</span>,<span class="number">1</span>), datetime(<span class="number">2016</span>,<span class="number">6</span>,<span class="number">1</span>))</span><br><span class="line">a_returns = pd.DataFrame(np.diff(a[<span class="string">'Adj Close'</span>].values))</span><br><span class="line">a_returns.index = a.index.values[<span class="number">1</span>:a.index.values.shape[<span class="number">0</span>]]</span><br><span class="line">a_returns.columns = [<span class="string">"JPM Returns"</span>]</span><br><span class="line"></span><br><span class="line">print(a_returns.head())</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">15</span>, <span class="number">5</span>))</span><br><span class="line">plt.ylabel(<span class="string">"Returns"</span>)</span><br><span class="line">plt.plot(a_returns)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line">pf.acf_plot(a_returns.values.T[<span class="number">0</span>])</span><br><span class="line">pf.acf_plot(np.square(a_returns.values.T[<span class="number">0</span>]))</span><br></pre></td></tr></table></figure>
+<p>After running the above piece of code, we’ll get the following time series loaded:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">            JPM Returns</span><br><span class="line"><span class="number">2006</span><span class="number">-06</span><span class="number">-02</span>     <span class="number">0.167995</span></span><br><span class="line"><span class="number">2006</span><span class="number">-06</span><span class="number">-05</span>    <span class="number">-0.613506</span></span><br><span class="line"><span class="number">2006</span><span class="number">-06</span><span class="number">-06</span>    <span class="number">-0.430914</span></span><br><span class="line"><span class="number">2006</span><span class="number">-06</span><span class="number">-07</span>    <span class="number">-0.094942</span></span><br><span class="line"><span class="number">2006</span><span class="number">-06</span><span class="number">-08</span>     <span class="number">0.073048</span></span><br></pre></td></tr></table></figure>
+<p>and the following resultant figures:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pyflux/GetStarted/timeseries.jpg" alt="Time Series"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pyflux/GetStarted/ACFPlot.jpg" alt="Autocorrelation"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pyflux/GetStarted/ACFSquarePlot.jpg" alt="Squared Autocorrelation"></p>
+<h1 id="cannonical-models"><a class="markdownIt-Anchor" href="#cannonical-models"></a> Cannonical Models</h1>
+<h2 id="arima"><a class="markdownIt-Anchor" href="#arima"></a> ARIMA</h2>
+<p>We can load and test <strong>ARIMA</strong> model using the following piece of code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">my_model = pf.ARIMA(data=a_returns, ar=<span class="number">4</span>, ma=<span class="number">4</span>, family=pf.Normal())</span><br><span class="line">print(my_model.latent_variables)</span><br><span class="line"></span><br><span class="line">result = my_model.fit(<span class="string">"MLE"</span>)</span><br><span class="line">result.summary()</span><br><span class="line"></span><br><span class="line">my_model.plot_z(figsize=(<span class="number">15</span>,<span class="number">5</span>))</span><br><span class="line">my_model.plot_fit(figsize=(<span class="number">15</span>,<span class="number">10</span>))</span><br><span class="line">my_model.plot_predict_is(h=<span class="number">50</span>, figsize=(<span class="number">15</span>,<span class="number">5</span>))</span><br><span class="line">my_model.plot_predict(h=<span class="number">20</span>,past_values=<span class="number">20</span>,figsize=(<span class="number">15</span>,<span class="number">5</span>))</span><br></pre></td></tr></table></figure>
+<p>ARIMA’s latent variables are printed as:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Index    Latent Variable           Prior           Prior Hyperparameters     V.I. Dist  Transform</span><br><span class="line">======== ========================= =============== ========================= ========== ==========</span><br><span class="line">0        Constant                  Normal          mu0: 0, sigma0: 3         Normal     None</span><br><span class="line">1        AR(1)                     Normal          mu0: 0, sigma0: 0.5       Normal     None</span><br><span class="line">2        AR(2)                     Normal          mu0: 0, sigma0: 0.5       Normal     None</span><br><span class="line">3        AR(3)                     Normal          mu0: 0, sigma0: 0.5       Normal     None</span><br><span class="line">4        AR(4)                     Normal          mu0: 0, sigma0: 0.5       Normal     None</span><br><span class="line">5        MA(1)                     Normal          mu0: 0, sigma0: 0.5       Normal     None</span><br><span class="line">6        MA(2)                     Normal          mu0: 0, sigma0: 0.5       Normal     None</span><br><span class="line">7        MA(3)                     Normal          mu0: 0, sigma0: 0.5       Normal     None</span><br><span class="line">8        MA(4)                     Normal          mu0: 0, sigma0: 0.5       Normal     None</span><br><span class="line">9        Normal Scale              Flat            n/a (non-informative)     Normal     exp</span><br></pre></td></tr></table></figure>
+<p>And the fitting result is summarized as:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Normal ARIMA(4,0,4)</span><br><span class="line">======================================================= ==================================================</span><br><span class="line">Dependent Variable: JPM Returns                         Method: MLE</span><br><span class="line">Start Date: 2006-06-08 00:00:00                         Log Likelihood: -3106.9508</span><br><span class="line">End Date: 2016-06-02 00:00:00                           AIC: 6233.9016</span><br><span class="line">Number of observations: 2514                            BIC: 6292.1979</span><br><span class="line">==========================================================================================================</span><br><span class="line">Latent Variable                          Estimate   Std Error  z        P&gt;|z|    95% C.I.</span><br><span class="line">======================================== ========== ========== ======== ======== =========================</span><br><span class="line">Constant                                 0.0126     0.0136     0.9273   0.3538   (-0.0141 | 0.0394)</span><br><span class="line">AR(1)                                    0.0596     0.198      0.3008   0.7635   (-0.3284 | 0.4475)</span><br><span class="line">AR(2)                                    -0.3591    0.1858     -1.9331  0.0532   (-0.7231 | 0.005)</span><br><span class="line">AR(3)                                    -0.2205    0.2687     -0.8208  0.4118   (-0.7471 | 0.3061)</span><br><span class="line">AR(4)                                    0.5272     0.1373     3.8406   0.0001   (0.2581 | 0.7962)</span><br><span class="line">MA(1)                                    -0.1667    0.1995     -0.8354  0.4035   (-0.5578 | 0.2244)</span><br><span class="line">MA(2)                                    0.3234     0.202      1.6008   0.1094   (-0.0726 | 0.7193)</span><br><span class="line">MA(3)                                    0.1603     0.2396     0.6692   0.5033   (-0.3093 | 0.63)</span><br><span class="line">MA(4)                                    -0.5817    0.1618     -3.5942  0.0003   (-0.8989 | -0.2645)</span><br><span class="line">Normal Scale                             0.8331</span><br><span class="line">==========================================================================================================</span><br></pre></td></tr></table></figure>
+<p>And 4 images are to be produced as:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pyflux/ARIMA/LatentVariablePlot.jpg" alt="ARIMA Latent Variable Plot"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pyflux/ARIMA/ARIMAFit.jpg" alt="ARIMA Model vs. Data"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pyflux/ARIMA/ForcastAgainstData.jpg" alt="ARIMA Forcast vs. Data"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pyflux/ARIMA/ForcastONLY.jpg" alt="ARIMA Forcast"></p>
+<h2 id="garch"><a class="markdownIt-Anchor" href="#garch"></a> GARCH</h2>
+<p>We can load and test <strong>GARCH</strong> model using the following piece of code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">my_model = pf.GARCH(p=<span class="number">1</span>, q=<span class="number">1</span>, data=a_returns)</span><br><span class="line">print(my_model.latent_variables)</span><br><span class="line"></span><br><span class="line">my_model.adjust_prior(<span class="number">1</span>, pf.TruncatedNormal(<span class="number">0.01</span>, <span class="number">0.5</span>, lower=<span class="number">0.0</span>, upper=<span class="number">1.0</span>))</span><br><span class="line">my_model.adjust_prior(<span class="number">2</span>, pf.TruncatedNormal(<span class="number">0.97</span>, <span class="number">0.5</span>, lower=<span class="number">0.0</span>, upper=<span class="number">1.0</span>))</span><br><span class="line"></span><br><span class="line">result = my_model.fit(<span class="string">'M-H'</span>, nsims=<span class="number">20000</span>)</span><br><span class="line">result.summary()</span><br><span class="line"></span><br><span class="line">my_model.plot_z([<span class="number">1</span>,<span class="number">2</span>])</span><br><span class="line">my_model.plot_fit(figsize=(<span class="number">15</span>,<span class="number">5</span>))</span><br><span class="line">my_model.plot_sample(nsims=<span class="number">10</span>, figsize=(<span class="number">15</span>,<span class="number">7</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> scipy.stats <span class="keyword">import</span> kurtosis</span><br><span class="line">my_model.plot_ppc(T=kurtosis)</span><br><span class="line">my_model.plot_predict(h=<span class="number">30</span>, figsize=(<span class="number">15</span>,<span class="number">5</span>))</span><br></pre></td></tr></table></figure>
+<p>GARCH’s latent variables are printed as:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Index    Latent Variable           Prior           Prior Hyperparameters     V.I. Dist  Transform</span><br><span class="line">======== ========================= =============== ========================= ========== ==========</span><br><span class="line">0        Vol Constant              Normal          mu0: 0, sigma0: 3         Normal     exp</span><br><span class="line">1        q(1)                      Normal          mu0: 0, sigma0: 0.5       Normal     logit</span><br><span class="line">2        p(1)                      Normal          mu0: 0, sigma0: 0.5       Normal     logit</span><br><span class="line">3        Returns Constant          Normal          mu0: 0, sigma0: 3         Normal     None</span><br></pre></td></tr></table></figure>
+<p>And the fitting result is summarized as:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">~/.local/lib/python3.6/site-packages/numdifftools/limits.py:126: UserWarning: All-NaN slice encountered</span><br><span class="line">  warnings.warn(str(msg))</span><br><span class="line">Acceptance rate of Metropolis-Hastings is 0.000125</span><br><span class="line">Acceptance rate of Metropolis-Hastings is 0.00075</span><br><span class="line">Acceptance rate of Metropolis-Hastings is 0.105525</span><br><span class="line">Acceptance rate of Metropolis-Hastings is 0.13335</span><br><span class="line">Acceptance rate of Metropolis-Hastings is 0.1907</span><br><span class="line">Acceptance rate of Metropolis-Hastings is 0.232</span><br><span class="line">Acceptance rate of Metropolis-Hastings is 0.299</span><br><span class="line"></span><br><span class="line">Tuning complete! Now sampling.</span><br><span class="line">Acceptance rate of Metropolis-Hastings is 0.36655</span><br><span class="line">GARCH(1,1)</span><br><span class="line">======================================================= ==================================================</span><br><span class="line">Dependent Variable: JPM Returns                         Method: Metropolis Hastings</span><br><span class="line">Start Date: 2006-06-05 00:00:00                         Unnormalized Log Posterior: -2671.5492</span><br><span class="line">End Date: 2016-06-02 00:00:00                           AIC: 5351.717896880396</span><br><span class="line">Number of observations: 2517                            BIC: 5375.041188860938</span><br><span class="line">==========================================================================================================</span><br><span class="line">Latent Variable                          Median             Mean               95% Credibility Interval</span><br><span class="line">======================================== ================== ================== =========================</span><br><span class="line">Vol Constant                             0.0059             0.0057             (0.004 | 0.0076)</span><br><span class="line">q(1)                                     0.0721             0.0728             (0.0556 | 0.0921)</span><br><span class="line">p(1)                                     0.9202             0.9199             (0.9013 | 0.9373)</span><br><span class="line">Returns Constant                         0.0311             0.0311             (0.0109 | 0.0511)</span><br><span class="line">==========================================================================================================</span><br></pre></td></tr></table></figure>
+<p>And 5 images are to be produced as:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pyflux/GARCH/LatentVariablePlot.jpg" alt="GARCH Latent Variable Plot"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pyflux/GARCH/Volatility.jpg" alt="GARCH Volatility"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pyflux/GARCH/VolatilitySampling.jpg" alt="GARCH Volatility Sampling"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pyflux/GARCH/PosteriorPredictive.jpg" alt="GARCH Posterior Predictive"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pyflux/GARCH/Forcast.jpg" alt="GARCH Forcast"></p>
+<h2 id="gas"><a class="markdownIt-Anchor" href="#gas"></a> GAS</h2>
+<h2 id="var"><a class="markdownIt-Anchor" href="#var"></a> VAR</h2>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/11/29/Tools/fundamental-usage-of-mysql/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2327,191 +2536,6 @@ have been installed.</li>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/09/01/DeepLearning/tensorflow-object-tracking/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/01/DeepLearning/tensorflow-object-tracking/" itemprop="url">
-                  Tensorflow Object Tracking
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-09-01 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-01T00:00:00-07:00">2018-09-01</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-11-04 19:32:56" itemprop="dateModified" datetime="2018-11-04T19:32:56-08:00">2018-11-04</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>It seems <a href="https://www.tensorflow.org/" target="_blank" rel="noopener">Tensorflow</a> evolves pretty fast. Today we are testing object tracking based on <a href="https://www.tensorflow.org/" target="_blank" rel="noopener">Tensorflow</a>.</p>
-<h1 id="1-environment"><a class="markdownIt-Anchor" href="#1-environment"></a> 1. Environment</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python</span><br><span class="line">Python 3.6.6 (default, Sep 12 2018, 18:26:19) </span><br><span class="line">[GCC 8.0.1 20180414 (experimental) [trunk revision 259383]] on linux</span><br><span class="line">Type <span class="string">"help"</span>, <span class="string">"copyright"</span>, <span class="string">"credits"</span> or <span class="string">"license"</span> <span class="keyword">for</span> more information.</span><br><span class="line">&gt;&gt;&gt; import tensorflow as tf</span><br><span class="line">&gt;&gt;&gt; tf.__version__</span><br><span class="line"><span class="string">'1.12.0-rc0'</span></span><br><span class="line">&gt;&gt;&gt; import cv2</span><br><span class="line">&gt;&gt;&gt; cv2.__version__</span><br><span class="line"><span class="string">'3.4.3'</span></span><br></pre></td></tr></table></figure>
-<h1 id="2-object-tracking"><a class="markdownIt-Anchor" href="#2-object-tracking"></a> 2. Object Tracking</h1>
-<h2 id="21-concepts"><a class="markdownIt-Anchor" href="#21-concepts"></a> 2.1 Concepts</h2>
-<p>There are several fundamental concepts to be re-emphasized (Here, we took one single concerned object as our example. There might be <strong>multiple</strong> concerned objects):</p>
-<ul>
-<li><strong>detection</strong>: You don’t know whethere there is a concerned object in the field of view or not, which you will know after the detection. And, if there is such a concerned object in the view, the object location is to be given.</li>
-<li><strong>tracking</strong>: You know where the concerned object was. Based on the prior knowledge, you are to determine where this object is going to be next?</li>
-<li><strong>location</strong>: Both detection and tracking are looked on as locating the concerned object.</li>
-<li><strong>recognition</strong>: Only after the concerned object has been located, more detailed information may be <strong>recognized</strong> afterwards.</li>
-</ul>
-<h2 id="22-testing"><a class="markdownIt-Anchor" href="#22-testing"></a> 2.2 Testing</h2>
-<p>Now, let’s test out <a href="https://github.com/ildoonet/tf-adnet-tracking" target="_blank" rel="noopener">Deep Object Tracking Implementation in Tensorflow</a>.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">➜  tf-adnet-tracking git:(master) ✗ python runner.py by_dataset  --vid-path=./data/freeman1/</span><br><span class="line">VIDEOIO ERROR: V4L: can<span class="string">'t open camera by index 0</span></span><br><span class="line"><span class="string">Test:  0.0</span></span><br><span class="line"><span class="string">Ratio:  0.0</span></span><br><span class="line"><span class="string">Frame Rate:  0.0</span></span><br><span class="line"><span class="string">Width:  0.0</span></span><br><span class="line"><span class="string">Height:  0.0</span></span><br><span class="line"><span class="string">Brightness:  0.0</span></span><br><span class="line"><span class="string">Contrast:  0.0</span></span><br><span class="line"><span class="string">Saturation:  0.0</span></span><br><span class="line"><span class="string">Hue:  0.0</span></span><br><span class="line"><span class="string">Gain:  0.0</span></span><br><span class="line"><span class="string">Exposure:  0.0</span></span><br><span class="line"><span class="string">2018-11-04 19:20:54.997017: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:993] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero</span></span><br><span class="line"><span class="string">2018-11-04 19:20:54.997514: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1432] Found device 0 with properties: </span></span><br><span class="line"><span class="string">name: GeForce GTX 980M major: 5 minor: 2 memoryClockRate(GHz): 1.1265</span></span><br><span class="line"><span class="string">pciBusID: 0000:01:00.0</span></span><br><span class="line"><span class="string">totalMemory: 3.94GiB freeMemory: 3.14GiB</span></span><br><span class="line"><span class="string">2018-11-04 19:20:54.997565: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0</span></span><br><span class="line"><span class="string">2018-11-04 19:20:55.222053: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:</span></span><br><span class="line"><span class="string">2018-11-04 19:20:55.222092: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 </span></span><br><span class="line"><span class="string">2018-11-04 19:20:55.222100: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N </span></span><br><span class="line"><span class="string">2018-11-04 19:20:55.222278: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 2854 MB memory) -&gt; physical GPU (device: 0, name: GeForce GTX 980M, pci bus id: 0000:01:00.0, compute capability: 5.2)</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:55,738] [networks] [INFO] all global variables initialized</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:55,865] [networks] [INFO] conv1/weights:0 : original weights assigned. [0]=[[[-0.08093996 -0.03</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:55,877] [networks] [INFO] conv1/biases:0 : original weights assigned. [0]=-1.5706328</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:55,922] [networks] [INFO] conv2/weights:0 : original weights assigned. [0]=[[[-0.00856966 -0.00</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:55,936] [networks] [INFO] conv2/biases:0 : original weights assigned. [0]=-0.06253582</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:56,016] [networks] [INFO] conv3/weights:0 : original weights assigned. [0]=[[[ 0.00339902  0.00</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:56,033] [networks] [INFO] conv3/biases:0 : original weights assigned. [0]=-0.071603894</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:56,236] [networks] [INFO] fc4/weights:0 : original weights assigned. [0]=[[[ 2.6850728e-03  2</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:56,254] [networks] [INFO] fc4/biases:0 : original weights assigned. [0]=0.10009623</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:56,286] [networks] [INFO] fc5/weights:0 : original weights assigned. [0]=[[[-0.01758034  0.01</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:56,310] [networks] [INFO] fc5/biases:0 : original weights assigned. [0]=0.13894661</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:56,332] [networks] [INFO] fc6_1/weights:0 : original weights assigned. [0]=[[[ 0.001359    0.01</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:56,358] [networks] [INFO] fc6_1/biases:0 : original weights assigned. [0]=0.01</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:56,379] [networks] [INFO] fc6_2/weights:0 : original weights assigned. [0]=[[[-1.23225665e-02  </span></span><br><span class="line"><span class="string">[2018-11-04 19:20:56,400] [networks] [INFO] fc6_2/biases:0 : original weights assigned. [0]=0.0</span></span><br><span class="line"><span class="string">[]</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:56,482] [ADNetRunner] [INFO] ---- start dataset l=326</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:58,451] [ADNetRunner] [INFO] ADNetRunner.initial_finetune t=1541388056.484</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:59,194] [ADNetRunner] [DEBUG] redetection success=True</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:59,487] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:01,750] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:03,691] [ADNetRunner] [DEBUG] redetection success=False</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:03,975] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:04,878] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:07,524] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:08,925] [ADNetRunner] [DEBUG] redetection success=True</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:09,249] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:10,825] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:11,768] [ADNetRunner] [DEBUG] redetection success=True</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:12,096] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:14,021] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:16,867] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:19,710] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:22,677] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:25,711] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:26,202] [ADNetRunner] [DEBUG] redetection success=True</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:26,567] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:26,837] [ADNetRunner] [DEBUG] redetection success=True</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:27,152] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:29,387] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:31,371] [ADNetRunner] [INFO] ----</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:31,371] [ADNetRunner] [INFO] total: 34.8886</span></span><br><span class="line"><span class="string">initial_finetune: 1.9675</span></span><br><span class="line"><span class="string">tracking.do_action: 5.4896</span></span><br><span class="line"><span class="string">tracking.save_samples.roi: 0.5116</span></span><br><span class="line"><span class="string">tracking.save_samples.feat: 17.9738</span></span><br><span class="line"><span class="string">tracking.online_finetune: 6.2583</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:31,371] [ADNetRunner] [INFO] 9.344 FPS</span></span><br></pre></td></tr></table></figure>
-<p><a href="https://www.facebook.com/jiapei100/videos/1150092865148114/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/tf-adnet-tracking/facetracking_148.jpg" alt="Face Tracking Based on Tensorflow"></a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2559,7 +2583,7 @@ have been installed.</li>
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">53</span>
+                    <span class="site-state-item-count">54</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2606,7 +2630,7 @@ have been installed.</li>
                     
                       
                     
-                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -2723,21 +2747,7 @@ have been installed.</li>
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">51</span>
+                    <span class="site-state-item-count">52</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
