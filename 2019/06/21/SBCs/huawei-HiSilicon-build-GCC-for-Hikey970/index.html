@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="English">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo3d.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo3d_32X32.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo3d_16x16.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo3d.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="By following our previous blog Build GCC, we should be able to CROSS-BUILD GCC for various ARM architectures. Today, we are building GCC 9.1.0 for Hikey 970, which is of aarch64 architecture. (More de">
+<meta name="keywords" content="Huawei, HiSilicon, Hikey970, Linux, GCC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Build GCC For HiSilicon Hikey 970">
+<meta property="og:url" content="http://longervision.ca/2019/06/21/SBCs/huawei-HiSilicon-build-GCC-for-Hikey970/index.html">
+<meta property="og:site_name" content="Longer Vision Technology">
+<meta property="og:description" content="By following our previous blog Build GCC, we should be able to CROSS-BUILD GCC for various ARM architectures. Today, we are building GCC 9.1.0 for Hikey 970, which is of aarch64 architecture. (More de">
+<meta property="og:locale" content="English">
+<meta property="og:updated_time" content="2019-06-21T20:58:17.194Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Build GCC For HiSilicon Hikey 970">
+<meta name="twitter:description" content="By following our previous blog Build GCC, we should be able to CROSS-BUILD GCC for various ARM architectures. Today, we are building GCC 9.1.0 for Hikey 970, which is of aarch64 architecture. (More de">
+
+
+
+
+
+
+  <link rel="canonical" href="http://longervision.ca/2019/06/21/SBCs/huawei-HiSilicon-build-GCC-for-Hikey970/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Build GCC For HiSilicon Hikey 970 | Longer Vision Technology</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="English">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Longer Vision Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Github Blog</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/06/21/SBCs/huawei-HiSilicon-build-GCC-for-Hikey970/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Build GCC For HiSilicon Hikey 970
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-06-21 00:00:00 / Modified: 13:58:17" itemprop="dateCreated datePublished" datetime="2019-06-21T00:00:00-07:00">2019-06-21</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/SBC/" itemprop="url" rel="index"><span itemprop="name">SBC</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>By following our previous blog <a href="../../../../../2019/06/20/OperatingSystems/build-gcc/">Build GCC</a>, we should be able to <strong>CROSS-BUILD</strong> GCC for various ARM architectures. Today, we are building <a href="https://gcc.gnu.org/gcc-9/" target="_blank" rel="noopener">GCC 9.1.0</a> for <a href="https://www.96boards.org/product/hikey970/" target="_blank" rel="noopener">Hikey 970</a>, which is of <a href="https://en.wikichip.org/wiki/arm/aarch64" target="_blank" rel="noopener">aarch64</a> architecture. (More details about <strong>aarch64</strong> can be found on <a href="https://en.wikipedia.org/wiki/ARM_architecture#AArch64_features" target="_blank" rel="noopener">ARM architecture</a> )</p>
+<h1 id="start-building"><a class="markdownIt-Anchor" href="#start-building"></a> Start Building</h1>
+<h2 id="binutils"><a class="markdownIt-Anchor" href="#binutils"></a> Binutils</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line">➜  aarch64 mkdir build-binutils</span><br><span class="line">➜  aarch64 cd build-binutils</span><br><span class="line">➜  build-binutils ../binutils-2.32/configure --prefix=/opt/aarch64 --target=aarch64-linux-gnu --enable-vtable-verify</span><br><span class="line">checking build system type... x86_64-pc-linux-gnu</span><br><span class="line">checking host system type... x86_64-pc-linux-gnu</span><br><span class="line">checking target system type... aarch64-unknown-linux-gnu</span><br><span class="line">checking for a BSD-compatible install... /usr/bin/install -c</span><br><span class="line">checking whether ln works... yes</span><br><span class="line">checking whether ln -s works... yes</span><br><span class="line">checking for a sed that does not truncate output... /usr/bin/sed</span><br><span class="line">checking for gawk... gawk</span><br><span class="line">checking for gcc... gcc</span><br><span class="line">checking whether the C compiler works... yes</span><br><span class="line">checking for C compiler default output file name... a.out</span><br><span class="line">checking for suffix of executables... </span><br><span class="line">checking whether we are cross compiling... no</span><br><span class="line">checking for suffix of object files... o</span><br><span class="line">checking whether we are using the GNU C compiler... yes</span><br><span class="line">checking whether gcc accepts -g... yes</span><br><span class="line">checking for gcc option to accept ISO C89... none needed</span><br><span class="line">checking for g++... g++</span><br><span class="line">checking whether we are using the GNU C++ compiler... yes</span><br><span class="line">checking whether g++ accepts -g... yes</span><br><span class="line">checking whether g++ accepts -static-libstdc++ -static-libgcc... yes</span><br><span class="line">checking for gnatbind... gnatbind</span><br><span class="line">checking for gnatmake... gnatmake</span><br><span class="line">checking whether compiler driver understands Ada... no</span><br><span class="line">checking how to compare bootstrapped objects... cmp --ignore-initial=16 $$f1 $$f2</span><br><span class="line">checking for objdir... .libs</span><br><span class="line">checking for isl 0.15 or later... no</span><br><span class="line">required isl version is 0.15 or later</span><br><span class="line">checking for default BUILD_CONFIG... </span><br><span class="line">checking for --enable-vtable-verify... yes</span><br><span class="line">*** removing intl/Makefile to force reconfigure</span><br><span class="line">*** removing libiberty/Makefile to force reconfigure</span><br><span class="line">*** removing opcodes/Makefile to force reconfigure</span><br><span class="line">*** removing bfd/Makefile to force reconfigure</span><br><span class="line">*** removing zlib/Makefile to force reconfigure</span><br><span class="line">*** removing binutils/Makefile to force reconfigure</span><br><span class="line">*** removing gas/Makefile to force reconfigure</span><br><span class="line">*** removing ld/Makefile to force reconfigure</span><br><span class="line">*** removing gprof/Makefile to force reconfigure</span><br><span class="line">*** removing etc/Makefile to force reconfigure</span><br><span class="line">checking for bison... bison -y</span><br><span class="line">checking for bison... bison</span><br><span class="line">checking for gm4... no</span><br><span class="line">checking for gnum4... no</span><br><span class="line">checking for m4... m4</span><br><span class="line">checking for flex... flex</span><br><span class="line">checking for flex... flex</span><br><span class="line">checking for makeinfo... makeinfo</span><br><span class="line">checking for expect... expect</span><br><span class="line">checking for runtest... no</span><br><span class="line">checking for ar... ar</span><br><span class="line">checking for as... as</span><br><span class="line">checking for dlltool... no</span><br><span class="line">checking for ld... (cached) /opt/native/lib/gcc/x86_64-linux-gnu/9.1.0/../../../../x86_64-linux-gnu/bin/ld</span><br><span class="line">checking for lipo... no</span><br><span class="line">checking for nm... nm</span><br><span class="line">checking for ranlib... ranlib</span><br><span class="line">checking for strip... strip</span><br><span class="line">checking for windres... no</span><br><span class="line">checking for windmc... no</span><br><span class="line">checking for objcopy... objcopy</span><br><span class="line">checking for objdump... objdump</span><br><span class="line">checking for readelf... readelf</span><br><span class="line">checking for aarch64-linux-gnu-cc... no</span><br><span class="line">checking for aarch64-linux-gnu-gcc... no</span><br><span class="line">checking for aarch64-linux-gnu-c++... no</span><br><span class="line">checking for aarch64-linux-gnu-g++... no</span><br><span class="line">checking for aarch64-linux-gnu-cxx... no</span><br><span class="line">checking for aarch64-linux-gnu-gxx... no</span><br><span class="line">checking for aarch64-linux-gnu-gcc... no</span><br><span class="line">checking for aarch64-linux-gnu-gfortran... no</span><br><span class="line">checking for aarch64-linux-gnu-gccgo... no</span><br><span class="line">checking for aarch64-linux-gnu-ar... aarch64-linux-gnu-ar</span><br><span class="line">checking for aarch64-linux-gnu-as... aarch64-linux-gnu-as</span><br><span class="line">checking for aarch64-linux-gnu-dlltool... no</span><br><span class="line">checking for aarch64-linux-gnu-ld... aarch64-linux-gnu-ld</span><br><span class="line">checking for aarch64-linux-gnu-lipo... no</span><br><span class="line">checking for aarch64-linux-gnu-nm... aarch64-linux-gnu-nm</span><br><span class="line">checking for aarch64-linux-gnu-objcopy... aarch64-linux-gnu-objcopy</span><br><span class="line">checking for aarch64-linux-gnu-objdump... aarch64-linux-gnu-objdump</span><br><span class="line">checking for aarch64-linux-gnu-ranlib... aarch64-linux-gnu-ranlib</span><br><span class="line">checking for aarch64-linux-gnu-readelf... aarch64-linux-gnu-readelf</span><br><span class="line">checking for aarch64-linux-gnu-strip... aarch64-linux-gnu-strip</span><br><span class="line">checking for aarch64-linux-gnu-windres... no</span><br><span class="line">checking for aarch64-linux-gnu-windmc... no</span><br><span class="line">checking where to find the target ar... just compiled</span><br><span class="line">checking where to find the target as... just compiled</span><br><span class="line">checking where to find the target cc... pre-installed</span><br><span class="line">checking where to find the target c++... pre-installed</span><br><span class="line">checking where to find the target c++ for libstdc++... pre-installed</span><br><span class="line">checking where to find the target dlltool... just compiled</span><br><span class="line">checking where to find the target gcc... pre-installed</span><br><span class="line">checking where to find the target gfortran... pre-installed</span><br><span class="line">checking where to find the target gccgo... pre-installed</span><br><span class="line">checking where to find the target ld... just compiled</span><br><span class="line">checking where to find the target lipo... pre-installed</span><br><span class="line">checking where to find the target nm... just compiled</span><br><span class="line">checking where to find the target objcopy... just compiled</span><br><span class="line">checking where to find the target objdump... just compiled</span><br><span class="line">checking where to find the target ranlib... just compiled</span><br><span class="line">checking where to find the target readelf... just compiled</span><br><span class="line">checking where to find the target strip... just compiled</span><br><span class="line">checking where to find the target windres... just compiled</span><br><span class="line">checking where to find the target windmc... just compiled</span><br><span class="line">checking whether to enable maintainer-specific portions of Makefiles... no</span><br><span class="line">configure: creating ./config.status</span><br><span class="line">config.status: creating Makefile</span><br><span class="line">➜  build-binutils make -j4</span><br><span class="line">......</span><br><span class="line">➜  build-binutils make install</span><br><span class="line">➜  build-binutils cd ..</span><br></pre></td></tr></table></figure>
+<h2 id="linux-kernel-headers"><a class="markdownIt-Anchor" href="#linux-kernel-headers"></a> Linux Kernel Headers</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">➜  aarch64 cd linux-5.1.12</span><br><span class="line">➜  linux-5.1.12 make ARCH=arm64 INSTALL_HDR_PATH=/opt/aarch64/linux headers_install  </span><br><span class="line">  HOSTCC  scripts/basic/fixdep</span><br><span class="line">  WRAP    arch/arm64/include/generated/uapi/asm/kvm_para.h</span><br><span class="line">  WRAP    arch/arm64/include/generated/uapi/asm/errno.h</span><br><span class="line">  WRAP    arch/arm64/include/generated/uapi/asm/ioctl.h</span><br><span class="line">  WRAP    arch/arm64/include/generated/uapi/asm/ioctls.h</span><br><span class="line">  WRAP    arch/arm64/include/generated/uapi/asm/ipcbuf.h</span><br><span class="line">  WRAP    arch/arm64/include/generated/uapi/asm/mman.h</span><br><span class="line">  WRAP    arch/arm64/include/generated/uapi/asm/msgbuf.h</span><br><span class="line">  WRAP    arch/arm64/include/generated/uapi/asm/poll.h</span><br><span class="line">  WRAP    arch/arm64/include/generated/uapi/asm/resource.h</span><br><span class="line">  WRAP    arch/arm64/include/generated/uapi/asm/sembuf.h</span><br><span class="line">  WRAP    arch/arm64/include/generated/uapi/asm/shmbuf.h</span><br><span class="line">  WRAP    arch/arm64/include/generated/uapi/asm/siginfo.h</span><br><span class="line">  WRAP    arch/arm64/include/generated/uapi/asm/socket.h</span><br><span class="line">  WRAP    arch/arm64/include/generated/uapi/asm/sockios.h</span><br><span class="line">  WRAP    arch/arm64/include/generated/uapi/asm/swab.h</span><br><span class="line">  WRAP    arch/arm64/include/generated/uapi/asm/termbits.h</span><br><span class="line">  WRAP    arch/arm64/include/generated/uapi/asm/termios.h</span><br><span class="line">  WRAP    arch/arm64/include/generated/uapi/asm/types.h</span><br><span class="line">  UPD     include/generated/uapi/linux/version.h</span><br><span class="line">  HOSTCC  scripts/unifdef</span><br><span class="line">  INSTALL include/asm-generic (36 files)</span><br><span class="line">  INSTALL include/drm (26 files)</span><br><span class="line">  INSTALL include/linux/android (2 files)</span><br><span class="line">  INSTALL include/linux/byteorder (2 files)</span><br><span class="line">  INSTALL include/linux/caif (2 files)</span><br><span class="line">  INSTALL include/linux/can (6 files)</span><br><span class="line">  INSTALL include/linux/cifs (1 file)</span><br><span class="line">  INSTALL include/linux/dvb (8 files)</span><br><span class="line">  INSTALL include/linux/genwqe (1 file)</span><br><span class="line">  INSTALL include/linux/hdlc (1 file)</span><br><span class="line">  INSTALL include/linux/hsi (2 files)</span><br><span class="line">  INSTALL include/linux/iio (2 files)</span><br><span class="line">  INSTALL include/linux/isdn (1 file)</span><br><span class="line">  INSTALL include/linux/mmc (1 file)</span><br><span class="line">  INSTALL include/linux/netfilter/ipset (4 files)</span><br><span class="line">  INSTALL include/linux/netfilter (88 files)</span><br><span class="line">  INSTALL include/linux/netfilter_arp (2 files)</span><br><span class="line">  INSTALL include/linux/netfilter_bridge (17 files)</span><br><span class="line">  INSTALL include/linux/netfilter_ipv4 (9 files)</span><br><span class="line">  INSTALL include/linux/netfilter_ipv6 (13 files)</span><br><span class="line">  INSTALL include/linux/nfsd (5 files)</span><br><span class="line">  INSTALL include/linux/raid (2 files)</span><br><span class="line">  INSTALL include/linux/sched (1 file)</span><br><span class="line">  INSTALL include/linux/spi (1 file)</span><br><span class="line">  INSTALL include/linux/sunrpc (1 file)</span><br><span class="line">  INSTALL include/linux/tc_act (15 files)</span><br><span class="line">  INSTALL include/linux/tc_ematch (5 files)</span><br><span class="line">  INSTALL include/linux/usb (13 files)</span><br><span class="line">  INSTALL include/linux/wimax (1 file)</span><br><span class="line">  INSTALL include/linux (505 files)</span><br><span class="line">  INSTALL include/misc (4 files)</span><br><span class="line">  INSTALL include/mtd (5 files)</span><br><span class="line">  INSTALL include/rdma/hfi (2 files)</span><br><span class="line">  INSTALL include/rdma (25 files)</span><br><span class="line">  INSTALL include/scsi/fc (4 files)</span><br><span class="line">  INSTALL include/scsi (5 files)</span><br><span class="line">  INSTALL include/sound (16 files)</span><br><span class="line">  INSTALL include/video (3 files)</span><br><span class="line">  INSTALL include/xen (4 files)</span><br><span class="line">  INSTALL include/asm (37 files)</span><br><span class="line">➜  linux-5.1.12 cd ..</span><br></pre></td></tr></table></figure>
+<h2 id="cc-compilers"><a class="markdownIt-Anchor" href="#cc-compilers"></a> C/C++ Compilers</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line">➜  aarch64 mkdir -p build-gcc</span><br><span class="line">➜  aarch64 cd build-gcc</span><br><span class="line">➜  build-gcc ../gcc-9.1.0/configure --prefix=/opt/aarch64 --target=aarch64-linux-gnu --enable-languages=c,c++,fortran,go --disable-multilib --enable-vtable-verify       </span><br><span class="line">checking build system type... x86_64-pc-linux-gnu</span><br><span class="line">checking host system type... x86_64-pc-linux-gnu</span><br><span class="line">checking target system type... aarch64-unknown-linux-gnu</span><br><span class="line">checking for a BSD-compatible install... /usr/bin/install -c</span><br><span class="line">checking whether ln works... yes</span><br><span class="line">checking whether ln -s works... yes</span><br><span class="line">checking for a sed that does not truncate output... /usr/bin/sed</span><br><span class="line">checking for gawk... gawk</span><br><span class="line">checking for libatomic support... yes</span><br><span class="line">checking for libitm support... yes</span><br><span class="line">checking for libsanitizer support... yes</span><br><span class="line">checking for libvtv support... yes</span><br><span class="line">checking for libhsail-rt support... no</span><br><span class="line">checking for libphobos support... yes</span><br><span class="line">checking for gcc... gcc</span><br><span class="line">checking whether the C compiler works... yes</span><br><span class="line">checking for C compiler default output file name... a.out</span><br><span class="line">checking for suffix of executables... </span><br><span class="line">checking whether we are cross compiling... no</span><br><span class="line">checking for suffix of object files... o</span><br><span class="line">checking whether we are using the GNU C compiler... yes</span><br><span class="line">checking whether gcc accepts -g... yes</span><br><span class="line">checking for gcc option to accept ISO C89... none needed</span><br><span class="line">checking for g++... g++</span><br><span class="line">checking whether we are using the GNU C++ compiler... yes</span><br><span class="line">checking whether g++ accepts -g... yes</span><br><span class="line">checking whether g++ accepts -static-libstdc++ -static-libgcc... yes</span><br><span class="line">checking for gnatbind... gnatbind</span><br><span class="line">checking for gnatmake... gnatmake</span><br><span class="line">checking whether compiler driver understands Ada... no</span><br><span class="line">checking how to compare bootstrapped objects... cmp --ignore-initial=16 $$f1 $$f2</span><br><span class="line">checking for objdir... .libs</span><br><span class="line">configure: WARNING: using in-tree isl, disabling version check</span><br><span class="line">*** This configuration is not supported in the following subdirectories:</span><br><span class="line">     gnattools target-libada target-libhsail-rt target-libphobos target-zlib target-libobjc target-liboffloadmic</span><br><span class="line">    (Any other directories should still work fine.)</span><br><span class="line">checking for default BUILD_CONFIG... </span><br><span class="line">checking for --enable-vtable-verify... yes</span><br><span class="line">checking for bison... bison -y</span><br><span class="line">checking for bison... bison</span><br><span class="line">checking for gm4... no</span><br><span class="line">checking for gnum4... no</span><br><span class="line">checking for m4... m4</span><br><span class="line">checking for flex... flex</span><br><span class="line">checking for flex... flex</span><br><span class="line">checking for makeinfo... makeinfo</span><br><span class="line">checking for expect... expect</span><br><span class="line">checking for runtest... no</span><br><span class="line">checking for ar... ar</span><br><span class="line">checking for as... as</span><br><span class="line">checking for dlltool... no</span><br><span class="line">checking for ld... (cached) /opt/native/lib/gcc/x86_64-linux-gnu/9.1.0/../../../../x86_64-linux-gnu/bin/ld</span><br><span class="line">checking for lipo... no</span><br><span class="line">checking for nm... nm</span><br><span class="line">checking for ranlib... ranlib</span><br><span class="line">checking for strip... strip</span><br><span class="line">checking for windres... no</span><br><span class="line">checking for windmc... no</span><br><span class="line">checking for objcopy... objcopy</span><br><span class="line">checking for objdump... objdump</span><br><span class="line">checking for otool... no</span><br><span class="line">checking for readelf... readelf</span><br><span class="line">checking for aarch64-linux-gnu-cc... no</span><br><span class="line">checking for aarch64-linux-gnu-gcc... no</span><br><span class="line">checking for aarch64-linux-gnu-c++... no</span><br><span class="line">checking for aarch64-linux-gnu-g++... no</span><br><span class="line">checking for aarch64-linux-gnu-cxx... no</span><br><span class="line">checking for aarch64-linux-gnu-gxx... no</span><br><span class="line">checking for aarch64-linux-gnu-gcc... no</span><br><span class="line">checking for aarch64-linux-gnu-gfortran... no</span><br><span class="line">checking for aarch64-linux-gnu-gccgo... no</span><br><span class="line">checking for aarch64-linux-gnu-gdc... no</span><br><span class="line">checking for ar... /opt/aarch64/aarch64-linux-gnu/bin/ar</span><br><span class="line">checking for as... /opt/aarch64/aarch64-linux-gnu/bin/as</span><br><span class="line">checking for dlltool... no</span><br><span class="line">checking for aarch64-linux-gnu-dlltool... no</span><br><span class="line">checking for ld... /opt/aarch64/aarch64-linux-gnu/bin/ld</span><br><span class="line">checking for lipo... no</span><br><span class="line">checking for aarch64-linux-gnu-lipo... no</span><br><span class="line">checking for nm... /opt/aarch64/aarch64-linux-gnu/bin/nm</span><br><span class="line">checking for objcopy... /opt/aarch64/aarch64-linux-gnu/bin/objcopy</span><br><span class="line">checking for objdump... /opt/aarch64/aarch64-linux-gnu/bin/objdump</span><br><span class="line">checking for otool... no</span><br><span class="line">checking for aarch64-linux-gnu-otool... no</span><br><span class="line">checking for ranlib... /opt/aarch64/aarch64-linux-gnu/bin/ranlib</span><br><span class="line">checking for readelf... /opt/aarch64/aarch64-linux-gnu/bin/readelf</span><br><span class="line">checking for strip... /opt/aarch64/aarch64-linux-gnu/bin/strip</span><br><span class="line">checking for windres... no</span><br><span class="line">checking for aarch64-linux-gnu-windres... no</span><br><span class="line">checking for windmc... no</span><br><span class="line">checking for aarch64-linux-gnu-windmc... no</span><br><span class="line">checking where to find the target ar... pre-installed in /opt/aarch64/aarch64-linux-gnu/bin</span><br><span class="line">checking where to find the target as... pre-installed in /opt/aarch64/aarch64-linux-gnu/bin</span><br><span class="line">checking where to find the target cc... just compiled</span><br><span class="line">checking where to find the target c++... just compiled</span><br><span class="line">checking where to find the target c++ for libstdc++... just compiled</span><br><span class="line">checking where to find the target dlltool... pre-installed</span><br><span class="line">checking where to find the target gcc... just compiled</span><br><span class="line">checking where to find the target gfortran... just compiled</span><br><span class="line">checking where to find the target gccgo... just compiled</span><br><span class="line">checking where to find the target gdc... pre-installed</span><br><span class="line">checking where to find the target ld... pre-installed in /opt/aarch64/aarch64-linux-gnu/bin</span><br><span class="line">checking where to find the target lipo... pre-installed</span><br><span class="line">checking where to find the target nm... pre-installed in /opt/aarch64/aarch64-linux-gnu/bin</span><br><span class="line">checking where to find the target objcopy... pre-installed in /opt/aarch64/aarch64-linux-gnu/bin</span><br><span class="line">checking where to find the target objdump... pre-installed in /opt/aarch64/aarch64-linux-gnu/bin</span><br><span class="line">checking where to find the target otool... pre-installed</span><br><span class="line">checking where to find the target ranlib... pre-installed in /opt/aarch64/aarch64-linux-gnu/bin</span><br><span class="line">checking where to find the target readelf... pre-installed in /opt/aarch64/aarch64-linux-gnu/bin</span><br><span class="line">checking where to find the target strip... pre-installed in /opt/aarch64/aarch64-linux-gnu/bin</span><br><span class="line">checking where to find the target windres... pre-installed</span><br><span class="line">checking where to find the target windmc... pre-installed</span><br><span class="line">checking whether to enable maintainer-specific portions of Makefiles... no</span><br><span class="line">configure: creating ./config.status</span><br><span class="line">config.status: creating Makefile</span><br><span class="line">➜  build-gcc make -j4 all-gcc</span><br><span class="line">➜  build-gcc make install-gcc</span><br><span class="line">➜  build-gcc cd ..</span><br></pre></td></tr></table></figure>
+<h1 id="glibc"><a class="markdownIt-Anchor" href="#glibc"></a> GLibc</h1>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  aarch64 mkdir -p build-glibc</span><br><span class="line">➜  aarch64 cd build-glibc</span><br><span class="line">➜  build-glibc ../glibc-2.29/configure --prefix=/opt/aarch64/linux --build=aarch64 --host=x86_64-linux-gnu --target=aarch64-linux-gnu --with-headers=/opt/aarch64/linux/include --disable-multilib --with-selinux=no --enable-vtable-verify libc_cv_forced_unwind=yes</span><br><span class="line">➜  build-glibc make install-bootstrap-headers=yes install-headers</span><br><span class="line">➜  build-glibc make -j4 csu/subdir_lib</span><br><span class="line">➜  build-glibc mkdir /opt/aarch64/linux/lib</span><br><span class="line">➜  build-glibc install csu/crt1.o csu/crti.o csu/crtn.o /opt/aarch64/linux/lib</span><br><span class="line">➜  build-glibc /opt/aarch64/bin/x86_64-linux-gnu-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o /opt/aarch64/linux/lib/libc.so</span><br><span class="line">➜  build-glibc touch /opt/aarch64/linux/include/gnu/stubs.h</span><br><span class="line">➜  build-glibc cd ..</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Huawei-HiSilicon-Hikey970-Linux-GCC/" rel="tag"># Huawei, HiSilicon, Hikey970, Linux, GCC</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/20/OperatingSystems/build-gcc/" rel="next" title="Build GCC">
+                <i class="fa fa-chevron-left"></i> Build GCC
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Nobody</p>
+              <p class="site-description motion-element" itemprop="description">Longer Vision Technology Github Blog</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">54</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">52</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#start-building"><span class="nav-number">1.</span> <span class="nav-text"> Start Building</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#binutils"><span class="nav-number">1.1.</span> <span class="nav-text"> Binutils</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux-kernel-headers"><span class="nav-number">1.2.</span> <span class="nav-text"> Linux Kernel Headers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cc-compilers"><span class="nav-number">1.3.</span> <span class="nav-text"> C/C++ Compilers</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#glibc"><span class="nav-number">2.</span> <span class="nav-text"> GLibc</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nobody</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+   
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
