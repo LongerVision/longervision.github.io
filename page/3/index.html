@@ -309,6 +309,202 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/12/22/Medical/pydicom/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/22/Medical/pydicom/" itemprop="url">
+                  Display DICOM using pydicom
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-12-22 00:00:00 / Modified: 15:37:22" itemprop="dateCreated datePublished" datetime="2018-12-22T00:00:00-08:00">2018-12-22</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Medical/" itemprop="url" rel="index"><span itemprop="name">Medical</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Merry Christmas everybody. Let’s take a look at the <a href="https://www.coquitlam.ca/parks-recreation-and-culture/arts-and-culture/special-events-calendar/LightsatLafarge.aspx" target="_blank" rel="noopener">Christmas Lights around Lafarge Lake in Coquitlam</a> FIRST.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Lafarge Lake Christmas Lights 01</th>
+<th style="text-align:center">Lafarge Lake Christmas Lights 02</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/LafargeLake/ChristmasLight_01.jpg" alt="Lafarge Lake Christmas Lights 01"></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/LafargeLake/ChristmasLight_02.jpg" alt="Lafarge Lake Christmas Lights 02"></td>
+</tr>
+<tr>
+<td style="text-align:center">Lafarge Lake Christmas Lights 03</td>
+<td style="text-align:center">Lafarge Lake Christmas Lights 04</td>
+</tr>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/LafargeLake/ChristmasLight_03.jpg" alt="Lafarge Lake Christmas Lights 03"></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/LafargeLake/ChristmasLight_04.jpg" alt="Lafarge Lake Christmas Lights 04"></td>
+</tr>
+<tr>
+<td style="text-align:center">Lafarge Lake Christmas Lights 05</td>
+<td style="text-align:center">Lafarge Lake Christmas Lights 06</td>
+</tr>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/LafargeLake/ChristmasLight_05.jpg" alt="Lafarge Lake Christmas Lights 05"></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/LafargeLake/ChristmasLight_06.jpg" alt="Lafarge Lake Christmas Lights 06"></td>
+</tr>
+</tbody>
+</table>
+<p>Now, it’s the time to test <a href="https://pydicom.github.io/" target="_blank" rel="noopener">PyDicom</a>.</p>
+<h1 id="get-started"><a class="markdownIt-Anchor" href="#get-started"></a> Get Started</h1>
+<p>Copy and paste that piece of code from <a href="https://medium.com/@taposhdr/medical-image-analysis-with-deep-learning-i-23d518abf531" target="_blank" rel="noopener">Medical Image Analysis with Deep Learning </a> with trivial modifications as follows:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> pydicom <span class="keyword">as</span> pdicom</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> glob</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> scipy.ndimage</span><br><span class="line"><span class="keyword">from</span> skimage <span class="keyword">import</span> measure, morphology</span><br><span class="line"><span class="keyword">from</span> mpl_toolkits.mplot3d.art3d <span class="keyword">import</span> Poly3DCollection</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Prepare dicom images</span></span><br><span class="line">INPUT_FOLDER = <span class="string">'./'</span></span><br><span class="line">patients = os.listdir(INPUT_FOLDER)</span><br><span class="line">patients.sort()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Collect all dicom images</span></span><br><span class="line">lstFilesDCM = []   <span class="comment"># create an empty list</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_scan2</span><span class="params">(path)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> dirName, subdirList, fileList <span class="keyword">in</span> os.walk(path):</span><br><span class="line">        <span class="keyword">for</span> filename <span class="keyword">in</span> fileList:</span><br><span class="line">            <span class="keyword">if</span> <span class="string">".dcm"</span> <span class="keyword">in</span> filename.lower():  </span><br><span class="line">                lstFilesDCM.append(os.path.join(dirName, filename))</span><br><span class="line">    <span class="keyword">return</span> lstFilesDCM</span><br><span class="line"></span><br><span class="line">first_patient = load_scan2(INPUT_FOLDER)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Get ref file</span></span><br><span class="line"><span class="keyword">print</span> (lstFilesDCM[<span class="number">0</span>])</span><br><span class="line">RefDs = pdicom.read_file(lstFilesDCM[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load dimensions based on the number of rows, columns and slices (along z axis)</span></span><br><span class="line">ConstPixelDims = (int(RefDs.Rows), int(RefDs.Columns), len(lstFilesDCM))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load spacing values (in mm)</span></span><br><span class="line">ConstPixelSpacing = (float(RefDs.PixelSpacing[<span class="number">0</span>]), float(RefDs.PixelSpacing[<span class="number">1</span>]), float(RefDs.SliceThickness))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">x = np.arange(<span class="number">0.0</span>, (ConstPixelDims[<span class="number">0</span>]+<span class="number">1</span>)*ConstPixelSpacing[<span class="number">0</span>], ConstPixelSpacing[<span class="number">0</span>])</span><br><span class="line">y = np.arange(<span class="number">0.0</span>, (ConstPixelDims[<span class="number">1</span>]+<span class="number">1</span>)*ConstPixelSpacing[<span class="number">1</span>], ConstPixelSpacing[<span class="number">1</span>])</span><br><span class="line">z = np.arange(<span class="number">0.0</span>, (ConstPixelDims[<span class="number">2</span>]+<span class="number">1</span>)*ConstPixelSpacing[<span class="number">2</span>], ConstPixelSpacing[<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># The array is sized based on 'ConstPixelDims'</span></span><br><span class="line"></span><br><span class="line">ArrayDicom = np.zeros(ConstPixelDims, dtype=RefDs.pixel_array.dtype)</span><br><span class="line"></span><br><span class="line"><span class="comment"># loop through all the DICOM files</span></span><br><span class="line"><span class="keyword">for</span> filenameDCM <span class="keyword">in</span> lstFilesDCM:</span><br><span class="line">    <span class="comment"># read the file</span></span><br><span class="line">    ds = pdicom.read_file(filenameDCM)</span><br><span class="line">    <span class="comment"># store the raw image data</span></span><br><span class="line">    ArrayDicom[:, :, lstFilesDCM.index(filenameDCM)] = ds.pixel_array</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">plt.figure(dpi=<span class="number">1600</span>)</span><br><span class="line">plt.axes().set_aspect(<span class="string">'equal'</span>, <span class="string">'datalim'</span>)</span><br><span class="line">plt.set_cmap(plt.gray())</span><br><span class="line">plt.pcolormesh(y, x, np.flipud(ArrayDicom[:, :, <span class="number">80</span>]))</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<h1 id="display-dicom"><a class="markdownIt-Anchor" href="#display-dicom"></a> Display DICOM</h1>
+<p>I did a MRI scan in 2015, in <a href="http://www.siat.ac.cn/" target="_blank" rel="noopener">SIAT</a>, for the purpose of research. The scan resolution is <strong>NOT</strong> very high. Anyway, a bunch of DICOM images can be viewed as follows:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/medical/MRI/dcms.jpg" alt="DICOM images"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/medical/MRI/me.png" alt="MRI - me"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/12/20/Finance/time-series-4-python-with-pyflux/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1630,176 +1826,6 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
 </table>
 <h1 id="7-facebook-maskrcnn-benchmark"><a class="markdownIt-Anchor" href="#7-facebook-maskrcnn-benchmark"></a> 7. <a href="https://github.com/facebookresearch/maskrcnn-benchmark.git" target="_blank" rel="noopener">Facebook maskrcnn-benchmark</a></h1>
 <p><a href="https://www.facebook.com/jiapei100/videos/1148866891937378/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/maskrcnn-benchmark/maskrcnn-benchmark.jpg" alt="Test on maskrcnn-benchmark"></a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/10/30/SBCs/huawei-HiSilicon-hikey970-Lebian-TensorFlow/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/30/SBCs/huawei-HiSilicon-hikey970-Lebian-TensorFlow/" itemprop="url">
-                  HiSilicon Hikey 970 - Lebian with Pre-built Tensorflow
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-10-30 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-30T00:00:00-07:00">2018-10-30</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-06-20 22:09:27" itemprop="dateModified" datetime="2019-06-20T22:09:27-07:00">2019-06-20</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/SBC/" itemprop="url" rel="index"><span itemprop="name">SBC</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Today, let’s test out Tensorflow pre-built for Lebian on Hikey970. Like talked in our previous blog <a href="../../../../../2018/10/17/Embedded/huawei-HiSilicon-hikey970-Lebuntu/">HiSilicon Hikey 970 - Flash Lebuntu</a>, we have <a href="http://www.lemaker.org/product-hikey970-download-86.html" target="_blank" rel="noopener">Debian 9 with pre-built Tensorflow</a> installed <strong>FIRST</strong>.</p>
 
           
         
