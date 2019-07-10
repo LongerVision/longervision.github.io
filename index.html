@@ -309,6 +309,706 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/07/09/MCUs/micropython-pyboard/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/09/MCUs/micropython-pyboard/" itemprop="url">
+                  MicroPython Pyboard
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-07-09 00:00:00 / Modified: 23:30:14" itemprop="dateCreated datePublished" datetime="2019-07-09T00:00:00-07:00">2019-07-09</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Today is sunny. <sup>_</sup>… Let’s write something about <a href="http://micropython.org" target="_blank" rel="noopener">MicroPython</a> <a href="http://micropython.org/download#pyboard" target="_blank" rel="noopener">PyBoard</a>. In my test, I’m using a <a href="https://store.micropython.org/product/PYBv1.1" target="_blank" rel="noopener">PyBv1.1</a>, which embeddes a <a href="https://www.findchips.com/search/stm32f405rg?medium=tsa&amp;sa360adenid=336050895058&amp;gclid=Cj0KCQjw9pDpBRCkARIsAOzRziuOBSXZEIpfOnqW6rTfp27CFyOhilG2Vs4NOXvQPv9aRPwYnniDu1saAoTeEALw_wcB&amp;gclsrc=aw.ds" target="_blank" rel="noopener">STM32F405RG</a> microcontroller.</p>
+<h1 id="overview"><a class="markdownIt-Anchor" href="#overview"></a> Overview</h1>
+<h2 id="1-contents-in-pyboard"><a class="markdownIt-Anchor" href="#1-contents-in-pyboard"></a> 1. Contents In PyBoard</h2>
+<p>After connecting <a href="https://store.micropython.org/product/PYBv1.1" target="_blank" rel="noopener">PyBv1.1</a> via USB cable, you will possibly see a folder prompt on the screen as follows:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/micropython/pybv1.1.jpg" alt="Contents In PYBv1.1"></p>
+<h2 id="2-test-out-picocom"><a class="markdownIt-Anchor" href="#2-test-out-picocom"></a> 2. Test Out picocom</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ picocom /dev/ttyACM0</span><br><span class="line">picocom v3.1</span><br><span class="line"></span><br><span class="line">port is        : /dev/ttyACM0</span><br><span class="line">flowcontrol    : none</span><br><span class="line">baudrate is    : 9600</span><br><span class="line">parity is      : none</span><br><span class="line">databits are   : 8</span><br><span class="line">stopbits are   : 1</span><br><span class="line">escape is      : C-a</span><br><span class="line">local echo is  : no</span><br><span class="line">noinit is      : no</span><br><span class="line">noreset is     : no</span><br><span class="line">hangup is      : no</span><br><span class="line">nolock is      : no</span><br><span class="line">send_cmd is    : sz -vv</span><br><span class="line">receive_cmd is : rz -vv -E</span><br><span class="line">imap is        : </span><br><span class="line">omap is        : </span><br><span class="line">emap is        : crcrlf,delbs,</span><br><span class="line">logfile is     : none</span><br><span class="line">initstring     : none</span><br><span class="line">exit_after is  : not set</span><br><span class="line">exit is        : no</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">FATAL: cannot open /dev/ttyACM0: Permission denied</span><br></pre></td></tr></table></figure>
+<p>It looks we need to change the permission of <strong>/dev/ttyACM0</strong>.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ll /dev/ttyACM0 </span><br><span class="line">crw-rw---- 1 root dialout 166, 0 Jul  9 13:54 /dev/ttyACM0</span><br><span class="line">➜  ~ sudo chmod 777 /dev/ttyACM0</span><br></pre></td></tr></table></figure>
+<p>Reconnect…</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ picocom /dev/ttyACM0</span><br><span class="line">picocom v3.1</span><br><span class="line"></span><br><span class="line">port is        : /dev/ttyACM0</span><br><span class="line">flowcontrol    : none</span><br><span class="line">baudrate is    : 9600</span><br><span class="line">parity is      : none</span><br><span class="line">databits are   : 8</span><br><span class="line">stopbits are   : 1</span><br><span class="line">escape is      : C-a</span><br><span class="line">local echo is  : no</span><br><span class="line">noinit is      : no</span><br><span class="line">noreset is     : no</span><br><span class="line">hangup is      : no</span><br><span class="line">nolock is      : no</span><br><span class="line">send_cmd is    : sz -vv</span><br><span class="line">receive_cmd is : rz -vv -E</span><br><span class="line">imap is        : </span><br><span class="line">omap is        : </span><br><span class="line">emap is        : crcrlf,delbs,</span><br><span class="line">logfile is     : none</span><br><span class="line">initstring     : none</span><br><span class="line">exit_after is  : not set</span><br><span class="line">exit is        : no</span><br><span class="line"></span><br><span class="line">Type [C-a] [C-h] to see available commands</span><br><span class="line">Terminal ready</span><br><span class="line">MicroPython v1.9.4 on 2018-05-11; PYBv1.1 with STM32F405RG</span><br><span class="line">Type "help()" for more information.</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Press <strong>Ctrl+A</strong> then <strong>Ctrl+x</strong>, <strong>picocom</strong> will terminate its execution.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; </span><br><span class="line">Terminating...</span><br><span class="line">Thanks for using picocom</span><br></pre></td></tr></table></figure>
+<h2 id="3-test-out-screen"><a class="markdownIt-Anchor" href="#3-test-out-screen"></a> 3. Test Out screen</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ screen /dev/ttyACM0</span><br></pre></td></tr></table></figure>
+<p>Then you will see a micropython working console as:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>+<span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>It looks there is <strong>NO</strong> prompt after login via <strong>screen</strong>. That’s why I did <strong>1+1</strong> as a test whenever logging in by <strong>screen</strong>.</p>
+<p>Now, let’s press <strong>Ctrl+A</strong> then <strong>Ctrl+d</strong> to quit <strong>screen</strong>.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ screen /dev/ttyACM0</span><br><span class="line">[detached from 5561.pts-5.lvision-GT72-6QE]</span><br><span class="line">➜  ~</span><br></pre></td></tr></table></figure>
+<h2 id="4-very-important"><a class="markdownIt-Anchor" href="#4-very-important"></a> 4. VERY Important</h2>
+<p><span style="color:red"><strong>The code typed in the working console from either picocom or screen is corresponding to <a href="http://main.py" target="_blank" rel="noopener">main.py</a> in PYBFLASH.</strong></span></p>
+<h1 id="test"><a class="markdownIt-Anchor" href="#test"></a> Test</h1>
+<h2 id="1-led-and-switch"><a class="markdownIt-Anchor" href="#1-led-and-switch"></a> 1. LED and Switch</h2>
+<p>The code is directly copied from <a href="https://micropython.org/" target="_blank" rel="noopener">MicroPython’s homepage</a>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pyb</span><br><span class="line"></span><br><span class="line">sw = pyb.Switch()</span><br><span class="line">led = pyb.LED(<span class="number">4</span>)</span><br><span class="line">x = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    <span class="keyword">if</span> sw():</span><br><span class="line">        x = min(<span class="number">255</span>, x+<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        x = max(<span class="number">0</span>,x<span class="number">-1</span>)</span><br><span class="line">    led.intensity(x)</span><br><span class="line">    pyb.delay(<span class="number">30</span>)</span><br></pre></td></tr></table></figure>
+<p>Press the <strong>USR</strong> switch and take a look what’s going on? <sup>_</sup> Interesting, isn’t it?</p>
+<h2 id="2-log-of-accelerometers-readings"><a class="markdownIt-Anchor" href="#2-log-of-accelerometers-readings"></a> 2. Log of Accelerometer’s Readings</h2>
+<p>Let’s try out <a href="https://github.com/micropython/micropython/blob/master/examples/accellog.py" target="_blank" rel="noopener">MicroPython’s Example Code : Accelerometer Log</a> with trivial modification.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># log the accelerometer values to a .csv-file on the SD-card</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pyb</span><br><span class="line"></span><br><span class="line">accel = pyb.Accel()                                 <span class="comment"># create object of accelerometer</span></span><br><span class="line">blue = pyb.LED(<span class="number">4</span>)                                   <span class="comment"># create object of blue LED</span></span><br><span class="line"></span><br><span class="line">log = open(<span class="string">'.log.csv'</span>, <span class="string">'w'</span>)                      <span class="comment"># open file to write data - /sd/ is the SD-card, /flash/ the internal memory</span></span><br><span class="line">blue.on()                                           <span class="comment"># turn on blue LED</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">100</span>):                                <span class="comment"># do 100 times (if the board is connected via USB, you can't write longer because the PC tries to open the filesystem which messes up your file.)</span></span><br><span class="line">        t = pyb.millis()                            <span class="comment"># get time since reset</span></span><br><span class="line">        x, y, z = accel.filtered_xyz()              <span class="comment"># get acceleration data</span></span><br><span class="line">        log.write(<span class="string">'&#123;&#125;,&#123;&#125;,&#123;&#125;,&#123;&#125;\n'</span>.format(t,x,y,z))  <span class="comment"># write data to file</span></span><br><span class="line"></span><br><span class="line">log.close()                                         <span class="comment"># close file</span></span><br><span class="line">blue.off()                                          <span class="comment"># turn off LED</span></span><br></pre></td></tr></table></figure>
+<p>Just press the <strong>RST</strong> switch, the above piece of code will automatically run once, and the onboard accelerator’s reading will be logged in file <strong>log.csv</strong>. In my test, 100 readings are logged as:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line">156,-10,-14,13</span><br><span class="line">157,-20,-28,26</span><br><span class="line">158,-30,-42,39</span><br><span class="line">159,-40,-56,52</span><br><span class="line">161,-40,-56,52</span><br><span class="line">162,-40,-56,52</span><br><span class="line">163,-40,-56,52</span><br><span class="line">164,-40,-56,52</span><br><span class="line">165,-40,-56,52</span><br><span class="line">166,-40,-56,52</span><br><span class="line">167,-40,-56,52</span><br><span class="line">169,-39,-56,53</span><br><span class="line">170,-38,-56,54</span><br><span class="line">171,-37,-56,55</span><br><span class="line">172,-36,-56,56</span><br><span class="line">173,-36,-56,56</span><br><span class="line">174,-36,-56,56</span><br><span class="line">176,-36,-56,56</span><br><span class="line">177,-36,-56,56</span><br><span class="line">178,-36,-56,56</span><br><span class="line">179,-36,-56,56</span><br><span class="line">180,-36,-56,56</span><br><span class="line">181,-36,-56,56</span><br><span class="line">183,-36,-56,56</span><br><span class="line">184,-36,-55,57</span><br><span class="line">185,-36,-54,58</span><br><span class="line">186,-36,-53,59</span><br><span class="line">187,-36,-52,60</span><br><span class="line">188,-36,-52,60</span><br><span class="line">189,-36,-52,60</span><br><span class="line">191,-36,-52,60</span><br><span class="line">192,-36,-52,60</span><br><span class="line">193,-36,-52,60</span><br><span class="line">194,-36,-52,60</span><br><span class="line">195,-36,-52,60</span><br><span class="line">322,-30,-58,58</span><br><span class="line">324,-24,-64,56</span><br><span class="line">325,-18,-70,54</span><br><span class="line">326,-12,-76,52</span><br><span class="line">327,-12,-76,52</span><br><span class="line">328,-12,-76,52</span><br><span class="line">329,-12,-76,52</span><br><span class="line">331,-12,-76,52</span><br><span class="line">332,-12,-76,52</span><br><span class="line">333,-12,-76,52</span><br><span class="line">334,-14,-73,55</span><br><span class="line">335,-16,-70,58</span><br><span class="line">336,-18,-67,61</span><br><span class="line">338,-20,-64,64</span><br><span class="line">339,-20,-64,64</span><br><span class="line">340,-20,-64,64</span><br><span class="line">341,-20,-64,64</span><br><span class="line">342,-20,-64,64</span><br><span class="line">343,-20,-64,64</span><br><span class="line">345,-20,-64,64</span><br><span class="line">346,-20,-64,64</span><br><span class="line">347,-20,-64,64</span><br><span class="line">348,-20,-64,64</span><br><span class="line">349,-18,-67,63</span><br><span class="line">350,-16,-70,62</span><br><span class="line">352,-14,-73,61</span><br><span class="line">353,-12,-76,60</span><br><span class="line">354,-12,-76,60</span><br><span class="line">355,-12,-76,60</span><br><span class="line">356,-12,-76,60</span><br><span class="line">357,-12,-76,60</span><br><span class="line">359,-12,-76,60</span><br><span class="line">360,-12,-76,60</span><br><span class="line">361,-12,-76,60</span><br><span class="line">488,-19,-68,58</span><br><span class="line">489,-26,-60,56</span><br><span class="line">490,-33,-52,54</span><br><span class="line">491,-40,-44,52</span><br><span class="line">492,-40,-44,52</span><br><span class="line">493,-40,-44,52</span><br><span class="line">495,-40,-44,52</span><br><span class="line">496,-40,-44,52</span><br><span class="line">497,-40,-44,52</span><br><span class="line">498,-41,-45,55</span><br><span class="line">499,-42,-46,58</span><br><span class="line">500,-43,-47,61</span><br><span class="line">502,-44,-48,64</span><br><span class="line">503,-44,-48,64</span><br><span class="line">504,-44,-48,64</span><br><span class="line">505,-44,-48,64</span><br><span class="line">506,-44,-48,64</span><br><span class="line">507,-44,-48,64</span><br><span class="line">509,-44,-48,64</span><br><span class="line">510,-44,-48,64</span><br><span class="line">511,-44,-48,64</span><br><span class="line">512,-44,-48,64</span><br><span class="line">513,-43,-47,65</span><br><span class="line">516,-30,-52,59</span><br><span class="line">517,-17,-57,53</span><br><span class="line">518,-2,-64,47</span><br><span class="line">519,12,-72,40</span><br><span class="line">520,14,-74,40</span><br><span class="line">521,16,-76,40</span><br><span class="line">523,16,-76,40</span><br><span class="line">524,16,-76,40</span><br></pre></td></tr></table></figure>
+<h1 id="whats-more"><a class="markdownIt-Anchor" href="#whats-more"></a> What’s More?</h1>
+<p>Due to the <a href="https://github.com/micropython/micropython/wiki/Pyboard-Firmware-Update#dfu-util" target="_blank" rel="noopener">Pyboard Firmware Update Wiki</a>, it looks <strong>dfu-util</strong> needs to be installed <strong>FIRST</strong>? Anyway, make sure it’s installed by the following command:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ sudo dfu-util -l</span><br><span class="line">[sudo] password for lvision: </span><br><span class="line">dfu-util 0.9</span><br><span class="line"></span><br><span class="line">Copyright 2005-2009 Weston Schmidt, Harald Welte and OpenMoko Inc.</span><br><span class="line">Copyright 2010-2016 Tormod Volden and Stefan Schmidt</span><br><span class="line">This program is Free Software and has ABSOLUTELY NO WARRANTY</span><br><span class="line">Please report bugs to http://sourceforge.net/p/dfu-util/tickets/</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/07/07/CodingSkills/markdown_skills/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/07/CodingSkills/markdown_skills/" itemprop="url">
+                  Markdown Skills
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-07-07 00:00:00 / Modified: 13:36:08" itemprop="dateCreated datePublished" datetime="2019-07-07T00:00:00-07:00">2019-07-07</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Coding-Skills/" itemprop="url" rel="index"><span itemprop="name">Coding Skills</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Raining today…</p>
+<h1 id="skill-1-how-to-apply-color-for-words-in-markdown"><a class="markdownIt-Anchor" href="#skill-1-how-to-apply-color-for-words-in-markdown"></a> Skill 1 - How to apply color for words in markdown?</h1>
+<h2 id="solution"><a class="markdownIt-Anchor" href="#solution"></a> Solution</h2>
+<p>Please refer to <a href="https://stackoverflow.com/questions/35465557/how-to-apply-color-in-markdown" target="_blank" rel="noopener">https://stackoverflow.com/questions/35465557/how-to-apply-color-in-markdown</a>.</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Some Markdown text with <span class="xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">"color:blue"</span>&gt;</span></span>some <span class="emphasis">*blue*</span> text<span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span>.</span><br></pre></td></tr></table></figure>
+<h2 id="test"><a class="markdownIt-Anchor" href="#test"></a> Test</h2>
+<p>Please refer to the following line in our yesterday’s blog <a href="../../../../../2019/07/06/SBCs/NVidia-Jetson-Nano-1/">NVidia Jetson Nano - 1</a>. The code is as follows:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">"color:red"</span>&gt;</span></span><span class="strong">**Now, Jetson Nano is wired connected onto the Internet.**</span><span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h1 id="skill-2-multirowmulticolumn-cell-in-markdown-table"><a class="markdownIt-Anchor" href="#skill-2-multirowmulticolumn-cell-in-markdown-table"></a> Skill 2 - Multirow/multicolumn cell in markdown table</h1>
+<h2 id="solution-2"><a class="markdownIt-Anchor" href="#solution-2"></a> Solution</h2>
+<h2 id="test-2"><a class="markdownIt-Anchor" href="#test-2"></a> Test</h2>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/07/06/SBCs/NVidia-Jetson-Nano-1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/06/SBCs/NVidia-Jetson-Nano-1/" itemprop="url">
+                  NVidia Jetson Nano - 1
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-07-06 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-06T00:00:00-07:00">2019-07-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-07 13:42:41" itemprop="dateModified" datetime="2019-07-07T13:42:41-07:00">2019-07-07</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/SBC/" itemprop="url" rel="index"><span itemprop="name">SBC</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>I got the <a href="https://ark.intel.com/content/www/us/en/ark/products/99445/intel-wireless-ac-9260.html" target="_blank" rel="noopener">Intel Wireless-AC 9260</a> today, and a proper <a href="https://www.memoryexpress.com/Products/MX76104" target="_blank" rel="noopener">128G micro SD card</a>, finally… Let’s try out <a href="https://developer.nvidia.com/embedded/jetson-nano-developer-kit" target="_blank" rel="noopener">Jetson Nano</a>.</p>
+<h1 id="part-a-install-jetpack-onto-jetson-nano"><a class="markdownIt-Anchor" href="#part-a-install-jetpack-onto-jetson-nano"></a> PART A: Install JetPack onto Jetson Nano</h1>
+<p>Let’s simply use the command <strong>dd</strong> to have <a href="https://developer.nvidia.com/embedded/jetpack" target="_blank" rel="noopener">JetPack</a> installed onto the micro SD card as follows:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜  JetPack sudo dd bs=4M if=jetson-nano-sd-r32.1.1-2019-05-31.img of=/dev/mmcblk0 conv=fsync</span><br><span class="line">[sudo] password for lvision: </span><br><span class="line">3072+0 records in</span><br><span class="line">3072+0 records out</span><br><span class="line">12884901888 bytes (13 GB, 12 GiB) copied, 311.804 s, 41.3 MB/s</span><br></pre></td></tr></table></figure>
+<h1 id="part-b-boot-into-jetson-nano-and-test-it-out"><a class="markdownIt-Anchor" href="#part-b-boot-into-jetson-nano-and-test-it-out"></a> PART B: Boot Into Jetson Nano and Test it Out</h1>
+<h2 id="1-first-boot"><a class="markdownIt-Anchor" href="#1-first-boot"></a> 1. First Boot</h2>
+<p>It seems <strong>GUI</strong> is a must for Jetson Nano’s <strong>FIRST BOOT</strong>, which is ignored in this blog.</p>
+<h2 id="2-ssh-into-jetson-nano"><a class="markdownIt-Anchor" href="#2-ssh-into-jetson-nano"></a> 2. SSH into Jetson Nano</h2>
+<p><span style="color:red"><strong>For now, Jetson Nano is wired connected onto the Internet. And it seems <a href="https://ark.intel.com/content/www/us/en/ark/products/99445/intel-wireless-ac-9260.html" target="_blank" rel="noopener">Intel Wireless-AC 9260</a> is NOT working properly with Jetson Nano yet. Details can be found at <a href="https://devtalk.nvidia.com/default/topic/1050449/jetson-nano/intel-9260-wifi-on-jetson-nano-jetbot" target="_blank" rel="noopener">https://devtalk.nvidia.com/default/topic/1050449/jetson-nano/intel-9260-wifi-on-jetson-nano-jetbot</a></strong></span></p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ssh lvision@192.168.1.71</span><br><span class="line">lvision@192.168.1.71's password: </span><br><span class="line">Welcome to Ubuntu 18.04.2 LTS (GNU/Linux 4.9.140-tegra aarch64)</span><br><span class="line"></span><br><span class="line"> * Documentation:  https://help.ubuntu.com</span><br><span class="line"> * Management:     https://landscape.canonical.com</span><br><span class="line"> * Support:        https://ubuntu.com/advantage</span><br><span class="line"></span><br><span class="line">This system has been minimized by removing packages and content that are</span><br><span class="line">not required on a system that users do not log into.</span><br><span class="line"></span><br><span class="line">To restore this content, you can run the 'unminimize' command.</span><br><span class="line"></span><br><span class="line">450 packages can be updated.</span><br><span class="line">210 updates are security updates.</span><br><span class="line"></span><br><span class="line">Last login: Sat Jul  6 18:41:11 2019 from 192.168.1.200</span><br><span class="line">lvision@lvision-desktop:~$</span><br></pre></td></tr></table></figure>
+<h2 id="3-check-jetpack-os"><a class="markdownIt-Anchor" href="#3-check-jetpack-os"></a> 3. Check JetPack OS</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">lvision@lvision-desktop:~$ uname -a</span><br><span class="line">Linux lvision-desktop 4.9.140-tegra #1 SMP PREEMPT Wed Mar 13 00:32:22 PDT 2019 aarch64 aarch64 aarch64 GNU/Linux</span><br><span class="line">lvision@lvision-desktop:~$ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID: Ubuntu</span><br><span class="line">Description:    Ubuntu 18.04.2 LTS</span><br><span class="line">Release:        18.04</span><br><span class="line">Codename:       bionic</span><br><span class="line">ilvision@lvision-desktop:~$ ip -c address</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: dummy0: &lt;BROADCAST,NOARP&gt; mtu 1500 qdisc noop state DOWN group default qlen 1000</span><br><span class="line">    link/ether 9a:c2:3a:84:96:66 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">3: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    link/ether 00:04:4b:e4:12:59 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.1.71/24 brd 192.168.1.255 scope global dynamic noprefixroute eth0</span><br><span class="line">       valid_lft 85183sec preferred_lft 85183sec</span><br><span class="line">    inet6 2001:569:7ef8:d600:858b:9c23:db05:7b3a/64 scope global temporary dynamic </span><br><span class="line">       valid_lft 7476sec preferred_lft 7176sec</span><br><span class="line">    inet6 2001:569:7ef8:d600:509c:9fe9:1cb7:2b7f/64 scope global dynamic mngtmpaddr noprefixroute </span><br><span class="line">       valid_lft 7476sec preferred_lft 7176sec</span><br><span class="line">    inet6 fe80::1714:cd7d:771d:a4/64 scope link noprefixroute </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">4: rndis0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc pfifo_fast master l4tbr0 state DOWN group default qlen 1000</span><br><span class="line">    link/ether da:d4:ee:c5:ed:e9 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">5: usb0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc pfifo_fast master l4tbr0 state DOWN group default qlen 1000</span><br><span class="line">    link/ether da:d4:ee:c5:ed:eb brd ff:ff:ff:ff:ff:ff</span><br><span class="line">6: l4tbr0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc noqueue state DOWN group default qlen 1000</span><br><span class="line">    link/ether da:d4:ee:c5:ed:e9 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.55.1/24 brd 192.168.55.255 scope global l4tbr0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::1/128 scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::a495:bff:fe21:2ad0/64 scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+<h2 id="4-update-and-upgrade-all-upgradable-packages"><a class="markdownIt-Anchor" href="#4-update-and-upgrade-all-upgradable-packages"></a> 4. Update and Upgrade All Upgradable Packages</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">lvision@lvision-desktop:~$ sudo apt upgrade</span><br><span class="line">[sudo] password for lvision: </span><br><span class="line">Reading package lists... Done</span><br><span class="line">Building dependency tree       </span><br><span class="line">Reading state information... Done</span><br><span class="line">Calculating upgrade... Done</span><br><span class="line">The following packages were automatically installed and are no longer required:</span><br><span class="line">  apt-clone archdetect-deb busybox-static cryptsetup-bin dpkg-repack gir1.2-timezonemap-1.0 gir1.2-xkl-1.0 grub-common</span><br><span class="line">  kde-window-manager kinit kio kpackagetool5 kwayland-data kwin-common kwin-data kwin-x11 libdebian-installer4 libkdecorations2-5v5</span><br><span class="line">  libkdecorations2private5v5 libkf5activities5 libkf5attica5 libkf5completion-data libkf5completion5 libkf5declarative-data</span><br><span class="line">  libkf5declarative5 libkf5doctools5 libkf5globalaccel-data libkf5globalaccel5 libkf5globalaccelprivate5 libkf5idletime5</span><br><span class="line">  libkf5jobwidgets-data libkf5jobwidgets5 libkf5kcmutils-data libkf5kcmutils5 libkf5kiocore5 libkf5kiontlm5 libkf5kiowidgets5</span><br><span class="line">  libkf5newstuff-data libkf5newstuff5 libkf5newstuffcore5 libkf5package-data libkf5package5 libkf5plasma5 libkf5quickaddons5</span><br><span class="line">  libkf5solid5 libkf5solid5-data libkf5sonnet5-data libkf5sonnetcore5 libkf5sonnetui5 libkf5textwidgets-data libkf5textwidgets5</span><br><span class="line">  libkf5waylandclient5 libkf5waylandserver5 libkf5xmlgui-bin libkf5xmlgui-data libkf5xmlgui5 libkscreenlocker5</span><br><span class="line">  libkwin4-effect-builtins1 libkwineffects11 libkwinglutils11 libkwinxrenderutils11 libllvm6.0 libqgsttools-p1 libqt5designer5</span><br><span class="line">  libqt5help5 libqt5multimedia5 libqt5multimedia5-plugins libqt5multimediaquick-p5 libqt5multimediawidgets5 libqt5opengl5</span><br><span class="line">  libqt5positioning5 libqt5printsupport5 libqt5qml5 libqt5quick5 libqt5quickwidgets5 libqt5sensors5 libqt5sql5 libqt5test5</span><br><span class="line">  libqt5webchannel5 libqt5webkit5 libxcb-composite0 libxcb-cursor0 libxcb-damage0 os-prober python3-dbus.mainloop.pyqt5 python3-icu</span><br><span class="line">  python3-pam python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtwebkit python3-sip qml-module-org-kde-kquickcontrolsaddons</span><br><span class="line">  qml-module-qtmultimedia qml-module-qtquick2 rdate</span><br><span class="line">Use 'sudo apt autoremove' to remove them.</span><br><span class="line">The following NEW packages will be installed:</span><br><span class="line">  containerd gstreamer1.0-gtk3 libdrm-etnaviv1 libllvm8 python3-dateutil runc</span><br><span class="line">The following packages will be upgraded:</span><br><span class="line">......</span><br><span class="line">Setting up update-notifier (3.192.1.7) ...</span><br><span class="line">Setting up ubuntu-desktop (1.417.1) ...</span><br><span class="line">Processing triggers for libc-bin (2.27-3ubuntu1) ...</span><br><span class="line">Processing triggers for resolvconf (1.79ubuntu10.18.04.3) ...</span><br><span class="line">Processing triggers for initramfs-tools (0.130ubuntu3.8) ...</span><br><span class="line">update-initramfs: Generating /boot/initrd.img-4.9.140-tegra</span><br><span class="line">Warning: couldn't identify filesystem type for fsck hook, ignoring.</span><br><span class="line">/sbin/ldconfig.real: Warning: ignoring configuration file that cannot be opened: /etc/ld.so.conf.d/aarch64-linux-gnu_EGL.conf: No such file or directory</span><br><span class="line">/sbin/ldconfig.real: Warning: ignoring configuration file that cannot be opened: /etc/ld.so.conf.d/aarch64-linux-gnu_GL.conf: No such file or directory</span><br><span class="line">Processing triggers for dbus (1.12.2-1ubuntu1.1) ...</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/07/04/SBCs/FreeRTOS/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/04/SBCs/FreeRTOS/" itemprop="url">
+                  FreeRTOS
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-07-04 00:00:00 / Modified: 17:52:05" itemprop="dateCreated datePublished" datetime="2019-07-04T00:00:00-07:00">2019-07-04</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/SBC/" itemprop="url" rel="index"><span itemprop="name">SBC</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/07/01/Robotics/Arduino-Robotic-Arm/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -757,7 +1457,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-21 18:38:54" itemprop="dateModified" datetime="2019-06-21T18:38:54-07:00">2019-06-21</time>
+                <time title="Modified: 2019-07-07 13:25:07" itemprop="dateModified" datetime="2019-07-07T13:25:07-07:00">2019-07-07</time>
               
             
           </span>
@@ -774,7 +1474,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/OperatingSystems/" itemprop="url" rel="index"><span itemprop="name">OperatingSystems</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Operating-Systems/" itemprop="url" rel="index"><span itemprop="name">Operating Systems</span></a></span>
 
                 
                 
@@ -1126,7 +1826,7 @@ etc.</li>
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/06/03/BashScript/bash_skills_01/">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/06/03/CodingSkills/bash_skills/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nobody">
@@ -1145,8 +1845,8 @@ etc.</li>
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/06/03/BashScript/bash_skills_01/" itemprop="url">
-                  Bash Skills - 01
+                <a class="post-title-link" href="/2019/06/03/CodingSkills/bash_skills/" itemprop="url">
+                  Bash Skills
                 </a>
               
             
@@ -1189,7 +1889,7 @@ etc.</li>
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-20 21:44:49" itemprop="dateModified" datetime="2019-06-20T21:44:49-07:00">2019-06-20</time>
+                <time title="Modified: 2019-07-07 13:26:10" itemprop="dateModified" datetime="2019-07-07T13:26:10-07:00">2019-07-07</time>
               
             
           </span>
@@ -1206,7 +1906,7 @@ etc.</li>
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/BashScript/" itemprop="url" rel="index"><span itemprop="name">BashScript</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Coding-Skills/" itemprop="url" rel="index"><span itemprop="name">Coding Skills</span></a></span>
 
                 
                 
@@ -1502,803 +2202,6 @@ For the 2nd time, after <strong>libcups2-dev</strong> had been installed from Ub
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/04/20/SBCs/Widora-AIRV-K210-AI-Kendryte/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/20/SBCs/Widora-AIRV-K210-AI-Kendryte/" itemprop="url">
-                  Widora AIRV/K210 Board with ESP8266/ESP8285 Espressif Wifi and Kendryte K210 AI
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-20 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-20T00:00:00-07:00">2019-04-20</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-06-20 22:09:53" itemprop="dateModified" datetime="2019-06-20T22:09:53-07:00">2019-06-20</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/SBC/" itemprop="url" rel="index"><span itemprop="name">SBC</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Having been keeping an eye on <a href="https://www.widora.io/" target="_blank" rel="noopener">Widora</a> and <a href="https://www.espressif.com/" target="_blank" rel="noopener">Espressif</a> for quite a bit. I finally decided to test out <a href="https://www.widora.io/" target="_blank" rel="noopener">Widora</a>’s development board <a href="https://dev.widora.io/zh/airv" target="_blank" rel="noopener">AIRV</a>.</p>
-<h1 id="background-knowledge"><a class="markdownIt-Anchor" href="#background-knowledge"></a> Background Knowledge</h1>
-<h2 id="espressif"><a class="markdownIt-Anchor" href="#espressif"></a> Espressif</h2>
-<p><a href="https://www.espressif.com/" target="_blank" rel="noopener">Espressif</a> is based in Shanghai, China, focusing on Wifi/Bluetooth chips, now have two main Wifi modules:</p>
-<ul>
-<li><a href="https://www.espressif.com/en/products/hardware/esp32/overview" target="_blank" rel="noopener">ESP32</a>: Wifi with Bluetooth</li>
-<li><a href="https://www.espressif.com/en/products/hardware/esp8266ex/overview" target="_blank" rel="noopener">ESP8266/ESP8285</a>: Wifi <strong>ONLY</strong></li>
-</ul>
-<h2 id="widora"><a class="markdownIt-Anchor" href="#widora"></a> Widora</h2>
-<p><a href="https://www.widora.io/" target="_blank" rel="noopener">Widora</a> is headquartered in Beijing, China, providing development boards using <a href="https://www.espressif.com/" target="_blank" rel="noopener">Espressif</a> Wifi/Bluetooth chips.</p>
-<h2 id="kendryte"><a class="markdownIt-Anchor" href="#kendryte"></a> Kendryte</h2>
-<p><strong>NEVER</strong> heard of <a href="https://kendryte.com/" target="_blank" rel="noopener">Kendryte</a> before. It seems <a href="https://kendryte.com/" target="_blank" rel="noopener">Kendryte</a> develops some AI based on <a href="https://riscv.org/" target="_blank" rel="noopener">Risc-V</a> chip architecture? That seems to be a good concept…</p>
-<h2 id="hifive"><a class="markdownIt-Anchor" href="#hifive"></a> HiFive</h2>
-<p>As for <a href="https://riscv.org/" target="_blank" rel="noopener">Risc-V</a>, <a href="https://www.sifive.com/boards/hifive-unleashed" target="_blank" rel="noopener">HiFive</a> developed by <a href="https://www.sifive.com/" target="_blank" rel="noopener">SiFive</a> has to be mentioned in any case.</p>
-<p>For me, a <strong>NOBODY</strong> has <strong>NOT</strong> had any chance or capability to deal with chips… So… shame… Anyway, let’s test it out… <sup>_</sup></p>
-<h1 id="test-on-widora-airv-face-detection"><a class="markdownIt-Anchor" href="#test-on-widora-airv-face-detection"></a> Test on Widora AIRV Face Detection</h1>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Normal</th>
-<th style="text-align:center">Occlusion</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Widora/Widora_AIRV_01.jpg" alt="Widora AIRV Face Detection"></td>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Widora/Widora_AIRV_02.jpg" alt="Widora AIRV Face Detection with Occlusion"></td>
-</tr>
-</tbody>
-</table>
-<h1 id="reflash-widora-airv"><a class="markdownIt-Anchor" href="#reflash-widora-airv"></a> Reflash Widora AIRV</h1>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/04/16/SBCs/banana-pi-m3-armbian/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/16/SBCs/banana-pi-m3-armbian/" itemprop="url">
-                  Install Armbian Ubuntu Desktop With Kernel 5.0 onto Banana Pi M3
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-16 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-16T00:00:00-07:00">2019-04-16</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-06-20 22:09:03" itemprop="dateModified" datetime="2019-06-20T22:09:03-07:00">2019-06-20</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/SBC/" itemprop="url" rel="index"><span itemprop="name">SBC</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/BananaPiM3_A83T.jpg" alt="Orange Pi M3"></p>
-<p>Hello, everybody. I’m now back in ShenZhen, China, and testing several types of <strong>Single Board Computers</strong>. I’ve got to say: <strong>Made In China</strong> is amazing. <a href="http://www.banana-pi.org/m3.html" target="_blank" rel="noopener">Banana Pi M3</a> is a <strong>SBC</strong> with <a href="http://www.allwinnertech.com/index.php?c=product&amp;a=index&amp;id=24" target="_blank" rel="noopener">AllWinner A83T</a> ARM CPU, which is also of credit-card size. Some detailed features can be found on the open source technical supporter <a href="http://linux-sunxi.org/A83T" target="_blank" rel="noopener">Sunxi</a>. Please pay attention to the following key points:</p>
-<ul>
-<li>A83T SoC’s CPU is of 32-bit address</li>
-<li>A83T SoC comes with <a href="https://www.imgtec.com/graphics-processors/" target="_blank" rel="noopener">Power VR</a> <a href="https://www.imgtec.com/blog/the-powervr-sgx544mp-a-modern-gpu-for-todays-leading-platforms/" target="_blank" rel="noopener">SGX544MP1</a> GPU</li>
-<li>Current Linux Kernel 5.X <strong>ALREADY</strong> provides support for A83T, please refer to <a href="https://github.com/torvalds/linux/blob/master/arch/arm/boot/dts/sun8i-a83t-allwinner-h8homlet-v2.dts" target="_blank" rel="noopener">Github</a></li>
-</ul>
-<p>Now, we follow our previous blog <a href="../../../../../2018/09/04/Embedded/banana-pi-pro-armbian/">Install Armbian Ubuntu Desktop onto Banana Pi Pro</a> to install Armbian Ubuntu Desktop onto <a href="http://www.banana-pi.org/m3.html" target="_blank" rel="noopener">Banana Pi M3</a>.</p>
-<h1 id="part-a-install-ubuntu-desktop-built-by-armbian-onto-banana-pi-m3"><a class="markdownIt-Anchor" href="#part-a-install-ubuntu-desktop-built-by-armbian-onto-banana-pi-m3"></a> PART A: Install Ubuntu Desktop Built By Armbian onto Banana Pi M3</h1>
-<h2 id="1-download-armbian-ubuntu-desktop-for-banana-pi-m3"><a class="markdownIt-Anchor" href="#1-download-armbian-ubuntu-desktop-for-banana-pi-m3"></a> 1. Download Armbian Ubuntu Desktop for Banana Pi M3</h2>
-<p>We <strong>FIRST</strong> go visiting the website <a href="https://www.armbian.com/bananapi-m3//" target="_blank" rel="noopener">https://www.armbian.com/bananapi-m3/</a> and click <strong>Armbian Bionic</strong> icon, a file named <strong>Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop</strong> will be automatically downloaded.</p>
-<p>Then, we extract this .<strong>7z</strong> file by</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">➜  operatingsystems 7z x Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop.7z -oArmbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop </span><br><span class="line"></span><br><span class="line">7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21</span><br><span class="line">p7zip Version 16.02 (locale=en_CA.UTF-8,Utf16=on,HugeFiles=on,64 bits,8 CPUs Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz (506E3),ASM,AES-NI)</span><br><span class="line"></span><br><span class="line">Scanning the drive <span class="keyword">for</span> archives:</span><br><span class="line">1 file, 441800089 bytes (422 MiB)</span><br><span class="line"></span><br><span class="line">Extracting archive: Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop.7z</span><br><span class="line">--</span><br><span class="line">Path = Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop.7z</span><br><span class="line">Type = 7z</span><br><span class="line">Physical Size = 441800089</span><br><span class="line">Headers Size = 308</span><br><span class="line">Method = LZMA2:25</span><br><span class="line">Solid = +</span><br><span class="line">Blocks = 1</span><br><span class="line"></span><br><span class="line">Everything is Ok                                                     </span><br><span class="line"></span><br><span class="line">Files: 4</span><br><span class="line">Size:       1946176594</span><br><span class="line">Compressed: 441800089</span><br><span class="line">➜  operatingsystems ll Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop</span><br><span class="line">total 1.9G</span><br><span class="line">-rw-rw-r-- 1 jiapei jiapei 1.9G Feb 10 22:50 Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop.img</span><br><span class="line">-rw-rw-r-- 1 jiapei jiapei  833 Feb 10 22:50 Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop.img.asc</span><br><span class="line">-rw-r--r-- 1 jiapei jiapei  19K Feb 10 22:50 armbian.txt</span><br><span class="line">-rw-rw-r-- 1 jiapei jiapei  129 Feb 10 22:50 sha256sum.sha</span><br></pre></td></tr></table></figure>
-<h2 id="2-install-armbian-ubuntu-desktop-for-banana-pi-m3"><a class="markdownIt-Anchor" href="#2-install-armbian-ubuntu-desktop-for-banana-pi-m3"></a> 2. Install Armbian Ubuntu Desktop for Banana Pi M3</h2>
-<p>After the extracted image file is prepared, it’s the time to install the Armbian Ubuntu Desktop onto our TF card. We <strong>FIRST</strong> format the TF card:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ sudo umount /dev/mmcblk0p1</span><br><span class="line">umount: /dev/mmcblk0p1: not mounted.</span><br><span class="line">➜  ~ sudo mkfs.ext4 /dev/mmcblk0</span><br><span class="line">mke2fs 1.44.1 (24-Mar-2018)</span><br><span class="line">Found a gpt partition table <span class="keyword">in</span> /dev/mmcblk0</span><br><span class="line">Proceed anyway? (y,N) y</span><br><span class="line">Discarding device blocks: <span class="keyword">done</span>                            </span><br><span class="line">Creating filesystem with 7579648 4k blocks and 1896832 inodes</span><br><span class="line">Filesystem UUID: 5c3be436-4e8c-43e4-ab21-6d5232420881</span><br><span class="line">Superblock backups stored on blocks: </span><br><span class="line">        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, </span><br><span class="line">        4096000</span><br><span class="line"></span><br><span class="line">Allocating group tables: <span class="keyword">done</span>                            </span><br><span class="line">Writing inode tables: <span class="keyword">done</span>                            </span><br><span class="line">Creating journal (32768 blocks): <span class="keyword">done</span></span><br><span class="line">Writing superblocks and filesystem accounting information: <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-<p>Afterwards, use <strong>dd</strong> to install the downloaded Armbian Ubuntu Desktop image.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop sudo dd bs=4M <span class="keyword">if</span>=Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop.img of=/dev/mmcblk0 conv=fsync</span><br><span class="line">464+0 records <span class="keyword">in</span></span><br><span class="line">464+0 records out</span><br><span class="line">1946157056 bytes (1.9 GB, 1.8 GiB) copied, 258.486 s, 7.5 MB/s</span><br></pre></td></tr></table></figure>
-<h1 id="part-b-ssh-into-armbian-update-upgrade-network-configuration-locale-configuration"><a class="markdownIt-Anchor" href="#part-b-ssh-into-armbian-update-upgrade-network-configuration-locale-configuration"></a> PART B: SSH Into Armbian, Update &amp; Upgrade, Network Configuration, Locale Configuration</h1>
-<p><span style="color:red"><strong>NOTE</strong>: Whenever you met some unsolvable issue after you boot into Armbian, please use the command <code>armbianmonitor -U</code> to log the issue.</span></p>
-<h2 id="1-ssh-into-banana-pi-m3"><a class="markdownIt-Anchor" href="#1-ssh-into-banana-pi-m3"></a> 1. SSH Into Banana Pi M3</h2>
-<p>We now unplug the TF card from the host and put it into the <a href="http://www.banana-pi.org/m3.html" target="_blank" rel="noopener">Banana Pi M3</a>, Armbian Ubuntu Desktop boots successfully. The default username and password are respectively: <strong>root</strong> and <strong>1234</strong>. In our case, <a href="http://www.banana-pi.org/m3.html" target="_blank" rel="noopener">Banana Pi M3</a> is connected to a network cable first, and it’s <strong>NOT</strong> hard for us to get the <strong>IP</strong> address of <a href="http://www.banana-pi.org/m3.html" target="_blank" rel="noopener">Banana Pi M3</a> by using command line <strong>nmap</strong> (Details can be checked via <strong>Google</strong>). After setting up a <strong>NEW user</strong> as well as <strong>password</strong> by following the previous blog <a href="../../../../../2018/09/04/Embedded/banana-pi-pro-armbian/">Install Armbian Ubuntu Desktop onto Banana Pi Pro</a>, you should be able to log into <a href="http://www.banana-pi.org/m3.html" target="_blank" rel="noopener">Banana Pi M3</a> with account <strong>root</strong>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ssh root@192.168.1.80</span><br><span class="line">The authenticity of host <span class="string">'192.168.1.80 (192.168.1.80)'</span> can<span class="string">'t be established.</span></span><br><span class="line"><span class="string">ECDSA key fingerprint is SHA256:xLRt0ppGzbutHHcE3JRyaKw9A0baub3MDAxFF9GNfdk.</span></span><br><span class="line"><span class="string">Are you sure you want to continue connecting (yes/no)? yes</span></span><br><span class="line"><span class="string">Warning: Permanently added '</span>192.168.1.80<span class="string">' (ECDSA) to the list of known hosts.</span></span><br><span class="line"><span class="string">root@192.168.1.80'</span>s password: </span><br><span class="line"> ____                                  ____  _   __  __ _____ </span><br><span class="line">| __ )  __ _ _ __   __ _ _ __   __ _  |  _ \(_) |  \/  |___ / </span><br><span class="line">|  _ \ / _` | <span class="string">'_ \ / _` | '</span>_ \ / _` | | |_) | | | |\/| | |_ \ </span><br><span class="line">| |_) | (_| | | | | (_| | | | | (_| | |  __/| | | |  | |___) |</span><br><span class="line">|____/ \__,_|_| |_|\__,_|_| |_|\__,_| |_|   |_| |_|  |_|____/ </span><br><span class="line">                                                              </span><br><span class="line"></span><br><span class="line">Welcome to ARMBIAN 5.83 stable Ubuntu 18.04.2 LTS 4.19.38-sunxi   </span><br><span class="line">System load:   0.08 0.10 0.08   Up time:       33 min</span><br><span class="line">Memory usage:  12 % of 2013MB   IP:            192.168.1.80</span><br><span class="line">Usage of /:    6% of 29G    </span><br><span class="line"></span><br><span class="line">[ General system configuration (beta): armbian-config ]</span><br><span class="line"></span><br><span class="line">Last login: Thu Apr 18 08:53:31 2019 from 192.168.1.21</span><br><span class="line"></span><br><span class="line">root@bananapim3:~<span class="comment">#</span></span><br></pre></td></tr></table></figure>
-<h2 id="2-kernel-doublechecking"><a class="markdownIt-Anchor" href="#2-kernel-doublechecking"></a> 2. Kernel Doublechecking</h2>
-<p>Finally, we have the system and kernel doublechecked.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root@bananapim3:~<span class="comment"># uname -r</span></span><br><span class="line">4.19.38-sunxi</span><br><span class="line">root@bananapim3:~<span class="comment"># uname -a</span></span><br><span class="line">Linux bananapim3 4.19.38-sunxi <span class="comment">#5.83 SMP Sun Feb 10 21:36:17 CET 2019 armv7l armv7l armv7l GNU/Linux</span></span><br><span class="line">root@bananapim3:~<span class="comment"># lsb_release -a</span></span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID: Ubuntu</span><br><span class="line">Description:    Ubuntu 18.04.2 LTS</span><br><span class="line">Release:        18.04</span><br><span class="line">Codename:       bionic</span><br></pre></td></tr></table></figure>
-<h2 id="3-update-upgrade"><a class="markdownIt-Anchor" href="#3-update-upgrade"></a> 3. Update &amp; Upgrade</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">root@bananapim3:~<span class="comment"># sudo apt update</span></span><br><span class="line">Get:1 https://apt.armbian.com bionic InRelease [18.9 kB]</span><br><span class="line">Get:2 https://apt.armbian.com bionic/main armhf Packages [288 kB]</span><br><span class="line">Hit:3 http://ports.ubuntu.com bionic InRelease                                     </span><br><span class="line">Get:4 http://ports.ubuntu.com bionic-security InRelease [88.7 kB]                  </span><br><span class="line">Get:5 http://ports.ubuntu.com bionic-updates InRelease [88.7 kB]</span><br><span class="line">Get:6 http://ports.ubuntu.com bionic-backports InRelease [74.6 kB]</span><br><span class="line">Get:7 http://ports.ubuntu.com bionic-security/main armhf Packages [216 kB]</span><br><span class="line">Get:8 https://apt.armbian.com bionic/bionic-utils armhf Packages [4767 B]</span><br><span class="line">Get:9 http://ports.ubuntu.com bionic-security/restricted armhf Packages [3968 B]</span><br><span class="line">Get:10 http://ports.ubuntu.com bionic-security/universe armhf Packages [238 kB]</span><br><span class="line">Get:11 http://ports.ubuntu.com bionic-security/multiverse armhf Packages [1924 B]</span><br><span class="line">Get:12 http://ports.ubuntu.com bionic-updates/main armhf Packages [452 kB]</span><br><span class="line">Get:13 http://ports.ubuntu.com bionic-updates/restricted armhf Packages [6488 B]</span><br><span class="line">Get:14 http://ports.ubuntu.com bionic-updates/universe armhf Packages [713 kB]</span><br><span class="line">Get:15 http://ports.ubuntu.com bionic-updates/multiverse armhf Packages [3592 B]</span><br><span class="line">Get:16 http://ports.ubuntu.com bionic-backports/main armhf Packages [1020 B]</span><br><span class="line">Get:17 http://ports.ubuntu.com bionic-backports/universe armhf Packages [3468 B]                                                                                                                             </span><br><span class="line">Fetched 2203 kB <span class="keyword">in</span> 45s (48.6 kB/s)                                                                                                                                                                           </span><br><span class="line">Reading package lists... Done</span><br><span class="line">Building dependency tree       </span><br><span class="line">Reading state information... Done</span><br><span class="line">155 packages can be upgraded. Run <span class="string">'apt list --upgradable'</span> to see them.</span><br><span class="line">root@bananapim3:~<span class="comment"># apt list --upgradable</span></span><br><span class="line">Listing... Done</span><br><span class="line">......</span><br><span class="line">root@bananapim3:~<span class="comment"># sudo apt upgrade</span></span><br><span class="line">.....</span><br><span class="line">Processing triggers <span class="keyword">for</span> libc-bin (2.27-3ubuntu1) ...</span><br><span class="line">Processing triggers <span class="keyword">for</span> resolvconf (1.79ubuntu10.18.04.3) ...</span><br><span class="line">Processing triggers <span class="keyword">for</span> initramfs-tools (0.130ubuntu3.7) ...</span><br><span class="line">update-initramfs: Generating /boot/initrd.img-4.19.25-sunxi</span><br><span class="line">update-initramfs: Converting to u-boot format</span><br><span class="line">root@bananapim3:~<span class="comment"># uname -a</span></span><br><span class="line">Linux bananapim3 4.19.25-sunxi <span class="comment">#5.78 SMP Mon Apr 8 07:46:22 CEST 2019 armv7l armv7l armv7l GNU/Linux</span></span><br></pre></td></tr></table></figure>
-<h2 id="4-locale-configuration"><a class="markdownIt-Anchor" href="#4-locale-configuration"></a> 4. Locale Configuration</h2>
-<p>Clearly, from the above login info, our timezone seems to be wrong. Command <strong>dpkg-reconfigure tzdata</strong> is able to reset our timezone.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@bananapim3:~<span class="comment"># dpkg-reconfigure tzdata</span></span><br><span class="line"></span><br><span class="line">Current default time zone: <span class="string">'Asia/Shanghai'</span></span><br><span class="line">Local time is now:      Thu Apr 18 18:47:22 CST 2019.</span><br><span class="line">Universal Time is now:  Thu Apr 18 10:47:22 UTC 2019.</span><br></pre></td></tr></table></figure>
-<p>During the above process, you’ll set the following 2 pages correspondingly:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/01_SystemLocale_Asia.jpg" alt="System Locale Asia"></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/02_SystemLocale_Shanghai.jpg" alt="System Locale Shanghai"></p>
-<p>By using the command <strong>date</strong>, we’ll see the timezone has been successfully reset.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@bananapim3:~<span class="comment"># date</span></span><br><span class="line">Tue Apr 18 18:49:25 CST 2019</span><br></pre></td></tr></table></figure>
-<h2 id="5-network-configuration"><a class="markdownIt-Anchor" href="#5-network-configuration"></a> 5. Network Configuration</h2>
-<h3 id="1-how-to-connect-to-wireless"><a class="markdownIt-Anchor" href="#1-how-to-connect-to-wireless"></a> 1). How to connect to wireless?</h3>
-<p>Please refer to <a href="https://docs.armbian.com/User-Guide_Getting-Started/#how-to-connect-to-wireless" target="_blank" rel="noopener">Armbian docs - How to connect to wireless?</a>,</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@bananapim3:~$ nmtui-connect SSID</span><br></pre></td></tr></table></figure>
-<p>However, according to my <strong>CURRENT</strong> issue posted at <a href="https://forum.armbian.com/topic/10213-build-newest-linux-kernel-509-on-banana-pi-m3" target="_blank" rel="noopener">Build NEWEST Linux Kernel 5.0.9 on Banana Pi M3</a>, <a href="http://www.allwinnertech.com/index.php?c=product&amp;a=index&amp;id=24" target="_blank" rel="noopener">AllWinner A83T</a>’s Wifi module does <strong>NOT</strong> function well.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">lvision@bananapim3:~$ ip -c address</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: dummy0: &lt;BROADCAST,NOARP&gt; mtu 1500 qdisc noop state DOWN group default qlen 1000</span><br><span class="line">    link/ether 5a:cb:89:ad:49:96 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">3: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000</span><br><span class="line">    link/ether 02:01:06:95:68:df brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.1.80/24 brd 192.168.1.255 scope global dynamic noprefixroute eth0</span><br><span class="line">       valid_lft 3069140548sec preferred_lft 3069140548sec</span><br><span class="line">    inet6 fe80::8ea3:62cb:7b8b:e872/64 scope link noprefixroute </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
-<p>Clearly, <strong>wlan0</strong> does <strong>NOT</strong> exist.</p>
-<h1 id="part-c-upgrade-linux-kernel-from-4xx-to-5xx"><a class="markdownIt-Anchor" href="#part-c-upgrade-linux-kernel-from-4xx-to-5xx"></a> PART C: Upgrade Linux Kernel From 4.XX To 5.XX</h1>
-<h2 id="1-generate-configure-file"><a class="markdownIt-Anchor" href="#1-generate-configure-file"></a> 1. Generate Configure File</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">lvision@bananapim3:~/Downloads/linux-5.1.7$ make sunxi_defconfig</span><br><span class="line">  HOSTCC  scripts/basic/fixdep</span><br><span class="line">  HOSTCC  scripts/kconfig/conf.o</span><br><span class="line">  HOSTCC  scripts/kconfig/confdata.o</span><br><span class="line">  HOSTCC  scripts/kconfig/expr.o</span><br><span class="line">  LEX     scripts/kconfig/lexer.lex.c</span><br><span class="line">  YACC    scripts/kconfig/parser.tab.h</span><br><span class="line">  HOSTCC  scripts/kconfig/lexer.lex.o</span><br><span class="line">  YACC    scripts/kconfig/parser.tab.c</span><br><span class="line">  HOSTCC  scripts/kconfig/parser.tab.o</span><br><span class="line">  HOSTCC  scripts/kconfig/preprocess.o</span><br><span class="line">  HOSTCC  scripts/kconfig/symbol.o</span><br><span class="line">  HOSTLD  scripts/kconfig/conf</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># configuration written to .config</span></span><br><span class="line"><span class="comment">#</span></span><br></pre></td></tr></table></figure>
-<h2 id="2-browse-configure-file"><a class="markdownIt-Anchor" href="#2-browse-configure-file"></a> 2. Browse Configure File</h2>
-<p>Then, we can take a look at our configuration content by using:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lvision@bananapim3:~/Downloads/linux-5.1.7$ less .config</span><br></pre></td></tr></table></figure>
-<p>which is pasted at <a href="https://pastebin.com/swZWAt9t" target="_blank" rel="noopener">my pastebin sunxi_defconfig</a>.</p>
-<h2 id="3-make-menuconfig"><a class="markdownIt-Anchor" href="#3-make-menuconfig"></a> 3. make menuconfig</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">lvision@bananapim3:~/Downloads/linux-5.1.7$ make menuconfig</span><br><span class="line">  UPD     scripts/kconfig/mconf-cfg</span><br><span class="line">  HOSTCC  scripts/kconfig/mconf.o</span><br><span class="line">  HOSTCC  scripts/kconfig/lxdialog/checklist.o</span><br><span class="line">  HOSTCC  scripts/kconfig/lxdialog/inputbox.o</span><br><span class="line">  HOSTCC  scripts/kconfig/lxdialog/menubox.o</span><br><span class="line">  HOSTCC  scripts/kconfig/lxdialog/textbox.o</span><br><span class="line">  HOSTCC  scripts/kconfig/lxdialog/util.o</span><br><span class="line">  HOSTCC  scripts/kconfig/lxdialog/yesno.o</span><br><span class="line">  HOSTLD  scripts/kconfig/mconf</span><br><span class="line">scripts/kconfig/mconf  Kconfig</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">*** End of the configuration.</span><br><span class="line">*** Execute <span class="string">'make'</span> to start the build or try <span class="string">'make help'</span>.</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">lvision@bananapim3:~/Downloads/kernel/linux-5.1.7$ make -j 4 Image modules dtbs</span><br><span class="line">...</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra-trimslice.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra-utils.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra-wm8753.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra-wm8903.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra-wm9712.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra20-ac97.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra20-das.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra20-i2s.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra20-spdif.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra30-ahub.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra30-i2s.ko</span><br><span class="line">  LD [M]  sound/soundcore.ko</span><br><span class="line">  LD [M]  sound/usb/snd-usb-audio.ko</span><br><span class="line">  LD [M]  sound/usb/snd-usbmidi-lib.ko</span><br></pre></td></tr></table></figure>
-<h1 id="appendix"><a class="markdownIt-Anchor" href="#appendix"></a> Appendix</h1>
-<p>We can of course follow our previous blog <a href="../../../../../2018/02/27/Embedded/orange-pi-plus-2-armbian/">Install Armbian Ubuntu Desktop with the Newest Supported Mainline Linux Kernel onto Orange Pi Plus 2</a> to upgrade the <strong>NEWEST</strong> <a href="https://www.denx.de/wiki/U-Boot" target="_blank" rel="noopener">U-Boot</a> and <a href="https://www.kernel.org/" target="_blank" rel="noopener">Linux Kernel</a> for <a href="http://www.banana-pi.org/m3.html" target="_blank" rel="noopener">Banana Pi M3</a>, which is <strong>NOT</strong> going to be discussed here again.</p>
-<!---
-
-### 2). How to set fixed IP?
-
-Please refer to [Armbian docs - How to set fixed IP?](https://docs.armbian.com/User-Guide_Getting-Started/#how-to-set-fixed-ip), and modify the file **/etc/network/interfaces** as follows:
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">root@bananapim3:~$ vim /etc/network/interfaces</span><br><span class="line"><span class="built_in">source</span> /etc/network/interfaces.d/*</span><br><span class="line"><span class="comment"># Network is managed by Network manager</span></span><br><span class="line">auto lo</span><br><span class="line">iface lo inet loopback</span><br><span class="line"></span><br><span class="line"><span class="comment"># Wifi</span></span><br><span class="line">auto wlan0</span><br><span class="line">iface wlan0 inet static</span><br><span class="line">    address 192.168.0.82</span><br><span class="line">    netmask 255.255.255.0</span><br><span class="line">    network 192.168.0.0</span><br><span class="line">    broadcast 192.168.0.1</span><br><span class="line">    gateway 192.168.0.1</span><br><span class="line">    dns-nameservers 192.168.0.1 8.8.8.8</span><br><span class="line">    wpa-ssid XXXXXXXX</span><br><span class="line">    wpa-psk YYYYYYYY</span><br></pre></td></tr></table></figure>
-<p>Afterwards, a reboot (meanwhile, you may have to set up your own router for a fixed IP) will bring your <a href="http://www.banana-pi.org/m3.html">Banana Pi M3</a> a fixed IP address. Here in my case: <strong>192.168.0.82</strong>.</p>
-<h3 id="3-check-ip-address"><a class="markdownIt-Anchor" href="#3-check-ip-address"></a> 3). Check IP Address</h3>
-<p>And, let’s have a look at current IP of <a href="http://www.banana-pi.org/m3.html">Banana Pi M3</a>.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">root@bananapim3:~<span class="comment"># ip -c address</span></span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: dummy0: &lt;BROADCAST,NOARP&gt; mtu 1500 qdisc noop state DOWN group default qlen 1000</span><br><span class="line">    link/ether 06:ff:e9:32:<span class="built_in">fc</span>:5d brd ff:ff:ff:ff:ff:ff</span><br><span class="line">3: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000</span><br><span class="line">    link/ether 02:01:06:95:68:df brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.1.80/24 brd 192.168.1.255 scope global dynamic noprefixroute eth0</span><br><span class="line">       valid_lft 3069402692sec preferred_lft 3069402692sec</span><br><span class="line">    inet6 fe80::60f6:8ba6:4238:f3ca/64 scope link noprefixroute</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
-<p>–&gt;</p>
--->
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/04/14/Javascript/videojs-test/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/14/Javascript/videojs-test/" itemprop="url">
-                  How To Use Video.JS ?
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-14 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-14T00:00:00-07:00">2019-04-14</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-16 09:39:37" itemprop="dateModified" datetime="2019-04-16T09:39:37-07:00">2019-04-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Video/" itemprop="url" rel="index"><span itemprop="name">Video</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>I’m currently in ShenZhen, China. Required by a business project, I’ll have to test out <a href="https://videojs.com/" target="_blank" rel="noopener">Video.JS</a> these days.</p>
-<h1 id="getting-started"><a class="markdownIt-Anchor" href="#getting-started"></a> Getting Started</h1>
-<h2 id="code"><a class="markdownIt-Anchor" href="#code"></a> Code</h2>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;title&gt;Welcome to visionopen.com!<span class="xml"><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line">  &lt;link href=<span class="string">"https://vjs.zencdn.net/7.4.1/video-js.css"</span> rel=<span class="string">"stylesheet"</span>&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- If you<span class="string">'d like to support IE8 (for Video.js versions prior to v7) --&gt;</span></span><br><span class="line"><span class="string">  &lt;script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="string">&lt;/head&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;body&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  &lt;table&gt;</span></span><br><span class="line"><span class="string">    &lt;tr&gt;</span></span><br><span class="line"><span class="string">      &lt;th&gt;</span></span><br><span class="line"><span class="string">        &lt;video id='</span>TianTian_01<span class="string">' class='</span>video-js<span class="string">' controls preload='</span>auto<span class="string">' width='</span><span class="number">320</span><span class="string">' height='</span><span class="number">568</span><span class="string">'</span></span><br><span class="line"><span class="string">        poster='</span>./TianTian_01.jpg<span class="string">' data-setup='</span>&#123;&#125;<span class="string">'&gt;</span></span><br><span class="line"><span class="string">          &lt;source src="./TianTian_01.mp4" type="video/mp4"&gt;&lt;/source&gt;</span></span><br><span class="line"><span class="string">        &lt;/video&gt;</span></span><br><span class="line"><span class="string">      &lt;/th&gt;</span></span><br><span class="line"><span class="string">      &lt;th&gt;</span></span><br><span class="line"><span class="string">        &lt;video id='</span>TianTian_02<span class="string">' class='</span>video-js<span class="string">' controls preload='</span>auto<span class="string">' width='</span><span class="number">320</span><span class="string">' height='</span><span class="number">568</span><span class="string">'</span></span><br><span class="line"><span class="string">        poster='</span>./TianTian_02.jpg<span class="string">' data-setup='</span>&#123;&#125;<span class="string">'&gt;</span></span><br><span class="line"><span class="string">          &lt;source src="./TianTian_02.mp4" type="video/mp4"&gt;&lt;/source&gt;</span></span><br><span class="line"><span class="string">        &lt;/video&gt;</span></span><br><span class="line"><span class="string">      &lt;/th&gt;</span></span><br><span class="line"><span class="string">      &lt;th&gt;</span></span><br><span class="line"><span class="string">        &lt;video id='</span>TianTian_03<span class="string">' class='</span>video-js<span class="string">' controls preload='</span>auto<span class="string">' width='</span><span class="number">320</span><span class="string">' height='</span><span class="number">568</span><span class="string">'</span></span><br><span class="line"><span class="string">        poster='</span>./TianTian_03.jpg<span class="string">' data-setup='</span>&#123;&#125;<span class="string">'&gt;</span></span><br><span class="line"><span class="string">          &lt;source src="./TianTian_03.mp4" type="video/mp4"&gt;&lt;/source&gt;</span></span><br><span class="line"><span class="string">        &lt;/video&gt;</span></span><br><span class="line"><span class="string">      &lt;/th&gt;</span></span><br><span class="line"><span class="string">      &lt;th&gt;</span></span><br><span class="line"><span class="string">        &lt;video id='</span>TianTian_04<span class="string">' class='</span>video-js<span class="string">' controls preload='</span>auto<span class="string">' width='</span><span class="number">320</span><span class="string">' height='</span><span class="number">568</span><span class="string">'</span></span><br><span class="line"><span class="string">        poster='</span>./TianTian_04.jpg<span class="string">' data-setup='</span>&#123;&#125;<span class="string">'&gt;</span></span><br><span class="line"><span class="string">          &lt;source src="./TianTian_04.mp4" type="video/mp4"&gt;&lt;/source&gt;</span></span><br><span class="line"><span class="string">        &lt;/video&gt;</span></span><br><span class="line"><span class="string">      &lt;/th&gt;</span></span><br><span class="line"><span class="string">      &lt;th&gt;</span></span><br><span class="line"><span class="string">        &lt;video id='</span>TianTian_05<span class="string">' class='</span>video-js<span class="string">' controls preload='</span>auto<span class="string">' width='</span><span class="number">320</span><span class="string">' height='</span><span class="number">568</span><span class="string">'</span></span><br><span class="line"><span class="string">        poster='</span>./TianTian_05.jpg<span class="string">' data-setup='</span>&#123;&#125;<span class="string">'&gt;</span></span><br><span class="line"><span class="string">          &lt;source src="./TianTian_05.mp4" type="video/mp4"&gt;&lt;/source&gt;</span></span><br><span class="line"><span class="string">        &lt;/video&gt;</span></span><br><span class="line"><span class="string">      &lt;/th&gt;</span></span><br><span class="line"><span class="string">      &lt;th&gt;</span></span><br><span class="line"><span class="string">        &lt;video id='</span>TianTian_06<span class="string">' class='</span>video-js<span class="string">' controls preload='</span>auto<span class="string">' width='</span><span class="number">320</span><span class="string">' height='</span><span class="number">568</span><span class="string">'</span></span><br><span class="line"><span class="string">        poster='</span>./TianTian_06.jpg<span class="string">' data-setup='</span>&#123;&#125;<span class="string">'&gt;</span></span><br><span class="line"><span class="string">          &lt;source src="./TianTian_06.mp4" type="video/mp4"&gt;&lt;/source&gt;</span></span><br><span class="line"><span class="string">        &lt;/video&gt;</span></span><br><span class="line"><span class="string">      &lt;/th&gt;</span></span><br><span class="line"><span class="string">    &lt;/tr&gt;</span></span><br><span class="line"><span class="string">  &lt;/table&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  &lt;script src='</span>https:<span class="comment">//vjs.zencdn.net/7.4.1/video.js'&gt;&lt;/script&gt;</span></span><br><span class="line">&lt;<span class="regexp">/body&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="play-the-videos"><a class="markdownIt-Anchor" href="#play-the-videos"></a> Play The Videos</h2>
-<p><a href="https://visionopen.com" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/video/videojs/videojs_display.jpg" alt="Multiple Videos"></a></p>
-<h1 id="obtain-rectangle-on-videos"><a class="markdownIt-Anchor" href="#obtain-rectangle-on-videos"></a> Obtain Rectangle On Videos</h1>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/02/28/Tools/ubuntu-18.0.4.2+nvidia-418.43+cuda-10.1+cudnn-7.5/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/28/Tools/ubuntu-18.0.4.2+nvidia-418.43+cuda-10.1+cudnn-7.5/" itemprop="url">
-                  Ubuntu 18.04.2 + NVidia 418.43 + Cuda 10.1 + Cudnn 7.5
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-02-28 00:00:00" itemprop="dateCreated datePublished" datetime="2019-02-28T00:00:00-08:00">2019-02-28</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-03-02 19:13:31" itemprop="dateModified" datetime="2019-03-02T19:13:31-08:00">2019-03-02</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Today seems to be the <strong>FIRST</strong> big day pf 2019? So many important packages (including operating systems) have released their <strong>NEW</strong> updates. Alright, let’s take a look what I’ve done today.</p>
-<h1 id="updates-today"><a class="markdownIt-Anchor" href="#updates-today"></a> Updates Today</h1>
-<h2 id="ubuntu-18042"><a class="markdownIt-Anchor" href="#ubuntu-18042"></a> Ubuntu 18.04.2</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ uname -r</span><br><span class="line">4.18.0-15-generic</span><br><span class="line">➜  ~ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID: Ubuntu</span><br><span class="line">Description:    Ubuntu 18.04.2 LTS</span><br><span class="line">Release:        18.04</span><br><span class="line">Codename:       bionic</span><br></pre></td></tr></table></figure>
-<h2 id="nvidia-41843"><a class="markdownIt-Anchor" href="#nvidia-41843"></a> NVidia 418.43</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ nvidia-smi</span><br><span class="line">Thu Feb 28 17:15:24 2019       </span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| NVIDIA-SMI 418.43       Driver Version: 418.43       CUDA Version: 10.1     |</span><br><span class="line">|-------------------------------+----------------------+----------------------+</span><br><span class="line">| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |</span><br><span class="line">| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |</span><br><span class="line">|===============================+======================+======================|</span><br><span class="line">|   0  GeForce GTX 980M    Off  | 00000000:01:00.0  On |                  N/A |</span><br><span class="line">| N/A   45C    P8     8W /  N/A |    659MiB /  4035MiB |      1%      Default |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line">                                                                               </span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| Processes:                                                       GPU Memory |</span><br><span class="line">|  GPU       PID   Type   Process name                             Usage      |</span><br><span class="line">|=============================================================================|</span><br><span class="line">|    0      1087      G   /usr/lib/xorg/Xorg                            16MiB |</span><br><span class="line">|    0      1146      G   /usr/bin/gnome-shell                          48MiB |</span><br><span class="line">|    0      1442      G   /usr/lib/xorg/Xorg                           263MiB |</span><br><span class="line">|    0      1574      G   /usr/bin/gnome-shell                         166MiB |</span><br><span class="line">|    0      2254      G   ...quest-channel-token=7723035104982464121   113MiB |</span><br><span class="line">|    0      8140      G   /proc/self/exe                                43MiB |</span><br><span class="line">+-----------------------------------------------------------------------------+</span><br></pre></td></tr></table></figure>
-<h2 id="cuda-101"><a class="markdownIt-Anchor" href="#cuda-101"></a> Cuda 10.1</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ nvcc --version</span><br><span class="line">nvcc: NVIDIA (R) Cuda compiler driver</span><br><span class="line">Copyright (c) 2005-2019 NVIDIA Corporation</span><br><span class="line">Built on Fri_Feb__8_19:08:17_PST_2019</span><br><span class="line">Cuda compilation tools, release 10.1, V10.1.105</span><br><span class="line">➜  ~ deviceQuery</span><br><span class="line">deviceQuery Starting...</span><br><span class="line"></span><br><span class="line"> CUDA Device Query (Runtime API) version (CUDART static linking)</span><br><span class="line"></span><br><span class="line">Detected 1 CUDA Capable device(s)</span><br><span class="line"></span><br><span class="line">Device 0: "GeForce GTX 980M"</span><br><span class="line">  CUDA Driver Version / Runtime Version          10.1 / 10.1</span><br><span class="line">  CUDA Capability Major/Minor version number:    5.2</span><br><span class="line">  Total amount of global memory:                 4035 MBytes (4231331840 bytes)</span><br><span class="line">  (12) Multiprocessors, (128) CUDA Cores/MP:     1536 CUDA Cores</span><br><span class="line">  GPU Max Clock rate:                            1126 MHz (1.13 GHz)</span><br><span class="line">  Memory Clock rate:                             2505 Mhz</span><br><span class="line">  Memory Bus Width:                              256-bit</span><br><span class="line">  L2 Cache Size:                                 2097152 bytes</span><br><span class="line">  Maximum Texture Dimension Size (x,y,z)         1D=(65536), 2D=(65536, 65536), 3D=(4096, 4096, 4096)</span><br><span class="line">  Maximum Layered 1D Texture Size, (num) layers  1D=(16384), 2048 layers</span><br><span class="line">  Maximum Layered 2D Texture Size, (num) layers  2D=(16384, 16384), 2048 layers</span><br><span class="line">  Total amount of constant memory:               65536 bytes</span><br><span class="line">  Total amount of shared memory per block:       49152 bytes</span><br><span class="line">  Total number of registers available per block: 65536</span><br><span class="line">  Warp size:                                     32</span><br><span class="line">  Maximum number of threads per multiprocessor:  2048</span><br><span class="line">  Maximum number of threads per block:           1024</span><br><span class="line">  Max dimension size of a thread block (x,y,z): (1024, 1024, 64)</span><br><span class="line">  Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)</span><br><span class="line">  Maximum memory pitch:                          2147483647 bytes</span><br><span class="line">  Texture alignment:                             512 bytes</span><br><span class="line">  Concurrent copy and kernel execution:          Yes with 2 copy engine(s)</span><br><span class="line">  Run time limit on kernels:                     Yes</span><br><span class="line">  Integrated GPU sharing Host Memory:            No</span><br><span class="line">  Support host page-locked memory mapping:       Yes</span><br><span class="line">  Alignment requirement for Surfaces:            Yes</span><br><span class="line">  Device has ECC support:                        Disabled</span><br><span class="line">  Device supports Unified Addressing (UVA):      Yes</span><br><span class="line">  Device supports Compute Preemption:            No</span><br><span class="line">  Supports Cooperative Kernel Launch:            No</span><br><span class="line">  Supports MultiDevice Co-op Kernel Launch:      No</span><br><span class="line">  Device PCI Domain ID / Bus ID / location ID:   0 / 1 / 0</span><br><span class="line">  Compute Mode:</span><br><span class="line">     &lt; Default (multiple host threads can use ::cudaSetDevice() with device simultaneously) &gt;</span><br><span class="line"></span><br><span class="line">deviceQuery, CUDA Driver = CUDART, CUDA Driver Version = 10.1, CUDA Runtime Version = 10.1, NumDevs = 1</span><br><span class="line">Result = PASS</span><br></pre></td></tr></table></figure>
-<h2 id="cudnn-75"><a class="markdownIt-Anchor" href="#cudnn-75"></a> Cudnn 7.5</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2</span><br><span class="line"><span class="meta">#</span><span class="bash">define CUDNN_MAJOR 7</span></span><br><span class="line"><span class="meta">#</span><span class="bash">define CUDNN_MINOR 5</span></span><br><span class="line"><span class="meta">#</span><span class="bash">define CUDNN_PATCHLEVEL 0</span></span><br><span class="line">--</span><br><span class="line"><span class="meta">#</span><span class="bash">define CUDNN_VERSION (CUDNN_MAJOR * 1000 + CUDNN_MINOR * 100 + CUDNN_PATCHLEVEL)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">include <span class="string">"driver_types.h"</span></span></span><br></pre></td></tr></table></figure>
-<h1 id="bugs-today"><a class="markdownIt-Anchor" href="#bugs-today"></a> Bugs Today</h1>
-<h2 id="the-error"><a class="markdownIt-Anchor" href="#the-error"></a> The Error</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running.</span><br></pre></td></tr></table></figure>
-<h2 id="solution"><a class="markdownIt-Anchor" href="#solution"></a> Solution</h2>
-<p>The solution is inside <a href="https://en.wikipedia.org/wiki/BIOS" target="_blank" rel="noopener">BIOS</a>. Please refer to <a href="https://www.avira.com/en/support-for-home-knowledgebase-detail/kbid/1811" target="_blank" rel="noopener">How do I disable UEFI Secure Boot?</a>.</p>
-<p>Yup… The solution is just to turn from <strong>Enable</strong> to <strong>Disable</strong> inside <strong>BIOS Secure Boot</strong>.</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2346,7 +2249,7 @@ Please refer to [Armbian docs - How to set fixed IP?](https://docs.armbian.com/U
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">55</span>
+                    <span class="site-state-item-count">59</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2393,7 +2296,9 @@ Please refer to [Armbian docs - How to set fixed IP?](https://docs.armbian.com/U
                     
                       
                     
-                    <span class="site-state-item-count">17</span>
+                      
+                    
+                    <span class="site-state-item-count">18</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -2512,7 +2417,15 @@ Please refer to [Armbian docs - How to set fixed IP?](https://docs.armbian.com/U
                     
                       
                     
-                    <span class="site-state-item-count">53</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">57</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
