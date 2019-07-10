@@ -309,6 +309,974 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/11/06/Finance/quantopian-introduction-ai-in-finance/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/06/Finance/quantopian-introduction-ai-in-finance/" itemprop="url">
+                  Quantopian Introduction - AI In Finance?
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-06 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-06T00:00:00-08:00">2018-11-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-11-07 18:57:30" itemprop="dateModified" datetime="2018-11-07T18:57:30-08:00">2018-11-07</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Finance/" itemprop="url" rel="index"><span itemprop="name">Finance</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Today, let’s have some fun of AI in finance. We are going to use a tool named <a href="https://www.quantopian.com" target="_blank" rel="noopener">Quantopian</a>. As far as I know, functional programming language <a href="https://haskell-lang.org/" target="_blank" rel="noopener">Haskell</a> has been widely used in <a href="https://www.investopedia.com/terms/q/quantitativeanalysis.asp" target="_blank" rel="noopener">quantitative analysis</a>. That’s possibly why a dependent package of <a href="https://www.quantopian.com" target="_blank" rel="noopener">Quantopian</a>, namely <a href="https://pandoc.org/" target="_blank" rel="noopener">pandoc</a>, requires <a href="https://docs.haskellstack.org/en/stable/README/" target="_blank" rel="noopener">The Haskell Tool Stack</a> for its installation. Therefore, <a href="https://haskell-lang.org/" target="_blank" rel="noopener">Haskell</a> and <a href="https://pandoc.org/" target="_blank" rel="noopener">pandoc</a> need to be installed before <a href="https://www.quantopian.com" target="_blank" rel="noopener">Quantopian</a> installation.</p>
+<h1 id="1-preparations"><a class="markdownIt-Anchor" href="#1-preparations"></a> 1. Preparations</h1>
+<h2 id="11-haskell-installation"><a class="markdownIt-Anchor" href="#11-haskell-installation"></a> 1.1 <a href="https://haskell-lang.org/" target="_blank" rel="noopener">Haskell</a> Installation</h2>
+<p>Please refer to <a href="https://docs.haskellstack.org/en/stable/install_and_upgrade/" target="_blank" rel="noopener">https://docs.haskellstack.org/en/stable/install_and_upgrade/</a>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ curl -sSL https://get.haskellstack.org/ | sh</span><br></pre></td></tr></table></figure>
+<h2 id="12-pandoc-installation"><a class="markdownIt-Anchor" href="#12-pandoc-installation"></a> 1.2 <a href="https://pandoc.org/" target="_blank" rel="noopener">pandoc</a> Installation</h2>
+<p>Please refer to <a href="https://pandoc.org/installing.html" target="_blank" rel="noopener">https://pandoc.org/installing.html</a>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ git <span class="built_in">clone</span> https://github.com/jgm/pandoc</span><br><span class="line">➜  ~ <span class="built_in">cd</span> pandoc</span><br><span class="line">➜  ~ stack setup</span><br><span class="line">➜  ~ stack install</span><br></pre></td></tr></table></figure>
+<h2 id="13-zipline-installation-with-pip-errors"><a class="markdownIt-Anchor" href="#13-zipline-installation-with-pip-errors"></a> 1.3 <a href="http://www.zipline.io/" target="_blank" rel="noopener">Zipline</a> Installation with pip (ERRORS)</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip install -U zipline --user</span><br><span class="line">Collecting zipline</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/be/59/8c5802a7897c1095fdc409fb557f04df8f75c37174e80d2ba58c8d8a6488/zipline-1.3.0.tar.gz</span><br><span class="line">Requirement already satisfied, skipping upgrade: pip&gt;=7.1.0 <span class="keyword">in</span> ~/.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (18.1)</span><br><span class="line">Requirement already satisfied, skipping upgrade: setuptools&gt;18.0 <span class="keyword">in</span> ~/.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (40.5.0)</span><br><span class="line">Collecting Logbook&gt;=0.12.5 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/74/<span class="built_in">fc</span>/3e7557ed1ef1bd4e3ee189fc670416abfc7192b550e8d3c1d858a63f41ab/Logbook-1.4.1.tar.gz</span><br><span class="line">Requirement already satisfied, skipping upgrade: pytz&gt;=2016.4 <span class="keyword">in</span> ~/.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (2018.7)</span><br><span class="line">Requirement already satisfied, skipping upgrade: numpy&gt;=1.11.1 <span class="keyword">in</span> ~/.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (1.15.4)</span><br><span class="line">Requirement already satisfied, skipping upgrade: requests-file&gt;=1.4.1 <span class="keyword">in</span> ~/.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (1.4.3)</span><br><span class="line">Requirement already satisfied, skipping upgrade: scipy&gt;=0.17.1 <span class="keyword">in</span> ~/.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (1.1.0)</span><br><span class="line">Collecting pandas&lt;=0.22,&gt;=0.18.1 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/da/c6/0936bc5814b429fddb5d6252566fe73a3e40372e6ceaf87de3dec1326f28/pandas-0.22.0-cp36-cp36m-manylinux1_x86_64.whl</span><br><span class="line">Collecting pandas-datareader&gt;=0.2.1 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/cc/5c/ea5b6dcfd0f55c5fb1e37fb45335ec01cceca199b8a79339137f5ed269e0/pandas_datareader-0.7.0-py2.py3-none-any.whl</span><br><span class="line">Requirement already satisfied, skipping upgrade: patsy&gt;=0.4.0 <span class="keyword">in</span> ~/.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (0.5.1)</span><br><span class="line">Collecting statsmodels&gt;=0.6.1 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/85/d1/69ee7e757f657e7f527cbf500ec2d295396e5bcec873cf4eb68962c41024/statsmodels-0.9.0-cp36-cp36m-manylinux1_x86_64.whl</span><br><span class="line">Requirement already satisfied, skipping upgrade: python-dateutil&gt;=2.4.2 <span class="keyword">in</span> ~/.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (2.7.5)</span><br><span class="line">Requirement already satisfied, skipping upgrade: six&gt;=1.10.0 <span class="keyword">in</span> ~/.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (1.11.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: requests&gt;=2.9.1 <span class="keyword">in</span> ~/.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (2.20.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: Cython&gt;=0.25.2 <span class="keyword">in</span> ~/.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (0.29)</span><br><span class="line">Collecting cyordereddict&gt;=0.2.2 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/d1/1a/364cbfd927be1b743c7f0a985a7f1f7e8a51469619f9fefe4ee9240ba210/cyordereddict-1.0.0.tar.gz</span><br><span class="line">Collecting bottleneck&gt;=1.0.0 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/05/ae/cedf5323f398ab4e4ff92d6c431a3e1c6a186f9b41ab3e8258dff786a290/Bottleneck-1.2.1.tar.gz</span><br><span class="line">Requirement already satisfied, skipping upgrade: contextlib2&gt;=0.4.0 <span class="keyword">in</span> ~/.<span class="built_in">local</span>/lib/python3.6/site-packages/contextlib2-0.5.5-py3.6.egg (from zipline) (0.5.5)</span><br><span class="line">Requirement already satisfied, skipping upgrade: decorator&gt;=4.0.0 <span class="keyword">in</span> ~/.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (4.3.0)</span><br><span class="line">Collecting networkx&lt;2.0,&gt;=1.9.1 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/d3/2c/e473e54afc9fae58dfa97066ef6709a7e35a1dd1c28c5a3842989322be00/networkx-1.11-py2.py3-none-any.whl</span><br><span class="line">Collecting numexpr&gt;=2.6.1 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/db/ea/efd9e16283637eb5b6c0042b6cc3521f1b9a5b47767ac463c88bbd37670c/numexpr-2.6.8-cp36-cp36m-manylinux1_x86_64.whl</span><br><span class="line">Collecting bcolz&lt;1,&gt;=0.12.1 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/6c/8b/1ffa01f872cac36173c5eb95b58c01040d8d25f1b242c48577f4104cd3ab/bcolz-0.12.1.tar.gz</span><br><span class="line">Requirement already satisfied, skipping upgrade: click&gt;=4.0.0 <span class="keyword">in</span> ~/.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (7.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: toolz&gt;=0.8.2 <span class="keyword">in</span> ~/.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (0.9.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: multipledispatch&gt;=0.4.8 <span class="keyword">in</span> ~/.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (0.6.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: MarkupSafe&gt;=0.23 <span class="keyword">in</span> ~/.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (1.1.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: Mako&gt;=1.0.1 <span class="keyword">in</span> /usr/lib/python3/dist-packages (from zipline) (1.0.7)</span><br><span class="line">Collecting sqlalchemy&gt;=1.0.8 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/1e/98/4dba86354d271344e25fa01dc38a0bf0e0ba6407ad2d5e8426496a95b568/SQLAlchemy-1.2.13.tar.gz</span><br><span class="line">Collecting alembic&gt;=0.7.7 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/c0/f3/e60af9a36ae3b8cafabc7e0834d8df6a2965b3feecf27b9b11352dc05dd4/alembic-1.0.2.tar.gz</span><br><span class="line">Collecting sortedcontainers&gt;=1.4.4 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/be/e3/a065de5fdd5849450a8a16a52a96c8db5f498f245e7eda06cc6725d04b80/sortedcontainers-2.0.5-py2.py3-none-any.whl</span><br><span class="line">Collecting intervaltree&gt;=2.1.0 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/ca/c1/450d109b70fa58ca9d77972b02f69222412f9175ccf99fdeaf167be9583c/intervaltree-2.1.0.tar.gz</span><br><span class="line">Collecting lru-dict&gt;=1.1.4 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/00/a5/32ed6e10246cd341ca8cc205acea5d208e4053f48a4dced2b1b31d45ba3f/lru-dict-1.1.6.tar.gz</span><br><span class="line">Collecting empyrical&gt;=0.5.0 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/7b/55/a01b05162b764830dbbac868462f44cd847a5b6523a01ca9f955721819da/empyrical-0.5.0.tar.gz</span><br><span class="line">Collecting tables&gt;=3.3.0 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/d7/1b/21f4c7f296b718575c17ef25e61c05742a283c45077b4c8d5a190b3e0b59/tables-3.4.4-cp36-cp36m-manylinux1_x86_64.whl</span><br><span class="line">Collecting trading-calendars&gt;=1.0.1 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/6e/e9/e9e2aeadacab58580ed9493e6c252f051cd8ee9d7efbe49d2f041371c45d/trading_calendars-1.5.1.tar.gz</span><br><span class="line">Requirement already satisfied, skipping upgrade: wrapt <span class="keyword">in</span> ~/.<span class="built_in">local</span>/lib/python3.6/site-packages (from pandas-datareader&gt;=0.2.1-&gt;zipline) (1.10.11)</span><br><span class="line">Requirement already satisfied, skipping upgrade: lxml <span class="keyword">in</span> ~/.<span class="built_in">local</span>/lib/python3.6/site-packages (from pandas-datareader&gt;=0.2.1-&gt;zipline) (4.2.5)</span><br><span class="line">Requirement already satisfied, skipping upgrade: certifi&gt;=2017.4.17 <span class="keyword">in</span> ~/.<span class="built_in">local</span>/lib/python3.6/site-packages (from requests&gt;=2.9.1-&gt;zipline) (2018.10.15)</span><br><span class="line">Requirement already satisfied, skipping upgrade: idna&lt;2.8,&gt;=2.5 <span class="keyword">in</span> ~/.<span class="built_in">local</span>/lib/python3.6/site-packages (from requests&gt;=2.9.1-&gt;zipline) (2.7)</span><br><span class="line">Requirement already satisfied, skipping upgrade: chardet&lt;3.1.0,&gt;=3.0.2 <span class="keyword">in</span> /usr/lib/python3/dist-packages (from requests&gt;=2.9.1-&gt;zipline) (3.0.4)</span><br><span class="line">Requirement already satisfied, skipping upgrade: urllib3&lt;1.25,&gt;=1.21.1 <span class="keyword">in</span> ~/.<span class="built_in">local</span>/lib/python3.6/site-packages (from requests&gt;=2.9.1-&gt;zipline) (1.24.1)</span><br><span class="line">Collecting python-editor&gt;=0.3 (from alembic&gt;=0.7.7-&gt;zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/65/1e/adf6e000ea5dc909aa420352d6ba37f16434c8a3c2fa030445411a1ed545/python-editor-1.0.3.tar.gz</span><br><span class="line">Building wheels <span class="keyword">for</span> collected packages: zipline, Logbook, cyordereddict, bottleneck, bcolz, sqlalchemy, alembic, intervaltree, lru-dict, empyrical, trading-calendars, python-editor</span><br><span class="line">  Running setup.py bdist_wheel <span class="keyword">for</span> zipline ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: ~/.cache/pip/wheels/a4/d6/67/f303ab028b004bf8e00c05b5b04fba83d8ec238b6547becdb7</span><br><span class="line">  Running setup.py bdist_wheel <span class="keyword">for</span> Logbook ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: ~/.cache/pip/wheels/06/13/e9/88e9e8184d89671ffc754dc80f5eb01dabd72071bdb802c5d1</span><br><span class="line">  Running setup.py bdist_wheel <span class="keyword">for</span> cyordereddict ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: ~/.cache/pip/wheels/0b/9d/8b/5bf3e22c1edd59b50f11bb19dec9dfcfe5a479fc7ace02b61f</span><br><span class="line">  Running setup.py bdist_wheel <span class="keyword">for</span> bottleneck ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: ~/.cache/pip/wheels/f2/bf/ec/e0f39aa27001525ad455139ee57ec7d0776fe074dfd78c97e4</span><br><span class="line">  Running setup.py bdist_wheel <span class="keyword">for</span> bcolz ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: ~/.cache/pip/wheels/c5/cc/1b/2cf1f88959af5d7f4d449b7fc6c9452d0ecbd86fd61a9ee376</span><br><span class="line">  Running setup.py bdist_wheel <span class="keyword">for</span> sqlalchemy ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: ~/.cache/pip/wheels/ba/2e/47/b194b03e6aeaa658f521dfba094a42f1d37f4ee4018b9e607e</span><br><span class="line">  Running setup.py bdist_wheel <span class="keyword">for</span> alembic ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: ~/.cache/pip/wheels/95/f3/c2/22155963496514f044049f5c96e2757b9838da4a5cae34e76e</span><br><span class="line">  Running setup.py bdist_wheel <span class="keyword">for</span> intervaltree ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: ~/.cache/pip/wheels/6b/cf/b0/f7ef2d0f504d26f3e9e70c2369e5725591ccfaf67d528fcbc5</span><br><span class="line">  Running setup.py bdist_wheel <span class="keyword">for</span> lru-dict ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: ~/.cache/pip/wheels/b7/ef/06/fbdd555907a7d438fb33e4c8675f771ff1cf41917284c51ebf</span><br><span class="line">  Running setup.py bdist_wheel <span class="keyword">for</span> empyrical ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: ~/.cache/pip/wheels/83/14/73/34fb27552601518d28bd0813d75124be76d94ab29152c69112</span><br><span class="line">  Running setup.py bdist_wheel <span class="keyword">for</span> trading-calendars ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: ~/.cache/pip/wheels/13/0f/d5/517a7a51d9998c20483d777bf2e35e71ec17445509a9ac4cc1</span><br><span class="line">  Running setup.py bdist_wheel <span class="keyword">for</span> python-editor ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: ~/.cache/pip/wheels/36/e0/98/ba386b125a00ea9dd52e2c16aa2ec0adbbd639b84bfe2e001d</span><br><span class="line">Successfully built zipline Logbook cyordereddict bottleneck bcolz sqlalchemy alembic intervaltree lru-dict empyrical trading-calendars python-editor</span><br><span class="line">pyro-ppl 0.2.1+fbaa779 has requirement networkx&gt;=2.0.0, but you<span class="string">'ll have networkx 1.11 which is incompatible.</span></span><br><span class="line"><span class="string">pyro-ppl 0.2.1+fbaa779 has requirement torch==0.4.0, but you'</span>ll have torch 1.0.0a0+6c8d47f <span class="built_in">which</span> is incompatible.</span><br><span class="line">Installing collected packages: Logbook, pandas, pandas-datareader, statsmodels, cyordereddict, bottleneck, networkx, numexpr, bcolz, sqlalchemy, python-editor, alembic, sortedcontainers, intervaltree, lru-dict, empyrical, tables, trading-calendars, zipline</span><br><span class="line">  Found existing installation: pandas 0.23.4</span><br><span class="line">    Uninstalling pandas-0.23.4:</span><br><span class="line">      Successfully uninstalled pandas-0.23.4</span><br><span class="line">  Found existing installation: networkx 2.2</span><br><span class="line">    Uninstalling networkx-2.2:</span><br><span class="line">      Successfully uninstalled networkx-2.2</span><br><span class="line">Successfully installed Logbook-1.4.1 alembic-1.0.2 bcolz-0.12.1 bottleneck-1.2.1 cyordereddict-1.0.0 empyrical-0.5.0 intervaltree-2.1.0 lru-dict-1.1.6 networkx-1.11 numexpr-2.6.8 pandas-0.22.0 pandas-datareader-0.7.0 python-editor-1.0.3 sortedcontainers-2.0.5 sqlalchemy-1.2.13 statsmodels-0.9.0 tables-3.4.4 trading-calendars-1.5.1 zipline-1.3.0</span><br><span class="line">➜  ~</span><br></pre></td></tr></table></figure>
+<p>You’ll possibly meet these <strong>ERROR</strong> messages:</p>
+<ul>
+<li><span style="color:red"><strong>pyro-ppl 0.2.1+fbaa779 has requirement networkx&gt;=2.0.0, but you’ll have networkx 1.11 which is incompatible.</strong></span></li>
+<li><span style="color:red"><strong>pyro-ppl 0.2.1+fbaa779 has requirement torch==0.4.0, but you’ll have torch 1.0.0a0+6c8d47f which is incompatible.</strong></span></li>
+</ul>
+<p><span style="color:red"><strong>In such a case, <a href="https://github.com/uber/pyro" target="_blank" rel="noopener">pyro</a> is to be manually installed.</strong></span></p>
+<h2 id="14-manually-install-pyro"><a class="markdownIt-Anchor" href="#14-manually-install-pyro"></a> 1.4 Manually Install <a href="https://github.com/uber/pyro" target="_blank" rel="noopener">pyro</a></h2>
+<p>Please refer to <a href="https://github.com/uber/pyro" target="_blank" rel="noopener">https://github.com/uber/pyro</a>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  uber git <span class="built_in">clone</span> https://github.com/uber/pyro.git</span><br><span class="line">➜  <span class="built_in">cd</span> pyro</span><br><span class="line">➜  pyro git:(dev) python setup.py build</span><br><span class="line">➜  pyro git:(dev) python setup.py install --user</span><br></pre></td></tr></table></figure>
+<h2 id="15-install-zipline-again"><a class="markdownIt-Anchor" href="#15-install-zipline-again"></a> 1.5 Install <a href="http://www.zipline.io/" target="_blank" rel="noopener">Zipline</a> Again</h2>
+<p>Please refer to <a href="http://www.zipline.io/install.html" target="_blank" rel="noopener">http://www.zipline.io/install.html</a>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip install -U zipline --user</span><br><span class="line">Collecting zipline</span><br><span class="line">Requirement already satisfied, skipping upgrade: numexpr&gt;=2.6.1 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (2.6.8)</span><br><span class="line">Requirement already satisfied, skipping upgrade: cyordereddict&gt;=0.2.2 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (1.0.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: tables&gt;=3.3.0 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (3.4.4)</span><br><span class="line">Requirement already satisfied, skipping upgrade: pytz&gt;=2016.4 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (2018.7)</span><br><span class="line">Requirement already satisfied, skipping upgrade: scipy&gt;=0.17.1 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (1.1.0)</span><br><span class="line">Collecting bcolz&lt;1,&gt;=0.12.1 (from zipline)</span><br><span class="line">Requirement already satisfied, skipping upgrade: patsy&gt;=0.4.0 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (0.5.1)</span><br><span class="line">Requirement already satisfied, skipping upgrade: empyrical&gt;=0.5.0 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (0.5.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: setuptools&gt;18.0 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (40.5.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: requests-file&gt;=1.4.1 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (1.4.3)</span><br><span class="line">Requirement already satisfied, skipping upgrade: requests&gt;=2.9.1 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (2.20.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: intervaltree&gt;=2.1.0 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (2.1.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: MarkupSafe&gt;=0.23 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (1.1.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: contextlib2&gt;=0.4.0 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages/contextlib2-0.5.5-py3.6.egg (from zipline) (0.5.5)</span><br><span class="line">Requirement already satisfied, skipping upgrade: sqlalchemy&gt;=1.0.8 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (1.2.13)</span><br><span class="line">Requirement already satisfied, skipping upgrade: toolz&gt;=0.8.2 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (0.9.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: six&gt;=1.10.0 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (1.11.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: pandas-datareader&gt;=0.2.1 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (0.7.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: numpy&gt;=1.11.1 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (1.15.4)</span><br><span class="line">Collecting pandas&lt;=0.22,&gt;=0.18.1 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/da/c6/0936bc5814b429fddb5d6252566fe73a3e40372e6ceaf87de3dec1326f28/pandas-0.22.0-cp36-cp36m-manylinux1_x86_64.whl</span><br><span class="line">Requirement already satisfied, skipping upgrade: click&gt;=4.0.0 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (7.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: Mako&gt;=1.0.1 <span class="keyword">in</span> /usr/lib/python3/dist-packages (from zipline) (1.0.7)</span><br><span class="line">Requirement already satisfied, skipping upgrade: statsmodels&gt;=0.6.1 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (0.9.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: bottleneck&gt;=1.0.0 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (1.2.1)</span><br><span class="line">Requirement already satisfied, skipping upgrade: Logbook&gt;=0.12.5 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (1.4.1)</span><br><span class="line">Collecting networkx&lt;2.0,&gt;=1.9.1 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/d3/2c/e473e54afc9fae58dfa97066ef6709a7e35a1dd1c28c5a3842989322be00/networkx-1.11-py2.py3-none-any.whl</span><br><span class="line">Requirement already satisfied, skipping upgrade: alembic&gt;=0.7.7 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (1.0.2)</span><br><span class="line">Requirement already satisfied, skipping upgrade: sortedcontainers&gt;=1.4.4 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (2.0.5)</span><br><span class="line">Requirement already satisfied, skipping upgrade: lru-dict&gt;=1.1.4 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (1.1.6)</span><br><span class="line">Requirement already satisfied, skipping upgrade: multipledispatch&gt;=0.4.8 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (0.6.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: pip&gt;=7.1.0 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (18.1)</span><br><span class="line">Requirement already satisfied, skipping upgrade: decorator&gt;=4.0.0 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (4.3.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: Cython&gt;=0.25.2 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (0.29)</span><br><span class="line">Requirement already satisfied, skipping upgrade: python-dateutil&gt;=2.4.2 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (2.7.5)</span><br><span class="line">Requirement already satisfied, skipping upgrade: trading-calendars&gt;=1.0.1 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from zipline) (1.5.1)</span><br><span class="line">Requirement already satisfied, skipping upgrade: certifi&gt;=2017.4.17 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from requests&gt;=2.9.1-&gt;zipline) (2018.10.15)</span><br><span class="line">Requirement already satisfied, skipping upgrade: urllib3&lt;1.25,&gt;=1.21.1 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from requests&gt;=2.9.1-&gt;zipline) (1.24.1)</span><br><span class="line">Requirement already satisfied, skipping upgrade: chardet&lt;3.1.0,&gt;=3.0.2 <span class="keyword">in</span> /usr/lib/python3/dist-packages (from requests&gt;=2.9.1-&gt;zipline) (3.0.4)</span><br><span class="line">Requirement already satisfied, skipping upgrade: idna&lt;2.8,&gt;=2.5 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from requests&gt;=2.9.1-&gt;zipline) (2.7)</span><br><span class="line">Requirement already satisfied, skipping upgrade: wrapt <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from pandas-datareader&gt;=0.2.1-&gt;zipline) (1.10.11)</span><br><span class="line">Requirement already satisfied, skipping upgrade: lxml <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from pandas-datareader&gt;=0.2.1-&gt;zipline) (4.2.5)</span><br><span class="line">Requirement already satisfied, skipping upgrade: python-editor&gt;=0.3 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from alembic&gt;=0.7.7-&gt;zipline) (1.0.3)</span><br><span class="line">pyro-ppl 0.2.1+913618a has requirement networkx&gt;=2.0.0, but you<span class="string">'ll have networkx 1.11 which is incompatible.</span></span><br><span class="line"><span class="string">Installing collected packages: bcolz, pandas, networkx, zipline</span></span><br><span class="line"><span class="string">  Found existing installation: bcolz 1.2.1</span></span><br><span class="line"><span class="string">    Uninstalling bcolz-1.2.1:</span></span><br><span class="line"><span class="string">      Successfully uninstalled bcolz-1.2.1</span></span><br><span class="line"><span class="string">  Found existing installation: pandas 0.23.4</span></span><br><span class="line"><span class="string">    Uninstalling pandas-0.23.4:</span></span><br><span class="line"><span class="string">      Successfully uninstalled pandas-0.23.4</span></span><br><span class="line"><span class="string">  Found existing installation: networkx 2.2</span></span><br><span class="line"><span class="string">    Uninstalling networkx-2.2:</span></span><br><span class="line"><span class="string">      Successfully uninstalled networkx-2.2</span></span><br><span class="line"><span class="string">  Found existing installation: zipline 1.0.1+1816.gb7f454b7.dirty</span></span><br><span class="line"><span class="string">    Uninstalling zipline-1.0.1+1816.gb7f454b7.dirty:</span></span><br><span class="line"><span class="string">      Successfully uninstalled zipline-1.0.1+1816.gb7f454b7.dirty</span></span><br><span class="line"><span class="string">Successfully installed bcolz-0.12.1 networkx-1.11 pandas-0.22.0 zipline-1.3.0</span></span><br><span class="line"><span class="string">➜  ~ pip show networkx</span></span><br><span class="line"><span class="string">Name: networkx</span></span><br><span class="line"><span class="string">Version: 1.11</span></span><br><span class="line"><span class="string">Summary: Python package for creating and manipulating graphs and networks</span></span><br><span class="line"><span class="string">Home-page: http://networkx.github.io/</span></span><br><span class="line"><span class="string">Author: NetworkX Developers</span></span><br><span class="line"><span class="string">Author-email: networkx-discuss@googlegroups.com</span></span><br><span class="line"><span class="string">License: BSD</span></span><br><span class="line"><span class="string">Location: /home/jiapei/.local/lib/python3.6/site-packages</span></span><br><span class="line"><span class="string">Requires: decorator</span></span><br><span class="line"><span class="string">Required-by: zipline, scikit-image, pyro-ppl</span></span><br><span class="line"><span class="string">➜  ~ pip show pyro-ppl</span></span><br><span class="line"><span class="string">Name: pyro-ppl</span></span><br><span class="line"><span class="string">Version: 0.2.1+913618a</span></span><br><span class="line"><span class="string">Summary: A Python library for probabilistic modeling and inference</span></span><br><span class="line"><span class="string">Home-page: http://pyro.ai</span></span><br><span class="line"><span class="string">Author: Uber AI Labs</span></span><br><span class="line"><span class="string">Author-email: pyro@uber.com</span></span><br><span class="line"><span class="string">License: MIT License</span></span><br><span class="line"><span class="string">Location: /home/jiapei/.local/lib/python3.6/site-packages/pyro_ppl-0.2.1+913618a-py3.6.egg</span></span><br><span class="line"><span class="string">Requires: contextlib2, graphviz, networkx, numpy, opt-einsum, six, torch, tqdm</span></span><br><span class="line"><span class="string">Required-by:</span></span><br><span class="line"><span class="string">➜  ~</span></span><br></pre></td></tr></table></figure>
+<h2 id="16-python-package-compatibility"><a class="markdownIt-Anchor" href="#16-python-package-compatibility"></a> 1.6 Python Package Compatibility</h2>
+<p>Let’s take a look at the compatibility of python packages.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip list --outdated</span><br><span class="line">Package    Version   Latest Type </span><br><span class="line">---------- --------- ------ -----</span><br><span class="line">bcolz      0.12.1    1.2.1  sdist</span><br><span class="line">networkx   1.11      2.2    sdist</span><br><span class="line">pandas     0.22.0    0.23.4 wheel</span><br></pre></td></tr></table></figure>
+<p>Clearly, <strong>Zipline</strong> is <strong>NOT</strong> compatible with the above 3 <strong>LATEST</strong> python packages.</p>
+<h1 id="2-register-quandl-and-ingest-data"><a class="markdownIt-Anchor" href="#2-register-quandl-and-ingest-data"></a> 2. Register <a href="https://www.quandl.com/" target="_blank" rel="noopener">Quandl</a> and Ingest Data</h1>
+<p>As known, <a href="https://www.quantopian.com" target="_blank" rel="noopener">Quantopian</a> is a Python collections of various <a href="https://www.investopedia.com/terms/q/quantitativeanalysis.asp" target="_blank" rel="noopener">quantitative analysis</a> algorithms. However, where can we obtain the stock data for our testing? Either the real-time data, or the historical data will do.</p>
+<p>We can of course use the real-time <a href="https://finance.yahoo.com/" target="_blank" rel="noopener">Yahoo Finance Data</a>. But here, we are going to test on some historical data downloaded from <a href="https://www.quandl.com/" target="_blank" rel="noopener">Quandl</a>, which is <strong>JUST</strong> the data adopted in <a href="http://www.zipline.io/beginner-tutorial.html" target="_blank" rel="noopener">Quantopian’s Beginner’s Tutorial</a>.</p>
+<p>After you’ve successfully registered <a href="https://www.quandl.com/" target="_blank" rel="noopener">Quandl</a> and obtained an <strong>API key</strong>, the following command will help you to ingest <a href="https://www.quandl.com/databases/WIKIP" target="_blank" rel="noopener">Quandl WIKI Bundle data</a> easily, please refer to <a href="http://www.zipline.io/bundles.html#ingesting-data" target="_blank" rel="noopener">http://www.zipline.io/bundles.html#ingesting-data</a>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">➜  quantopian QUANDL_API_KEY=&lt;yourkey&gt; zipline ingest -b quandl</span><br><span class="line">[2018-11-07 05:18:37.895463] INFO: zipline.data.bundles.quandl: Downloading WIKI metadata.</span><br><span class="line">Downloading WIKI Prices table from Quandl  [<span class="comment">####################################]  100%          </span></span><br><span class="line">[2018-11-07 05:18:54.369791] INFO: zipline.data.bundles.quandl: Parsing raw data.</span><br><span class="line">[2018-11-07 05:19:24.118879] INFO: zipline.data.bundles.quandl: Generating asset metadata.</span><br><span class="line">Merging daily equity files:  [-----------------------------<span class="comment">#------]  1731~/.local/lib/python3.6/site-packages/zipline/data/us_equity_pricing.py:417: UserWarning: Ignoring 1 values because they are out of bounds for uint32:             open  high   low  close        volume  ex_dividend  split_ratio</span></span><br><span class="line">2011-04-11  1.79  1.84  1.55    1.7  6.674913e+09          0.0          1.0</span><br><span class="line">  winsorise_uint32(raw_data, invalid_data_behavior, <span class="string">'volume'</span>, *OHLC)</span><br><span class="line">Merging daily equity files:  [<span class="comment">####################################]      </span></span><br><span class="line">[2018-11-07 05:21:34.367628] INFO: zipline.data.bundles.quandl: Parsing split data.</span><br><span class="line">[2018-11-07 05:21:34.572459] INFO: zipline.data.bundles.quandl: Parsing dividend data.</span><br><span class="line">~/.<span class="built_in">local</span>/lib/python3.6/site-packages/zipline/data/us_equity_pricing.py:931: FutureWarning: Conversion of the second argument of issubdtype from `<span class="built_in">float</span>` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(<span class="built_in">float</span>).<span class="built_in">type</span>`.</span><br><span class="line">  <span class="keyword">if</span> not issubdtype(actual, expected):</span><br><span class="line">➜  quantopian</span><br></pre></td></tr></table></figure>
+<h1 id="3-first-try"><a class="markdownIt-Anchor" href="#3-first-try"></a> 3. First Try</h1>
+<p>Details can be easily found at <a href="http://www.zipline.io/beginner-tutorial.html" target="_blank" rel="noopener">http://www.zipline.io/beginner-tutorial.html</a>. Here, we <strong>ONLY</strong> test the example <strong>./zipline/examples/buyapple.py</strong>, which can also be found on <a href="https://github.com/quantopian/zipline/blob/master/zipline/examples/buyapple.py" target="_blank" rel="noopener">Github</a>.</p>
+<p>Following the <a href="http://www.zipline.io/beginner-tutorial.html" target="_blank" rel="noopener">Beginner’s Tutorial</a>, by executing the following command,</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  examples git:(master) ✗ zipline run -f ./buyapple.py --start 2016-1-1 --end 2018-1-1 -o buyapple_out.pickle</span><br></pre></td></tr></table></figure>
+<p>we should be able to obtain the resultant figure as follows:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/quantopian/example_buyapple.jpg" alt="Quantopian Example - Buy Apple"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/11/03/DeepLearning/Pose-AI-Happy-Halloween/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/03/DeepLearning/Pose-AI-Happy-Halloween/" itemprop="url">
+                  Pose AI - Happy Birthday to Me and Happy Halloween
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-03 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-03T00:00:00-07:00">2018-11-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-01 14:58:23" itemprop="dateModified" datetime="2019-07-01T14:58:23-07:00">2019-07-01</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>October 31, 2018 is <a href="https://en.wikipedia.org/wiki/Halloween" target="_blank" rel="noopener">Halloween</a>… <sup>_</sup> Happy <a href="https://en.wikipedia.org/wiki/Halloween" target="_blank" rel="noopener">Halloween</a> everyone…</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2018/Halloween.jpg" alt="Happy Halloween"></p>
+<p>And, <strong>Happy Birthday To Myself</strong>. Such an old <strong>NOBODY</strong>… <strong>DON’T ask my age.</strong> Anyway, enjoy life…</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2018/Birthday.jpg" alt="Happy Birthday"></p>
+<p>Today, we are testing out some pose estimation open source, based on various open source AI frameworks, including:</p>
+<ul>
+<li><a href="https://pytorch.org/" target="_blank" rel="noopener">PyTorch</a></li>
+<li><a href="https://www.tensorflow.org/" target="_blank" rel="noopener">Tensorflow</a></li>
+<li><a href="https://caffe2.ai/" target="_blank" rel="noopener">Caffe2</a></li>
+<li><a href="http://caffe.berkeleyvision.org/" target="_blank" rel="noopener">Caffe</a></li>
+</ul>
+<h1 id="1-openpose"><a class="markdownIt-Anchor" href="#1-openpose"></a> 1. <a href="https://github.com/CMU-Perceptual-Computing-Lab/openpose" target="_blank" rel="noopener">OpenPose</a></h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Body Tracking</th>
+<th style="text-align:center">Body Foot</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><a href="https://www.facebook.com/jiapei100/videos/1147677908722943/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/openpose/01_bodytracking.jpg" alt="Tracking Body ONLY"></a></td>
+<td style="text-align:center"><a href="https://www.facebook.com/jiapei100/videos/1147678282056239/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/openpose/02_bodyfoot.jpg" alt="Body and Foot"></a></td>
+</tr>
+<tr>
+<td style="text-align:center">Body Hand</td>
+<td style="text-align:center">Body Face</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.facebook.com/jiapei100/videos/1147679872056080/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/openpose/03_bodyhand.jpg" alt="Body and Hand"></a></td>
+<td style="text-align:center"><a href="https://www.facebook.com/jiapei100/videos/1147679998722734/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/openpose/04_bodyface.jpg" alt="Body and Face"></a></td>
+</tr>
+</tbody>
+</table>
+<p>The related paper can be found at <a href="https://github.com/ZheC/Realtime_Multi-Person_Pose_Estimation.git" target="_blank" rel="noopener">Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields</a>.</p>
+<h1 id="2-tf-pose-estimation"><a class="markdownIt-Anchor" href="#2-tf-pose-estimation"></a> 2. <a href="https://github.com/ildoonet/tf-pose-estimation" target="_blank" rel="noopener">tf-pose-estimation</a></h1>
+<p>Please refer to <a href="../../../../2018/07/12/DeepLearning/posture_recognition_by_a_single_2d_webcam">Posture Recognition by A Single 2D Webcam</a></p>
+<h1 id="3-pose-tensorflow"><a class="markdownIt-Anchor" href="#3-pose-tensorflow"></a> 3. <a href="https://github.com/eldar/pose-tensorflow" target="_blank" rel="noopener">pose-tensorflow</a></h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Single Person</th>
+<th style="text-align:center">Multiple Persons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/pose-tensorflow/01_singleperson.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/pose-tensorflow/01_singleperson.jpg" alt="Single Person"></a></td>
+<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/pose-tensorflow/02_multiplepersons.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/pose-tensorflow/02_multiplepersons.jpg" alt="Multiple Persons"></a></td>
+</tr>
+</tbody>
+</table>
+<h1 id="4-facebook-detectron"><a class="markdownIt-Anchor" href="#4-facebook-detectron"></a> 4. <a href="https://github.com/facebookresearch/Detectron.git" target="_blank" rel="noopener">Facebook Detectron</a></h1>
+<h1 id="5-facebook-detectandtrack"><a class="markdownIt-Anchor" href="#5-facebook-detectandtrack"></a> 5. <a href="https://github.com/facebookresearch/DetectAndTrack.git" target="_blank" rel="noopener">Facebook DetectAndTrack</a></h1>
+<h1 id="6-facebook-densepose"><a class="markdownIt-Anchor" href="#6-facebook-densepose"></a> 6. <a href="https://github.com/facebookresearch/DensePose.git" target="_blank" rel="noopener">Facebook DensePose</a></h1>
+<h2 id="61-coco-visualize"><a class="markdownIt-Anchor" href="#61-coco-visualize"></a> 6.1 COCO Visualize</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Original Image</th>
+<th style="text-align:center">Collected Points</th>
+<th style="text-align:center">Subplots</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-COCO-Visualize/01_image.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-COCO-Visualize/01_image.jpg" alt="Original Image"></a></td>
+<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-COCO-Visualize/02_collectedpoints.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-COCO-Visualize/02_collectedpoints.jpg" alt="Collected Points"></a></td>
+<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-COCO-Visualize/03_subplots.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-COCO-Visualize/03_subplots.jpg" alt="Subplots"></a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="62-rcnn-texture-transfer"><a class="markdownIt-Anchor" href="#62-rcnn-texture-transfer"></a> 6.2 RCNN Texture Transfer</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Texture</th>
+<th style="text-align:center">Mesh</th>
+<th style="text-align:center">Synth UV</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/01_texture.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/01_texture.jpg" alt="Texture"></a></td>
+<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/02_mesh.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/02_mesh.jpg" alt="Mesh"></a></td>
+<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/03_synthuv.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/03_synthuv.jpg" alt="Synth UV"></a></td>
+</tr>
+<tr>
+<td style="text-align:center">IUV</td>
+<td style="text-align:center">Texture Transfer</td>
+<td style="text-align:center">Original Image</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/04_im_IUV.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/04_im_IUV.jpg" alt="IUV"></a></td>
+<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/05_texturetransfer.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/05_texturetransfer.jpg" alt="Mesh"></a></td>
+<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/06_im.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/06_im.jpg" alt="Original Image"></a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="63-rcnn-visualize"><a class="markdownIt-Anchor" href="#63-rcnn-visualize"></a> 6.3 RCNN Visualize</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">IUV</th>
+<th style="text-align:center">Mesh</th>
+<th style="text-align:center">Contour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Visualize-Results/01_IUV.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Visualize-Results/01_IUV.jpg" alt="IUV"></a></td>
+<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Visualize-Results/02_mesh.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Visualize-Results/02_mesh.jpg" alt="Mesh"></a></td>
+<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Visualize-Results/03_contour.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Visualize-Results/03_contour.jpg" alt="Contour"></a></td>
+</tr>
+</tbody>
+</table>
+<h1 id="7-facebook-maskrcnn-benchmark"><a class="markdownIt-Anchor" href="#7-facebook-maskrcnn-benchmark"></a> 7. <a href="https://github.com/facebookresearch/maskrcnn-benchmark.git" target="_blank" rel="noopener">Facebook maskrcnn-benchmark</a></h1>
+<p><a href="https://www.facebook.com/jiapei100/videos/1148866891937378/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/maskrcnn-benchmark/maskrcnn-benchmark.jpg" alt="Test on maskrcnn-benchmark"></a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/10/17/SBCs/huawei-HiSilicon-hikey970-Lebuntu/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/17/SBCs/huawei-HiSilicon-hikey970-Lebuntu/" itemprop="url">
+                  HiSilicon Hikey 970 - Flash Lebuntu
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-10-17 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-17T00:00:00-07:00">2018-10-17</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-06-20 22:09:31" itemprop="dateModified" datetime="2019-06-20T22:09:31-07:00">2019-06-20</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/SBC/" itemprop="url" rel="index"><span itemprop="name">SBC</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Hi, everyone… I’ve been so busy and haven’t written anything for a bit. My previous boss at <a href="https://www.lenovo.com" target="_blank" rel="noopener">Lenovo</a> is now in Vancouver for annual executive meeting. She brought me a <a href="https://www.huawei.com" target="_blank" rel="noopener">Huawei</a> <a href="http://www.hisilicon.com/" target="_blank" rel="noopener">HiSilicon</a> <a href="https://www.96boards.org/product/hikey970/" target="_blank" rel="noopener">Hikey 970</a>.</p>
+<p>Several things before testing:</p>
+<ul>
+<li><a href="https://www.lenovo.com" target="_blank" rel="noopener">Lenovo</a> and <a href="https://www.huawei.com" target="_blank" rel="noopener">Huawei</a> are two <strong>BIGGEST</strong> and possibly <strong>BEST</strong> IT companies from China.</li>
+<li><a href="http://www.hisilicon.com/" target="_blank" rel="noopener">HiSilicon</a> is a chip design and manufacturing company spinned off from <a href="https://www.huawei.com" target="_blank" rel="noopener">Huawei</a>.</li>
+<li><a href="https://www.96boards.org" target="_blank" rel="noopener">96Boards</a> hosts various SBCs (Single Board Computers), including <a href="https://www.96boards.org/product/hikey970/" target="_blank" rel="noopener">Hikey 970</a>.</li>
+<li>A lot more resource can be found on <a href="http://www.lemaker.org/" target="_blank" rel="noopener">LeMaker</a>, who has designed several low-cost single board computers (SBCs).
+<ul>
+<li><a href="http://www.lemaker.org/product-hikey970-index.html" target="_blank" rel="noopener">LeMaker Hikey 970 Home Page</a></li>
+<li><a href="http://www.lemaker.org/product-hikey970-specification.html" target="_blank" rel="noopener">LeMaker Hikey 970 Specification</a></li>
+<li><a href="http://www.lemaker.org/product-hikey970-resource.html" target="_blank" rel="noopener">LeMaker Hikey 970 Resource</a></li>
+</ul>
+</li>
+</ul>
+<p>Now, let’s start today’s journey.</p>
+<h1 id="part-a-introduction"><a class="markdownIt-Anchor" href="#part-a-introduction"></a> PART A: Introduction</h1>
+<h2 id="1-layout-of-hikey-970"><a class="markdownIt-Anchor" href="#1-layout-of-hikey-970"></a> 1. Layout of Hikey 970</h2>
+<p><a href="https://www.96boards.org/product/hikey970/" target="_blank" rel="noopener">Hikey 970</a> looks like (cited from <a href="https://www.96boards.org/product/hikey970/" target="_blank" rel="noopener">Hikey 970</a> ):</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/HiSilicon/Hikey-970-Board.jpg" alt="HiSilicon Hikey 970"></p>
+<h2 id="2-connection-of-hikey-970"><a class="markdownIt-Anchor" href="#2-connection-of-hikey-970"></a> 2. Connection of Hikey 970</h2>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/HiSilicon/Hikey-970-Connection.jpg" alt="HiSilicon Hikey 970"></p>
+<p>Please pay attention to that pink rectangle, where 4 <strong>TINY</strong> switches are located and will be adjusted while flashing.</p>
+<h1 id="part-b-install-lebuntu-onto-hikey-970"><a class="markdownIt-Anchor" href="#part-b-install-lebuntu-onto-hikey-970"></a> PART B: Install Lebuntu onto Hikey 970</h1>
+<h2 id="1-download-lebuntu-for-hikey-970"><a class="markdownIt-Anchor" href="#1-download-lebuntu-for-hikey-970"></a> 1. Download Lebuntu for Hikey 970</h2>
+<p>We <strong>FIRST</strong> go visiting the website <a href="http://www.lemaker.org/product-hikey970-download-84.html" target="_blank" rel="noopener">http://www.lemaker.org/product-hikey970-download-84.html</a> and click <strong>Download</strong> icon, a file named <a href="http://mirror.lemaker.org/Hikey%20970%20Lebuntu.rar" target="_blank" rel="noopener"><strong>Hikey 970 Lebuntu.rar</strong></a> will be automatically downloaded. After the extraction, a folder named <strong>hikey970-lebuntu-16.04</strong> will be generated.</p>
+<h2 id="2-preparations-for-making-full-use-of-flash-memony-on-hikey-970"><a class="markdownIt-Anchor" href="#2-preparations-for-making-full-use-of-flash-memony-on-hikey-970"></a> 2. Preparations for Making Full Use of Flash Memony On Hikey 970</h2>
+<p>By integrating the following 2 contents:</p>
+<ul>
+<li><strong>lebuntu-rfs_flashing_guide.txt</strong> under folder <strong>hikey970-lebuntu-16.04</strong></li>
+<li><a href="https://discuss.96boards.org/t/help-for-hikey970-beginner/5318/28" target="_blank" rel="noopener">https://discuss.96boards.org/t/help-for-hikey970-beginner/5318/28</a></li>
+</ul>
+<p>we should be able to successfully install Lebuntu, and make <strong>FULL</strong> use of the whole flash memory on board.</p>
+<h3 id="21-mount-boot-image"><a class="markdownIt-Anchor" href="#21-mount-boot-image"></a> 2.1 Mount Boot Image</h3>
+<p>Make sure the current path is <strong>hikey970-lebuntu-16.04</strong>, then:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir /mnt/boot-hikey970</span><br><span class="line">sudo mount -o loop boot-hikey970.uefi.img /mnt/boot-hikey970</span><br></pre></td></tr></table></figure>
+<h3 id="22-edit-grubcfg"><a class="markdownIt-Anchor" href="#22-edit-grubcfg"></a> 2.2 Edit grub.cfg</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /mnt/boot-hikey970/boot/grub/grub.cfg</span><br></pre></td></tr></table></figure>
+<ul>
+<li>sdd12 -&gt; sdd15</li>
+<li>gpt12 -&gt; gpt15</li>
+</ul>
+<h3 id="23-edit-flash-scripts"><a class="markdownIt-Anchor" href="#23-edit-flash-scripts"></a> 2.3 Edit flash scripts</h3>
+<p>There are 3 flash scripts:</p>
+<ul>
+<li><a href="http://flash-all-binaries.sh" target="_blank" rel="noopener">flash-all-binaries.sh</a></li>
+<li><a href="http://flash-minimum-binaries.sh" target="_blank" rel="noopener">flash-minimum-binaries.sh</a></li>
+<li>binaries/recovery-flash.sh</li>
+</ul>
+<p>Change all cases in the above 3 files:</p>
+<ul>
+<li><code>sudo fastboot flash system leubuntu-16.04.img</code> -&gt; <code>sudo fastboot flash userdata leubuntu-16.04.img</code>.</li>
+</ul>
+<h2 id="3-flash-lebuntu-onto-hikey-970"><a class="markdownIt-Anchor" href="#3-flash-lebuntu-onto-hikey-970"></a> 3 Flash Lebuntu onto Hikey 970</h2>
+<h3 id="31-adjust-the-switches"><a class="markdownIt-Anchor" href="#31-adjust-the-switches"></a> 3.1 Adjust the Switches</h3>
+<ul>
+<li>Switch 1 : ON</li>
+<li>Switch 2 : ON</li>
+<li>Switch 3 : ON</li>
+<li>Switch 4 : OFF</li>
+</ul>
+<h3 id="32-connect-type-c-usb-cable-and-power-adapter"><a class="markdownIt-Anchor" href="#32-connect-type-c-usb-cable-and-power-adapter"></a> 3.2 Connect Type C USB cable and Power Adapter</h3>
+<ul>
+<li>Connect Type C USB cable between the host computer and <a href="https://www.96boards.org/product/hikey970/" target="_blank" rel="noopener">Hikey 970</a>.</li>
+<li>Connect power adapter.</li>
+<li>Make sure <a href="https://www.96boards.org/product/hikey970/" target="_blank" rel="noopener">Hikey 970</a> is configured as ttyUSB0.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ls -ls /dev/ttyUSB0</span><br></pre></td></tr></table></figure>
+<h3 id="33-system-installation"><a class="markdownIt-Anchor" href="#33-system-installation"></a> 3.3 System Installation</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./binaries/recovery-flash.sh</span><br></pre></td></tr></table></figure>
+<h3 id="34-unplug-power-supply-then-re-adjust-the-switches"><a class="markdownIt-Anchor" href="#34-unplug-power-supply-then-re-adjust-the-switches"></a> 3.4 Unplug Power Supply then Re-adjust the Switches</h3>
+<p>Unplug the power adapter, and then re-adjust the switches:</p>
+<ul>
+<li>Switch 1 : ON</li>
+<li>Switch 2 : OFF</li>
+<li>Switch 3 : OFF</li>
+<li>Switch 4 : OFF</li>
+</ul>
+<h3 id="35-connect-hdmi-cable-then-power-adapter"><a class="markdownIt-Anchor" href="#35-connect-hdmi-cable-then-power-adapter"></a> 3.5 Connect HDMI Cable then Power Adapter</h3>
+<ul>
+<li>Connect HDMI cable.</li>
+<li>Connect the Power Adapter.</li>
+</ul>
+<p><span style="color:red"><strong>NOTE: Plug the HDMI cable before powering up. Lebuntu may NOT boot up without plugging in the HDMI.</strong> </span></p>
+<h3 id="36-boot-up"><a class="markdownIt-Anchor" href="#36-boot-up"></a> 3.6 Boot up</h3>
+<p>You may have to re-plug in the power adapter multiple times, in order to boot up Lebuntu. <strong>Username</strong> and <strong>password</strong> are respectively:</p>
+<ul>
+<li>Username: shunya</li>
+<li>Password: shunya</li>
+</ul>
+<h3 id="expand-the-partition"><a class="markdownIt-Anchor" href="#expand-the-partition"></a> Expand the Partition</h3>
+<p>In order to make full use of the partition, we need to resize the file system as:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shunya@hikey970:~$ sudo resize2fs /dev/sdd15</span><br></pre></td></tr></table></figure>
+<h1 id="part-c-waiting-for-huawei-hiai"><a class="markdownIt-Anchor" href="#part-c-waiting-for-huawei-hiai"></a> PART C: Waiting for HuaWei HiAI</h1>
+<p><a href="http://www.longervision.cn" target="_blank" rel="noopener">Longer Vision Technology</a> is waiting for <a href="https://developer.huawei.com/consumer/en/hiai" target="_blank" rel="noopener">HuaWei Developer</a> account activation:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/HiSilicon/HuaWei_Developer.jpg" alt="HuaWei Developer Account Activation"></p>
+<p>I may talk about <a href="../../../../../2018/10/30/Embedded/huawei-HiSilicon-hikey970-Lebian-TensorFlow/">Lebian with Pre-built Tensorflow</a> some time later.</p>
+<p>So tired these days… Nice dream…</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/09/15/Tools/uPyCraft_PyQt5/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/15/Tools/uPyCraft_PyQt5/" itemprop="url">
+                  uPyCraft_PyQt5
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-09-15 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-15T00:00:00-07:00">2018-09-15</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-06-20 22:10:33" itemprop="dateModified" datetime="2019-06-20T22:10:33-07:00">2019-06-20</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>I’ve been looking for an IDE for debugging various microcontroller boards, such as <a href="https://openmv.io/" target="_blank" rel="noopener">OpenMV</a> and <a href="http://micropython.org/" target="_blank" rel="noopener">PyBoard</a>, etc. There are some fundamental requirements:</p>
+<ul>
+<li>Open source</li>
+<li>Python debugger, <a href="http://micropython.org/" target="_blank" rel="noopener">MicroPython</a> support</li>
+<li>Any GUI is fine, but <a href="https://www.qt.io/" target="_blank" rel="noopener">Qt</a> preferred</li>
+</ul>
+<p>Therefore, after a careful search, I found <a href="https://dfrobot.gitbooks.io/upycraft/" target="_blank" rel="noopener">uPyCraft</a>, which seems to be designed by a Chinese team? Because I found the <a href="http://docs.dfrobot.com.cn/upycraft/" target="_blank" rel="noopener">Chinese version of uPyCraft documentation</a> as well.</p>
+<p>However, it seems Linux support for uPyCraft is <strong>NOT</strong> very good. My working environment:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID: Ubuntu</span><br><span class="line">Description:    Ubuntu 18.04.1 LTS</span><br><span class="line">Release:        18.04</span><br><span class="line">Codename:       bionic</span><br><span class="line">$ uname -a</span><br><span class="line">Linux jiapei-GT72-6QE 4.18.7-041807-generic <span class="comment">#201809090930 SMP Sun Sep 9 09:33:16 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux</span></span><br><span class="line">$ python --version</span><br><span class="line">Python 3.6.5</span><br><span class="line">$ qmake --version</span><br><span class="line">QMake version 3.1</span><br><span class="line">Using Qt version 5.11.1 <span class="keyword">in</span> /opt/Qt/Current/gcc_64/lib</span><br></pre></td></tr></table></figure>
+<h1 id="part-a-test-built-upycraft"><a class="markdownIt-Anchor" href="#part-a-test-built-upycraft"></a> PART A: Test Built uPyCraft</h1>
+<h2 id="1-try-the-executable"><a class="markdownIt-Anchor" href="#1-try-the-executable"></a> 1. Try the Executable</h2>
+<p>In fact, there is one executable <a href="https://gitee.com/dfrobot/upycraft/raw/master/uPyCraft_linux_V1.0" target="_blank" rel="noopener">Linux version for uPyCraft</a>. However, to run it after downloading, I obtained the following ERROR messages:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ./uPyCraft_linux_V1.0 </span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"uPyCraft.py"</span>, line 2, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">  File <span class="string">"/usr/local/lib/python3.5/dist-packages/PyInstaller/loader/pyimod03_importers.py"</span>, line 714, <span class="keyword">in</span> load_module</span><br><span class="line">ImportError: /tmp/_MEIoq8Xi8/libz.so.1: version `ZLIB_1.2.9<span class="string">' not found (required by /usr/lib/x86_64-linux-gnu/libpng16.so.16)</span></span><br><span class="line"><span class="string">[324] Failed to execute script uPyCraft</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-try-source-code"><a class="markdownIt-Anchor" href="#2-try-source-code"></a> 2. Try source code</h2>
+<p>We can also clone <a href="https://github.com/DFRobot/uPyCraft_src" target="_blank" rel="noopener">uPyCraft source code</a> and build it from scratch. However, clearly, current <a href="https://github.com/DFRobot/uPyCraft_src" target="_blank" rel="noopener">uPyCraft</a> relies on <a href="https://www.riverbankcomputing.com/software/pyqt/download" target="_blank" rel="noopener">PyQt4</a> instead of <a href="http://pyqt.sourceforge.net/Docs/PyQt5/" target="_blank" rel="noopener">PyQt5</a>.</p>
+<p>Therefore, I’ve got to modify <a href="https://github.com/DFRobot/uPyCraft_src" target="_blank" rel="noopener">uPyCraft</a> a bit to have this <a href="https://github.com/jiapei100/uPyCraft_PyQt5" target="_blank" rel="noopener">uPyCraft_PyQt5</a>.</p>
+<h1 id="part-b-build-upycraft-with-pyqt5"><a class="markdownIt-Anchor" href="#part-b-build-upycraft-with-pyqt5"></a> PART B: Build uPyCraft with PyQt5</h1>
+<p>Before testing <a href="https://github.com/jiapei100/uPyCraft_PyQt5" target="_blank" rel="noopener">uPyCraft_PyQt5</a>, you need to make sure</p>
+<ul>
+<li><a href="https://www.python.org/" target="_blank" rel="noopener">python3</a></li>
+<li><a href="https://www.qt.io/download" target="_blank" rel="noopener">Qt5</a><br>
+have been installed.</li>
+</ul>
+<p><span style="color:red">**What’s more important: Please uninstall enum34 but keep the original enum.</span> Please refer to <a href="https://stackoverflow.com/questions/43124775/why-python-3-6-1-throws-attributeerror-module-enum-has-no-attribute-intflag" target="_blank" rel="noopener">Stack Overflow</a> for more details.</p>
+<h2 id="1-check-out-and-build-my-modified-code-of-upycraft_pyqt5"><a class="markdownIt-Anchor" href="#1-check-out-and-build-my-modified-code-of-upycraft_pyqt5"></a> 1. Check out and build my modified code of uPyCraft_PyQt5</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> git@github.com:jiapei100/uPyCraft_PyQt5.git</span><br><span class="line">$ <span class="built_in">cd</span> uPyCraft_PyQt5</span><br><span class="line">$ pyinstaller -F uPyCraft.py</span><br><span class="line">47 INFO: PyInstaller: 3.4</span><br><span class="line">47 INFO: Python: 3.6.5</span><br><span class="line">47 INFO: Platform: Linux-4.18.7-041807-generic-x86_64-with-Ubuntu-18.04-bionic</span><br><span class="line">48 INFO: wrote ....../uPyCraft_PyQt5/uPyCraft.spec</span><br><span class="line">50 INFO: UPX is not available.</span><br><span class="line">51 INFO: Extending PYTHONPATH with paths</span><br><span class="line">[<span class="string">'....../uPyCraft_PyQt5'</span>,</span><br><span class="line"> <span class="string">'....../uPyCraft_PyQt5'</span>]</span><br><span class="line">52 INFO: checking Analysis</span><br><span class="line">54 INFO: Building because inputs changed</span><br><span class="line">54 INFO: Initializing module dependency graph...</span><br><span class="line">57 INFO: Initializing module graph hooks...</span><br><span class="line">59 INFO: Analyzing base_library.zip ...</span><br><span class="line">2747 INFO: running Analysis Analysis-00.toc</span><br><span class="line">2776 INFO: Caching module hooks...</span><br><span class="line">2779 INFO: Analyzing ....../uPyCraft_PyQt5/uPyCraft.py</span><br><span class="line">3619 INFO: Loading module hooks...</span><br><span class="line">3619 INFO: Loading module hook <span class="string">"hook-PyQt5.QtGui.py"</span>...</span><br><span class="line">3749 INFO: Loading module hook <span class="string">"hook-pydoc.py"</span>...</span><br><span class="line">3750 INFO: Loading module hook <span class="string">"hook-PyQt5.QtWidgets.py"</span>...</span><br><span class="line">3832 INFO: Loading module hook <span class="string">"hook-xml.py"</span>...</span><br><span class="line">3914 INFO: Loading module hook <span class="string">"hook-PyQt5.QtCore.py"</span>...</span><br><span class="line">3933 INFO: Loading module hook <span class="string">"hook-PyQt5.QtPrintSupport.py"</span>...</span><br><span class="line">4057 INFO: Loading module hook <span class="string">"hook-encodings.py"</span>...</span><br><span class="line">4126 INFO: Loading module hook <span class="string">"hook-PyQt5.py"</span>...</span><br><span class="line">4170 WARNING: Hidden import <span class="string">"sip"</span> not found!</span><br><span class="line">4179 INFO: Looking <span class="keyword">for</span> ctypes DLLs</span><br><span class="line">4274 WARNING: library setupapi required via ctypes not found</span><br><span class="line">4299 WARNING: library Advapi32 required via ctypes not found</span><br><span class="line">4367 INFO: Analyzing run-time hooks ...</span><br><span class="line">4370 INFO: Including run-time hook <span class="string">'pyi_rth_qt5.py'</span></span><br><span class="line">4376 INFO: Looking <span class="keyword">for</span> dynamic libraries</span><br><span class="line">8225 INFO: Looking <span class="keyword">for</span> eggs</span><br><span class="line">8225 INFO: Python library not <span class="keyword">in</span> binary dependencies. Doing additional searching...</span><br><span class="line">8292 INFO: Using Python library /usr/lib/x86_64-linux-gnu/libpython3.6m.so.1.0</span><br><span class="line">8301 INFO: Warnings written to ....../uPyCraft_PyQt5/build/uPyCraft/warn-uPyCraft.txt</span><br><span class="line">8339 INFO: Graph cross-reference written to ....../uPyCraft_PyQt5/build/uPyCraft/xref-uPyCraft.html</span><br><span class="line">8352 INFO: checking PYZ</span><br><span class="line">8354 INFO: Building because name changed</span><br><span class="line">8354 INFO: Building PYZ (ZlibArchive) ....../uPyCraft_PyQt5/build/uPyCraft/PYZ-00.pyz</span><br><span class="line">8762 INFO: Building PYZ (ZlibArchive) ....../uPyCraft_PyQt5/build/uPyCraft/PYZ-00.pyz completed successfully.</span><br><span class="line">8765 INFO: checking PKG</span><br><span class="line">8767 INFO: Building because name changed</span><br><span class="line">8767 INFO: Building PKG (CArchive) PKG-00.pkg</span><br><span class="line">33163 INFO: Building PKG (CArchive) PKG-00.pkg completed successfully.</span><br><span class="line">33168 INFO: Bootloader ~/.<span class="built_in">local</span>/lib/python3.6/site-packages/PyInstaller/bootloader/Linux-64bit/run</span><br><span class="line">33168 INFO: checking EXE</span><br><span class="line">33170 INFO: Building because name changed</span><br><span class="line">33170 INFO: Building EXE from EXE-00.toc</span><br><span class="line">33175 INFO: Appending archive to ELF section <span class="keyword">in</span> EXE ....../uPyCraft_PyQt5/dist/uPyCraft</span><br><span class="line">33753 INFO: Building EXE from EXE-00.toc completed successfully.</span><br></pre></td></tr></table></figure>
+<h2 id="2-run-and-test-upycraft_pyqt5"><a class="markdownIt-Anchor" href="#2-run-and-test-upycraft_pyqt5"></a> 2. Run and test uPyCraft_PyQt5</h2>
+<p>To run <strong>uPyCraft_PyQt5</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> dist</span><br><span class="line">$ ./uPyCraft</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/uPyCraft/uPyCraft.jpg" alt="uPyCraft"></p>
+<p>So far, 6 boards are particularly supported:</p>
+<ul>
+<li><a href="https://arduino-esp8266.readthedocs.io/en/latest/boards.html" target="_blank" rel="noopener">ESP8266</a></li>
+<li><a href="https://www.espressif.com/en/products/hardware/development-boards" target="_blank" rel="noopener">ESP32</a></li>
+<li><a href="http://micropython.org/" target="_blank" rel="noopener">PyBoard</a></li>
+<li><a href="https://github.com/TPYBoard" target="_blank" rel="noopener">TPYBoardV202</a></li>
+<li><a href="http://tpyboard.com/" target="_blank" rel="noopener">TPYBoardV102</a></li>
+<li><a href="https://microbit.org/" target="_blank" rel="noopener">micro:bit</a></li>
+</ul>
+<p>For the sake of our requirements, <a href="https://openmv.io/" target="_blank" rel="noopener">openmv</a> is going to be supported in particular.</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/09/04/SBCs/banana-pi-pro-armbian/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1505,982 +2473,6 @@ Click on the pictures to open an uploaded Facebook video.</p>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/07/02/DeepLearning/ImageAI-Happy-Canada-Day/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/02/DeepLearning/ImageAI-Happy-Canada-Day/" itemprop="url">
-                  ImageAI - Happy Canada Day
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-07-02 00:00:00" itemprop="dateCreated datePublished" datetime="2018-07-02T00:00:00-07:00">2018-07-02</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-07-01 14:59:11" itemprop="dateModified" datetime="2019-07-01T14:59:11-07:00">2019-07-01</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Yesterday is <a href="https://en.wikipedia.org/wiki/Canada_Day" target="_blank" rel="noopener">Canada Day</a>… <sup>_</sup> Happy <a href="https://en.wikipedia.org/wiki/Canada_Day" target="_blank" rel="noopener">Canada Day</a> everybody…</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2018/CanadaDay.jpg" alt="Happy Canada Day"></p>
-<p>Just notice <a href="https://towardsdatascience.com/object-detection-with-10-lines-of-code-d6cb4d86f606" target="_blank" rel="noopener">this news about ImageAI</a> today. So, I just had it tested for fun. I seriously don’t want to talk about <a href="https://github.com/OlafenwaMoses/ImageAI" target="_blank" rel="noopener">ImageAI</a> too much, you can follow the <a href="https://github.com/OlafenwaMoses/ImageAI" target="_blank" rel="noopener">author’s github</a> and it shouldn’t be that hard to have everything done in minutes.</p>
-<h1 id="1-preparation"><a class="markdownIt-Anchor" href="#1-preparation"></a> 1. Preparation</h1>
-<h2 id="11-prerequisite-dependencies"><a class="markdownIt-Anchor" href="#11-prerequisite-dependencies"></a> 1.1 Prerequisite Dependencies</h2>
-<p>As described by on <a href="https://github.com/OlafenwaMoses/ImageAI" target="_blank" rel="noopener">ImageAI’s Github</a>, multiple Python dependencies need to be installed:</p>
-<ul>
-<li>Tensorflow</li>
-<li>Numpy</li>
-<li>SciPy</li>
-<li>OpenCV</li>
-<li>Pillow</li>
-<li>Matplotlib</li>
-<li>h5py</li>
-<li>Keras</li>
-</ul>
-<p>All packages can be easily installed by command:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install PackageName</span><br></pre></td></tr></table></figure>
-<p>Afterwards, <a href="https://github.com/OlafenwaMoses/ImageAI" target="_blank" rel="noopener">ImageAI</a> can be installed by a single command:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install https://github.com/OlafenwaMoses/ImageAI/releases/download/2.0.1/imageai-2.0.1-py3-none-any.whl</span><br></pre></td></tr></table></figure>
-<h2 id="12-cnn-models"><a class="markdownIt-Anchor" href="#12-cnn-models"></a> 1.2 CNN Models</h2>
-<p>Two models are adopted as in the examples <strong>prediction</strong> and <strong>detection</strong>.</p>
-<ul>
-<li>resnet50_weights_tf_dim_ordering_tf_kernels.h5 - can be downloaded at <a href="https://github.com/fchollet/deep-learning-models/releases" target="_blank" rel="noopener">fchollet’s deep-learning-models</a></li>
-<li>resnet50_coco_best_v2.1.0.h5 - can be downloaded at <a href="https://github.com/fizyr/keras-retinanet/releases" target="_blank" rel="noopener">fizyr’s keras-retinanet</a></li>
-</ul>
-<h1 id="2-examples"><a class="markdownIt-Anchor" href="#2-examples"></a> 2. Examples</h1>
-<h2 id="21-prediction"><a class="markdownIt-Anchor" href="#21-prediction"></a> 2.1 Prediction</h2>
-<p>Simple examples are given at <a href="https://github.com/OlafenwaMoses/ImageAI/tree/master/imageai/Prediction" target="_blank" rel="noopener">https://github.com/OlafenwaMoses/ImageAI/tree/master/imageai/Prediction</a>.</p>
-<p>I modified <a href="https://github.com/OlafenwaMoses/ImageAI/tree/master/imageai/Prediction#firstpredictionpy" target="_blank" rel="noopener">FirstPrediction.py</a> a bit as follows:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> imageai.Prediction <span class="keyword">import</span> ImagePrediction</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">prediction = ImagePrediction()</span><br><span class="line">prediction.setModelTypeAsResNet()</span><br><span class="line">prediction.setModelPath(<span class="string">"/media/jiapei/Data/Programs/Python/ImageAI/resnet50_weights_tf_dim_ordering_tf_kernels.h5"</span>)</span><br><span class="line">prediction.loadModel()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">predictions, probabilities = prediction.predictImage((<span class="string">"./01.jpg"</span>), result_count=<span class="number">5</span>)</span><br><span class="line"><span class="keyword">for</span> eachPrediction, eachProbability <span class="keyword">in</span> zip(predictions, probabilities):</span><br><span class="line">    print(eachPrediction + <span class="string">" : "</span> + np.format_float_positional(eachProbability, precision=<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
-<p>For the 1st image:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/testImages/01.jpg" alt="ImageAI Test Image 1"></p>
-<p>From bash, you will get:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ python FirstPrediction.py </span><br><span class="line">2018-07-02 18:12:09.275412: I tensorflow/core/platform/cpu_feature_guard.cc:140] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA</span><br><span class="line">convertible : 52.45954394340515</span><br><span class="line">sports_car : 37.61279881000519</span><br><span class="line">pickup : 3.1751133501529694</span><br><span class="line">car_wheel : 1.817503571510315</span><br><span class="line">minivan : 1.748703233897686</span><br></pre></td></tr></table></figure>
-<h2 id="22-detection"><a class="markdownIt-Anchor" href="#22-detection"></a> 2.2 Detection</h2>
-<p>Simple examples are given at <a href="https://github.com/OlafenwaMoses/ImageAI/tree/master/imageai/Detection" target="_blank" rel="noopener">https://github.com/OlafenwaMoses/ImageAI/tree/master/imageai/Detection</a>.</p>
-<p>Trivial modification is also implemented upon <a href="https://github.com/OlafenwaMoses/ImageAI/tree/master/imageai/Detection#firstobjectdetectionpy" target="_blank" rel="noopener">FirstObjectDetection.py</a>.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> imageai.Detection <span class="keyword">import</span> ObjectDetection</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">detector = ObjectDetection()</span><br><span class="line">detector.setModelTypeAsRetinaNet()</span><br><span class="line">detector.setModelPath( os.path.join(<span class="string">"/media/jiapei/Data/Programs/Python/ImageAI/resnet50_coco_best_v2.1.0.h5"</span>))</span><br><span class="line">detector.loadModel()</span><br><span class="line"></span><br><span class="line">input_image=<span class="string">"./03.jpg"</span></span><br><span class="line">output_image=<span class="string">"./imageai_output_03.jpg"</span></span><br><span class="line">detections = detector.detectObjectsFromImage(input_image, output_image)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> eachObject <span class="keyword">in</span> detections:</span><br><span class="line">    print(eachObject[<span class="string">"name"</span>] + <span class="string">" : "</span> + np.format_float_positional(eachObject[<span class="string">"percentage_probability"</span>], precision=<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
-<h3 id="221-for-the-2nd-image"><a class="markdownIt-Anchor" href="#221-for-the-2nd-image"></a> 2.2.1 For the 2nd image:</h3>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/testImages/02.jpg" alt="ImageAI Test Image 2"></p>
-<p>From bash, you will get</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">$ python FirstDetection.py </span><br><span class="line">Using TensorFlow backend.</span><br><span class="line">2018-07-02 18:23:09.634037: I tensorflow/core/platform/cpu_feature_guard.cc:140] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA</span><br><span class="line">2018-07-02 18:23:11.744790: W tensorflow/core/framework/allocator.cc:101] Allocation of 68300800 exceeds 10% of system memory.</span><br><span class="line">2018-07-02 18:23:11.958081: W tensorflow/core/framework/allocator.cc:101] Allocation of 68403200 exceeds 10% of system memory.</span><br><span class="line">2018-07-02 18:23:12.174739: W tensorflow/core/framework/allocator.cc:101] Allocation of 68403200 exceeds 10% of system memory.</span><br><span class="line">2018-07-02 18:23:12.433540: W tensorflow/core/framework/allocator.cc:101] Allocation of 68403200 exceeds 10% of system memory.</span><br><span class="line">2018-07-02 18:23:12.694631: W tensorflow/core/framework/allocator.cc:101] Allocation of 68403200 exceeds 10% of system memory.</span><br><span class="line">2018-07-02 18:23:16.267111: W tensorflow/core/framework/allocator.cc:101] Allocation of 64224000 exceeds 10% of system memory.</span><br><span class="line">2018-07-02 18:23:16.370939: W tensorflow/core/framework/allocator.cc:101] Allocation of 64224000 exceeds 10% of system memory.</span><br><span class="line">2018-07-02 18:23:16.403353: W tensorflow/core/framework/allocator.cc:101] Allocation of 67435200 exceeds 10% of system memory.</span><br><span class="line">person : 55.596935749053955</span><br><span class="line">person : 66.90954566001892</span><br><span class="line">person : 67.96322464942932</span><br><span class="line">person : 50.80411434173584</span><br><span class="line">bicycle : 64.87574577331543</span><br><span class="line">bicycle : 72.0929205417633</span><br><span class="line">person : 80.02063035964966</span><br><span class="line">person : 85.82872748374939</span><br><span class="line">truck : 59.56767797470093</span><br><span class="line">person : 66.69963002204895</span><br><span class="line">person : 79.37889695167542</span><br><span class="line">person : 64.81361389160156</span><br><span class="line">bus : 65.35580158233643</span><br><span class="line">bus : 97.16107249259949</span><br><span class="line">bus : 68.20474863052368</span><br><span class="line">truck : 67.65954494476318</span><br><span class="line">truck : 77.73774266242981</span><br><span class="line">bus : 69.96590495109558</span><br><span class="line">truck : 69.54039335250854</span><br><span class="line">car : 61.26518249511719</span><br><span class="line">car : 59.965676069259644</span><br></pre></td></tr></table></figure>
-<p>And, under the program folder, you will get an output image:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/testImages/imageai_output_02.jpg" alt="ImageAI Output Image for Test Image 2"></p>
-<h3 id="222-for-the-3rd-image"><a class="markdownIt-Anchor" href="#222-for-the-3rd-image"></a> 2.2.2 For the 3rd image:</h3>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/testImages/03.jpg" alt="ImageAI Test Image 3"></p>
-<p>From bash, you will get</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">$ python FirstDetection.py </span><br><span class="line">Using TensorFlow backend.</span><br><span class="line">2018-07-02 18:25:24.919351: I tensorflow/core/platform/cpu_feature_guard.cc:140] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA</span><br><span class="line">person : 53.27633619308472</span><br><span class="line">person : 52.71329879760742</span><br><span class="line">person : 63.67729902267456</span><br><span class="line">person : 55.00321388244629</span><br><span class="line">person : 74.53054189682007</span><br><span class="line">person : 51.54905915260315</span><br><span class="line">motorcycle : 59.057921171188354</span><br><span class="line">bus : 93.79504919052124</span><br><span class="line">bus : 86.21828556060791</span><br><span class="line">bus : 77.143394947052</span><br><span class="line">person : 59.69809293746948</span><br><span class="line">car : 71.79147601127625</span><br><span class="line">car : 60.15858054161072</span><br><span class="line">person : 62.758803367614746</span><br><span class="line">person : 58.786213397979736</span><br><span class="line">person : 76.49624943733215</span><br><span class="line">car : 56.977421045303345</span><br><span class="line">person : 67.86248683929443</span><br><span class="line">person : 50.977784395217896</span><br><span class="line">person : 52.3215651512146</span><br><span class="line">motorcycle : 52.81376242637634</span><br><span class="line">person : 76.79281234741211</span><br><span class="line">motorcycle : 74.65972304344177</span><br><span class="line">person : 55.96961975097656</span><br><span class="line">person : 68.15704107284546</span><br><span class="line">motorcycle : 56.21282458305359</span><br><span class="line">bicycle : 71.78951501846313</span><br><span class="line">motorcycle : 69.68616843223572</span><br><span class="line">bicycle : 91.09067916870117</span><br><span class="line">motorcycle : 83.16765427589417</span><br><span class="line">motorcycle : 61.57424449920654</span><br></pre></td></tr></table></figure>
-<p>And, under the program folder, you will get an output image:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/testImages/imageai_output_03.jpg" alt="ImageAI Output Image for Test Image 3"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/06/23/Face/vosm-2018/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/23/Face/vosm-2018/" itemprop="url">
-                  Vision Open Statistic Models
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-06-23 00:00:00" itemprop="dateCreated datePublished" datetime="2018-06-23T00:00:00-07:00">2018-06-23</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-10-22 20:00:29" itemprop="dateModified" datetime="2018-10-22T20:00:29-07:00">2018-10-22</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Face/" itemprop="url" rel="index"><span itemprop="name">Face</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>It has been quite a while that my <a href="https://github.com/jiapei100/VOSM" target="_blank" rel="noopener">VOSM</a> has NOT been updated. My bad for sure. But today, I have it updated, and <a href="https://github.com/jiapei100/VOSM/releases" target="_blank" rel="noopener">VOSM-0.3.5</a> is released. Just refer to the following 3 pages on <strong>github</strong>:</p>
-<ul>
-<li><a href="https://github.com/jiapei100/VOSM/blob/master/README.md" target="_blank" rel="noopener">VOSM README.md</a></li>
-<li><a href="https://github.com/jiapei100/VOSM/wiki/How-to-use-VOSM%3F" target="_blank" rel="noopener">VOSM Wiki</a></li>
-<li><a href="https://github.com/jiapei100/VOSM/releases" target="_blank" rel="noopener">VOSM Release</a></li>
-</ul>
-<p>We’ll still explain a bit on <strong>How to use VOSM</strong> in the following:</p>
-<h1 id="1-building"><a class="markdownIt-Anchor" href="#1-building"></a> 1. Building</h1>
-<h2 id="11-building-commands"><a class="markdownIt-Anchor" href="#11-building-commands"></a> 1.1 Building Commands</h2>
-<p>Currently, there are 7 types of models to be built. Namely, there are 7 choices for the parameter “-t”:</p>
-<ul>
-<li>SM</li>
-<li>TM</li>
-<li>AM</li>
-<li>IA</li>
-<li>FM</li>
-<li>SMLTC</li>
-<li>SMNDPROFILE</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ testsmbuilding -o &quot;./output&quot; -a &quot;./annotations/training/&quot; -i &quot;./images/training/&quot; -s &quot;../VOSM/shapeinfo/IMM/ShapeInfo.txt&quot; -d &quot;IMM&quot; -c 1 -t &quot;SM&quot; -l 4 -p 0.95</span><br><span class="line">$ testsmbuilding -o &quot;./output&quot; -a &quot;./annotations/training/&quot; -i &quot;./images/training/&quot; -s &quot;../VOSM/shapeinfo/IMM/ShapeInfo.txt&quot; -d &quot;IMM&quot; -c 1 -t &quot;TM&quot; -l 4 -p 0.95</span><br><span class="line">$ testsmbuilding -o &quot;./output&quot; -a &quot;./annotations/training/&quot; -i &quot;./images/training/&quot; -s &quot;../VOSM/shapeinfo/IMM/ShapeInfo.txt&quot; -d &quot;IMM&quot; -c 1 -t &quot;AM&quot; -l 4 -p 0.95</span><br><span class="line">$ testsmbuilding -o &quot;./output&quot; -a &quot;./annotations/training/&quot; -i &quot;./images/training/&quot; -s &quot;../VOSM/shapeinfo/IMM/ShapeInfo.txt&quot; -d &quot;IMM&quot; -c 1 -t &quot;IA&quot; -l 4 -p 0.95</span><br><span class="line">$ testsmbuilding -o &quot;./output&quot; -a &quot;./annotations/training/&quot; -i &quot;./images/training/&quot; -s &quot;../VOSM/shapeinfo/IMM/ShapeInfo.txt&quot; -d &quot;IMM&quot; -c 1 -t &quot;FM&quot; -l 4 -p 0.95</span><br><span class="line">$ testsmbuilding -o &quot;./output&quot; -a &quot;./annotations/training/&quot; -i &quot;./images/training/&quot; -s &quot;../VOSM/shapeinfo/IMM/ShapeInfo.txt&quot; -d &quot;IMM&quot; -c 1 -t &quot;SMLTC&quot; -l 4 -p 0.95</span><br><span class="line">$ testsmbuilding -o &quot;./output&quot; -a &quot;./annotations/training/&quot; -i &quot;./images/training/&quot; -s &quot;../VOSM/shapeinfo/IMM/ShapeInfo.txt&quot; -d &quot;IMM&quot; -c 1 -t &quot;SMNDPROFILE&quot; -l 4 -p 0.95</span><br></pre></td></tr></table></figure>
-<h2 id="12-output-folders"><a class="markdownIt-Anchor" href="#12-output-folders"></a> 1.2 Output Folders</h2>
-<p>After these 7 commands, 9 folders will be generated:</p>
-<ul>
-<li>Point2DDistributionModel</li>
-<li>ShapeModel</li>
-<li>TextureModel</li>
-<li>AppearanceModel</li>
-<li>AAMICIA</li>
-<li>AFM</li>
-<li>AXM</li>
-<li>ASMLTCs</li>
-<li>ASMNDProfiles</li>
-</ul>
-<h2 id="13-output-images"><a class="markdownIt-Anchor" href="#13-output-images"></a> 1.3 Output Images</h2>
-<p>Under folder <strong>TextureModel</strong>, 3 key images are generated:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Reference.jpg</th>
-<th style="text-align:center">edges.jpg</th>
-<th style="text-align:center">ellipses.jpg</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/TextureModel/Reference.jpg" alt="Reference.jpg"></td>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/TextureModel/edges.jpg" alt="edges.jpg"></td>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/TextureModel/ellipses.jpg" alt="ellipses"></td>
-</tr>
-</tbody>
-</table>
-<p>Under folder <strong>AAMICIA</strong>, another 3 key images are generated:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">m_IplImageTempFace.jpg</th>
-<th style="text-align:center">m_IplImageTempFaceX.jpg</th>
-<th style="text-align:center">m_IplImageTempFaceY.jpg</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/AAMICIA/m_IplImageTempFace.jpg" alt="m_IplImageTempFace.jpg - same as Reference.jpg"></td>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/AAMICIA/m_IplImageTempFaceX.jpg" alt="m_IplImageTempFaceX.jpg"></td>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/AAMICIA/m_IplImageTempFaceY.jpg" alt="m_IplImageTempFaceY.jpg"></td>
-</tr>
-</tbody>
-</table>
-<h1 id="2-fitting"><a class="markdownIt-Anchor" href="#2-fitting"></a> 2. Fitting</h1>
-<h2 id="21-fitting-commands"><a class="markdownIt-Anchor" href="#21-fitting-commands"></a> 2.1 Fitting Commands</h2>
-<p>Current <a href="https://github.com/jiapei100/VOSM/releases" target="_blank" rel="noopener">VOSM</a> supports 5 fitting methods.</p>
-<ul>
-<li>ASM_PROFILEND</li>
-<li>ASM_LTC</li>
-<li>AAM_BASIC</li>
-<li>AAM_CMUICIA</li>
-<li>AAM_IAIA</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ testsmfitting -o &quot;./output/&quot; -t &quot;ASM_PROFILEND&quot; -i &quot;./images/testing/&quot; -a &quot;./annotations/testing/&quot; -d &quot;IMM&quot; -s true -r true</span><br><span class="line">$ testsmfitting -o &quot;./output/&quot; -t &quot;ASM_LTC&quot; -i &quot;./images/testing/&quot; -a &quot;./annotations/testing/&quot; -d &quot;IMM&quot; -s true -r true</span><br><span class="line">$ testsmfitting -o &quot;./output/&quot; -t &quot;AAM_BASIC&quot; -i &quot;./images/testing/&quot; -a &quot;./annotations/testing/&quot; -d &quot;IMM&quot; -s true -r true</span><br><span class="line">$ testsmfitting -o &quot;./output/&quot; -t &quot;AAM_CMUICIA&quot; -i &quot;./images/testing/&quot; -a &quot;./annotations/testing/&quot; -d &quot;IMM&quot; -s true -r true</span><br><span class="line">$ testsmfitting -o &quot;./output/&quot; -t &quot;AAM_IAIA&quot; -i &quot;./images/testing/&quot; -a &quot;./annotations/testing/&quot; -d &quot;IMM&quot; -s true -r true</span><br></pre></td></tr></table></figure>
-<h2 id="22-fitting-results"><a class="markdownIt-Anchor" href="#22-fitting-results"></a> 2.2 Fitting Results</h2>
-<p>Let’s just take <strong>ASM_PROFILEND</strong> as an example.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ testsmfitting -o &quot;./output/&quot; -t &quot;ASM_PROFILEND&quot; -i &quot;./images/testing/&quot; -a &quot;./annotations/testing/&quot; -d &quot;IMM&quot; -s true -r true</span><br></pre></td></tr></table></figure>
-<p>All fitted images are generated under current folder, some are well fitted:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">11-1m.jpg</th>
-<th style="text-align:center">33-4m.jpg</th>
-<th style="text-align:center">40-6m.jpg</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/WellFitted/11-1m.jpg" alt="11-1m.jpg"></td>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/WellFitted/33-4m.jpg" alt="33-4m.jpg"></td>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/WellFitted/40-6m.jpg" alt="40-6m"></td>
-</tr>
-</tbody>
-</table>
-<p>others are <strong>NOT</strong> well fitted:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">12-3f.jpg</th>
-<th style="text-align:center">20-6m.jpg</th>
-<th style="text-align:center">23-4m.jpg</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/NOTWellFitted/12-3f.jpg" alt="12-3f.jpg"></td>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/NOTWellFitted/20-6m.jpg" alt="20-6m.jpg"></td>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/NOTWellFitted/23-4m.jpg" alt="23-4m"></td>
-</tr>
-</tbody>
-</table>
-<h2 id="23-process-of-fitting"><a class="markdownIt-Anchor" href="#23-process-of-fitting"></a> 2.3 Process of Fitting</h2>
-<p>The fitting process can also be recorded for each image if the parameter “-r” is enabled by <code>-r true</code>. Let’s take a look at what’s in folder <strong>40-6m</strong>.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">00.jpg</th>
-<th style="text-align:center">01.jpg</th>
-<th style="text-align:center">02.jpg</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/00.jpg" alt="00.jpg"></td>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/01.jpg" alt="01.jpg"></td>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/02.jpg" alt="02.jpg"></td>
-</tr>
-<tr>
-<td style="text-align:center">03.jpg</td>
-<td style="text-align:center">04.jpg</td>
-<td style="text-align:center">05.jpg</td>
-</tr>
-<tr>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/03.jpg" alt="03.jpg"></td>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/04.jpg" alt="04.jpg"></td>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/05.jpg" alt="05.jpg"></td>
-</tr>
-<tr>
-<td style="text-align:center">06.jpg</td>
-<td style="text-align:center">07.jpg</td>
-<td style="text-align:center">08.jpg</td>
-</tr>
-<tr>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/06.jpg" alt="06.jpg"></td>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/07.jpg" alt="07.jpg"></td>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/08.jpg" alt="08.jpg"></td>
-</tr>
-<tr>
-<td style="text-align:center">09.jpg</td>
-<td style="text-align:center">10.jpg</td>
-<td style="text-align:center">11.jpg</td>
-</tr>
-<tr>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/09.jpg" alt="09.jpg"></td>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/10.jpg" alt="10.jpg"></td>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/11.jpg" alt="11.jpg"></td>
-</tr>
-<tr>
-<td style="text-align:center">09.jpg</td>
-<td style="text-align:center">10.jpg</td>
-<td style="text-align:center">11.jpg</td>
-</tr>
-<tr>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/12.jpg" alt="12.jpg"></td>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/13.jpg" alt="13.jpg"></td>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/14.jpg" alt="14.jpg"></td>
-</tr>
-<tr>
-<td style="text-align:center">15.jpg</td>
-<td style="text-align:center">16.jpg</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/15.jpg" alt="15.jpg"></td>
-<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/16.jpg" alt="16.jpg"></td>
-<td style="text-align:center"></td>
-</tr>
-</tbody>
-</table>
-<p>Clearly, the <a href="https://en.wikipedia.org/wiki/Pyramid_%28image_processing%29" target="_blank" rel="noopener">technology of pyramids</a> is adopted during the fitting process.</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/06/22/Tools/irc-via-weechat-in-Linux/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/22/Tools/irc-via-weechat-in-Linux/" itemprop="url">
-                  IRC Via WeeChat in Linux
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-06-22 00:00:00" itemprop="dateCreated datePublished" datetime="2018-06-22T00:00:00-07:00">2018-06-22</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-09-04 20:39:10" itemprop="dateModified" datetime="2018-09-04T20:39:10-07:00">2018-09-04</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="1-irc-and-freenode"><a class="markdownIt-Anchor" href="#1-irc-and-freenode"></a> 1. IRC and Freenode</h1>
-<p>People have been using <a href="https://whatis.techtarget.com/definition/Internet-Relay-Chat-IRC" target="_blank" rel="noopener">IRC</a> for decades.</p>
-<blockquote>
-<p><a href="https://freenode.net/" target="_blank" rel="noopener">Freenode</a> is an <a href="https://whatis.techtarget.com/definition/Internet-Relay-Chat-IRC" target="_blank" rel="noopener">IRC</a> network used to discuss peer-directed projects.</p>
-</blockquote>
-<p>cited from <a href="https://en.wikipedia.org/wiki/Freenode" target="_blank" rel="noopener">Wikipedia</a>.</p>
-<p>It’s recommended to have some background about <strong>IRC</strong> and <strong>Freenode</strong> on Wikipedia:</p>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Wikipedia:IRC/Tutorial" target="_blank" rel="noopener">IRC Wikipedia</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Freenode" target="_blank" rel="noopener">Freenode</a></li>
-</ul>
-<h1 id="2-popular-irc-clients"><a class="markdownIt-Anchor" href="#2-popular-irc-clients"></a> 2. Popular IRC Clients</h1>
-<p>Lots of IRC clients can be found on Google. Here, we just summarize some from <a href="https://en.wikipedia.org/wiki/Wikipedia:IRC/Tutorial" target="_blank" rel="noopener">IRC Wikipedia</a>:</p>
-<ul>
-<li><a href="https://webchat.freenode.net/" target="_blank" rel="noopener">freenode official webchat</a></li>
-<li><a href="https://kiwiirc.com/" target="_blank" rel="noopener">KiwiIRC</a></li>
-<li><a href="https://www.irccloud.com/" target="_blank" rel="noopener">IRCCloud</a></li>
-<li><a href="https://qwebirc.org/" target="_blank" rel="noopener">qwebirc</a></li>
-<li><a href="http://cgiirc.org/" target="_blank" rel="noopener">CGI:IRC</a></li>
-</ul>
-<h1 id="3-7-best-irc-clients-for-linux"><a class="markdownIt-Anchor" href="#3-7-best-irc-clients-for-linux"></a> 3. 7 Best IRC Clients for Linux</h1>
-<p>Please just refer to <a href="https://www.tecmint.com/best-irc-clients-for-linux/" target="_blank" rel="noopener">https://www.tecmint.com/best-irc-clients-for-linux/</a>.</p>
-<h1 id="4-weechat-in-linux"><a class="markdownIt-Anchor" href="#4-weechat-in-linux"></a> 4. WeeChat in Linux</h1>
-<h2 id="41-installation"><a class="markdownIt-Anchor" href="#41-installation"></a> 4.1 Installation</h2>
-<p>We can of course directly download the package from <a href="https://weechat.org/download/" target="_blank" rel="noopener">WeeChat Download</a>, and have it installed from source. However, installing WeeChat from repository <a href="http://tipsonubuntu.com/2017/07/07/install-latest-WeeChat-chat-client-ubuntu/" target="_blank" rel="noopener">is recommended</a>.</p>
-<h3 id="step-1-add-the-weechat-repository"><a class="markdownIt-Anchor" href="#step-1-add-the-weechat-repository"></a> Step 1: Add the WeeChat repository</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh -c &apos;echo &quot;deb https://weechat.org/ubuntu $(lsb_release -cs) main&quot; &gt;&gt; /etc/apt/sources.list.d/WeeChat.list&apos;</span><br></pre></td></tr></table></figure>
-<h3 id="step-2-add-weechat-repository-key"><a class="markdownIt-Anchor" href="#step-2-add-weechat-repository-key"></a> Step 2: Add WeeChat repository key</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-key adv --keyserver keys.gnupg.net --recv-keys 11E9DE8848F2B65222AA75B8D1820DB22A11534E</span><br></pre></td></tr></table></figure>
-<h3 id="step-3-weechat-installation"><a class="markdownIt-Anchor" href="#step-3-weechat-installation"></a> Step 3: WeeChat Installation</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install WeeChat</span><br></pre></td></tr></table></figure>
-<h2 id="42-how-to-use-weechat"><a class="markdownIt-Anchor" href="#42-how-to-use-weechat"></a> 4.2 How to use WeeChat</h2>
-<p>Refer to <a href="https://weechat.org/files/doc/devel/weechat_quickstart.en.html" target="_blank" rel="noopener">WeeChat Official Documentation</a>.</p>
-<h3 id="step-1-run-weechat"><a class="markdownIt-Anchor" href="#step-1-run-weechat"></a> Step 1: Run WeeChat</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ weechat</span><br></pre></td></tr></table></figure>
-<p>will display:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/weechat/01_weechat.jpg" alt="WeeChat"></p>
-<p>And we <strong>FIRST</strong> type in /<em>help</em></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/weechat/02_help.jpg" alt="WeeChat"></p>
-<h3 id="step-2-connect-freenode"><a class="markdownIt-Anchor" href="#step-2-connect-freenode"></a> Step 2: Connect Freenode</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/connect freenode</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/weechat/03_connectfreenode.jpg" alt="WeeChat"></p>
-<h3 id="step-3-join-a-channel"><a class="markdownIt-Anchor" href="#step-3-join-a-channel"></a> Step 3: Join a Channel</h3>
-<p>Here, we select channel <strong>OpenCV</strong> as an example:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/join #opencv</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/weechat/04_join_opencv.jpg" alt="WeeChat"></p>
-<h3 id="step-4-close-a-channel"><a class="markdownIt-Anchor" href="#step-4-close-a-channel"></a> Step 4: Close a Channel</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/close</span><br></pre></td></tr></table></figure>
-<h1 id="5-pidgin-optional"><a class="markdownIt-Anchor" href="#5-pidgin-optional"></a> 5. Pidgin (Optional)</h1>
-<p>We’re <strong>NOT</strong> going to talk about it in this blog.</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/06/22/Tools/download-youtube-videos/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/22/Tools/download-youtube-videos/" itemprop="url">
-                  Use VLC To Download Youtube Videos
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-06-22 00:00:00" itemprop="dateCreated datePublished" datetime="2018-06-22T00:00:00-07:00">2018-06-22</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-09-04 20:39:15" itemprop="dateModified" datetime="2018-09-04T20:39:15-07:00">2018-09-04</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>To download videos from <a href="https://www.youtube.com/" target="_blank" rel="noopener">Youtube</a> is sometimes <strong>required</strong>. Some Chrome plugins can be used to download Youtube videos, such as: <a href="https://chrome.google.com/webstore/detail/youtube-downloader/glpiomfohibbgeedfmcnahlanpehojdd" target="_blank" rel="noopener">Youtube Downloader</a>. Other methods can also be found on various resources, such as: <a href="https://www.wikihow.com/Download-YouTube-Videos" target="_blank" rel="noopener">WikiHow</a>.</p>
-<p>In this blog, I’m going to <strong>cite (copy and paste)</strong> from <a href="https://www.wikihow.com/Download-YouTube-Videos" target="_blank" rel="noopener">WikiHow</a> about <strong>How to download Youtube videos by using VLC</strong>.</p>
-<h1 id="step1-copy-youtube-url"><a class="markdownIt-Anchor" href="#step1-copy-youtube-url"></a> STEP1: Copy Youtube URL</h1>
-<p>Find the Youtube video that you would like to download, and copy the Youtube URL.</p>
-<h1 id="step-2-broadcast-youtube-video-in-vlc"><a class="markdownIt-Anchor" href="#step-2-broadcast-youtube-video-in-vlc"></a> STEP 2: Broadcast Youtube Video in VLC</h1>
-<p>Paste the URL under <strong>VLC Media Player</strong>-&gt;<strong>Media</strong>-&gt;<strong>Open Network Stream</strong>-&gt;<strong>Network Tab</strong>-&gt;<strong>Please enter a network URL:</strong>, and <strong>Play</strong>:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/youtube/Broadcasting.jpg" alt="Video Broadcasting"></p>
-<h1 id="step-3-get-the-real-location-of-youtube-video"><a class="markdownIt-Anchor" href="#step-3-get-the-real-location-of-youtube-video"></a> STEP 3: Get the Real Location of Youtube Video</h1>
-<p>Then, copy the URL under <strong>Tools</strong>-&gt;<strong>Codec Information</strong>-&gt;<strong>Codec</strong>-&gt;<strong>Location</strong>:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/youtube/CurrentMediaInformation.jpg" alt="Current Media Information"></p>
-<h1 id="step-4-save-video-as"><a class="markdownIt-Anchor" href="#step-4-save-video-as"></a> STEP 4: Save Video As</h1>
-<p>Finally, paste the URL in Chrome:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/youtube/SaveVideoAs.jpg" alt="Save Video As"></p>
-<p>and <strong>Save video as…</strong>.</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2528,7 +2520,7 @@ Click on the pictures to open an uploaded Facebook video.</p>
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">55</span>
+                    <span class="site-state-item-count">59</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2575,7 +2567,9 @@ Click on the pictures to open an uploaded Facebook video.</p>
                     
                       
                     
-                    <span class="site-state-item-count">17</span>
+                      
+                    
+                    <span class="site-state-item-count">18</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -2694,7 +2688,15 @@ Click on the pictures to open an uploaded Facebook video.</p>
                     
                       
                     
-                    <span class="site-state-item-count">53</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">57</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
