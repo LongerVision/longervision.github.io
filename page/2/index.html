@@ -309,6 +309,438 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/06/20/OperatingSystems/build-gcc/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/20/OperatingSystems/build-gcc/" itemprop="url">
+                  Build GCC
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-06-20 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-20T00:00:00-07:00">2019-06-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-07 13:25:07" itemprop="dateModified" datetime="2019-07-07T13:25:07-07:00">2019-07-07</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Operating-Systems/" itemprop="url" rel="index"><span itemprop="name">Operating Systems</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Today, let’s try to build the <strong>MOST RECENT</strong> <a href="https://gcc.gnu.org/gcc-9/" target="_blank" rel="noopener">GCC 9.1</a>. We strictly follow the <strong>TERRIFIC</strong> blog <a href="https://preshing.com/20141119/how-to-build-a-gcc-cross-compiler/" target="_blank" rel="noopener">How to Build a GCC Cross-Compiler</a> with trivial modifications for my <strong>x86_64</strong> desktop instead of <strong>aarch64</strong> cross compile.</p>
+<h1 id="preparations"><a class="markdownIt-Anchor" href="#preparations"></a> Preparations</h1>
+<h2 id="packages-required-on-host"><a class="markdownIt-Anchor" href="#packages-required-on-host"></a> Packages Required on HOST</h2>
+<p>Some packages are required to install on the host computer, including:</p>
+<ul>
+<li>g++</li>
+<li>make</li>
+<li>gawk</li>
+<li>bison</li>
+<li>flex</li>
+<li>expect</li>
+<li>gnat<br>
+etc.</li>
+</ul>
+<h2 id="get-all-packages-for-building-gcc"><a class="markdownIt-Anchor" href="#get-all-packages-for-building-gcc"></a> Get ALL Packages for Building GCC</h2>
+<p>A <a href="https://raw.githubusercontent.com/LongerVision/Resource/master/OperatingSystems/wget-list.txt" target="_blank" rel="noopener">wget-list.txt</a> file is provided to download <strong>ALL</strong> required packages up-to-date. After having downloaded this single text file, the <strong>UNIQUE</strong> command to download all files is as follows:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc ✗ wget -i wget-list.txt</span><br></pre></td></tr></table></figure>
+<p>You can of course download the files one by one. All concerned files are listed below:</p>
+<ul>
+<li><a href="https://gnu.freemirror.org/gnu/binutils/binutils-2.32.tar.gz" target="_blank" rel="noopener">https://gnu.freemirror.org/gnu/binutils/binutils-2.32.tar.gz</a></li>
+<li><a href="https://gnu.freemirror.org/gnu//gcc/gcc-9.1.0/gcc-9.1.0.tar.gz" target="_blank" rel="noopener">https://gnu.freemirror.org/gnu//gcc/gcc-9.1.0/gcc-9.1.0.tar.gz</a></li>
+<li><a href="https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-5.1.12.tar.gz" target="_blank" rel="noopener">https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-5.1.12.tar.gz</a></li>
+<li><a href="https://ftp.gnu.org/glibc/glibc-2.29.tar.xz" target="_blank" rel="noopener">https://ftp.gnu.org/glibc/glibc-2.29.tar.xz</a></li>
+<li><a href="https://ftp.gnu.org/mpfr/mpfr-4.0.2.tar.xz" target="_blank" rel="noopener">https://ftp.gnu.org/mpfr/mpfr-4.0.2.tar.xz</a></li>
+<li><a href="https://ftp.gnu.org/gmp/gmp-6.1.2.tar.xz" target="_blank" rel="noopener">https://ftp.gnu.org/gmp/gmp-6.1.2.tar.xz</a></li>
+<li><a href="https://ftp.gnu.org/mpc/mpc-1.1.0.tar.gz" target="_blank" rel="noopener">https://ftp.gnu.org/mpc/mpc-1.1.0.tar.gz</a></li>
+<li><a href="ftp://gcc.gnu.org/pub/gcc/infrastructure/isl-0.18.tar.bz2" target="_blank" rel="noopener">ftp://gcc.gnu.org/pub/gcc/infrastructure/isl-0.18.tar.bz2</a></li>
+<li><a href="ftp://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz" target="_blank" rel="noopener">ftp://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz</a></li>
+</ul>
+<p>Then, we extract all <strong>.tar</strong> files in whatever way you prefer.</p>
+<h2 id="prepare-symbolic-links"><a class="markdownIt-Anchor" href="#prepare-symbolic-links"></a> Prepare Symbolic Links</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜  cd gcc-9.1.0</span><br><span class="line">➜  gcc-9.1.0 ln -s ../mpfr-4.0.2 mpfr</span><br><span class="line">➜  gcc-9.1.0 ln -s ../gmp-6.1.2 gmp</span><br><span class="line">➜  gcc-9.1.0 ln -s ../mpc-1.1.0 mpc</span><br><span class="line">➜  gcc-9.1.0 ln -s ../isl-0.18 isl</span><br><span class="line">➜  gcc-9.1.0 ln -s ../cloog-0.18.1 cloog</span><br><span class="line">➜  gcc-9.1.0 cd ..</span><br></pre></td></tr></table></figure>
+<h2 id="prepare-build-target-folder"><a class="markdownIt-Anchor" href="#prepare-build-target-folder"></a> Prepare Build Target Folder</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc mkdir -p /opt/native</span><br><span class="line">➜  gcc export PATH=/opt/native/bin:$PATH</span><br></pre></td></tr></table></figure>
+<h1 id="start-building"><a class="markdownIt-Anchor" href="#start-building"></a> Start Building</h1>
+<h2 id="binutils"><a class="markdownIt-Anchor" href="#binutils"></a> Binutils</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc mkdir build-binutils</span><br><span class="line">➜  gcc cd build-binutils</span><br><span class="line">➜  build-binutils ../binutils-2.32/configure --prefix=/opt/native --target=x86_64-linux-gnu --enable-vtable-verify</span><br><span class="line">checking build system type... x86_64-pc-linux-gnu</span><br><span class="line">checking host system type... x86_64-pc-linux-gnu</span><br><span class="line">checking target system type... x86_64-pc-linux-gnu</span><br><span class="line">checking for a BSD-compatible install... /usr/bin/install -c</span><br><span class="line">checking whether ln works... yes</span><br><span class="line">checking whether ln -s works... yes</span><br><span class="line">checking for a sed that does not truncate output... /usr/bin/sed</span><br><span class="line">checking for gawk... gawk</span><br><span class="line">checking for gcc... gcc</span><br><span class="line">checking whether the C compiler works... yes</span><br><span class="line">checking for C compiler default output file name... a.out</span><br><span class="line">checking for suffix of executables... </span><br><span class="line">checking whether we are cross compiling... no</span><br><span class="line">checking for suffix of object files... o</span><br><span class="line">checking whether we are using the GNU C compiler... yes</span><br><span class="line">checking whether gcc accepts -g... yes</span><br><span class="line">checking for gcc option to accept ISO C89... none needed</span><br><span class="line">checking for g++... g++</span><br><span class="line">checking whether we are using the GNU C++ compiler... yes</span><br><span class="line">checking whether g++ accepts -g... yes</span><br><span class="line">checking whether g++ accepts -static-libstdc++ -static-libgcc... yes</span><br><span class="line">checking for gnatbind... gnatbind</span><br><span class="line">checking for gnatmake... gnatmake</span><br><span class="line">checking whether compiler driver understands Ada... yes</span><br><span class="line">checking how to compare bootstrapped objects... cmp --ignore-initial=16 $$f1 $$f2</span><br><span class="line">checking for objdir... .libs</span><br><span class="line">checking for isl 0.15 or later... no</span><br><span class="line">required isl version is 0.15 or later</span><br><span class="line">checking for default BUILD_CONFIG... </span><br><span class="line">checking for --enable-vtable-verify... yes</span><br><span class="line">checking for bison... bison -y</span><br><span class="line">checking for bison... bison</span><br><span class="line">checking for gm4... no</span><br><span class="line">checking for gnum4... no</span><br><span class="line">checking for m4... m4</span><br><span class="line">checking for flex... flex</span><br><span class="line">checking for flex... flex</span><br><span class="line">checking for makeinfo... makeinfo</span><br><span class="line">checking for expect... expect</span><br><span class="line">checking for runtest... no</span><br><span class="line">checking for ar... ar</span><br><span class="line">checking for as... as</span><br><span class="line">checking for dlltool... no</span><br><span class="line">checking for ld... ld</span><br><span class="line">checking for lipo... no</span><br><span class="line">checking for nm... nm</span><br><span class="line">checking for ranlib... ranlib</span><br><span class="line">checking for strip... strip</span><br><span class="line">checking for windres... no</span><br><span class="line">checking for windmc... no</span><br><span class="line">checking for objcopy... objcopy</span><br><span class="line">checking for objdump... objdump</span><br><span class="line">checking for readelf... readelf</span><br><span class="line">checking for x86_64-linux-gnu-cc... no</span><br><span class="line">checking for cc... cc</span><br><span class="line">checking for x86_64-linux-gnu-c++... no</span><br><span class="line">checking for c++... c++</span><br><span class="line">checking for x86_64-linux-gnu-gcc... x86_64-linux-gnu-gcc</span><br><span class="line">checking for x86_64-linux-gnu-gfortran... x86_64-linux-gnu-gfortran</span><br><span class="line">checking for x86_64-linux-gnu-gccgo... no</span><br><span class="line">checking for gccgo... no</span><br><span class="line">checking for x86_64-linux-gnu-ar... x86_64-linux-gnu-ar</span><br><span class="line">checking for x86_64-linux-gnu-as... x86_64-linux-gnu-as</span><br><span class="line">checking for x86_64-linux-gnu-dlltool... no</span><br><span class="line">checking for dlltool... no</span><br><span class="line">checking for x86_64-linux-gnu-ld... x86_64-linux-gnu-ld</span><br><span class="line">checking for x86_64-linux-gnu-lipo... no</span><br><span class="line">checking for lipo... no</span><br><span class="line">checking for x86_64-linux-gnu-nm... x86_64-linux-gnu-nm</span><br><span class="line">checking for x86_64-linux-gnu-objcopy... x86_64-linux-gnu-objcopy</span><br><span class="line">checking for x86_64-linux-gnu-objdump... x86_64-linux-gnu-objdump</span><br><span class="line">checking for x86_64-linux-gnu-ranlib... x86_64-linux-gnu-ranlib</span><br><span class="line">checking for x86_64-linux-gnu-readelf... x86_64-linux-gnu-readelf</span><br><span class="line">checking for x86_64-linux-gnu-strip... x86_64-linux-gnu-strip</span><br><span class="line">checking for x86_64-linux-gnu-windres... no</span><br><span class="line">checking for windres... no</span><br><span class="line">checking for x86_64-linux-gnu-windmc... no</span><br><span class="line">checking for windmc... no</span><br><span class="line">checking where to find the target ar... just compiled</span><br><span class="line">checking where to find the target as... just compiled</span><br><span class="line">checking where to find the target cc... host tool</span><br><span class="line">checking where to find the target c++... host tool</span><br><span class="line">checking where to find the target c++ for libstdc++... host tool</span><br><span class="line">checking where to find the target dlltool... just compiled</span><br><span class="line">checking where to find the target gcc... host tool</span><br><span class="line">checking where to find the target gfortran... host tool</span><br><span class="line">checking where to find the target gccgo... host tool</span><br><span class="line">checking where to find the target ld... just compiled</span><br><span class="line">checking where to find the target lipo... host tool</span><br><span class="line">checking where to find the target nm... just compiled</span><br><span class="line">checking where to find the target objcopy... just compiled</span><br><span class="line">checking where to find the target objdump... just compiled</span><br><span class="line">checking where to find the target ranlib... just compiled</span><br><span class="line">checking where to find the target readelf... just compiled</span><br><span class="line">checking where to find the target strip... just compiled</span><br><span class="line">checking where to find the target windres... just compiled</span><br><span class="line">checking where to find the target windmc... just compiled</span><br><span class="line">checking whether to enable maintainer-specific portions of Makefiles... no</span><br><span class="line">configure: creating ./config.status</span><br><span class="line">config.status: creating Makefile</span><br><span class="line">➜  build-binutils make -j4</span><br><span class="line">......</span><br><span class="line">➜  build-binutils make install</span><br><span class="line">➜  build-binutils cd ..</span><br></pre></td></tr></table></figure>
+<h2 id="linux-kernel-headers"><a class="markdownIt-Anchor" href="#linux-kernel-headers"></a> Linux Kernel Headers</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc cd linux-5.1.12</span><br><span class="line">➜  linux-5.1.12 make ARCH=x86 INSTALL_HDR_PATH=/opt/native/linux headers_install</span><br><span class="line">➜  linux-5.1.12 cd ..</span><br></pre></td></tr></table></figure>
+<h2 id="cc-compilers"><a class="markdownIt-Anchor" href="#cc-compilers"></a> C/C++ Compilers</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc mkdir -p build-gcc</span><br><span class="line">➜  gcc cd build-gcc</span><br><span class="line">➜  build-gcc ../gcc-9.1.0/configure --prefix=/opt/native --target=x86_64-linux-gnu --enable-languages=c,c++,fortran,go --disable-multilib --enable-vtable-verify</span><br><span class="line">➜  build-gcc make -j4 all-gcc</span><br><span class="line">➜  build-gcc make install-gcc</span><br><span class="line">➜  build-gcc cd ..</span><br></pre></td></tr></table></figure>
+<h2 id="glibc"><a class="markdownIt-Anchor" href="#glibc"></a> GLibc</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc mkdir -p build-glibc</span><br><span class="line">➜  gcc cd build-glibc</span><br><span class="line">➜  build-glibc ../glibc-2.29/configure --prefix=/opt/native/linux --build=$MACHTYPE --host=x86_64-linux-gnu --target=x86_64-linux-gnu --with-headers=/opt/native/linux/include --disable-multilib --with-selinux=no --enable-vtable-verify libc_cv_forced_unwind=yes</span><br><span class="line">➜  build-glibc make install-bootstrap-headers=yes install-headers</span><br><span class="line">➜  build-glibc make -j4 csu/subdir_lib</span><br><span class="line">➜  build-glibc mkdir /opt/native/linux/lib</span><br><span class="line">➜  build-glibc install csu/crt1.o csu/crti.o csu/crtn.o /opt/native/linux/lib</span><br><span class="line">➜  build-glibc /opt/native/bin/x86_64-linux-gnu-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o /opt/native/linux/lib/libc.so</span><br><span class="line">➜  build-glibc touch /opt/native/linux/include/gnu/stubs.h</span><br><span class="line">➜  build-glibc cd ..</span><br></pre></td></tr></table></figure>
+<h2 id="compiler-support-library"><a class="markdownIt-Anchor" href="#compiler-support-library"></a> Compiler Support Library</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc cd build-gcc</span><br><span class="line">➜  build-gcc make -j4 all-target-libgcc</span><br><span class="line">➜  build-gcc make install-target-libgcc</span><br><span class="line">➜  build-gcc cd ..</span><br></pre></td></tr></table></figure>
+<h2 id="build-standard-c-library"><a class="markdownIt-Anchor" href="#build-standard-c-library"></a> Build Standard C Library</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc cd build-glibc</span><br><span class="line">➜  build-glibc make -j4</span><br><span class="line">➜  build-glibc make install</span><br><span class="line">➜  build-glibc cd ..</span><br></pre></td></tr></table></figure>
+<h2 id="build-standard-c-library-2"><a class="markdownIt-Anchor" href="#build-standard-c-library-2"></a> Build Standard C++ Library</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc cd build-gcc</span><br><span class="line">➜  build-gcc make -j4</span><br><span class="line">➜  build-gcc make install</span><br><span class="line">➜  build-gcc cd ..</span><br></pre></td></tr></table></figure>
+<h1 id="finishing-and-test"><a class="markdownIt-Anchor" href="#finishing-and-test"></a> Finishing and Test</h1>
+<h2 id="check-gcc-version"><a class="markdownIt-Anchor" href="#check-gcc-version"></a> Check GCC Version</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  build-gcc x86_64-linux-gnu-c++ -v</span><br><span class="line">Using built-in specs.</span><br><span class="line">COLLECT_GCC=x86_64-linux-gnu-c++</span><br><span class="line">COLLECT_LTO_WRAPPER=/opt/native/libexec/gcc/x86_64-linux-gnu/9.1.0/lto-wrapper</span><br><span class="line">Target: x86_64-linux-gnu</span><br><span class="line">Configured with: ../gcc-9.1.0/configure --prefix=/opt/native --target=x86_64-linux-gnu --enable-languages=c,c++,python,fortran,go --disable-multilib --enable-vtable-verify</span><br><span class="line">Thread model: posix</span><br><span class="line">gcc version 9.1.0 (GCC)</span><br></pre></td></tr></table></figure>
+<h2 id="run-hello-world"><a class="markdownIt-Anchor" href="#run-hello-world"></a> Run Hello World</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">➜  GCC cat test.cpp </span><br><span class="line"><span class="meta">#</span><span class="bash">include &lt;iostream&gt;</span></span><br><span class="line"></span><br><span class="line">int main(int argc, char** argv)</span><br><span class="line">&#123;</span><br><span class="line">    std::cout &lt;&lt; "Hello World!" &lt;&lt; std::endl;</span><br><span class="line">    return EXIT_SUCCESS;</span><br><span class="line">&#125;</span><br><span class="line">➜  GCC x86_64-linux-gnu-c++ -std=c++17 test.cpp</span><br><span class="line">➜  GCC x86_64-linux-gnu-c++ -std=c++17 test.cpp -o test</span><br><span class="line">➜  GCC ls</span><br><span class="line">a.out  test  test.cpp</span><br><span class="line">➜  GCC ./test</span><br><span class="line">Hello World!</span><br><span class="line">➜  GCC</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/06/05/SBCs/orange-pi-3-official/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/05/SBCs/orange-pi-3-official/" itemprop="url">
+                  Install Ubuntu Desktop from Official Orange Pi Website onto Orange Pi 3
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-06-05 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-05T00:00:00-07:00">2019-06-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-06-20 22:09:44" itemprop="dateModified" datetime="2019-06-20T22:09:44-07:00">2019-06-20</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/SBC/" itemprop="url" rel="index"><span itemprop="name">SBC</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>According to our previous blog <a href="../../../../../2019/05/12/Embedded/orange-pi-3-armbian/">Install Armbian Ubuntu Desktop Nightly Built onto Orange Pi 3</a>, Wifi module of <a href="http://www.orangepi.org/Orange%20Pi%203/" target="_blank" rel="noopener">Orange Pi 3</a> with <a href="https://dl.armbian.com/orangepi3/nightly/" target="_blank" rel="noopener">Armbian nightly built for Orange Pi 3</a> does <strong>NOT</strong> function well. Therefore, today, we resort back to the Ubuntu Desktop distro from Orange Pi’s official website.</p>
+<h1 id="part-a-install-ubuntu-desktop-from-official-orange-pi-website-onto-orange-pi-3"><a class="markdownIt-Anchor" href="#part-a-install-ubuntu-desktop-from-official-orange-pi-website-onto-orange-pi-3"></a> PART A: Install Ubuntu Desktop from Official Orange Pi Website onto Orange Pi 3</h1>
+<h2 id="1-download-ubuntu-desktop-for-orange-pi-3-from-official-orange-pi-website"><a class="markdownIt-Anchor" href="#1-download-ubuntu-desktop-for-orange-pi-3-from-official-orange-pi-website"></a> 1. Download Ubuntu Desktop for Orange Pi 3 from Official Orange Pi Website</h2>
+<p>We <strong>FIRST</strong> go visiting Orange Pi’s official website <a href="http://www.orangepi.org/downloadresources/" target="_blank" rel="noopener">http://www.orangepi.org/downloadresources/</a> and find the <a href="http://www.orangepi.org/downloadresources/OrangePi3/2019-01-23/orangepi3_82ad209229e957e13fa953491c.html" target="_blank" rel="noopener">Ubuntu Desktop distro</a> for <a href="http://www.orangepi.org/Orange%20Pi%203/" target="_blank" rel="noopener">Orange Pi 3</a>.</p>
+<p>After <strong>OrangePi_3_xenial_desktop_linux4.9_v1.3.img.tar.gz</strong> has been downloaded, we had it extracted as follows:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  orangepi tar xvf OrangePi_3_xenial_desktop_linux4.9_v1.3.img.tar.gz </span><br><span class="line">OrangePi_3_xenial_desktop_linux4.9_v1.3.img</span><br><span class="line">OrangePi_3_xenial_desktop_linux4.9_v1.3.img.md5sum</span><br></pre></td></tr></table></figure>
+<h2 id="2-install-orange-pis-official-ubuntu-desktop-for-orange-pi-3"><a class="markdownIt-Anchor" href="#2-install-orange-pis-official-ubuntu-desktop-for-orange-pi-3"></a> 2. Install Orange Pi’s Official Ubuntu Desktop for Orange Pi 3</h2>
+<p>Exactly the same as in our previous blog <a href="../../../../../2018/02/27/Embedded/orange-pi-plus-2-armbian/">Install Armbian Ubuntu Desktop with the Newest Supported Mainline Linux Kernel onto Orange Pi Plus 2</a>, we have the TF card formatted and <strong>dd</strong> the system into it.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜  orangepi sudo dd bs=4M <span class="keyword">if</span>=OrangePi_3_xenial_desktop_linux4.9_v1.3.img of=/dev/mmcblk0 conv=fsync</span><br><span class="line">[sudo] password <span class="keyword">for</span> lvision: </span><br><span class="line">950+0 records <span class="keyword">in</span></span><br><span class="line">950+0 records out</span><br><span class="line">3984588800 bytes (4.0 GB, 3.7 GiB) copied, 170.284 s, 23.4 MB/s</span><br></pre></td></tr></table></figure>
+<h1 id="part-b-boot-into-orange-pi-3-enable-ssh-update-upgrade-locale-configuration-network-configuration"><a class="markdownIt-Anchor" href="#part-b-boot-into-orange-pi-3-enable-ssh-update-upgrade-locale-configuration-network-configuration"></a> PART B: Boot Into Orange Pi 3, Enable SSH, Update &amp; Upgrade, Locale Configuration, Network Configuration</h1>
+<p>Different from our previous blog <a href="../../../../../2019/04/16/Embedded/banana-pi-m3-armbian/">Install Armbian Ubuntu Desktop With Kernel 5.0 onto Banana Pi M3</a>, <strong>SSH service</strong> on <a href="http://www.orangepi.org/downloadresources/OrangePi3/2019-01-23/orangepi3_82ad209229e957e13fa953491c.html" target="_blank" rel="noopener">Orange Pi’s Official Ubuntu Desktop</a> for Orange Pi 3 is <strong>NOT</strong> enabled by default. Therefore, we’ve got to enable <strong>SSH</strong> during out <strong>FIRST</strong> boot.</p>
+<h2 id="1-boot-into-orange-pi-3"><a class="markdownIt-Anchor" href="#1-boot-into-orange-pi-3"></a> 1. Boot into Orange Pi 3</h2>
+<p>The overview of Official Orange Pi’s Ubuntu Desktop for Orange Pi 3 looks as:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/orangepi/orangepi3/00_login_overview.jpg" alt="Overview of Official Orange Pi's Ubuntu Desktop"></p>
+<h2 id="2-kernel-doublechecking"><a class="markdownIt-Anchor" href="#2-kernel-doublechecking"></a> 2. Kernel Doublechecking</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">orangepi@OrangePi:~$ uname -r</span><br><span class="line">4.9.118+</span><br><span class="line">orangepi@OrangePi:~$ uname -a</span><br><span class="line">Linux OrangePi 4.9.118+ <span class="comment">#5 SMP PREEMPT Mon Apr 15 09:45:02 CST 2019 aarch64 aarch64 aarch64 GNU/Linux</span></span><br><span class="line">orangepi@OrangePi:~$ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID: Ubuntu</span><br><span class="line">Description:    Ubuntu 16.04.6 LTS</span><br><span class="line">Release:        16.04</span><br><span class="line">Codename:       xenial</span><br></pre></td></tr></table></figure>
+<h2 id="3-enable-ssh"><a class="markdownIt-Anchor" href="#3-enable-ssh"></a> 3. Enable SSH</h2>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/orangepi/orangepi3/01_ssh_service_auto_start.jpg" alt="Auto Start SSH Service After Booting"></p>
+<p>After having successfully enabled <strong>SSH</strong>, you are able to login <a href="http://www.orangepi.org/Orange%20Pi%203/" target="_blank" rel="noopener">Orange Pi 3</a> remotely. Well, you may still need to figure out how to:</p>
+<ul>
+<li>setup Wifi for <a href="http://www.orangepi.org/Orange%20Pi%203/" target="_blank" rel="noopener">Orange Pi 3</a>, which is pretty simple with Ubuntu Desktop GUI</li>
+<li>further setup static IP addresses in your router for both Wifi and Wired connections</li>
+</ul>
+<h2 id="4-update-upgrade"><a class="markdownIt-Anchor" href="#4-update-upgrade"></a> 4. Update &amp; Upgrade</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">orangepi@OrangePi:~$ sudo apt update</span><br><span class="line">[sudo] password <span class="keyword">for</span> orangepi: </span><br><span class="line">Hit:1 http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports xenial InRelease</span><br><span class="line">Hit:2 http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports xenial-updates InRelease</span><br><span class="line">Hit:3 http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports xenial-backports InRelease</span><br><span class="line">Hit:4 http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports xenial-security InRelease</span><br><span class="line">Reading package lists... Done                     </span><br><span class="line">Building dependency tree       </span><br><span class="line">Reading state information... Done</span><br><span class="line">All packages are up to date.</span><br><span class="line">root@orangepi3:~<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<p>Since I’ve already updated/upgraded all packages, it’ll tell you from terminal that <strong>All packages are up to date.</strong>. BTW, it seems <a href="http://www.orangepi.org" target="_blank" rel="noopener">Orange Pi</a> is a team from <a href="https://www.tsinghua.edu.cn/" target="_blank" rel="noopener">TsingHua Universiity</a>?</p>
+<h2 id="5-locale-configuration"><a class="markdownIt-Anchor" href="#5-locale-configuration"></a> 5. Locale Configuration</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">orangepi@OrangePi:~$ sudo dpkg-reconfigure tzdata</span><br><span class="line">perl: warning: Setting locale failed.</span><br><span class="line">perl: warning: Please check that your locale settings:</span><br><span class="line">        LANGUAGE = (<span class="built_in">unset</span>),</span><br><span class="line">        LC_ALL = (<span class="built_in">unset</span>),</span><br><span class="line">        LC_PAPER = <span class="string">"en"</span>,</span><br><span class="line">        LC_ADDRESS = <span class="string">"en"</span>,</span><br><span class="line">        LC_MONETARY = <span class="string">"en"</span>,</span><br><span class="line">        LC_NUMERIC = <span class="string">"en"</span>,</span><br><span class="line">        LC_TELEPHONE = <span class="string">"en"</span>,</span><br><span class="line">        LC_IDENTIFICATION = <span class="string">"en"</span>,</span><br><span class="line">        LC_MEASUREMENT = <span class="string">"en"</span>,</span><br><span class="line">        LC_CTYPE = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_TIME = <span class="string">"en"</span>,</span><br><span class="line">        LC_NAME = <span class="string">"en"</span>,</span><br><span class="line">        LANG = <span class="string">"en_CA.UTF-8"</span></span><br><span class="line">    are supported and installed on your system.</span><br><span class="line">perl: warning: Falling back to the standard locale (<span class="string">"C"</span>).</span><br><span class="line">locale: Cannot <span class="built_in">set</span> LC_CTYPE to default locale: No such file or directory</span><br><span class="line">locale: Cannot <span class="built_in">set</span> LC_MESSAGES to default locale: No such file or directory</span><br><span class="line">locale: Cannot <span class="built_in">set</span> LC_ALL to default locale: No such file or directory</span><br><span class="line">/usr/bin/locale: Cannot <span class="built_in">set</span> LC_CTYPE to default locale: No such file or directory</span><br><span class="line">/usr/bin/locale: Cannot <span class="built_in">set</span> LC_MESSAGES to default locale: No such file or directory</span><br><span class="line">/usr/bin/locale: Cannot <span class="built_in">set</span> LC_ALL to default locale: No such file or directory</span><br><span class="line"></span><br><span class="line">Current default time zone: <span class="string">'America/Vancouver'</span></span><br><span class="line">Local time is now:      Wed Jun  5 09:43:12 PDT 2019.</span><br><span class="line">Universal Time is now:  Wed Jun  5 16:43:12 UTC 2019.</span><br></pre></td></tr></table></figure>
+<p>During the above process, you’ll set the following 2 pages correspondingly:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/orangepi/orangepi3/02_OrangePi3_SystemLocale_America.jpg" alt="System Locale America"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/orangepi/orangepi3/03_OrangePi3_SystemLocale_Vancouver.jpg" alt="System Locale Vancouver"></p>
+<p>By using the command <strong>date</strong>, we can see the timezone has been successfully reset.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">orangepi@OrangePi:~<span class="comment"># date</span></span><br><span class="line">Wed Jun  5 12:05:40 PDT 2019</span><br></pre></td></tr></table></figure>
+<h2 id="6-network-configuration"><a class="markdownIt-Anchor" href="#6-network-configuration"></a> 6. Network Configuration</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">orangepi@OrangePi:~$ ip -c address</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    link/ether 36:c9:e3:f1:b8:05 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.1.78/24 brd 192.168.1.255 scope global eth0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 2001:569:7e6d:1b00:4cbf:8fff:88e0:e68c/64 scope global temporary dynamic </span><br><span class="line">       valid_lft 7488sec preferred_lft 7188sec</span><br><span class="line">    inet6 2001:569:7e6d:1b00:c145:4c18:8c39:e90a/64 scope global mngtmpaddr noprefixroute dynamic </span><br><span class="line">       valid_lft 7488sec preferred_lft 7188sec</span><br><span class="line">    inet6 fe80::5ca:d7da:797:33af/64 scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">3: tunl0@NONE: &lt;NOARP&gt; mtu 1480 qdisc noop state DOWN group default qlen 1</span><br><span class="line">    link/ipip 0.0.0.0 brd 0.0.0.0</span><br><span class="line">4: gre0@NONE: &lt;NOARP&gt; mtu 1476 qdisc noop state DOWN group default qlen 1</span><br><span class="line">    link/gre 0.0.0.0 brd 0.0.0.0</span><br><span class="line">5: gretap0@NONE: &lt;BROADCAST,MULTICAST&gt; mtu 1462 qdisc noop state DOWN group default qlen 1000</span><br><span class="line">    link/ether 00:00:00:00:00:00 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">6: ip_vti0@NONE: &lt;NOARP&gt; mtu 1480 qdisc noop state DOWN group default qlen 1</span><br><span class="line">    link/ipip 0.0.0.0 brd 0.0.0.0</span><br><span class="line">7: ip6_vti0@NONE: &lt;NOARP&gt; mtu 1500 qdisc noop state DOWN group default qlen 1</span><br><span class="line">    link/tunnel6 :: brd ::</span><br><span class="line">8: sit0@NONE: &lt;NOARP&gt; mtu 1480 qdisc noop state DOWN group default qlen 1</span><br><span class="line">    link/sit 0.0.0.0 brd 0.0.0.0</span><br><span class="line">9: ip6tnl0@NONE: &lt;NOARP&gt; mtu 1452 qdisc noop state DOWN group default qlen 1</span><br><span class="line">    link/tunnel6 :: brd ::</span><br><span class="line">10: wlan0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    link/ether 6c:21:a2:14:cc:ce brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.1.79/24 brd 192.168.1.255 scope global dynamic wlan0</span><br><span class="line">       valid_lft 86384sec preferred_lft 86384sec</span><br><span class="line">    inet6 2001:569:7e6d:1b00:9055:86f5:5b5:82ae/64 scope global temporary dynamic </span><br><span class="line">       valid_lft 7488sec preferred_lft 7188sec</span><br><span class="line">    inet6 2001:569:7e6d:1b00:a76:2b2e:4c08:f7cd/64 scope global mngtmpaddr noprefixroute dynamic </span><br><span class="line">       valid_lft 7488sec preferred_lft 7188sec</span><br><span class="line">    inet6 fe80::200d:cbb5:fc23:f6e4/64 scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+<p>As you can see, I set up static IP address as follows:</p>
+<ul>
+<li>eth0: 192.168.1.78</li>
+<li>wlan0: 192.168.1.79</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/06/03/CodingSkills/bash_skills/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1963,397 +2395,6 @@ Three videos are used to briefly explain the <strong>MOST</strong> important thr
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/25/DeepLearning/TorchSeg-HUST/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/25/DeepLearning/TorchSeg-HUST/" itemprop="url">
-                  TorchSeg - HUST's Semantic Segmentation algorithms in PyTorch
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-01-25 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-25T00:00:00-08:00">2019-01-25</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-01-26 04:07:45" itemprop="dateModified" datetime="2019-01-26T04:07:45-08:00">2019-01-26</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Happily got the info that my <strong>master’s supervisor’s lab, namely: <a href="http://auto.hust.edu.cn/info/1108/3394.htm" target="_blank" rel="noopener">The State-Level key Laboratory of Multispectral Signal Processing</a></strong> in <strong><a href="http://english.hust.edu.cn/" target="_blank" rel="noopener">Huazhong University of Science and Technology</a></strong> released <a href="https://github.com/ycszen/TorchSeg" target="_blank" rel="noopener">TorchSeg</a> just yesterday. I can’t helping testing it out.</p>
-<h1 id="preparation"><a class="markdownIt-Anchor" href="#preparation"></a> Preparation</h1>
-<h2 id="python-packages"><a class="markdownIt-Anchor" href="#python-packages"></a> Python Packages</h2>
-<p>According to the <a href="https://github.com/ycszen/TorchSeg/blob/master/README.md" target="_blank" rel="noopener">README.md</a> on <a href="https://github.com/ycszen/TorchSeg" target="_blank" rel="noopener">TorchSeg</a>, serveral packages need to be prepared <strong>FIRST</strong>:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip show torch</span><br><span class="line">Name: torch</span><br><span class="line">Version: 1.1.0a0+b6a8c45</span><br><span class="line">Summary: Tensors and Dynamic neural networks in Python with strong GPU acceleration</span><br><span class="line">Home-page: UNKNOWN</span><br><span class="line">Author: UNKNOWN</span><br><span class="line">Author-email: UNKNOWN</span><br><span class="line">License: UNKNOWN</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: </span><br><span class="line">Required-by: torchvision, torchtext, torchgan, pytorch-pretrained-bert, pyro-ppl, flair, autokeras</span><br><span class="line">➜  ~ pip show torchvision</span><br><span class="line">Name: torchvision</span><br><span class="line">Version: 0.2.1</span><br><span class="line">Summary: image and video datasets and models for torch deep learning</span><br><span class="line">Home-page: https://github.com/pytorch/vision</span><br><span class="line">Author: PyTorch Core Team</span><br><span class="line">Author-email: soumith@pytorch.org</span><br><span class="line">License: BSD</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: numpy, torch, pillow, six</span><br><span class="line">Required-by: torchgan, torchfusion, autokeras</span><br><span class="line">➜  ~ pip show easydict</span><br><span class="line">Name: easydict</span><br><span class="line">Version: 1.9</span><br><span class="line">Summary: Access dict values as attributes (works recursively).</span><br><span class="line">Home-page: https://github.com/makinacorpus/easydict</span><br><span class="line">Author: Mathieu Leplatre</span><br><span class="line">Author-email: mathieu.leplatre@makina-corpus.com</span><br><span class="line">License: LPGL, see LICENSE file.</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: </span><br><span class="line">Required-by: luminoth</span><br><span class="line">➜  ~ pip show apex</span><br><span class="line">Name: apex</span><br><span class="line">Version: 0.1</span><br><span class="line">Summary: PyTorch Extensions written by NVIDIA</span><br><span class="line">Home-page: UNKNOWN</span><br><span class="line">Author: UNKNOWN</span><br><span class="line">Author-email: UNKNOWN</span><br><span class="line">License: UNKNOWN</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages/apex-0.1-py3.6.egg</span><br><span class="line">Requires: </span><br><span class="line">Required-by: </span><br><span class="line">➜  ~ pip show tqdm</span><br><span class="line">Name: tqdm</span><br><span class="line">Version: 4.29.1</span><br><span class="line">Summary: Fast, Extensible Progress Meter</span><br><span class="line">Home-page: https://github.com/tqdm/tqdm</span><br><span class="line">Author: Noam Yorav-Raphael</span><br><span class="line">Author-email: noamraph@gmail.com</span><br><span class="line">License: MPLv2.0, MIT Licences</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: </span><br><span class="line">Required-by: TPOT, torchtext, torchfusion, thinc, tensorpack, skorch, shap, pytorch-pretrained-bert, pyro-ppl, optimuspyspark, kaggle, flair, autokeras, tf-pose</span><br></pre></td></tr></table></figure>
-<h2 id="pytorch-models"><a class="markdownIt-Anchor" href="#pytorch-models"></a> PyTorch Models</h2>
-<p>Download all PyTorch models provided from within all <strong>.py</strong> files from <a href="https://github.com/pytorch/vision/tree/master/torchvision/models" target="_blank" rel="noopener">PyTorch Vision Models</a>. Let’s briefly summarize the models as follows:</p>
-<ul>
-<li><strong>alexnet</strong>: <a href="https://download.pytorch.org/models/alexnet-owt-4df8aa71.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/alexnet-owt-4df8aa71.pth</a></li>
-<li><strong>densenet121</strong>: <a href="https://download.pytorch.org/models/densenet121-a639ec97.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/densenet121-a639ec97.pth</a></li>
-<li><strong>densenet169</strong>: <a href="https://download.pytorch.org/models/densenet169-b2777c0a.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/densenet169-b2777c0a.pth</a></li>
-<li><strong>densenet201</strong>: <a href="https://download.pytorch.org/models/densenet201-c1103571.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/densenet201-c1103571.pth</a></li>
-<li><strong>densenet161</strong>: <a href="https://download.pytorch.org/models/densenet161-8d451a50.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/densenet161-8d451a50.pth</a></li>
-<li><strong>inception_v3_google</strong>: <a href="https://download.pytorch.org/models/inception_v3_google-1a9a5a14.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/inception_v3_google-1a9a5a14.pth</a></li>
-<li><strong>resnet18</strong>: <a href="https://download.pytorch.org/models/resnet18-5c106cde.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/resnet18-5c106cde.pth</a></li>
-<li><strong>resnet34</strong>: <a href="https://download.pytorch.org/models/resnet34-333f7ec4.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/resnet34-333f7ec4.pth</a></li>
-<li><strong>resnet50</strong>: <a href="https://download.pytorch.org/models/resnet50-19c8e357.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/resnet50-19c8e357.pth</a></li>
-<li><strong>resnet101</strong>: <a href="https://download.pytorch.org/models/resnet101-5d3b4d8f.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/resnet101-5d3b4d8f.pth</a></li>
-<li><strong>resnet152</strong>: <a href="https://download.pytorch.org/models/resnet152-b121ed2d.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/resnet152-b121ed2d.pth</a></li>
-<li><strong>squeezenet1_0</strong>: <a href="https://download.pytorch.org/models/squeezenet1_0-a815701f.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/squeezenet1_0-a815701f.pth</a></li>
-<li><strong>squeezenet1_1</strong>: <a href="https://download.pytorch.org/models/squeezenet1_1-f364aa15.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/squeezenet1_1-f364aa15.pth</a></li>
-<li><strong>vgg11</strong>: <a href="https://download.pytorch.org/models/vgg11-bbd30ac9.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/vgg11-bbd30ac9.pth</a></li>
-<li><strong>vgg13</strong>: <a href="https://download.pytorch.org/models/vgg13-c768596a.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/vgg13-c768596a.pth</a></li>
-<li><strong>vgg16</strong>: <a href="https://download.pytorch.org/models/vgg16-397923af.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/vgg16-397923af.pth</a></li>
-<li><strong>vgg19</strong>: <a href="https://download.pytorch.org/models/vgg19-dcbb9e9d.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/vgg19-dcbb9e9d.pth</a></li>
-<li><strong>vgg11_bn</strong>: <a href="https://download.pytorch.org/models/vgg11_bn-6002323d.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/vgg11_bn-6002323d.pth</a></li>
-<li><strong>vgg13_bn</strong>: <a href="https://download.pytorch.org/models/vgg13_bn-abd245e5.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/vgg13_bn-abd245e5.pth</a></li>
-<li><strong>vgg16_bn</strong>: <a href="https://download.pytorch.org/models/vgg16_bn-6c64b313.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/vgg16_bn-6c64b313.pth</a></li>
-<li><strong>vgg19_bn</strong>: <a href="https://download.pytorch.org/models/vgg19_bn-c79401a0.pth" target="_blank" rel="noopener">https://download.pytorch.org/models/vgg19_bn-c79401a0.pth</a></li>
-</ul>
-<h1 id="test"><a class="markdownIt-Anchor" href="#test"></a> Test</h1>
-<h2 id="torchseg-configpy-modification"><a class="markdownIt-Anchor" href="#torchseg-configpy-modification"></a> TorchSeg <a href="http://config.py" target="_blank" rel="noopener">config.py</a> modification</h2>
-<p>After <a href="https://github.com/ycszen/TorchSeg" target="_blank" rel="noopener">TorchSeg</a> is checked out, we need to modify all the <strong><a href="http://config.py" target="_blank" rel="noopener">config.py</a></strong> files and ensure all variables <strong>C.pretrained_model</strong> are specified to the <strong>RIGHT</strong> location and with the <strong>RIGHT</strong> names. In my case, I just downloaded all <strong>PyTorch models</strong> under the same directory as <a href="https://github.com/ycszen/TorchSeg" target="_blank" rel="noopener">TorchSeg</a>, therefore, all <strong>C.pretrained_model</strong> are designated as:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C.pretrained_model = <span class="string">"./resnet18-5c106cde.pth"</span></span><br><span class="line">C.pretrained_model = <span class="string">"./resnet50-19c8e357.pth"</span></span><br><span class="line">C.pretrained_model = <span class="string">"./resnet101-5d3b4d8f.pth"</span></span><br></pre></td></tr></table></figure>
-<p>etc.</p>
-<p>We <strong>also</strong> need to modify all variables <strong>C.dataset_path</strong> and make sure we are using the <strong>RIGHT</strong> dataset. In fact, <strong>ONLY</strong> two datasets are directly adopted in the originally checked-out code of <a href="https://github.com/ycszen/TorchSeg" target="_blank" rel="noopener">TorchSeg</a>.</p>
-<ul>
-<li><a href="https://www.cityscapes-dataset.com/" target="_blank" rel="noopener">Cityscapes</a></li>
-<li><a href="http://groups.csail.mit.edu/vision/datasets/ADE20K/" target="_blank" rel="noopener">ADE20K</a></li>
-</ul>
-<p>Currently, it seems there is still some tricks about how to configure these <strong>datasets</strong>, please refer to <a href="https://github.com/ycszen/TorchSeg/issues/4" target="_blank" rel="noopener">my Github issue</a>.</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/24/Kaggle/Airbus-Ship-Detection-Challenge-Mask-RCNN-and-COCO-Transfer-Learning/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/24/Kaggle/Airbus-Ship-Detection-Challenge-Mask-RCNN-and-COCO-Transfer-Learning/" itemprop="url">
-                  Kaggle Competition - Airbus Ship Detection Challenge - Mask-RCNN and COCO Transfer Learning
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-01-24 00:00:00 / Modified: 04:33:57" itemprop="dateCreated datePublished" datetime="2019-01-24T00:00:00-08:00">2019-01-24</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Kaggle/" itemprop="url" rel="index"><span itemprop="name">Kaggle</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Yup, as mentioned, I’m going to test out one more Kaggle competition <a href="https://www.kaggle.com/c/airbus-ship-detection" target="_blank" rel="noopener">Airbus Ship Detection Challenge</a>.<br>
-I believe you’ve already got accustomed to the data preparation.</p>
-<h1 id="preparation"><a class="markdownIt-Anchor" href="#preparation"></a> Preparation</h1>
-<h2 id="required-python-packages"><a class="markdownIt-Anchor" href="#required-python-packages"></a> Required Python Packages</h2>
-<p>We <strong>FIRST</strong> make sure <a href="https://matterport.com/" target="_blank" rel="noopener">Matterport</a>’s package - <a href="https://github.com/matterport/Mask_RCNN" target="_blank" rel="noopener">Mask_RCNN</a> been successfully installed.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip show Mask_RCNN</span><br><span class="line">Name: mask-rcnn</span><br><span class="line">Version: 2.1</span><br><span class="line">Summary: Mask R-CNN for object detection and instance segmentation</span><br><span class="line">Home-page: https://github.com/matterport/Mask_RCNN</span><br><span class="line">Author: Matterport</span><br><span class="line">Author-email: waleed.abdulla@gmail.com</span><br><span class="line">License: MIT</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages/mask_rcnn-2.1-py3.6.egg</span><br><span class="line">Requires: </span><br><span class="line">Required-by:</span><br></pre></td></tr></table></figure>
-<p>We also need to have <a href="https://opencv.org/" target="_blank" rel="noopener">OpenCV</a>’s Python package - <strong>cv2</strong> been successfully installed.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip show cv2</span><br><span class="line">➜  ~ python</span><br><span class="line">Python 3.6.7 (default, Oct 22 2018, 11:32:17) </span><br><span class="line">[GCC 8.2.0] on linux</span><br><span class="line">Type "help", "copyright", "credits" or "license" for more information.</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; import cv2</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; cv2.__version__</span></span><br><span class="line">'4.0.0'</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; cv2.__file__</span></span><br><span class="line">'/home/jiapei/.local/lib/python3.6/site-packages/opencv_python-4.0.0.21-py3.6-linux-x86_64.egg/cv2/cv2.cpython-36m-x86_64-linux-gnu.so'</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="models"><a class="markdownIt-Anchor" href="#models"></a> Models</h2>
-<p>Then, we manually download the trained data directly from <a href="https://github.com/matterport/Mask_RCNN/releases" target="_blank" rel="noopener">Matterport Github Mask_RCNN Release website</a>.</p>
-<ul>
-<li><a href="https://github.com/matterport/Mask_RCNN/releases/download/v2.1/mask_rcnn_balloon.h5" target="_blank" rel="noopener">mask_rcnn_balloon.h5</a></li>
-<li><a href="https://github.com/matterport/Mask_RCNN/releases/download/v2.0/mask_rcnn_coco.h5" target="_blank" rel="noopener">mask_rcnn_coco.h5</a></li>
-</ul>
-<h1 id="test"><a class="markdownIt-Anchor" href="#test"></a> Test</h1>
-<h2 id="the-code"><a class="markdownIt-Anchor" href="#the-code"></a> The Code</h2>
-<p>After the above preparation, we did some trivial modifications on <a href="https://www.kaggle.com/hmendonca/airbus-mask-rcnn-and-coco-transfer-learning" target="_blank" rel="noopener">Airbus Mask-RCNN and COCO Transfer Learning</a>, as follows:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br><span class="line">494</span><br><span class="line">495</span><br><span class="line">496</span><br><span class="line">497</span><br><span class="line">498</span><br><span class="line">499</span><br><span class="line">500</span><br><span class="line">501</span><br><span class="line">502</span><br><span class="line">503</span><br><span class="line">504</span><br><span class="line">505</span><br><span class="line">506</span><br><span class="line">507</span><br><span class="line">508</span><br><span class="line">509</span><br><span class="line">510</span><br><span class="line">511</span><br><span class="line">512</span><br><span class="line">513</span><br><span class="line">514</span><br><span class="line">515</span><br><span class="line">516</span><br><span class="line">517</span><br><span class="line">518</span><br><span class="line">519</span><br><span class="line">520</span><br><span class="line">521</span><br><span class="line">522</span><br><span class="line">523</span><br><span class="line">524</span><br><span class="line">525</span><br><span class="line">526</span><br><span class="line">527</span><br><span class="line">528</span><br><span class="line">529</span><br><span class="line">530</span><br><span class="line">531</span><br><span class="line">532</span><br><span class="line">533</span><br><span class="line">534</span><br><span class="line">535</span><br><span class="line">536</span><br><span class="line">537</span><br><span class="line">538</span><br><span class="line">539</span><br><span class="line">540</span><br><span class="line">541</span><br><span class="line">542</span><br><span class="line">543</span><br><span class="line">544</span><br><span class="line">545</span><br><span class="line">546</span><br><span class="line">547</span><br><span class="line">548</span><br><span class="line">549</span><br><span class="line">550</span><br><span class="line">551</span><br><span class="line">552</span><br><span class="line">553</span><br><span class="line">554</span><br><span class="line">555</span><br><span class="line">556</span><br><span class="line">557</span><br><span class="line">558</span><br><span class="line">559</span><br><span class="line">560</span><br><span class="line">561</span><br><span class="line">562</span><br><span class="line">563</span><br><span class="line">564</span><br><span class="line">565</span><br><span class="line">566</span><br><span class="line">567</span><br><span class="line">568</span><br><span class="line">569</span><br><span class="line">570</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># coding: utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># **Mask-RCNN Starter Model for the Airbus Ship Detection Challenge with transfer learning **</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># Using pre-trained COCO weights trained on http://cocodataset.org as in https://github.com/matterport/Mask_RCNN/tree/master/samples/balloon</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># We get some amazing performance training only within the 6hrs kaggle kernel limit.</span></span><br><span class="line"></span><br><span class="line">debug = <span class="keyword">False</span></span><br><span class="line"><span class="comment"># debug = True</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os </span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">from</span> imgaug <span class="keyword">import</span> augmenters <span class="keyword">as</span> iaa</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd </span><br><span class="line"><span class="keyword">import</span> glob </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">DATA_DIR = <span class="string">'....../airbus-ship-detection'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Directory to save logs and trained model</span></span><br><span class="line">ROOT_DIR = <span class="string">'./'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ### Install Matterport's Mask-RCNN model from github.</span></span><br><span class="line"><span class="comment"># See the [Matterport's implementation of Mask-RCNN](https://github.com/matterport/Mask_RCNN).</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Import Mask RCNN</span></span><br><span class="line">sys.path.append(os.path.join(ROOT_DIR, <span class="string">'Mask_RCNN'</span>))  <span class="comment"># To find local version of the library</span></span><br><span class="line"><span class="keyword">from</span> mrcnn.config <span class="keyword">import</span> Config</span><br><span class="line"><span class="keyword">from</span> mrcnn <span class="keyword">import</span> utils</span><br><span class="line"><span class="keyword">import</span> mrcnn.model <span class="keyword">as</span> modellib</span><br><span class="line"><span class="keyword">from</span> mrcnn <span class="keyword">import</span> visualize</span><br><span class="line"><span class="keyword">from</span> mrcnn.model <span class="keyword">import</span> log</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">train_dicom_dir = os.path.join(DATA_DIR, <span class="string">'train_v2'</span>)</span><br><span class="line">test_dicom_dir = os.path.join(DATA_DIR, <span class="string">'test_v2'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ### Download COCO pre-trained weights</span></span><br><span class="line"></span><br><span class="line">COCO_WEIGHTS_PATH = <span class="string">"mask_rcnn_coco.h5"</span></span><br><span class="line">BALLOON_WEIGHTS_PATH = <span class="string">"mask_rcnn_balloon.h5"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ### Some setup functions and classes for Mask-RCNN</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># - dicom_fps is a list of the dicom image path and filenames </span></span><br><span class="line"><span class="comment"># - image_annotions is a dictionary of the annotations keyed by the filenames</span></span><br><span class="line"><span class="comment"># - parsing the dataset returns a list of the image filenames and the annotations dictionary</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The following parameters have been selected to reduce running time for demonstration purposes </span></span><br><span class="line"><span class="comment"># These are not optimal </span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DetectorConfig</span><span class="params">(Config)</span>:</span>    </span><br><span class="line">    <span class="comment"># Give the configuration a recognizable name  </span></span><br><span class="line">    NAME = <span class="string">'airbus'</span></span><br><span class="line">    </span><br><span class="line">    GPU_COUNT = <span class="number">1</span></span><br><span class="line">    IMAGES_PER_GPU = <span class="number">10</span></span><br><span class="line">    </span><br><span class="line">    BACKBONE = <span class="string">'resnet50'</span></span><br><span class="line">    </span><br><span class="line">    NUM_CLASSES = <span class="number">2</span>  <span class="comment"># background and ship classes</span></span><br><span class="line">    </span><br><span class="line">    IMAGE_MIN_DIM = <span class="number">384</span></span><br><span class="line">    IMAGE_MAX_DIM = <span class="number">384</span></span><br><span class="line">    RPN_ANCHOR_SCALES = (<span class="number">8</span>, <span class="number">16</span>, <span class="number">32</span>, <span class="number">64</span>)</span><br><span class="line">    TRAIN_ROIS_PER_IMAGE = <span class="number">126</span></span><br><span class="line">    MAX_GT_INSTANCES = <span class="number">14</span></span><br><span class="line">    DETECTION_MAX_INSTANCES = <span class="number">14</span></span><br><span class="line">    DETECTION_MIN_CONFIDENCE = <span class="number">0.95</span></span><br><span class="line">    DETECTION_NMS_THRESHOLD = <span class="number">0.0</span></span><br><span class="line"></span><br><span class="line">    STEPS_PER_EPOCH = <span class="number">12</span> <span class="keyword">if</span> debug <span class="keyword">else</span> <span class="number">120</span></span><br><span class="line">    VALIDATION_STEPS = <span class="number">10</span> <span class="keyword">if</span> debug <span class="keyword">else</span> <span class="number">100</span></span><br><span class="line"></span><br><span class="line">config = DetectorConfig()</span><br><span class="line">config.display()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np <span class="comment"># linear algebra</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd <span class="comment"># data processing, CSV file I/O (e.g. pd.read_csv)</span></span><br><span class="line"><span class="keyword">from</span> skimage.io <span class="keyword">import</span> imread</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> matplotlib.cm <span class="keyword">import</span> get_cmap</span><br><span class="line"><span class="keyword">from</span> skimage.segmentation <span class="keyword">import</span> mark_boundaries</span><br><span class="line"><span class="keyword">from</span> skimage.util <span class="keyword">import</span> montage</span><br><span class="line"><span class="keyword">from</span> skimage.morphology <span class="keyword">import</span> binary_opening, disk, label</span><br><span class="line"><span class="keyword">import</span> gc; gc.enable() <span class="comment"># memory is tight</span></span><br><span class="line"></span><br><span class="line">montage_rgb = <span class="keyword">lambda</span> x: np.stack([montage(x[:, :, :, i]) <span class="keyword">for</span> i <span class="keyword">in</span> range(x.shape[<span class="number">3</span>])], <span class="number">-1</span>)</span><br><span class="line">ship_dir = <span class="string">'../input'</span></span><br><span class="line">train_image_dir = os.path.join(ship_dir, <span class="string">'train'</span>)</span><br><span class="line">test_image_dir = os.path.join(ship_dir, <span class="string">'test'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">multi_rle_encode</span><span class="params">(img, **kwargs)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    Encode connected regions as separated masks</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    labels = label(img)</span><br><span class="line">    <span class="keyword">if</span> img.ndim &gt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> [rle_encode(np.sum(labels==k, axis=<span class="number">2</span>), **kwargs) <span class="keyword">for</span> k <span class="keyword">in</span> np.unique(labels[labels&gt;<span class="number">0</span>])]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> [rle_encode(labels==k, **kwargs) <span class="keyword">for</span> k <span class="keyword">in</span> np.unique(labels[labels&gt;<span class="number">0</span>])]</span><br><span class="line"></span><br><span class="line"><span class="comment"># ref: https://www.kaggle.com/paulorzp/run-length-encode-and-decode</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rle_encode</span><span class="params">(img, min_max_threshold=<span class="number">1e-3</span>, max_mean_threshold=None)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    img: numpy array, 1 - mask, 0 - background</span></span><br><span class="line"><span class="string">    Returns run length as string formated</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="keyword">if</span> np.max(img) &lt; min_max_threshold:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">''</span> <span class="comment">## no need to encode if it's all zeros</span></span><br><span class="line">    <span class="keyword">if</span> max_mean_threshold <span class="keyword">and</span> np.mean(img) &gt; max_mean_threshold:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">''</span> <span class="comment">## ignore overfilled mask</span></span><br><span class="line">    pixels = img.T.flatten()</span><br><span class="line">    pixels = np.concatenate([[<span class="number">0</span>], pixels, [<span class="number">0</span>]])</span><br><span class="line">    runs = np.where(pixels[<span class="number">1</span>:] != pixels[:<span class="number">-1</span>])[<span class="number">0</span>] + <span class="number">1</span></span><br><span class="line">    runs[<span class="number">1</span>::<span class="number">2</span>] -= runs[::<span class="number">2</span>]</span><br><span class="line">    <span class="keyword">return</span> <span class="string">' '</span>.join(str(x) <span class="keyword">for</span> x <span class="keyword">in</span> runs)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rle_decode</span><span class="params">(mask_rle, shape=<span class="params">(<span class="number">768</span>, <span class="number">768</span>)</span>)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    mask_rle: run-length as string formated (start length)</span></span><br><span class="line"><span class="string">    shape: (height,width) of array to return </span></span><br><span class="line"><span class="string">    Returns numpy array, 1 - mask, 0 - background</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    s = mask_rle.split()</span><br><span class="line">    starts, lengths = [np.asarray(x, dtype=int) <span class="keyword">for</span> x <span class="keyword">in</span> (s[<span class="number">0</span>:][::<span class="number">2</span>], s[<span class="number">1</span>:][::<span class="number">2</span>])]</span><br><span class="line">    starts -= <span class="number">1</span></span><br><span class="line">    ends = starts + lengths</span><br><span class="line">    img = np.zeros(shape[<span class="number">0</span>]*shape[<span class="number">1</span>], dtype=np.uint8)</span><br><span class="line">    <span class="keyword">for</span> lo, hi <span class="keyword">in</span> zip(starts, ends):</span><br><span class="line">        img[lo:hi] = <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> img.reshape(shape).T  <span class="comment"># Needed to align to RLE direction</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">masks_as_image</span><span class="params">(in_mask_list)</span>:</span></span><br><span class="line">    <span class="comment"># Take the individual ship masks and create a single mask array for all ships</span></span><br><span class="line">    all_masks = np.zeros((<span class="number">768</span>, <span class="number">768</span>), dtype = np.uint8)</span><br><span class="line">    <span class="keyword">for</span> mask <span class="keyword">in</span> in_mask_list:</span><br><span class="line">        <span class="keyword">if</span> isinstance(mask, str):</span><br><span class="line">            all_masks |= rle_decode(mask)</span><br><span class="line">    <span class="keyword">return</span> all_masks</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">masks_as_color</span><span class="params">(in_mask_list)</span>:</span></span><br><span class="line">    <span class="comment"># Take the individual ship masks and create a color mask array for each ships</span></span><br><span class="line">    all_masks = np.zeros((<span class="number">768</span>, <span class="number">768</span>), dtype = np.float)</span><br><span class="line">    scale = <span class="keyword">lambda</span> x: (len(in_mask_list)+x+<span class="number">1</span>) / (len(in_mask_list)*<span class="number">2</span>) <span class="comment">## scale the heatmap image to shift </span></span><br><span class="line">    <span class="keyword">for</span> i,mask <span class="keyword">in</span> enumerate(in_mask_list):</span><br><span class="line">        <span class="keyword">if</span> isinstance(mask, str):</span><br><span class="line">            all_masks[:,:] += scale(i) * rle_decode(mask)</span><br><span class="line">    <span class="keyword">return</span> all_masks</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line">exclude_list = [<span class="string">'6384c3e78.jpg'</span>,<span class="string">'13703f040.jpg'</span>, <span class="string">'14715c06d.jpg'</span>,  <span class="string">'33e0ff2d5.jpg'</span>,</span><br><span class="line">                <span class="string">'4d4e09f2a.jpg'</span>, <span class="string">'877691df8.jpg'</span>, <span class="string">'8b909bb20.jpg'</span>, <span class="string">'a8d99130e.jpg'</span>, </span><br><span class="line">                <span class="string">'ad55c3143.jpg'</span>, <span class="string">'c8260c541.jpg'</span>, <span class="string">'d6c7f17c7.jpg'</span>, <span class="string">'dc3e7c901.jpg'</span>,</span><br><span class="line">                <span class="string">'e44dffe88.jpg'</span>, <span class="string">'ef87bad36.jpg'</span>, <span class="string">'f083256d8.jpg'</span>] <span class="comment">#corrupted images</span></span><br><span class="line"></span><br><span class="line">train_names = [f <span class="keyword">for</span> f <span class="keyword">in</span> os.listdir(train_dicom_dir)]</span><br><span class="line">test_names = [f <span class="keyword">for</span> f <span class="keyword">in</span> os.listdir(test_dicom_dir)]</span><br><span class="line"><span class="keyword">for</span> el <span class="keyword">in</span> exclude_list:</span><br><span class="line">    <span class="keyword">if</span>(el <span class="keyword">in</span> train_names): train_names.remove(el)</span><br><span class="line">    <span class="keyword">if</span>(el <span class="keyword">in</span> test_names): test_names.remove(el)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># training dataset</span></span><br><span class="line">SEGMENTATION = <span class="string">'....../airbus-ship-detection/train_ship_segmentations_v2.csv'</span></span><br><span class="line">anns = pd.read_csv(SEGMENTATION)</span><br><span class="line">anns.head()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">train_names = anns[anns.EncodedPixels.notnull()].ImageId.unique().tolist()  <span class="comment">## override with ships</span></span><br><span class="line"></span><br><span class="line">test_size = config.VALIDATION_STEPS * config.IMAGES_PER_GPU</span><br><span class="line">image_fps_train, image_fps_val = train_test_split(train_names, test_size=test_size, random_state=<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> debug:</span><br><span class="line">    image_fps_train = image_fps_train[:<span class="number">100</span>]</span><br><span class="line">    image_fps_val = image_fps_val[:<span class="number">100</span>]</span><br><span class="line">    test_names = test_names[:<span class="number">100</span>]</span><br><span class="line">    </span><br><span class="line">print(len(image_fps_train), len(image_fps_val), len(test_names))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DetectorDataset</span><span class="params">(utils.Dataset)</span>:</span></span><br><span class="line">    <span class="string">"""Dataset class for training our dataset.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, image_fps, image_annotations, orig_height, orig_width)</span>:</span></span><br><span class="line">        super().__init__(self)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Add classes</span></span><br><span class="line">        self.add_class(<span class="string">'ship'</span>, <span class="number">1</span>, <span class="string">'Ship'</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># add images </span></span><br><span class="line">        <span class="keyword">for</span> i, fp <span class="keyword">in</span> enumerate(image_fps):</span><br><span class="line">            annotations = image_annotations.query(<span class="string">'ImageId=="'</span> + fp + <span class="string">'"'</span>)[<span class="string">'EncodedPixels'</span>]</span><br><span class="line">            self.add_image(<span class="string">'ship'</span>, image_id=i, path=os.path.join(train_dicom_dir, fp), </span><br><span class="line">                           annotations=annotations, orig_height=orig_height, orig_width=orig_width)</span><br><span class="line">            </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">image_reference</span><span class="params">(self, image_id)</span>:</span></span><br><span class="line">        info = self.image_info[image_id]</span><br><span class="line">        <span class="keyword">return</span> info[<span class="string">'path'</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">load_image</span><span class="params">(self, image_id)</span>:</span></span><br><span class="line">        info = self.image_info[image_id]</span><br><span class="line">        fp = info[<span class="string">'path'</span>]</span><br><span class="line">        image = imread(fp)</span><br><span class="line">        <span class="comment"># If grayscale. Convert to RGB for consistency.</span></span><br><span class="line">        <span class="keyword">if</span> len(image.shape) != <span class="number">3</span> <span class="keyword">or</span> image.shape[<span class="number">2</span>] != <span class="number">3</span>:</span><br><span class="line">            image = np.stack((image,) * <span class="number">3</span>, <span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">return</span> image</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">load_mask</span><span class="params">(self, image_id)</span>:</span></span><br><span class="line">        info = self.image_info[image_id]</span><br><span class="line">        annotations = info[<span class="string">'annotations'</span>]</span><br><span class="line"><span class="comment">#         print(image_id, annotations)</span></span><br><span class="line">        count = len(annotations)</span><br><span class="line">        <span class="keyword">if</span> count == <span class="number">0</span>:</span><br><span class="line">            mask = np.zeros((info[<span class="string">'orig_height'</span>], info[<span class="string">'orig_width'</span>], <span class="number">1</span>), dtype=np.uint8)</span><br><span class="line">            class_ids = np.zeros((<span class="number">1</span>,), dtype=np.int32)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            mask = np.zeros((info[<span class="string">'orig_height'</span>], info[<span class="string">'orig_width'</span>], count), dtype=np.uint8)</span><br><span class="line">            class_ids = np.zeros((count,), dtype=np.int32)</span><br><span class="line">            <span class="keyword">for</span> i, a <span class="keyword">in</span> enumerate(annotations):</span><br><span class="line">                mask[:, :, i] = rle_decode(a)</span><br><span class="line">                class_ids[i] = <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> mask.astype(np.bool), class_ids.astype(np.int32)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ### Examine the annotation data, parse the dataset, and view dicom fields</span></span><br><span class="line"></span><br><span class="line">image_fps, image_annotations = train_names, anns</span><br><span class="line"></span><br><span class="line">ds = imread(os.path.join(train_dicom_dir, image_fps[<span class="number">0</span>])) <span class="comment"># read  image from filepath </span></span><br><span class="line">_ = plt.imshow(ds)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Original image size: 768 x 768</span></span><br><span class="line">ORIG_SIZE = ds.shape[<span class="number">0</span>]</span><br><span class="line">ORIG_SIZE</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ### Create and prepare the training dataset using the DetectorDataset class.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># prepare the training dataset</span></span><br><span class="line">dataset_train = DetectorDataset(image_fps_train, image_annotations, ORIG_SIZE, ORIG_SIZE)</span><br><span class="line">dataset_train.prepare()</span><br><span class="line"></span><br><span class="line"><span class="comment"># prepare the validation dataset</span></span><br><span class="line">dataset_val = DetectorDataset(image_fps_val, image_annotations, ORIG_SIZE, ORIG_SIZE)</span><br><span class="line">dataset_val.prepare()</span><br><span class="line"></span><br><span class="line"><span class="comment"># ### Display a random image with bounding boxes</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Load and display random sample and their bounding boxes</span></span><br><span class="line"></span><br><span class="line">class_ids = [<span class="number">0</span>]</span><br><span class="line"><span class="keyword">while</span> class_ids[<span class="number">0</span>] == <span class="number">0</span>:  <span class="comment">## look for a mask</span></span><br><span class="line">    image_id = random.choice(dataset_val.image_ids)</span><br><span class="line">    image_fp = dataset_val.image_reference(image_id)</span><br><span class="line">    image = dataset_val.load_image(image_id)</span><br><span class="line">    mask, class_ids = dataset_val.load_mask(image_id)</span><br><span class="line"></span><br><span class="line">print(image.shape)</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>, <span class="number">10</span>))</span><br><span class="line">plt.subplot(<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line">plt.imshow(image)</span><br><span class="line">plt.axis(<span class="string">'off'</span>)</span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line">masked = np.zeros(image.shape[:<span class="number">2</span>])</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(mask.shape[<span class="number">2</span>]):</span><br><span class="line">    masked += mask[:, :, i] <span class="comment">## * image[:, :, 0]</span></span><br><span class="line">plt.imshow(masked, cmap=<span class="string">'gray'</span>)</span><br><span class="line">plt.axis(<span class="string">'off'</span>)</span><br><span class="line"></span><br><span class="line">print(image_fp)</span><br><span class="line">print(class_ids)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ### Image Augmentation. Try finetuning some variables to custom values</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Image augmentation (light but constant)</span></span><br><span class="line">augmentation = iaa.Sequential([</span><br><span class="line">    iaa.OneOf([ <span class="comment">## rotate</span></span><br><span class="line">        iaa.Affine(rotate=<span class="number">0</span>),</span><br><span class="line">        iaa.Affine(rotate=<span class="number">90</span>),</span><br><span class="line">        iaa.Affine(rotate=<span class="number">180</span>),</span><br><span class="line">        iaa.Affine(rotate=<span class="number">270</span>),</span><br><span class="line">    ]),</span><br><span class="line">    iaa.Fliplr(<span class="number">0.5</span>),</span><br><span class="line">    iaa.Flipud(<span class="number">0.5</span>),</span><br><span class="line">    iaa.OneOf([ <span class="comment">## brightness or contrast</span></span><br><span class="line">        iaa.Multiply((<span class="number">0.9</span>, <span class="number">1.1</span>)),</span><br><span class="line">        iaa.ContrastNormalization((<span class="number">0.9</span>, <span class="number">1.1</span>)),</span><br><span class="line">    ]),</span><br><span class="line">    iaa.OneOf([ <span class="comment">## blur or sharpen</span></span><br><span class="line">        iaa.GaussianBlur(sigma=(<span class="number">0.0</span>, <span class="number">0.1</span>)),</span><br><span class="line">        iaa.Sharpen(alpha=(<span class="number">0.0</span>, <span class="number">0.1</span>)),</span><br><span class="line">    ]),</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line"><span class="comment"># test on the same image as above</span></span><br><span class="line">imggrid = augmentation.draw_grid(image, cols=<span class="number">5</span>, rows=<span class="number">2</span>)</span><br><span class="line">plt.figure(figsize=(<span class="number">30</span>, <span class="number">12</span>))</span><br><span class="line">_ = plt.imshow(imggrid.astype(int))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ### Now it's time to train the model. Note that training even a basic model can take a few hours. </span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># Note: the following model is for demonstration purpose only. We have limited the training to one epoch, and have set nominal values for the Detector Configuration to reduce run-time. </span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># - dataset_train and dataset_val are derived from DetectorDataset </span></span><br><span class="line"><span class="comment"># - DetectorDataset loads images from image filenames and  masks from the annotation data</span></span><br><span class="line"><span class="comment"># - model is Mask-RCNN</span></span><br><span class="line"></span><br><span class="line">model = modellib.MaskRCNN(mode=<span class="string">'training'</span>, config=config, model_dir=ROOT_DIR)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Exclude the last layers because they require a matching</span></span><br><span class="line"><span class="comment"># number of classes</span></span><br><span class="line">model.load_weights(COCO_WEIGHTS_PATH, by_name=<span class="keyword">True</span>, exclude=[</span><br><span class="line">    <span class="string">"mrcnn_class_logits"</span>, <span class="string">"mrcnn_bbox_fc"</span>,</span><br><span class="line">    <span class="string">"mrcnn_bbox"</span>, <span class="string">"mrcnn_mask"</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">LEARNING_RATE = <span class="number">0.004</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Train Mask-RCNN Model </span></span><br><span class="line"><span class="keyword">import</span> warnings </span><br><span class="line">warnings.filterwarnings(<span class="string">"ignore"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">## train heads with higher lr to speedup the learning</span></span><br><span class="line">model.train(dataset_train, dataset_val,</span><br><span class="line">            learning_rate=LEARNING_RATE*<span class="number">2</span>,</span><br><span class="line">            epochs=<span class="number">2</span>,</span><br><span class="line">            layers=<span class="string">'heads'</span>,</span><br><span class="line">            augmentation=<span class="keyword">None</span>)  <span class="comment">## no need to augment yet</span></span><br><span class="line"></span><br><span class="line">history = model.keras_model.history.history</span><br><span class="line"></span><br><span class="line">model.train(dataset_train, dataset_val,</span><br><span class="line">            learning_rate=LEARNING_RATE,</span><br><span class="line">            epochs=<span class="number">4</span> <span class="keyword">if</span> debug <span class="keyword">else</span> <span class="number">12</span>,</span><br><span class="line">            layers=<span class="string">'all'</span>,</span><br><span class="line">            augmentation=augmentation)</span><br><span class="line"></span><br><span class="line">new_history = model.keras_model.history.history</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> new_history: history[k] = history[k] + new_history[k]</span><br><span class="line"></span><br><span class="line">epochs = range(<span class="number">1</span>, len(history[<span class="string">'loss'</span>])+<span class="number">1</span>)</span><br><span class="line">pd.DataFrame(history, index=epochs)</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">17</span>,<span class="number">5</span>))</span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">131</span>)</span><br><span class="line">plt.plot(epochs, history[<span class="string">"loss"</span>], label=<span class="string">"Train loss"</span>)</span><br><span class="line">plt.plot(epochs, history[<span class="string">"val_loss"</span>], label=<span class="string">"Valid loss"</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.subplot(<span class="number">132</span>)</span><br><span class="line">plt.plot(epochs, history[<span class="string">"mrcnn_class_loss"</span>], label=<span class="string">"Train class ce"</span>)</span><br><span class="line">plt.plot(epochs, history[<span class="string">"val_mrcnn_class_loss"</span>], label=<span class="string">"Valid class ce"</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.subplot(<span class="number">133</span>)</span><br><span class="line">plt.plot(epochs, history[<span class="string">"mrcnn_bbox_loss"</span>], label=<span class="string">"Train box loss"</span>)</span><br><span class="line">plt.plot(epochs, history[<span class="string">"val_mrcnn_bbox_loss"</span>], label=<span class="string">"Valid box loss"</span>)</span><br><span class="line">plt.legend()</span><br><span class="line"></span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">best_epoch = np.argmin(history[<span class="string">"val_loss"</span>])</span><br><span class="line">score = history[<span class="string">"val_loss"</span>][best_epoch]</span><br><span class="line">print(<span class="string">f'Best Epoch:<span class="subst">&#123;best_epoch+<span class="number">1</span>&#125;</span> val_loss:<span class="subst">&#123;score&#125;</span>'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># select trained model </span></span><br><span class="line">dir_names = next(os.walk(model.model_dir))[<span class="number">1</span>]</span><br><span class="line">key = config.NAME.lower()</span><br><span class="line">dir_names = filter(<span class="keyword">lambda</span> f: f.startswith(key), dir_names)</span><br><span class="line">dir_names = sorted(dir_names)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> dir_names:</span><br><span class="line">    <span class="keyword">import</span> errno</span><br><span class="line">    <span class="keyword">raise</span> FileNotFoundError(</span><br><span class="line">        errno.ENOENT,</span><br><span class="line">        <span class="string">"Could not find model directory under &#123;&#125;"</span>.format(self.model_dir))</span><br><span class="line">    </span><br><span class="line">fps = []</span><br><span class="line"><span class="comment"># Pick last directory</span></span><br><span class="line"><span class="keyword">for</span> d <span class="keyword">in</span> dir_names: </span><br><span class="line">    dir_name = os.path.join(model.model_dir, d)</span><br><span class="line">    <span class="comment"># Find the last checkpoint</span></span><br><span class="line">    checkpoints = next(os.walk(dir_name))[<span class="number">2</span>]</span><br><span class="line">    checkpoints = filter(<span class="keyword">lambda</span> f: f.startswith(<span class="string">"mask_rcnn"</span>), checkpoints)</span><br><span class="line">    checkpoints = sorted(checkpoints)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> checkpoints:</span><br><span class="line">        print(<span class="string">'No weight files in &#123;&#125;'</span>.format(dir_name))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        checkpoint = os.path.join(dir_name, checkpoints[best_epoch])</span><br><span class="line">        fps.append(checkpoint)</span><br><span class="line"></span><br><span class="line">model_path = sorted(fps)[<span class="number">-1</span>]</span><br><span class="line">print(<span class="string">'Found model &#123;&#125;'</span>.format(model_path))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">InferenceConfig</span><span class="params">(DetectorConfig)</span>:</span></span><br><span class="line">    GPU_COUNT = <span class="number">1</span></span><br><span class="line">    IMAGES_PER_GPU = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">inference_config = InferenceConfig()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Recreate the model in inference mode</span></span><br><span class="line">model = modellib.MaskRCNN(mode=<span class="string">'inference'</span>, </span><br><span class="line">                          config=inference_config,</span><br><span class="line">                          model_dir=ROOT_DIR)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load trained weights (fill in path to trained weights here)</span></span><br><span class="line"><span class="keyword">assert</span> model_path != <span class="string">""</span>, <span class="string">"Provide path to trained weights"</span></span><br><span class="line">print(<span class="string">"Loading weights from "</span>, model_path)</span><br><span class="line">model.load_weights(model_path, by_name=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># set color for class</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_colors_for_class_ids</span><span class="params">(class_ids)</span>:</span></span><br><span class="line">    colors = []</span><br><span class="line">    <span class="keyword">for</span> class_id <span class="keyword">in</span> class_ids:</span><br><span class="line">        <span class="keyword">if</span> class_id == <span class="number">1</span>:</span><br><span class="line">            colors.append((<span class="number">.941</span>, <span class="number">.204</span>, <span class="number">.204</span>))</span><br><span class="line">    <span class="keyword">return</span> colors</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ### How does the predicted box compared to the expected value? Let's use the validation dataset to check. </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Show few example of ground truth vs. predictions on the validation dataset </span></span><br><span class="line">dataset = dataset_val</span><br><span class="line">fig = plt.figure(figsize=(<span class="number">10</span>, <span class="number">40</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">8</span>):</span><br><span class="line"></span><br><span class="line">    image_id = random.choice(dataset.image_ids)</span><br><span class="line">    </span><br><span class="line">    original_image, image_meta, gt_class_id, gt_bbox, gt_mask =        modellib.load_image_gt(dataset_val, inference_config, </span><br><span class="line">                               image_id, use_mini_mask=<span class="keyword">False</span>)</span><br><span class="line">    </span><br><span class="line">    print(original_image.shape)</span><br><span class="line">    plt.subplot(<span class="number">8</span>, <span class="number">2</span>, <span class="number">2</span>*i + <span class="number">1</span>)</span><br><span class="line">    visualize.display_instances(original_image, gt_bbox, gt_mask, gt_class_id, </span><br><span class="line">                                dataset.class_names,</span><br><span class="line">                                colors=get_colors_for_class_ids(gt_class_id), ax=fig.axes[<span class="number">-1</span>])</span><br><span class="line">    </span><br><span class="line">    plt.subplot(<span class="number">8</span>, <span class="number">2</span>, <span class="number">2</span>*i + <span class="number">2</span>)</span><br><span class="line">    results = model.detect([original_image]) <span class="comment">#, verbose=1)</span></span><br><span class="line">    r = results[<span class="number">0</span>]</span><br><span class="line">    visualize.display_instances(original_image, r[<span class="string">'rois'</span>], r[<span class="string">'masks'</span>], r[<span class="string">'class_ids'</span>], </span><br><span class="line">                                dataset.class_names, r[<span class="string">'scores'</span>], </span><br><span class="line">                                colors=get_colors_for_class_ids(r[<span class="string">'class_ids'</span>]), ax=fig.axes[<span class="number">-1</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Get filenames of test dataset images</span></span><br><span class="line">test_image_fps = test_names</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ### Final steps - Create the submission file</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Make predictions on test images, write out sample submission</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">predict</span><span class="params">(image_fps, filepath=<span class="string">'submission.csv'</span>, min_conf=config.DETECTION_MIN_CONFIDENCE)</span>:</span></span><br><span class="line">    <span class="comment"># assume square image</span></span><br><span class="line">    resize_factor = ORIG_SIZE / config.IMAGE_SHAPE[<span class="number">0</span>]</span><br><span class="line">    <span class="comment">#resize_factor = ORIG_SIZE</span></span><br><span class="line">    <span class="keyword">with</span> open(filepath, <span class="string">'w'</span>) <span class="keyword">as</span> file:</span><br><span class="line">        file.write(<span class="string">"ImageId,EncodedPixels\n"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> image_id <span class="keyword">in</span> tqdm(image_fps):</span><br><span class="line">            found = <span class="keyword">False</span></span><br><span class="line">            </span><br><span class="line">            image = imread(os.path.join(test_dicom_dir, image_id))</span><br><span class="line">            <span class="comment"># If grayscale. Convert to RGB for consistency.</span></span><br><span class="line">            <span class="keyword">if</span> len(image.shape) != <span class="number">3</span> <span class="keyword">or</span> image.shape[<span class="number">2</span>] != <span class="number">3</span>:</span><br><span class="line">                image = np.stack((image,) * <span class="number">3</span>, <span class="number">-1</span>)</span><br><span class="line">            image, window, scale, padding, crop = utils.resize_image(</span><br><span class="line">                image,</span><br><span class="line">                min_dim=config.IMAGE_MIN_DIM,</span><br><span class="line">                min_scale=config.IMAGE_MIN_SCALE,</span><br><span class="line">                max_dim=config.IMAGE_MAX_DIM,</span><br><span class="line">                mode=config.IMAGE_RESIZE_MODE)</span><br><span class="line"></span><br><span class="line">            results = model.detect([image])</span><br><span class="line">            r = results[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">            <span class="keyword">assert</span>( len(r[<span class="string">'rois'</span>]) == len(r[<span class="string">'class_ids'</span>]) == len(r[<span class="string">'scores'</span>]) )</span><br><span class="line">            <span class="keyword">if</span> len(r[<span class="string">'rois'</span>]) == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">pass</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                num_instances = len(r[<span class="string">'rois'</span>])</span><br><span class="line"></span><br><span class="line">                <span class="keyword">for</span> i <span class="keyword">in</span> range(num_instances):</span><br><span class="line">                    <span class="keyword">if</span> r[<span class="string">'scores'</span>][i] &gt; min_conf:</span><br><span class="line"><span class="comment">#                         print(r['scores'][i], r['rois'][i], r['masks'][i].shape, np.sum(r['masks'][...,i]), r['masks'][i], r.keys())</span></span><br><span class="line">                        file.write(image_id + <span class="string">","</span> + rle_encode(r[<span class="string">'masks'</span>][...,i]) + <span class="string">"\n"</span>)</span><br><span class="line">                        found = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> found:</span><br><span class="line">                file.write(image_id + <span class="string">",\n"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">submission_fp = os.path.join(ROOT_DIR, <span class="string">'submission.csv'</span>)</span><br><span class="line">predict(test_image_fps, filepath=submission_fp)</span><br><span class="line">print(submission_fp)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">output = pd.read_csv(submission_fp)</span><br><span class="line">output.head(<span class="number">50</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># show a few test image detection example</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">visualize_test</span><span class="params">()</span>:</span> </span><br><span class="line">    image_id = random.choice(test_image_fps)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># original image</span></span><br><span class="line"><span class="comment">#     print(image_id)</span></span><br><span class="line">    image = imread(os.path.join(test_dicom_dir, image_id))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># assume square image </span></span><br><span class="line">    resize_factor = ORIG_SIZE / config.IMAGE_SHAPE[<span class="number">0</span>]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># If grayscale. Convert to RGB for consistency.</span></span><br><span class="line">    <span class="keyword">if</span> len(image.shape) != <span class="number">3</span> <span class="keyword">or</span> image.shape[<span class="number">2</span>] != <span class="number">3</span>:</span><br><span class="line">        image = np.stack((image,) * <span class="number">3</span>, <span class="number">-1</span>) </span><br><span class="line">    resized_image, window, scale, padding, crop = utils.resize_image(</span><br><span class="line">        image,</span><br><span class="line">        min_dim=config.IMAGE_MIN_DIM,</span><br><span class="line">        min_scale=config.IMAGE_MIN_SCALE,</span><br><span class="line">        max_dim=config.IMAGE_MAX_DIM,</span><br><span class="line">        mode=config.IMAGE_RESIZE_MODE)</span><br><span class="line"></span><br><span class="line">    results = model.detect([resized_image])</span><br><span class="line">    r = results[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> bbox <span class="keyword">in</span> r[<span class="string">'rois'</span>]: </span><br><span class="line"><span class="comment">#         print(bbox)</span></span><br><span class="line">        x1 = int(bbox[<span class="number">1</span>] * resize_factor)</span><br><span class="line">        y1 = int(bbox[<span class="number">0</span>] * resize_factor)</span><br><span class="line">        x2 = int(bbox[<span class="number">3</span>] * resize_factor)</span><br><span class="line">        y2 = int(bbox[<span class="number">2</span>]  * resize_factor)</span><br><span class="line">        cv2.rectangle(image, (x1,y1), (x2,y2), (<span class="number">77</span>, <span class="number">255</span>, <span class="number">9</span>), <span class="number">3</span>, <span class="number">1</span>)</span><br><span class="line">        width = x2 - x1 </span><br><span class="line">        height = y2 - y1 </span><br><span class="line"><span class="comment">#         print("x &#123;&#125; y &#123;&#125; h &#123;&#125; w &#123;&#125;".format(x1, y1, width, height))</span></span><br><span class="line">    fig, ax = plt.subplots()</span><br><span class="line">    ax.set_title(<span class="string">f"<span class="subst">&#123;len(r[<span class="string">'rois'</span>])&#125;</span>: <span class="subst">&#123;image_id&#125;</span>"</span>)</span><br><span class="line">    plt.imshow(image)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">8</span>):</span><br><span class="line">    visualize_test()</span><br></pre></td></tr></table></figure>
-<h2 id="outcome"><a class="markdownIt-Anchor" href="#outcome"></a> Outcome</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br></pre></td><td class="code"><pre><span class="line">➜  airbus-ship-detection python airbus_ship_detection.py</span><br><span class="line">Using TensorFlow backend.</span><br><span class="line"></span><br><span class="line">Configurations:</span><br><span class="line">BACKBONE                       resnet50</span><br><span class="line">BACKBONE_STRIDES               [4, 8, 16, 32, 64]</span><br><span class="line">BATCH_SIZE                     10</span><br><span class="line">BBOX_STD_DEV                   [0.1 0.1 0.2 0.2]</span><br><span class="line">COMPUTE_BACKBONE_SHAPE         None</span><br><span class="line">DETECTION_MAX_INSTANCES        14</span><br><span class="line">DETECTION_MIN_CONFIDENCE       0.95</span><br><span class="line">DETECTION_NMS_THRESHOLD        0.0</span><br><span class="line">FPN_CLASSIF_FC_LAYERS_SIZE     1024</span><br><span class="line">GPU_COUNT                      1</span><br><span class="line">GRADIENT_CLIP_NORM             5.0</span><br><span class="line">IMAGES_PER_GPU                 10</span><br><span class="line">IMAGE_CHANNEL_COUNT            3</span><br><span class="line">IMAGE_MAX_DIM                  384</span><br><span class="line">IMAGE_META_SIZE                14</span><br><span class="line">IMAGE_MIN_DIM                  384</span><br><span class="line">IMAGE_MIN_SCALE                0</span><br><span class="line">IMAGE_RESIZE_MODE              square</span><br><span class="line">IMAGE_SHAPE                    [384 384   3]</span><br><span class="line">LEARNING_MOMENTUM              0.9</span><br><span class="line">LEARNING_RATE                  0.001</span><br><span class="line">LOSS_WEIGHTS                   &#123;'rpn_class_loss': 1.0, 'rpn_bbox_loss': 1.0, 'mrcnn_class_loss': 1.0, 'mrcnn_bbox_loss': 1.0, 'mrcnn_mask_loss': 1.0&#125;</span><br><span class="line">MASK_POOL_SIZE                 14</span><br><span class="line">MASK_SHAPE                     [28, 28]</span><br><span class="line">MAX_GT_INSTANCES               14</span><br><span class="line">MEAN_PIXEL                     [123.7 116.8 103.9]</span><br><span class="line">MINI_MASK_SHAPE                (56, 56)</span><br><span class="line">NAME                           airbus</span><br><span class="line">NUM_CLASSES                    2</span><br><span class="line">POOL_SIZE                      7</span><br><span class="line">POST_NMS_ROIS_INFERENCE        1000</span><br><span class="line">POST_NMS_ROIS_TRAINING         2000</span><br><span class="line">PRE_NMS_LIMIT                  6000</span><br><span class="line">ROI_POSITIVE_RATIO             0.33</span><br><span class="line">RPN_ANCHOR_RATIOS              [0.5, 1, 2]</span><br><span class="line">RPN_ANCHOR_SCALES              (8, 16, 32, 64)</span><br><span class="line">RPN_ANCHOR_STRIDE              1</span><br><span class="line">RPN_BBOX_STD_DEV               [0.1 0.1 0.2 0.2]</span><br><span class="line">RPN_NMS_THRESHOLD              0.7</span><br><span class="line">RPN_TRAIN_ANCHORS_PER_IMAGE    256</span><br><span class="line">STEPS_PER_EPOCH                120</span><br><span class="line">TOP_DOWN_PYRAMID_SIZE          256</span><br><span class="line">TRAIN_BN                       False</span><br><span class="line">TRAIN_ROIS_PER_IMAGE           126</span><br><span class="line">USE_MINI_MASK                  True</span><br><span class="line">USE_RPN_ROIS                   True</span><br><span class="line">VALIDATION_STEPS               100</span><br><span class="line">WEIGHT_DECAY                   0.0001</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">41556 1000 15606</span><br><span class="line">(768, 768, 3)</span><br><span class="line">....../airbus-ship-detection/train_v2/ae490e3fb.jpg</span><br><span class="line">[1]</span><br><span class="line">2019-01-23 12:19:43.634701: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:993] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero</span><br><span class="line">2019-01-23 12:19:43.635112: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1432] Found device 0 with properties: </span><br><span class="line">name: GeForce GTX 980M major: 5 minor: 2 memoryClockRate(GHz): 1.1265</span><br><span class="line">pciBusID: 0000:01:00.0</span><br><span class="line">totalMemory: 3.94GiB freeMemory: 2.93GiB</span><br><span class="line">2019-01-23 12:19:43.635131: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0</span><br><span class="line">2019-01-23 12:19:43.918100: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:</span><br><span class="line">2019-01-23 12:19:43.918138: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 </span><br><span class="line">2019-01-23 12:19:43.918145: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N </span><br><span class="line">2019-01-23 12:19:43.918284: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 2636 MB memory) -&gt; physical GPU (device: 0, name: GeForce GTX 980M, pci bus id: 0000:01:00.0, compute capability: 5.2)</span><br><span class="line"></span><br><span class="line">Starting at epoch 0. LR=0.008</span><br><span class="line"></span><br><span class="line">Checkpoint Path: ./airbus20190123T1219/mask_rcnn_airbus_&#123;epoch:04d&#125;.h5</span><br><span class="line">Selecting layers to train</span><br><span class="line">fpn_c5p5               (Conv2D)</span><br><span class="line">fpn_c4p4               (Conv2D)</span><br><span class="line">fpn_c3p3               (Conv2D)</span><br><span class="line">fpn_c2p2               (Conv2D)</span><br><span class="line">fpn_p5                 (Conv2D)</span><br><span class="line">fpn_p2                 (Conv2D)</span><br><span class="line">fpn_p3                 (Conv2D)</span><br><span class="line">fpn_p4                 (Conv2D)</span><br><span class="line">In model:  rpn_model</span><br><span class="line">    rpn_conv_shared        (Conv2D)</span><br><span class="line">    rpn_class_raw          (Conv2D)</span><br><span class="line">    rpn_bbox_pred          (Conv2D)</span><br><span class="line">mrcnn_mask_conv1       (TimeDistributed)</span><br><span class="line">mrcnn_mask_bn1         (TimeDistributed)</span><br><span class="line">mrcnn_mask_conv2       (TimeDistributed)</span><br><span class="line">mrcnn_mask_bn2         (TimeDistributed)</span><br><span class="line">mrcnn_class_conv1      (TimeDistributed)</span><br><span class="line">mrcnn_class_bn1        (TimeDistributed)</span><br><span class="line">mrcnn_mask_conv3       (TimeDistributed)</span><br><span class="line">mrcnn_mask_bn3         (TimeDistributed)</span><br><span class="line">mrcnn_class_conv2      (TimeDistributed)</span><br><span class="line">mrcnn_class_bn2        (TimeDistributed)</span><br><span class="line">mrcnn_mask_conv4       (TimeDistributed)</span><br><span class="line">mrcnn_mask_bn4         (TimeDistributed)</span><br><span class="line">mrcnn_bbox_fc          (TimeDistributed)</span><br><span class="line">mrcnn_mask_deconv      (TimeDistributed)</span><br><span class="line">mrcnn_class_logits     (TimeDistributed)</span><br><span class="line">mrcnn_mask             (TimeDistributed)</span><br><span class="line">Epoch 1/2</span><br><span class="line">......</span><br><span class="line">2019-01-23 12:21:14.922200: I tensorflow/core/common_runtime/bfc_allocator.cc:647] Stats: </span><br><span class="line">Limit:                  2764636160</span><br><span class="line">InUse:                  2422788608</span><br><span class="line">MaxInUse:               2500490496</span><br><span class="line">NumAllocs:                    3411</span><br><span class="line">MaxAllocSize:           1257242624</span><br><span class="line"></span><br><span class="line">2019-01-23 12:21:14.922287: W tensorflow/core/common_runtime/bfc_allocator.cc:271] *********************x*************************_**___******************************************_____</span><br><span class="line">2019-01-23 12:21:14.922318: W tensorflow/core/framework/op_kernel.cc:1333] OP_REQUIRES failed at transpose_op.cc:199 : Resource exhausted: OOM when allocating tensor with shape[1260,14,14,256] and type float on /job:localhost/replica:0/task:0/device:GPU:0 by allocator GPU_0_bfc</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File "airbus_ship_detection.py", line 356, in &lt;module&gt;</span><br><span class="line">    augmentation=None)  ## no need to augment yet</span><br><span class="line">  File "/home/jiapei/.local/lib/python3.6/site-packages/mask_rcnn-2.1-py3.6.egg/mrcnn/model.py", line 2375, in train</span><br><span class="line">  File "/home/jiapei/.local/lib/python3.6/site-packages/keras/legacy/interfaces.py", line 91, in wrapper</span><br><span class="line">    return func(*args, **kwargs)</span><br><span class="line">  File "/home/jiapei/.local/lib/python3.6/site-packages/keras/engine/training.py", line 1418, in fit_generator</span><br><span class="line">    initial_epoch=initial_epoch)</span><br><span class="line">  File "/home/jiapei/.local/lib/python3.6/site-packages/keras/engine/training_generator.py", line 217, in fit_generator</span><br><span class="line">    class_weight=class_weight)</span><br><span class="line">  File "/home/jiapei/.local/lib/python3.6/site-packages/keras/engine/training.py", line 1217, in train_on_batch</span><br><span class="line">    outputs = self.train_function(ins)</span><br><span class="line">  File "/home/jiapei/.local/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py", line 2715, in __call__</span><br><span class="line">    return self._call(inputs)</span><br><span class="line">  File "/home/jiapei/.local/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py", line 2675, in _call</span><br><span class="line">    fetched = self._callable_fn(*array_vals)</span><br><span class="line">  File "/home/jiapei/.local/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1439, in __call__</span><br><span class="line">    run_metadata_ptr)</span><br><span class="line">  File "/home/jiapei/.local/lib/python3.6/site-packages/tensorflow/python/framework/errors_impl.py", line 528, in __exit__</span><br><span class="line">    c_api.TF_GetCode(self.status.status))</span><br><span class="line">tensorflow.python.framework.errors_impl.ResourceExhaustedError: OOM when allocating tensor with shape[1260,14,14,256] and type float on /job:localhost/replica:0/task:0/device:GPU:0 by allocator GPU_0_bfc</span><br><span class="line">         [[&#123;&#123;node mrcnn_mask_bn1/FusedBatchNorm-0-0-TransposeNCHWToNHWC-LayoutOptimizer&#125;&#125;]]</span><br><span class="line">Hint: If you want to see a list of allocated tensors when OOM happens, add report_tensor_allocations_upon_oom to RunOptions for current allocation info.</span><br><span class="line"></span><br><span class="line">         [[&#123;&#123;node mrcnn_mask_loss/Shape_1/_4457&#125;&#125;]]</span><br><span class="line">Hint: If you want to see a list of allocated tensors when OOM happens, add report_tensor_allocations_upon_oom to RunOptions for current allocation info.</span><br></pre></td></tr></table></figure>
-<p>I haven’t quite figure out how to solve the <strong>Resource exhausted</strong> issue yet. But some resultant images can be viewed <strong>FIRST</strong>:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2018/airbus-ship-detection/01_sampleimg.jpg" alt="sample airbus ship"><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2018/airbus-ship-detection/02_ae490e3fb_boundingbox.jpg" alt="sample airbus ship and bounding box"><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2018/airbus-ship-detection/03_sampleimgs.jpg" alt="sample airbus ships"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2401,7 +2442,7 @@ I believe you’ve already got accustomed to the data preparation.</p>
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">61</span>
+                    <span class="site-state-item-count">63</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2581,7 +2622,11 @@ I believe you’ve already got accustomed to the data preparation.</p>
                     
                       
                     
-                    <span class="site-state-item-count">59</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

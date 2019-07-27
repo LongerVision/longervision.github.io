@@ -309,6 +309,346 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/07/27/Medical/ecg/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/27/Medical/ecg/" itemprop="url">
+                  Electrocardiography (ECG)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-07-27 00:00:00 / Modified: 15:37:32" itemprop="dateCreated datePublished" datetime="2019-07-27T00:00:00-07:00">2019-07-27</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Medical/" itemprop="url" rel="index"><span itemprop="name">Medical</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Just finished reviewing a paper talking about <a href="https://en.wikipedia.org/wiki/Electrocardiography" target="_blank" rel="noopener">Electrocardiography (ECG)</a> biometrics 10 minutes ago. Let’s continue having some fun of ECG right away.</p>
+<h1 id="fundamental-knowledge-about-ecg"><a class="markdownIt-Anchor" href="#fundamental-knowledge-about-ecg"></a> Fundamental Knowledge About ECG</h1>
+<p>Details can be found on <a href="https://www.aclsmedicaltraining.com/basics-of-ecg/" target="_blank" rel="noopener">ACLS Medical Training</a>. Let’s cite the key graph as follows:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/medical/ECG/ecg.png" alt="ECG Basics"></p>
+<h1 id="biosppy"><a class="markdownIt-Anchor" href="#biosppy"></a> BioSPPy</h1>
+<p><a href="https://pypi.org/project/biosppy/" target="_blank" rel="noopener">BioSppy</a> is a Python tool which can display various types of biosignals. Its source code can be found on <a href="https://github.com/PIA-Group/BioSPPy" target="_blank" rel="noopener">github</a>.</p>
+<h2 id="installation"><a class="markdownIt-Anchor" href="#installation"></a> Installation</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip install -U biosppy --user</span><br><span class="line">......</span><br><span class="line">➜  ~ pip show biosppy</span><br><span class="line">Name: biosppy</span><br><span class="line">Version: 0.6.1</span><br><span class="line">Summary: A toolbox for biosignal processing written in Python.</span><br><span class="line">Home-page: https://github.com/PIA-Group/BioSPPy</span><br><span class="line">Author: Instituto de Telecomunicacoes</span><br><span class="line">Author-email: carlos.carreiras@lx.it.pt</span><br><span class="line">License: BSD 3-clause</span><br><span class="line">Location: /home/lvision/.local/lib/python3.7/site-packages</span><br><span class="line">Requires: scipy, numpy, matplotlib, scikit-learn, h5py, six, shortuuid, bidict</span><br><span class="line">Required-by:</span><br></pre></td></tr></table></figure>
+<h2 id="test"><a class="markdownIt-Anchor" href="#test"></a> Test</h2>
+<p>A sample <strong>ECG</strong> data can be found at <a href="https://github.com/PIA-Group/BioSPPy/blob/master/examples/ecg.txt" target="_blank" rel="noopener">BioSPPy example</a>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> biosppy <span class="keyword">import</span> storage</span><br><span class="line"><span class="keyword">from</span> biosppy.signals <span class="keyword">import</span> ecg</span><br><span class="line"></span><br><span class="line"><span class="comment"># load raw ECG signal</span></span><br><span class="line">signal, mdata = storage.load_txt(<span class="string">'./examples/ecg.txt'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># process it and plot</span></span><br><span class="line">out = ecg.ecg(signal=signal, sampling_rate=<span class="number">1000.</span>, show=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/medical/ECG/ecgsummary.png" alt="ECG Summary"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/07/26/Tools/setup-qtchooser/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/26/Tools/setup-qtchooser/" itemprop="url">
+                  Setup qtchooser
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-07-26 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-26T00:00:00-07:00">2019-07-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-27 15:31:55" itemprop="dateModified" datetime="2019-07-27T15:31:55-07:00">2019-07-27</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ cd /usr/share/qtchooser</span><br><span class="line">➜  qtchooser ls</span><br><span class="line">qt4-x86_64-linux-gnu.conf  qt5-x86_64-linux-gnu.conf</span><br><span class="line">➜  qtchooser cat qt4-x86_64-linux-gnu.conf </span><br><span class="line">/usr/lib/x86_64-linux-gnu/qt4/bin</span><br><span class="line">/usr/lib/x86_64-linux-gnu</span><br><span class="line">➜  qtchooser cat qt5-x86_64-linux-gnu.conf </span><br><span class="line">/opt/Qt/Current/gcc_64/bin</span><br><span class="line">/opt/Qt/Current/gcc_64/lib</span><br></pre></td></tr></table></figure>
+<p>Make sure <strong>qt5-x86_64-linux-gnu.conf</strong> is setup as you wish.</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/07/16/MCUs/pixycam/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1818,438 +2158,6 @@ In such, **make.py** is manually modified as:
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/06/20/OperatingSystems/build-gcc/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/20/OperatingSystems/build-gcc/" itemprop="url">
-                  Build GCC
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-06-20 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-20T00:00:00-07:00">2019-06-20</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-07-07 13:25:07" itemprop="dateModified" datetime="2019-07-07T13:25:07-07:00">2019-07-07</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Operating-Systems/" itemprop="url" rel="index"><span itemprop="name">Operating Systems</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Today, let’s try to build the <strong>MOST RECENT</strong> <a href="https://gcc.gnu.org/gcc-9/" target="_blank" rel="noopener">GCC 9.1</a>. We strictly follow the <strong>TERRIFIC</strong> blog <a href="https://preshing.com/20141119/how-to-build-a-gcc-cross-compiler/" target="_blank" rel="noopener">How to Build a GCC Cross-Compiler</a> with trivial modifications for my <strong>x86_64</strong> desktop instead of <strong>aarch64</strong> cross compile.</p>
-<h1 id="preparations"><a class="markdownIt-Anchor" href="#preparations"></a> Preparations</h1>
-<h2 id="packages-required-on-host"><a class="markdownIt-Anchor" href="#packages-required-on-host"></a> Packages Required on HOST</h2>
-<p>Some packages are required to install on the host computer, including:</p>
-<ul>
-<li>g++</li>
-<li>make</li>
-<li>gawk</li>
-<li>bison</li>
-<li>flex</li>
-<li>expect</li>
-<li>gnat<br>
-etc.</li>
-</ul>
-<h2 id="get-all-packages-for-building-gcc"><a class="markdownIt-Anchor" href="#get-all-packages-for-building-gcc"></a> Get ALL Packages for Building GCC</h2>
-<p>A <a href="https://raw.githubusercontent.com/LongerVision/Resource/master/OperatingSystems/wget-list.txt" target="_blank" rel="noopener">wget-list.txt</a> file is provided to download <strong>ALL</strong> required packages up-to-date. After having downloaded this single text file, the <strong>UNIQUE</strong> command to download all files is as follows:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc ✗ wget -i wget-list.txt</span><br></pre></td></tr></table></figure>
-<p>You can of course download the files one by one. All concerned files are listed below:</p>
-<ul>
-<li><a href="https://gnu.freemirror.org/gnu/binutils/binutils-2.32.tar.gz" target="_blank" rel="noopener">https://gnu.freemirror.org/gnu/binutils/binutils-2.32.tar.gz</a></li>
-<li><a href="https://gnu.freemirror.org/gnu//gcc/gcc-9.1.0/gcc-9.1.0.tar.gz" target="_blank" rel="noopener">https://gnu.freemirror.org/gnu//gcc/gcc-9.1.0/gcc-9.1.0.tar.gz</a></li>
-<li><a href="https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-5.1.12.tar.gz" target="_blank" rel="noopener">https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-5.1.12.tar.gz</a></li>
-<li><a href="https://ftp.gnu.org/glibc/glibc-2.29.tar.xz" target="_blank" rel="noopener">https://ftp.gnu.org/glibc/glibc-2.29.tar.xz</a></li>
-<li><a href="https://ftp.gnu.org/mpfr/mpfr-4.0.2.tar.xz" target="_blank" rel="noopener">https://ftp.gnu.org/mpfr/mpfr-4.0.2.tar.xz</a></li>
-<li><a href="https://ftp.gnu.org/gmp/gmp-6.1.2.tar.xz" target="_blank" rel="noopener">https://ftp.gnu.org/gmp/gmp-6.1.2.tar.xz</a></li>
-<li><a href="https://ftp.gnu.org/mpc/mpc-1.1.0.tar.gz" target="_blank" rel="noopener">https://ftp.gnu.org/mpc/mpc-1.1.0.tar.gz</a></li>
-<li><a href="ftp://gcc.gnu.org/pub/gcc/infrastructure/isl-0.18.tar.bz2" target="_blank" rel="noopener">ftp://gcc.gnu.org/pub/gcc/infrastructure/isl-0.18.tar.bz2</a></li>
-<li><a href="ftp://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz" target="_blank" rel="noopener">ftp://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz</a></li>
-</ul>
-<p>Then, we extract all <strong>.tar</strong> files in whatever way you prefer.</p>
-<h2 id="prepare-symbolic-links"><a class="markdownIt-Anchor" href="#prepare-symbolic-links"></a> Prepare Symbolic Links</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜  cd gcc-9.1.0</span><br><span class="line">➜  gcc-9.1.0 ln -s ../mpfr-4.0.2 mpfr</span><br><span class="line">➜  gcc-9.1.0 ln -s ../gmp-6.1.2 gmp</span><br><span class="line">➜  gcc-9.1.0 ln -s ../mpc-1.1.0 mpc</span><br><span class="line">➜  gcc-9.1.0 ln -s ../isl-0.18 isl</span><br><span class="line">➜  gcc-9.1.0 ln -s ../cloog-0.18.1 cloog</span><br><span class="line">➜  gcc-9.1.0 cd ..</span><br></pre></td></tr></table></figure>
-<h2 id="prepare-build-target-folder"><a class="markdownIt-Anchor" href="#prepare-build-target-folder"></a> Prepare Build Target Folder</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc mkdir -p /opt/native</span><br><span class="line">➜  gcc export PATH=/opt/native/bin:$PATH</span><br></pre></td></tr></table></figure>
-<h1 id="start-building"><a class="markdownIt-Anchor" href="#start-building"></a> Start Building</h1>
-<h2 id="binutils"><a class="markdownIt-Anchor" href="#binutils"></a> Binutils</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc mkdir build-binutils</span><br><span class="line">➜  gcc cd build-binutils</span><br><span class="line">➜  build-binutils ../binutils-2.32/configure --prefix=/opt/native --target=x86_64-linux-gnu --enable-vtable-verify</span><br><span class="line">checking build system type... x86_64-pc-linux-gnu</span><br><span class="line">checking host system type... x86_64-pc-linux-gnu</span><br><span class="line">checking target system type... x86_64-pc-linux-gnu</span><br><span class="line">checking for a BSD-compatible install... /usr/bin/install -c</span><br><span class="line">checking whether ln works... yes</span><br><span class="line">checking whether ln -s works... yes</span><br><span class="line">checking for a sed that does not truncate output... /usr/bin/sed</span><br><span class="line">checking for gawk... gawk</span><br><span class="line">checking for gcc... gcc</span><br><span class="line">checking whether the C compiler works... yes</span><br><span class="line">checking for C compiler default output file name... a.out</span><br><span class="line">checking for suffix of executables... </span><br><span class="line">checking whether we are cross compiling... no</span><br><span class="line">checking for suffix of object files... o</span><br><span class="line">checking whether we are using the GNU C compiler... yes</span><br><span class="line">checking whether gcc accepts -g... yes</span><br><span class="line">checking for gcc option to accept ISO C89... none needed</span><br><span class="line">checking for g++... g++</span><br><span class="line">checking whether we are using the GNU C++ compiler... yes</span><br><span class="line">checking whether g++ accepts -g... yes</span><br><span class="line">checking whether g++ accepts -static-libstdc++ -static-libgcc... yes</span><br><span class="line">checking for gnatbind... gnatbind</span><br><span class="line">checking for gnatmake... gnatmake</span><br><span class="line">checking whether compiler driver understands Ada... yes</span><br><span class="line">checking how to compare bootstrapped objects... cmp --ignore-initial=16 $$f1 $$f2</span><br><span class="line">checking for objdir... .libs</span><br><span class="line">checking for isl 0.15 or later... no</span><br><span class="line">required isl version is 0.15 or later</span><br><span class="line">checking for default BUILD_CONFIG... </span><br><span class="line">checking for --enable-vtable-verify... yes</span><br><span class="line">checking for bison... bison -y</span><br><span class="line">checking for bison... bison</span><br><span class="line">checking for gm4... no</span><br><span class="line">checking for gnum4... no</span><br><span class="line">checking for m4... m4</span><br><span class="line">checking for flex... flex</span><br><span class="line">checking for flex... flex</span><br><span class="line">checking for makeinfo... makeinfo</span><br><span class="line">checking for expect... expect</span><br><span class="line">checking for runtest... no</span><br><span class="line">checking for ar... ar</span><br><span class="line">checking for as... as</span><br><span class="line">checking for dlltool... no</span><br><span class="line">checking for ld... ld</span><br><span class="line">checking for lipo... no</span><br><span class="line">checking for nm... nm</span><br><span class="line">checking for ranlib... ranlib</span><br><span class="line">checking for strip... strip</span><br><span class="line">checking for windres... no</span><br><span class="line">checking for windmc... no</span><br><span class="line">checking for objcopy... objcopy</span><br><span class="line">checking for objdump... objdump</span><br><span class="line">checking for readelf... readelf</span><br><span class="line">checking for x86_64-linux-gnu-cc... no</span><br><span class="line">checking for cc... cc</span><br><span class="line">checking for x86_64-linux-gnu-c++... no</span><br><span class="line">checking for c++... c++</span><br><span class="line">checking for x86_64-linux-gnu-gcc... x86_64-linux-gnu-gcc</span><br><span class="line">checking for x86_64-linux-gnu-gfortran... x86_64-linux-gnu-gfortran</span><br><span class="line">checking for x86_64-linux-gnu-gccgo... no</span><br><span class="line">checking for gccgo... no</span><br><span class="line">checking for x86_64-linux-gnu-ar... x86_64-linux-gnu-ar</span><br><span class="line">checking for x86_64-linux-gnu-as... x86_64-linux-gnu-as</span><br><span class="line">checking for x86_64-linux-gnu-dlltool... no</span><br><span class="line">checking for dlltool... no</span><br><span class="line">checking for x86_64-linux-gnu-ld... x86_64-linux-gnu-ld</span><br><span class="line">checking for x86_64-linux-gnu-lipo... no</span><br><span class="line">checking for lipo... no</span><br><span class="line">checking for x86_64-linux-gnu-nm... x86_64-linux-gnu-nm</span><br><span class="line">checking for x86_64-linux-gnu-objcopy... x86_64-linux-gnu-objcopy</span><br><span class="line">checking for x86_64-linux-gnu-objdump... x86_64-linux-gnu-objdump</span><br><span class="line">checking for x86_64-linux-gnu-ranlib... x86_64-linux-gnu-ranlib</span><br><span class="line">checking for x86_64-linux-gnu-readelf... x86_64-linux-gnu-readelf</span><br><span class="line">checking for x86_64-linux-gnu-strip... x86_64-linux-gnu-strip</span><br><span class="line">checking for x86_64-linux-gnu-windres... no</span><br><span class="line">checking for windres... no</span><br><span class="line">checking for x86_64-linux-gnu-windmc... no</span><br><span class="line">checking for windmc... no</span><br><span class="line">checking where to find the target ar... just compiled</span><br><span class="line">checking where to find the target as... just compiled</span><br><span class="line">checking where to find the target cc... host tool</span><br><span class="line">checking where to find the target c++... host tool</span><br><span class="line">checking where to find the target c++ for libstdc++... host tool</span><br><span class="line">checking where to find the target dlltool... just compiled</span><br><span class="line">checking where to find the target gcc... host tool</span><br><span class="line">checking where to find the target gfortran... host tool</span><br><span class="line">checking where to find the target gccgo... host tool</span><br><span class="line">checking where to find the target ld... just compiled</span><br><span class="line">checking where to find the target lipo... host tool</span><br><span class="line">checking where to find the target nm... just compiled</span><br><span class="line">checking where to find the target objcopy... just compiled</span><br><span class="line">checking where to find the target objdump... just compiled</span><br><span class="line">checking where to find the target ranlib... just compiled</span><br><span class="line">checking where to find the target readelf... just compiled</span><br><span class="line">checking where to find the target strip... just compiled</span><br><span class="line">checking where to find the target windres... just compiled</span><br><span class="line">checking where to find the target windmc... just compiled</span><br><span class="line">checking whether to enable maintainer-specific portions of Makefiles... no</span><br><span class="line">configure: creating ./config.status</span><br><span class="line">config.status: creating Makefile</span><br><span class="line">➜  build-binutils make -j4</span><br><span class="line">......</span><br><span class="line">➜  build-binutils make install</span><br><span class="line">➜  build-binutils cd ..</span><br></pre></td></tr></table></figure>
-<h2 id="linux-kernel-headers"><a class="markdownIt-Anchor" href="#linux-kernel-headers"></a> Linux Kernel Headers</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc cd linux-5.1.12</span><br><span class="line">➜  linux-5.1.12 make ARCH=x86 INSTALL_HDR_PATH=/opt/native/linux headers_install</span><br><span class="line">➜  linux-5.1.12 cd ..</span><br></pre></td></tr></table></figure>
-<h2 id="cc-compilers"><a class="markdownIt-Anchor" href="#cc-compilers"></a> C/C++ Compilers</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc mkdir -p build-gcc</span><br><span class="line">➜  gcc cd build-gcc</span><br><span class="line">➜  build-gcc ../gcc-9.1.0/configure --prefix=/opt/native --target=x86_64-linux-gnu --enable-languages=c,c++,fortran,go --disable-multilib --enable-vtable-verify</span><br><span class="line">➜  build-gcc make -j4 all-gcc</span><br><span class="line">➜  build-gcc make install-gcc</span><br><span class="line">➜  build-gcc cd ..</span><br></pre></td></tr></table></figure>
-<h2 id="glibc"><a class="markdownIt-Anchor" href="#glibc"></a> GLibc</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc mkdir -p build-glibc</span><br><span class="line">➜  gcc cd build-glibc</span><br><span class="line">➜  build-glibc ../glibc-2.29/configure --prefix=/opt/native/linux --build=$MACHTYPE --host=x86_64-linux-gnu --target=x86_64-linux-gnu --with-headers=/opt/native/linux/include --disable-multilib --with-selinux=no --enable-vtable-verify libc_cv_forced_unwind=yes</span><br><span class="line">➜  build-glibc make install-bootstrap-headers=yes install-headers</span><br><span class="line">➜  build-glibc make -j4 csu/subdir_lib</span><br><span class="line">➜  build-glibc mkdir /opt/native/linux/lib</span><br><span class="line">➜  build-glibc install csu/crt1.o csu/crti.o csu/crtn.o /opt/native/linux/lib</span><br><span class="line">➜  build-glibc /opt/native/bin/x86_64-linux-gnu-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o /opt/native/linux/lib/libc.so</span><br><span class="line">➜  build-glibc touch /opt/native/linux/include/gnu/stubs.h</span><br><span class="line">➜  build-glibc cd ..</span><br></pre></td></tr></table></figure>
-<h2 id="compiler-support-library"><a class="markdownIt-Anchor" href="#compiler-support-library"></a> Compiler Support Library</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc cd build-gcc</span><br><span class="line">➜  build-gcc make -j4 all-target-libgcc</span><br><span class="line">➜  build-gcc make install-target-libgcc</span><br><span class="line">➜  build-gcc cd ..</span><br></pre></td></tr></table></figure>
-<h2 id="build-standard-c-library"><a class="markdownIt-Anchor" href="#build-standard-c-library"></a> Build Standard C Library</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc cd build-glibc</span><br><span class="line">➜  build-glibc make -j4</span><br><span class="line">➜  build-glibc make install</span><br><span class="line">➜  build-glibc cd ..</span><br></pre></td></tr></table></figure>
-<h2 id="build-standard-c-library-2"><a class="markdownIt-Anchor" href="#build-standard-c-library-2"></a> Build Standard C++ Library</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc cd build-gcc</span><br><span class="line">➜  build-gcc make -j4</span><br><span class="line">➜  build-gcc make install</span><br><span class="line">➜  build-gcc cd ..</span><br></pre></td></tr></table></figure>
-<h1 id="finishing-and-test"><a class="markdownIt-Anchor" href="#finishing-and-test"></a> Finishing and Test</h1>
-<h2 id="check-gcc-version"><a class="markdownIt-Anchor" href="#check-gcc-version"></a> Check GCC Version</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  build-gcc x86_64-linux-gnu-c++ -v</span><br><span class="line">Using built-in specs.</span><br><span class="line">COLLECT_GCC=x86_64-linux-gnu-c++</span><br><span class="line">COLLECT_LTO_WRAPPER=/opt/native/libexec/gcc/x86_64-linux-gnu/9.1.0/lto-wrapper</span><br><span class="line">Target: x86_64-linux-gnu</span><br><span class="line">Configured with: ../gcc-9.1.0/configure --prefix=/opt/native --target=x86_64-linux-gnu --enable-languages=c,c++,python,fortran,go --disable-multilib --enable-vtable-verify</span><br><span class="line">Thread model: posix</span><br><span class="line">gcc version 9.1.0 (GCC)</span><br></pre></td></tr></table></figure>
-<h2 id="run-hello-world"><a class="markdownIt-Anchor" href="#run-hello-world"></a> Run Hello World</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">➜  GCC cat test.cpp </span><br><span class="line"><span class="meta">#</span><span class="bash">include &lt;iostream&gt;</span></span><br><span class="line"></span><br><span class="line">int main(int argc, char** argv)</span><br><span class="line">&#123;</span><br><span class="line">    std::cout &lt;&lt; "Hello World!" &lt;&lt; std::endl;</span><br><span class="line">    return EXIT_SUCCESS;</span><br><span class="line">&#125;</span><br><span class="line">➜  GCC x86_64-linux-gnu-c++ -std=c++17 test.cpp</span><br><span class="line">➜  GCC x86_64-linux-gnu-c++ -std=c++17 test.cpp -o test</span><br><span class="line">➜  GCC ls</span><br><span class="line">a.out  test  test.cpp</span><br><span class="line">➜  GCC ./test</span><br><span class="line">Hello World!</span><br><span class="line">➜  GCC</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/06/05/SBCs/orange-pi-3-official/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/05/SBCs/orange-pi-3-official/" itemprop="url">
-                  Install Ubuntu Desktop from Official Orange Pi Website onto Orange Pi 3
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-06-05 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-05T00:00:00-07:00">2019-06-05</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-06-20 22:09:44" itemprop="dateModified" datetime="2019-06-20T22:09:44-07:00">2019-06-20</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/SBC/" itemprop="url" rel="index"><span itemprop="name">SBC</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>According to our previous blog <a href="../../../../../2019/05/12/Embedded/orange-pi-3-armbian/">Install Armbian Ubuntu Desktop Nightly Built onto Orange Pi 3</a>, Wifi module of <a href="http://www.orangepi.org/Orange%20Pi%203/" target="_blank" rel="noopener">Orange Pi 3</a> with <a href="https://dl.armbian.com/orangepi3/nightly/" target="_blank" rel="noopener">Armbian nightly built for Orange Pi 3</a> does <strong>NOT</strong> function well. Therefore, today, we resort back to the Ubuntu Desktop distro from Orange Pi’s official website.</p>
-<h1 id="part-a-install-ubuntu-desktop-from-official-orange-pi-website-onto-orange-pi-3"><a class="markdownIt-Anchor" href="#part-a-install-ubuntu-desktop-from-official-orange-pi-website-onto-orange-pi-3"></a> PART A: Install Ubuntu Desktop from Official Orange Pi Website onto Orange Pi 3</h1>
-<h2 id="1-download-ubuntu-desktop-for-orange-pi-3-from-official-orange-pi-website"><a class="markdownIt-Anchor" href="#1-download-ubuntu-desktop-for-orange-pi-3-from-official-orange-pi-website"></a> 1. Download Ubuntu Desktop for Orange Pi 3 from Official Orange Pi Website</h2>
-<p>We <strong>FIRST</strong> go visiting Orange Pi’s official website <a href="http://www.orangepi.org/downloadresources/" target="_blank" rel="noopener">http://www.orangepi.org/downloadresources/</a> and find the <a href="http://www.orangepi.org/downloadresources/OrangePi3/2019-01-23/orangepi3_82ad209229e957e13fa953491c.html" target="_blank" rel="noopener">Ubuntu Desktop distro</a> for <a href="http://www.orangepi.org/Orange%20Pi%203/" target="_blank" rel="noopener">Orange Pi 3</a>.</p>
-<p>After <strong>OrangePi_3_xenial_desktop_linux4.9_v1.3.img.tar.gz</strong> has been downloaded, we had it extracted as follows:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  orangepi tar xvf OrangePi_3_xenial_desktop_linux4.9_v1.3.img.tar.gz </span><br><span class="line">OrangePi_3_xenial_desktop_linux4.9_v1.3.img</span><br><span class="line">OrangePi_3_xenial_desktop_linux4.9_v1.3.img.md5sum</span><br></pre></td></tr></table></figure>
-<h2 id="2-install-orange-pis-official-ubuntu-desktop-for-orange-pi-3"><a class="markdownIt-Anchor" href="#2-install-orange-pis-official-ubuntu-desktop-for-orange-pi-3"></a> 2. Install Orange Pi’s Official Ubuntu Desktop for Orange Pi 3</h2>
-<p>Exactly the same as in our previous blog <a href="../../../../../2018/02/27/Embedded/orange-pi-plus-2-armbian/">Install Armbian Ubuntu Desktop with the Newest Supported Mainline Linux Kernel onto Orange Pi Plus 2</a>, we have the TF card formatted and <strong>dd</strong> the system into it.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜  orangepi sudo dd bs=4M <span class="keyword">if</span>=OrangePi_3_xenial_desktop_linux4.9_v1.3.img of=/dev/mmcblk0 conv=fsync</span><br><span class="line">[sudo] password <span class="keyword">for</span> lvision: </span><br><span class="line">950+0 records <span class="keyword">in</span></span><br><span class="line">950+0 records out</span><br><span class="line">3984588800 bytes (4.0 GB, 3.7 GiB) copied, 170.284 s, 23.4 MB/s</span><br></pre></td></tr></table></figure>
-<h1 id="part-b-boot-into-orange-pi-3-enable-ssh-update-upgrade-locale-configuration-network-configuration"><a class="markdownIt-Anchor" href="#part-b-boot-into-orange-pi-3-enable-ssh-update-upgrade-locale-configuration-network-configuration"></a> PART B: Boot Into Orange Pi 3, Enable SSH, Update &amp; Upgrade, Locale Configuration, Network Configuration</h1>
-<p>Different from our previous blog <a href="../../../../../2019/04/16/Embedded/banana-pi-m3-armbian/">Install Armbian Ubuntu Desktop With Kernel 5.0 onto Banana Pi M3</a>, <strong>SSH service</strong> on <a href="http://www.orangepi.org/downloadresources/OrangePi3/2019-01-23/orangepi3_82ad209229e957e13fa953491c.html" target="_blank" rel="noopener">Orange Pi’s Official Ubuntu Desktop</a> for Orange Pi 3 is <strong>NOT</strong> enabled by default. Therefore, we’ve got to enable <strong>SSH</strong> during out <strong>FIRST</strong> boot.</p>
-<h2 id="1-boot-into-orange-pi-3"><a class="markdownIt-Anchor" href="#1-boot-into-orange-pi-3"></a> 1. Boot into Orange Pi 3</h2>
-<p>The overview of Official Orange Pi’s Ubuntu Desktop for Orange Pi 3 looks as:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/orangepi/orangepi3/00_login_overview.jpg" alt="Overview of Official Orange Pi's Ubuntu Desktop"></p>
-<h2 id="2-kernel-doublechecking"><a class="markdownIt-Anchor" href="#2-kernel-doublechecking"></a> 2. Kernel Doublechecking</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">orangepi@OrangePi:~$ uname -r</span><br><span class="line">4.9.118+</span><br><span class="line">orangepi@OrangePi:~$ uname -a</span><br><span class="line">Linux OrangePi 4.9.118+ <span class="comment">#5 SMP PREEMPT Mon Apr 15 09:45:02 CST 2019 aarch64 aarch64 aarch64 GNU/Linux</span></span><br><span class="line">orangepi@OrangePi:~$ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID: Ubuntu</span><br><span class="line">Description:    Ubuntu 16.04.6 LTS</span><br><span class="line">Release:        16.04</span><br><span class="line">Codename:       xenial</span><br></pre></td></tr></table></figure>
-<h2 id="3-enable-ssh"><a class="markdownIt-Anchor" href="#3-enable-ssh"></a> 3. Enable SSH</h2>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/orangepi/orangepi3/01_ssh_service_auto_start.jpg" alt="Auto Start SSH Service After Booting"></p>
-<p>After having successfully enabled <strong>SSH</strong>, you are able to login <a href="http://www.orangepi.org/Orange%20Pi%203/" target="_blank" rel="noopener">Orange Pi 3</a> remotely. Well, you may still need to figure out how to:</p>
-<ul>
-<li>setup Wifi for <a href="http://www.orangepi.org/Orange%20Pi%203/" target="_blank" rel="noopener">Orange Pi 3</a>, which is pretty simple with Ubuntu Desktop GUI</li>
-<li>further setup static IP addresses in your router for both Wifi and Wired connections</li>
-</ul>
-<h2 id="4-update-upgrade"><a class="markdownIt-Anchor" href="#4-update-upgrade"></a> 4. Update &amp; Upgrade</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">orangepi@OrangePi:~$ sudo apt update</span><br><span class="line">[sudo] password <span class="keyword">for</span> orangepi: </span><br><span class="line">Hit:1 http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports xenial InRelease</span><br><span class="line">Hit:2 http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports xenial-updates InRelease</span><br><span class="line">Hit:3 http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports xenial-backports InRelease</span><br><span class="line">Hit:4 http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports xenial-security InRelease</span><br><span class="line">Reading package lists... Done                     </span><br><span class="line">Building dependency tree       </span><br><span class="line">Reading state information... Done</span><br><span class="line">All packages are up to date.</span><br><span class="line">root@orangepi3:~<span class="comment">#</span></span><br></pre></td></tr></table></figure>
-<p>Since I’ve already updated/upgraded all packages, it’ll tell you from terminal that <strong>All packages are up to date.</strong>. BTW, it seems <a href="http://www.orangepi.org" target="_blank" rel="noopener">Orange Pi</a> is a team from <a href="https://www.tsinghua.edu.cn/" target="_blank" rel="noopener">TsingHua Universiity</a>?</p>
-<h2 id="5-locale-configuration"><a class="markdownIt-Anchor" href="#5-locale-configuration"></a> 5. Locale Configuration</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">orangepi@OrangePi:~$ sudo dpkg-reconfigure tzdata</span><br><span class="line">perl: warning: Setting locale failed.</span><br><span class="line">perl: warning: Please check that your locale settings:</span><br><span class="line">        LANGUAGE = (<span class="built_in">unset</span>),</span><br><span class="line">        LC_ALL = (<span class="built_in">unset</span>),</span><br><span class="line">        LC_PAPER = <span class="string">"en"</span>,</span><br><span class="line">        LC_ADDRESS = <span class="string">"en"</span>,</span><br><span class="line">        LC_MONETARY = <span class="string">"en"</span>,</span><br><span class="line">        LC_NUMERIC = <span class="string">"en"</span>,</span><br><span class="line">        LC_TELEPHONE = <span class="string">"en"</span>,</span><br><span class="line">        LC_IDENTIFICATION = <span class="string">"en"</span>,</span><br><span class="line">        LC_MEASUREMENT = <span class="string">"en"</span>,</span><br><span class="line">        LC_CTYPE = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_TIME = <span class="string">"en"</span>,</span><br><span class="line">        LC_NAME = <span class="string">"en"</span>,</span><br><span class="line">        LANG = <span class="string">"en_CA.UTF-8"</span></span><br><span class="line">    are supported and installed on your system.</span><br><span class="line">perl: warning: Falling back to the standard locale (<span class="string">"C"</span>).</span><br><span class="line">locale: Cannot <span class="built_in">set</span> LC_CTYPE to default locale: No such file or directory</span><br><span class="line">locale: Cannot <span class="built_in">set</span> LC_MESSAGES to default locale: No such file or directory</span><br><span class="line">locale: Cannot <span class="built_in">set</span> LC_ALL to default locale: No such file or directory</span><br><span class="line">/usr/bin/locale: Cannot <span class="built_in">set</span> LC_CTYPE to default locale: No such file or directory</span><br><span class="line">/usr/bin/locale: Cannot <span class="built_in">set</span> LC_MESSAGES to default locale: No such file or directory</span><br><span class="line">/usr/bin/locale: Cannot <span class="built_in">set</span> LC_ALL to default locale: No such file or directory</span><br><span class="line"></span><br><span class="line">Current default time zone: <span class="string">'America/Vancouver'</span></span><br><span class="line">Local time is now:      Wed Jun  5 09:43:12 PDT 2019.</span><br><span class="line">Universal Time is now:  Wed Jun  5 16:43:12 UTC 2019.</span><br></pre></td></tr></table></figure>
-<p>During the above process, you’ll set the following 2 pages correspondingly:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/orangepi/orangepi3/02_OrangePi3_SystemLocale_America.jpg" alt="System Locale America"></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/orangepi/orangepi3/03_OrangePi3_SystemLocale_Vancouver.jpg" alt="System Locale Vancouver"></p>
-<p>By using the command <strong>date</strong>, we can see the timezone has been successfully reset.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">orangepi@OrangePi:~<span class="comment"># date</span></span><br><span class="line">Wed Jun  5 12:05:40 PDT 2019</span><br></pre></td></tr></table></figure>
-<h2 id="6-network-configuration"><a class="markdownIt-Anchor" href="#6-network-configuration"></a> 6. Network Configuration</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">orangepi@OrangePi:~$ ip -c address</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    link/ether 36:c9:e3:f1:b8:05 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.1.78/24 brd 192.168.1.255 scope global eth0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 2001:569:7e6d:1b00:4cbf:8fff:88e0:e68c/64 scope global temporary dynamic </span><br><span class="line">       valid_lft 7488sec preferred_lft 7188sec</span><br><span class="line">    inet6 2001:569:7e6d:1b00:c145:4c18:8c39:e90a/64 scope global mngtmpaddr noprefixroute dynamic </span><br><span class="line">       valid_lft 7488sec preferred_lft 7188sec</span><br><span class="line">    inet6 fe80::5ca:d7da:797:33af/64 scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">3: tunl0@NONE: &lt;NOARP&gt; mtu 1480 qdisc noop state DOWN group default qlen 1</span><br><span class="line">    link/ipip 0.0.0.0 brd 0.0.0.0</span><br><span class="line">4: gre0@NONE: &lt;NOARP&gt; mtu 1476 qdisc noop state DOWN group default qlen 1</span><br><span class="line">    link/gre 0.0.0.0 brd 0.0.0.0</span><br><span class="line">5: gretap0@NONE: &lt;BROADCAST,MULTICAST&gt; mtu 1462 qdisc noop state DOWN group default qlen 1000</span><br><span class="line">    link/ether 00:00:00:00:00:00 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">6: ip_vti0@NONE: &lt;NOARP&gt; mtu 1480 qdisc noop state DOWN group default qlen 1</span><br><span class="line">    link/ipip 0.0.0.0 brd 0.0.0.0</span><br><span class="line">7: ip6_vti0@NONE: &lt;NOARP&gt; mtu 1500 qdisc noop state DOWN group default qlen 1</span><br><span class="line">    link/tunnel6 :: brd ::</span><br><span class="line">8: sit0@NONE: &lt;NOARP&gt; mtu 1480 qdisc noop state DOWN group default qlen 1</span><br><span class="line">    link/sit 0.0.0.0 brd 0.0.0.0</span><br><span class="line">9: ip6tnl0@NONE: &lt;NOARP&gt; mtu 1452 qdisc noop state DOWN group default qlen 1</span><br><span class="line">    link/tunnel6 :: brd ::</span><br><span class="line">10: wlan0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    link/ether 6c:21:a2:14:cc:ce brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.1.79/24 brd 192.168.1.255 scope global dynamic wlan0</span><br><span class="line">       valid_lft 86384sec preferred_lft 86384sec</span><br><span class="line">    inet6 2001:569:7e6d:1b00:9055:86f5:5b5:82ae/64 scope global temporary dynamic </span><br><span class="line">       valid_lft 7488sec preferred_lft 7188sec</span><br><span class="line">    inet6 2001:569:7e6d:1b00:a76:2b2e:4c08:f7cd/64 scope global mngtmpaddr noprefixroute dynamic </span><br><span class="line">       valid_lft 7488sec preferred_lft 7188sec</span><br><span class="line">    inet6 fe80::200d:cbb5:fc23:f6e4/64 scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
-<p>As you can see, I set up static IP address as follows:</p>
-<ul>
-<li>eth0: 192.168.1.78</li>
-<li>wlan0: 192.168.1.79</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2297,7 +2205,7 @@ etc.</li>
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">61</span>
+                    <span class="site-state-item-count">63</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2477,7 +2385,11 @@ etc.</li>
                     
                       
                     
-                    <span class="site-state-item-count">59</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
