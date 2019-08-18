@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="English">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo3d.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo3d_32X32.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo3d_16x16.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo3d.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="It’s been quite a while before I write down this similar blog as my previous Single Board Computer blogs. Banana Pi Pro is a SBC with AllWinner A20 ARM CPU, which is also just of card size (Cited from">
+<meta name="keywords" content="Banana Pi Pro, AllWinner A20, Armbian, Ubuntu, Mainline Linux Kernel, BSP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Install Armbian Ubuntu Desktop onto Banana Pi Pro">
+<meta property="og:url" content="http://longervision.ca/2018/09/04/SBCs/ARM/banana-pi-pro-armbian/index.html">
+<meta property="og:site_name" content="Longer Vision Technology">
+<meta property="og:description" content="It’s been quite a while before I write down this similar blog as my previous Single Board Computer blogs. Banana Pi Pro is a SBC with AllWinner A20 ARM CPU, which is also just of card size (Cited from">
+<meta property="og:locale" content="English">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/BananaPiPro_A20.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/01_SystemLocale_America.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/02_SystemLocale_Vancouver.jpg">
+<meta property="og:updated_time" content="2019-08-18T21:58:18.839Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Install Armbian Ubuntu Desktop onto Banana Pi Pro">
+<meta name="twitter:description" content="It’s been quite a while before I write down this similar blog as my previous Single Board Computer blogs. Banana Pi Pro is a SBC with AllWinner A20 ARM CPU, which is also just of card size (Cited from">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/BananaPiPro_A20.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://longervision.ca/2018/09/04/SBCs/ARM/banana-pi-pro-armbian/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Install Armbian Ubuntu Desktop onto Banana Pi Pro | Longer Vision Technology</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="English">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Longer Vision Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Github Blog</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/09/04/SBCs/ARM/banana-pi-pro-armbian/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Install Armbian Ubuntu Desktop onto Banana Pi Pro
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-09-04 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-04T00:00:00-07:00">2018-09-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-08-18 14:58:18" itemprop="dateModified" datetime="2019-08-18T14:58:18-07:00">2019-08-18</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>It’s been quite a while before I write down this <strong>similar</strong> blog as my previous <strong>Single Board Computer</strong> blogs. <a href="http://www.lemaker.org/product-bananapro-specification.html" target="_blank" rel="noopener">Banana Pi Pro</a> is a <strong>SBC</strong> with <a href="http://www.allwinnertech.com/index.php?c=product&amp;a=index&amp;id=45" target="_blank" rel="noopener">AllWinner A20</a> ARM CPU, which is also just of card size (Cited from <a href="http://www.lemaker.org/product-bananapro-specification.html" target="_blank" rel="noopener">LeMaker Official website</a>).</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/BananaPiPro_A20.jpg" alt="Orange Pi Plus 2"></p>
+<p>Now, we follow our previous blog <a href="../../../../../2018/02/24/Embedded/nanopi-neo-armbian/">Install Armbian Debian Server onto NanoPi NEO</a> to install Armbian Ubuntu Desktop onto <a href="http://www.lemaker.org/product-bananapro-specification.html" target="_blank" rel="noopener">Banana Pi Pro</a>.</p>
+<h1 id="part-a-install-ubuntu-desktop-built-by-armbian-onto-banana-pi-pro"><a class="markdownIt-Anchor" href="#part-a-install-ubuntu-desktop-built-by-armbian-onto-banana-pi-pro"></a> PART A: Install Ubuntu Desktop Built By Armbian onto Banana Pi Pro</h1>
+<h2 id="1-download-armbian-ubuntu-desktop-for-banana-pi-pro"><a class="markdownIt-Anchor" href="#1-download-armbian-ubuntu-desktop-for-banana-pi-pro"></a> 1. Download Armbian Ubuntu Desktop for Banana Pi Pro</h2>
+<p>We <strong>FIRST</strong> go visiting the website <a href="https://www.armbian.com/banana-pi-pro/" target="_blank" rel="noopener">https://www.armbian.com/banana-pi-pro/</a> and click <strong>Armbian Bionic</strong> icon, a file named <strong>Armbian_5.59_Bananapipro_Ubuntu_bionic_next_4.14.65.7z</strong> will be automatically downloaded.</p>
+<p>Then, we extract this .<strong>7z</strong> file by</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ 7z x Armbian_5.59_Bananapipro_Ubuntu_bionic_next_4.14.65.7z -oArmbian_5.59_Bananapipro_Ubuntu_bionic_next_4.14.65</span><br><span class="line"></span><br><span class="line">7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21</span><br><span class="line">p7zip Version 16.02 (locale=en_CA.UTF-8,Utf16=on,HugeFiles=on,64 bits,8 CPUs Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz (506E3),ASM,AES-NI)</span><br><span class="line"></span><br><span class="line">Scanning the drive <span class="keyword">for</span> archives:</span><br><span class="line">1 file, 202610698 bytes (194 MiB)</span><br><span class="line"></span><br><span class="line">Extracting archive: Armbian_5.59_Bananapipro_Ubuntu_bionic_next_4.14.65.7z</span><br><span class="line">--</span><br><span class="line">Path = Armbian_5.59_Bananapipro_Ubuntu_bionic_next_4.14.65.7z</span><br><span class="line">Type = 7z</span><br><span class="line">Physical Size = 202610698</span><br><span class="line">Headers Size = 290</span><br><span class="line">Method = LZMA2:25</span><br><span class="line">Solid = +</span><br><span class="line">Blocks = 1</span><br><span class="line"></span><br><span class="line">Everything is Ok                                              </span><br><span class="line"></span><br><span class="line">Files: 4</span><br><span class="line">Size:       885017676</span><br><span class="line">Compressed: 202610698</span><br></pre></td></tr></table></figure>
+<h2 id="2-install-armbian-ubuntu-desktop-for-banana-pi-pro"><a class="markdownIt-Anchor" href="#2-install-armbian-ubuntu-desktop-for-banana-pi-pro"></a> 2. Install Armbian Ubuntu Desktop for Banana Pi Pro</h2>
+<p>After the extracted image file is prepared, it’s the time to install the Armbian Ubuntu Desktop onto our TF card. We <strong>FIRST</strong> format the TF card:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ sudo umount /dev/mmcblk0p1 </span><br><span class="line">[sudo] password <span class="keyword">for</span> jiapei: </span><br><span class="line">$ sudo mkfs.ext4 /dev/mmcblk0 </span><br><span class="line">mke2fs 1.44.1 (24-Mar-2018)</span><br><span class="line">Found a dos partition table <span class="keyword">in</span> /dev/mmcblk0</span><br><span class="line">Proceed anyway? (y,N) y</span><br><span class="line">Discarding device blocks: <span class="keyword">done</span>                            </span><br><span class="line">Creating filesystem with 7791744 4k blocks and 1949696 inodes</span><br><span class="line">Filesystem UUID: 4e7bb315-0db1-4b62-a9d5-40c0ba78c7f0</span><br><span class="line">Superblock backups stored on blocks: </span><br><span class="line">        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, </span><br><span class="line">        4096000</span><br><span class="line"></span><br><span class="line">Allocating group tables: <span class="keyword">done</span>                            </span><br><span class="line">Writing inode tables: <span class="keyword">done</span>                            </span><br><span class="line">Creating journal (32768 blocks): <span class="keyword">done</span></span><br><span class="line">Writing superblocks and filesystem accounting information: <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>Afterwards, use <strong>dd</strong> to install the downloaded Armbian Ubuntu Desktop image.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> Armbian_5.59_Bananapipro_Ubuntu_bionic_next_4.14.65/</span><br><span class="line">$ sudo dd bs=4M <span class="keyword">if</span>=Armbian_5.59_Bananapipro_Ubuntu_bionic_next_4.14.65.img of=/dev/mmcblk0 conv=fsync</span><br><span class="line">211+0 records <span class="keyword">in</span></span><br><span class="line">211+0 records out</span><br><span class="line">884998144 bytes (885 MB, 844 MiB) copied, 123.525 s, 7.2 MB/s</span><br></pre></td></tr></table></figure>
+<h1 id="part-b-boot-into-armbian-network-configuration-locale-configuration-and-armbian-upgrading"><a class="markdownIt-Anchor" href="#part-b-boot-into-armbian-network-configuration-locale-configuration-and-armbian-upgrading"></a> PART B: Boot Into Armbian, Network Configuration, Locale Configuration and Armbian Upgrading</h1>
+<p><span style="color:red"><strong>NOTE</strong>: Whenever you met some unsolvable issue after you boot into Armbian, please use the command <code>armbianmonitor -U</code> to log the issue.</span></p>
+<h2 id="1-boot-into-armbian"><a class="markdownIt-Anchor" href="#1-boot-into-armbian"></a> 1. Boot Into Armbian</h2>
+<p>We now unplug the TF card from the host and put it into the <a href="http://www.lemaker.org/product-bananapro-specification.html" target="_blank" rel="noopener">Banana Pi Pro board</a>, Armbian Ubuntu Desktop boots successfully. The default username and password are respectively: <strong>root</strong> and <strong>1234</strong>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Ubuntu 18.04.1 LTS bananapipro tty1</span><br><span class="line"></span><br><span class="line">bananapipro login: root</span><br><span class="line">password:</span><br><span class="line">You are required to change your password immediately (root enforced)</span><br><span class="line">Changing password <span class="keyword">for</span> root.</span><br><span class="line">(current) UNIX password:</span><br><span class="line">Enter new UNIX password:</span><br><span class="line">Retype new UNIX password:</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>And, for the <strong>FIRST</strong> boot, we’ll be asked to create a <strong>NEW user</strong> besides <strong>root</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Creating a new user account. Press &lt;Ctrl-C&gt; to abort</span><br><span class="line"></span><br><span class="line">Please provide a username (eg. your forename): bananapipro</span><br><span class="line">Trying to add user bananapipro</span><br><span class="line">Adding user <span class="string">'bananapipro'</span> ...</span><br><span class="line">Adding new group <span class="string">'bananapipro'</span> (1000) ...</span><br><span class="line">Adding new user <span class="string">'bananapipro'</span> (1000) with group <span class="string">'bananapipro'</span> ...</span><br><span class="line">Creating home directory <span class="string">'/home/bananapipro'</span> ...</span><br><span class="line">Copying files from <span class="string">'/etc/ske1'</span> ...</span><br><span class="line">Enter new UNIX password:</span><br><span class="line">Retype new UNIX password:</span><br><span class="line">passwd: password updated successfully</span><br><span class="line">Changing the user information <span class="keyword">for</span> orangepiplus2</span><br><span class="line">Eter the new value, or press ENTER <span class="keyword">for</span> the default</span><br><span class="line">       Full Name []:</span><br><span class="line">       Room Number []:</span><br><span class="line">       Work Phone []:</span><br><span class="line">       Home Phone []:</span><br><span class="line">       Other []:</span><br><span class="line">Is the information correct? [Y/n] Y</span><br><span class="line"></span><br><span class="line">Dear bananapipro, your account bananapipro has been created and is sudo enabled.</span><br><span class="line">Please use this account <span class="keyword">for</span> your daily work from now on.</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>Then, <a href="http://www.lemaker.org/product-bananapro-specification.html" target="_blank" rel="noopener">Banana Pi Pro</a> now boots into text mode with account <strong>root</strong>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@bananapipro:~$</span><br></pre></td></tr></table></figure>
+<p>We may now re-login with the newly created account <strong>bananapipro</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bananapipro@bananapipro:~$</span><br></pre></td></tr></table></figure>
+<h2 id="2-network-configuration"><a class="markdownIt-Anchor" href="#2-network-configuration"></a> 2. Network Configuration</h2>
+<h3 id="1-how-to-connect-to-wireless"><a class="markdownIt-Anchor" href="#1-how-to-connect-to-wireless"></a> 1). How to connect to wireless?</h3>
+<p>Please refer to <a href="https://docs.armbian.com/User-Guide_Getting-Started/#how-to-connect-to-wireless" target="_blank" rel="noopener">Armbian docs - How to connect to wireless?</a>,</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bananapipro@bananapipro:~$ nmtui-connect SSID</span><br></pre></td></tr></table></figure>
+<p>and then input the corresponding <strong>password</strong>. Now, you should be able to connect to the Internet with a DHCP IP address.</p>
+<h3 id="2-how-to-set-fixed-ip"><a class="markdownIt-Anchor" href="#2-how-to-set-fixed-ip"></a> 2). How to set fixed IP?</h3>
+<p>Please refer to <a href="https://docs.armbian.com/User-Guide_Getting-Started/#how-to-set-fixed-ip" target="_blank" rel="noopener">Armbian docs - How to set fixed IP?</a>, and modify the file <strong>/etc/network/interfaces</strong> as follows:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">bananapipro@bananapipro:~$ sudo vim /etc/network/interfaces</span><br><span class="line"><span class="built_in">source</span> /etc/network/interfaces.d/*</span><br><span class="line"><span class="comment"># Network is managed by Network manager</span></span><br><span class="line">auto lo</span><br><span class="line">iface lo inet loopback</span><br><span class="line"></span><br><span class="line"><span class="comment"># Wifi</span></span><br><span class="line">auto wlan0</span><br><span class="line">iface wlan0 inet static</span><br><span class="line">    address 192.168.0.82</span><br><span class="line">    netmask 255.255.255.0</span><br><span class="line">    network 192.168.0.0</span><br><span class="line">    broadcast 192.168.0.1</span><br><span class="line">    gateway 192.168.0.1</span><br><span class="line">    dns-nameservers 192.168.0.1 8.8.8.8</span><br><span class="line">    wpa-ssid XXXXXXXX</span><br><span class="line">    wpa-psk YYYYYYYY</span><br></pre></td></tr></table></figure>
+<p>Afterwards, a reboot (meanwhile, you may have to set up your own router for a fixed IP) will bring your <a href="http://www.lemaker.org/product-bananapro-specification.html" target="_blank" rel="noopener">Banana Pi Pro</a> a fixed IP address. Here in my case: <strong>192.168.0.82</strong>.</p>
+<h2 id="3-ssh-into-banana-pi-pro"><a class="markdownIt-Anchor" href="#3-ssh-into-banana-pi-pro"></a> 3. SSH Into Banana Pi Pro</h2>
+<p>We can now access <a href="http://www.lemaker.org/product-bananapro-specification.html" target="_blank" rel="noopener">Banana Pi Pro</a> via ssh as follows:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ ssh bananapipro@192.168.0.82</span><br><span class="line">The authenticity of host <span class="string">'192.168.0.82 (192.168.0.82)'</span> can<span class="string">'t be established.</span></span><br><span class="line"><span class="string">ECDSA key fingerprint is SHA256:SKJ/eU/a7Rm6T43jzwvNpQfG1w2FqDPg+eieM+sGynA.</span></span><br><span class="line"><span class="string">Are you sure you want to continue connecting (yes/no)? yes</span></span><br><span class="line"><span class="string">Warning: Permanently added '</span>192.168.0.82<span class="string">' (ECDSA) to the list of known hosts.</span></span><br><span class="line"><span class="string">bananapipro@192.168.0.82'</span>s password: </span><br><span class="line"> ____                                  ____  _   ____            </span><br><span class="line">| __ )  __ _ _ __   __ _ _ __   __ _  |  _ \(_) |  _ \ _ __ ___  </span><br><span class="line">|  _ \ / _` | <span class="string">'_ \ / _` | '</span>_ \ / _` | | |_) | | | |_) | <span class="string">'__/ _ \ </span></span><br><span class="line"><span class="string">| |_) | (_| | | | | (_| | | | | (_| | |  __/| | |  __/| | | (_) |</span></span><br><span class="line"><span class="string">|____/ \__,_|_| |_|\__,_|_| |_|\__,_| |_|   |_| |_|   |_|  \___/ </span></span><br><span class="line"><span class="string">                                                                 </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Welcome to ARMBIAN 5.59 stable Ubuntu 18.04.1 LTS 4.14.65-sunxi   </span></span><br><span class="line"><span class="string">System load:   0.43 0.32 0.22   Up time:       15 min</span></span><br><span class="line"><span class="string">Memory usage:  6 % of 992MB     IP:            192.168.0.82</span></span><br><span class="line"><span class="string">CPU temp:      46°C           </span></span><br><span class="line"><span class="string">Usage of /:    3% of 29G    </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Last login: Tue Sep  4 21:43:26 2018</span></span><br></pre></td></tr></table></figure>
+<p>And, let’s have a look at current IP of <a href="http://www.lemaker.org/product-bananapro-specification.html" target="_blank" rel="noopener">Banana Pi Pro</a>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">bananapipro@bananapipro:~$ ip -c address</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:0</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: eth0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc mq state DOWN group default qlen 1000</span><br><span class="line">    link/ether 02:86:02:42:2f:4e brd ff:ff:ff:ff:ff:ff</span><br><span class="line">3: wlan0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000</span><br><span class="line">    link/ether 98:3b:16:e9:79:43 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.0.82/24 brd 192.168.0.255 scope global dynamic noprefixroute wlan0</span><br><span class="line">       valid_lft 3069218372sec preferred_lft 3069218372sec</span><br><span class="line">    inet6 fe80::40a5:2ad5:cfa4:a2d8/64 scope link noprefixroute</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+<h2 id="4-locale-configuration"><a class="markdownIt-Anchor" href="#4-locale-configuration"></a> 4. Locale Configuration</h2>
+<p>Clearly, from the above login info, our timezone seems to be wrong. Command <strong>dpkg-reconfigure tzdata</strong> is able to reset our timezone.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">bananapipro@bananapipro:~$ sudo dpkg-reconfigure tzdata</span><br><span class="line">[sudo] password <span class="keyword">for</span> bananapipro: </span><br><span class="line">perl: warning: Setting locale failed.</span><br><span class="line">perl: warning: Please check that your locale settings:</span><br><span class="line">        LANGUAGE = <span class="string">"en_US.UTF-8"</span>,</span><br><span class="line">        LC_ALL = (<span class="built_in">unset</span>),</span><br><span class="line">        LC_MEASUREMENT = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_PAPER = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_MONETARY = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_NAME = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_ADDRESS = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_NUMERIC = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_MESSAGES = <span class="string">"en_US.UTF-8"</span>,</span><br><span class="line">        LC_TELEPHONE = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_IDENTIFICATION = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_TIME = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LANG = <span class="string">"en_US.UTF-8"</span></span><br><span class="line">    are supported and installed on your system.</span><br><span class="line">perl: warning: Falling back to a fallback locale (<span class="string">"en_US.UTF-8"</span>).</span><br><span class="line">locale: Cannot <span class="built_in">set</span> LC_ALL to default locale: No such file or directory</span><br><span class="line">/usr/bin/locale: Cannot <span class="built_in">set</span> LC_ALL to default locale: No such file or directory</span><br><span class="line"></span><br><span class="line">Current default time zone: <span class="string">'America/Vancouver'</span></span><br><span class="line">Local time is now:      Tue Sep  4 15:33:36 PDT 2018.</span><br><span class="line">Universal Time is now:  Tue Sep  4 22:33:36 UTC 2018.</span><br></pre></td></tr></table></figure>
+<p>During the above process, you’ll set the following 2 pages correspondingly:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/01_SystemLocale_America.jpg" alt="System Locale America"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/02_SystemLocale_Vancouver.jpg" alt="System Locale Vancouver"></p>
+<p>If we logout and login <a href="http://www.lemaker.org/product-bananapro-specification.html" target="_blank" rel="noopener">Banana Pi Pro</a> again, we’ll see the timezone has been successfully reset.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">exit</span></span><br><span class="line"><span class="built_in">logout</span></span><br><span class="line">Connection to 192.168.0.82 closed.</span><br><span class="line">$ ssh bananapipro@192.168.0.82</span><br><span class="line">bananapipro@192.168.0.82<span class="string">'s password: </span></span><br><span class="line"><span class="string"> ____                                  ____  _   ____            </span></span><br><span class="line"><span class="string">| __ )  __ _ _ __   __ _ _ __   __ _  |  _ \(_) |  _ \ _ __ ___  </span></span><br><span class="line"><span class="string">|  _ \ / _` | '</span>_ \ / _` | <span class="string">'_ \ / _` | | |_) | | | |_) | '</span>__/ _ \ </span><br><span class="line">| |_) | (_| | | | | (_| | | | | (_| | |  __/| | |  __/| | | (_) |</span><br><span class="line">|____/ \__,_|_| |_|\__,_|_| |_|\__,_| |_|   |_| |_|   |_|  \___/ </span><br><span class="line">                                                                 </span><br><span class="line"></span><br><span class="line">Welcome to ARMBIAN 5.59 stable Ubuntu 18.04.1 LTS 4.14.65-sunxi   </span><br><span class="line">System load:   0.16 0.20 0.18   Up time:       53 min</span><br><span class="line">Memory usage:  6 % of 992MB     IP:            192.168.0.82</span><br><span class="line">CPU temp:      46°C           </span><br><span class="line">Usage of /:    3% of 29G    </span><br><span class="line"></span><br><span class="line">Last login: Tue Sep  4 14:58:03 2018 from 192.168.0.60</span><br></pre></td></tr></table></figure>
+<h2 id="5-armbian-upgrading"><a class="markdownIt-Anchor" href="#5-armbian-upgrading"></a> 5. Armbian Upgrading</h2>
+<p>Always these 3 commands:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bananapipro@bananapipro:~$ sudo apt update</span><br><span class="line">bananapipro@bananapipro:~$ apt list --upgradable</span><br><span class="line">bananapipro@bananapipro:~$ sudo apt upgrade</span><br></pre></td></tr></table></figure>
+<h2 id="6-kernel-doublechecking"><a class="markdownIt-Anchor" href="#6-kernel-doublechecking"></a> 6. Kernel Doublechecking</h2>
+<p>Finally, we have the system and kernel doublechecked.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">bananapipro@bananapipro:~$ uname -r</span><br><span class="line">4.14.65-sunxi</span><br><span class="line">bananapipro@bananapipro:~$ uname -a</span><br><span class="line">Linux bananapipro 4.14.65-sunxi <span class="comment">#68 SMP Tue Aug 21 19:57:06 CEST 2018 armv7l armv7l armv7l GNU/Linux</span></span><br><span class="line">bananapipro@bananapipro:~$ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID: Ubuntu</span><br><span class="line">Description:    Ubuntu 18.04.1 LTS</span><br><span class="line">Release:        18.04</span><br><span class="line">Codename:       bionic</span><br></pre></td></tr></table></figure>
+<h1 id="appendix"><a class="markdownIt-Anchor" href="#appendix"></a> Appendix</h1>
+<p>We can of course follow our previous blog <a href="../../../../../2018/02/27/Embedded/orange-pi-plus-2-armbian/">Install Armbian Ubuntu Desktop with the Newest Supported Mainline Linux Kernel onto Orange Pi Plus 2</a> to upgrade the <strong>NEWEST</strong> <a href="https://www.denx.de/wiki/U-Boot" target="_blank" rel="noopener">U-Boot</a> and <a href="https://www.kernel.org/" target="_blank" rel="noopener">Linux Kernel</a> for <a href="http://www.lemaker.org/product-bananapro-specification.html" target="_blank" rel="noopener">Banana Pi Pro</a>, which is <strong>NOT</strong> going to be discussed here again.</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Banana-Pi-Pro-AllWinner-A20-Armbian-Ubuntu-Mainline-Linux-Kernel-BSP/" rel="tag"># Banana Pi Pro, AllWinner A20, Armbian, Ubuntu, Mainline Linux Kernel, BSP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/01/AI/DeepLearning/tensorflow-object-tracking/" rel="next" title="Tensorflow Object Tracking">
+                <i class="fa fa-chevron-left"></i> Tensorflow Object Tracking
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/15/Tools/uPyCraft_PyQt5/" rel="prev" title="uPyCraft_PyQt5">
+                uPyCraft_PyQt5 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Nobody</p>
+              <p class="site-description motion-element" itemprop="description">Longer Vision Technology Github Blog</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">62</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#part-a-install-ubuntu-desktop-built-by-armbian-onto-banana-pi-pro"><span class="nav-number">1.</span> <span class="nav-text"> PART A: Install Ubuntu Desktop Built By Armbian onto Banana Pi Pro</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-download-armbian-ubuntu-desktop-for-banana-pi-pro"><span class="nav-number">1.1.</span> <span class="nav-text"> 1. Download Armbian Ubuntu Desktop for Banana Pi Pro</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-install-armbian-ubuntu-desktop-for-banana-pi-pro"><span class="nav-number">1.2.</span> <span class="nav-text"> 2. Install Armbian Ubuntu Desktop for Banana Pi Pro</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#part-b-boot-into-armbian-network-configuration-locale-configuration-and-armbian-upgrading"><span class="nav-number">2.</span> <span class="nav-text"> PART B: Boot Into Armbian, Network Configuration, Locale Configuration and Armbian Upgrading</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-boot-into-armbian"><span class="nav-number">2.1.</span> <span class="nav-text"> 1. Boot Into Armbian</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-network-configuration"><span class="nav-number">2.2.</span> <span class="nav-text"> 2. Network Configuration</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-how-to-connect-to-wireless"><span class="nav-number">2.2.1.</span> <span class="nav-text"> 1). How to connect to wireless?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-how-to-set-fixed-ip"><span class="nav-number">2.2.2.</span> <span class="nav-text"> 2). How to set fixed IP?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-ssh-into-banana-pi-pro"><span class="nav-number">2.3.</span> <span class="nav-text"> 3. SSH Into Banana Pi Pro</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-locale-configuration"><span class="nav-number">2.4.</span> <span class="nav-text"> 4. Locale Configuration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-armbian-upgrading"><span class="nav-number">2.5.</span> <span class="nav-text"> 5. Armbian Upgrading</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-kernel-doublechecking"><span class="nav-number">2.6.</span> <span class="nav-text"> 6. Kernel Doublechecking</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#appendix"><span class="nav-number">3.</span> <span class="nav-text"> Appendix</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nobody</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+   
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

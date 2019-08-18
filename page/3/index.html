@@ -309,6 +309,236 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/29/Robotics/IgnitionRobotics-Gazebo/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/29/Robotics/IgnitionRobotics-Gazebo/" itemprop="url">
+                  Ignition Robotics - Gazebo
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-01-29 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-29T00:00:00-08:00">2019-01-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-08-18 14:38:23" itemprop="dateModified" datetime="2019-08-18T14:38:23-07:00">2019-08-18</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Robotics/" itemprop="url" rel="index"><span itemprop="name">Robotics</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>It seems <a href="http://gazebosim.org/" target="_blank" rel="noopener">Gazebo</a> is <strong>NOW</strong> a part of <a href="https://ignitionrobotics.org/" target="_blank" rel="noopener">Ignition Robotics</a>??? Please take a look at my Ignition Robotics Bitbucket Issue <a href="https://bitbucket.org/ignitionrobotics/ign-gazebo/issues/11/whats-the-realationship-between-ign-gazebo" target="_blank" rel="noopener">What’s the realationship between ign-gazebo and gazebo?</a> And, today, let’s <strong>build <a href="https://bitbucket.org/ignitionrobotics/" target="_blank" rel="noopener">IgnitionRobotics</a> from source</strong>.</p>
+<h1 id="how-to-build-ignitionrobotics"><a class="markdownIt-Anchor" href="#how-to-build-ignitionrobotics"></a> How to Build IgnitionRobotics</h1>
+<h2 id="use-branch-gz11"><a class="markdownIt-Anchor" href="#use-branch-gz11"></a> Use Branch gz11</h2>
+<p><span style="color:red"><strong>NOTE</strong>: In order to have the <strong>LATEST</strong> version built, please make sure you always give the priority to branch <strong>gz11</strong> rather than branch <strong>default</strong>.</span></p>
+<p>For instance <a href="https://bitbucket.org/ignitionrobotics/ign-cmake/src/gz11/" target="_blank" rel="noopener">ign-cmake</a>:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://bitbucket.org/ignitionrobotics/ign-cmake/src/gz11/</span><br></pre></td></tr></table></figure>
+<h2 id="important-things"><a class="markdownIt-Anchor" href="#important-things"></a> Important Things</h2>
+<p>Two things to emphasize before building.</p>
+<ol>
+<li>To have all the packages at <a href="https://ignitionrobotics.org/libs" target="_blank" rel="noopener">Ignition Robotics Development Libraries</a> successfully built, we need to build all libraries <strong>in a particular sequence</strong>.</li>
+<li>Some required 3rd-party libraries are <strong>additionally</strong> installed while building <a href="https://ignitionrobotics.org/libs" target="_blank" rel="noopener">Ignition Robotics Development Libraries</a>, including:</li>
+</ol>
+<ul>
+<li><a href="https://github.com/OSGeo/gdal/" target="_blank" rel="noopener">gdal</a></li>
+<li><a href="https://github.com/dartsim/dart" target="_blank" rel="noopener">DART</a></li>
+<li><a href="https://github.com/openscenegraph/OpenSceneGraph" target="_blank" rel="noopener">OpenSceneGraph</a></li>
+<li><a href="https://bitbucket.org/sinbad/ogre/src/v2-1/" target="_blank" rel="noopener">Ogre2</a></li>
+<li><a href="https://github.com/vrpn/vrpn" target="_blank" rel="noopener">vrpn</a></li>
+<li><a href="https://github.com/OSVR/OSVR-Core.git" target="_blank" rel="noopener">OSVR</a>: Please make sure <strong>unifiedvideoinertialtracker</strong> is excluded from building for now.</li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#add_subdirectory(unifiedvideoinertialtracker)</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="https://github.com/facebook/folly/" target="_blank" rel="noopener">folly</a>: required by <strong>unifiedvideoinertialtracker</strong>, which requires <a href="https://www.boost.org/" target="_blank" rel="noopener">boost</a> built by <strong>C++14</strong>. For now, this is <strong>excluded</strong> from building.</li>
+</ul>
+<h2 id="build-ignition-robotics"><a class="markdownIt-Anchor" href="#build-ignition-robotics"></a> Build Ignition Robotics</h2>
+<p>Now, let’s start building <a href="https://ignitionrobotics.org/libs" target="_blank" rel="noopener">Ignition Robotics Development Libraries</a>.</p>
+<ol>
+<li><a href="https://bitbucket.org/ignitionrobotics/ign-cmake/src/gz11/" target="_blank" rel="noopener">ign-cmake</a>: <strong>BUILD_TESTING OFF</strong></li>
+<li><a href="https://bitbucket.org/ignitionrobotics/ign-math/src/gz11" target="_blank" rel="noopener">ign-math</a>: <strong>ruby-dev needs to be installed FIRST</strong></li>
+<li><a href="https://bitbucket.org/ignitionrobotics/ign-common/src/gz11" target="_blank" rel="noopener">ign-common</a>: <strong>libgts needs to be installed FIRST</strong></li>
+<li><a href="https://bitbucket.org/ignitionrobotics/ign-tools/src/default/" target="_blank" rel="noopener">ign-tools</a></li>
+<li><a href="https://bitbucket.org/ignitionrobotics/ign-msgs/src/gz11/" target="_blank" rel="noopener">ign-msgs</a></li>
+<li><a href="https://bitbucket.org/ignitionrobotics/ign-transport/src/gz11/" target="_blank" rel="noopener">ign-transport</a>: <strong>CXX_FLAGS=-I/usr/include/c++/7</strong> and comment out line #35 of file <strong>test_config.h</strong>.</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//#include &lt;filesystem&gt; // line 35</span></span><br></pre></td></tr></table></figure>
+<ol start="7">
+<li><a href="https://bitbucket.org/ignitionrobotics/ign-rendering/src/default/" target="_blank" rel="noopener">ign-rendering</a>: Modify <strong>CMakeLists.txt line 62</strong>, <strong>ogre</strong> to <strong>ogre2</strong></li>
+<li><a href="https://bitbucket.org/ignitionrobotics/ign-plugin/src/gz11/" target="_blank" rel="noopener">ign-plugin</a></li>
+<li><a href="https://bitbucket.org/ignitionrobotics/ign-gui/src/gz11/" target="_blank" rel="noopener">ign-gui</a></li>
+<li><a href="https://bitbucket.org/ignitionrobotics/ign-fuel-tools/src/default/" target="_blank" rel="noopener">ign-fuel-tools</a></li>
+<li><a href="https://bitbucket.org/osrf/sdformat/src/gz11/" target="_blank" rel="noopener">SDFormat8</a>: <strong>C++8 is required for building</strong></li>
+<li><a href="https://bitbucket.org/ignitionrobotics/ign-physics/src/gz11/" target="_blank" rel="noopener">ign-physics</a>: Since I’m using <a href="https://github.com/dartsim/dart" target="_blank" rel="noopener">dart 7.0</a>, please figure out some trivial bugs about <strong>DartLoader</strong> in file <a href="https://bitbucket.org/ignitionrobotics/ign-physics/src/default/test/plugins/DARTDoublePendulum.cc" target="_blank" rel="noopener">DARTDoublePendulum.cc</a>.</li>
+<li><a href="https://bitbucket.org/ignitionrobotics/ign-sensors/src/default/" target="_blank" rel="noopener">ign-sensors</a></li>
+<li><a href="https://bitbucket.org/ignitionrobotics/ign-gazebo/src/default/" target="_blank" rel="noopener">ign-gazebo</a></li>
+<li><a href="https://bitbucket.org/osrf/gazebo/src/default/" target="_blank" rel="noopener">gazebo</a>: <strong>Going to be deprecated soon</strong></li>
+</ol>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-- BUILD WARNINGS</span><br><span class="line">-- Oculus Rift support will be disabled.</span><br><span class="line">-- END BUILD WARNINGS</span><br></pre></td></tr></table></figure>
+<h1 id="some-bugs-proposed-by-me"><a class="markdownIt-Anchor" href="#some-bugs-proposed-by-me"></a> Some Bugs Proposed by Me</h1>
+<ul>
+<li><a href="https://bitbucket.org/ignitionrobotics/ign-gazebo/issues/11/whats-the-realationship-between-ign-gazebo" target="_blank" rel="noopener">What’s the realationship between ign-gazebo and gazebo?</a></li>
+<li><a href="https://bitbucket.org/ignitionrobotics/ign-rendering/issues/43/should-i-have-both-ogre-and-ogre2" target="_blank" rel="noopener">Should I have both OGRE and OGRE2 installed?</a></li>
+<li><a href="https://bitbucket.org/ignitionrobotics/ign-gui/issues/38/gz11-missing-ignition-rendering1" target="_blank" rel="noopener">gz11 - Missing: ignition-rendering1 (Components: ogre)</a></li>
+<li><a href="https://bitbucket.org/ignitionrobotics/ign-cmake/issues/50/make-6-cmakefiles-codecheck-error-1" target="_blank" rel="noopener">make[6]: *** [CMakeFiles/codecheck] Error 1</a></li>
+</ul>
+<h1 id="some-tests"><a class="markdownIt-Anchor" href="#some-tests"></a> Some Tests</h1>
+<h2 id="ign-rendering"><a class="markdownIt-Anchor" href="#ign-rendering"></a> <a href="https://bitbucket.org/ignitionrobotics/ign-rendering/src/gz11/" target="_blank" rel="noopener">ign-rendering</a> via <a href="https://bitbucket.org/sinbad/ogre/branch/v2-1" target="_blank" rel="noopener">Ogre2</a> Test</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">21:31:15: Starting .../IgnitionRobotics/Ogre2Demo...</span><br><span class="line">[Wrn] [ColladaLoader.cc:2070] Triangle input semantic: 'COLOR' is currently not supported</span><br><span class="line">[Msg] Loading plugin [ignition-rendering1-ogre2]</span><br><span class="line">===============================</span><br><span class="line">  TAB - Switch render engines  </span><br><span class="line">  ESC - Exit                   </span><br><span class="line">===============================</span><br><span class="line">Selected visual at position: 309 294: pump</span><br><span class="line">Selected visual at position: 458 307: sphere</span><br><span class="line">Selected visual at position: 515 327: pump</span><br><span class="line">Selected visual at position: 447 365: pump</span><br><span class="line">Selected visual at position: 497 427: plane</span><br><span class="line">Selected visual at position: 197 328: cylinder</span><br><span class="line">Selected visual at position: 241 394: cylinder</span><br><span class="line">Selected visual at position: 130 340: duck</span><br><span class="line">Selected visual at position: 419 444: duck</span><br><span class="line">No visual found at position: 503 296</span><br><span class="line">Selected visual at position: 505 350: pump</span><br><span class="line">Selected visual at position: 412 326: pump</span><br><span class="line">Selected visual at position: 385 230: duck</span><br><span class="line">Selected visual at position: 361 264: box</span><br><span class="line">Selected visual at position: 396 270: sphere</span><br><span class="line">Selected visual at position: 322 335: pump</span><br><span class="line">Selected visual at position: 359 352: plane</span><br><span class="line">Selected visual at position: 539 422: plane</span><br><span class="line">Selected visual at position: 406 366: pump</span><br><span class="line">Selected visual at position: 431 374: pump</span><br><span class="line">Selected visual at position: 510 422: cylinder</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Robots/IgnitionRobotics/01_ogre2_demo.png" alt="Ogre2 Demo"></p>
+<h2 id="ign-gazebo"><a class="markdownIt-Anchor" href="#ign-gazebo"></a> <a href="https://bitbucket.org/ignitionrobotics/ign-gazebo/src/default/" target="_blank" rel="noopener">ign-gazebo</a> Performance Test</h2>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Robots/IgnitionRobotics/02_matching-entity.png" alt="Matching Entity"></p>
+<h2 id="ign-gazebo-2"><a class="markdownIt-Anchor" href="#ign-gazebo-2"></a> <a href="https://bitbucket.org/ignitionrobotics/ign-gazebo/src/default/" target="_blank" rel="noopener">ign-gazebo</a> Integration Test</h2>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/26/GeoScience/ZR3D-drone-4-Surveying-Mapping/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -372,7 +602,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-20 21:47:01" itemprop="dateModified" datetime="2019-06-20T21:47:01-07:00">2019-06-20</time>
+                <time title="Modified: 2019-08-18 14:35:55" itemprop="dateModified" datetime="2019-08-18T14:35:55-07:00">2019-08-18</time>
               
             
           </span>
@@ -389,7 +619,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/GeoScience/" itemprop="url" rel="index"><span itemprop="name">GeoScience</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Geo-Science/" itemprop="url" rel="index"><span itemprop="name">Geo Science</span></a></span>
 
                 
                 
@@ -560,7 +790,7 @@ Three videos are used to briefly explain the <strong>MOST</strong> important thr
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/25/DeepLearning/TorchSeg-HUST/">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/25/AI/DeepLearning/TorchSeg-HUST/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nobody">
@@ -579,7 +809,7 @@ Three videos are used to briefly explain the <strong>MOST</strong> important thr
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/25/DeepLearning/TorchSeg-HUST/" itemprop="url">
+                <a class="post-title-link" href="/2019/01/25/AI/DeepLearning/TorchSeg-HUST/" itemprop="url">
                   TorchSeg - HUST's Semantic Segmentation algorithms in PyTorch
                 </a>
               
@@ -623,7 +853,7 @@ Three videos are used to briefly explain the <strong>MOST</strong> important thr
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-01-26 04:07:45" itemprop="dateModified" datetime="2019-01-26T04:07:45-08:00">2019-01-26</time>
+                <time title="Modified: 2019-08-18 14:29:58" itemprop="dateModified" datetime="2019-08-18T14:29:58-07:00">2019-08-18</time>
               
             
           </span>
@@ -641,6 +871,13 @@ Three videos are used to briefly explain the <strong>MOST</strong> important thr
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a></span>
 
                 
                 
@@ -770,7 +1007,7 @@ Three videos are used to briefly explain the <strong>MOST</strong> important thr
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/24/Kaggle/Airbus-Ship-Detection-Challenge-Mask-RCNN-and-COCO-Transfer-Learning/">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/24/AI/Kaggle/Airbus-Ship-Detection-Challenge-Mask-RCNN-and-COCO-Transfer-Learning/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nobody">
@@ -789,7 +1026,7 @@ Three videos are used to briefly explain the <strong>MOST</strong> important thr
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/24/Kaggle/Airbus-Ship-Detection-Challenge-Mask-RCNN-and-COCO-Transfer-Learning/" itemprop="url">
+                <a class="post-title-link" href="/2019/01/24/AI/Kaggle/Airbus-Ship-Detection-Challenge-Mask-RCNN-and-COCO-Transfer-Learning/" itemprop="url">
                   Kaggle Competition - Airbus Ship Detection Challenge - Mask-RCNN and COCO Transfer Learning
                 </a>
               
@@ -816,12 +1053,24 @@ Three videos are used to briefly explain the <strong>MOST</strong> important thr
                 
               
 
-              <time title="Created: 2019-01-24 00:00:00 / Modified: 04:33:57" itemprop="dateCreated datePublished" datetime="2019-01-24T00:00:00-08:00">2019-01-24</time>
+              <time title="Created: 2019-01-24 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-24T00:00:00-08:00">2019-01-24</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-08-18 14:30:20" itemprop="dateModified" datetime="2019-08-18T14:30:20-07:00">2019-08-18</time>
               
             
           </span>
@@ -838,7 +1087,14 @@ Three videos are used to briefly explain the <strong>MOST</strong> important thr
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Kaggle/" itemprop="url" rel="index"><span itemprop="name">Kaggle</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/Kaggle/" itemprop="url" rel="index"><span itemprop="name">Kaggle</span></a></span>
 
                 
                 
@@ -951,7 +1207,7 @@ I believe you’ve already got accustomed to the data preparation.</p>
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/23/Kaggle/PyTorch-dataset-dataloader/">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/23/AI/Kaggle/PyTorch-dataset-dataloader/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nobody">
@@ -970,7 +1226,7 @@ I believe you’ve already got accustomed to the data preparation.</p>
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/23/Kaggle/PyTorch-dataset-dataloader/" itemprop="url">
+                <a class="post-title-link" href="/2019/01/23/AI/Kaggle/PyTorch-dataset-dataloader/" itemprop="url">
                   Kaggle Competition - PyTorch Dataset and DataLoader
                 </a>
               
@@ -1014,7 +1270,7 @@ I believe you’ve already got accustomed to the data preparation.</p>
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-01-24 04:34:31" itemprop="dateModified" datetime="2019-01-24T04:34:31-08:00">2019-01-24</time>
+                <time title="Modified: 2019-08-18 14:30:32" itemprop="dateModified" datetime="2019-08-18T14:30:32-07:00">2019-08-18</time>
               
             
           </span>
@@ -1031,7 +1287,14 @@ I believe you’ve already got accustomed to the data preparation.</p>
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Kaggle/" itemprop="url" rel="index"><span itemprop="name">Kaggle</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/Kaggle/" itemprop="url" rel="index"><span itemprop="name">Kaggle</span></a></span>
 
                 
                 
@@ -1197,7 +1460,7 @@ I believe you’ve already got accustomed to the data preparation.</p>
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-01-23 04:13:50" itemprop="dateModified" datetime="2019-01-23T04:13:50-08:00">2019-01-23</time>
+                <time title="Modified: 2019-08-18 14:35:37" itemprop="dateModified" datetime="2019-08-18T14:35:37-07:00">2019-08-18</time>
               
             
           </span>
@@ -1319,7 +1582,7 @@ I believe you’ve already got accustomed to the data preparation.</p>
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/17/Kaggle/LANL-Earthquake-Prediction/">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/17/AI/Kaggle/LANL-Earthquake-Prediction/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nobody">
@@ -1338,7 +1601,7 @@ I believe you’ve already got accustomed to the data preparation.</p>
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/17/Kaggle/LANL-Earthquake-Prediction/" itemprop="url">
+                <a class="post-title-link" href="/2019/01/17/AI/Kaggle/LANL-Earthquake-Prediction/" itemprop="url">
                   Kaggle Competition - LANL Earthquake Prediction
                 </a>
               
@@ -1382,7 +1645,7 @@ I believe you’ve already got accustomed to the data preparation.</p>
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-01-24 04:34:03" itemprop="dateModified" datetime="2019-01-24T04:34:03-08:00">2019-01-24</time>
+                <time title="Modified: 2019-08-18 14:30:26" itemprop="dateModified" datetime="2019-08-18T14:30:26-07:00">2019-08-18</time>
               
             
           </span>
@@ -1399,7 +1662,14 @@ I believe you’ve already got accustomed to the data preparation.</p>
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Kaggle/" itemprop="url" rel="index"><span itemprop="name">Kaggle</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/Kaggle/" itemprop="url" rel="index"><span itemprop="name">Kaggle</span></a></span>
 
                 
                 
@@ -1499,7 +1769,7 @@ I believe you’ve already got accustomed to the data preparation.</p>
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/10/Kaggle/petfinder-adoption-prediction/">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/10/AI/Kaggle/petfinder-adoption-prediction/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nobody">
@@ -1518,7 +1788,7 @@ I believe you’ve already got accustomed to the data preparation.</p>
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/10/Kaggle/petfinder-adoption-prediction/" itemprop="url">
+                <a class="post-title-link" href="/2019/01/10/AI/Kaggle/petfinder-adoption-prediction/" itemprop="url">
                   Kaggle Competition - PetFinder.my Adoption Prediction
                 </a>
               
@@ -1562,7 +1832,7 @@ I believe you’ve already got accustomed to the data preparation.</p>
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-01-24 04:34:25" itemprop="dateModified" datetime="2019-01-24T04:34:25-08:00">2019-01-24</time>
+                <time title="Modified: 2019-08-18 14:30:29" itemprop="dateModified" datetime="2019-08-18T14:30:29-07:00">2019-08-18</time>
               
             
           </span>
@@ -1579,7 +1849,14 @@ I believe you’ve already got accustomed to the data preparation.</p>
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Kaggle/" itemprop="url" rel="index"><span itemprop="name">Kaggle</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/Kaggle/" itemprop="url" rel="index"><span itemprop="name">Kaggle</span></a></span>
 
                 
                 
@@ -1729,7 +2006,7 @@ I believe you’ve already got accustomed to the data preparation.</p>
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/09/Bugs/matplotlib-path-home/">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/09/Coding/Bugs/matplotlib-path-home/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nobody">
@@ -1748,7 +2025,7 @@ I believe you’ve already got accustomed to the data preparation.</p>
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/09/Bugs/matplotlib-path-home/" itemprop="url">
+                <a class="post-title-link" href="/2019/01/09/Coding/Bugs/matplotlib-path-home/" itemprop="url">
                   Matplotlib.pyplot - AttributeError - type object 'Path' has no attribute 'home'
                 </a>
               
@@ -1792,7 +2069,7 @@ I believe you’ve already got accustomed to the data preparation.</p>
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-20 21:51:50" itemprop="dateModified" datetime="2019-06-20T21:51:50-07:00">2019-06-20</time>
+                <time title="Modified: 2019-08-18 14:30:53" itemprop="dateModified" datetime="2019-08-18T14:30:53-07:00">2019-08-18</time>
               
             
           </span>
@@ -1809,7 +2086,14 @@ I believe you’ve already got accustomed to the data preparation.</p>
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Bugs/" itemprop="url" rel="index"><span itemprop="name">Bugs</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Coding/Bugs/" itemprop="url" rel="index"><span itemprop="name">Bugs</span></a></span>
 
                 
                 
@@ -1921,7 +2205,7 @@ I believe you’ve already got accustomed to the data preparation.</p>
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/06/Bugs/flownet2-pytorch-vid2vid/">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/06/Coding/Bugs/flownet2-pytorch-vid2vid/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nobody">
@@ -1940,7 +2224,7 @@ I believe you’ve already got accustomed to the data preparation.</p>
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/06/Bugs/flownet2-pytorch-vid2vid/" itemprop="url">
+                <a class="post-title-link" href="/2019/01/06/Coding/Bugs/flownet2-pytorch-vid2vid/" itemprop="url">
                   3 Bugs - Pytorch, Flownet2-Pytorch and vid2vid
                 </a>
               
@@ -1984,7 +2268,7 @@ I believe you’ve already got accustomed to the data preparation.</p>
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-20 21:51:54" itemprop="dateModified" datetime="2019-06-20T21:51:54-07:00">2019-06-20</time>
+                <time title="Modified: 2019-08-18 14:30:47" itemprop="dateModified" datetime="2019-08-18T14:30:47-07:00">2019-08-18</time>
               
             
           </span>
@@ -2001,7 +2285,14 @@ I believe you’ve already got accustomed to the data preparation.</p>
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Bugs/" itemprop="url" rel="index"><span itemprop="name">Bugs</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Coding/Bugs/" itemprop="url" rel="index"><span itemprop="name">Bugs</span></a></span>
 
                 
                 
@@ -2128,181 +2419,6 @@ I believe you’ve already got accustomed to the data preparation.</p>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/01/Activity/cheers-2019/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/01/Activity/cheers-2019/" itemprop="url">
-                  Happy New Year 2019
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-01-01 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-01T00:00:00-08:00">2019-01-01</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-07-01 15:21:33" itemprop="dateModified" datetime="2019-07-01T15:21:33-07:00">2019-07-01</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Activity/" itemprop="url" rel="index"><span itemprop="name">Activity</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>With the most inspiring speech by Arnold Schwarzenegger, 2019 arrived… I’ve got something in my mind as well…</p>
-<p><a href="https://www.youtube.com/watch?v=Px7bjMyPA30" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2019/NewYear/Schwarzenegger_2018.jpg" alt="Schwarzenegger's Speech"></a></p>
-<p>Everybody has a dream/goal. <strong>NEVER EVER</strong> blow it out… Here comes the preface of my PhD’s thesis… It’s been 10 years already… This is <strong>NOT ONLY</strong> my attitude towards science, <strong>BUT ALSO</strong> towards those so-called professors(<strong>叫兽</strong>) and specialists(<strong>砖家</strong>).</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2019/NewYear/preface.jpg" alt="Preface of My PhD Thesis"></p>
-<p>So, today, I’m <strong>NOT</strong> going to repeat any cliches, <strong>BUT</strong> happily encouraged by Arnold Schwarzenegger’s speech. We will definitely have a fruitful 2019. Let’s have some pizza.</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2019/NewYear/pizza.jpg" alt="Pizza"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2350,7 +2466,7 @@ I believe you’ve already got accustomed to the data preparation.</p>
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">64</span>
+                    <span class="site-state-item-count">65</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2401,7 +2517,17 @@ I believe you’ve already got accustomed to the data preparation.</p>
                     
                       
                     
-                    <span class="site-state-item-count">19</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -2536,7 +2662,9 @@ I believe you’ve already got accustomed to the data preparation.</p>
                     
                       
                     
-                    <span class="site-state-item-count">61</span>
+                      
+                    
+                    <span class="site-state-item-count">62</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

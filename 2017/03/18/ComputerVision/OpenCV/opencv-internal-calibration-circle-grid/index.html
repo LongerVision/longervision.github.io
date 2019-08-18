@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="English">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo3d.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo3d_32X32.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo3d_16x16.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo3d.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Preparation By reading two of our previous blogs Camera Calibration Using a Chessboard and Camera Posture Estimation Using Circle Grid Pattern, it wouldn’t be hard to replace the chessboard by a circ">
+<meta name="keywords" content="Camera Calibration, Circle Grid, Marker, Pattern, OpenCV, Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Camera Calibration Using a Circle Grid">
+<meta property="og:url" content="http://longervision.ca/2017/03/18/ComputerVision/OpenCV/opencv-internal-calibration-circle-grid/index.html">
+<meta property="og:site_name" content="Longer Vision Technology">
+<meta property="og:description" content="Preparation By reading two of our previous blogs Camera Calibration Using a Chessboard and Camera Posture Estimation Using Circle Grid Pattern, it wouldn’t be hard to replace the chessboard by a circ">
+<meta property="og:locale" content="English">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/OpenCV_Examples/master/markers/pattern_acircles.png">
+<meta property="og:updated_time" content="2019-08-18T21:35:12.742Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Camera Calibration Using a Circle Grid">
+<meta name="twitter:description" content="Preparation By reading two of our previous blogs Camera Calibration Using a Chessboard and Camera Posture Estimation Using Circle Grid Pattern, it wouldn’t be hard to replace the chessboard by a circ">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/OpenCV_Examples/master/markers/pattern_acircles.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://longervision.ca/2017/03/18/ComputerVision/OpenCV/opencv-internal-calibration-circle-grid/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Camera Calibration Using a Circle Grid | Longer Vision Technology</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="English">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Longer Vision Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Github Blog</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2017/03/18/ComputerVision/OpenCV/opencv-internal-calibration-circle-grid/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Camera Calibration Using a Circle Grid
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-03-18 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-18T00:00:00-07:00">2017-03-18</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-08-18 14:35:12" itemprop="dateModified" datetime="2019-08-18T14:35:12-07:00">2019-08-18</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Computer-Vision/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="preparation"><a class="markdownIt-Anchor" href="#preparation"></a> Preparation</h1>
+<p>By reading two of our previous blogs <a href="https://longervision.github.io/2017/03/19/opencv-internal-calibration-chessboard/" target="_blank" rel="noopener">Camera Calibration Using a Chessboard</a> and <a href="https://longervision.github.io/2017/03/13/opencv-external-posture-estimation-circle-grid/" target="_blank" rel="noopener">Camera Posture Estimation Using Circle Grid Pattern</a>, it wouldn’t be hard to replace the chessboard by a circle grid to calculate camera calibration parameters.</p>
+<h1 id="coding"><a class="markdownIt-Anchor" href="#coding"></a> Coding</h1>
+<p>Our code can be found at <a href="https://github.com/LongerVision/OpenCV_Examples/blob/master/01_internal_camera_calibration/circle_grid.py" target="_blank" rel="noopener">OpenCV Examples</a>.</p>
+<h2 id="first-of-all"><a class="markdownIt-Anchor" href="#first-of-all"></a> First of all</h2>
+<p>As mentioned in <a href="https://longervision.github.io/2017/03/19/opencv-internal-calibration-chessboard/" target="_blank" rel="noopener">Camera Calibration Using a Chessboard</a>, for intrinsic parameters estimation, namely, camera calibration, there is <strong>NO</strong> need to measure the circle unit size. And the circle gird is to be adopted is exactly the same one as used in <a href="https://longervision.github.io/2017/03/13/opencv-external-posture-estimation-circle-grid/" target="_blank" rel="noopener">Camera Posture Estimation Using Circle Grid Pattern</a>:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/OpenCV_Examples/master/markers/pattern_acircles.png" alt="asymmetric_circle_grid"></p>
+<h2 id="secondly"><a class="markdownIt-Anchor" href="#secondly"></a> Secondly</h2>
+<p>Required packages need to be imported.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> yam</span><br></pre></td></tr></table></figure>
+<h2 id="thirdly"><a class="markdownIt-Anchor" href="#thirdly"></a> Thirdly</h2>
+<p>Some initialization work need to be done, including: 1) define the termination criteria when refine the corner sub-pixel later on; 2) blob detection parameters; 3) object points coordinators initialization.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># termination criteria</span></span><br><span class="line">criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, <span class="number">30</span>, <span class="number">0.001</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">########################################Blob Detector##############################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Setup SimpleBlobDetector parameters.</span></span><br><span class="line">blobParams = cv2.SimpleBlobDetector_Params()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Change thresholds</span></span><br><span class="line">blobParams.minThreshold = <span class="number">8</span></span><br><span class="line">blobParams.maxThreshold = <span class="number">255</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Filter by Area.</span></span><br><span class="line">blobParams.filterByArea = <span class="keyword">True</span></span><br><span class="line">blobParams.minArea = <span class="number">64</span>     <span class="comment"># minArea may be adjusted to suit for your experiment</span></span><br><span class="line">blobParams.maxArea = <span class="number">2500</span>   <span class="comment"># maxArea may be adjusted to suit for your experiment</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Filter by Circularity</span></span><br><span class="line">blobParams.filterByCircularity = <span class="keyword">True</span></span><br><span class="line">blobParams.minCircularity = <span class="number">0.1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Filter by Convexity</span></span><br><span class="line">blobParams.filterByConvexity = <span class="keyword">True</span></span><br><span class="line">blobParams.minConvexity = <span class="number">0.87</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Filter by Inertia</span></span><br><span class="line">blobParams.filterByInertia = <span class="keyword">True</span></span><br><span class="line">blobParams.minInertiaRatio = <span class="number">0.01</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a detector with the parameters</span></span><br><span class="line">blobDetector = cv2.SimpleBlobDetector_create(blobParams)</span><br><span class="line"></span><br><span class="line"><span class="comment">###################################################################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment">###################################################################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Original blob coordinates, supposing all blobs are of z-coordinates 0</span></span><br><span class="line"><span class="comment"># And, the distance between every two neighbour blob circle centers is 72 centimetres</span></span><br><span class="line"><span class="comment"># In fact, any number can be used to replace 72.</span></span><br><span class="line"><span class="comment"># Namely, the real size of the circle is pointless while calculating camera calibration parameters.</span></span><br><span class="line">objp = np.zeros((<span class="number">44</span>, <span class="number">3</span>), np.float32)</span><br><span class="line">objp[<span class="number">0</span>]  = (<span class="number">0</span>  , <span class="number">0</span>  , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">1</span>]  = (<span class="number">0</span>  , <span class="number">72</span> , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">2</span>]  = (<span class="number">0</span>  , <span class="number">144</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">3</span>]  = (<span class="number">0</span>  , <span class="number">216</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">4</span>]  = (<span class="number">36</span> , <span class="number">36</span> , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">5</span>]  = (<span class="number">36</span> , <span class="number">108</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">6</span>]  = (<span class="number">36</span> , <span class="number">180</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">7</span>]  = (<span class="number">36</span> , <span class="number">252</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">8</span>]  = (<span class="number">72</span> , <span class="number">0</span>  , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">9</span>]  = (<span class="number">72</span> , <span class="number">72</span> , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">10</span>] = (<span class="number">72</span> , <span class="number">144</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">11</span>] = (<span class="number">72</span> , <span class="number">216</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">12</span>] = (<span class="number">108</span>, <span class="number">36</span>,  <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">13</span>] = (<span class="number">108</span>, <span class="number">108</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">14</span>] = (<span class="number">108</span>, <span class="number">180</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">15</span>] = (<span class="number">108</span>, <span class="number">252</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">16</span>] = (<span class="number">144</span>, <span class="number">0</span>  , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">17</span>] = (<span class="number">144</span>, <span class="number">72</span> , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">18</span>] = (<span class="number">144</span>, <span class="number">144</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">19</span>] = (<span class="number">144</span>, <span class="number">216</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">20</span>] = (<span class="number">180</span>, <span class="number">36</span> , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">21</span>] = (<span class="number">180</span>, <span class="number">108</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">22</span>] = (<span class="number">180</span>, <span class="number">180</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">23</span>] = (<span class="number">180</span>, <span class="number">252</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">24</span>] = (<span class="number">216</span>, <span class="number">0</span>  , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">25</span>] = (<span class="number">216</span>, <span class="number">72</span> , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">26</span>] = (<span class="number">216</span>, <span class="number">144</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">27</span>] = (<span class="number">216</span>, <span class="number">216</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">28</span>] = (<span class="number">252</span>, <span class="number">36</span> , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">29</span>] = (<span class="number">252</span>, <span class="number">108</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">30</span>] = (<span class="number">252</span>, <span class="number">180</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">31</span>] = (<span class="number">252</span>, <span class="number">252</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">32</span>] = (<span class="number">288</span>, <span class="number">0</span>  , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">33</span>] = (<span class="number">288</span>, <span class="number">72</span> , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">34</span>] = (<span class="number">288</span>, <span class="number">144</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">35</span>] = (<span class="number">288</span>, <span class="number">216</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">36</span>] = (<span class="number">324</span>, <span class="number">36</span> , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">37</span>] = (<span class="number">324</span>, <span class="number">108</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">38</span>] = (<span class="number">324</span>, <span class="number">180</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">39</span>] = (<span class="number">324</span>, <span class="number">252</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">40</span>] = (<span class="number">360</span>, <span class="number">0</span>  , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">41</span>] = (<span class="number">360</span>, <span class="number">72</span> , <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">42</span>] = (<span class="number">360</span>, <span class="number">144</span>, <span class="number">0</span>)</span><br><span class="line">objp[<span class="number">43</span>] = (<span class="number">360</span>, <span class="number">216</span>, <span class="number">0</span>)</span><br><span class="line"><span class="comment">###################################################################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Arrays to store object points and image points from all the images.</span></span><br><span class="line">objpoints = [] <span class="comment"># 3d point in real world space</span></span><br><span class="line">imgpoints = [] <span class="comment"># 2d points in image plane.</span></span><br></pre></td></tr></table></figure>
+<h2 id="fourthly"><a class="markdownIt-Anchor" href="#fourthly"></a> Fourthly</h2>
+<p>After localizing 10 frames (<strong>10</strong> can be changed to any positive integer as you wish) of a grid of 2D circles, camera matrix and distortion coefficients can be calculated by invoking the function <strong>calibrateCamera</strong>. Here, we are testing on a real-time camera stream. Similar to Camera Posture Estimation Using Circle Grid Pattern, the trick is to do <strong>blobDetector.detect()</strong> and draw the detected blobs using <strong>cv2.drawKeypoints()</strong> before invoking <strong>cv2.findCirclesGrid()</strong>, so that the entire grid is easier to be found.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">cap = cv2.VideoCapture(<span class="number">0</span>)</span><br><span class="line">found = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span>(found &lt; <span class="number">10</span>):  <span class="comment"># Here, 10 can be changed to whatever number you like to choose</span></span><br><span class="line">    ret, img = cap.read() <span class="comment"># Capture frame-by-frame</span></span><br><span class="line">    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)</span><br><span class="line"></span><br><span class="line">    keypoints = blobDetector.detect(gray) <span class="comment"># Detect blobs.</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Draw detected blobs as red circles. This helps cv2.findCirclesGrid() .</span></span><br><span class="line">    im_with_keypoints = cv2.drawKeypoints(img, keypoints, np.array([]), (<span class="number">0</span>,<span class="number">255</span>,<span class="number">0</span>), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)</span><br><span class="line">    im_with_keypoints_gray = cv2.cvtColor(im_with_keypoints, cv2.COLOR_BGR2GRAY)</span><br><span class="line">    ret, corners = cv2.findCirclesGrid(im_with_keypoints, (<span class="number">4</span>,<span class="number">11</span>), <span class="keyword">None</span>, flags = cv2.CALIB_CB_ASYMMETRIC_GRID)   <span class="comment"># Find the circle grid</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ret == <span class="keyword">True</span>:</span><br><span class="line">        objpoints.append(objp)  <span class="comment"># Certainly, every loop objp is the same, in 3D.</span></span><br><span class="line"></span><br><span class="line">        corners2 = cv2.cornerSubPix(im_with_keypoints_gray, corners, (<span class="number">11</span>,<span class="number">11</span>), (<span class="number">-1</span>,<span class="number">-1</span>), criteria)    <span class="comment"># Refines the corner locations.</span></span><br><span class="line">        imgpoints.append(corners2)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Draw and display the corners.</span></span><br><span class="line">        im_with_keypoints = cv2.drawChessboardCorners(img, (<span class="number">4</span>,<span class="number">11</span>), corners2, ret)</span><br><span class="line">        found += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    cv2.imshow(<span class="string">"img"</span>, im_with_keypoints) <span class="comment"># display</span></span><br><span class="line">    cv2.waitKey(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># When everything done, release the capture</span></span><br><span class="line">cap.release()</span><br><span class="line">cv2.destroyAllWindows()</span><br><span class="line"></span><br><span class="line">ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::<span class="number">-1</span>], <span class="keyword">None</span>, <span class="keyword">None</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="finally"><a class="markdownIt-Anchor" href="#finally"></a> Finally</h2>
+<p>Write the calculated calibration parameters into a yaml file. Here, it is a bit tricky. Please bear in mind that you <strong>MUST</strong> call function tolist() to transform a numpy array to a list.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># It's very important to transform the matrix to list.</span></span><br><span class="line">data = &#123;<span class="string">'camera_matrix'</span>: np.asarray(mtx).tolist(), <span class="string">'dist_coeff'</span>: np.asarray(dist).tolist()&#125;</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">"calibration.yaml"</span>, <span class="string">"w"</span>) <span class="keyword">as</span> f:</span><br><span class="line">    yaml.dump(data, f)</span><br></pre></td></tr></table></figure>
+<h2 id="additionally"><a class="markdownIt-Anchor" href="#additionally"></a> Additionally</h2>
+<p>You may use the following piece of code to load the calibration parameters from file “calibration.yaml”.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(<span class="string">'calibration.yaml'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    loadeddict = yaml.load(f)</span><br><span class="line">mtxloaded = loadeddict.get(<span class="string">'camera_matrix'</span>)</span><br><span class="line">distloaded = loadeddict.get(<span class="string">'dist_coeff'</span>)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Camera-Calibration-Circle-Grid-Marker-Pattern-OpenCV-Python/" rel="tag"># Camera Calibration, Circle Grid, Marker, Pattern, OpenCV, Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/16/ComputerVision/OpenCV/opencv-internal-calibration-chessboard/" rel="next" title="Camera Calibration Using a Chessboard">
+                <i class="fa fa-chevron-left"></i> Camera Calibration Using a Chessboard
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/10/SBCs/ARM/beaglebone-black-uboot-kernel/" rel="prev" title="Build U-Boot and Linux Kernel for Beaglebone and Beaglebone Black">
+                Build U-Boot and Linux Kernel for Beaglebone and Beaglebone Black <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Nobody</p>
+              <p class="site-description motion-element" itemprop="description">Longer Vision Technology Github Blog</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">62</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#preparation"><span class="nav-number">1.</span> <span class="nav-text"> Preparation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#coding"><span class="nav-number">2.</span> <span class="nav-text"> Coding</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#first-of-all"><span class="nav-number">2.1.</span> <span class="nav-text"> First of all</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#secondly"><span class="nav-number">2.2.</span> <span class="nav-text"> Secondly</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#thirdly"><span class="nav-number">2.3.</span> <span class="nav-text"> Thirdly</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fourthly"><span class="nav-number">2.4.</span> <span class="nav-text"> Fourthly</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#finally"><span class="nav-number">2.5.</span> <span class="nav-text"> Finally</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#additionally"><span class="nav-number">2.6.</span> <span class="nav-text"> Additionally</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nobody</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+   
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
