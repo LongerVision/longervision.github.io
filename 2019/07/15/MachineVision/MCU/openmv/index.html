@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="English">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo3d.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo3d_32X32.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo3d_16x16.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo3d.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="It’s almost July 10, let me continue testing something else: OpenMV. I used to have purchased 2 OpenMV cameras, respectively:  OpenMV Cam M4 V2 with STM32F427VG OpenMV Cam M7 with STM32F765VI  No matt">
+<meta name="keywords" content="MicroPython, OpenMV">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenMV">
+<meta property="og:url" content="http://longervision.ca/2019/07/15/MachineVision/MCU/openmv/index.html">
+<meta property="og:site_name" content="Longer Vision Technology">
+<meta property="og:description" content="It’s almost July 10, let me continue testing something else: OpenMV. I used to have purchased 2 OpenMV cameras, respectively:  OpenMV Cam M4 V2 with STM32F427VG OpenMV Cam M7 with STM32F765VI  No matt">
+<meta property="og:locale" content="English">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/OpenMV_Cam_M4_V2.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/OpenMV_Cam_M4_V2_properties.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/OpenMV_Cam_M7.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/OpenMV_Cam_M7_properties.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/OpenMV_Cam_M4_V2_snapshot.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/OpenMV_Cam_M7_videorecording.jpg">
+<meta property="og:updated_time" content="2019-08-18T21:36:52.943Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenMV">
+<meta name="twitter:description" content="It’s almost July 10, let me continue testing something else: OpenMV. I used to have purchased 2 OpenMV cameras, respectively:  OpenMV Cam M4 V2 with STM32F427VG OpenMV Cam M7 with STM32F765VI  No matt">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/OpenMV_Cam_M4_V2.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://longervision.ca/2019/07/15/MachineVision/MCU/openmv/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>OpenMV | Longer Vision Technology</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="English">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Longer Vision Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Github Blog</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/07/15/MachineVision/MCU/openmv/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">OpenMV
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-07-15 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-15T00:00:00-07:00">2019-07-15</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-08-18 14:36:52" itemprop="dateModified" datetime="2019-08-18T14:36:52-07:00">2019-08-18</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Machine-Vision/" itemprop="url" rel="index"><span itemprop="name">Machine Vision</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Machine-Vision/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>It’s almost July 10, let me continue testing something else: <a href="https://openmv.io/" target="_blank" rel="noopener">OpenMV</a>. I used to have purchased 2 <a href="https://openmv.io/" target="_blank" rel="noopener">OpenMV</a> cameras, respectively:</p>
+<ul>
+<li><a href="https://openmv.io/collections/cams/products/openmv-cam" target="_blank" rel="noopener">OpenMV Cam M4 V2</a> with <a href="https://www.st.com/en/microcontrollers-microprocessors/stm32f427vg.html" target="_blank" rel="noopener">STM32F427VG</a></li>
+<li><a href="https://openmv.io/collections/cams/products/openmv-cam-m7" target="_blank" rel="noopener">OpenMV Cam M7</a> with <a href="https://www.st.com/en/microcontrollers-microprocessors/stm32f765vi.html" target="_blank" rel="noopener">STM32F765VI</a></li>
+</ul>
+<p>No matter which version of <a href="https://openmv.io/" target="_blank" rel="noopener">OpenMV</a> is connected to the laptop via USB, command <strong>lsusb</strong> is able to list the device out as:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Bus 001 Device 020: ID 1209:abd1 InterBiometrics</span><br></pre></td></tr></table></figure>
+<h1 id="dilemma-of-openmv-ide"><a class="markdownIt-Anchor" href="#dilemma-of-openmv-ide"></a> Dilemma of OpenMV-IDE</h1>
+<p><span style="color:red"><strong>Conclusion FIRST: NEVER build OpenMV-IDE from scratch using a different version of Qt!!!</strong></span></p>
+<p>To build <a href="https://github.com/openmv/openmv-ide" target="_blank" rel="noopener">OpenMV-IDE</a> is seriously <strong>headache</strong>.</p>
+<ul>
+<li>As you might have <strong>ALREADY</strong> noticed, <a href="https://github.com/openmv/qt-creator/tree/b587ed9f6c93c6844782dc2e54c307878419c8e1" target="_blank" rel="noopener">qt-creator in openmv-ide</a> is <strong>NOT</strong> the <strong>NEWEST</strong> version, which <strong>MIGHT NOT</strong> be compatible with your installed <a href="https://www.qt.io/download" target="_blank" rel="noopener">Qt</a>. Please also refer to my proposed github issue <a href="https://github.com/openmv/openmv-ide/issues/48" target="_blank" rel="noopener">make: *** No rule to make target ‘installer’. Stop</a>.</li>
+<li>Therefore, it looks the <strong>simplest</strong> solution is to just download <strong>OpenMV IDE</strong> from <a href="https://openmv.io/pages/download" target="_blank" rel="noopener">https://openmv.io/pages/download</a>.<br>
+However, to run the installed <strong>openmvide</strong> only brought me the following <strong>ERROR</strong> messages.</li>
+</ul>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜  openmv ./openmv-ide-linux-x86_64-2.2.0.run</span><br><span class="line">This application failed to start because it could not find or load the Qt platform plugin "xcb"</span><br><span class="line">in "".</span><br><span class="line"></span><br><span class="line">Available platform plugins are: eglfs, linuxfb, minimal, minimalegl, offscreen, xcb.</span><br><span class="line"></span><br><span class="line">Reinstalling the application may fix this problem.</span><br></pre></td></tr></table></figure>
+<h1 id="test-openmv"><a class="markdownIt-Anchor" href="#test-openmv"></a> Test OpenMV</h1>
+<p>In the following, we <strong>ONLY</strong> use <a href="https://linux.die.net/man/8/picocom" target="_blank" rel="noopener">picocom</a> to carry out the test.</p>
+<h2 id="1-openmv-cam-m4-v2-openmv2-with-stm32f427"><a class="markdownIt-Anchor" href="#1-openmv-cam-m4-v2-openmv2-with-stm32f427"></a> 1. OpenMV Cam M4 V2 (OPENMV2 with STM32F427)</h2>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/OpenMV_Cam_M4_V2.jpg" alt="Current Contents In OpenMV Cam M4 V2"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/OpenMV_Cam_M4_V2_properties.jpg" alt="OpenMV Cam M4 V2 Properties"></p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ picocom /dev/ttyACM0</span><br><span class="line">picocom v3.1</span><br><span class="line"></span><br><span class="line">port is        : /dev/ttyACM0</span><br><span class="line">flowcontrol    : none</span><br><span class="line">baudrate is    : 9600</span><br><span class="line">parity is      : none</span><br><span class="line">databits are   : 8</span><br><span class="line">stopbits are   : 1</span><br><span class="line">escape is      : C-a</span><br><span class="line">local echo is  : no</span><br><span class="line">noinit is      : no</span><br><span class="line">noreset is     : no</span><br><span class="line">hangup is      : no</span><br><span class="line">nolock is      : no</span><br><span class="line">send_cmd is    : sz -vv</span><br><span class="line">receive_cmd is : rz -vv -E</span><br><span class="line">imap is        : </span><br><span class="line">omap is        : </span><br><span class="line">emap is        : crcrlf,delbs,</span><br><span class="line">logfile is     : none</span><br><span class="line">initstring     : none</span><br><span class="line">exit_after is  : not set</span><br><span class="line">exit is        : no</span><br><span class="line"></span><br><span class="line">Type [C-a] [C-h] to see available commands</span><br><span class="line">Terminal ready</span><br><span class="line">MicroPython v1.9.3-4922-ge0f81c867 on 2018-04-23; OPENMV2 with STM32F427</span><br><span class="line">Type "help()" for more information.</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Press <strong>Ctrl+A</strong> then <strong>Ctrl+x</strong>, <strong>picocom</strong> will terminate its execution.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; </span></span><br><span class="line">Terminating...</span><br><span class="line">Thanks for using picocom</span><br></pre></td></tr></table></figure>
+<h2 id="2-openmv-cam-m7-openmv3-with-stm32f765"><a class="markdownIt-Anchor" href="#2-openmv-cam-m7-openmv3-with-stm32f765"></a> 2. OpenMV Cam M7 (OPENMV3 with STM32F765)</h2>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/OpenMV_Cam_M7.jpg" alt="Current Contents In OpenMV Cam M7"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/OpenMV_Cam_M7_properties.jpg" alt="OpenMV Cam M7 Properties"></p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ picocom /dev/ttyACM0</span><br><span class="line">picocom v3.1</span><br><span class="line"></span><br><span class="line">port is        : /dev/ttyACM0</span><br><span class="line">flowcontrol    : none</span><br><span class="line">baudrate is    : 9600</span><br><span class="line">parity is      : none</span><br><span class="line">databits are   : 8</span><br><span class="line">stopbits are   : 1</span><br><span class="line">escape is      : C-a</span><br><span class="line">local echo is  : no</span><br><span class="line">noinit is      : no</span><br><span class="line">noreset is     : no</span><br><span class="line">hangup is      : no</span><br><span class="line">nolock is      : no</span><br><span class="line">send_cmd is    : sz -vv</span><br><span class="line">receive_cmd is : rz -vv -E</span><br><span class="line">imap is        : </span><br><span class="line">omap is        : </span><br><span class="line">emap is        : crcrlf,delbs,</span><br><span class="line">logfile is     : none</span><br><span class="line">initstring     : none</span><br><span class="line">exit_after is  : not set</span><br><span class="line">exit is        : no</span><br><span class="line"></span><br><span class="line">Type [C-a] [C-h] to see available commands</span><br><span class="line">Terminal ready</span><br><span class="line">MicroPython v1.9.4-4510-g23e8457de on 2018-06-29; OPENMV3 with STM32F765</span><br><span class="line">Type "help()" for more information.</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; </span></span><br><span class="line">Terminating...</span><br><span class="line">Thanks for using picocom</span><br><span class="line">➜  ~</span><br></pre></td></tr></table></figure>
+<h1 id="flash-openmv-firmware-onto-openmv-board"><a class="markdownIt-Anchor" href="#flash-openmv-firmware-onto-openmv-board"></a> Flash OpenMV Firmware Onto OpenMV Board</h1>
+<h2 id="1-entering-dfu-mode"><a class="markdownIt-Anchor" href="#1-entering-dfu-mode"></a> 1. Entering DFU Mode</h2>
+<p>Similar to what’s discussed in our <a href="../../../../../2019/07/13/MCUs/micropython-pyboard/">previous blog</a>, we need to enter DFU mode before flashing.</p>
+<ul>
+<li>Disconnect the power for OpenMV board <strong>FIRST</strong></li>
+<li>Connect <strong>BOOT pin</strong> and <strong>RST pin</strong> afterwards</li>
+<li>Then, reconnect the USB cable for flashing.</li>
+</ul>
+<p>Before entering DFU mode:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ lsusb</span><br><span class="line">...</span><br><span class="line">Bus 001 Device 027: ID 1209:abd1 InterBiometrics</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>After entering DFU mode:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ lsusb</span><br><span class="line">...</span><br><span class="line">Bus 001 Device 028: ID 0483:df11 STMicroelectronics STM Device in DFU Mode</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h2 id="2-flashing-openmvs-firmware"><a class="markdownIt-Anchor" href="#2-flashing-openmvs-firmware"></a> 2. Flashing OpenMV’s Firmware</h2>
+<p>Checkout the <strong>NEWEST</strong> <a href="https://github.com/openmv/openmv" target="_blank" rel="noopener">OpenMV</a>. Find the corrensponding version of OpenMV board, flash it by command <code>python pydfu.py -u &lt;firmware.dfu&gt;</code>.</p>
+<h3 id="1-openmv-cam-m4-v2-openmv2-with-stm32f427-2"><a class="markdownIt-Anchor" href="#1-openmv-cam-m4-v2-openmv2-with-stm32f427-2"></a> 1) OpenMV Cam M4 V2 (OPENMV2 with STM32F427)</h3>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">➜  openmv git:(master) python ./tools/pydfu.py -u firmware/OPENMV2/firmware.dfu </span><br><span class="line">./tools/pydfu.py:80: DeprecationWarning: inspect.getargspec() is deprecated since Python 3.0, use inspect.signature() or inspect.getfullargspec()</span><br><span class="line">  if 'length' in inspect.getargspec(usb.util.get_string).args:</span><br><span class="line">File: firmware/OPENMV2/firmware.dfu</span><br><span class="line">    b'DfuSe' v1, image size: 834757, targets: 1</span><br><span class="line">    b'Target' 0, alt setting: 0, name: "ST...", size: 834472, elements: 1</span><br><span class="line">      0, address: 0x08010000, size: 834464</span><br><span class="line">    usb: 0483:df11, device: 0x0000, dfu: 0x011a, b'UFD', 16, 0x9dfe8e73</span><br><span class="line">Writing memory...</span><br><span class="line">0x08010000  834464 [=========================] 100% </span><br><span class="line">Exiting DFU...</span><br></pre></td></tr></table></figure>
+<p>Let’s try <strong>picocom</strong> directly:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">➜  openmv git:(master) picocom /dev/ttyACM0</span><br><span class="line">picocom v3.1</span><br><span class="line"></span><br><span class="line">port is        : /dev/ttyACM0</span><br><span class="line">flowcontrol    : none</span><br><span class="line">baudrate is    : 9600</span><br><span class="line">parity is      : none</span><br><span class="line">databits are   : 8</span><br><span class="line">stopbits are   : 1</span><br><span class="line">escape is      : C-a</span><br><span class="line">local echo is  : no</span><br><span class="line">noinit is      : no</span><br><span class="line">noreset is     : no</span><br><span class="line">hangup is      : no</span><br><span class="line">nolock is      : no</span><br><span class="line">send_cmd is    : sz -vv</span><br><span class="line">receive_cmd is : rz -vv -E</span><br><span class="line">imap is        : </span><br><span class="line">omap is        : </span><br><span class="line">emap is        : crcrlf,delbs,</span><br><span class="line">logfile is     : none</span><br><span class="line">initstring     : none</span><br><span class="line">exit_after is  : not set</span><br><span class="line">exit is        : no</span><br><span class="line"></span><br><span class="line">Type [C-a] [C-h] to see available commands</span><br><span class="line">Terminal ready</span><br><span class="line">6792</span><br><span class="line">18.86792</span><br><span class="line">18.86792</span><br><span class="line">18.86792</span><br><span class="line">18.86792</span><br><span class="line">18.86792</span><br><span class="line">18.86792</span><br><span class="line">......</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File "/main.py", line 51, in &lt;module&gt;</span><br><span class="line">KeyboardInterrupt: </span><br><span class="line">MicroPython v1.9.4-4553-gb4eccdfe3 on 2019-05-02; OPENMV2 with STM32F427</span><br><span class="line">Type "help()" for more information.</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; </span></span><br><span class="line">Terminating...</span><br><span class="line">Thanks for using picocom</span><br></pre></td></tr></table></figure>
+<p>Check file <strong><a href="http://main.py" target="_blank" rel="noopener">main.py</a></strong>, which starts running automatically while testing with <strong>picocom</strong>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Face Detection Example</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># This example shows off the built-in face detection feature of the OpenMV Cam.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Face detection works by using the Haar Cascade feature detector on an image. A</span></span><br><span class="line"><span class="comment"># Haar Cascade is a series of simple area contrasts checks. For the built-in</span></span><br><span class="line"><span class="comment"># frontalface detector there are 25 stages of checks with each stage having</span></span><br><span class="line"><span class="comment"># hundreds of checks a piece. Haar Cascades run fast because later stages are</span></span><br><span class="line"><span class="comment"># only evaluated if previous stages pass. Additionally, your OpenMV Cam uses</span></span><br><span class="line"><span class="comment"># a data structure called the integral image to quickly execute each area</span></span><br><span class="line"><span class="comment"># contrast check in constant time (the reason for feature detection being</span></span><br><span class="line"><span class="comment"># grayscale only is because of the space requirment for the integral image).</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sensor, time, image</span><br><span class="line"></span><br><span class="line"><span class="comment"># Reset sensor</span></span><br><span class="line">sensor.reset()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Sensor settings</span></span><br><span class="line">sensor.set_contrast(<span class="number">1</span>)</span><br><span class="line">sensor.set_gainceiling(<span class="number">16</span>)</span><br><span class="line"><span class="comment"># HQVGA and GRAYSCALE are the best for face tracking.</span></span><br><span class="line">sensor.set_framesize(sensor.HQVGA)</span><br><span class="line">sensor.set_pixformat(sensor.GRAYSCALE)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load Haar Cascade</span></span><br><span class="line"><span class="comment"># By default this will use all stages, lower satges is faster but less accurate.</span></span><br><span class="line">face_cascade = image.HaarCascade(<span class="string">"frontalface"</span>, stages=<span class="number">25</span>)</span><br><span class="line">print(face_cascade)</span><br><span class="line"></span><br><span class="line"><span class="comment"># FPS clock</span></span><br><span class="line">clock = time.clock()</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (<span class="keyword">True</span>):</span><br><span class="line">    clock.tick()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Capture snapshot</span></span><br><span class="line">    img = sensor.snapshot()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Find objects.</span></span><br><span class="line">    <span class="comment"># Note: Lower scale factor scales-down the image more and detects smaller objects.</span></span><br><span class="line">    <span class="comment"># Higher threshold results in a higher detection rate, with more false positives.</span></span><br><span class="line">    objects = img.find_features(face_cascade, threshold=<span class="number">0.75</span>, scale_factor=<span class="number">1.25</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Draw objects</span></span><br><span class="line">    <span class="keyword">for</span> r <span class="keyword">in</span> objects:</span><br><span class="line">        img.draw_rectangle(r)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Print FPS.</span></span><br><span class="line">    <span class="comment"># Note: Actual FPS is higher, streaming the FB makes it slower.</span></span><br><span class="line">    print(clock.fps())</span><br></pre></td></tr></table></figure>
+<h3 id="2-openmv-cam-m7-openmv3-with-stm32f765-2"><a class="markdownIt-Anchor" href="#2-openmv-cam-m7-openmv3-with-stm32f765-2"></a> 2) OpenMV Cam M7 (OPENMV3 with STM32F765)</h3>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">➜  openmv git:(master) python ./tools/pydfu.py -u firmware/OPENMV3/firmware.dfu</span><br><span class="line">./tools/pydfu.py:80: DeprecationWarning: inspect.getargspec() is deprecated since Python 3.0, use inspect.signature() or inspect.getfullargspec()</span><br><span class="line">  if 'length' in inspect.getargspec(usb.util.get_string).args:</span><br><span class="line">File: firmware/OPENMV3/firmware.dfu</span><br><span class="line">    b'DfuSe' v1, image size: 1297173, targets: 1</span><br><span class="line">    b'Target' 0, alt setting: 0, name: "ST...", size: 1296888, elements: 1</span><br><span class="line">      0, address: 0x08020000, size: 1296880</span><br><span class="line">    usb: 0483:df11, device: 0x0000, dfu: 0x011a, b'UFD', 16, 0xeff0bf62</span><br><span class="line">Writing memory...</span><br><span class="line">0x08020000 1296880 [=========================] 100% </span><br><span class="line">Exiting DFU...</span><br></pre></td></tr></table></figure>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">➜  openmv git:(master) picocom /dev/ttyACM0</span><br><span class="line">picocom v3.1</span><br><span class="line"></span><br><span class="line">port is        : /dev/ttyACM0</span><br><span class="line">flowcontrol    : none</span><br><span class="line">baudrate is    : 9600</span><br><span class="line">parity is      : none</span><br><span class="line">databits are   : 8</span><br><span class="line">stopbits are   : 1</span><br><span class="line">escape is      : C-a</span><br><span class="line">local echo is  : no</span><br><span class="line">noinit is      : no</span><br><span class="line">noreset is     : no</span><br><span class="line">hangup is      : no</span><br><span class="line">nolock is      : no</span><br><span class="line">send_cmd is    : sz -vv</span><br><span class="line">receive_cmd is : rz -vv -E</span><br><span class="line">imap is        : </span><br><span class="line">omap is        : </span><br><span class="line">emap is        : crcrlf,delbs,</span><br><span class="line">logfile is     : none</span><br><span class="line">initstring     : none</span><br><span class="line">exit_after is  : not set</span><br><span class="line">exit is        : no</span><br><span class="line"></span><br><span class="line">Type [C-a] [C-h] to see available commands</span><br><span class="line">Terminal ready</span><br><span class="line">MicroPython v1.9.4-4553-gb4eccdfe3 on 2019-05-02; OPENMV3 with STM32F765</span><br><span class="line">Type "help()" for more information.</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; </span></span><br><span class="line">Terminating...</span><br><span class="line">Thanks for using picocom</span><br><span class="line">➜  openmv git:(master)</span><br></pre></td></tr></table></figure>
+<p><span style="color:red"><strong>As you can see, firmware has NOW been updated to MicroPython v1.9.4-4553-gb4eccdfe3 on 2019-05-02.</strong></span></p>
+<h1 id="stream-openmv-video-without-openmv-ide"><a class="markdownIt-Anchor" href="#stream-openmv-video-without-openmv-ide"></a> Stream OpenMV Video without OpenMV-IDE</h1>
+<h2 id="1-snapshot"><a class="markdownIt-Anchor" href="#1-snapshot"></a> 1. Snapshot</h2>
+<p>We <strong>FIRST</strong> test <a href="https://github.com/openmv/openmv/blob/master/scripts/examples/05-Snapshot/snapshot.py" target="_blank" rel="noopener">OpenMV snapshot code</a> on <a href="https://openmv.io/collections/cams/products/openmv-cam" target="_blank" rel="noopener">OpenMV Cam M4 V2 (OPENMV2 with STM32F427)</a>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Snapshot Example</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Note: You will need an SD card to run this example.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># You can use your OpenMV Cam to save image files.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sensor, image, pyb</span><br><span class="line"></span><br><span class="line">RED_LED_PIN = <span class="number">1</span></span><br><span class="line">BLUE_LED_PIN = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">sensor.reset() <span class="comment"># Initialize the camera sensor.</span></span><br><span class="line">sensor.set_pixformat(sensor.RGB565) <span class="comment"># or sensor.GRAYSCALE</span></span><br><span class="line">sensor.set_framesize(sensor.QVGA) <span class="comment"># or sensor.QQVGA (or others)</span></span><br><span class="line">sensor.skip_frames(time = <span class="number">2000</span>) <span class="comment"># Let new settings take affect.</span></span><br><span class="line"></span><br><span class="line">pyb.LED(RED_LED_PIN).on()</span><br><span class="line">sensor.skip_frames(time = <span class="number">2000</span>) <span class="comment"># Give the user time to get ready.</span></span><br><span class="line"></span><br><span class="line">pyb.LED(RED_LED_PIN).off()</span><br><span class="line">pyb.LED(BLUE_LED_PIN).on()</span><br><span class="line"></span><br><span class="line">print(<span class="string">"You're on camera!"</span>)</span><br><span class="line">sensor.snapshot().save(<span class="string">"example.jpg"</span>) <span class="comment"># or "example.bmp" (or others)</span></span><br><span class="line"></span><br><span class="line">pyb.LED(BLUE_LED_PIN).off()</span><br><span class="line">print(<span class="string">"Done! Reset the camera to see the saved image."</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/OpenMV_Cam_M4_V2_snapshot.jpg" alt="Snapshot on OpenMV Cam M4 V2"></p>
+<h2 id="2-video-recording"><a class="markdownIt-Anchor" href="#2-video-recording"></a> 2. Video Recording</h2>
+<p>We <strong>THEN</strong> test <a href="https://github.com/openmv/openmv/blob/master/scripts/examples/06-Video-Recording/mjpeg.py" target="_blank" rel="noopener">OpenMV video recording</a> on <a href="https://openmv.io/collections/cams/products/openmv-cam-m7" target="_blank" rel="noopener">OpenMV Cam M7 (OPENMV3 with STM32F765)</a>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># MJPEG Video Recording Example</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Note: You will need an SD card to run this demo.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># You can use your OpenMV Cam to record mjpeg files. You can either feed the</span></span><br><span class="line"><span class="comment"># recorder object JPEG frames or RGB565/Grayscale frames. Once you've finished</span></span><br><span class="line"><span class="comment"># recording a Mjpeg file you can use VLC to play it. If you are on Ubuntu then</span></span><br><span class="line"><span class="comment"># the built-in video player will work too.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sensor, image, time, mjpeg, pyb</span><br><span class="line"></span><br><span class="line">RED_LED_PIN = <span class="number">1</span></span><br><span class="line">BLUE_LED_PIN = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">sensor.reset() <span class="comment"># Initialize the camera sensor.</span></span><br><span class="line">sensor.set_pixformat(sensor.RGB565) <span class="comment"># or sensor.GRAYSCALE</span></span><br><span class="line">sensor.set_framesize(sensor.QVGA) <span class="comment"># or sensor.QQVGA (or others)</span></span><br><span class="line">sensor.skip_frames(time = <span class="number">2000</span>) <span class="comment"># Let new settings take affect.</span></span><br><span class="line">clock = time.clock() <span class="comment"># Tracks FPS.</span></span><br><span class="line"></span><br><span class="line">pyb.LED(RED_LED_PIN).on()</span><br><span class="line">sensor.skip_frames(time = <span class="number">2000</span>) <span class="comment"># Give the user time to get ready.</span></span><br><span class="line"></span><br><span class="line">pyb.LED(RED_LED_PIN).off()</span><br><span class="line">pyb.LED(BLUE_LED_PIN).on()</span><br><span class="line"></span><br><span class="line">m = mjpeg.Mjpeg(<span class="string">"example.mjpeg"</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"You're on camera!"</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">200</span>):</span><br><span class="line">    clock.tick()</span><br><span class="line">    m.add_frame(sensor.snapshot())</span><br><span class="line">    print(clock.fps())</span><br><span class="line"></span><br><span class="line">m.close(clock.fps())</span><br><span class="line">pyb.LED(BLUE_LED_PIN).off()</span><br><span class="line">print(<span class="string">"Done! Reset the camera to see the saved recording."</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/OpenMV_Cam_M7_videorecording.jpg" alt="Video recorded on OpenMV Cam M7"></p>
+<p><span style="color:red"><strong>It looks it’s NOT easy to demo with the SD card. Please refer to my symptoms on the <a href="http://forums.openmv.io/viewtopic.php?p=8719&amp;sid=3b3c46c30d2b65bb100deb1f07f43dd4#p8708" target="_blank" rel="noopener">OpenMV forum</a>.</strong></span></p>
+<h2 id="3-wifi-module"><a class="markdownIt-Anchor" href="#3-wifi-module"></a> 3. Wifi Module</h2>
+<p>As expected, <a href="https://openmv.io/" target="_blank" rel="noopener">OpenMV</a> NOW also privides its <a href="https://openmv.io/collections/shields/products/wifi-shield" target="_blank" rel="noopener">Wifi module</a> now. Let’s just test the example code from <a href="https://github.com/openmv/openmv" target="_blank" rel="noopener">openmv’s repo</a>.</p>
+<p><a href="https://github.com/openmv/openmv/blob/master/scripts/examples/14-WiFi-Shield/connect.py" target="_blank" rel="noopener">OpenMV Wifi Shield Connection</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Connect Example</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># This example shows how to connect your OpenMV Cam with a WiFi shield to the net.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> network</span><br><span class="line"></span><br><span class="line">SSID=<span class="string">''</span> <span class="comment"># Network SSID</span></span><br><span class="line">KEY=<span class="string">''</span>  <span class="comment"># Network key</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Init wlan module and connect to network</span></span><br><span class="line">print(<span class="string">"Trying to connect... (may take a while)..."</span>)</span><br><span class="line"></span><br><span class="line">wlan = network.WINC()</span><br><span class="line">wlan.connect(SSID, key=KEY, security=wlan.WPA_PSK)</span><br><span class="line"></span><br><span class="line"><span class="comment"># We should have a valid IP now via DHCP</span></span><br><span class="line">print(wlan.ifconfig())</span><br></pre></td></tr></table></figure>
+<p><span style="color:red"><strong>However, it’s NOT that handy to have the Wifi module tested.</strong></span></p>
+<p><span style="color:red"><strong>My conclusion: Please use <a href="https://www.amazon.com/s?k=esp32+cam" target="_blank" rel="noopener">esp32-cam</a> instead.</strong></span></p>
+<!-- There several key points to be mentioned before building:
+
+* python3 but **NOT** python2
+* **NO** recursive submodule from [OpenMV-IDE](https://github.com/openmv/openmv-ide)
+  - **NEWEST** [openmv-media](https://github.com/openmv/openmv-media)
+  - **NEWEST** [qt-creator](https://github.com/qt-creator/qt-creator)
+* **NO** need to `pip install` anything, **ALL** have been manually installed beforehand
+* The **MOST** important: to build [OpenMV-IDE](https://github.com/openmv/openmv-ide) from scratch is in order to
+
+In such, **make.py** is manually modified as:
+
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">diff --git a/make.py b/make.py</span><br><span class="line">index 63bbb83..5bb2f3c 100755</span><br><span class="line">--- a/make.py</span><br><span class="line">+++ b/make.py</span><br><span class="line">@@ -114,6 +114,7 @@ def find_ifdir():</span><br><span class="line"> def make():</span><br><span class="line"> </span><br><span class="line">     __folder__ = os.path.dirname(os.path.abspath(__file__))</span><br><span class="line">+    print("__folder__="+__folder__+"\n")</span><br><span class="line"> </span><br><span class="line">     parser = argparse.ArgumentParser(description =</span><br><span class="line">     "Make Script")</span><br><span class="line">@@ -140,6 +141,8 @@ def make():</span><br><span class="line"> </span><br><span class="line">     builddir = os.path.join(__folder__, "build")</span><br><span class="line">     installdir = os.path.join(builddir, "install")</span><br><span class="line">+    print("builddir="+builddir+"\n")</span><br><span class="line">+    print("installdir="+installdir+"\n")</span><br><span class="line"> </span><br><span class="line">     if not os.path.exists(builddir):</span><br><span class="line">         os.mkdir(builddir)</span><br><span class="line">@@ -161,8 +164,8 @@ def make():</span><br><span class="line">         # Add setup.sh...</span><br><span class="line">         with open(os.path.join(installdir, "setup.sh"), 'w') as f:</span><br><span class="line">             f.write("#! /bin/sh\n\n")</span><br><span class="line">-            f.write("sudo apt-get install -y libxcb* libGLES* libts* libsqlite* libodbc* libsybdb* libusb-1.0 python-pip\n")</span><br><span class="line">-            f.write("sudo pip install pyusb\n\n")</span><br><span class="line">+#            f.write("sudo apt-get install -y libxcb* libGLES* libts* libsqlite* libodbc* libsybdb* libusb-1.0\n")</span><br><span class="line">+#            f.write("sudo pip install pyusb\n\n")</span><br><span class="line">             f.write("sudo cp $( dirname \"$0\" )/share/qtcreator/pydfu/50-openmv.rules /etc/udev/rules.d/50-openmv.rules\n")</span><br><span class="line">             f.write("sudo udevadm control --reload-rules\n\n")</span><br><span class="line">             f.write("if [ -z \"$&#123;QT_QPA_PLATFORM&#125;\" ]; then\n")</span><br><span class="line">@@ -215,19 +218,24 @@ def make():</span><br><span class="line">         # Add setup.sh...</span><br><span class="line">         with open(os.path.join(installdir, "setup.sh"), 'w') as f:</span><br><span class="line">             f.write("#! /bin/sh\n\n")</span><br><span class="line">-            f.write("sudo apt-get install -y libusb-1.0 python-pip\n")</span><br><span class="line">-            f.write("sudo pip install pyusb\n\n")</span><br><span class="line">+#            f.write("sudo apt-get install -y libusb-1.0 python-pip\n")</span><br><span class="line">+#            f.write("sudo pip install pyusb\n\n")</span><br><span class="line">             f.write("sudo cp $( dirname \"$0\" )/share/qtcreator/pydfu/50-openmv.rules /etc/udev/rules.d/50-openmv.rules\n")</span><br><span class="line">             f.write("sudo udevadm control --reload-rules\n\n")</span><br><span class="line">         os.chmod(os.path.join(installdir, "setup.sh"),</span><br><span class="line">             os.stat(os.path.join(installdir, "setup.sh")).st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)</span><br><span class="line">         # Build...</span><br><span class="line">+        print("Start building!!! \n")</span><br><span class="line">+        print(str(cpus))</span><br><span class="line">         if os.system("cd " + builddir +</span><br><span class="line">         " &amp;&amp; qmake ../qt-creator/qtcreator.pro -r -spec linux-g++" +</span><br><span class="line">         " &amp;&amp; make -r -w -j" + str(cpus) +</span><br><span class="line">-        " &amp;&amp; make installer INSTALL_ROOT="+installdir + " IFW_PATH="+str(ifdir)):</span><br><span class="line">+        " &amp;&amp; make install INSTALL_ROOT="+installdir + " IFW_PATH="+str(ifdir)):</span><br><span class="line">             sys.exit("Make Failed...")</span><br><span class="line">-        installer = glob.glob(os.path.join(builddir, "openmv-ide-*.run"))[0]</span><br><span class="line">+        installbindir = os.path.join(installdir, "bin")</span><br><span class="line">+        print("installbindir="+installbindir+"\n")</span><br><span class="line">+        print(os.path.join(installbindir, "openmvide.sh"))</span><br><span class="line">+        installer = glob.glob(os.path.join(installbindir, "openmvide*.sh"))[0]</span><br><span class="line"> </span><br><span class="line">     else:</span><br><span class="line">         sys.exit("Unknown Platform")</span><br></pre></td></tr></table></figure>
+<p>Now, let’s try to build it.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">➜  openmv-ide git:(master) ✗ python make.py</span><br><span class="line">__folder__=....../openmv-ide</span><br><span class="line"></span><br><span class="line">builddir=....../openmv-ide/build</span><br><span class="line"></span><br><span class="line">installdir=....../openmv-ide/build/install</span><br><span class="line"></span><br><span class="line">Start building!!! </span><br><span class="line"></span><br><span class="line">8</span><br><span class="line">Reading ....../openmv-ide/qt-creator/src/src.pro [....../openmv-ide/build/src]</span><br><span class="line">......</span><br><span class="line">strip ....../openmv-ide/build/install/share/qtcreator/translations/qtcreator_zh_TW.qm</span><br><span class="line">strip:....../openmv-ide/build/install/share/qtcreator/translations/qtcreator_zh_TW.qm: file format not recognized</span><br><span class="line">make[2]: [Makefile:759: install_qmfiles] Error 1 (ignored)</span><br><span class="line">make[2]: Leaving directory '....../openmv-ide/build/share/qtcreator/translations'</span><br><span class="line">make[1]: Leaving directory '....../openmv-ide/build/share'</span><br><span class="line">cd bin/ &amp;&amp; ( test -e Makefile || /usr/lib/qt5/bin/qmake -o Makefile ....../openmv-ide/qt-creator/bin/bin.pro -spec linux-g++ ) &amp;&amp; make -f Makefile install</span><br><span class="line">make[1]: Entering directory '....../openmv-ide/build/bin'</span><br><span class="line">/usr/lib/qt5/bin/qmake -install qinstall -exe openmvide.sh ....../openmv-ide/build/install/bin/openmvide.sh</span><br><span class="line">make[1]: Leaving directory '....../openmv-ide/build/bin'</span><br><span class="line">/usr/lib/qt5/bin/qmake -install qinstall -exe ....../openmv-ide/qt-creator/dist/org.qt-project.qtcreator.appdata.xml ....../openmv-ide/build/install/share/metainfo/org.qt-project.qtcreator.appdata.xml</span><br><span class="line">strip ....../openmv-ide/build/install/share/metainfo/org.qt-project.qtcreator.appdata.xml</span><br><span class="line">strip:....../openmv-ide/build/install/share/metainfo/org.qt-project.qtcreator.appdata.xml: file format not recognized</span><br><span class="line">make: [Makefile:621: install_appstream] Error 1 (ignored)</span><br><span class="line">/usr/lib/qt5/bin/qmake -install qinstall -exe ....../openmv-ide/qt-creator/dist/org.qt-project.qtcreator.desktop ....../openmv-ide/build/install/share/applications/org.qt-project.qtcreator.desktop</span><br><span class="line">strip ....../openmv-ide/build/install/share/applications/org.qt-project.qtcreator.desktop</span><br><span class="line">strip:....../openmv-ide/build/install/share/applications/org.qt-project.qtcreator.desktop: file format not recognized</span><br><span class="line">make: [Makefile:631: install_desktop] Error 1 (ignored)</span><br><span class="line">installbindir=....../openmv-ide/build/install/bin</span><br><span class="line"></span><br><span class="line">....../openmv-ide/build/install/bin/openmvide.sh</span><br></pre></td></tr></table></figure>
+<p><strong>NOTHING runnable</strong> seems to be successfully built.</p>
+<h1 id="git-diff-qt-creator"><a class="markdownIt-Anchor" href="#git-diff-qt-creator"></a> git diff qt-creator</h1>
+<p>We then have to carry out a thorough comparison between <a href="https://github.com/qt-creator/qt-creator">qt-creator</a> and <a href="https://github.com/openmv/qt-creator/tree/b587ed9f6c93c6844782dc2e54c307878419c8e1">qt-creator in openmv-ide</a>.<br />
+–&gt;</p>
+-->
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MicroPython-OpenMV/" rel="tag"># MicroPython, OpenMV</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/13/SBCs/MCU/micropython-pyboard/" rel="next" title="MicroPython Pyboard">
+                <i class="fa fa-chevron-left"></i> MicroPython Pyboard
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/16/MachineVision/MCU/pixycam/" rel="prev" title="Pixy Cam">
+                Pixy Cam <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Nobody</p>
+              <p class="site-description motion-element" itemprop="description">Longer Vision Technology Github Blog</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">62</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#dilemma-of-openmv-ide"><span class="nav-number">1.</span> <span class="nav-text"> Dilemma of OpenMV-IDE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#test-openmv"><span class="nav-number">2.</span> <span class="nav-text"> Test OpenMV</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-openmv-cam-m4-v2-openmv2-with-stm32f427"><span class="nav-number">2.1.</span> <span class="nav-text"> 1. OpenMV Cam M4 V2 (OPENMV2 with STM32F427)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-openmv-cam-m7-openmv3-with-stm32f765"><span class="nav-number">2.2.</span> <span class="nav-text"> 2. OpenMV Cam M7 (OPENMV3 with STM32F765)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#flash-openmv-firmware-onto-openmv-board"><span class="nav-number">3.</span> <span class="nav-text"> Flash OpenMV Firmware Onto OpenMV Board</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-entering-dfu-mode"><span class="nav-number">3.1.</span> <span class="nav-text"> 1. Entering DFU Mode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-flashing-openmvs-firmware"><span class="nav-number">3.2.</span> <span class="nav-text"> 2. Flashing OpenMV’s Firmware</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-openmv-cam-m4-v2-openmv2-with-stm32f427-2"><span class="nav-number">3.2.1.</span> <span class="nav-text"> 1) OpenMV Cam M4 V2 (OPENMV2 with STM32F427)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-openmv-cam-m7-openmv3-with-stm32f765-2"><span class="nav-number">3.2.2.</span> <span class="nav-text"> 2) OpenMV Cam M7 (OPENMV3 with STM32F765)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#stream-openmv-video-without-openmv-ide"><span class="nav-number">4.</span> <span class="nav-text"> Stream OpenMV Video without OpenMV-IDE</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-snapshot"><span class="nav-number">4.1.</span> <span class="nav-text"> 1. Snapshot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-video-recording"><span class="nav-number">4.2.</span> <span class="nav-text"> 2. Video Recording</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-wifi-module"><span class="nav-number">4.3.</span> <span class="nav-text"> 3. Wifi Module</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nobody</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+   
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
