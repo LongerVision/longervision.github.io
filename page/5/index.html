@@ -15,7 +15,7 @@
 
 
 <html class="theme-next muse use-motion" lang="English">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -175,7 +175,7 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="English">
+<body itemscope itemtype="http://schema.org/WebPage" lang="English">
 
   
   
@@ -186,7 +186,7 @@
   page-home">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -304,20 +304,229 @@
 
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/09/15/Tools/uPyCraft_PyQt5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/15/Tools/uPyCraft_PyQt5/" itemprop="url">
+                  uPyCraft_PyQt5
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-09-15 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-15T00:00:00-07:00">2018-09-15</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-08-18 14:53:15" itemprop="dateModified" datetime="2019-08-18T14:53:15-07:00">2019-08-18</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>I’ve been looking for an IDE for debugging various microcontroller boards, such as <a href="https://openmv.io/" target="_blank" rel="noopener">OpenMV</a> and <a href="http://micropython.org/" target="_blank" rel="noopener">PyBoard</a>, etc. There are some fundamental requirements:</p>
+<ul>
+<li>Open source</li>
+<li>Python debugger, <a href="http://micropython.org/" target="_blank" rel="noopener">MicroPython</a> support</li>
+<li>Any GUI is fine, but <a href="https://www.qt.io/" target="_blank" rel="noopener">Qt</a> preferred</li>
+</ul>
+<p>Therefore, after a careful search, I found <a href="https://dfrobot.gitbooks.io/upycraft/" target="_blank" rel="noopener">uPyCraft</a>, which seems to be designed by a Chinese team? Because I found the <a href="http://docs.dfrobot.com.cn/upycraft/" target="_blank" rel="noopener">Chinese version of uPyCraft documentation</a> as well.</p>
+<p>However, it seems Linux support for uPyCraft is <strong>NOT</strong> very good. My working environment:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID: Ubuntu</span><br><span class="line">Description:    Ubuntu 18.04.1 LTS</span><br><span class="line">Release:        18.04</span><br><span class="line">Codename:       bionic</span><br><span class="line">$ uname -a</span><br><span class="line">Linux jiapei-GT72-6QE 4.18.7-041807-generic <span class="comment">#201809090930 SMP Sun Sep 9 09:33:16 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux</span></span><br><span class="line">$ python --version</span><br><span class="line">Python 3.6.5</span><br><span class="line">$ qmake --version</span><br><span class="line">QMake version 3.1</span><br><span class="line">Using Qt version 5.11.1 <span class="keyword">in</span> /opt/Qt/Current/gcc_64/lib</span><br></pre></td></tr></table></figure>
+<h1 id="part-a-test-built-upycraft"><a class="markdownIt-Anchor" href="#part-a-test-built-upycraft"></a> PART A: Test Built uPyCraft</h1>
+<h2 id="1-try-the-executable"><a class="markdownIt-Anchor" href="#1-try-the-executable"></a> 1. Try the Executable</h2>
+<p>In fact, there is one executable <a href="https://gitee.com/dfrobot/upycraft/raw/master/uPyCraft_linux_V1.0" target="_blank" rel="noopener">Linux version for uPyCraft</a>. However, to run it after downloading, I obtained the following ERROR messages:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ./uPyCraft_linux_V1.0 </span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"uPyCraft.py"</span>, line 2, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">  File <span class="string">"/usr/local/lib/python3.5/dist-packages/PyInstaller/loader/pyimod03_importers.py"</span>, line 714, <span class="keyword">in</span> load_module</span><br><span class="line">ImportError: /tmp/_MEIoq8Xi8/libz.so.1: version `ZLIB_1.2.9<span class="string">' not found (required by /usr/lib/x86_64-linux-gnu/libpng16.so.16)</span></span><br><span class="line"><span class="string">[324] Failed to execute script uPyCraft</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-try-source-code"><a class="markdownIt-Anchor" href="#2-try-source-code"></a> 2. Try source code</h2>
+<p>We can also clone <a href="https://github.com/DFRobot/uPyCraft_src" target="_blank" rel="noopener">uPyCraft source code</a> and build it from scratch. However, clearly, current <a href="https://github.com/DFRobot/uPyCraft_src" target="_blank" rel="noopener">uPyCraft</a> relies on <a href="https://www.riverbankcomputing.com/software/pyqt/download" target="_blank" rel="noopener">PyQt4</a> instead of <a href="http://pyqt.sourceforge.net/Docs/PyQt5/" target="_blank" rel="noopener">PyQt5</a>.</p>
+<p>Therefore, I’ve got to modify <a href="https://github.com/DFRobot/uPyCraft_src" target="_blank" rel="noopener">uPyCraft</a> a bit to have this <a href="https://github.com/jiapei100/uPyCraft_PyQt5" target="_blank" rel="noopener">uPyCraft_PyQt5</a>.</p>
+<h1 id="part-b-build-upycraft-with-pyqt5"><a class="markdownIt-Anchor" href="#part-b-build-upycraft-with-pyqt5"></a> PART B: Build uPyCraft with PyQt5</h1>
+<p>Before testing <a href="https://github.com/jiapei100/uPyCraft_PyQt5" target="_blank" rel="noopener">uPyCraft_PyQt5</a>, you need to make sure</p>
+<ul>
+<li><a href="https://www.python.org/" target="_blank" rel="noopener">python3</a></li>
+<li><a href="https://www.qt.io/download" target="_blank" rel="noopener">Qt5</a><br>
+have been installed.</li>
+</ul>
+<p><span style="color:red">**What’s more important: Please uninstall enum34 but keep the original enum.</span> Please refer to <a href="https://stackoverflow.com/questions/43124775/why-python-3-6-1-throws-attributeerror-module-enum-has-no-attribute-intflag" target="_blank" rel="noopener">Stack Overflow</a> for more details.</p>
+<h2 id="1-check-out-and-build-my-modified-code-of-upycraft_pyqt5"><a class="markdownIt-Anchor" href="#1-check-out-and-build-my-modified-code-of-upycraft_pyqt5"></a> 1. Check out and build my modified code of uPyCraft_PyQt5</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> git@github.com:jiapei100/uPyCraft_PyQt5.git</span><br><span class="line">$ <span class="built_in">cd</span> uPyCraft_PyQt5</span><br><span class="line">$ pyinstaller -F uPyCraft.py</span><br><span class="line">47 INFO: PyInstaller: 3.4</span><br><span class="line">47 INFO: Python: 3.6.5</span><br><span class="line">47 INFO: Platform: Linux-4.18.7-041807-generic-x86_64-with-Ubuntu-18.04-bionic</span><br><span class="line">48 INFO: wrote ....../uPyCraft_PyQt5/uPyCraft.spec</span><br><span class="line">50 INFO: UPX is not available.</span><br><span class="line">51 INFO: Extending PYTHONPATH with paths</span><br><span class="line">[<span class="string">'....../uPyCraft_PyQt5'</span>,</span><br><span class="line"> <span class="string">'....../uPyCraft_PyQt5'</span>]</span><br><span class="line">52 INFO: checking Analysis</span><br><span class="line">54 INFO: Building because inputs changed</span><br><span class="line">54 INFO: Initializing module dependency graph...</span><br><span class="line">57 INFO: Initializing module graph hooks...</span><br><span class="line">59 INFO: Analyzing base_library.zip ...</span><br><span class="line">2747 INFO: running Analysis Analysis-00.toc</span><br><span class="line">2776 INFO: Caching module hooks...</span><br><span class="line">2779 INFO: Analyzing ....../uPyCraft_PyQt5/uPyCraft.py</span><br><span class="line">3619 INFO: Loading module hooks...</span><br><span class="line">3619 INFO: Loading module hook <span class="string">"hook-PyQt5.QtGui.py"</span>...</span><br><span class="line">3749 INFO: Loading module hook <span class="string">"hook-pydoc.py"</span>...</span><br><span class="line">3750 INFO: Loading module hook <span class="string">"hook-PyQt5.QtWidgets.py"</span>...</span><br><span class="line">3832 INFO: Loading module hook <span class="string">"hook-xml.py"</span>...</span><br><span class="line">3914 INFO: Loading module hook <span class="string">"hook-PyQt5.QtCore.py"</span>...</span><br><span class="line">3933 INFO: Loading module hook <span class="string">"hook-PyQt5.QtPrintSupport.py"</span>...</span><br><span class="line">4057 INFO: Loading module hook <span class="string">"hook-encodings.py"</span>...</span><br><span class="line">4126 INFO: Loading module hook <span class="string">"hook-PyQt5.py"</span>...</span><br><span class="line">4170 WARNING: Hidden import <span class="string">"sip"</span> not found!</span><br><span class="line">4179 INFO: Looking <span class="keyword">for</span> ctypes DLLs</span><br><span class="line">4274 WARNING: library setupapi required via ctypes not found</span><br><span class="line">4299 WARNING: library Advapi32 required via ctypes not found</span><br><span class="line">4367 INFO: Analyzing run-time hooks ...</span><br><span class="line">4370 INFO: Including run-time hook <span class="string">'pyi_rth_qt5.py'</span></span><br><span class="line">4376 INFO: Looking <span class="keyword">for</span> dynamic libraries</span><br><span class="line">8225 INFO: Looking <span class="keyword">for</span> eggs</span><br><span class="line">8225 INFO: Python library not <span class="keyword">in</span> binary dependencies. Doing additional searching...</span><br><span class="line">8292 INFO: Using Python library /usr/lib/x86_64-linux-gnu/libpython3.6m.so.1.0</span><br><span class="line">8301 INFO: Warnings written to ....../uPyCraft_PyQt5/build/uPyCraft/warn-uPyCraft.txt</span><br><span class="line">8339 INFO: Graph cross-reference written to ....../uPyCraft_PyQt5/build/uPyCraft/xref-uPyCraft.html</span><br><span class="line">8352 INFO: checking PYZ</span><br><span class="line">8354 INFO: Building because name changed</span><br><span class="line">8354 INFO: Building PYZ (ZlibArchive) ....../uPyCraft_PyQt5/build/uPyCraft/PYZ-00.pyz</span><br><span class="line">8762 INFO: Building PYZ (ZlibArchive) ....../uPyCraft_PyQt5/build/uPyCraft/PYZ-00.pyz completed successfully.</span><br><span class="line">8765 INFO: checking PKG</span><br><span class="line">8767 INFO: Building because name changed</span><br><span class="line">8767 INFO: Building PKG (CArchive) PKG-00.pkg</span><br><span class="line">33163 INFO: Building PKG (CArchive) PKG-00.pkg completed successfully.</span><br><span class="line">33168 INFO: Bootloader ~/.<span class="built_in">local</span>/lib/python3.6/site-packages/PyInstaller/bootloader/Linux-64bit/run</span><br><span class="line">33168 INFO: checking EXE</span><br><span class="line">33170 INFO: Building because name changed</span><br><span class="line">33170 INFO: Building EXE from EXE-00.toc</span><br><span class="line">33175 INFO: Appending archive to ELF section <span class="keyword">in</span> EXE ....../uPyCraft_PyQt5/dist/uPyCraft</span><br><span class="line">33753 INFO: Building EXE from EXE-00.toc completed successfully.</span><br></pre></td></tr></table></figure>
+<h2 id="2-run-and-test-upycraft_pyqt5"><a class="markdownIt-Anchor" href="#2-run-and-test-upycraft_pyqt5"></a> 2. Run and test uPyCraft_PyQt5</h2>
+<p>To run <strong>uPyCraft_PyQt5</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> dist</span><br><span class="line">$ ./uPyCraft</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/uPyCraft/uPyCraft.jpg" alt="uPyCraft"></p>
+<p>So far, 6 boards are particularly supported:</p>
+<ul>
+<li><a href="https://arduino-esp8266.readthedocs.io/en/latest/boards.html" target="_blank" rel="noopener">ESP8266</a></li>
+<li><a href="https://www.espressif.com/en/products/hardware/development-boards" target="_blank" rel="noopener">ESP32</a></li>
+<li><a href="http://micropython.org/" target="_blank" rel="noopener">PyBoard</a></li>
+<li><a href="https://github.com/TPYBoard" target="_blank" rel="noopener">TPYBoardV202</a></li>
+<li><a href="http://tpyboard.com/" target="_blank" rel="noopener">TPYBoardV102</a></li>
+<li><a href="https://microbit.org/" target="_blank" rel="noopener">micro:bit</a></li>
+</ul>
+<p>For the sake of our requirements, <a href="https://openmv.io/" target="_blank" rel="noopener">openmv</a> is going to be supported in particular.</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/09/04/SBCs/ARM/banana-pi-pro-armbian/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nobody">
       <meta itemprop="description" content="Longer Vision Technology Github Blog">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Longer Vision Technology">
     </span>
 
@@ -389,14 +598,14 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a></span>
 
                 
                 
                   , 
                 
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a></span>
 
                 
                 
@@ -534,20 +743,20 @@
 
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/09/01/AI/DeepLearning/tensorflow-object-tracking/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nobody">
       <meta itemprop="description" content="Longer Vision Technology Github Blog">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Longer Vision Technology">
     </span>
 
@@ -619,14 +828,14 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
 
                 
                 
                   , 
                 
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a></span>
 
                 
                 
@@ -726,20 +935,20 @@
 
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/07/16/Cloud/docker-yes-virtual-environment-no/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nobody">
       <meta itemprop="description" content="Longer Vision Technology Github Blog">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Longer Vision Technology">
     </span>
 
@@ -811,7 +1020,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Cloud/" itemprop="url" rel="index"><span itemprop="name">Cloud</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Cloud/" itemprop="url" rel="index"><span itemprop="name">Cloud</span></a></span>
 
                 
                 
@@ -896,20 +1105,20 @@
 
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/07/12/AI/DeepLearning/posture_recognition_by_a_single_2d_webcam/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nobody">
       <meta itemprop="description" content="Longer Vision Technology Github Blog">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Longer Vision Technology">
     </span>
 
@@ -981,14 +1190,14 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
 
                 
                 
                   , 
                 
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a></span>
 
                 
                 
@@ -1075,20 +1284,20 @@
 
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/07/10/AI/DeepLearning/tensorflow-keras-build-from-source/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nobody">
       <meta itemprop="description" content="Longer Vision Technology Github Blog">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Longer Vision Technology">
     </span>
 
@@ -1160,14 +1369,14 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
 
                 
                 
                   , 
                 
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a></span>
 
                 
                 
@@ -1310,20 +1519,20 @@
 
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/07/05/ComputerVision/Face/face_keypoint_orientation/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nobody">
       <meta itemprop="description" content="Longer Vision Technology Github Blog">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Longer Vision Technology">
     </span>
 
@@ -1395,14 +1604,14 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a></span>
 
                 
                 
                   , 
                 
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Computer-Vision/Face/" itemprop="url" rel="index"><span itemprop="name">Face</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Computer-Vision/Face/" itemprop="url" rel="index"><span itemprop="name">Face</span></a></span>
 
                 
                 
@@ -1550,20 +1759,20 @@ Click on the pictures to open an uploaded Facebook video.</p>
 
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/07/02/AI/DeepLearning/ImageAI-Happy-Canada-Day/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nobody">
       <meta itemprop="description" content="Longer Vision Technology Github Blog">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Longer Vision Technology">
     </span>
 
@@ -1635,14 +1844,14 @@ Click on the pictures to open an uploaded Facebook video.</p>
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
 
                 
                 
                   , 
                 
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a></span>
 
                 
                 
@@ -1777,20 +1986,20 @@ Click on the pictures to open an uploaded Facebook video.</p>
 
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/06/23/ComputerVision/Face/vosm-2018/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nobody">
       <meta itemprop="description" content="Longer Vision Technology Github Blog">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Longer Vision Technology">
     </span>
 
@@ -1862,14 +2071,14 @@ Click on the pictures to open an uploaded Facebook video.</p>
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a></span>
 
                 
                 
                   , 
                 
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Computer-Vision/Face/" itemprop="url" rel="index"><span itemprop="name">Face</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Computer-Vision/Face/" itemprop="url" rel="index"><span itemprop="name">Face</span></a></span>
 
                 
                 
@@ -2138,239 +2347,20 @@ Click on the pictures to open an uploaded Facebook video.</p>
 
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/06/22/Tools/irc-via-weechat-in-Linux/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/22/Tools/irc-via-weechat-in-Linux/" itemprop="url">
-                  IRC Via WeeChat in Linux
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-06-22 00:00:00" itemprop="dateCreated datePublished" datetime="2018-06-22T00:00:00-07:00">2018-06-22</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-08-18 14:53:02" itemprop="dateModified" datetime="2019-08-18T14:53:02-07:00">2019-08-18</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="1-irc-and-freenode"><a class="markdownIt-Anchor" href="#1-irc-and-freenode"></a> 1. IRC and Freenode</h1>
-<p>People have been using <a href="https://whatis.techtarget.com/definition/Internet-Relay-Chat-IRC" target="_blank" rel="noopener">IRC</a> for decades.</p>
-<blockquote>
-<p><a href="https://freenode.net/" target="_blank" rel="noopener">Freenode</a> is an <a href="https://whatis.techtarget.com/definition/Internet-Relay-Chat-IRC" target="_blank" rel="noopener">IRC</a> network used to discuss peer-directed projects.</p>
-</blockquote>
-<p>cited from <a href="https://en.wikipedia.org/wiki/Freenode" target="_blank" rel="noopener">Wikipedia</a>.</p>
-<p>It’s recommended to have some background about <strong>IRC</strong> and <strong>Freenode</strong> on Wikipedia:</p>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Wikipedia:IRC/Tutorial" target="_blank" rel="noopener">IRC Wikipedia</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Freenode" target="_blank" rel="noopener">Freenode</a></li>
-</ul>
-<h1 id="2-popular-irc-clients"><a class="markdownIt-Anchor" href="#2-popular-irc-clients"></a> 2. Popular IRC Clients</h1>
-<p>Lots of IRC clients can be found on Google. Here, we just summarize some from <a href="https://en.wikipedia.org/wiki/Wikipedia:IRC/Tutorial" target="_blank" rel="noopener">IRC Wikipedia</a>:</p>
-<ul>
-<li><a href="https://webchat.freenode.net/" target="_blank" rel="noopener">freenode official webchat</a></li>
-<li><a href="https://kiwiirc.com/" target="_blank" rel="noopener">KiwiIRC</a></li>
-<li><a href="https://www.irccloud.com/" target="_blank" rel="noopener">IRCCloud</a></li>
-<li><a href="https://qwebirc.org/" target="_blank" rel="noopener">qwebirc</a></li>
-<li><a href="http://cgiirc.org/" target="_blank" rel="noopener">CGI:IRC</a></li>
-</ul>
-<h1 id="3-7-best-irc-clients-for-linux"><a class="markdownIt-Anchor" href="#3-7-best-irc-clients-for-linux"></a> 3. 7 Best IRC Clients for Linux</h1>
-<p>Please just refer to <a href="https://www.tecmint.com/best-irc-clients-for-linux/" target="_blank" rel="noopener">https://www.tecmint.com/best-irc-clients-for-linux/</a>.</p>
-<h1 id="4-weechat-in-linux"><a class="markdownIt-Anchor" href="#4-weechat-in-linux"></a> 4. WeeChat in Linux</h1>
-<h2 id="41-installation"><a class="markdownIt-Anchor" href="#41-installation"></a> 4.1 Installation</h2>
-<p>We can of course directly download the package from <a href="https://weechat.org/download/" target="_blank" rel="noopener">WeeChat Download</a>, and have it installed from source. However, installing WeeChat from repository <a href="http://tipsonubuntu.com/2017/07/07/install-latest-WeeChat-chat-client-ubuntu/" target="_blank" rel="noopener">is recommended</a>.</p>
-<h3 id="step-1-add-the-weechat-repository"><a class="markdownIt-Anchor" href="#step-1-add-the-weechat-repository"></a> Step 1: Add the WeeChat repository</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh -c &apos;echo &quot;deb https://weechat.org/ubuntu $(lsb_release -cs) main&quot; &gt;&gt; /etc/apt/sources.list.d/WeeChat.list&apos;</span><br></pre></td></tr></table></figure>
-<h3 id="step-2-add-weechat-repository-key"><a class="markdownIt-Anchor" href="#step-2-add-weechat-repository-key"></a> Step 2: Add WeeChat repository key</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-key adv --keyserver keys.gnupg.net --recv-keys 11E9DE8848F2B65222AA75B8D1820DB22A11534E</span><br></pre></td></tr></table></figure>
-<h3 id="step-3-weechat-installation"><a class="markdownIt-Anchor" href="#step-3-weechat-installation"></a> Step 3: WeeChat Installation</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install WeeChat</span><br></pre></td></tr></table></figure>
-<h2 id="42-how-to-use-weechat"><a class="markdownIt-Anchor" href="#42-how-to-use-weechat"></a> 4.2 How to use WeeChat</h2>
-<p>Refer to <a href="https://weechat.org/files/doc/devel/weechat_quickstart.en.html" target="_blank" rel="noopener">WeeChat Official Documentation</a>.</p>
-<h3 id="step-1-run-weechat"><a class="markdownIt-Anchor" href="#step-1-run-weechat"></a> Step 1: Run WeeChat</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ weechat</span><br></pre></td></tr></table></figure>
-<p>will display:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/weechat/01_weechat.jpg" alt="WeeChat"></p>
-<p>And we <strong>FIRST</strong> type in /<em>help</em></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/weechat/02_help.jpg" alt="WeeChat"></p>
-<h3 id="step-2-connect-freenode"><a class="markdownIt-Anchor" href="#step-2-connect-freenode"></a> Step 2: Connect Freenode</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/connect freenode</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/weechat/03_connectfreenode.jpg" alt="WeeChat"></p>
-<h3 id="step-3-join-a-channel"><a class="markdownIt-Anchor" href="#step-3-join-a-channel"></a> Step 3: Join a Channel</h3>
-<p>Here, we select channel <strong>OpenCV</strong> as an example:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/join #opencv</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/weechat/04_join_opencv.jpg" alt="WeeChat"></p>
-<h3 id="step-4-close-a-channel"><a class="markdownIt-Anchor" href="#step-4-close-a-channel"></a> Step 4: Close a Channel</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/close</span><br></pre></td></tr></table></figure>
-<h1 id="5-pidgin-optional"><a class="markdownIt-Anchor" href="#5-pidgin-optional"></a> 5. Pidgin (Optional)</h1>
-<p>We’re <strong>NOT</strong> going to talk about it in this blog.</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/06/22/Tools/download-youtube-videos/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nobody">
       <meta itemprop="description" content="Longer Vision Technology Github Blog">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Longer Vision Technology">
     </span>
 
@@ -2442,7 +2432,7 @@ Click on the pictures to open an uploaded Facebook video.</p>
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a></span>
 
                 
                 
@@ -2564,7 +2554,7 @@ Click on the pictures to open an uploaded Facebook video.</p>
 
       <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">Nobody</p>
               <p class="site-description motion-element" itemprop="description">Longer Vision Technology Github Blog</p>
@@ -2577,7 +2567,7 @@ Click on the pictures to open an uploaded Facebook video.</p>
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-count">66</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2638,7 +2628,9 @@ Click on the pictures to open an uploaded Facebook video.</p>
                     
                       
                     
-                    <span class="site-state-item-count">24</span>
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -2775,7 +2767,9 @@ Click on the pictures to open an uploaded Facebook video.</p>
                     
                       
                     
-                    <span class="site-state-item-count">62</span>
+                      
+                    
+                    <span class="site-state-item-count">63</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -2829,7 +2823,7 @@ Click on the pictures to open an uploaded Facebook video.</p>
 
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.9.0</div>
 
 
 
