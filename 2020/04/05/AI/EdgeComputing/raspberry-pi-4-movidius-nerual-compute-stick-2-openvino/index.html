@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="English">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo3d.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo3d_32X32.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo3d_16x16.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo3d.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Canada is still suffereing COVID-19. I’m re-writing this blog FIRSTLY written in September 2019, and UPDATED ONCE in December 2019.  Merry Christmas and happy new year everybody. I’ve been back to Va">
+<meta name="keywords" content="Raspberry Pi, Movidius, BalenaOS, Neural Compute Stick, OpenVINO, Edge Computing">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenVINO on Raspberry Pi 4 with Movidius Neural Compute Stick II">
+<meta property="og:url" content="http://longervision.ca/2020/04/05/AI/EdgeComputing/raspberry-pi-4-movidius-nerual-compute-stick-2-openvino/index.html">
+<meta property="og:site_name" content="Longer Vision Technology">
+<meta property="og:description" content="Canada is still suffereing COVID-19. I’m re-writing this blog FIRSTLY written in September 2019, and UPDATED ONCE in December 2019.  Merry Christmas and happy new year everybody. I’ve been back to Va">
+<meta property="og:locale" content="English">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/EdgeComputing/IntelMovidius/02_intel-movidius-ncs2.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/EdgeComputing/IntelMovidius/03_intel-movidius-ncs.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/4b/me.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/4b/out_0.bmp">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/4b/parents.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/4b/detected_intel64_ncs1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/4b/parents.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/4b/detected_intel64_ncs2.png">
+<meta property="og:updated_time" content="2020-04-10T03:50:52.350Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenVINO on Raspberry Pi 4 with Movidius Neural Compute Stick II">
+<meta name="twitter:description" content="Canada is still suffereing COVID-19. I’m re-writing this blog FIRSTLY written in September 2019, and UPDATED ONCE in December 2019.  Merry Christmas and happy new year everybody. I’ve been back to Va">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/EdgeComputing/IntelMovidius/02_intel-movidius-ncs2.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://longervision.ca/2020/04/05/AI/EdgeComputing/raspberry-pi-4-movidius-nerual-compute-stick-2-openvino/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>OpenVINO on Raspberry Pi 4 with Movidius Neural Compute Stick II | Longer Vision Technology</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="English">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Longer Vision Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Github Blog</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2020/04/05/AI/EdgeComputing/raspberry-pi-4-movidius-nerual-compute-stick-2-openvino/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">OpenVINO on Raspberry Pi 4 with Movidius Neural Compute Stick II
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-04-05 00:00:00" itemprop="dateCreated datePublished" datetime="2020-04-05T00:00:00-07:00">2020-04-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-04-09 20:50:52" itemprop="dateModified" datetime="2020-04-09T20:50:52-07:00">2020-04-09</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI/EdgeComputing/" itemprop="url" rel="index"><span itemprop="name">EdgeComputing</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div class="video-container"><iframe src="https://www.youtube.com/embed/Sv6dMFF_yts?rel=0&amp;showinfo=0" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe></div>
+<p>Canada is still suffereing <a href="https://www.canada.ca/en/public-health/services/diseases/coronavirus-disease-covid-19.html" target="_blank" rel="noopener">COVID-19</a>. I’m re-writing this blog <strong>FIRSTLY</strong> written in September 2019, and <strong>UPDATED ONCE</strong> in December 2019.</p>
+<p><em> Merry Christmas and happy new year everybody. I’ve been back to Vancouver for several days. These days, I’m updating this blog <strong>FIRSTLY</strong> written in September 2019. 2020 is coming, and we’re getting 1 year older. A kind of sad hum?</em></p>
+<div style="font-size:5rem;width:100%;text-align:center;">
+    <span class="github-emoji" alias="stuck_out_tongue_closed_eyes" style fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f61d.png?v8">&#x1f61d;</span>
+</div>
+<p><em><span style="color:red">Okay… No matter what, let’s enjoy the song first: <strong>WE ARE YOUNG</strong>. Today, I joined <a href="https://www.fsf.org/" target="_blank" rel="noopener">Free Software Foundation</a> and start my journey of supporting Open Source Software <strong>BY CASH</strong>. For me, it’s not about poverity or richness. It’s <strong>ALL</strong> about <strong>FAITH</strong>.</span></em></p>
+<p><em>To write something about <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener">Raspberry Pi</a> is to say <strong>GOOD BYE</strong> to my <a href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/" target="_blank" rel="noopener">Raspberry Pi 3B</a>, and <strong>WELCOME</strong> <a href="https://www.raspberrypi.org/products/raspberry-pi-4-model-b/" target="_blank" rel="noopener">Raspberry Pi 4</a> at the same time. Our target today is to build an AI edge computing end as the following Youtube video:</em></p>
+<div class="video-container"><iframe src="https://www.youtube.com/embed/Gu50DoEWmQg?rel=0&amp;showinfo=0" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe></div>
+<h1 id="1-about-raspberry-pi-4"><a class="markdownIt-Anchor" href="#1-about-raspberry-pi-4"></a> 1. About Raspberry Pi 4</h1>
+<h2 id="11-raspberry-pi-4-vs-raspberry-pi-3b"><a class="markdownIt-Anchor" href="#11-raspberry-pi-4-vs-raspberry-pi-3b"></a> 1.1 Raspberry Pi 4 vs. Raspberry Pi 3B+</h2>
+<p>Before we start, let’s carry out a simple comparison between <a href="https://magpi.raspberrypi.org/articles/raspberry-pi-4-vs-raspberry-pi-3b-plus" target="_blank" rel="noopener">Raspberry Pi 4 and Raspberry Pi 3B+</a>.</p>
+<h2 id="12-raspbian-installation"><a class="markdownIt-Anchor" href="#12-raspbian-installation"></a> 1.2 Raspbian Installation</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜  raspbian sudo dd bs=4M if=2020-02-13-raspbian-buster.img of=/dev/mmcblk0 conv=fsync </span><br><span class="line">[sudo] password for longervision: </span><br><span class="line">903+0 records in</span><br><span class="line">903+0 records out</span><br><span class="line">3787456512 bytes (3.8 GB, 3.5 GiB) copied, 198.861 s, 19.0 MB/s</span><br></pre></td></tr></table></figure>
+<h2 id="13-bcm2711-is-detected-as-bcm2835"><a class="markdownIt-Anchor" href="#13-bcm2711-is-detected-as-bcm2835"></a> 1.3 BCM2711 is detected as BCM2835</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ cat /proc/cpuinfo</span><br><span class="line">processor	: 0</span><br><span class="line">model name	: ARMv7 Processor rev 3 (v7l)</span><br><span class="line">BogoMIPS	: 108.00</span><br><span class="line">Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xd08</span><br><span class="line">CPU revision	: 3</span><br><span class="line"></span><br><span class="line">processor	: 1</span><br><span class="line">model name	: ARMv7 Processor rev 3 (v7l)</span><br><span class="line">BogoMIPS	: 108.00</span><br><span class="line">Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xd08</span><br><span class="line">CPU revision	: 3</span><br><span class="line"></span><br><span class="line">processor	: 2</span><br><span class="line">model name	: ARMv7 Processor rev 3 (v7l)</span><br><span class="line">BogoMIPS	: 108.00</span><br><span class="line">Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xd08</span><br><span class="line">CPU revision	: 3</span><br><span class="line"></span><br><span class="line">processor	: 3</span><br><span class="line">model name	: ARMv7 Processor rev 3 (v7l)</span><br><span class="line">BogoMIPS	: 108.00</span><br><span class="line">Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xd08</span><br><span class="line">CPU revision	: 3</span><br><span class="line"></span><br><span class="line">Hardware	: BCM2835</span><br><span class="line">Revision	: c03111</span><br><span class="line">Serial		: 100000006c0c9b01</span><br><span class="line">Model		: Raspberry Pi 4 Model B Rev 1.1</span><br></pre></td></tr></table></figure>
+<p>This issue seems to be a <a href="https://www.raspberrypi.org/forums/viewtopic.php?t=245384" target="_blank" rel="noopener">well-known bug</a>. Raspberry Pi 4’s specification can be retrieved from <a href="https://magpi.raspberrypi.org/articles/raspberry-pi-4-specs-benchmarks" target="_blank" rel="noopener">The MagPi Magazine</a>. More details about the development history of <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener">Raspberry Pi</a> can be found on <a href="https://en.wikipedia.org/wiki/Raspberry_Pi" target="_blank" rel="noopener">Wikipedia</a>.</p>
+<h1 id="2-movidius-neural-compute-stick-on-raspberry-pi-4"><a class="markdownIt-Anchor" href="#2-movidius-neural-compute-stick-on-raspberry-pi-4"></a> 2. Movidius Neural Compute Stick on Raspberry Pi 4</h1>
+<p>Then, we just follow the following 2 blogs <a href="https://movidius.github.io/blog/ncs-apps-on-rpi/" target="_blank" rel="noopener">Run NCS Applications on Raspberry Pi</a> and <a href="https://www.bouvet.no/bouvet-deler/adding-ai-to-edge-devices-with-the-movidius-neural-compute-stick" target="_blank" rel="noopener">Adding AI to the Raspberry Pi with the Movidius Neural Compute Stick</a> to test out <a href="https://software.intel.com/en-us/neural-compute-stick" target="_blank" rel="noopener">Intel Movidius Neural Compute Stick 2</a>:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Intel Movidius Neural Compute Stick 2</th>
+<th style="text-align:center">Intel Movidius Neural Compute Stick 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/EdgeComputing/IntelMovidius/02_intel-movidius-ncs2.jpg" alt="Intel Movidius Neural Compute Stick 2"></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/EdgeComputing/IntelMovidius/03_intel-movidius-ncs.jpg" alt="Intel Movidius Neural Compute Stick 1"></td>
+</tr>
+</tbody>
+</table>
+<p><em><a href="https://software.intel.com/en-us/movidius-ncs" target="_blank" rel="noopener">Intel Movidius Neural Compute Stick 1</a> is <strong>NOT</strong> listed on <a href="https://software.intel.com/en-us/neural-compute-stick" target="_blank" rel="noopener">Intel’s official website</a> any more. But github support for <a href="https://software.intel.com/en-us/movidius-ncs" target="_blank" rel="noopener">Intel Movidius Neural Compute Stick 1</a> can be found at <a href="https://github.com/movidius/ncsdk" target="_blank" rel="noopener">https://github.com/movidius/ncsdk</a>.</em></p>
+<h2 id="21-ncsdk-installation"><a class="markdownIt-Anchor" href="#21-ncsdk-installation"></a> 2.1 NCSDK Installation</h2>
+<p>We <strong>FIRST</strong> need to have <a href="https://github.com/movidius/ncsdk" target="_blank" rel="noopener">ncsdk</a> installed. Yup, here, as described in <a href="https://movidius.github.io/blog/ncs-apps-on-rpi/" target="_blank" rel="noopener">Run NCS Applications on Raspberry Pi</a>, we carry out the installation directly under folder <code>...../ncsdk/api/src</code>.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">➜  src make</span><br><span class="line">cc -I/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/shared -I/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/pc -I/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLinkConsole/pc -I /home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/swCommon/include/ -I /home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/shared/include/ -D__PC__ -DUSE_USB_VSC -DVERSION_NAME="\"`cat ./version.txt`\"" -DDEVICE_SHELL_ENABLED -DEXCLUDE_HIGHCLASS -O2 -Wall -pthread -fPIC -MMD -MP -I. -I../include -I/usr/include/libusb-1.0  -c mvnc_api.c -o obj-armv7l/mvnc_api.o</span><br><span class="line">mvnc_api.c:457:12: warning: ‘deviceGetNumberOfDevices’ defined but not used [-Wunused-function]</span><br><span class="line"> static int deviceGetNumberOfDevices()</span><br><span class="line">            ^~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">mvnc_api.c: In function ‘ncGraphCreate’:</span><br><span class="line">mvnc_api.c:898:5: warning: ‘strncpy’ specified bound 28 equals destination size [-Wstringop-truncation]</span><br><span class="line">     strncpy(g-&gt;name, name, NC_MAX_NAME_SIZE);</span><br><span class="line">     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">mvnc_api.c: In function ‘ncFifoCreate’:</span><br><span class="line">mvnc_api.c:2210:5: warning: ‘strncpy’ specified bound 28 equals destination size [-Wstringop-truncation]</span><br><span class="line">     strncpy(handle-&gt;name, name, NC_MAX_NAME_SIZE);</span><br><span class="line">     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">cc -I/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/shared -I/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/pc -I/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLinkConsole/pc -I /home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/swCommon/include/ -I /home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/shared/include/ -D__PC__ -DUSE_USB_VSC -DVERSION_NAME="\"`cat ./version.txt`\"" -DDEVICE_SHELL_ENABLED -DEXCLUDE_HIGHCLASS -O2 -Wall -pthread -fPIC -MMD -MP -I. -I../include -I/usr/include/libusb-1.0  -c fp16.c -o obj-armv7l/fp16.o</span><br><span class="line">cc -I/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/shared -I/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/pc -I/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLinkConsole/pc -I /home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/swCommon/include/ -I /home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/shared/include/ -D__PC__ -DUSE_USB_VSC -DVERSION_NAME="\"`cat ./version.txt`\"" -DDEVICE_SHELL_ENABLED -DEXCLUDE_HIGHCLASS -O2 -Wall -pthread -fPIC -MMD -MP -I. -I../include -I/usr/include/libusb-1.0  -c /home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/pc/usb_boot.c -o obj-armv7l//home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/pc/usb_boot.o</span><br><span class="line">cc -I/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/shared -I/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/pc -I/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLinkConsole/pc -I /home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/swCommon/include/ -I /home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/shared/include/ -D__PC__ -DUSE_USB_VSC -DVERSION_NAME="\"`cat ./version.txt`\"" -DDEVICE_SHELL_ENABLED -DEXCLUDE_HIGHCLASS -O2 -Wall -pthread -fPIC -MMD -MP -I. -I../include -I/usr/include/libusb-1.0  -c /home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/pc/pcie_host.c -o obj-armv7l//home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/pc/pcie_host.o</span><br><span class="line">cc -I/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/shared -I/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/pc -I/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLinkConsole/pc -I /home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/swCommon/include/ -I /home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/shared/include/ -D__PC__ -DUSE_USB_VSC -DVERSION_NAME="\"`cat ./version.txt`\"" -DDEVICE_SHELL_ENABLED -DEXCLUDE_HIGHCLASS -O2 -Wall -pthread -fPIC -MMD -MP -I. -I../include -I/usr/include/libusb-1.0  -c /home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/shared/XLink.c -o obj-armv7l//home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/shared/XLink.o</span><br><span class="line">cc -I/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/shared -I/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/pc -I/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLinkConsole/pc -I /home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/swCommon/include/ -I /home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/shared/include/ -D__PC__ -DUSE_USB_VSC -DVERSION_NAME="\"`cat ./version.txt`\"" -DDEVICE_SHELL_ENABLED -DEXCLUDE_HIGHCLASS -O2 -Wall -pthread -fPIC -MMD -MP -I. -I../include -I/usr/include/libusb-1.0  -c /home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/shared/XLinkDispatcher.c -o obj-armv7l//home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/shared/XLinkDispatcher.o</span><br><span class="line">cc -I/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/shared -I/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/pc -I/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLinkConsole/pc -I /home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/swCommon/include/ -I /home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/shared/include/ -D__PC__ -DUSE_USB_VSC -DVERSION_NAME="\"`cat ./version.txt`\"" -DDEVICE_SHELL_ENABLED -DEXCLUDE_HIGHCLASS -O2 -Wall -pthread -fPIC -MMD -MP -I. -I../include -I/usr/include/libusb-1.0  -c /home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLinkConsole/pc/XLinkConsole.c -o obj-armv7l//home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLinkConsole/pc/XLinkConsole.o</span><br><span class="line">/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLinkConsole/pc/XLinkConsole.c: In function ‘shellThreadWriter’:</span><br><span class="line">/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLinkConsole/pc/XLinkConsole.c:44:33: warning: pointer targets in passing argument 2 of ‘XLinkWriteData’ differ in signedness [-Wpointer-sign]</span><br><span class="line">             XLinkWriteData(cId, str, bytes);</span><br><span class="line">                                 ^~~</span><br><span class="line">In file included from /home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLinkConsole/pc/XLinkConsole.c:18:</span><br><span class="line">/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/shared/XLink.h:54:14: note: expected ‘const uint8_t *’ &#123;aka ‘const unsigned char *’&#125; but argument is of type ‘char *’</span><br><span class="line"> XLinkError_t XLinkWriteData(streamId_t streamId, const uint8_t* buffer, int size);</span><br><span class="line">              ^~~~~~~~~~~~~~</span><br><span class="line">/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLinkConsole/pc/XLinkConsole.c: In function ‘shellThreadReader’:</span><br><span class="line">/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLinkConsole/pc/XLinkConsole.c:81:5: warning: implicit declaration of function ‘pthread_create’ [-Wimplicit-function-declaration]</span><br><span class="line">     pthread_create(&amp;shellWriter, NULL, shellThreadWriter, (void*) context);</span><br><span class="line">     ^~~~~~~~~~~~~~</span><br><span class="line">cc -I/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/shared -I/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/pc -I/home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLinkConsole/pc -I /home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/swCommon/include/ -I /home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/shared/include/ -D__PC__ -DUSE_USB_VSC -DVERSION_NAME="\"`cat ./version.txt`\"" -DDEVICE_SHELL_ENABLED -DEXCLUDE_HIGHCLASS -O2 -Wall -pthread -fPIC -MMD -MP -I. -I../include -I/usr/include/libusb-1.0  -c /home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/pc/XLinkPlatform.c -o obj-armv7l//home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/pc/XLinkPlatform.o</span><br><span class="line">if [ ! -e ./version.txt ] ; then echo "missing version.txt file"; exit 1; fi;</span><br><span class="line">cc -shared obj-armv7l/mvnc_api.o obj-armv7l/fp16.o obj-armv7l//home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/pc/usb_boot.o obj-armv7l//home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/pc/pcie_host.o obj-armv7l//home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/shared/XLink.o obj-armv7l//home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/shared/XLinkDispatcher.o obj-armv7l//home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLinkConsole/pc/XLinkConsole.o obj-armv7l//home/pi/Downloads/ncsdk-2.10.01.01/api/src/common/components/XLink/pc/XLinkPlatform.o -o obj-armv7l/libmvnc.so.0 -lpthread -lusb-1.0 -ldl</span><br><span class="line">ln -fs obj-armv7l/libmvnc.so.0 libmvnc.so</span><br><span class="line">ln -fs obj-armv7l/libmvnc.so.0 libmvnc.so.0</span><br><span class="line">NCSDK FW successfully installed</span><br><span class="line">➜  src sudo make install</span><br><span class="line">NCSDK FW successfully installed</span><br><span class="line">mkdir -p /usr/local/include/</span><br><span class="line">mkdir -p /usr/local/include/mvnc2</span><br><span class="line">mkdir -p /usr/local/lib/</span><br><span class="line">cp obj-armv7l/libmvnc.so.0 /usr/local/lib/</span><br><span class="line">ln -fs libmvnc.so.0 /usr/local/lib/libmvnc.so</span><br><span class="line">cp ../include/mvnc.h /usr/local/include/mvnc2</span><br><span class="line">ln -fs /usr/local/include/mvnc2/mvnc.h /usr/local/include/mvnc.h </span><br><span class="line">mkdir -p /usr/local/lib/mvnc</span><br><span class="line">cp mvnc/MvNCAPI-*.mvcmd /usr/local/lib/mvnc/</span><br><span class="line">mkdir -p /etc/udev/rules.d/</span><br><span class="line">cp 97-usbboot.rules /etc/udev/rules.d/</span><br><span class="line">mkdir -p /usr/local/lib/python3.7/dist-packages</span><br><span class="line">mkdir -p /usr/local/lib/python3.7/dist-packages</span><br><span class="line">cp -r ../python/mvnc /usr/local/lib/python3.7/dist-packages/</span><br><span class="line">cp -r ../python/mvnc /usr/local/lib/python3.7/dist-packages/</span><br><span class="line">udevadm control --reload-rules</span><br><span class="line">udevadm trigger</span><br><span class="line">ldconfig</span><br><span class="line">➜  src</span><br></pre></td></tr></table></figure>
+<h2 id="22-test-ncsdk-example-apps"><a class="markdownIt-Anchor" href="#22-test-ncsdk-example-apps"></a> 2.2 Test NCSDK Example Apps</h2>
+<h3 id="221-for-movidius-ncs-1"><a class="markdownIt-Anchor" href="#221-for-movidius-ncs-1"></a> 2.2.1 For <strong>Movidius NCS 1</strong></h3>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">➜  hello_ncs_py lsusb</span><br><span class="line">......</span><br><span class="line">Bus 001 Device 004: ID 03e7:2150 Intel Myriad VPU [Movidius Neural Compute Stick]</span><br><span class="line">......</span><br><span class="line">➜  hello_ncs_py python hello_ncs.py</span><br><span class="line">D: [         0] ncDeviceCreate:307	ncDeviceCreate index 0</span><br><span class="line">D: [         0] ncDeviceCreate:307	ncDeviceCreate index 1</span><br><span class="line">D: [         0] ncDeviceOpen:523	File path /usr/local/lib/mvnc/MvNCAPI-ma2450.mvcmd</span><br><span class="line">I: [         0] ncDeviceOpen:529	ncDeviceOpen() XLinkBootRemote returned success 0</span><br><span class="line">I: [         0] ncDeviceOpen:567	XLinkConnect done - link Id 0</span><br><span class="line">D: [         0] ncDeviceOpen:581	done</span><br><span class="line">I: [         0] ncDeviceOpen:583	Booted 1.1-ma2450 -&gt; VSC</span><br><span class="line">I: [         0] getDevAttributes:382	Device attributes</span><br><span class="line">I: [         0] getDevAttributes:385	Device FW version: 2.a.2450.8a</span><br><span class="line">I: [         0] getDevAttributes:387	mvTensorVersion 2.10</span><br><span class="line">I: [         0] getDevAttributes:388	Maximum graphs: 10</span><br><span class="line">I: [         0] getDevAttributes:389	Maximum fifos: 20</span><br><span class="line">I: [         0] getDevAttributes:391	Maximum graph option class: 1</span><br><span class="line">I: [         0] getDevAttributes:393	Maximum device option class: 1</span><br><span class="line">I: [         0] getDevAttributes:394	Device memory capacity: 522047856</span><br><span class="line">Hello NCS! Device opened normally.</span><br><span class="line">I: [         0] ncDeviceClose:775	closing device</span><br><span class="line">Goodbye NCS! Device closed normally.</span><br><span class="line">NCS device working.</span><br></pre></td></tr></table></figure>
+<h3 id="222-for-movidius-ncs-2"><a class="markdownIt-Anchor" href="#222-for-movidius-ncs-2"></a> 2.2.2 For <strong>Movidius NCS 2</strong></h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  hello_ncs_py lsusb</span><br><span class="line">......</span><br><span class="line">Bus 001 Device 007: ID 03e7:2485 Intel Movidius MyriadX</span><br><span class="line">......</span><br><span class="line">➜  hello_ncs_py python hello_ncs.py </span><br><span class="line">D: [         0] ncDeviceCreate:307	ncDeviceCreate index 0</span><br><span class="line">D: [         0] ncDeviceCreate:307	ncDeviceCreate index 1</span><br><span class="line">D: [         0] ncDeviceOpen:523	File path /usr/local/lib/mvnc/MvNCAPI-ma2480.mvcmd</span><br><span class="line">W: [         0] ncDeviceOpen:527	ncDeviceOpen() XLinkBootRemote returned error 3</span><br><span class="line">Error - Could not open NCS device.</span><br></pre></td></tr></table></figure>
+<p>The above <strong>bug</strong> has <strong>ALREADY</strong> been expalined in main online resource:</p>
+<ul>
+<li><a href="https://forums.intel.com/s/question/0D50P00004NM0iESAT/raspi-ncdeviceopen527-ncdeviceopen-xlinkbootremote-returned-error-3?language=en_US" target="_blank" rel="noopener">ncDeviceOpen:527 ncDeviceOpen() XLinkBootRemote returned error 3</a></li>
+<li><a href="https://software.intel.com/en-us/forums/intel-distribution-of-openvino-toolkit/topic/800830" target="_blank" rel="noopener">Make the examples Error! on NCS2 - [Error 7] Toolkit Error: USB Failure. Code: Error opening device</a></li>
+<li>etc.</li>
+</ul>
+<p>All these hint that <a href="https://docs.openvinotoolkit.org/latest/_docs_install_guides_installing_openvino_raspbian.html" target="_blank" rel="noopener">OpenVINO</a> should be utilized instead of <a href="https://github.com/movidius/ncsdk/tree/ncsdk2" target="_blank" rel="noopener">NCSDK2</a>.</p>
+<h2 id="23-mvnc-python-package"><a class="markdownIt-Anchor" href="#23-mvnc-python-package"></a> 2.3 mvnc Python Package</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python</span><br><span class="line">Python 3.7.3 (default, Dec 20 2019, 18:57:59) </span><br><span class="line">[GCC 8.3.0] on linux</span><br><span class="line">Type "help", "copyright", "credits" or "license" for more information.</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; import mvnc</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; mvnc.__file__</span></span><br><span class="line">'/usr/local/lib/python3.7/dist-packages/mvnc/__init__.py'</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="3-transitioning-from-intel-movidius-neural-compute-sdk-to-intel-openvino"><a class="markdownIt-Anchor" href="#3-transitioning-from-intel-movidius-neural-compute-sdk-to-intel-openvino"></a> 3. Transitioning from Intel Movidius Neural Compute SDK to Intel OpenVINO</h1>
+<p>By following Intel’s official documentation <a href="https://software.intel.com/en-us/articles/transitioning-from-intel-movidius-neural-compute-sdk-to-openvino-toolkit" target="_blank" rel="noopener">Transitioning from Intel® Movidius™ Neural Compute SDK to Intel® Distribution of OpenVINO™ toolkit</a>, we are transitioning to <a href="https://software.intel.com/en-us/openvino-toolkit" target="_blank" rel="noopener">OpenVINO</a>, which supports both Intel NCS 2 and Intel NCS 1.</p>
+<h2 id="31-install-openvino-for-raspbian"><a class="markdownIt-Anchor" href="#31-install-openvino-for-raspbian"></a> 3.1 Install OpenVINO for Raspbian</h2>
+<p>For the installation details of <a href="https://software.intel.com/en-us/openvino-toolkit" target="_blank" rel="noopener">OpenVINO</a>, please refer to the following 2 documentations:</p>
+<ul>
+<li><a href="https://docs.openvinotoolkit.org/latest/_docs_install_guides_installing_openvino_raspbian.html" target="_blank" rel="noopener">Install OpenVINO™ toolkit for Raspbian* OS</a></li>
+<li><a href="https://software.intel.com/en-us/articles/raspberry-pi-4-and-intel-neural-compute-stick-2-setup" target="_blank" rel="noopener">Raspberry Pi* 4 and Intel® Neural Compute Stick 2 Setup</a></li>
+</ul>
+<p>We now extract the MOST up-to-date <a href="https://download.01.org/opencv/2020/openvinotoolkit/2020.1/l_openvino_toolkit_runtime_raspbian_p_2020.1.023.tgz" target="_blank" rel="noopener">l_openvino_toolkit_runtime_raspbian_p_2020.1.023.tgz</a> under folder <code>/opt/intel/openvino</code>. Let’s take a brief look at this folder:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">➜  openvino ll</span><br><span class="line">total 28K</span><br><span class="line">drwxr-xr-x 2 pi pi 4.0K Jan 27 08:06 bin</span><br><span class="line">drwxr-xr-x 4 pi pi 4.0K Jan 27 08:06 deployment_tools</span><br><span class="line">drwxr-xr-x 2 pi pi 4.0K Jan 27 08:08 documentation</span><br><span class="line">lrwxrwxrwx 1 pi pi   33 Jan 27 08:04 inference_engine -&gt; deployment_tools/inference_engine</span><br><span class="line">drwxr-xr-x 2 pi pi 4.0K Jan 27 08:08 install_dependencies</span><br><span class="line">drwxr-xr-x 5 pi pi 4.0K Jan 27 08:08 licensing</span><br><span class="line">drwxr-xr-x 8 pi pi 4.0K Jan 27 08:09 opencv</span><br><span class="line">drwxr-xr-x 6 pi pi 4.0K Jan 27 08:09 python</span><br><span class="line">➜  openvino ls inference_engine </span><br><span class="line">external  include  lib  samples  share  version.txt</span><br></pre></td></tr></table></figure>
+<p>Clearly, by comparing with <a href="https://github.com/opencv/dldt" target="_blank" rel="noopener">OpenVINO™ Toolkit - Deep Learning Deployment Toolkit repository</a>, we know that the open source version of <strong>deployment_tools</strong> contains some more content than the trimmed version for Raspbian. We’ll use <strong>model-optimizer</strong> for sure. Therefore, we checked out <a href="https://github.com/opencv/dldt" target="_blank" rel="noopener">dldt</a>, and put it under folder <code>/opt/intel</code>.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜  intel pwd</span><br><span class="line">/opt/intel</span><br><span class="line">➜  intel ll</span><br><span class="line">total 12K</span><br><span class="line">drwxr-xr-x 8 pi   pi   4.0K Apr  7 06:37 dldt</span><br><span class="line">drwxr-xr-x 9 pi   pi   4.0K Apr  7 14:04 l_openvino_toolkit_runtime_raspbian_p_2020.1.023</span><br><span class="line">lrwxrwxrwx 1 root root   48 Apr  7 06:29 openvino -&gt; l_openvino_toolkit_runtime_raspbian_p_2020.1.023</span><br></pre></td></tr></table></figure>
+<h2 id="32-build-openvino-samples"><a class="markdownIt-Anchor" href="#32-build-openvino-samples"></a> 3.2 Build OpenVINO Samples</h2>
+<p>Before start building OpenVINO samples, please have <a href="https://github.com/opencv/opencv" target="_blank" rel="noopener">OpenCV</a> built from source and installed.</p>
+<h3 id="321-c-samples"><a class="markdownIt-Anchor" href="#321-c-samples"></a> 3.2.1 C++ Samples</h3>
+<p><strong>Note: Be sure to enable <span style="color:red">-DCMAKE_CXX_FLAGS=’-march=armv7-a’</span> while building <a href="https://github.com/opencv/dldt/tree/2019/inference-engine/samples" target="_blank" rel="noopener">dldt/samples</a>.</strong> After having successfully built C++ samples, let’s enter folder <code>/opt/intel/openvino/inference_engine/samples/cpp/build/armv7l/Release</code>.</p>
+<ul>
+<li><strong>For NCS 2</strong></li>
+</ul>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">➜  Release ./hello_query_device </span><br><span class="line">Available devices: </span><br><span class="line">	Device: MYRIAD</span><br><span class="line">	Metrics: </span><br><span class="line">		AVAILABLE_DEVICES : [ 1.1.1-ma2480 ]</span><br><span class="line">		FULL_DEVICE_NAME : Intel Movidius Myriad X VPU</span><br><span class="line">		SUPPORTED_METRICS : [ AVAILABLE_DEVICES FULL_DEVICE_NAME SUPPORTED_METRICS SUPPORTED_CONFIG_KEYS OPTIMIZATION_CAPABILITIES RANGE_FOR_ASYNC_INFER_REQUESTS DEVICE_THERMAL ]</span><br><span class="line">		SUPPORTED_CONFIG_KEYS : [ VPU_HW_STAGES_OPTIMIZATION LOG_LEVEL VPU_PRINT_RECEIVE_TENSOR_TIME VPU_CUSTOM_LAYERS VPU_IR_WITH_SCALES_DIRECTORY VPU_IGNORE_IR_STATISTIC VPU_MYRIAD_FORCE_RESET VPU_MYRIAD_PLATFORM EXCLUSIVE_ASYNC_REQUESTS LOG_LEVEL PERF_COUNT CONFIG_FILE DEVICE_ID ]</span><br><span class="line">		OPTIMIZATION_CAPABILITIES : [ FP16 ]</span><br><span class="line">		RANGE_FOR_ASYNC_INFER_REQUESTS : &#123; 3, 6, 1 &#125;</span><br><span class="line">		DEVICE_THERMAL : UNSUPPORTED TYPE</span><br><span class="line">	Default values for device configuration keys: </span><br><span class="line">		VPU_HW_STAGES_OPTIMIZATION : UNSUPPORTED TYPE</span><br><span class="line">		LOG_LEVEL : UNSUPPORTED TYPE</span><br><span class="line">		VPU_PRINT_RECEIVE_TENSOR_TIME : UNSUPPORTED TYPE</span><br><span class="line">		VPU_CUSTOM_LAYERS : UNSUPPORTED TYPE</span><br><span class="line">		VPU_IR_WITH_SCALES_DIRECTORY : UNSUPPORTED TYPE</span><br><span class="line">		VPU_IGNORE_IR_STATISTIC : UNSUPPORTED TYPE</span><br><span class="line">		VPU_MYRIAD_FORCE_RESET : UNSUPPORTED TYPE</span><br><span class="line">		VPU_MYRIAD_PLATFORM : UNSUPPORTED TYPE</span><br><span class="line">		EXCLUSIVE_ASYNC_REQUESTS : UNSUPPORTED TYPE</span><br><span class="line">		LOG_LEVEL : UNSUPPORTED TYPE</span><br><span class="line">		PERF_COUNT : UNSUPPORTED TYPE</span><br><span class="line">		CONFIG_FILE : UNSUPPORTED TYPE</span><br><span class="line">		DEVICE_ID : UNSUPPORTED TYPE</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>For NCS 1</strong></li>
+</ul>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">➜  Release ./hello_query_device</span><br><span class="line">Available devices: </span><br><span class="line">	Device: MYRIAD</span><br><span class="line">	Metrics: </span><br><span class="line">		AVAILABLE_DEVICES : [ 1.1.1-ma2450 ]</span><br><span class="line">		FULL_DEVICE_NAME : Intel Movidius Myriad 2 VPU</span><br><span class="line">		SUPPORTED_METRICS : [ AVAILABLE_DEVICES FULL_DEVICE_NAME SUPPORTED_METRICS SUPPORTED_CONFIG_KEYS OPTIMIZATION_CAPABILITIES RANGE_FOR_ASYNC_INFER_REQUESTS DEVICE_THERMAL ]</span><br><span class="line">		SUPPORTED_CONFIG_KEYS : [ VPU_HW_STAGES_OPTIMIZATION LOG_LEVEL VPU_PRINT_RECEIVE_TENSOR_TIME VPU_CUSTOM_LAYERS VPU_IR_WITH_SCALES_DIRECTORY VPU_IGNORE_IR_STATISTIC VPU_MYRIAD_FORCE_RESET VPU_MYRIAD_PLATFORM EXCLUSIVE_ASYNC_REQUESTS LOG_LEVEL PERF_COUNT CONFIG_FILE DEVICE_ID ]</span><br><span class="line">		OPTIMIZATION_CAPABILITIES : [ FP16 ]</span><br><span class="line">		RANGE_FOR_ASYNC_INFER_REQUESTS : &#123; 3, 6, 1 &#125;</span><br><span class="line">		DEVICE_THERMAL : UNSUPPORTED TYPE</span><br><span class="line">	Default values for device configuration keys: </span><br><span class="line">		VPU_HW_STAGES_OPTIMIZATION : UNSUPPORTED TYPE</span><br><span class="line">		LOG_LEVEL : UNSUPPORTED TYPE</span><br><span class="line">		VPU_PRINT_RECEIVE_TENSOR_TIME : UNSUPPORTED TYPE</span><br><span class="line">		VPU_CUSTOM_LAYERS : UNSUPPORTED TYPE</span><br><span class="line">		VPU_IR_WITH_SCALES_DIRECTORY : UNSUPPORTED TYPE</span><br><span class="line">		VPU_IGNORE_IR_STATISTIC : UNSUPPORTED TYPE</span><br><span class="line">		VPU_MYRIAD_FORCE_RESET : UNSUPPORTED TYPE</span><br><span class="line">		VPU_MYRIAD_PLATFORM : UNSUPPORTED TYPE</span><br><span class="line">		EXCLUSIVE_ASYNC_REQUESTS : UNSUPPORTED TYPE</span><br><span class="line">		LOG_LEVEL : UNSUPPORTED TYPE</span><br><span class="line">		PERF_COUNT : UNSUPPORTED TYPE</span><br><span class="line">		CONFIG_FILE : UNSUPPORTED TYPE</span><br><span class="line">		DEVICE_ID : UNSUPPORTED TYPE</span><br></pre></td></tr></table></figure>
+<h3 id="322-python-samples"><a class="markdownIt-Anchor" href="#322-python-samples"></a> 3.2.2 Python Samples</h3>
+<p>Let’s enter folder <code>/opt/intel/openvino/inference_engine/samples/python/hello_query_device</code>.</p>
+<ul>
+<li><strong>For NCS 2</strong></li>
+</ul>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">➜  hello_query_device python ./hello_query_device.py</span><br><span class="line">Available devices:</span><br><span class="line">	Device: MYRIAD</span><br><span class="line">	Metrics:</span><br><span class="line">		AVAILABLE_DEVICES: 1.1.1-ma2480</span><br><span class="line">		FULL_DEVICE_NAME: Intel Movidius Myriad X VPU</span><br><span class="line">		SUPPORTED_METRICS: AVAILABLE_DEVICES, FULL_DEVICE_NAME, SUPPORTED_METRICS, SUPPORTED_CONFIG_KEYS, OPTIMIZATION_CAPABILITIES, RANGE_FOR_ASYNC_INFER_REQUESTS, DEVICE_THERMAL</span><br><span class="line">		SUPPORTED_CONFIG_KEYS: VPU_HW_STAGES_OPTIMIZATION, LOG_LEVEL, VPU_PRINT_RECEIVE_TENSOR_TIME, VPU_CUSTOM_LAYERS, VPU_IR_WITH_SCALES_DIRECTORY, VPU_IGNORE_IR_STATISTIC, VPU_MYRIAD_FORCE_RESET, VPU_MYRIAD_PLATFORM, EXCLUSIVE_ASYNC_REQUESTS, LOG_LEVEL, PERF_COUNT, CONFIG_FILE, DEVICE_ID</span><br><span class="line">		OPTIMIZATION_CAPABILITIES: FP16</span><br><span class="line">		RANGE_FOR_ASYNC_INFER_REQUESTS: 3, 6, 1</span><br><span class="line">		DEVICE_THERMAL: UNSUPPORTED TYPE</span><br><span class="line"></span><br><span class="line">	Default values for device configuration keys:</span><br><span class="line">		VPU_HW_STAGES_OPTIMIZATION: UNSUPPORTED TYPE</span><br><span class="line">		LOG_LEVEL: UNSUPPORTED TYPE</span><br><span class="line">		VPU_PRINT_RECEIVE_TENSOR_TIME: UNSUPPORTED TYPE</span><br><span class="line">		VPU_CUSTOM_LAYERS: UNSUPPORTED TYPE</span><br><span class="line">		VPU_IR_WITH_SCALES_DIRECTORY: UNSUPPORTED TYPE</span><br><span class="line">		VPU_IGNORE_IR_STATISTIC: UNSUPPORTED TYPE</span><br><span class="line">		VPU_MYRIAD_FORCE_RESET: UNSUPPORTED TYPE</span><br><span class="line">		VPU_MYRIAD_PLATFORM: UNSUPPORTED TYPE</span><br><span class="line">		EXCLUSIVE_ASYNC_REQUESTS: UNSUPPORTED TYPE</span><br><span class="line">		LOG_LEVEL: UNSUPPORTED TYPE</span><br><span class="line">		PERF_COUNT: UNSUPPORTED TYPE</span><br><span class="line">		CONFIG_FILE: UNSUPPORTED TYPE</span><br><span class="line">		DEVICE_ID: UNSUPPORTED TYPE</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>For NCS 1</strong></li>
+</ul>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">➜  hello_query_device python ./hello_query_device.py </span><br><span class="line">Available devices:</span><br><span class="line">	Device: MYRIAD</span><br><span class="line">	Metrics:</span><br><span class="line">		AVAILABLE_DEVICES: 1.1.1-ma2450</span><br><span class="line">		FULL_DEVICE_NAME: Intel Movidius Myriad 2 VPU</span><br><span class="line">		SUPPORTED_METRICS: AVAILABLE_DEVICES, FULL_DEVICE_NAME, SUPPORTED_METRICS, SUPPORTED_CONFIG_KEYS, OPTIMIZATION_CAPABILITIES, RANGE_FOR_ASYNC_INFER_REQUESTS, DEVICE_THERMAL</span><br><span class="line">		SUPPORTED_CONFIG_KEYS: VPU_HW_STAGES_OPTIMIZATION, LOG_LEVEL, VPU_PRINT_RECEIVE_TENSOR_TIME, VPU_CUSTOM_LAYERS, VPU_IR_WITH_SCALES_DIRECTORY, VPU_IGNORE_IR_STATISTIC, VPU_MYRIAD_FORCE_RESET, VPU_MYRIAD_PLATFORM, EXCLUSIVE_ASYNC_REQUESTS, LOG_LEVEL, PERF_COUNT, CONFIG_FILE, DEVICE_ID</span><br><span class="line">		OPTIMIZATION_CAPABILITIES: FP16</span><br><span class="line">		RANGE_FOR_ASYNC_INFER_REQUESTS: 3, 6, 1</span><br><span class="line">		DEVICE_THERMAL: UNSUPPORTED TYPE</span><br><span class="line"></span><br><span class="line">	Default values for device configuration keys:</span><br><span class="line">		VPU_HW_STAGES_OPTIMIZATION: UNSUPPORTED TYPE</span><br><span class="line">		LOG_LEVEL: UNSUPPORTED TYPE</span><br><span class="line">		VPU_PRINT_RECEIVE_TENSOR_TIME: UNSUPPORTED TYPE</span><br><span class="line">		VPU_CUSTOM_LAYERS: UNSUPPORTED TYPE</span><br><span class="line">		VPU_IR_WITH_SCALES_DIRECTORY: UNSUPPORTED TYPE</span><br><span class="line">		VPU_IGNORE_IR_STATISTIC: UNSUPPORTED TYPE</span><br><span class="line">		VPU_MYRIAD_FORCE_RESET: UNSUPPORTED TYPE</span><br><span class="line">		VPU_MYRIAD_PLATFORM: UNSUPPORTED TYPE</span><br><span class="line">		EXCLUSIVE_ASYNC_REQUESTS: UNSUPPORTED TYPE</span><br><span class="line">		LOG_LEVEL: UNSUPPORTED TYPE</span><br><span class="line">		PERF_COUNT: UNSUPPORTED TYPE</span><br><span class="line">		CONFIG_FILE: UNSUPPORTED TYPE</span><br><span class="line">		DEVICE_ID: UNSUPPORTED TYPE</span><br></pre></td></tr></table></figure>
+<h2 id="33-openvino-test"><a class="markdownIt-Anchor" href="#33-openvino-test"></a> 3.3 OpenVINO Test</h2>
+<p>Please refer to <a href="https://docs.openvinotoolkit.org/latest/_docs_IE_DG_inference_engine_intro.html" target="_blank" rel="noopener">Device-specific Plugin Libraries</a> for <strong>ALL</strong> possible device types.</p>
+<h3 id="331-object-detection"><a class="markdownIt-Anchor" href="#331-object-detection"></a> 3.3.1 Object Detection</h3>
+<p>We then download two model files as given in the blog <a href="https://docs.openvinotoolkit.org/latest/_docs_install_guides_installing_openvino_raspbian.html" target="_blank" rel="noopener">Install OpenVINO™ toolkit for Raspbian* OS</a>.</p>
+<p><span style="color:red"><strong>Please note that:</strong></span></p>
+<ul>
+<li><a href="https://download.01.org/opencv/2020/openvinotoolkit/2020.1/open_model_zoo/models_bin/1/face-detection-adas-0001/FP16/face-detection-adas-0001.xml" target="_blank" rel="noopener">face-detection-adas-0001.xml</a> and <a href="https://download.01.org/opencv/2020/openvinotoolkit/2020.1/open_model_zoo/models_bin/1/face-detection-adas-0001/FP16/face-detection-adas-0001.bin" target="_blank" rel="noopener">face-detection-adas-0001.bin</a> are not working properly. Please refer to <a href="https://software.intel.com/en-us/forums/intel-distribution-of-openvino-toolkit/topic/848966" target="_blank" rel="noopener">OpenVINO Issue 848966</a>.</li>
+<li>For now, please use the following model files from year 2019: <a href="https://download.01.org/opencv/2019/open_model_zoo/R1/models_bin/face-detection-adas-0001/FP16/face-detection-adas-0001.xml" target="_blank" rel="noopener">face-detection-adas-0001.xml</a> and <a href="https://download.01.org/opencv/2019/open_model_zoo/R1/models_bin/face-detection-adas-0001/FP16/face-detection-adas-0001.bin" target="_blank" rel="noopener">face-detection-adas-0001.bin</a>.</li>
+</ul>
+<p>Afterwards, start running <strong>object_detection_sample_ssd</strong> as follows:</p>
+<ul>
+<li>
+<p><strong>For NCS 2</strong>:</p>
+</li>
+<li>
+<p><strong>For NCS 1</strong>:</p>
+</li>
+</ul>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line">➜  Release pwd</span><br><span class="line">/opt/intel/openvino/inference_engine/samples/cpp/build/armv7l/Release</span><br><span class="line">➜  Release ./object_detection_sample_ssd -m face-detection-adas-0001.xml -d MYRIAD -i me.jpg</span><br><span class="line">[ INFO ] InferenceEngine: </span><br><span class="line">	API version ............ 2.1</span><br><span class="line">	Build .................. custom_releases/2020/1_d349c3ba4a2508be72f413fa4dee92cc0e4bc0e1</span><br><span class="line">	Description ....... API</span><br><span class="line">Parsing input parameters</span><br><span class="line">[ INFO ] Files were added: 1</span><br><span class="line">[ INFO ]     me.jpg</span><br><span class="line">[ INFO ] Loading Inference Engine</span><br><span class="line">[ INFO ] Device info: </span><br><span class="line">	MYRIAD</span><br><span class="line">	myriadPlugin version ......... 2.1</span><br><span class="line">	Build ........... 37988</span><br><span class="line">[ INFO ] Loading network files:</span><br><span class="line">	face-detection-adas-0001.xml</span><br><span class="line">	face-detection-adas-0001.bin</span><br><span class="line">[ INFO ] Preparing input blobs</span><br><span class="line">[ INFO ] Batch size is 1</span><br><span class="line">[ INFO ] Preparing output blobs</span><br><span class="line">[ INFO ] Loading model to the device</span><br><span class="line">[ INFO ] Create infer request</span><br><span class="line">[ WARNING ] Image is resized from (924, 1280) to (672, 384)</span><br><span class="line">[ INFO ] Batch size is 1</span><br><span class="line">[ INFO ] Start inference</span><br><span class="line">[ INFO ] Processing output blobs</span><br><span class="line">[0,1] element, prob = 0.871094    (420,202)-(745,608) batch id : 0 WILL BE PRINTED!</span><br><span class="line">[1,1] element, prob = 0.0268555    (-54,555)-(234,1100) batch id : 0</span><br><span class="line">[2,1] element, prob = 0.0209961    (21,925)-(239,1340) batch id : 0</span><br><span class="line">[3,1] element, prob = 0.019043    (-18,-144)-(178,583) batch id : 0</span><br><span class="line">[4,1] element, prob = 0.0180664    (636,315)-(757,470) batch id : 0</span><br><span class="line">[5,1] element, prob = 0.0170898    (75,977)-(363,1321) batch id : 0</span><br><span class="line">[6,1] element, prob = 0.0161133    (291,958)-(349,1123) batch id : 0</span><br><span class="line">[7,1] element, prob = 0.015625    (329,962)-(391,1126) batch id : 0</span><br><span class="line">[8,1] element, prob = 0.015625    (832,1121)-(937,1293) batch id : 0</span><br><span class="line">[9,1] element, prob = 0.015625    (-27,670)-(136,1220) batch id : 0</span><br><span class="line">[10,1] element, prob = 0.015625    (76,785)-(357,1160) batch id : 0</span><br><span class="line">[11,1] element, prob = 0.015625    (204,928)-(423,1346) batch id : 0</span><br><span class="line">[12,1] element, prob = 0.0146484    (694,1035)-(732,1141) batch id : 0</span><br><span class="line">[13,1] element, prob = 0.0146484    (219,40)-(388,626) batch id : 0</span><br><span class="line">[14,1] element, prob = 0.0136719    (658,306)-(752,405) batch id : 0</span><br><span class="line">[15,1] element, prob = 0.0136719    (204,1198)-(267,1275) batch id : 0</span><br><span class="line">[16,1] element, prob = 0.0136719    (322,612)-(430,793) batch id : 0</span><br><span class="line">[17,1] element, prob = 0.0136719    (240,779)-(331,1046) batch id : 0</span><br><span class="line">[18,1] element, prob = 0.0136719    (171,245)-(424,798) batch id : 0</span><br><span class="line">[19,1] element, prob = 0.0136719    (443,205)-(802,1021) batch id : 0</span><br><span class="line">[20,1] element, prob = 0.0126953    (694,511)-(731,590) batch id : 0</span><br><span class="line">[21,1] element, prob = 0.0126953    (0,893)-(24,984) batch id : 0</span><br><span class="line">[22,1] element, prob = 0.0126953    (272,962)-(322,1117) batch id : 0</span><br><span class="line">[23,1] element, prob = 0.0126953    (268,487)-(376,688) batch id : 0</span><br><span class="line">[24,1] element, prob = 0.0126953    (323,490)-(422,690) batch id : 0</span><br><span class="line">[25,1] element, prob = 0.0126953    (277,608)-(384,795) batch id : 0</span><br><span class="line">[26,1] element, prob = 0.0126953    (233,710)-(342,923) batch id : 0</span><br><span class="line">[27,1] element, prob = 0.0126953    (256,672)-(406,957) batch id : 0</span><br><span class="line">[28,1] element, prob = 0.0126953    (252,799)-(540,1176) batch id : 0</span><br><span class="line">[29,1] element, prob = 0.0126953    (133,876)-(301,1420) batch id : 0</span><br><span class="line">[30,1] element, prob = 0.0117188    (718,466)-(757,540) batch id : 0</span><br><span class="line">[31,1] element, prob = 0.0117188    (166,527)-(206,594) batch id : 0</span><br><span class="line">[32,1] element, prob = 0.0117188    (673,514)-(709,587) batch id : 0</span><br><span class="line">[33,1] element, prob = 0.0117188    (-1,943)-(22,1038) batch id : 0</span><br><span class="line">[34,1] element, prob = 0.0117188    (670,256)-(753,346) batch id : 0</span><br><span class="line">[35,1] element, prob = 0.0117188    (705,441)-(771,555) batch id : 0</span><br><span class="line">[36,1] element, prob = 0.0117188    (126,625)-(200,718) batch id : 0</span><br><span class="line">[37,1] element, prob = 0.0117188    (164,673)-(251,747) batch id : 0</span><br><span class="line">[38,1] element, prob = 0.0117188    (399,850)-(453,1008) batch id : 0</span><br><span class="line">[39,1] element, prob = 0.0117188    (424,851)-(476,1009) batch id : 0</span><br><span class="line">[40,1] element, prob = 0.0117188    (357,925)-(413,1073) batch id : 0</span><br><span class="line">[41,1] element, prob = 0.0117188    (399,919)-(454,1074) batch id : 0</span><br><span class="line">[42,1] element, prob = 0.0117188    (468,906)-(521,1070) batch id : 0</span><br><span class="line">[43,1] element, prob = 0.0117188    (284,1016)-(357,1186) batch id : 0</span><br><span class="line">[44,1] element, prob = 0.0117188    (269,379)-(374,595) batch id : 0</span><br><span class="line">[45,1] element, prob = 0.0117188    (349,563)-(485,831) batch id : 0</span><br><span class="line">[46,1] element, prob = 0.0117188    (252,1042)-(431,1215) batch id : 0</span><br><span class="line">[47,1] element, prob = 0.0117188    (858,771)-(987,1518) batch id : 0</span><br><span class="line">[48,1] element, prob = 0.0107422    (165,463)-(204,521) batch id : 0</span><br><span class="line">[49,1] element, prob = 0.0107422    (185,477)-(224,537) batch id : 0</span><br><span class="line">[50,1] element, prob = 0.0107422    (214,477)-(250,540) batch id : 0</span><br><span class="line">[51,1] element, prob = 0.0107422    (458,478)-(488,536) batch id : 0</span><br><span class="line">[52,1] element, prob = 0.0107422    (695,466)-(733,539) batch id : 0</span><br><span class="line">[53,1] element, prob = 0.0107422    (460,522)-(488,590) batch id : 0</span><br><span class="line">[54,1] element, prob = 0.0107422    (481,523)-(509,588) batch id : 0</span><br><span class="line">[55,1] element, prob = 0.0107422    (716,512)-(755,592) batch id : 0</span><br><span class="line">[56,1] element, prob = 0.0107422    (150,579)-(179,635) batch id : 0</span><br><span class="line">[57,1] element, prob = 0.0107422    (171,584)-(201,641) batch id : 0</span><br><span class="line">[58,1] element, prob = 0.0107422    (481,582)-(510,647) batch id : 0</span><br><span class="line">[59,1] element, prob = 0.0107422    (652,565)-(689,650) batch id : 0</span><br><span class="line">[60,1] element, prob = 0.0107422    (674,571)-(710,650) batch id : 0</span><br><span class="line">[61,1] element, prob = 0.0107422    (694,571)-(734,648) batch id : 0</span><br><span class="line">[62,1] element, prob = 0.0107422    (142,640)-(188,705) batch id : 0</span><br><span class="line">[63,1] element, prob = 0.0107422    (335,627)-(390,695) batch id : 0</span><br><span class="line">[64,1] element, prob = 0.0107422    (191,744)-(225,803) batch id : 0</span><br><span class="line">[65,1] element, prob = 0.0107422    (370,1005)-(399,1078) batch id : 0</span><br><span class="line">[66,1] element, prob = 0.0107422    (414,1006)-(443,1079) batch id : 0</span><br><span class="line">[67,1] element, prob = 0.0107422    (896,1207)-(924,1280) batch id : 0</span><br><span class="line">[68,1] element, prob = 0.0107422    (86,386)-(160,513) batch id : 0</span><br><span class="line">[69,1] element, prob = 0.0107422    (106,477)-(214,630) batch id : 0</span><br><span class="line">[70,1] element, prob = 0.0107422    (151,501)-(221,610) batch id : 0</span><br><span class="line">[71,1] element, prob = 0.0107422    (428,478)-(479,615) batch id : 0</span><br><span class="line">[72,1] element, prob = 0.0107422    (450,478)-(506,611) batch id : 0</span><br><span class="line">[73,1] element, prob = 0.0107422    (647,498)-(728,605) batch id : 0</span><br><span class="line">[74,1] element, prob = 0.0107422    (148,556)-(220,658) batch id : 0</span><br><span class="line">[75,1] element, prob = 0.0107422    (425,557)-(481,671) batch id : 0</span><br><span class="line">[76,1] element, prob = 0.0107422    (437,510)-(516,700) batch id : 0</span><br><span class="line">[77,1] element, prob = 0.0107422    (463,554)-(527,674) batch id : 0</span><br><span class="line">[78,1] element, prob = 0.0107422    (633,551)-(704,664) batch id : 0</span><br><span class="line">[79,1] element, prob = 0.0107422    (280,628)-(367,711) batch id : 0</span><br><span class="line">[80,1] element, prob = 0.0107422    (416,612)-(488,735) batch id : 0</span><br><span class="line">[81,1] element, prob = 0.0107422    (155,706)-(260,850) batch id : 0</span><br><span class="line">[82,1] element, prob = 0.0107422    (55,828)-(137,932) batch id : 0</span><br><span class="line">[83,1] element, prob = 0.0107422    (451,813)-(498,960) batch id : 0</span><br><span class="line">[84,1] element, prob = 0.0107422    (310,914)-(371,1076) batch id : 0</span><br><span class="line">[85,1] element, prob = 0.0107422    (447,896)-(500,1065) batch id : 0</span><br><span class="line">[86,1] element, prob = 0.0107422    (641,966)-(706,1121) batch id : 0</span><br><span class="line">[87,1] element, prob = 0.0107422    (203,-95)-(283,182) batch id : 0</span><br><span class="line">[88,1] element, prob = 0.0107422    (164,86)-(233,410) batch id : 0</span><br><span class="line">[89,1] element, prob = 0.0107422    (188,498)-(307,688) batch id : 0</span><br><span class="line">[90,1] element, prob = 0.0107422    (205,445)-(357,715) batch id : 0</span><br><span class="line">[91,1] element, prob = 0.0107422    (-22,576)-(71,832) batch id : 0</span><br><span class="line">[92,1] element, prob = 0.0107422    (230,603)-(342,791) batch id : 0</span><br><span class="line">[93,1] element, prob = 0.0107422    (318,698)-(433,909) batch id : 0</span><br><span class="line">[94,1] element, prob = 0.0107422    (273,784)-(390,1021) batch id : 0</span><br><span class="line">[95,1] element, prob = 0.0107422    (175,740)-(444,1237) batch id : 0</span><br><span class="line">[ INFO ] Image out_0.bmp created!</span><br><span class="line">[ INFO ] Execution successful</span><br><span class="line"></span><br><span class="line">[ INFO ] This sample is an API example, for any performance measurements please use the dedicated benchmark_app tool</span><br></pre></td></tr></table></figure>
+<p>The outcome is shown as:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">me.jpg</th>
+<th style="text-align:center">out_0.bmp</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/4b/me.jpg" alt="Me"></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/4b/out_0.bmp" alt="outcome"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="332-image-classification"><a class="markdownIt-Anchor" href="#332-image-classification"></a> 3.3.2 Image Classification</h3>
+<p>In this section, we are going to test out another OpenVINO example: <a href="https://docs.openvinotoolkit.org/latest/_inference_engine_samples_classification_sample_async_README.html" target="_blank" rel="noopener">Image Classification C++ Sample Async</a>. After reading this blog, it wouldn’t be hard for us to notice the <strong>MOST</strong> important thing we’re missing here is the model file <strong>alexnet_fp32.xml</strong>. Let’s just keep it in mind for now.</p>
+<p>And, let’s review a bit about our previous example: <strong>Object Detection</strong> – we downloaded <strong>face-detection-adas-0001</strong> model from online and use it directly. So, questions:</p>
+<ul>
+<li>Are we able to download <strong>alexnet_fp32.xml</strong> from online this time again?</li>
+<li>Where can we download a whole bunch of <strong>open source</strong> models?</li>
+</ul>
+<h4 id="3321-open-model-zoo"><a class="markdownIt-Anchor" href="#3321-open-model-zoo"></a> 3.3.2.1 Open Model Zoo</h4>
+<p>It wouldn’t be hard for us to <strong>google</strong> out <a href="https://github.com/opencv/open_model_zoo" target="_blank" rel="noopener">OpenVINO™ Toolkit - Open Model Zoo repository</a>, under which <a href="https://github.com/opencv/open_model_zoo/tree/master/models/intel/face-detection-adas-0001" target="_blank" rel="noopener">model face-detection-adas-0001</a> is just sitting there. However, <code>face-detection-adas-0001.xml</code> and <code>face-detection-adas-0001.bin</code> are missing.</p>
+<p>Let’s checkout <a href="https://github.com/opencv/open_model_zoo" target="_blank" rel="noopener">open_model_zoo</a> and put it under folder <code>/opt/intel</code>.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  intel pwd</span><br><span class="line">/opt/intel</span><br><span class="line">➜  intel ll</span><br><span class="line">total 12K</span><br><span class="line">drwxr-xr-x 8 pi   pi   4.0K Apr  7 06:37 dldt</span><br><span class="line">drwxr-xr-x 9 pi   pi   4.0K Apr  7 14:04 l_openvino_toolkit_runtime_raspbian_p_2020.1.023</span><br><span class="line">drwxr-xr-x 7 pi   pi   4.0K Apr  7 14:04 open_model_zoo</span><br><span class="line">lrwxrwxrwx 1 root root   48 Apr  7 06:29 openvino -&gt; l_openvino_toolkit_runtime_raspbian_p_2020.1.023</span><br></pre></td></tr></table></figure>
+<p>Then, let’s enter folder <code>face-detection-adas-0001</code> under <code>open_model_zoo</code> and take a look:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  face-detection-adas-0001 git:(master) pwd</span><br><span class="line">/opt/intel/open_model_zoo/models/intel/face-detection-adas-0001</span><br><span class="line">➜  face-detection-adas-0001 git:(master) ls</span><br><span class="line">description  face-detection-adas-0001.prototxt  model.yml</span><br></pre></td></tr></table></figure>
+<p>It seems that each folder under <strong>intel</strong> and <strong>public</strong> contains the detailed info of each model. For instance, file <a href="https://github.com/opencv/open_model_zoo/blob/master/models/intel/face-detection-adas-0001/model.yml" target="_blank" rel="noopener">intel/face-detection-adas-0001/model.yml</a> contains all the info about model <strong>face-detection-adas-0001</strong>. However, what we really need are a <strong>.xml</strong> file and a <strong>.bin</strong> file. In the following, we are going to generate such 2 files, which are optimized specifically for <strong><a href="https://www.movidius.com/" target="_blank" rel="noopener">movidius</a></strong> by following <a href="https://software.intel.com/en-us/forums/intel-distribution-of-openvino-toolkit/topic/798441" target="_blank" rel="noopener">Intel OpenVINO toolkit issue 798441</a>.</p>
+<h4 id="3322-download-caffe-model-files"><a class="markdownIt-Anchor" href="#3322-download-caffe-model-files"></a> 3.3.2.2 Download Caffe Model Files</h4>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">➜  downloader git:(master) pwd</span><br><span class="line">/opt/intel/open_model_zoo/tools/downloader</span><br><span class="line">➜  downloader git:(master) ls</span><br><span class="line">caffe2_to_onnx.py  converter.py   info_dumper.py      README.md               requirements.in          tests</span><br><span class="line">common.py          downloader.py  pytorch_to_onnx.py  requirements-caffe2.in  requirements-pytorch.in</span><br><span class="line">➜  downloader git:(master) python downloader.py --name alexnet</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">###############|| Downloading models ||################</span></span></span><br><span class="line"></span><br><span class="line">========== Downloading /opt/intel/open_model_zoo/tools/downloader/public/alexnet/alexnet.prototxt</span><br><span class="line">... 100%, 3 KB, 10485 KB/s, 0 seconds passed</span><br><span class="line"></span><br><span class="line">========== Downloading /opt/intel/open_model_zoo/tools/downloader/public/alexnet/alexnet.caffemodel</span><br><span class="line">... 100%, 238146 KB, 5428 KB/s, 43 seconds passed</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">###############|| Post-processing ||################</span></span></span><br><span class="line"></span><br><span class="line">========== Replacing text in /opt/intel/open_model_zoo/tools/downloader/public/alexnet/alexnet.prototxt</span><br><span class="line">➜  downloader git:(master) ✗ ll public/alexnet/</span><br><span class="line">total 233M</span><br><span class="line">-rw-r--r-- 1 pi pi 233M Apr  9 14:24 alexnet.caffemodel</span><br><span class="line">-rw-r--r-- 1 pi pi 3.6K Apr  9 14:24 alexnet.prototxt</span><br><span class="line">-rw-r--r-- 1 pi pi 3.6K Apr  9 14:23 alexnet.prototxt.orig</span><br></pre></td></tr></table></figure>
+<p>Clearly, three files including a large model file <strong>alexnet.caffemodel</strong> has been downloaded.</p>
+<h4 id="3323-model-optimization"><a class="markdownIt-Anchor" href="#3323-model-optimization"></a> 3.3.2.3 Model Optimization</h4>
+<p>Now, are are going to optimize the downloaded caffe model and make it <strong>feedable</strong> to <a href="https://software.intel.com/en-us/openvino-toolkit" target="_blank" rel="noopener">OpenVINO</a>.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">➜  model-optimizer git:(2020) ✗ pwd</span><br><span class="line">/opt/intel/dldt/model-optimizer</span><br><span class="line">➜  model-optimizer git:(2020) ✗ python mo_caffe.py --generate_deprecated_IR_V7 --input_model /opt/intel/open_model_zoo/tools/downloader/public/alexnet/alexnet.caffemodel</span><br><span class="line">[ WARNING ]  Use of deprecated cli option --generate_deprecated_IR_V7 detected. Option use in the following releases will be fatal. </span><br><span class="line">Model Optimizer arguments:</span><br><span class="line">Common parameters:</span><br><span class="line">	- Path to the Input Model: 	/opt/intel/open_model_zoo/tools/downloader/public/alexnet/alexnet.caffemodel</span><br><span class="line">	- Path for generated IR: 	/opt/intel/dldt/model-optimizer/.</span><br><span class="line">	- IR output name: 	alexnet</span><br><span class="line">	- Log level: 	ERROR</span><br><span class="line">	- Batch: 	Not specified, inherited from the model</span><br><span class="line">	- Input layers: 	Not specified, inherited from the model</span><br><span class="line">	- Output layers: 	Not specified, inherited from the model</span><br><span class="line">	- Input shapes: 	Not specified, inherited from the model</span><br><span class="line">	- Mean values: 	Not specified</span><br><span class="line">	- Scale values: 	Not specified</span><br><span class="line">	- Scale factor: 	Not specified</span><br><span class="line">	- Precision of IR: 	FP32</span><br><span class="line">	- Enable fusing: 	True</span><br><span class="line">	- Enable grouped convolutions fusing: 	True</span><br><span class="line">	- Move mean values to preprocess section: 	False</span><br><span class="line">	- Reverse input channels: 	False</span><br><span class="line">Caffe specific parameters:</span><br><span class="line">	- Path to Python Caffe* parser generated from caffe.proto: 	mo/front/caffe/proto</span><br><span class="line">	- Enable resnet optimization: 	True</span><br><span class="line">	- Path to the Input prototxt: 	/opt/intel/open_model_zoo/tools/downloader/public/alexnet/alexnet.prototxt</span><br><span class="line">	- Path to CustomLayersMapping.xml: 	Default</span><br><span class="line">	- Path to a mean file: 	Not specified</span><br><span class="line">	- Offsets for a mean file: 	Not specified</span><br><span class="line">Model Optimizer version: 	unknown version</span><br><span class="line">Please expect that Model Optimizer conversion might be slow. You are currently using Python protobuf library implementation. </span><br><span class="line">However you can use the C++ protobuf implementation that is supplied with the OpenVINO toolkitor build protobuf library from sources. </span><br><span class="line">Navigate to "install_prerequisites" folder and run: python -m easy_install protobuf-3.5.1-py($your_python_version)-win-amd64.egg </span><br><span class="line">set PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=cpp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> For more information please refer to Model Optimizer FAQ (https://docs.openvinotoolkit.org/latest/_docs_MO_DG_prepare_model_Model_Optimizer_FAQ.html), question #80. </span><br><span class="line"></span><br><span class="line">[ SUCCESS ] Generated IR version 7 model.</span><br><span class="line">[ SUCCESS ] XML file: /opt/intel/dldt/model-optimizer/./alexnet.xml</span><br><span class="line">[ SUCCESS ] BIN file: /opt/intel/dldt/model-optimizer/./alexnet.bin</span><br><span class="line">[ SUCCESS ] Total execution time: 615.36 seconds. </span><br><span class="line">[ SUCCESS ] Memory consumed: 1982 MB.</span><br></pre></td></tr></table></figure>
+<p>And, let’s take a look at what’s generated under folder <code>/opt/intel/dldt/model-optimizer</code>.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  model-optimizer git:(2020) ✗ pwd</span><br><span class="line">/opt/intel/dldt/model-optimizer</span><br><span class="line">➜  model-optimizer git:(2020) ✗ ls</span><br><span class="line">alexnet.bin      extensions             mo_caffe.py  mo_onnx.py  README.md               requirements_kaldi.txt  requirements_tf.txt</span><br><span class="line">alexnet.mapping  install_prerequisites  mo_kaldi.py  mo.py       requirements_caffe.txt  requirements_mxnet.txt  requirements.txt</span><br><span class="line">alexnet.xml      mo                     mo_mxnet.py  mo_tf.py    requirements_dev.txt    requirements_onnx.txt   tf_call_ie_layer</span><br><span class="line">➜  model-optimizer git:(2020) ✗ ll alexnet*</span><br><span class="line">-rw-r--r-- 1 pi pi 233M Apr  9 15:26 alexnet.bin</span><br><span class="line">-rw-r--r-- 1 pi pi 2.6K Apr  9 15:26 alexnet.mapping</span><br><span class="line">-rw-r--r-- 1 pi pi  25K Apr  9 15:26 alexnet.xml</span><br></pre></td></tr></table></figure>
+<p><strong><span style="color:red">Note: You may meet the following ERRORs during model optimization.</span></strong></p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[ ERROR ]  </span><br><span class="line">Detected not satisfied dependencies:</span><br><span class="line">	networkx: installed: 2.4, required: 2.4</span><br><span class="line">	protobuf: installed: 3.11.3, required: 3.6.1</span><br></pre></td></tr></table></figure>
+<p>Clearly, for networkx, the <strong>ERROR</strong> message is a kind of <strong><span style="color:red">ridiculous</span></strong>.<br>
+Anyway, if you meet the above 2 errors, please <strong>DOWNGRADE</strong> your packages as follows:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">➜  ~  pip install protobuf==3.6.1 --user</span><br><span class="line">Looking in indexes: https://pypi.org/simple, https://www.piwheels.org/simple</span><br><span class="line">Collecting protobuf==3.6.1</span><br><span class="line">  Downloading https://files.pythonhosted.org/packages/77/78/a7f1ce761e2c738e209857175cd4f90a8562d1bde32868a8cd5290d58926/protobuf-3.6.1-py2.py3-none-any.whl (390kB)</span><br><span class="line">     |████████████████████████████████| 399kB 1.4MB/s </span><br><span class="line">Requirement already satisfied: six&gt;=1.9 in /home/pi/.local/lib/python3.7/site-packages (from protobuf==3.6.1) (1.13.0)</span><br><span class="line">Requirement already satisfied: setuptools in /home/pi/.local/lib/python3.7/site-packages (from protobuf==3.6.1) (44.0.0)</span><br><span class="line">Installing collected packages: protobuf</span><br><span class="line">  Found existing installation: protobuf 3.11.3</span><br><span class="line">    Uninstalling protobuf-3.11.3:</span><br><span class="line">      Successfully uninstalled protobuf-3.11.3</span><br><span class="line">Successfully installed protobuf-3.6.1</span><br><span class="line">➜  ~  pip install networkx==2.3 --user</span><br><span class="line">Looking in indexes: https://pypi.org/simple, https://www.piwheels.org/simple</span><br><span class="line">Collecting networkx==2.3</span><br><span class="line">  Downloading https://files.pythonhosted.org/packages/85/08/f20aef11d4c343b557e5de6b9548761811eb16e438cee3d32b1c66c8566b/networkx-2.3.zip (1.7MB)</span><br><span class="line">     |████████████████████████████████| 1.8MB 2.3MB/s </span><br><span class="line">Requirement already satisfied: decorator&gt;=4.3.0 in /home/pi/.local/lib/python3.7/site-packages (from networkx==2.3) (4.4.1)</span><br><span class="line">Building wheels for collected packages: networkx</span><br><span class="line">  Building wheel for networkx (setup.py) ... done</span><br><span class="line">  Created wheel for networkx: filename=networkx-2.3-py2.py3-none-any.whl size=1556408 sha256=9964dc8e3b41e97f0228afb2c1c6ca40a5dfc07dc1a2574b92717114f3d5e533</span><br><span class="line">  Stored in directory: /home/pi/.cache/pip/wheels/de/63/64/3699be2a9d0ccdb37c7f16329acf3863fd76eda58c39c737af</span><br><span class="line">Successfully built networkx</span><br><span class="line">Installing collected packages: networkx</span><br><span class="line">  Found existing installation: networkx 2.4</span><br><span class="line">    Uninstalling networkx-2.4:</span><br><span class="line">      Successfully uninstalled networkx-2.4</span><br><span class="line">Successfully installed networkx-2.3</span><br></pre></td></tr></table></figure>
+<h4 id="3324-run-the-sample"><a class="markdownIt-Anchor" href="#3324-run-the-sample"></a> 3.3.2.4 Run The Sample</h4>
+<ul>
+<li><strong>For NCS 2</strong>:</li>
+</ul>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">➜  Release pwd</span><br><span class="line">/opt/intel/openvino/inference_engine/samples/cpp/build/armv7l/Release</span><br><span class="line">➜  Release ./classification_sample_async -i ./me.jpg -m /opt/intel/dldt/model-optimizer/alexnet.xml -nt 5 -d HETERO:MYRIAD</span><br><span class="line">[ INFO ] InferenceEngine: </span><br><span class="line">	API version ............ 2.1</span><br><span class="line">	Build .................. custom_releases/2020/1_d349c3ba4a2508be72f413fa4dee92cc0e4bc0e1</span><br><span class="line">	Description ....... API</span><br><span class="line">[ INFO ] Parsing input parameters</span><br><span class="line">[ INFO ] Parsing input parameters</span><br><span class="line">[ INFO ] Files were added: 1</span><br><span class="line">[ INFO ]     ./me.jpg</span><br><span class="line">[ INFO ] Creating Inference Engine</span><br><span class="line">	HETERO</span><br><span class="line">	heteroPlugin version ......... 2.1</span><br><span class="line">	Build ........... 37988</span><br><span class="line">	MYRIAD</span><br><span class="line">	myriadPlugin version ......... 2.1</span><br><span class="line">	Build ........... 37988</span><br><span class="line"></span><br><span class="line">[ INFO ] Loading network files</span><br><span class="line">[ INFO ] Preparing input blobs</span><br><span class="line">[ WARNING ] Image is resized from (924, 1280) to (227, 227)</span><br><span class="line">[ INFO ] Batch size is 1</span><br><span class="line">[ INFO ] Loading model to the device</span><br><span class="line">[ INFO ] Create infer request</span><br><span class="line">[ INFO ] Start inference (10 asynchronous executions)</span><br><span class="line">[ INFO ] Completed 1 async request execution</span><br><span class="line">[ INFO ] Completed 2 async request execution</span><br><span class="line">[ INFO ] Completed 3 async request execution</span><br><span class="line">[ INFO ] Completed 4 async request execution</span><br><span class="line">[ INFO ] Completed 5 async request execution</span><br><span class="line">[ INFO ] Completed 6 async request execution</span><br><span class="line">[ INFO ] Completed 7 async request execution</span><br><span class="line">[ INFO ] Completed 8 async request execution</span><br><span class="line">[ INFO ] Completed 9 async request execution</span><br><span class="line">[ INFO ] Completed 10 async request execution</span><br><span class="line">[ INFO ] Processing output blobs</span><br><span class="line"></span><br><span class="line">Top 5 results:</span><br><span class="line"></span><br><span class="line">Image ./me.jpg</span><br><span class="line"></span><br><span class="line">classid probability</span><br><span class="line">------- -----------</span><br><span class="line">838     0.0751343  </span><br><span class="line">978     0.0728149  </span><br><span class="line">977     0.0722656  </span><br><span class="line">975     0.0606079  </span><br><span class="line">903     0.0533142  </span><br><span class="line"></span><br><span class="line">[ INFO ] Execution successful</span><br><span class="line"></span><br><span class="line">[ INFO ] This sample is an API example, for any performance measurements please use the dedicated benchmark_app tool</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>For NCS 1</strong>:</li>
+</ul>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">➜  Release pwd</span><br><span class="line">/opt/intel/openvino/inference_engine/samples/cpp/build/armv7l/Release</span><br><span class="line">➜  Release ./classification_sample_async -i ./me.jpg -m /opt/intel/dldt/model-optimizer/alexnet.xml -nt 5 -d HETERO:MYRIAD</span><br><span class="line">[ INFO ] InferenceEngine: </span><br><span class="line">	API version ............ 2.1</span><br><span class="line">	Build .................. custom_releases/2020/1_d349c3ba4a2508be72f413fa4dee92cc0e4bc0e1</span><br><span class="line">	Description ....... API</span><br><span class="line">[ INFO ] Parsing input parameters</span><br><span class="line">[ INFO ] Parsing input parameters</span><br><span class="line">[ INFO ] Files were added: 1</span><br><span class="line">[ INFO ]     ./me.jpg</span><br><span class="line">[ INFO ] Creating Inference Engine</span><br><span class="line">	HETERO</span><br><span class="line">	heteroPlugin version ......... 2.1</span><br><span class="line">	Build ........... 37988</span><br><span class="line">	MYRIAD</span><br><span class="line">	myriadPlugin version ......... 2.1</span><br><span class="line">	Build ........... 37988</span><br><span class="line"></span><br><span class="line">[ INFO ] Loading network files</span><br><span class="line">[ INFO ] Preparing input blobs</span><br><span class="line">[ WARNING ] Image is resized from (924, 1280) to (227, 227)</span><br><span class="line">[ INFO ] Batch size is 1</span><br><span class="line">[ INFO ] Loading model to the device</span><br><span class="line">[ INFO ] Create infer request</span><br><span class="line">[ INFO ] Start inference (10 asynchronous executions)</span><br><span class="line">[ INFO ] Completed 1 async request execution</span><br><span class="line">[ INFO ] Completed 2 async request execution</span><br><span class="line">[ INFO ] Completed 3 async request execution</span><br><span class="line">[ INFO ] Completed 4 async request execution</span><br><span class="line">[ INFO ] Completed 5 async request execution</span><br><span class="line">[ INFO ] Completed 6 async request execution</span><br><span class="line">[ INFO ] Completed 7 async request execution</span><br><span class="line">[ INFO ] Completed 8 async request execution</span><br><span class="line">[ INFO ] Completed 9 async request execution</span><br><span class="line">[ INFO ] Completed 10 async request execution</span><br><span class="line">[ INFO ] Processing output blobs</span><br><span class="line"></span><br><span class="line">Top 5 results:</span><br><span class="line"></span><br><span class="line">Image ./me.jpg</span><br><span class="line"></span><br><span class="line">classid probability</span><br><span class="line">------- -----------</span><br><span class="line">978     0.0818481  </span><br><span class="line">977     0.0818481  </span><br><span class="line">838     0.0812378  </span><br><span class="line">975     0.0610657  </span><br><span class="line">903     0.0553894  </span><br><span class="line"></span><br><span class="line">[ INFO ] Execution successful</span><br><span class="line"></span><br><span class="line">[ INFO ] This sample is an API example, for any performance measurements please use the dedicated benchmark_app tool</span><br></pre></td></tr></table></figure>
+<h1 id="4-opencv-dnn-with-openvinos-inference-engine"><a class="markdownIt-Anchor" href="#4-opencv-dnn-with-openvinos-inference-engine"></a> 4. OpenCV DNN with OpenVINO’s Inference Engine</h1>
+<p>For the example <strong>openvino_fd_myriad.py</strong> given on <a href="https://docs.openvinotoolkit.org/latest/_docs_install_guides_installing_openvino_raspbian.html" target="_blank" rel="noopener">Install OpenVINO™ toolkit for Raspbian* OS</a>, the <strong>TOUGH</strong> thing is how to build <a href="https://opencv.org/" target="_blank" rel="noopener">OpenCV</a> with <a href="https://docs.openvinotoolkit.org/latest/_docs_IE_DG_Deep_Learning_Inference_Engine_DevGuide.html" target="_blank" rel="noopener">OpenVINO’s Inference Engine</a>. More or less, it’s a kind of complicated.</p>
+<h2 id="41-intel64"><a class="markdownIt-Anchor" href="#41-intel64"></a> 4.1 Intel64</h2>
+<p>On my laptop, of course, we are building OpenCV for architecture <strong>Intel64</strong>, with NVidia GPU + <a href="https://developer.nvidia.com/cuda-downloads" target="_blank" rel="noopener">CUDA</a> support, for <a href="https://docs.opencv.org/4.2.0/d2/d58/tutorial_table_of_content_dnn.html" target="_blank" rel="noopener">DNN in OpenCV</a> requires either <a href="https://developer.nvidia.com/cuda-downloads" target="_blank" rel="noopener">CUDA</a> or <a href="https://www.khronos.org/registry/OpenCL/sdk/" target="_blank" rel="noopener">OpenCL</a>. Anyway, we need to export<br>
+<code>export InferenceEngine_DIR=&quot;/opt/intel/openvino/inference_engine/share&quot;</code> and enable <code>WITH_INF_ENGINE ON</code> to have <a href="https://opencv.org/" target="_blank" rel="noopener">OpenCV</a> rebuilt.</p>
+<p>My test result of <strong>openvino_fd_myriad.py</strong> shows the performance of adopted model <strong>face-detection-adas-0001</strong> is <strong>NOT</strong> as good as expected.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv</span><br><span class="line"><span class="comment"># Load the model.</span></span><br><span class="line">net = cv.dnn.readNet(<span class="string">'/opt/intel/openvino/inference_engine/samples/cpp/build_18.04/intel64/Release/face-detection-adas-0001.xml'</span>,</span><br><span class="line">                     <span class="string">'/opt/intel/openvino/inference_engine/samples/cpp/build_18.04/intel64/Release/face-detection-adas-0001.bin'</span>)</span><br><span class="line"><span class="comment"># Specify target device.</span></span><br><span class="line">net.setPreferableTarget(cv.dnn.DNN_TARGET_MYRIAD)</span><br><span class="line"><span class="comment"># Read an image.</span></span><br><span class="line">frame = cv.imread(<span class="string">'./parents.jpg'</span>)</span><br><span class="line"><span class="keyword">if</span> frame <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">    <span class="keyword">raise</span> Exception(<span class="string">'Image not found!'</span>)</span><br><span class="line"><span class="comment"># Prepare input blob and perform an inference.</span></span><br><span class="line">blob = cv.dnn.blobFromImage(frame, size=(<span class="number">960</span>, <span class="number">1280</span>), ddepth=cv.CV_8U)</span><br><span class="line">net.setInput(blob)</span><br><span class="line">out = net.forward()</span><br><span class="line">count = <span class="number">0</span></span><br><span class="line"><span class="comment"># Draw detected faces on the frame.</span></span><br><span class="line"><span class="keyword">for</span> detection <span class="keyword">in</span> out.reshape(<span class="number">-1</span>, <span class="number">7</span>):</span><br><span class="line">    confidence = float(detection[<span class="number">2</span>])</span><br><span class="line">    xmin = int(detection[<span class="number">3</span>] * frame.shape[<span class="number">1</span>])</span><br><span class="line">    ymin = int(detection[<span class="number">4</span>] * frame.shape[<span class="number">0</span>])</span><br><span class="line">    xmax = int(detection[<span class="number">5</span>] * frame.shape[<span class="number">1</span>])</span><br><span class="line">    ymax = int(detection[<span class="number">6</span>] * frame.shape[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">if</span> confidence &gt; <span class="number">0.6</span>:</span><br><span class="line">        cv.rectangle(frame, (xmin, ymin), (xmax, ymax), color=(<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>))</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">print(count)</span><br><span class="line"><span class="comment"># Save the frame to an image file.</span></span><br><span class="line">cv.imwrite(<span class="string">'out.png'</span>, frame)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>For NCS 1</strong></li>
+</ul>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  OpenVINO_Examples python openvino_fd_myriad.py</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Parents At First Starbucks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/4b/parents.jpg" alt="Parents At First Starbucks"></td>
+</tr>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/4b/detected_intel64_ncs1.png" alt="Parents At First Starbucks Face Detection Result"></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>For NCS 2</strong></li>
+</ul>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  OpenVINO_Examples python openvino_fd_myriad.py</span><br><span class="line">200</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Parents At First Starbucks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/4b/parents.jpg" alt="Parents At First Starbucks"></td>
+</tr>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/4b/detected_intel64_ncs2.png" alt="Parents At First Starbucks Face Detection Result"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="42-armv7l"><a class="markdownIt-Anchor" href="#42-armv7l"></a> 4.2 armv7l</h2>
+<p>Modify <code>opencv/cmake/OpenCVDetectInferenceEngine.cmake</code> correspondingly as:</p>
+<h1 id="5-my-built-raspbian-iso-with-opencv4-openvino"><a class="markdownIt-Anchor" href="#5-my-built-raspbian-iso-with-opencv4-openvino"></a> 5. My Built Raspbian ISO With OpenCV4 + OpenVINO</h1>
+<p>Finally, you are welcome to try my built image <a href="https://www.longervision.cc/iso/rpi4-raspbian-opencv4-openvino-ncsdk.img" target="_blank" rel="noopener">rpi4-raspbian-opencv4-openvino-ncsdk.img</a>, which is about <strong>10G</strong> and composed of:</p>
+<ul>
+<li><a href="https://www.raspberrypi.org/downloads/raspbian/" target="_blank" rel="noopener">Raspbian</a></li>
+<li><a href="https://opencv.org/releases/" target="_blank" rel="noopener">OpenCV 4.3.0</a></li>
+<li><a href="https://docs.openvinotoolkit.org/latest/_docs_install_guides_installing_openvino_raspbian.html" target="_blank" rel="noopener">OpenVINO for Raspbian</a></li>
+<li><a href="https://github.com/movidius/ncsdk" target="_blank" rel="noopener">Movidius NCSDK</a></li>
+</ul>
+<p>Everything has <strong>ALREADY</strong> been updated and built successfully.</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Raspberry-Pi-Movidius-BalenaOS-Neural-Compute-Stick-OpenVINO-Edge-Computing/" rel="tag"># Raspberry Pi, Movidius, BalenaOS, Neural Compute Stick, OpenVINO, Edge Computing</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/05/Medical/corona-virus/" rel="next" title="Corona Virus">
+                <i class="fa fa-chevron-left"></i> Corona Virus
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/05/AI/DeepLearning/Tensorflow-2.X/" rel="prev" title="Tensorflow 2.X">
+                Tensorflow 2.X <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Nobody</p>
+              <p class="site-description motion-element" itemprop="description">Longer Vision Technology Github Blog</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">74</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-about-raspberry-pi-4"><span class="nav-number">1.</span> <span class="nav-text"> 1. About Raspberry Pi 4</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#11-raspberry-pi-4-vs-raspberry-pi-3b"><span class="nav-number">1.1.</span> <span class="nav-text"> 1.1 Raspberry Pi 4 vs. Raspberry Pi 3B+</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-raspbian-installation"><span class="nav-number">1.2.</span> <span class="nav-text"> 1.2 Raspbian Installation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-bcm2711-is-detected-as-bcm2835"><span class="nav-number">1.3.</span> <span class="nav-text"> 1.3 BCM2711 is detected as BCM2835</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-movidius-neural-compute-stick-on-raspberry-pi-4"><span class="nav-number">2.</span> <span class="nav-text"> 2. Movidius Neural Compute Stick on Raspberry Pi 4</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#21-ncsdk-installation"><span class="nav-number">2.1.</span> <span class="nav-text"> 2.1 NCSDK Installation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#22-test-ncsdk-example-apps"><span class="nav-number">2.2.</span> <span class="nav-text"> 2.2 Test NCSDK Example Apps</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#221-for-movidius-ncs-1"><span class="nav-number">2.2.1.</span> <span class="nav-text"> 2.2.1 For Movidius NCS 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#222-for-movidius-ncs-2"><span class="nav-number">2.2.2.</span> <span class="nav-text"> 2.2.2 For Movidius NCS 2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#23-mvnc-python-package"><span class="nav-number">2.3.</span> <span class="nav-text"> 2.3 mvnc Python Package</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-transitioning-from-intel-movidius-neural-compute-sdk-to-intel-openvino"><span class="nav-number">3.</span> <span class="nav-text"> 3. Transitioning from Intel Movidius Neural Compute SDK to Intel OpenVINO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#31-install-openvino-for-raspbian"><span class="nav-number">3.1.</span> <span class="nav-text"> 3.1 Install OpenVINO for Raspbian</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#32-build-openvino-samples"><span class="nav-number">3.2.</span> <span class="nav-text"> 3.2 Build OpenVINO Samples</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#321-c-samples"><span class="nav-number">3.2.1.</span> <span class="nav-text"> 3.2.1 C++ Samples</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#322-python-samples"><span class="nav-number">3.2.2.</span> <span class="nav-text"> 3.2.2 Python Samples</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#33-openvino-test"><span class="nav-number">3.3.</span> <span class="nav-text"> 3.3 OpenVINO Test</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#331-object-detection"><span class="nav-number">3.3.1.</span> <span class="nav-text"> 3.3.1 Object Detection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#332-image-classification"><span class="nav-number">3.3.2.</span> <span class="nav-text"> 3.3.2 Image Classification</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3321-open-model-zoo"><span class="nav-number">3.3.2.1.</span> <span class="nav-text"> 3.3.2.1 Open Model Zoo</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3322-download-caffe-model-files"><span class="nav-number">3.3.2.2.</span> <span class="nav-text"> 3.3.2.2 Download Caffe Model Files</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3323-model-optimization"><span class="nav-number">3.3.2.3.</span> <span class="nav-text"> 3.3.2.3 Model Optimization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3324-run-the-sample"><span class="nav-number">3.3.2.4.</span> <span class="nav-text"> 3.3.2.4 Run The Sample</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-opencv-dnn-with-openvinos-inference-engine"><span class="nav-number">4.</span> <span class="nav-text"> 4. OpenCV DNN with OpenVINO’s Inference Engine</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#41-intel64"><span class="nav-number">4.1.</span> <span class="nav-text"> 4.1 Intel64</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#42-armv7l"><span class="nav-number">4.2.</span> <span class="nav-text"> 4.2 armv7l</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-my-built-raspbian-iso-with-opencv4-openvino"><span class="nav-number">5.</span> <span class="nav-text"> 5. My Built Raspbian ISO With OpenCV4 + OpenVINO</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nobody</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+   
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

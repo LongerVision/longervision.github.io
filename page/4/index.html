@@ -309,6 +309,454 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/05/12/SBCs/ARM/orange-pi-3-armbian/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/12/SBCs/ARM/orange-pi-3-armbian/" itemprop="url">
+                  Install Armbian Ubuntu Desktop Nightly Built onto Orange Pi 3
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-12 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-12T00:00:00-07:00">2019-05-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-04-05 21:39:00" itemprop="dateModified" datetime="2020-04-05T21:39:00-07:00">2020-04-05</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Today, let’s have some fun of <a href="http://www.orangepi.org/Orange%20Pi%203/" target="_blank" rel="noopener">Orange Pi 3</a>, which adopts <a href="http://www.allwinnertech.com/index.php?c=product&amp;a=index&amp;id=66" target="_blank" rel="noopener">AllWinner H6</a> as its CPU. The board looks like (cited from <a href="http://www.orangepi.org/Orange%20Pi%203/" target="_blank" rel="noopener">Orange Pi 3</a> ):</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/orangepi/3/00_h6.jpg" alt="Orange Pi 3"></p>
+<p>By following our previous blog <a href="../../../../../2018/02/27/Embedded/orange-pi-plus-2-armbian/">Install Armbian Ubuntu Desktop with the Newest Supported Mainline Linux Kernel onto Orange Pi Plus 2</a>, we’ll have <a href="https://dl.armbian.com/orangepi3/nightly/" target="_blank" rel="noopener">the Nightly Built Armbian Ubuntu Desktop</a> installed onto <a href="http://www.orangepi.org/Orange%20Pi%203/" target="_blank" rel="noopener">Orange Pi 3</a>.</p>
+<h1 id="part-a-install-ubuntu-desktop-nightly-built-by-armbian-onto-orange-pi-3"><a class="markdownIt-Anchor" href="#part-a-install-ubuntu-desktop-nightly-built-by-armbian-onto-orange-pi-3"></a> PART A: Install Ubuntu Desktop Nightly Built By Armbian onto Orange Pi 3</h1>
+<h2 id="1-download-armbian-ubuntu-desktop-for-orange-pi-3"><a class="markdownIt-Anchor" href="#1-download-armbian-ubuntu-desktop-for-orange-pi-3"></a> 1. Download Armbian Ubuntu Desktop for Orange Pi 3</h2>
+<p>We <strong>FIRST</strong> go visiting the website <a href="https://dl.armbian.com/orangepi3/nightly/" target="_blank" rel="noopener">https://dl.armbian.com/orangepi3/nightly/</a> and click on the <strong>LAST</strong> link, for today <strong>May 12, 2019</strong>, a file named <strong>Armbian_5.86.190512_Orangepi3_Ubuntu_bionic_dev_5.1.0.7z</strong> will be automatically downloaded.</p>
+<p>Then, we extract this <strong>.7z</strong> file by</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">➜  7z x Armbian_5.86.190512_Orangepi3_Ubuntu_bionic_dev_5.1.0.7z </span><br><span class="line"></span><br><span class="line">7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21</span><br><span class="line">p7zip Version 16.02 (locale=en_CA.UTF-8,Utf16=on,HugeFiles=on,64 bits,8 CPUs Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz (506E3),ASM,AES-NI)</span><br><span class="line"></span><br><span class="line">Scanning the drive <span class="keyword">for</span> archives:</span><br><span class="line">1 file, 218882367 bytes (209 MiB)</span><br><span class="line"></span><br><span class="line">Extracting archive: Armbian_5.86.190512_Orangepi3_Ubuntu_bionic_dev_5.1.0.7z</span><br><span class="line">--</span><br><span class="line">Path = Armbian_5.86.190512_Orangepi3_Ubuntu_bionic_dev_5.1.0.7z</span><br><span class="line">Type = 7z</span><br><span class="line">Physical Size = 218882367</span><br><span class="line">Headers Size = 301</span><br><span class="line">Method = LZMA2:25</span><br><span class="line">Solid = +</span><br><span class="line">Blocks = 1</span><br><span class="line"></span><br><span class="line">Everything is Ok                                                </span><br><span class="line"></span><br><span class="line">Files: 4</span><br><span class="line">Size:       1111510096</span><br><span class="line">Compressed: 218882367</span><br></pre></td></tr></table></figure>
+<h2 id="2-install-armbian-ubuntu-desktop-for-orange-pi-3"><a class="markdownIt-Anchor" href="#2-install-armbian-ubuntu-desktop-for-orange-pi-3"></a> 2. Install Armbian Ubuntu Desktop for Orange Pi 3</h2>
+<p>Exactly the same as in our previous blog <a href="../../../../../2018/02/27/Embedded/orange-pi-plus-2-armbian/">Install Armbian Ubuntu Desktop with the Newest Supported Mainline Linux Kernel onto Orange Pi Plus 2</a>, we have the TF card formatted and <strong>dd</strong> the system into it.</p>
+<h1 id="part-b-ssh-into-orange-pi-3-update-upgrade-locale-configuration-network-configuration"><a class="markdownIt-Anchor" href="#part-b-ssh-into-orange-pi-3-update-upgrade-locale-configuration-network-configuration"></a> PART B: SSH Into Orange Pi 3, Update &amp; Upgrade, Locale Configuration, Network Configuration</h1>
+<p>Exactly the same as in our previous blog <a href="../../../../../2019/04/16/Embedded/banana-pi-m3-armbian/">Install Armbian Ubuntu Desktop With Kernel 5.0 onto Banana Pi M3</a>, we should be able to <strong>SSH</strong> into <a href="http://www.orangepi.org/Orange%20Pi%203/" target="_blank" rel="noopener">Orange Pi 3</a>, <strong>update &amp; upgrade</strong> the system, <strong>configure</strong> both <strong>network</strong> and <strong>locale</strong>.</p>
+<h2 id="1-ssh-into-armbian"><a class="markdownIt-Anchor" href="#1-ssh-into-armbian"></a> 1. SSH Into Armbian</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ssh root@192.168.1.101</span><br><span class="line">root@192.168.1.101<span class="string">'s password: </span></span><br><span class="line"><span class="string">You are required to change your password immediately (root enforced)</span></span><br><span class="line"><span class="string">  ___                               ____  _   _____ </span></span><br><span class="line"><span class="string"> / _ \ _ __ __ _ _ __   __ _  ___  |  _ \(_) |___ / </span></span><br><span class="line"><span class="string">| | | | '</span>__/ _` | <span class="string">'_ \ / _` |/ _ \ | |_) | |   |_ \ </span></span><br><span class="line"><span class="string">| |_| | | | (_| | | | | (_| |  __/ |  __/| |  ___) |</span></span><br><span class="line"><span class="string"> \___/|_|  \__,_|_| |_|\__, |\___| |_|   |_| |____/ </span></span><br><span class="line"><span class="string">                       |___/                        </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Welcome to ARMBIAN 5.86.190512 nightly Ubuntu 18.04.2 LTS 5.1.0-sunxi64   </span></span><br><span class="line"><span class="string">System load:   0.01 0.13 0.08   Up time:       5 min</span></span><br><span class="line"><span class="string">Memory usage:  4 % of 1997MB    IP:            192.168.1.101</span></span><br><span class="line"><span class="string">CPU temp:      40°C           </span></span><br><span class="line"><span class="string">Usage of /:    3% of 29G    </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Last login: Mon May 13 08:59:30 2019 from 192.168.1.11</span></span><br><span class="line"><span class="string">Changing password for root.</span></span><br><span class="line"><span class="string">(current) UNIX password: </span></span><br><span class="line"><span class="string">Enter new UNIX password: </span></span><br><span class="line"><span class="string">Retype new UNIX password: </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">You are using an Armbian nightly build meant only for developers to provide</span></span><br><span class="line"><span class="string">constructive feedback to improve build system, OS settings or user experience.</span></span><br><span class="line"><span class="string">If this does not apply to you, STOP NOW!. Especially don'</span>t use this image <span class="keyword">for</span></span><br><span class="line">daily work since things might not work as expected or at all and may <span class="built_in">break</span></span><br><span class="line">anytime with next update. YOU HAVE BEEN WARNED!</span><br><span class="line"></span><br><span class="line">This image is provided AS IS with NO WARRANTY and NO END USER SUPPORT!.</span><br><span class="line"></span><br><span class="line">Creating a new user account. Press &lt;Ctrl-C&gt; to abort</span><br><span class="line"></span><br><span class="line">Please provide a username (eg. your forename): Sky</span><br><span class="line">Trying to add user sky</span><br><span class="line">Adding user `sky<span class="string">' ...</span></span><br><span class="line"><span class="string">Adding new group `sky'</span> (1000) ...</span><br><span class="line">Adding new user `sky<span class="string">' (1000) with group `sky'</span> ...</span><br><span class="line">Creating home directory `/home/sky<span class="string">' ...</span></span><br><span class="line"><span class="string">Copying files from `/etc/skel'</span> ...</span><br><span class="line">Enter new UNIX password: </span><br><span class="line">Retype new UNIX password: </span><br><span class="line">passwd: password updated successfully</span><br><span class="line">Changing the user information <span class="keyword">for</span> sky</span><br><span class="line">Enter the new value, or press ENTER <span class="keyword">for</span> the default</span><br><span class="line">        Full Name []: </span><br><span class="line">        Room Number []: </span><br><span class="line">        Work Phone []: </span><br><span class="line">        Home Phone []: </span><br><span class="line">        Other []: </span><br><span class="line">Is the information correct? [Y/n] y</span><br><span class="line"></span><br><span class="line">Dear sky, your account sky has been created and is sudo enabled.</span><br><span class="line">Please use this account <span class="keyword">for</span> your daily work from now on.</span><br><span class="line"></span><br><span class="line">root@orangepi3:~<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-kernel-doublechecking"><a class="markdownIt-Anchor" href="#2-kernel-doublechecking"></a> 2. Kernel Doublechecking</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root@orangepi3:~<span class="comment"># uname -r</span></span><br><span class="line">5.1.0-sunxi64</span><br><span class="line">root@orangepi3:~<span class="comment"># uname -a</span></span><br><span class="line">Linux orangepi3 5.1.0-sunxi64 <span class="comment">#5.86.190512 SMP Sun May 12 22:26:37 CEST 2019 aarch64 aarch64 aarch64 GNU/Linux</span></span><br><span class="line">root@orangepi3:~<span class="comment"># lsb_release -a</span></span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID: Ubuntu</span><br><span class="line">Description:    Ubuntu 18.04.2 LTS</span><br><span class="line">Release:        18.04</span><br><span class="line">Codename:       bionic</span><br></pre></td></tr></table></figure>
+<h2 id="3-update-upgrade"><a class="markdownIt-Anchor" href="#3-update-upgrade"></a> 3. Update &amp; Upgrade</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">root@orangepi3:~<span class="comment"># sudo apt update</span></span><br><span class="line">Hit:1 http://ports.ubuntu.com bionic InRelease</span><br><span class="line">Get:2 http://ports.ubuntu.com bionic-security InRelease [88.7 kB]</span><br><span class="line">Get:3 http://ports.ubuntu.com bionic-updates InRelease [88.7 kB]</span><br><span class="line">Get:4 http://ports.ubuntu.com bionic-backports InRelease [74.6 kB]</span><br><span class="line">Get:6 http://ports.ubuntu.com bionic-security/main arm64 Packages [250 kB]</span><br><span class="line">Get:7 http://ports.ubuntu.com bionic-security/main armhf Packages [229 kB]</span><br><span class="line">Get:8 http://ports.ubuntu.com bionic-security/universe armhf Packages [240 kB]</span><br><span class="line">Get:5 https://beta.armbian.com bionic InRelease [23.3 kB]</span><br><span class="line">Get:9 http://ports.ubuntu.com bionic-security/universe arm64 Packages [245 kB]</span><br><span class="line">Get:10 https://beta.armbian.com bionic/main arm64 Packages [179 kB]</span><br><span class="line">Get:11 http://ports.ubuntu.com bionic-updates/main arm64 Packages [484 kB]</span><br><span class="line">Get:12 https://beta.armbian.com bionic/main armhf Packages [205 kB]</span><br><span class="line">Get:13 http://ports.ubuntu.com bionic-updates/main armhf Packages [465 kB]</span><br><span class="line">Get:14 https://beta.armbian.com bionic/bionic-utils arm64 Packages [97.5 kB]</span><br><span class="line">Get:15 https://beta.armbian.com bionic/bionic-utils armhf Packages [97.2 kB]</span><br><span class="line">Get:16 http://ports.ubuntu.com bionic-updates/universe arm64 Packages [834 kB]</span><br><span class="line">Get:17 https://beta.armbian.com bionic/bionic-desktop armhf Packages [27.3 kB]</span><br><span class="line">Get:18 http://ports.ubuntu.com bionic-updates/universe armhf Packages [783 kB]</span><br><span class="line">Fetched 4411 kB <span class="keyword">in</span> 39s (113 kB/s)</span><br><span class="line">Reading package lists... Done</span><br><span class="line">Building dependency tree       </span><br><span class="line">Reading state information... Done</span><br><span class="line">All packages are up to date.</span><br><span class="line">root@orangepi3:~<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-locale-configuration"><a class="markdownIt-Anchor" href="#4-locale-configuration"></a> 4. Locale Configuration</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@orangepi3:~<span class="comment"># dpkg-reconfigure tzdata</span></span><br><span class="line"></span><br><span class="line">Current default time zone: <span class="string">'Asia/Hong_Kong'</span></span><br><span class="line">Local time is now:      Mon May 13 21:57:02 HKT 2019.</span><br><span class="line">Universal Time is now:  Mon May 13 13:57:02 UTC 2019.</span><br></pre></td></tr></table></figure>
+<p>During the above process, you’ll set the following 2 pages correspondingly:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/01_SystemLocale_Asia_02.jpg" alt="System Locale Asia"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/02_SystemLocale_HongKong.jpg" alt="System Locale HongKong"></p>
+<p>By using the command <strong>date</strong>, we can see the timezone has been successfully reset.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@orangepi3:~<span class="comment"># date</span></span><br><span class="line">Mon May 13 22:11:20 HKT 2019</span><br></pre></td></tr></table></figure>
+<h2 id="5-network-configuration"><a class="markdownIt-Anchor" href="#5-network-configuration"></a> 5. Network Configuration</h2>
+<h3 id="1-how-to-connect-to-wireless"><a class="markdownIt-Anchor" href="#1-how-to-connect-to-wireless"></a> 1). How to connect to wireless?</h3>
+<p>Wifi module does <strong>NOT</strong> function well.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">root@orangepi3:~<span class="comment"># ip -c address</span></span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000</span><br><span class="line">    link/ether 02:07:a1:4a:a5:38 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.1.101/24 brd 192.168.1.255 scope global dynamic noprefixroute eth0</span><br><span class="line">       valid_lft 6426sec preferred_lft 6426sec</span><br><span class="line">    inet6 fe80::c8b:b3a4:2793:72b3/64 scope link noprefixroute </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/04/16/SBCs/ARM/banana-pi-m3-armbian/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/16/SBCs/ARM/banana-pi-m3-armbian/" itemprop="url">
+                  Install Armbian Ubuntu Desktop With Kernel 5.0 onto Banana Pi M3
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-16 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-16T00:00:00-07:00">2019-04-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-04-05 21:38:04" itemprop="dateModified" datetime="2020-04-05T21:38:04-07:00">2020-04-05</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/bananapi/M3_A83T.jpg" alt="Orange Pi M3"></p>
+<p>Hello, everybody. I’m now back in ShenZhen, China, and testing several types of <strong>Single Board Computers</strong>. I’ve got to say: <strong>Made In China</strong> is amazing. <a href="http://www.banana-pi.org/m3.html" target="_blank" rel="noopener">Banana Pi M3</a> is a <strong>SBC</strong> with <a href="http://www.allwinnertech.com/index.php?c=product&amp;a=index&amp;id=24" target="_blank" rel="noopener">AllWinner A83T</a> ARM CPU, which is also of credit-card size. Some detailed features can be found on the open source technical supporter <a href="http://linux-sunxi.org/A83T" target="_blank" rel="noopener">Sunxi</a>. Please pay attention to the following key points:</p>
+<ul>
+<li>A83T SoC’s CPU is of 32-bit address</li>
+<li>A83T SoC comes with <a href="https://www.imgtec.com/graphics-processors/" target="_blank" rel="noopener">Power VR</a> <a href="https://www.imgtec.com/blog/the-powervr-sgx544mp-a-modern-gpu-for-todays-leading-platforms/" target="_blank" rel="noopener">SGX544MP1</a> GPU</li>
+<li>Current Linux Kernel 5.X <strong>ALREADY</strong> provides support for A83T, please refer to <a href="https://github.com/torvalds/linux/blob/master/arch/arm/boot/dts/sun8i-a83t-allwinner-h8homlet-v2.dts" target="_blank" rel="noopener">Github</a></li>
+</ul>
+<p>Now, we follow our previous blog <a href="../../../../../2018/09/04/Embedded/banana-pi-pro-armbian/">Install Armbian Ubuntu Desktop onto Banana Pi Pro</a> to install Armbian Ubuntu Desktop onto <a href="http://www.banana-pi.org/m3.html" target="_blank" rel="noopener">Banana Pi M3</a>.</p>
+<h1 id="part-a-install-ubuntu-desktop-built-by-armbian-onto-banana-pi-m3"><a class="markdownIt-Anchor" href="#part-a-install-ubuntu-desktop-built-by-armbian-onto-banana-pi-m3"></a> PART A: Install Ubuntu Desktop Built By Armbian onto Banana Pi M3</h1>
+<h2 id="1-download-armbian-ubuntu-desktop-for-banana-pi-m3"><a class="markdownIt-Anchor" href="#1-download-armbian-ubuntu-desktop-for-banana-pi-m3"></a> 1. Download Armbian Ubuntu Desktop for Banana Pi M3</h2>
+<p>We <strong>FIRST</strong> go visiting the website <a href="https://www.armbian.com/bananapi-m3//" target="_blank" rel="noopener">https://www.armbian.com/bananapi-m3/</a> and click <strong>Armbian Bionic</strong> icon, a file named <strong>Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop</strong> will be automatically downloaded.</p>
+<p>Then, we extract this .<strong>7z</strong> file by</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">➜  operatingsystems 7z x Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop.7z -oArmbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop </span><br><span class="line"></span><br><span class="line">7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21</span><br><span class="line">p7zip Version 16.02 (locale=en_CA.UTF-8,Utf16=on,HugeFiles=on,64 bits,8 CPUs Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz (506E3),ASM,AES-NI)</span><br><span class="line"></span><br><span class="line">Scanning the drive <span class="keyword">for</span> archives:</span><br><span class="line">1 file, 441800089 bytes (422 MiB)</span><br><span class="line"></span><br><span class="line">Extracting archive: Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop.7z</span><br><span class="line">--</span><br><span class="line">Path = Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop.7z</span><br><span class="line">Type = 7z</span><br><span class="line">Physical Size = 441800089</span><br><span class="line">Headers Size = 308</span><br><span class="line">Method = LZMA2:25</span><br><span class="line">Solid = +</span><br><span class="line">Blocks = 1</span><br><span class="line"></span><br><span class="line">Everything is Ok                                                     </span><br><span class="line"></span><br><span class="line">Files: 4</span><br><span class="line">Size:       1946176594</span><br><span class="line">Compressed: 441800089</span><br><span class="line">➜  operatingsystems ll Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop</span><br><span class="line">total 1.9G</span><br><span class="line">-rw-rw-r-- 1 jiapei jiapei 1.9G Feb 10 22:50 Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop.img</span><br><span class="line">-rw-rw-r-- 1 jiapei jiapei  833 Feb 10 22:50 Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop.img.asc</span><br><span class="line">-rw-r--r-- 1 jiapei jiapei  19K Feb 10 22:50 armbian.txt</span><br><span class="line">-rw-rw-r-- 1 jiapei jiapei  129 Feb 10 22:50 sha256sum.sha</span><br></pre></td></tr></table></figure>
+<h2 id="2-install-armbian-ubuntu-desktop-for-banana-pi-m3"><a class="markdownIt-Anchor" href="#2-install-armbian-ubuntu-desktop-for-banana-pi-m3"></a> 2. Install Armbian Ubuntu Desktop for Banana Pi M3</h2>
+<p>After the extracted image file is prepared, it’s the time to install the Armbian Ubuntu Desktop onto our TF card. We <strong>FIRST</strong> format the TF card:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ sudo umount /dev/mmcblk0p1</span><br><span class="line">umount: /dev/mmcblk0p1: not mounted.</span><br><span class="line">➜  ~ sudo mkfs.ext4 /dev/mmcblk0</span><br><span class="line">mke2fs 1.44.1 (24-Mar-2018)</span><br><span class="line">Found a gpt partition table <span class="keyword">in</span> /dev/mmcblk0</span><br><span class="line">Proceed anyway? (y,N) y</span><br><span class="line">Discarding device blocks: <span class="keyword">done</span>                            </span><br><span class="line">Creating filesystem with 7579648 4k blocks and 1896832 inodes</span><br><span class="line">Filesystem UUID: 5c3be436-4e8c-43e4-ab21-6d5232420881</span><br><span class="line">Superblock backups stored on blocks: </span><br><span class="line">        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, </span><br><span class="line">        4096000</span><br><span class="line"></span><br><span class="line">Allocating group tables: <span class="keyword">done</span>                            </span><br><span class="line">Writing inode tables: <span class="keyword">done</span>                            </span><br><span class="line">Creating journal (32768 blocks): <span class="keyword">done</span></span><br><span class="line">Writing superblocks and filesystem accounting information: <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>Afterwards, use <strong>dd</strong> to install the downloaded Armbian Ubuntu Desktop image.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop sudo dd bs=4M <span class="keyword">if</span>=Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop.img of=/dev/mmcblk0 conv=fsync</span><br><span class="line">464+0 records <span class="keyword">in</span></span><br><span class="line">464+0 records out</span><br><span class="line">1946157056 bytes (1.9 GB, 1.8 GiB) copied, 258.486 s, 7.5 MB/s</span><br></pre></td></tr></table></figure>
+<h1 id="part-b-ssh-into-armbian-update-upgrade-network-configuration-locale-configuration"><a class="markdownIt-Anchor" href="#part-b-ssh-into-armbian-update-upgrade-network-configuration-locale-configuration"></a> PART B: SSH Into Armbian, Update &amp; Upgrade, Network Configuration, Locale Configuration</h1>
+<p><span style="color:red"><strong>NOTE</strong>: Whenever you met some unsolvable issue after you boot into Armbian, please use the command <code>armbianmonitor -U</code> to log the issue.</span></p>
+<h2 id="1-ssh-into-banana-pi-m3"><a class="markdownIt-Anchor" href="#1-ssh-into-banana-pi-m3"></a> 1. SSH Into Banana Pi M3</h2>
+<p>We now unplug the TF card from the host and put it into the <a href="http://www.banana-pi.org/m3.html" target="_blank" rel="noopener">Banana Pi M3</a>, Armbian Ubuntu Desktop boots successfully. The default username and password are respectively: <strong>root</strong> and <strong>1234</strong>. In our case, <a href="http://www.banana-pi.org/m3.html" target="_blank" rel="noopener">Banana Pi M3</a> is connected to a network cable first, and it’s <strong>NOT</strong> hard for us to get the <strong>IP</strong> address of <a href="http://www.banana-pi.org/m3.html" target="_blank" rel="noopener">Banana Pi M3</a> by using command line <strong>nmap</strong> (Details can be checked via <strong>Google</strong>). After setting up a <strong>NEW user</strong> as well as <strong>password</strong> by following the previous blog <a href="../../../../../2018/09/04/Embedded/banana-pi-pro-armbian/">Install Armbian Ubuntu Desktop onto Banana Pi Pro</a>, you should be able to log into <a href="http://www.banana-pi.org/m3.html" target="_blank" rel="noopener">Banana Pi M3</a> with account <strong>root</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ssh root@192.168.1.80</span><br><span class="line">The authenticity of host <span class="string">'192.168.1.80 (192.168.1.80)'</span> can<span class="string">'t be established.</span></span><br><span class="line"><span class="string">ECDSA key fingerprint is SHA256:xLRt0ppGzbutHHcE3JRyaKw9A0baub3MDAxFF9GNfdk.</span></span><br><span class="line"><span class="string">Are you sure you want to continue connecting (yes/no)? yes</span></span><br><span class="line"><span class="string">Warning: Permanently added '</span>192.168.1.80<span class="string">' (ECDSA) to the list of known hosts.</span></span><br><span class="line"><span class="string">root@192.168.1.80'</span>s password: </span><br><span class="line"> ____                                  ____  _   __  __ _____ </span><br><span class="line">| __ )  __ _ _ __   __ _ _ __   __ _  |  _ \(_) |  \/  |___ / </span><br><span class="line">|  _ \ / _` | <span class="string">'_ \ / _` | '</span>_ \ / _` | | |_) | | | |\/| | |_ \ </span><br><span class="line">| |_) | (_| | | | | (_| | | | | (_| | |  __/| | | |  | |___) |</span><br><span class="line">|____/ \__,_|_| |_|\__,_|_| |_|\__,_| |_|   |_| |_|  |_|____/ </span><br><span class="line">                                                              </span><br><span class="line"></span><br><span class="line">Welcome to ARMBIAN 5.83 stable Ubuntu 18.04.2 LTS 4.19.38-sunxi   </span><br><span class="line">System load:   0.08 0.10 0.08   Up time:       33 min</span><br><span class="line">Memory usage:  12 % of 2013MB   IP:            192.168.1.80</span><br><span class="line">Usage of /:    6% of 29G    </span><br><span class="line"></span><br><span class="line">[ General system configuration (beta): armbian-config ]</span><br><span class="line"></span><br><span class="line">Last login: Thu Apr 18 08:53:31 2019 from 192.168.1.21</span><br><span class="line"></span><br><span class="line">root@bananapim3:~<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-kernel-doublechecking"><a class="markdownIt-Anchor" href="#2-kernel-doublechecking"></a> 2. Kernel Doublechecking</h2>
+<p>Finally, we have the system and kernel doublechecked.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root@bananapim3:~<span class="comment"># uname -r</span></span><br><span class="line">4.19.38-sunxi</span><br><span class="line">root@bananapim3:~<span class="comment"># uname -a</span></span><br><span class="line">Linux bananapim3 4.19.38-sunxi <span class="comment">#5.83 SMP Sun Feb 10 21:36:17 CET 2019 armv7l armv7l armv7l GNU/Linux</span></span><br><span class="line">root@bananapim3:~<span class="comment"># lsb_release -a</span></span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID: Ubuntu</span><br><span class="line">Description:    Ubuntu 18.04.2 LTS</span><br><span class="line">Release:        18.04</span><br><span class="line">Codename:       bionic</span><br></pre></td></tr></table></figure>
+<h2 id="3-update-upgrade"><a class="markdownIt-Anchor" href="#3-update-upgrade"></a> 3. Update &amp; Upgrade</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">root@bananapim3:~<span class="comment"># sudo apt update</span></span><br><span class="line">Get:1 https://apt.armbian.com bionic InRelease [18.9 kB]</span><br><span class="line">Get:2 https://apt.armbian.com bionic/main armhf Packages [288 kB]</span><br><span class="line">Hit:3 http://ports.ubuntu.com bionic InRelease                                     </span><br><span class="line">Get:4 http://ports.ubuntu.com bionic-security InRelease [88.7 kB]                  </span><br><span class="line">Get:5 http://ports.ubuntu.com bionic-updates InRelease [88.7 kB]</span><br><span class="line">Get:6 http://ports.ubuntu.com bionic-backports InRelease [74.6 kB]</span><br><span class="line">Get:7 http://ports.ubuntu.com bionic-security/main armhf Packages [216 kB]</span><br><span class="line">Get:8 https://apt.armbian.com bionic/bionic-utils armhf Packages [4767 B]</span><br><span class="line">Get:9 http://ports.ubuntu.com bionic-security/restricted armhf Packages [3968 B]</span><br><span class="line">Get:10 http://ports.ubuntu.com bionic-security/universe armhf Packages [238 kB]</span><br><span class="line">Get:11 http://ports.ubuntu.com bionic-security/multiverse armhf Packages [1924 B]</span><br><span class="line">Get:12 http://ports.ubuntu.com bionic-updates/main armhf Packages [452 kB]</span><br><span class="line">Get:13 http://ports.ubuntu.com bionic-updates/restricted armhf Packages [6488 B]</span><br><span class="line">Get:14 http://ports.ubuntu.com bionic-updates/universe armhf Packages [713 kB]</span><br><span class="line">Get:15 http://ports.ubuntu.com bionic-updates/multiverse armhf Packages [3592 B]</span><br><span class="line">Get:16 http://ports.ubuntu.com bionic-backports/main armhf Packages [1020 B]</span><br><span class="line">Get:17 http://ports.ubuntu.com bionic-backports/universe armhf Packages [3468 B]                                                                                                                             </span><br><span class="line">Fetched 2203 kB <span class="keyword">in</span> 45s (48.6 kB/s)                                                                                                                                                                           </span><br><span class="line">Reading package lists... Done</span><br><span class="line">Building dependency tree       </span><br><span class="line">Reading state information... Done</span><br><span class="line">155 packages can be upgraded. Run <span class="string">'apt list --upgradable'</span> to see them.</span><br><span class="line">root@bananapim3:~<span class="comment"># apt list --upgradable</span></span><br><span class="line">Listing... Done</span><br><span class="line">......</span><br><span class="line">root@bananapim3:~<span class="comment"># sudo apt upgrade</span></span><br><span class="line">.....</span><br><span class="line">Processing triggers <span class="keyword">for</span> libc-bin (2.27-3ubuntu1) ...</span><br><span class="line">Processing triggers <span class="keyword">for</span> resolvconf (1.79ubuntu10.18.04.3) ...</span><br><span class="line">Processing triggers <span class="keyword">for</span> initramfs-tools (0.130ubuntu3.7) ...</span><br><span class="line">update-initramfs: Generating /boot/initrd.img-4.19.25-sunxi</span><br><span class="line">update-initramfs: Converting to u-boot format</span><br><span class="line">root@bananapim3:~<span class="comment"># uname -a</span></span><br><span class="line">Linux bananapim3 4.19.25-sunxi <span class="comment">#5.78 SMP Mon Apr 8 07:46:22 CEST 2019 armv7l armv7l armv7l GNU/Linux</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-locale-configuration"><a class="markdownIt-Anchor" href="#4-locale-configuration"></a> 4. Locale Configuration</h2>
+<p>Clearly, from the above login info, our timezone seems to be wrong. Command <strong>dpkg-reconfigure tzdata</strong> is able to reset our timezone.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@bananapim3:~<span class="comment"># dpkg-reconfigure tzdata</span></span><br><span class="line"></span><br><span class="line">Current default time zone: <span class="string">'Asia/Shanghai'</span></span><br><span class="line">Local time is now:      Thu Apr 18 18:47:22 CST 2019.</span><br><span class="line">Universal Time is now:  Thu Apr 18 10:47:22 UTC 2019.</span><br></pre></td></tr></table></figure>
+<p>During the above process, you’ll set the following 2 pages correspondingly:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/01_SystemLocale_Asia.jpg" alt="System Locale Asia"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/02_SystemLocale_Shanghai.jpg" alt="System Locale Shanghai"></p>
+<p>By using the command <strong>date</strong>, we’ll see the timezone has been successfully reset.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@bananapim3:~<span class="comment"># date</span></span><br><span class="line">Tue Apr 18 18:49:25 CST 2019</span><br></pre></td></tr></table></figure>
+<h2 id="5-network-configuration"><a class="markdownIt-Anchor" href="#5-network-configuration"></a> 5. Network Configuration</h2>
+<h3 id="1-how-to-connect-to-wireless"><a class="markdownIt-Anchor" href="#1-how-to-connect-to-wireless"></a> 1). How to connect to wireless?</h3>
+<p>Please refer to <a href="https://docs.armbian.com/User-Guide_Getting-Started/#how-to-connect-to-wireless" target="_blank" rel="noopener">Armbian docs - How to connect to wireless?</a>,</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@bananapim3:~$ nmtui-connect SSID</span><br></pre></td></tr></table></figure>
+<p>However, according to my <strong>CURRENT</strong> issue posted at <a href="https://forum.armbian.com/topic/10213-build-newest-linux-kernel-509-on-banana-pi-m3" target="_blank" rel="noopener">Build NEWEST Linux Kernel 5.0.9 on Banana Pi M3</a>, <a href="http://www.allwinnertech.com/index.php?c=product&amp;a=index&amp;id=24" target="_blank" rel="noopener">AllWinner A83T</a>’s Wifi module does <strong>NOT</strong> function well.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">lvision@bananapim3:~$ ip -c address</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: dummy0: &lt;BROADCAST,NOARP&gt; mtu 1500 qdisc noop state DOWN group default qlen 1000</span><br><span class="line">    link/ether 5a:cb:89:ad:49:96 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">3: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000</span><br><span class="line">    link/ether 02:01:06:95:68:df brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.1.80/24 brd 192.168.1.255 scope global dynamic noprefixroute eth0</span><br><span class="line">       valid_lft 3069140548sec preferred_lft 3069140548sec</span><br><span class="line">    inet6 fe80::8ea3:62cb:7b8b:e872/64 scope link noprefixroute </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+<p>Clearly, <strong>wlan0</strong> does <strong>NOT</strong> exist.</p>
+<h1 id="part-c-upgrade-linux-kernel-from-4xx-to-5xx"><a class="markdownIt-Anchor" href="#part-c-upgrade-linux-kernel-from-4xx-to-5xx"></a> PART C: Upgrade Linux Kernel From 4.XX To 5.XX</h1>
+<h2 id="1-generate-configure-file"><a class="markdownIt-Anchor" href="#1-generate-configure-file"></a> 1. Generate Configure File</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">lvision@bananapim3:~/Downloads/linux-5.1.7$ make sunxi_defconfig</span><br><span class="line">  HOSTCC  scripts/basic/fixdep</span><br><span class="line">  HOSTCC  scripts/kconfig/conf.o</span><br><span class="line">  HOSTCC  scripts/kconfig/confdata.o</span><br><span class="line">  HOSTCC  scripts/kconfig/expr.o</span><br><span class="line">  LEX     scripts/kconfig/lexer.lex.c</span><br><span class="line">  YACC    scripts/kconfig/parser.tab.h</span><br><span class="line">  HOSTCC  scripts/kconfig/lexer.lex.o</span><br><span class="line">  YACC    scripts/kconfig/parser.tab.c</span><br><span class="line">  HOSTCC  scripts/kconfig/parser.tab.o</span><br><span class="line">  HOSTCC  scripts/kconfig/preprocess.o</span><br><span class="line">  HOSTCC  scripts/kconfig/symbol.o</span><br><span class="line">  HOSTLD  scripts/kconfig/conf</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># configuration written to .config</span></span><br><span class="line"><span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-browse-configure-file"><a class="markdownIt-Anchor" href="#2-browse-configure-file"></a> 2. Browse Configure File</h2>
+<p>Then, we can take a look at our configuration content by using:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lvision@bananapim3:~/Downloads/linux-5.1.7$ less .config</span><br></pre></td></tr></table></figure>
+<p>which is pasted at <a href="https://pastebin.com/swZWAt9t" target="_blank" rel="noopener">my pastebin sunxi_defconfig</a>.</p>
+<h2 id="3-make-menuconfig"><a class="markdownIt-Anchor" href="#3-make-menuconfig"></a> 3. make menuconfig</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">lvision@bananapim3:~/Downloads/linux-5.1.7$ make menuconfig</span><br><span class="line">  UPD     scripts/kconfig/mconf-cfg</span><br><span class="line">  HOSTCC  scripts/kconfig/mconf.o</span><br><span class="line">  HOSTCC  scripts/kconfig/lxdialog/checklist.o</span><br><span class="line">  HOSTCC  scripts/kconfig/lxdialog/inputbox.o</span><br><span class="line">  HOSTCC  scripts/kconfig/lxdialog/menubox.o</span><br><span class="line">  HOSTCC  scripts/kconfig/lxdialog/textbox.o</span><br><span class="line">  HOSTCC  scripts/kconfig/lxdialog/util.o</span><br><span class="line">  HOSTCC  scripts/kconfig/lxdialog/yesno.o</span><br><span class="line">  HOSTLD  scripts/kconfig/mconf</span><br><span class="line">scripts/kconfig/mconf  Kconfig</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">*** End of the configuration.</span><br><span class="line">*** Execute <span class="string">'make'</span> to start the build or try <span class="string">'make help'</span>.</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">lvision@bananapim3:~/Downloads/kernel/linux-5.1.7$ make -j 4 Image modules dtbs</span><br><span class="line">...</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra-trimslice.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra-utils.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra-wm8753.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra-wm8903.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra-wm9712.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra20-ac97.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra20-das.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra20-i2s.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra20-spdif.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra30-ahub.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra30-i2s.ko</span><br><span class="line">  LD [M]  sound/soundcore.ko</span><br><span class="line">  LD [M]  sound/usb/snd-usb-audio.ko</span><br><span class="line">  LD [M]  sound/usb/snd-usbmidi-lib.ko</span><br></pre></td></tr></table></figure>
+<h1 id="appendix"><a class="markdownIt-Anchor" href="#appendix"></a> Appendix</h1>
+<p>We can of course follow our previous blog <a href="../../../../../2018/02/27/Embedded/orange-pi-plus-2-armbian/">Install Armbian Ubuntu Desktop with the Newest Supported Mainline Linux Kernel onto Orange Pi Plus 2</a> to upgrade the <strong>NEWEST</strong> <a href="https://www.denx.de/wiki/U-Boot" target="_blank" rel="noopener">U-Boot</a> and <a href="https://www.kernel.org/" target="_blank" rel="noopener">Linux Kernel</a> for <a href="http://www.banana-pi.org/m3.html" target="_blank" rel="noopener">Banana Pi M3</a>, which is <strong>NOT</strong> going to be discussed here again.</p>
+<!---
+
+### 2). How to set fixed IP?
+
+Please refer to [Armbian docs - How to set fixed IP?](https://docs.armbian.com/User-Guide_Getting-Started/#how-to-set-fixed-ip), and modify the file **/etc/network/interfaces** as follows:
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">root@bananapim3:~$ vim /etc/network/interfaces</span><br><span class="line"><span class="built_in">source</span> /etc/network/interfaces.d/*</span><br><span class="line"><span class="comment"># Network is managed by Network manager</span></span><br><span class="line">auto lo</span><br><span class="line">iface lo inet loopback</span><br><span class="line"></span><br><span class="line"><span class="comment"># Wifi</span></span><br><span class="line">auto wlan0</span><br><span class="line">iface wlan0 inet static</span><br><span class="line">    address 192.168.0.82</span><br><span class="line">    netmask 255.255.255.0</span><br><span class="line">    network 192.168.0.0</span><br><span class="line">    broadcast 192.168.0.1</span><br><span class="line">    gateway 192.168.0.1</span><br><span class="line">    dns-nameservers 192.168.0.1 8.8.8.8</span><br><span class="line">    wpa-ssid XXXXXXXX</span><br><span class="line">    wpa-psk YYYYYYYY</span><br></pre></td></tr></table></figure>
+<p>Afterwards, a reboot (meanwhile, you may have to set up your own router for a fixed IP) will bring your <a href="http://www.banana-pi.org/m3.html">Banana Pi M3</a> a fixed IP address. Here in my case: <strong>192.168.0.82</strong>.</p>
+<h3 id="3-check-ip-address"><a class="markdownIt-Anchor" href="#3-check-ip-address"></a> 3). Check IP Address</h3>
+<p>And, let’s have a look at current IP of <a href="http://www.banana-pi.org/m3.html">Banana Pi M3</a>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">root@bananapim3:~<span class="comment"># ip -c address</span></span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: dummy0: &lt;BROADCAST,NOARP&gt; mtu 1500 qdisc noop state DOWN group default qlen 1000</span><br><span class="line">    link/ether 06:ff:e9:32:<span class="built_in">fc</span>:5d brd ff:ff:ff:ff:ff:ff</span><br><span class="line">3: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000</span><br><span class="line">    link/ether 02:01:06:95:68:df brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.1.80/24 brd 192.168.1.255 scope global dynamic noprefixroute eth0</span><br><span class="line">       valid_lft 3069402692sec preferred_lft 3069402692sec</span><br><span class="line">    inet6 fe80::60f6:8ba6:4238:f3ca/64 scope link noprefixroute</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+<p>–&gt;</p>
+-->
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/04/14/Tools/videojs-test/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -372,7 +820,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-25 21:33:54" itemprop="dateModified" datetime="2019-08-25T21:33:54-07:00">2019-08-25</time>
+                <time title="Modified: 2020-04-05 21:02:54" itemprop="dateModified" datetime="2020-04-05T21:02:54-07:00">2020-04-05</time>
               
             
           </span>
@@ -1928,430 +2376,6 @@ I believe you’ve already got accustomed to the data preparation.</p>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/17/AI/Kaggle/LANL-Earthquake-Prediction/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/17/AI/Kaggle/LANL-Earthquake-Prediction/" itemprop="url">
-                  Kaggle Competition - LANL Earthquake Prediction
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-01-17 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-17T00:00:00-08:00">2019-01-17</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-08-18 14:30:26" itemprop="dateModified" datetime="2019-08-18T14:30:26-07:00">2019-08-18</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI/Kaggle/" itemprop="url" rel="index"><span itemprop="name">Kaggle</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Hello everyone. It’s been quite busy these days… Anyway, today, let’s test out <a href="https://www.kaggle.com/c/LANL-Earthquake-Prediction" target="_blank" rel="noopener">Kaggle LANL Earthquake Prediction</a>.</p>
-<h1 id="data-preparation"><a class="markdownIt-Anchor" href="#data-preparation"></a> Data Preparation</h1>
-<h2 id="data-download"><a class="markdownIt-Anchor" href="#data-download"></a> Data Download</h2>
-<p>Please refer to <a href="https://www.kaggle.com/c/LANL-Earthquake-Prediction/data" target="_blank" rel="noopener">Kaggle LANL Earthquake Prediction Data</a> and have the data prepared.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ kaggle competitions download -c LANL-Earthquake-Prediction</span><br><span class="line">➜  cd LANL-Earthquake-Prediction</span><br><span class="line">➜  LANL-Earthquake-Prediction ls</span><br><span class="line">sample_submission.csv  test.zip  train.csv.zip</span><br></pre></td></tr></table></figure>
-<h2 id="data-exploration"><a class="markdownIt-Anchor" href="#data-exploration"></a> Data Exploration</h2>
-<p>We can then use <a href="https://www.kaggle.com/gpreda/lanl-earthquake-eda-and-prediction" target="_blank" rel="noopener">Gabriel Preda’s existing kernel code</a> to briefly analyze the data and have the following resultant pictures re-produced <strong>FIRST</strong>:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/LANL-Earthquake-Prediction/01_acousticdata_time2failure1.jpg" alt="Acoustic Data and Time To Failure 1"></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/LANL-Earthquake-Prediction/02_acousticdata_time2failure2.jpg" alt="Acoustic Data and Time To Failure 2"></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/LANL-Earthquake-Prediction/03_lgbm_importances.jpg" alt="LGBM Feature Importance"></p>
-<h1 id="the-algorithm"><a class="markdownIt-Anchor" href="#the-algorithm"></a> The Algorithm</h1>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/10/AI/Kaggle/petfinder-adoption-prediction/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/10/AI/Kaggle/petfinder-adoption-prediction/" itemprop="url">
-                  Kaggle Competition - PetFinder.my Adoption Prediction
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-01-10 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-10T00:00:00-08:00">2019-01-10</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-08-18 14:30:29" itemprop="dateModified" datetime="2019-08-18T14:30:29-07:00">2019-08-18</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI/Kaggle/" itemprop="url" rel="index"><span itemprop="name">Kaggle</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Happy new year everybody. 2019 comes. Let’s have some <a href="https://www.kaggle.com" target="_blank" rel="noopener">Kaggle</a> fun. Today, we’re going to try <a href="https://www.kaggle.com/c/petfinder-adoption-prediction" target="_blank" rel="noopener">PetFinder.my Adoption Prediction</a>.</p>
-<h1 id="system-preparation"><a class="markdownIt-Anchor" href="#system-preparation"></a> System Preparation</h1>
-<p>Supposing you’ve already correctly set up all your configurations:</p>
-<h2 id="python"><a class="markdownIt-Anchor" href="#python"></a> <a href="https://www.python.org/" target="_blank" rel="noopener">Python</a></h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python --version</span><br><span class="line">Python 3.6.7</span><br><span class="line">➜  ~ which python</span><br><span class="line">/usr/bin/python</span><br></pre></td></tr></table></figure>
-<h2 id="kaggle"><a class="markdownIt-Anchor" href="#kaggle"></a> <a href="https://www.kaggle.com" target="_blank" rel="noopener">Kaggle</a></h2>
-<p>Please follow <a href="https://github.com/Kaggle/kaggle-api" target="_blank" rel="noopener">Kaggle Github</a> to install <strong>Python Kaggle</strong>. After installation, you’ll get:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip show kaggle</span><br><span class="line">Name: kaggle</span><br><span class="line">Version: 1.5.1.1</span><br><span class="line">Summary: Kaggle API</span><br><span class="line">Home-page: https://github.com/Kaggle/kaggle-api</span><br><span class="line">Author: Kaggle</span><br><span class="line">Author-email: support@kaggle.com</span><br><span class="line">License: Apache 2.0</span><br><span class="line">Location: ~/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: requests, certifi, tqdm, six, python-dateutil, python-slugify, urllib3</span><br><span class="line">Required-by:</span><br></pre></td></tr></table></figure>
-<h2 id="cuda"><a class="markdownIt-Anchor" href="#cuda"></a> <a href="https://developer.nvidia.com/cuda-toolkit" target="_blank" rel="noopener">Cuda</a></h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ nvidia-smi</span><br><span class="line">Wed Jan  2 15:52:06 2019       </span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| NVIDIA-SMI 410.78       Driver Version: 410.78       CUDA Version: 10.0     |</span><br><span class="line">|-------------------------------+----------------------+----------------------+</span><br><span class="line">| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |</span><br><span class="line">| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |</span><br><span class="line">|===============================+======================+======================|</span><br><span class="line">|   0  GeForce GTX 980M    Off  | 00000000:01:00.0  On |                  N/A |</span><br><span class="line">| N/A   32C    P8     8W /  N/A |    779MiB /  4035MiB |      0%      Default |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line">                                                                               </span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| Processes:                                                       GPU Memory |</span><br><span class="line">|  GPU       PID   Type   Process name                             Usage      |</span><br><span class="line">|=============================================================================|</span><br><span class="line">|    0      1842      G   /usr/lib/xorg/Xorg                            15MiB |</span><br><span class="line">|    0      1952      G   /usr/bin/gnome-shell                          48MiB |</span><br><span class="line">|    0      2923      G   /usr/lib/xorg/Xorg                           188MiB |</span><br><span class="line">|    0      3039      G   /usr/bin/gnome-shell                         163MiB |</span><br><span class="line">|    0      3801      G   ...uest-channel-token=14688497433927674620   220MiB |</span><br><span class="line">|    0      7109      G   ...-token=FECD30C79B74E3AD9CF815BF4CB9EB09    70MiB |</span><br><span class="line">|    0     28276      G   ...-token=8CC4669488D477BE118BBC69F71B724E    64MiB |</span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">➜  ~ /usr/local/cuda/samples/bin/x86_64/linux/release/deviceQuery</span><br><span class="line">/usr/local/cuda/samples/bin/x86_64/linux/release/deviceQuery Starting...</span><br><span class="line"></span><br><span class="line"> CUDA Device Query (Runtime API) version (CUDART static linking)</span><br><span class="line"></span><br><span class="line">Detected 1 CUDA Capable device(s)</span><br><span class="line"></span><br><span class="line">Device 0: "GeForce GTX 980M"</span><br><span class="line">  CUDA Driver Version / Runtime Version          10.0 / 10.0</span><br><span class="line">  CUDA Capability Major/Minor version number:    5.2</span><br><span class="line">  Total amount of global memory:                 4035 MBytes (4231331840 bytes)</span><br><span class="line">  (12) Multiprocessors, (128) CUDA Cores/MP:     1536 CUDA Cores</span><br><span class="line">  GPU Max Clock rate:                            1126 MHz (1.13 GHz)</span><br><span class="line">  Memory Clock rate:                             2505 Mhz</span><br><span class="line">  Memory Bus Width:                              256-bit</span><br><span class="line">  L2 Cache Size:                                 2097152 bytes</span><br><span class="line">  Maximum Texture Dimension Size (x,y,z)         1D=(65536), 2D=(65536, 65536), 3D=(4096, 4096, 4096)</span><br><span class="line">  Maximum Layered 1D Texture Size, (num) layers  1D=(16384), 2048 layers</span><br><span class="line">  Maximum Layered 2D Texture Size, (num) layers  2D=(16384, 16384), 2048 layers</span><br><span class="line">  Total amount of constant memory:               65536 bytes</span><br><span class="line">  Total amount of shared memory per block:       49152 bytes</span><br><span class="line">  Total number of registers available per block: 65536</span><br><span class="line">  Warp size:                                     32</span><br><span class="line">  Maximum number of threads per multiprocessor:  2048</span><br><span class="line">  Maximum number of threads per block:           1024</span><br><span class="line">  Max dimension size of a thread block (x,y,z): (1024, 1024, 64)</span><br><span class="line">  Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)</span><br><span class="line">  Maximum memory pitch:                          2147483647 bytes</span><br><span class="line">  Texture alignment:                             512 bytes</span><br><span class="line">  Concurrent copy and kernel execution:          Yes with 2 copy engine(s)</span><br><span class="line">  Run time limit on kernels:                     Yes</span><br><span class="line">  Integrated GPU sharing Host Memory:            No</span><br><span class="line">  Support host page-locked memory mapping:       Yes</span><br><span class="line">  Alignment requirement for Surfaces:            Yes</span><br><span class="line">  Device has ECC support:                        Disabled</span><br><span class="line">  Device supports Unified Addressing (UVA):      Yes</span><br><span class="line">  Device supports Compute Preemption:            No</span><br><span class="line">  Supports Cooperative Kernel Launch:            No</span><br><span class="line">  Supports MultiDevice Co-op Kernel Launch:      No</span><br><span class="line">  Device PCI Domain ID / Bus ID / location ID:   0 / 1 / 0</span><br><span class="line">  Compute Mode:</span><br><span class="line">     &lt; Default (multiple host threads can use ::cudaSetDevice() with device simultaneously) &gt;</span><br><span class="line"></span><br><span class="line">deviceQuery, CUDA Driver = CUDART, CUDA Driver Version = 10.0, CUDA Runtime Version = 10.0, NumDevs = 1</span><br><span class="line">Result = PASS</span><br></pre></td></tr></table></figure>
-<h1 id="data-preparation"><a class="markdownIt-Anchor" href="#data-preparation"></a> Data Preparation</h1>
-<h2 id="data-download"><a class="markdownIt-Anchor" href="#data-download"></a> Data Download</h2>
-<p>Please refer to <a href="https://www.kaggle.com/c/petfinder-adoption-prediction/data" target="_blank" rel="noopener">Kaggle petfinder-adoption-prediction Data</a> and have the data prepared.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ kaggle competitions download -c petfinder-adoption-prediction</span><br><span class="line">➜  cd petfinder-adoption-prediction</span><br><span class="line">➜  petfinder-adoption-prediction ls</span><br><span class="line">breed_labels.csv  color_labels.csv  state_labels.csv  test_images.zip  test_metadata.zip  test_sentiment.zip  test.zip  train_images.zip  train_metadata.zip  train_sentiment.zip  train.zip</span><br></pre></td></tr></table></figure>
-<h2 id="data-exploration"><a class="markdownIt-Anchor" href="#data-exploration"></a> Data Exploration</h2>
-<p>We can then use <a href="https://www.kaggle.com/artgor/exploration-of-data-step-by-step" target="_blank" rel="noopener">Andrew Lukyanenko’s existing kernel code</a> to explore how the data look like. It’s <strong>NOT hard</strong> to re-produce the following resultant pictures:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/01_classcounts.jpg" alt="Number of Samples (both cats and dogs) in Each Classes -- Classified by Adoption Speed"></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/02_classrates.jpg" alt></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/03_nbofcatsdogs.jpg" alt="Number of Cats &amp; Dogs in Train and Test Datasets"></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/04_pettyperates.jpg" alt="Number of Samples (respectively for cats and dogs) in Each Classes -- Classified by Adoption Speed "></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/05_wordcounts.jpg" alt="Word Count for Cats &amp; Dogs"></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/06_classrates_namenoname.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/07_petsages.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/08_typeage.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/09_purebreedanalysis.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/10_wordcounts_breed.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/11_genderanalysis.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/12_gender_traintest.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/13_coloranalysis.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/14_color_classcounts_1.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/14_color_classcounts_2.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/15_maturitysize.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/16_maturitysize_classcounts.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/17_breed_SmallCats.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/17_breed_MediumCats.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/17_breed_LargeCats.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/17_breed_ExtraLargeCats.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/17_breed_SmallDogs.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/17_breed_MediumDogs.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/17_breed_LargeDogs.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/17_breed_ExtraLargeDogs.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/18_furlengthanalysis.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/19_wordcounts_breed_fur.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/20_StrangePets.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/21_healthanalysis.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/22_health_classcounts.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/23_agedistribution.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/24_quantityanalysis.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/25_freeanalysis.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/26_feeanalysis.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/27_feequantity.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/28_countsbyrescuers.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/29_countsbystates.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/30_countsbyphotoamt.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/31_photoamtanalysis.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/32_wordcounts_description.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/33_type_descriptionlength.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/34_langanalysis.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/35_typeanalysis.jpg" alt><br>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/2019/petfinder-adoption-prediction/36_LGBFeatures.jpg" alt></p>
-<h1 id="the-algorithm"><a class="markdownIt-Anchor" href="#the-algorithm"></a> The Algorithm</h1>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2399,7 +2423,7 @@ I believe you’ve already got accustomed to the data preparation.</p>
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">77</span>
+                    <span class="site-state-item-count">79</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2623,7 +2647,11 @@ I believe you’ve already got accustomed to the data preparation.</p>
                     
                       
                     
-                    <span class="site-state-item-count">72</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">74</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
