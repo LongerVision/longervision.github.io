@@ -126,7 +126,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/EdgeComputing/GoogleCoral/devboard.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/EdgeComputing/GoogleCoral/screen-reboot.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/EdgeComputing/GoogleCoral/screen-login.png">
-<meta property="og:updated_time" content="2020-04-07T06:33:12.172Z">
+<meta property="og:updated_time" content="2020-04-11T01:12:19.927Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Google Coral">
 <meta name="twitter:description" content="First snow in 2020. Actually, it is ALSO the FIRST snow for the winter from 2019 to 2020.    First Snow 1 First Snow 2 First Snow 3           Both my son and the Chinese New Year are coming. Let’s sta">
@@ -379,7 +379,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-04-06 23:33:12" itemprop="dateModified" datetime="2020-04-06T23:33:12-07:00">2020-04-06</time>
+                <time title="Modified: 2020-04-10 18:12:19" itemprop="dateModified" datetime="2020-04-10T18:12:19-07:00">2020-04-10</time>
               
             
           </span>
@@ -478,8 +478,8 @@
 <p>To try out <a href="https://coral.ai/products/accelerator" target="_blank" rel="noopener">Google Coral USB Accelerator</a> is comparitively simple. The <strong>ONLY</strong> thing to do is just to follow <a href="https://coral.ai/docs/accelerator/get-started/" target="_blank" rel="noopener">Google Doc - Get started with the USB Accelerator</a>. Anyway, let’s test it out with the following commands.</p>
 <p>Make sure we are able to list the device.</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  classification git:(master) ✗ lsusb</span><br><span class="line">Bus 002 Device 003: ID 1a6e:089a Global Unichip Corp.</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>We then run the example.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">➜  classification git:(master) ✗ python3 classify_image.py \</span><br><span class="line">--model models/mobilenet_v2_1.0_224_inat_bird_quant_edgetpu.tflite \</span><br><span class="line">--labels models/inat_bird_labels.txt \</span><br><span class="line">--input images/parrot.jpg</span><br><span class="line">INFO: Initialized TensorFlow Lite runtime.</span><br><span class="line">----INFERENCE TIME----</span><br><span class="line">Note: The first inference on Edge TPU is slow because it includes loading the model into Edge TPU memory.</span><br><span class="line">12.6ms</span><br><span class="line">3.9ms</span><br><span class="line">4.3ms</span><br><span class="line">4.2ms</span><br><span class="line">4.1ms</span><br><span class="line">-------RESULTS--------</span><br><span class="line">Ara macao (Scarlet Macaw): 0.76172</span><br></pre></td></tr></table></figure>
+<p>We then checkout <a href="https://github.com/google-coral/edgetpu" target="_blank" rel="noopener">Google Coral Edgue TPU</a> and test the example <a href="https://github.com/google-coral/edgetpu/blob/master/examples/classify_image.py" target="_blank" rel="noopener">classify_image.py</a>.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">➜  edgetpu git:(master) pwd</span><br><span class="line">/opt/google/edgetpu</span><br><span class="line">➜  edgetpu git:(master) python3 examples/classify_image.py \</span><br><span class="line">--model test_data/mobilenet_v2_1.0_224_inat_bird_quant_edgetpu.tflite \</span><br><span class="line">--label test_data/inat_bird_labels.txt \</span><br><span class="line">--image test_data/parrot.jpg</span><br><span class="line">---------------------------</span><br><span class="line">Ara macao (Scarlet Macaw)</span><br><span class="line">Score :  0.6796875</span><br><span class="line">---------------------------</span><br><span class="line">Platycercus elegans (Crimson Rosella)</span><br><span class="line">Score :  0.12109375</span><br></pre></td></tr></table></figure>
 <p>BTW, I’m going to discuss</p>
 <ul>
 <li><a href="https://coral.ai/docs/edgetpu/faq/" target="_blank" rel="noopener">Google Coral TPU</a></li>
