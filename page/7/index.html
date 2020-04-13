@@ -309,6 +309,481 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/07/10/AI/DeepLearning/tensorflow-keras-build-from-source/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/10/AI/DeepLearning/tensorflow-keras-build-from-source/" itemprop="url">
+                  Tensorflow & Keras - Build from Source
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-10 00:00:00" itemprop="dateCreated datePublished" datetime="2018-07-10T00:00:00-07:00">2018-07-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-08-18 14:29:51" itemprop="dateModified" datetime="2019-08-18T14:29:51-07:00">2019-08-18</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://www.tensorflow.org/" target="_blank" rel="noopener">Tensorflow</a> is always problematic, particularly, for guys like me…</p>
+<h1 id="1-configuration"><a class="markdownIt-Anchor" href="#1-configuration"></a> 1. Configuration</h1>
+<p>Linux Kernel 4.17.3 + Ubuntu 18.04 + GCC 7.3.0 + Python</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ uname -r</span><br><span class="line">4.17.3-041703-generic</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID: Ubuntu</span><br><span class="line">Description:    Ubuntu 18.04 LTS</span><br><span class="line">Release:        18.04</span><br><span class="line">Codename:       bionic</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ gcc --version</span><br><span class="line">gcc (Ubuntu 7.3.0-16ubuntu3) 7.3.0</span><br><span class="line">Copyright (C) 2017 Free Software Foundation, Inc.</span><br><span class="line">This is free software; see the <span class="built_in">source</span> <span class="keyword">for</span> copying conditions.  There is NO</span><br><span class="line">warranty; not even <span class="keyword">for</span> MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ python --version</span><br><span class="line">Python 3.6.5</span><br></pre></td></tr></table></figure>
+<h1 id="2-install-bazel"><a class="markdownIt-Anchor" href="#2-install-bazel"></a> 2. Install Bazel</h1>
+<p>From Bazel’s official website <a href="https://docs.bazel.build/versions/master/install-ubuntu.html" target="_blank" rel="noopener">Installing Bazel on Ubuntu</a>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">"deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8"</span> | sudo tee /etc/apt/sources.list.d/bazel.list</span><br><span class="line">$ curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add -</span><br><span class="line">$ sudo apt update &amp;&amp; sudo apt install bazel</span><br></pre></td></tr></table></figure>
+<p>Current <strong>bazel 0.15.0</strong> will be installed.</p>
+<h1 id="3-lets-build-tensorflow-from-source"><a class="markdownIt-Anchor" href="#3-lets-build-tensorflow-from-source"></a> 3. Let’s Build Tensorflow from Source</h1>
+<h2 id="31-configuration"><a class="markdownIt-Anchor" href="#31-configuration"></a> 3.1 Configuration</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">$ ./configure</span><br><span class="line">WARNING: An illegal reflective access operation has occurred</span><br><span class="line">WARNING: Illegal reflective access by com.google.protobuf.UnsafeUtil (file:~/.cache/bazel/_bazel_jiapei/install/ce085f519b017357185750fe457b4648/_embedded_binaries/A-server.jar) to field java.nio.Buffer.address</span><br><span class="line">WARNING: Please consider reporting this to the maintainers of com.google.protobuf.UnsafeUtil</span><br><span class="line">WARNING: Use --illegal-access=warn to <span class="built_in">enable</span> warnings of further illegal reflective access operations</span><br><span class="line">WARNING: All illegal access operations will be denied <span class="keyword">in</span> a future release</span><br><span class="line">WARNING: --batch mode is deprecated. Please instead explicitly shut down your Bazel server using the <span class="built_in">command</span> <span class="string">"bazel shutdown"</span>.</span><br><span class="line">You have bazel 0.15.0 installed.</span><br><span class="line">Please specify the location of python. [Default is /usr/bin/python]: </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Found possible Python library paths:</span><br><span class="line">  /usr/<span class="built_in">local</span>/lib/python3.6/dist-packages</span><br><span class="line">  /usr/lib/python3/dist-packages</span><br><span class="line">Please input the desired Python library path to use.  Default is [/usr/<span class="built_in">local</span>/lib/python3.6/dist-packages]</span><br><span class="line"></span><br><span class="line">Do you wish to build TensorFlow with jemalloc as malloc support? [Y/n]: Y</span><br><span class="line">jemalloc as malloc support will be enabled <span class="keyword">for</span> TensorFlow.</span><br><span class="line"></span><br><span class="line">Do you wish to build TensorFlow with Google Cloud Platform support? [Y/n]: Y</span><br><span class="line">Google Cloud Platform support will be enabled <span class="keyword">for</span> TensorFlow.</span><br><span class="line"></span><br><span class="line">Do you wish to build TensorFlow with Hadoop File System support? [Y/n]: Y</span><br><span class="line">Hadoop File System support will be enabled <span class="keyword">for</span> TensorFlow.</span><br><span class="line"></span><br><span class="line">Do you wish to build TensorFlow with Amazon AWS Platform support? [Y/n]: Y</span><br><span class="line">Amazon AWS Platform support will be enabled <span class="keyword">for</span> TensorFlow.</span><br><span class="line"></span><br><span class="line">Do you wish to build TensorFlow with Apache Kafka Platform support? [Y/n]: Y</span><br><span class="line">Apache Kafka Platform support will be enabled <span class="keyword">for</span> TensorFlow.</span><br><span class="line"></span><br><span class="line">Do you wish to build TensorFlow with XLA JIT support? [y/N]: N</span><br><span class="line">No XLA JIT support will be enabled <span class="keyword">for</span> TensorFlow.</span><br><span class="line"></span><br><span class="line">Do you wish to build TensorFlow with GDR support? [y/N]: N</span><br><span class="line">No GDR support will be enabled <span class="keyword">for</span> TensorFlow.</span><br><span class="line"></span><br><span class="line">Do you wish to build TensorFlow with VERBS support? [y/N]: N</span><br><span class="line">No VERBS support will be enabled <span class="keyword">for</span> TensorFlow.</span><br><span class="line"></span><br><span class="line">Do you wish to build TensorFlow with OpenCL SYCL support? [y/N]: N</span><br><span class="line">No OpenCL SYCL support will be enabled <span class="keyword">for</span> TensorFlow.</span><br><span class="line"></span><br><span class="line">Do you wish to build TensorFlow with CUDA support? [y/N]: y</span><br><span class="line">CUDA support will be enabled <span class="keyword">for</span> TensorFlow.</span><br><span class="line"></span><br><span class="line">Please specify the CUDA SDK version you want to use. [Leave empty to default to CUDA 9.0]: 9.2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Please specify the location <span class="built_in">where</span> CUDA 9.2 toolkit is installed. Refer to README.md <span class="keyword">for</span> more details. [Default is /usr/<span class="built_in">local</span>/cuda]: </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Please specify the cuDNN version you want to use. [Leave empty to default to cuDNN 7.0]: 7.1.4</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Please specify the location <span class="built_in">where</span> cuDNN 7 library is installed. Refer to README.md <span class="keyword">for</span> more details. [Default is /usr/<span class="built_in">local</span>/cuda]:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Do you wish to build TensorFlow with TensorRT support? [y/N]: N</span><br><span class="line">No TensorRT support will be enabled <span class="keyword">for</span> TensorFlow.</span><br><span class="line"></span><br><span class="line">Please specify the NCCL version you want to use. [Leave empty to default to NCCL 1.3]: </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Please specify a list of comma-separated Cuda compute capabilities you want to build with.</span><br><span class="line">You can find the compute capability of your device at: https://developer.nvidia.com/cuda-gpus.</span><br><span class="line">Please note that each additional compute capability significantly increases your build time and binary size. [Default is: 5.2]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Do you want to use clang as CUDA compiler? [y/N]: N</span><br><span class="line">nvcc will be used as CUDA compiler.</span><br><span class="line"></span><br><span class="line">Please specify <span class="built_in">which</span> gcc should be used by nvcc as the host compiler. [Default is /usr/bin/gcc]: </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Do you wish to build TensorFlow with MPI support? [y/N]: N</span><br><span class="line">No MPI support will be enabled <span class="keyword">for</span> TensorFlow.</span><br><span class="line"></span><br><span class="line">Please specify optimization flags to use during compilation when bazel option <span class="string">"--config=opt"</span> is specified [Default is -march=native]: </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Would you like to interactively configure ./WORKSPACE <span class="keyword">for</span> Android builds? [y/N]: N</span><br><span class="line">Not configuring the WORKSPACE <span class="keyword">for</span> Android builds.</span><br><span class="line"></span><br><span class="line">Preconfigured Bazel build configs. You can use any of the below by adding <span class="string">"--config=&lt;&gt;"</span> to your build <span class="built_in">command</span>. See tools/bazel.rc <span class="keyword">for</span> more details.</span><br><span class="line">        --config=mkl            <span class="comment"># Build with MKL support.</span></span><br><span class="line">        --config=monolithic     <span class="comment"># Config for mostly static monolithic build.</span></span><br><span class="line">Configuration finished</span><br></pre></td></tr></table></figure>
+<h2 id="32-first-bazel-build"><a class="markdownIt-Anchor" href="#32-first-bazel-build"></a> 3.2 FIRST Bazel Build</h2>
+<p>Follow <a href="https://www.tensorflow.org/install/install_sources" target="_blank" rel="noopener">Installing TensorFlow from Sources</a> on <a href="https://www.tensorflow.org/" target="_blank" rel="noopener">Tensorflow</a>’s official website, have all required packages prepared, and run:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bazel build --config=opt --config=cuda //tensorflow/tools/pip_package:build_pip_package</span><br></pre></td></tr></table></figure>
+<p>you will meet several <strong>ERROR</strong> messages, which requires you to carry out the following modifications.</p>
+<h2 id="33-modifications"><a class="markdownIt-Anchor" href="#33-modifications"></a> 3.3 Modifications</h2>
+<ul>
+<li>File <strong>~/.cache/bazel/_bazel_jiapei/051cd94cedc722db8c69e42ce51064b5/external/jpeg/BUILD</strong>:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">config_setting(</span><br><span class="line">    name = <span class="string">"armeabi-v7a"</span>,</span><br><span class="line">-    values = &#123;<span class="string">"android_cpu"</span>: <span class="string">"armeabi-v7a"</span>&#125;,</span><br><span class="line">+    values = &#123;<span class="string">"cpu"</span>: <span class="string">"armeabi-v7a"</span>&#125;,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Two Symbolic links</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ln -s /usr/<span class="built_in">local</span>/cuda/include/crt/math_functions.hpp /usr/<span class="built_in">local</span>/cuda/include/math_functions.hpp</span><br><span class="line">$ sudo ln -s /usr/<span class="built_in">local</span>/cuda/nvvm/libdevice/libdevice.10.bc /usr/<span class="built_in">local</span>/cuda/nvvm/lib64/libdevice.10.bc</span><br></pre></td></tr></table></figure>
+<h2 id="34-bazel-build-again"><a class="markdownIt-Anchor" href="#34-bazel-build-again"></a> 3.4 Bazel Build Again</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bazel build --config=opt --config=cuda //tensorflow/tools/pip_package:build_pip_package</span><br></pre></td></tr></table></figure>
+<p>It’ll take around 30 minutes to have Tensorflow successfully built.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">Target //tensorflow/tools/pip_package:build_pip_package up-to-date:</span><br><span class="line">  bazel-bin/tensorflow/tools/pip_package/build_pip_package</span><br><span class="line">INFO: Elapsed time: 4924.451s, Critical Path: 197.91s</span><br><span class="line">INFO: 8864 processes: 8864 <span class="built_in">local</span>.</span><br><span class="line">INFO: Build completed successfully, 11002 total actions</span><br></pre></td></tr></table></figure>
+<h1 id="4-tensorflow-installation"><a class="markdownIt-Anchor" href="#4-tensorflow-installation"></a> 4. Tensorflow Installation</h1>
+<h2 id="41-build-the-pip-file"><a class="markdownIt-Anchor" href="#41-build-the-pip-file"></a> 4.1 Build the pip File</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg</span><br><span class="line">Wed Jul 11 00:09:09 PDT 2018 : === Preparing sources <span class="keyword">in</span> dir: /tmp/tmp.5X0zsqfxYo</span><br><span class="line">/media/jiapei/Data/Downloads/machinelearning/deeplearning/tensorflow/tensorflow /media/jiapei/Data/Downloads/machinelearning/deeplearning/tensorflow/tensorflow</span><br><span class="line">/media/jiapei/Data/Downloads/machinelearning/deeplearning/tensorflow/tensorflow</span><br><span class="line">Wed Jul 11 00:09:35 PDT 2018 : === Building wheel</span><br><span class="line">warning: no files found matching <span class="string">'*.dll'</span> under directory <span class="string">'*'</span></span><br><span class="line">warning: no files found matching <span class="string">'*.lib'</span> under directory <span class="string">'*'</span></span><br><span class="line">warning: no files found matching <span class="string">'*.h'</span> under directory <span class="string">'tensorflow/include/tensorflow'</span></span><br><span class="line">warning: no files found matching <span class="string">'*'</span> under directory <span class="string">'tensorflow/include/Eigen'</span></span><br><span class="line">warning: no files found matching <span class="string">'*.h'</span> under directory <span class="string">'tensorflow/include/google'</span></span><br><span class="line">warning: no files found matching <span class="string">'*'</span> under directory <span class="string">'tensorflow/include/third_party'</span></span><br><span class="line">warning: no files found matching <span class="string">'*'</span> under directory <span class="string">'tensorflow/include/unsupported'</span></span><br><span class="line">Wed Jul 11 00:10:58 PDT 2018 : === Output wheel file is <span class="keyword">in</span>: /tmp/tensorflow_pkg</span><br></pre></td></tr></table></figure>
+<p>Let’s have a look at what’s been built:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ls /tmp/tensorflow_pkg/</span><br><span class="line">tensorflow-1.9.0rc0-cp36-cp36m-linux_x86_64.whl</span><br></pre></td></tr></table></figure>
+<h2 id="42-pip-installation"><a class="markdownIt-Anchor" href="#42-pip-installation"></a> 4.2 Pip Installation</h2>
+<p>And, let’s have <strong>tensorflow-1.9.0rc0-cp36-cp36m-linux_x86_64.whl</strong> installed.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ pip3 install /tmp/tensorflow_pkg/tensorflow-1.9.0rc0-cp36-cp36m-linux_x86_64.whl</span><br><span class="line">Processing /tmp/tensorflow_pkg/tensorflow-1.9.0rc0-cp36-cp36m-linux_x86_64.whl</span><br><span class="line">Requirement already satisfied: wheel&gt;=0.26 <span class="keyword">in</span> /usr/<span class="built_in">local</span>/lib/python3.6/dist-packages (from tensorflow==1.9.0rc0) (0.31.1)</span><br><span class="line">Requirement already satisfied: gast&gt;=0.2.0 <span class="keyword">in</span> /usr/<span class="built_in">local</span>/lib/python3.6/dist-packages (from tensorflow==1.9.0rc0) (0.2.0)</span><br><span class="line">Requirement already satisfied: numpy&gt;=1.13.3 <span class="keyword">in</span> /usr/<span class="built_in">local</span>/lib/python3.6/dist-packages (from tensorflow==1.9.0rc0) (1.14.5)</span><br><span class="line">Requirement already satisfied: astor&gt;=0.6.0 <span class="keyword">in</span> /usr/<span class="built_in">local</span>/lib/python3.6/dist-packages (from tensorflow==1.9.0rc0) (0.7.1)</span><br><span class="line">Requirement already satisfied: six&gt;=1.10.0 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from tensorflow==1.9.0rc0) (1.11.0)</span><br><span class="line">Requirement already satisfied: grpcio&gt;=1.8.6 <span class="keyword">in</span> /usr/<span class="built_in">local</span>/lib/python3.6/dist-packages (from tensorflow==1.9.0rc0) (1.13.0)</span><br><span class="line">Requirement already satisfied: absl-py&gt;=0.1.6 <span class="keyword">in</span> /usr/<span class="built_in">local</span>/lib/python3.6/dist-packages (from tensorflow==1.9.0rc0) (0.2.2)</span><br><span class="line">Requirement already satisfied: tensorboard&lt;1.9.0,&gt;=1.8.0 <span class="keyword">in</span> /usr/<span class="built_in">local</span>/lib/python3.6/dist-packages (from tensorflow==1.9.0rc0) (1.8.0)</span><br><span class="line">Requirement already satisfied: termcolor&gt;=1.1.0 <span class="keyword">in</span> /usr/<span class="built_in">local</span>/lib/python3.6/dist-packages (from tensorflow==1.9.0rc0) (1.1.0)</span><br><span class="line">Requirement already satisfied: setuptools&lt;=39.1.0 <span class="keyword">in</span> /usr/<span class="built_in">local</span>/lib/python3.6/dist-packages (from tensorflow==1.9.0rc0) (39.1.0)</span><br><span class="line">Requirement already satisfied: protobuf&gt;=3.6.0 <span class="keyword">in</span> /usr/<span class="built_in">local</span>/lib/python3.6/dist-packages (from tensorflow==1.9.0rc0) (3.6.0)</span><br><span class="line">Requirement already satisfied: bleach==1.5.0 <span class="keyword">in</span> /usr/<span class="built_in">local</span>/lib/python3.6/dist-packages (from tensorboard&lt;1.9.0,&gt;=1.8.0-&gt;tensorflow==1.9.0rc0) (1.5.0)</span><br><span class="line">Requirement already satisfied: html5lib==0.9999999 <span class="keyword">in</span> /usr/<span class="built_in">local</span>/lib/python3.6/dist-packages (from tensorboard&lt;1.9.0,&gt;=1.8.0-&gt;tensorflow==1.9.0rc0) (0.9999999)</span><br><span class="line">Requirement already satisfied: werkzeug&gt;=0.11.10 <span class="keyword">in</span> ./.<span class="built_in">local</span>/lib/python3.6/site-packages (from tensorboard&lt;1.9.0,&gt;=1.8.0-&gt;tensorflow==1.9.0rc0) (0.14.1)</span><br><span class="line">Requirement already satisfied: markdown&gt;=2.6.8 <span class="keyword">in</span> /usr/<span class="built_in">local</span>/lib/python3.6/dist-packages (from tensorboard&lt;1.9.0,&gt;=1.8.0-&gt;tensorflow==1.9.0rc0) (2.6.11)</span><br><span class="line">Successfully installed tensorflow-1.9.0rc0</span><br></pre></td></tr></table></figure>
+<p>Let’s test if <a href="https://www.tensorflow.org/" target="_blank" rel="noopener">Tensorflow</a> has been successfully installed.</p>
+<h2 id="43-check-tensorflow"><a class="markdownIt-Anchor" href="#43-check-tensorflow"></a> 4.3 Check Tensorflow</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ python</span><br><span class="line">Python 3.6.5 (default, Apr  1 2018, 05:46:30) </span><br><span class="line">[GCC 7.3.0] on linux</span><br><span class="line">Type <span class="string">"help"</span>, <span class="string">"copyright"</span>, <span class="string">"credits"</span> or <span class="string">"license"</span> <span class="keyword">for</span> more information.</span><br><span class="line">&gt;&gt;&gt; import tensorflow as tf</span><br><span class="line">&gt;&gt;&gt; tf.__version__</span><br><span class="line"><span class="string">'1.9.0-rc0'</span></span><br></pre></td></tr></table></figure>
+<h1 id="5-keras-installation"><a class="markdownIt-Anchor" href="#5-keras-installation"></a> 5. Keras Installation</h1>
+<p>After successfully check out <a href="https://github.com/keras-team/keras" target="_blank" rel="noopener">Keras</a>, we can easily have <strong>Keras</strong> installed by command <strong>python <a href="http://setup.py" target="_blank" rel="noopener">setup.py</a> install</strong>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br></pre></td><td class="code"><pre><span class="line">$ python setup.py install</span><br><span class="line">running install</span><br><span class="line">running bdist_egg</span><br><span class="line">running egg_info</span><br><span class="line">creating Keras.egg-info</span><br><span class="line">writing Keras.egg-info/PKG-INFO</span><br><span class="line">writing dependency_links to Keras.egg-info/dependency_links.txt</span><br><span class="line">writing requirements to Keras.egg-info/requires.txt</span><br><span class="line">writing top-level names to Keras.egg-info/top_level.txt</span><br><span class="line">writing manifest file <span class="string">'Keras.egg-info/SOURCES.txt'</span></span><br><span class="line">reading manifest file <span class="string">'Keras.egg-info/SOURCES.txt'</span></span><br><span class="line">reading manifest template <span class="string">'MANIFEST.in'</span></span><br><span class="line">writing manifest file <span class="string">'Keras.egg-info/SOURCES.txt'</span></span><br><span class="line">installing library code to build/bdist.linux-x86_64/egg</span><br><span class="line">running install_lib</span><br><span class="line">running build_py</span><br><span class="line">creating build</span><br><span class="line">creating build/lib</span><br><span class="line">creating build/lib/docs</span><br><span class="line">copying docs/autogen.py -&gt; build/lib/docs</span><br><span class="line">copying docs/__init__.py -&gt; build/lib/docs</span><br><span class="line">creating build/lib/keras</span><br><span class="line">copying keras/activations.py -&gt; build/lib/keras</span><br><span class="line">copying keras/callbacks.py -&gt; build/lib/keras</span><br><span class="line">copying keras/constraints.py -&gt; build/lib/keras</span><br><span class="line">copying keras/initializers.py -&gt; build/lib/keras</span><br><span class="line">copying keras/losses.py -&gt; build/lib/keras</span><br><span class="line">copying keras/metrics.py -&gt; build/lib/keras</span><br><span class="line">copying keras/models.py -&gt; build/lib/keras</span><br><span class="line">copying keras/objectives.py -&gt; build/lib/keras</span><br><span class="line">copying keras/optimizers.py -&gt; build/lib/keras</span><br><span class="line">copying keras/regularizers.py -&gt; build/lib/keras</span><br><span class="line">copying keras/__init__.py -&gt; build/lib/keras</span><br><span class="line">creating build/lib/keras/applications</span><br><span class="line">copying keras/applications/densenet.py -&gt; build/lib/keras/applications</span><br><span class="line">copying keras/applications/imagenet_utils.py -&gt; build/lib/keras/applications</span><br><span class="line">copying keras/applications/inception_resnet_v2.py -&gt; build/lib/keras/applications</span><br><span class="line">copying keras/applications/inception_v3.py -&gt; build/lib/keras/applications</span><br><span class="line">copying keras/applications/mobilenet.py -&gt; build/lib/keras/applications</span><br><span class="line">copying keras/applications/mobilenetv2.py -&gt; build/lib/keras/applications</span><br><span class="line">copying keras/applications/nasnet.py -&gt; build/lib/keras/applications</span><br><span class="line">copying keras/applications/resnet50.py -&gt; build/lib/keras/applications</span><br><span class="line">copying keras/applications/vgg16.py -&gt; build/lib/keras/applications</span><br><span class="line">copying keras/applications/vgg19.py -&gt; build/lib/keras/applications</span><br><span class="line">copying keras/applications/xception.py -&gt; build/lib/keras/applications</span><br><span class="line">copying keras/applications/__init__.py -&gt; build/lib/keras/applications</span><br><span class="line">creating build/lib/keras/backend</span><br><span class="line">copying keras/backend/cntk_backend.py -&gt; build/lib/keras/backend</span><br><span class="line">copying keras/backend/common.py -&gt; build/lib/keras/backend</span><br><span class="line">copying keras/backend/tensorflow_backend.py -&gt; build/lib/keras/backend</span><br><span class="line">copying keras/backend/theano_backend.py -&gt; build/lib/keras/backend</span><br><span class="line">copying keras/backend/__init__.py -&gt; build/lib/keras/backend</span><br><span class="line">creating build/lib/keras/datasets</span><br><span class="line">copying keras/datasets/boston_housing.py -&gt; build/lib/keras/datasets</span><br><span class="line">copying keras/datasets/cifar.py -&gt; build/lib/keras/datasets</span><br><span class="line">copying keras/datasets/cifar10.py -&gt; build/lib/keras/datasets</span><br><span class="line">copying keras/datasets/cifar100.py -&gt; build/lib/keras/datasets</span><br><span class="line">copying keras/datasets/fashion_mnist.py -&gt; build/lib/keras/datasets</span><br><span class="line">copying keras/datasets/imdb.py -&gt; build/lib/keras/datasets</span><br><span class="line">copying keras/datasets/mnist.py -&gt; build/lib/keras/datasets</span><br><span class="line">copying keras/datasets/reuters.py -&gt; build/lib/keras/datasets</span><br><span class="line">copying keras/datasets/__init__.py -&gt; build/lib/keras/datasets</span><br><span class="line">creating build/lib/keras/engine</span><br><span class="line">copying keras/engine/base_layer.py -&gt; build/lib/keras/engine</span><br><span class="line">copying keras/engine/input_layer.py -&gt; build/lib/keras/engine</span><br><span class="line">copying keras/engine/network.py -&gt; build/lib/keras/engine</span><br><span class="line">copying keras/engine/saving.py -&gt; build/lib/keras/engine</span><br><span class="line">copying keras/engine/sequential.py -&gt; build/lib/keras/engine</span><br><span class="line">copying keras/engine/topology.py -&gt; build/lib/keras/engine</span><br><span class="line">copying keras/engine/training.py -&gt; build/lib/keras/engine</span><br><span class="line">copying keras/engine/training_arrays.py -&gt; build/lib/keras/engine</span><br><span class="line">copying keras/engine/training_generator.py -&gt; build/lib/keras/engine</span><br><span class="line">copying keras/engine/training_utils.py -&gt; build/lib/keras/engine</span><br><span class="line">copying keras/engine/__init__.py -&gt; build/lib/keras/engine</span><br><span class="line">creating build/lib/keras/layers</span><br><span class="line">copying keras/layers/advanced_activations.py -&gt; build/lib/keras/layers</span><br><span class="line">copying keras/layers/convolutional.py -&gt; build/lib/keras/layers</span><br><span class="line">copying keras/layers/convolutional_recurrent.py -&gt; build/lib/keras/layers</span><br><span class="line">copying keras/layers/core.py -&gt; build/lib/keras/layers</span><br><span class="line">copying keras/layers/cudnn_recurrent.py -&gt; build/lib/keras/layers</span><br><span class="line">copying keras/layers/embeddings.py -&gt; build/lib/keras/layers</span><br><span class="line">copying keras/layers/local.py -&gt; build/lib/keras/layers</span><br><span class="line">copying keras/layers/merge.py -&gt; build/lib/keras/layers</span><br><span class="line">copying keras/layers/noise.py -&gt; build/lib/keras/layers</span><br><span class="line">copying keras/layers/normalization.py -&gt; build/lib/keras/layers</span><br><span class="line">copying keras/layers/pooling.py -&gt; build/lib/keras/layers</span><br><span class="line">copying keras/layers/recurrent.py -&gt; build/lib/keras/layers</span><br><span class="line">copying keras/layers/wrappers.py -&gt; build/lib/keras/layers</span><br><span class="line">copying keras/layers/__init__.py -&gt; build/lib/keras/layers</span><br><span class="line">creating build/lib/keras/legacy</span><br><span class="line">copying keras/legacy/interfaces.py -&gt; build/lib/keras/legacy</span><br><span class="line">copying keras/legacy/layers.py -&gt; build/lib/keras/legacy</span><br><span class="line">copying keras/legacy/__init__.py -&gt; build/lib/keras/legacy</span><br><span class="line">creating build/lib/keras/preprocessing</span><br><span class="line">copying keras/preprocessing/image.py -&gt; build/lib/keras/preprocessing</span><br><span class="line">copying keras/preprocessing/sequence.py -&gt; build/lib/keras/preprocessing</span><br><span class="line">copying keras/preprocessing/text.py -&gt; build/lib/keras/preprocessing</span><br><span class="line">copying keras/preprocessing/__init__.py -&gt; build/lib/keras/preprocessing</span><br><span class="line">creating build/lib/keras/utils</span><br><span class="line">copying keras/utils/conv_utils.py -&gt; build/lib/keras/utils</span><br><span class="line">copying keras/utils/data_utils.py -&gt; build/lib/keras/utils</span><br><span class="line">copying keras/utils/generic_utils.py -&gt; build/lib/keras/utils</span><br><span class="line">copying keras/utils/io_utils.py -&gt; build/lib/keras/utils</span><br><span class="line">copying keras/utils/layer_utils.py -&gt; build/lib/keras/utils</span><br><span class="line">copying keras/utils/multi_gpu_utils.py -&gt; build/lib/keras/utils</span><br><span class="line">copying keras/utils/np_utils.py -&gt; build/lib/keras/utils</span><br><span class="line">copying keras/utils/test_utils.py -&gt; build/lib/keras/utils</span><br><span class="line">copying keras/utils/vis_utils.py -&gt; build/lib/keras/utils</span><br><span class="line">copying keras/utils/__init__.py -&gt; build/lib/keras/utils</span><br><span class="line">creating build/lib/keras/wrappers</span><br><span class="line">copying keras/wrappers/scikit_learn.py -&gt; build/lib/keras/wrappers</span><br><span class="line">copying keras/wrappers/__init__.py -&gt; build/lib/keras/wrappers</span><br><span class="line">creating build/bdist.linux-x86_64</span><br><span class="line">creating build/bdist.linux-x86_64/egg</span><br><span class="line">creating build/bdist.linux-x86_64/egg/docs</span><br><span class="line">copying build/lib/docs/autogen.py -&gt; build/bdist.linux-x86_64/egg/docs</span><br><span class="line">copying build/lib/docs/__init__.py -&gt; build/bdist.linux-x86_64/egg/docs</span><br><span class="line">creating build/bdist.linux-x86_64/egg/keras</span><br><span class="line">copying build/lib/keras/activations.py -&gt; build/bdist.linux-x86_64/egg/keras</span><br><span class="line">creating build/bdist.linux-x86_64/egg/keras/applications</span><br><span class="line">copying build/lib/keras/applications/densenet.py -&gt; build/bdist.linux-x86_64/egg/keras/applications</span><br><span class="line">copying build/lib/keras/applications/imagenet_utils.py -&gt; build/bdist.linux-x86_64/egg/keras/applications</span><br><span class="line">copying build/lib/keras/applications/inception_resnet_v2.py -&gt; build/bdist.linux-x86_64/egg/keras/applications</span><br><span class="line">copying build/lib/keras/applications/inception_v3.py -&gt; build/bdist.linux-x86_64/egg/keras/applications</span><br><span class="line">copying build/lib/keras/applications/mobilenet.py -&gt; build/bdist.linux-x86_64/egg/keras/applications</span><br><span class="line">copying build/lib/keras/applications/mobilenetv2.py -&gt; build/bdist.linux-x86_64/egg/keras/applications</span><br><span class="line">copying build/lib/keras/applications/nasnet.py -&gt; build/bdist.linux-x86_64/egg/keras/applications</span><br><span class="line">copying build/lib/keras/applications/resnet50.py -&gt; build/bdist.linux-x86_64/egg/keras/applications</span><br><span class="line">copying build/lib/keras/applications/vgg16.py -&gt; build/bdist.linux-x86_64/egg/keras/applications</span><br><span class="line">copying build/lib/keras/applications/vgg19.py -&gt; build/bdist.linux-x86_64/egg/keras/applications</span><br><span class="line">copying build/lib/keras/applications/xception.py -&gt; build/bdist.linux-x86_64/egg/keras/applications</span><br><span class="line">copying build/lib/keras/applications/__init__.py -&gt; build/bdist.linux-x86_64/egg/keras/applications</span><br><span class="line">creating build/bdist.linux-x86_64/egg/keras/backend</span><br><span class="line">copying build/lib/keras/backend/cntk_backend.py -&gt; build/bdist.linux-x86_64/egg/keras/backend</span><br><span class="line">copying build/lib/keras/backend/common.py -&gt; build/bdist.linux-x86_64/egg/keras/backend</span><br><span class="line">copying build/lib/keras/backend/tensorflow_backend.py -&gt; build/bdist.linux-x86_64/egg/keras/backend</span><br><span class="line">copying build/lib/keras/backend/theano_backend.py -&gt; build/bdist.linux-x86_64/egg/keras/backend</span><br><span class="line">copying build/lib/keras/backend/__init__.py -&gt; build/bdist.linux-x86_64/egg/keras/backend</span><br><span class="line">copying build/lib/keras/callbacks.py -&gt; build/bdist.linux-x86_64/egg/keras</span><br><span class="line">copying build/lib/keras/constraints.py -&gt; build/bdist.linux-x86_64/egg/keras</span><br><span class="line">creating build/bdist.linux-x86_64/egg/keras/datasets</span><br><span class="line">copying build/lib/keras/datasets/boston_housing.py -&gt; build/bdist.linux-x86_64/egg/keras/datasets</span><br><span class="line">copying build/lib/keras/datasets/cifar.py -&gt; build/bdist.linux-x86_64/egg/keras/datasets</span><br><span class="line">copying build/lib/keras/datasets/cifar10.py -&gt; build/bdist.linux-x86_64/egg/keras/datasets</span><br><span class="line">copying build/lib/keras/datasets/cifar100.py -&gt; build/bdist.linux-x86_64/egg/keras/datasets</span><br><span class="line">copying build/lib/keras/datasets/fashion_mnist.py -&gt; build/bdist.linux-x86_64/egg/keras/datasets</span><br><span class="line">copying build/lib/keras/datasets/imdb.py -&gt; build/bdist.linux-x86_64/egg/keras/datasets</span><br><span class="line">copying build/lib/keras/datasets/mnist.py -&gt; build/bdist.linux-x86_64/egg/keras/datasets</span><br><span class="line">copying build/lib/keras/datasets/reuters.py -&gt; build/bdist.linux-x86_64/egg/keras/datasets</span><br><span class="line">copying build/lib/keras/datasets/__init__.py -&gt; build/bdist.linux-x86_64/egg/keras/datasets</span><br><span class="line">creating build/bdist.linux-x86_64/egg/keras/engine</span><br><span class="line">copying build/lib/keras/engine/base_layer.py -&gt; build/bdist.linux-x86_64/egg/keras/engine</span><br><span class="line">copying build/lib/keras/engine/input_layer.py -&gt; build/bdist.linux-x86_64/egg/keras/engine</span><br><span class="line">copying build/lib/keras/engine/network.py -&gt; build/bdist.linux-x86_64/egg/keras/engine</span><br><span class="line">copying build/lib/keras/engine/saving.py -&gt; build/bdist.linux-x86_64/egg/keras/engine</span><br><span class="line">copying build/lib/keras/engine/sequential.py -&gt; build/bdist.linux-x86_64/egg/keras/engine</span><br><span class="line">copying build/lib/keras/engine/topology.py -&gt; build/bdist.linux-x86_64/egg/keras/engine</span><br><span class="line">copying build/lib/keras/engine/training.py -&gt; build/bdist.linux-x86_64/egg/keras/engine</span><br><span class="line">copying build/lib/keras/engine/training_arrays.py -&gt; build/bdist.linux-x86_64/egg/keras/engine</span><br><span class="line">copying build/lib/keras/engine/training_generator.py -&gt; build/bdist.linux-x86_64/egg/keras/engine</span><br><span class="line">copying build/lib/keras/engine/training_utils.py -&gt; build/bdist.linux-x86_64/egg/keras/engine</span><br><span class="line">copying build/lib/keras/engine/__init__.py -&gt; build/bdist.linux-x86_64/egg/keras/engine</span><br><span class="line">copying build/lib/keras/initializers.py -&gt; build/bdist.linux-x86_64/egg/keras</span><br><span class="line">creating build/bdist.linux-x86_64/egg/keras/layers</span><br><span class="line">copying build/lib/keras/layers/advanced_activations.py -&gt; build/bdist.linux-x86_64/egg/keras/layers</span><br><span class="line">copying build/lib/keras/layers/convolutional.py -&gt; build/bdist.linux-x86_64/egg/keras/layers</span><br><span class="line">copying build/lib/keras/layers/convolutional_recurrent.py -&gt; build/bdist.linux-x86_64/egg/keras/layers</span><br><span class="line">copying build/lib/keras/layers/core.py -&gt; build/bdist.linux-x86_64/egg/keras/layers</span><br><span class="line">copying build/lib/keras/layers/cudnn_recurrent.py -&gt; build/bdist.linux-x86_64/egg/keras/layers</span><br><span class="line">copying build/lib/keras/layers/embeddings.py -&gt; build/bdist.linux-x86_64/egg/keras/layers</span><br><span class="line">copying build/lib/keras/layers/local.py -&gt; build/bdist.linux-x86_64/egg/keras/layers</span><br><span class="line">copying build/lib/keras/layers/merge.py -&gt; build/bdist.linux-x86_64/egg/keras/layers</span><br><span class="line">copying build/lib/keras/layers/noise.py -&gt; build/bdist.linux-x86_64/egg/keras/layers</span><br><span class="line">copying build/lib/keras/layers/normalization.py -&gt; build/bdist.linux-x86_64/egg/keras/layers</span><br><span class="line">copying build/lib/keras/layers/pooling.py -&gt; build/bdist.linux-x86_64/egg/keras/layers</span><br><span class="line">copying build/lib/keras/layers/recurrent.py -&gt; build/bdist.linux-x86_64/egg/keras/layers</span><br><span class="line">copying build/lib/keras/layers/wrappers.py -&gt; build/bdist.linux-x86_64/egg/keras/layers</span><br><span class="line">copying build/lib/keras/layers/__init__.py -&gt; build/bdist.linux-x86_64/egg/keras/layers</span><br><span class="line">creating build/bdist.linux-x86_64/egg/keras/legacy</span><br><span class="line">copying build/lib/keras/legacy/interfaces.py -&gt; build/bdist.linux-x86_64/egg/keras/legacy</span><br><span class="line">copying build/lib/keras/legacy/layers.py -&gt; build/bdist.linux-x86_64/egg/keras/legacy</span><br><span class="line">copying build/lib/keras/legacy/__init__.py -&gt; build/bdist.linux-x86_64/egg/keras/legacy</span><br><span class="line">copying build/lib/keras/losses.py -&gt; build/bdist.linux-x86_64/egg/keras</span><br><span class="line">copying build/lib/keras/metrics.py -&gt; build/bdist.linux-x86_64/egg/keras</span><br><span class="line">copying build/lib/keras/models.py -&gt; build/bdist.linux-x86_64/egg/keras</span><br><span class="line">copying build/lib/keras/objectives.py -&gt; build/bdist.linux-x86_64/egg/keras</span><br><span class="line">copying build/lib/keras/optimizers.py -&gt; build/bdist.linux-x86_64/egg/keras</span><br><span class="line">creating build/bdist.linux-x86_64/egg/keras/preprocessing</span><br><span class="line">copying build/lib/keras/preprocessing/image.py -&gt; build/bdist.linux-x86_64/egg/keras/preprocessing</span><br><span class="line">copying build/lib/keras/preprocessing/sequence.py -&gt; build/bdist.linux-x86_64/egg/keras/preprocessing</span><br><span class="line">copying build/lib/keras/preprocessing/text.py -&gt; build/bdist.linux-x86_64/egg/keras/preprocessing</span><br><span class="line">copying build/lib/keras/preprocessing/__init__.py -&gt; build/bdist.linux-x86_64/egg/keras/preprocessing</span><br><span class="line">copying build/lib/keras/regularizers.py -&gt; build/bdist.linux-x86_64/egg/keras</span><br><span class="line">creating build/bdist.linux-x86_64/egg/keras/utils</span><br><span class="line">copying build/lib/keras/utils/conv_utils.py -&gt; build/bdist.linux-x86_64/egg/keras/utils</span><br><span class="line">copying build/lib/keras/utils/data_utils.py -&gt; build/bdist.linux-x86_64/egg/keras/utils</span><br><span class="line">copying build/lib/keras/utils/generic_utils.py -&gt; build/bdist.linux-x86_64/egg/keras/utils</span><br><span class="line">copying build/lib/keras/utils/io_utils.py -&gt; build/bdist.linux-x86_64/egg/keras/utils</span><br><span class="line">copying build/lib/keras/utils/layer_utils.py -&gt; build/bdist.linux-x86_64/egg/keras/utils</span><br><span class="line">copying build/lib/keras/utils/multi_gpu_utils.py -&gt; build/bdist.linux-x86_64/egg/keras/utils</span><br><span class="line">copying build/lib/keras/utils/np_utils.py -&gt; build/bdist.linux-x86_64/egg/keras/utils</span><br><span class="line">copying build/lib/keras/utils/test_utils.py -&gt; build/bdist.linux-x86_64/egg/keras/utils</span><br><span class="line">copying build/lib/keras/utils/vis_utils.py -&gt; build/bdist.linux-x86_64/egg/keras/utils</span><br><span class="line">copying build/lib/keras/utils/__init__.py -&gt; build/bdist.linux-x86_64/egg/keras/utils</span><br><span class="line">creating build/bdist.linux-x86_64/egg/keras/wrappers</span><br><span class="line">copying build/lib/keras/wrappers/scikit_learn.py -&gt; build/bdist.linux-x86_64/egg/keras/wrappers</span><br><span class="line">copying build/lib/keras/wrappers/__init__.py -&gt; build/bdist.linux-x86_64/egg/keras/wrappers</span><br><span class="line">copying build/lib/keras/__init__.py -&gt; build/bdist.linux-x86_64/egg/keras</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/docs/autogen.py to autogen.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/docs/__init__.py to __init__.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/activations.py to activations.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/applications/densenet.py to densenet.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/applications/imagenet_utils.py to imagenet_utils.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/applications/inception_resnet_v2.py to inception_resnet_v2.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/applications/inception_v3.py to inception_v3.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/applications/mobilenet.py to mobilenet.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/applications/mobilenetv2.py to mobilenetv2.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/applications/nasnet.py to nasnet.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/applications/resnet50.py to resnet50.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/applications/vgg16.py to vgg16.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/applications/vgg19.py to vgg19.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/applications/xception.py to xception.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/applications/__init__.py to __init__.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/backend/cntk_backend.py to cntk_backend.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/backend/common.py to common.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/backend/tensorflow_backend.py to tensorflow_backend.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/backend/theano_backend.py to theano_backend.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/backend/__init__.py to __init__.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/callbacks.py to callbacks.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/constraints.py to constraints.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/datasets/boston_housing.py to boston_housing.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/datasets/cifar.py to cifar.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/datasets/cifar10.py to cifar10.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/datasets/cifar100.py to cifar100.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/datasets/fashion_mnist.py to fashion_mnist.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/datasets/imdb.py to imdb.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/datasets/mnist.py to mnist.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/datasets/reuters.py to reuters.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/datasets/__init__.py to __init__.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/engine/base_layer.py to base_layer.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/engine/input_layer.py to input_layer.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/engine/network.py to network.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/engine/saving.py to saving.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/engine/sequential.py to sequential.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/engine/topology.py to topology.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/engine/training.py to training.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/engine/training_arrays.py to training_arrays.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/engine/training_generator.py to training_generator.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/engine/training_utils.py to training_utils.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/engine/__init__.py to __init__.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/initializers.py to initializers.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/layers/advanced_activations.py to advanced_activations.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/layers/convolutional.py to convolutional.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/layers/convolutional_recurrent.py to convolutional_recurrent.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/layers/core.py to core.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/layers/cudnn_recurrent.py to cudnn_recurrent.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/layers/embeddings.py to embeddings.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/layers/local.py to local.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/layers/merge.py to merge.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/layers/noise.py to noise.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/layers/normalization.py to normalization.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/layers/pooling.py to pooling.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/layers/recurrent.py to recurrent.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/layers/wrappers.py to wrappers.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/layers/__init__.py to __init__.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/legacy/interfaces.py to interfaces.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/legacy/layers.py to layers.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/legacy/__init__.py to __init__.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/losses.py to losses.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/metrics.py to metrics.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/models.py to models.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/objectives.py to objectives.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/optimizers.py to optimizers.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/preprocessing/image.py to image.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/preprocessing/sequence.py to sequence.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/preprocessing/text.py to text.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/preprocessing/__init__.py to __init__.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/regularizers.py to regularizers.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/utils/conv_utils.py to conv_utils.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/utils/data_utils.py to data_utils.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/utils/generic_utils.py to generic_utils.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/utils/io_utils.py to io_utils.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/utils/layer_utils.py to layer_utils.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/utils/multi_gpu_utils.py to multi_gpu_utils.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/utils/np_utils.py to np_utils.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/utils/test_utils.py to test_utils.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/utils/vis_utils.py to vis_utils.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/utils/__init__.py to __init__.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/wrappers/scikit_learn.py to scikit_learn.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/wrappers/__init__.py to __init__.cpython-36.pyc</span><br><span class="line">byte-compiling build/bdist.linux-x86_64/egg/keras/__init__.py to __init__.cpython-36.pyc</span><br><span class="line">creating build/bdist.linux-x86_64/egg/EGG-INFO</span><br><span class="line">copying Keras.egg-info/PKG-INFO -&gt; build/bdist.linux-x86_64/egg/EGG-INFO</span><br><span class="line">copying Keras.egg-info/SOURCES.txt -&gt; build/bdist.linux-x86_64/egg/EGG-INFO</span><br><span class="line">copying Keras.egg-info/dependency_links.txt -&gt; build/bdist.linux-x86_64/egg/EGG-INFO</span><br><span class="line">copying Keras.egg-info/requires.txt -&gt; build/bdist.linux-x86_64/egg/EGG-INFO</span><br><span class="line">copying Keras.egg-info/top_level.txt -&gt; build/bdist.linux-x86_64/egg/EGG-INFO</span><br><span class="line">zip_safe flag not <span class="built_in">set</span>; analyzing archive contents...</span><br><span class="line">creating dist</span><br><span class="line">creating <span class="string">'dist/Keras-2.2.0-py3.6.egg'</span> and adding <span class="string">'build/bdist.linux-x86_64/egg'</span> to it</span><br><span class="line">removing <span class="string">'build/bdist.linux-x86_64/egg'</span> (and everything under it)</span><br><span class="line">Processing Keras-2.2.0-py3.6.egg</span><br><span class="line">Copying Keras-2.2.0-py3.6.egg to /usr/<span class="built_in">local</span>/lib/python3.6/dist-packages</span><br><span class="line">Adding Keras 2.2.0 to easy-install.pth file</span><br><span class="line"></span><br><span class="line">Installed /usr/<span class="built_in">local</span>/lib/python3.6/dist-packages/Keras-2.2.0-py3.6.egg</span><br><span class="line">Processing dependencies <span class="keyword">for</span> Keras==2.2.0</span><br><span class="line">Searching <span class="keyword">for</span> Keras-Preprocessing==1.0.1</span><br><span class="line">Best match: Keras-Preprocessing 1.0.1</span><br><span class="line">Adding Keras-Preprocessing 1.0.1 to easy-install.pth file</span><br><span class="line"></span><br><span class="line">Using /usr/<span class="built_in">local</span>/lib/python3.6/dist-packages</span><br><span class="line">Searching <span class="keyword">for</span> Keras-Applications==1.0.2</span><br><span class="line">Best match: Keras-Applications 1.0.2</span><br><span class="line">Adding Keras-Applications 1.0.2 to easy-install.pth file</span><br><span class="line"></span><br><span class="line">Using /usr/<span class="built_in">local</span>/lib/python3.6/dist-packages</span><br><span class="line">Searching <span class="keyword">for</span> h5py==2.8.0</span><br><span class="line">Best match: h5py 2.8.0</span><br><span class="line">Adding h5py 2.8.0 to easy-install.pth file</span><br><span class="line"></span><br><span class="line">Using /usr/<span class="built_in">local</span>/lib/python3.6/dist-packages</span><br><span class="line">Searching <span class="keyword">for</span> PyYAML==3.13</span><br><span class="line">Best match: PyYAML 3.13</span><br><span class="line">Adding PyYAML 3.13 to easy-install.pth file</span><br><span class="line"></span><br><span class="line">Using /usr/<span class="built_in">local</span>/lib/python3.6/dist-packages</span><br><span class="line">Searching <span class="keyword">for</span> six==1.11.0</span><br><span class="line">Best match: six 1.11.0</span><br><span class="line">Adding six 1.11.0 to easy-install.pth file</span><br><span class="line"></span><br><span class="line">Using /usr/lib/python3/dist-packages</span><br><span class="line">Searching <span class="keyword">for</span> scipy==1.1.0</span><br><span class="line">Best match: scipy 1.1.0</span><br><span class="line">Adding scipy 1.1.0 to easy-install.pth file</span><br><span class="line"></span><br><span class="line">Using /usr/<span class="built_in">local</span>/lib/python3.6/dist-packages</span><br><span class="line">Searching <span class="keyword">for</span> numpy==1.14.5</span><br><span class="line">Best match: numpy 1.14.5</span><br><span class="line">Adding numpy 1.14.5 to easy-install.pth file</span><br><span class="line"></span><br><span class="line">Using /usr/<span class="built_in">local</span>/lib/python3.6/dist-packages</span><br><span class="line">Finished processing dependencies <span class="keyword">for</span> Keras==2.2.0</span><br></pre></td></tr></table></figure>
+<p>That’s all for today. I think <a href="https://www.python.org/" target="_blank" rel="noopener">Python</a> is seriously cool, handy indeed. I myself will still recommend <a href="https://pytorch.org/" target="_blank" rel="noopener">Pytorch</a>, but it seems <a href="https://www.tensorflow.org/" target="_blank" rel="noopener">Tensorflow</a> and <a href="https://keras.io/" target="_blank" rel="noopener">Keras</a> are also very popular in North America.</p>
+<!-- 
+- File **tensorflow/workspace.bzl**:
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-  check_version(<span class="string">"0.5.4"</span>)</span><br><span class="line">+  check_version(<span class="string">"0.15.0"</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>File <strong>tensorflow/core/kernels/reduction_gpu_kernels.cu.h</strong>:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@@ -268,7 +268,8 @@ __global__ void ColumnReduceMax16ColumnsKernel(</span><br><span class="line"> </span><br><span class="line">   // 1D array necessary due to bug <span class="keyword">in</span> CUDA 9 compiler.</span><br><span class="line">   // TODO(nluehr) revert to 2D array when compiler is ready.</span><br><span class="line">-  __shared__ value_type partial_sums[32 * 33];</span><br><span class="line">+  value_type partial_sums[32 * 33];</span><br><span class="line"> </span><br><span class="line">   row += rows_per_warp * gridDim.y * blockDim.y;</span><br><span class="line">   <span class="keyword">for</span> (; row &lt; num_rows; row += rows_per_warp * gridDim.y * blockDim.y) &#123;</span><br><span class="line">@@ -317,7 +318,8 @@ __global__ void ColumnReduceKernel(</span><br><span class="line"> </span><br><span class="line">   // 1D array necessary due to bug <span class="keyword">in</span> CUDA 9 compiler.</span><br><span class="line">   // TODO(nluehr) revert to 2D array when compiler is ready.</span><br><span class="line">-  __shared__ value_type partial_sums[32 * 33];</span><br><span class="line">+  value_type partial_sums[32 * 33];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>File <strong>~/.cache/bazel/_bazel_jiapei/051cd94cedc722db8c69e42ce51064b5/external/io_bazel_rules_closure/closure/repositories.bzl</strong>:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- _check_bazel_version(<span class="string">"Closure Rules"</span>, <span class="string">"0.4.5"</span>)</span><br><span class="line">+ _check_bazel_version(<span class="string">"Closure Rules"</span>, <span class="string">"0.15.0"</span>)</span><br></pre></td></tr></table></figure>
+<p>–&gt;</p>
+-->
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/07/05/ComputerVision/Face/face_keypoint_orientation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/05/ComputerVision/Face/face_keypoint_orientation/" itemprop="url">
+                  Face Key Point Localization & Orientation
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-05 00:00:00" itemprop="dateCreated datePublished" datetime="2018-07-05T00:00:00-07:00">2018-07-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-08-18 14:31:44" itemprop="dateModified" datetime="2019-08-18T14:31:44-07:00">2019-08-18</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Computer-Vision/Face/" itemprop="url" rel="index"><span itemprop="name">Face</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>I’m quite busy today. So, I’d just post some videos to show the performance about <strong>jiu bu gao su ni</strong> <span class="github-emoji" alias="laughing" style fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f606.png?v8">😆</span><br>
+Click on the pictures to open an uploaded Facebook video.</p>
+<h1 id="1-key-point-localization"><a class="markdownIt-Anchor" href="#1-key-point-localization"></a> 1. Key Point Localization</h1>
+<h2 id="11-nobody-yeah-its-me-10-years-ago-how-time-flies"><a class="markdownIt-Anchor" href="#11-nobody-yeah-its-me-10-years-ago-how-time-flies"></a> 1.1 Nobody - Yeah, it’s ME, 10 YEARS ago. How time flies…</h2>
+<p><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054002684756934/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/keypoints/nobody_snapshot.png" alt="Nobody - Yeah, it's ME"></a></p>
+<h2 id="12-franck-what-a-canonical-annotated-face-dataset"><a class="markdownIt-Anchor" href="#12-franck-what-a-canonical-annotated-face-dataset"></a> 1.2 FRANCK - What a Canonical Annotated Face Dataset</h2>
+<p><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054003711423498/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/keypoints/franck_snapshot.png" alt="FRANCK"></a></p>
+<h1 id="2-orientation"><a class="markdownIt-Anchor" href="#2-orientation"></a> 2. Orientation</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">01_al_pacino</th>
+<th style="text-align:center">02_alanis_morissette</th>
+<th style="text-align:center">03_anderson_cooper</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054033554753847/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/01_snapshot_al_pacino.png" alt="01_al_pacino.mp4"></a></td>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054036881420181/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/02_snapshot_alanis_morissette.png" alt="02_alanis_morissette.mp4"></a></td>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054038041420065/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/03_snapshot_anderson_cooper.png" alt="03_anderson_cooper.mp4"></a></td>
+</tr>
+<tr>
+<td style="text-align:center">04_angelina_jolie</td>
+<td style="text-align:center">05_bill_clinton</td>
+<td style="text-align:center">06_bill_gates</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054041144753088/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/04_snapshot_angelina_jolie.png" alt="04_angelina_jolie.mp4"></a></td>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054042951419574/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/05_snapshot_bill_clinton.png" alt="05_bill_clinton.mp4"></a></td>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054044151419454/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/06_snapshot_bill_gates.png" alt="06_bill_gates.mp4"></a></td>
+</tr>
+<tr>
+<td style="text-align:center">07_gloria_estefan</td>
+<td style="text-align:center">08_jet_li</td>
+<td style="text-align:center">09_julia_roberts</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054045324752670/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/07_snapshot_gloria_estefan.png" alt="07_gloria_estefan.mp4"></a></td>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054046601419209/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/08_snapshot_jet_li.png" alt="08_jet_li.mp4"></a></td>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054048371419032/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/09_snapshot_julia_roberts.png" alt="09_julia_roberts.mp4"></a></td>
+</tr>
+<tr>
+<td style="text-align:center">10_noam_chomsky</td>
+<td style="text-align:center">11_sylvester_stallone</td>
+<td style="text-align:center">12_tony_blair</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054049451418924/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/10_snapshot_noam_chomsky.png" alt="10_noam_chomsky.mp4"></a></td>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054051491418720/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/11_snapshot_sylvester_stallone.png" alt="11_sylvester_stallone.mp4"></a></td>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054052961418573/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/12_snapshot_tony_blair.png" alt="12_tony_blair.mp4"></a></td>
+</tr>
+<tr>
+<td style="text-align:center">13_victoria_beckham</td>
+<td style="text-align:center">14_vladimir_putin</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054064601417409/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/13_snapshot_victoria_beckham.png" alt="13_victoria_beckham.mp4"></a></td>
+<td style="text-align:center"><a href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1054065608083975/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/orientation/14_snapshot_vladimir_putin.png" alt="14_vladimir_putin.mp4"></a></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/07/02/AI/DeepLearning/ImageAI-Happy-Canada-Day/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -29943,508 +30418,11 @@ However, it finally turns out that my <strong>DD-WRT SL-R7202</strong> router co
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/02/24/SBCs/ARM/nanopi-neo-armbian/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/24/SBCs/ARM/nanopi-neo-armbian/" itemprop="url">
-                  Install Armbian Debian Server onto NanoPi NEO
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-02-24 00:00:00" itemprop="dateCreated datePublished" datetime="2018-02-24T00:00:00-08:00">2018-02-24</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-04-05 21:32:49" itemprop="dateModified" datetime="2020-04-05T21:32:49-07:00">2020-04-05</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Hi, all, I flied back and forth between ShenZhen China and Vancouver Canada in January 2018, and took a holiday break in California USA during Chinese Spring Festival in Febrary 2018. Now, I’m back to Vancouver and write this blog. Today, we are going to talk about how to flash the most recent <a href="https://www.kernel.org/" target="_blank" rel="noopener">Linux Kernel</a> onto an <a href="http://www.friendlyarm.net/products/nanopi-neo" target="_blank" rel="noopener">NanoPi NEO</a>. The board looks like (cited from <a href="http://wiki.friendlyarm.com/wiki/index.php/NanoPi_NEO" target="_blank" rel="noopener">NanoPi NEO</a> ):</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/BSP/master/Embedded/AllWinner/nanopi/NEO_H3.jpg" alt="NanoPi NEO"></p>
-<p>Different from <a href="../../../../../2018/01/10/SBC/beaglebone-black-uboot-kernel/">our previous blog</a> where <a href="http://www.denx.de/wiki/U-Boot/WebHome" target="_blank" rel="noopener">U-Boot</a> and <a href="https://www.kernel.org/" target="_blank" rel="noopener">Linux Kernel</a> are manually built, here, we download and install the <a href="https://www.armbian.com/nanopi-neo/" target="_blank" rel="noopener">built Ubuntu from Armbian</a> directly.</p>
-<p>Before starting, the following paragraph is cited to explain the relationships among <a href="http://allwinnertech.com/" target="_blank" rel="noopener">AllWinner</a>, <a href="http://linux-sunxi.org/Allwinner" target="_blank" rel="noopener">Sunxi</a> and <a href="https://www.linaro.org/" target="_blank" rel="noopener">Linaro</a>.</p>
-<blockquote>
-<p>In march 2014, <a href="http://allwinnertech.com/" target="_blank" rel="noopener">Allwinner</a> joined Linaro as part of the new linaro digital home group. After this, <a href="http://allwinnertech.com/" target="_blank" rel="noopener">Allwinner</a> stopped communicating with the <a href="http://linux-sunxi.org/Allwinner" target="_blank" rel="noopener">sunxi community</a>, as linaro membership apparently satisfies the marketing need to be seen as an open source friendly company. Despite <a href="https://www.linaro.org/" target="_blank" rel="noopener">Linaro</a> membership, <a href="http://allwinnertech.com/" target="_blank" rel="noopener">Allwinner</a> still violates the <a href="http://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank" rel="noopener">GPL</a> on many counts. (cited from <a href="http://linux-sunxi.org/Allwinner" target="_blank" rel="noopener">http://linux-sunxi.org/Allwinner</a> .)</p>
-</blockquote>
-<h1 id="part-a-install-debian-server-built-by-armbian-onto-nanopi-neo"><a class="markdownIt-Anchor" href="#part-a-install-debian-server-built-by-armbian-onto-nanopi-neo"></a> PART A: Install Debian Server Built By Armbian onto NanoPi NEO</h1>
-<h2 id="1-download-armbian-debian-server-for-nanopi-neo"><a class="markdownIt-Anchor" href="#1-download-armbian-debian-server-for-nanopi-neo"></a> 1. Download Armbian Debian Server for NanoPi NEO</h2>
-<p>We <strong>FIRST</strong> go visiting the website <a href="https://www.armbian.com/nanopi-neo/" target="_blank" rel="noopener">https://www.armbian.com/nanopi-neo/</a> and click <strong>Debian server – mainline kernel</strong> icon, a file named <strong>Armbian_5.38_Nanopineo_Debian_stretch_next_4.14.14.7z</strong> will be automatically downloaded.</p>
-<p>Then, we extract this .<strong>7z</strong> file by</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ 7za e Armbian_5.38_Nanopineo_Debian_stretch_next_4.14.14.7z</span><br><span class="line"></span><br><span class="line">7-Zip (A) [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18</span><br><span class="line">p7zip Version 9.20 (locale=en_CA.UTF-8,Utf16=on,HugeFiles=on,8 CPUs)</span><br><span class="line"></span><br><span class="line">Processing archive: Armbian_5.38_Nanopineo_Debian_stretch_next_4.14.14.7z</span><br><span class="line"></span><br><span class="line">Extracting  Armbian_5.38_Nanopineo_Debian_stretch_next_4.14.14.img</span><br><span class="line">Extracting  armbian.txt</span><br><span class="line">Extracting  armbian.txt.asc</span><br><span class="line">Extracting  Armbian_5.38_Nanopineo_Debian_stretch_next_4.14.14.img.asc</span><br><span class="line">Extracting  sha256sum.sha</span><br><span class="line"></span><br><span class="line">Everything is Ok</span><br><span class="line"></span><br><span class="line">Files: 5</span><br><span class="line">Size:       1396723567</span><br><span class="line">Compressed: 256174798</span><br></pre></td></tr></table></figure>
-<h2 id="2-install-armbian-debian-server-for-nanopi-neo"><a class="markdownIt-Anchor" href="#2-install-armbian-debian-server-for-nanopi-neo"></a> 2. Install Armbian Debian Server for NanoPi NEO</h2>
-<p>After the extracted image file is prepared, it’s the time to install the Armbian Debian Server onto our TF card. We <strong>FIRST</strong> format the TF card:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ sudo mkfs.ext4 /dev/mmcblk0 </span><br><span class="line">[sudo] password <span class="keyword">for</span> jiapei: </span><br><span class="line">mke2fs 1.42.13 (17-May-2015)</span><br><span class="line">Found a dos partition table <span class="keyword">in</span> /dev/mmcblk0</span><br><span class="line">Proceed anyway? (y,n) y</span><br><span class="line">Discarding device blocks: <span class="keyword">done</span>                            </span><br><span class="line">Creating filesystem with 3942144 4k blocks and 987360 inodes</span><br><span class="line">Filesystem UUID: bf3f62c9-283d-48fe-a0f3-56ab357f7b94</span><br><span class="line">Superblock backups stored on blocks: </span><br><span class="line">        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208</span><br><span class="line"></span><br><span class="line">Allocating group tables: <span class="keyword">done</span>                            </span><br><span class="line">Writing inode tables: <span class="keyword">done</span>                            </span><br><span class="line">Creating journal (32768 blocks): <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-<p>Afterwards, use <strong>dd</strong> to install the downloaded Armbian Ubuntu Desktop image.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dd bs=4M <span class="keyword">if</span>=Armbian_5.38_Nanopineo_Debian_stretch_next_4.14.14.img of=/dev/mmcblk0 conv=fsync</span><br><span class="line">[sudo] password <span class="keyword">for</span> jiapei: </span><br><span class="line">333+0 records <span class="keyword">in</span></span><br><span class="line">333+0 records out</span><br><span class="line">1396703232 bytes (1.4 GB, 1.3 GiB) copied, 157.712 s, 8.9 MB/s</span><br></pre></td></tr></table></figure>
-<h1 id="part-b-boot-into-armbian-network-configuration-and-armbian-upgrading"><a class="markdownIt-Anchor" href="#part-b-boot-into-armbian-network-configuration-and-armbian-upgrading"></a> PART B: Boot Into Armbian, Network Configuration and Armbian Upgrading</h1>
-<p>As known, <a href="http://www.friendlyarm.net/products/nanopi-neo" target="_blank" rel="noopener">NanoPi NEO</a> comes with <strong>NEITHER</strong> a <strong>HDMI</strong> interface for display, <strong>NOR</strong> a <strong>Wifi</strong> interface for wireless network connection. Therefore, we may have to find a wired cable, and connect our <a href="http://www.friendlyarm.net/products/nanopi-neo" target="_blank" rel="noopener">NanoPi NEO</a> to a router, which also connects with our host computer. Afterwards, we’ll have to find our <a href="http://www.friendlyarm.net/products/nanopi-neo" target="_blank" rel="noopener">NanoPi NEO</a> connection via router settings. Here in my case, I’m using a <a href="https://www.cogeco.ca/web/resources/pdf/support/user_guides/internet/cisco_wireless_residential_gateway_model_DPC3848_DPC3848V_DPC3848VM_DOCSIS_3_0.pdf" target="_blank" rel="noopener">Cisco DPC3848V DOCSIS 3.0 Gateway</a>, with the <strong>gateway IP: 192.168.0.1</strong>. By visiting <strong><a href="http://192.168.0.1" target="_blank" rel="noopener">http://192.168.0.1</a> -&gt; Setup -&gt; LAN Setup -&gt; Connected Devices Summary</strong>, you should be able to find out which is the newly connected network device, namely <a href="http://www.friendlyarm.net/products/nanopi-neo" target="_blank" rel="noopener">NanoPi NEO</a>.</p>
-<h2 id="1-ssh-into-nanopi-neo"><a class="markdownIt-Anchor" href="#1-ssh-into-nanopi-neo"></a> 1. SSH Into NanoPi NEO</h2>
-<p>Through our host computer, <strong>SSH</strong> into <a href="http://www.friendlyarm.net/products/nanopi-neo" target="_blank" rel="noopener">NanoPi NEO</a>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ssh root@192.168.0.76</span><br><span class="line">The authenticity of host <span class="string">'192.168.0.76 (192.168.0.76)'</span> can<span class="string">'t be established.</span></span><br><span class="line"><span class="string">ECDSA key fingerprint is SHA256:L0qZCYEGGallJo9jSpM63TWAYJ4vU/JzIbMJS80Lx8I.</span></span><br><span class="line"><span class="string">Are you sure you want to continue connecting (yes/no)? yes</span></span><br><span class="line"><span class="string">Warning: Permanently added '</span>192.168.0.76<span class="string">' (ECDSA) to the list of known hosts.</span></span><br><span class="line"><span class="string">root@192.168.0.76'</span>s password:</span><br></pre></td></tr></table></figure>
-<p>Then you input <strong>1234</strong> as the password, you’ll be asked to change your password right away.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">You are required to change your password immediately (root enforced)</span><br><span class="line"> _   _                   ____  _   _   _            </span><br><span class="line">| \ | | __ _ _ __   ___ |  _ \(_) | \ | | ___  ___  </span><br><span class="line">|  \| |/ _` | <span class="string">'_ \ / _ \| |_) | | |  \| |/ _ \/ _ \ </span></span><br><span class="line"><span class="string">| |\  | (_| | | | | (_) |  __/| | | |\  |  __/ (_) |</span></span><br><span class="line"><span class="string">|_| \_|\__,_|_| |_|\___/|_|   |_| |_| \_|\___|\___/ </span></span><br><span class="line"><span class="string">                                                    </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Welcome to ARMBIAN 5.38 stable Debian GNU/Linux 9 (stretch) 4.14.14-sunxi   </span></span><br><span class="line"><span class="string">System load:   0.07 0.04 0.07   Up time:       15 min</span></span><br><span class="line"><span class="string">Memory usage:  16 % of 240MB    IP:            192.168.0.76</span></span><br><span class="line"><span class="string">CPU temp:      37°C           </span></span><br><span class="line"><span class="string">Usage of /:    7% of 15G    </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[ General system configuration (beta): armbian-config ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">New to Armbian? Check the documentation first: https://docs.armbian.com</span></span><br><span class="line"><span class="string">Changing password for root.</span></span><br><span class="line"><span class="string">(current) UNIX password: </span></span><br><span class="line"><span class="string">Enter new UNIX password: </span></span><br><span class="line"><span class="string">Retype new UNIX password: </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Thank you for choosing Armbian! Support: www.armbian.com</span></span><br></pre></td></tr></table></figure>
-<p>And then you will be asked to create a new user account.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">Creating a new user account. Press &lt;Ctrl-C&gt; to abort</span><br><span class="line"></span><br><span class="line">Please provide a username (eg. your forename): nanopineo</span><br><span class="line">Trying to add user nanopineo</span><br><span class="line">perl: warning: Setting locale failed.</span><br><span class="line">perl: warning: Please check that your locale settings:</span><br><span class="line">        LANGUAGE = <span class="string">"en_US.UTF-8"</span>,</span><br><span class="line">        LC_ALL = (<span class="built_in">unset</span>),</span><br><span class="line">        LC_MEASUREMENT = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_PAPER = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_MONETARY = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_NAME = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_ADDRESS = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_NUMERIC = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_MESSAGES = <span class="string">"en_US.UTF-8"</span>,</span><br><span class="line">        LC_TELEPHONE = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_IDENTIFICATION = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_TIME = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LANG = <span class="string">"en_US.UTF-8"</span></span><br><span class="line">    are supported and installed on your system.</span><br><span class="line">perl: warning: Falling back to a fallback locale (<span class="string">"en_US.UTF-8"</span>).</span><br><span class="line">Adding user `nanopineo<span class="string">' ...</span></span><br><span class="line"><span class="string">Adding new group `nanopineo'</span> (1000) ...</span><br><span class="line">Adding new user `nanopineo<span class="string">' (1000) with group `nanopineo'</span> ...</span><br><span class="line">Creating home directory `/home/nanopineo<span class="string">' ...</span></span><br><span class="line"><span class="string">Copying files from `/etc/skel'</span> ...</span><br><span class="line">Enter new UNIX password: </span><br><span class="line">Retype new UNIX password: </span><br><span class="line">passwd: password updated successfully</span><br><span class="line">Changing the user information <span class="keyword">for</span> nanopineo</span><br><span class="line">Enter the new value, or press ENTER <span class="keyword">for</span> the default</span><br><span class="line">        Full Name []: </span><br><span class="line">        Room Number []: </span><br><span class="line">        Work Phone []: </span><br><span class="line">        Home Phone []: </span><br><span class="line">        Other []: </span><br><span class="line">Is the information correct? [Y/n] Y</span><br><span class="line"></span><br><span class="line">Dear nanopineo, your account nanopineo has been created and is sudo enabled.</span><br><span class="line">Please use this account <span class="keyword">for</span> your daily work from now on.</span><br><span class="line"></span><br><span class="line">root@nanopineo:~<span class="comment">#</span></span><br></pre></td></tr></table></figure>
-<h2 id="2-network-configuration"><a class="markdownIt-Anchor" href="#2-network-configuration"></a> 2. Network Configuration</h2>
-<h3 id="1-doublecheck-ip-address"><a class="markdownIt-Anchor" href="#1-doublecheck-ip-address"></a> 1) Doublecheck IP address</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">root@nanopineo:~<span class="comment"># ifconfig</span></span><br><span class="line">eth0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">        inet 192.168.0.76  netmask 255.255.255.0  broadcast 192.168.0.255</span><br><span class="line">        inet6 fe80::dc0b:3cff:fe76:8606  prefixlen 64  scopeid 0x20&lt;link&gt;</span><br><span class="line">        ether de:0b:3c:76:86:06  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 1544  bytes 145676 (142.2 KiB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 667  bytes 63483 (61.9 KiB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line">        device interrupt 33  </span><br><span class="line"></span><br><span class="line">lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536</span><br><span class="line">        inet 127.0.0.1  netmask 255.0.0.0</span><br><span class="line">        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;</span><br><span class="line">        loop  txqueuelen 1000  (Local Loopback)</span><br><span class="line">        RX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br></pre></td></tr></table></figure>
-<h3 id="2-modify-etcnetworkinterfaces"><a class="markdownIt-Anchor" href="#2-modify-etcnetworkinterfaces"></a> 2) Modify /etc/network/interfaces</h3>
-<p>I noticed that when you reboot <a href="http://www.friendlyarm.net/products/nanopi-neo" target="_blank" rel="noopener">NanoPi NEO</a>, the IP address changed from time to time. The reason why it is so is because the MAC address of <a href="http://www.friendlyarm.net/products/nanopi-neo" target="_blank" rel="noopener">NanoPi NEO</a> change randomly after Armbian reboot. Therefore, it’s recommended to manually set a static MAC address for <a href="http://www.friendlyarm.net/products/nanopi-neo" target="_blank" rel="noopener">NanoPi NEO</a> in file /<strong>etc/network/interfaces</strong>.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@nanopineo:~<span class="comment"># vim /etc/network/interfaces</span></span><br></pre></td></tr></table></figure>
-<p>Just make sure to uncomment this line <strong>hwaddress ether # if you want to set MAC manually</strong> and write in a fixed MAC address. The final /<strong>etc/network/interfaces</strong> for my <a href="http://www.friendlyarm.net/products/nanopi-neo" target="_blank" rel="noopener">NanoPi NEO</a> is as follows:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">root@nanopineo:~<span class="comment"># cat /etc/network/interfaces</span></span><br><span class="line"><span class="built_in">source</span> /etc/network/interfaces.d/*</span><br><span class="line"></span><br><span class="line"><span class="comment"># Wired adapter #1</span></span><br><span class="line">allow-hotplug eth0</span><br><span class="line">no-auto-down eth0</span><br><span class="line">iface eth0 inet dhcp</span><br><span class="line"><span class="comment">#address 192.168.0.100</span></span><br><span class="line"><span class="comment">#netmask 255.255.255.0</span></span><br><span class="line"><span class="comment">#gateway 192.168.0.1</span></span><br><span class="line"><span class="comment">#dns-nameservers 8.8.8.8 8.8.4.4</span></span><br><span class="line">        hwaddress ether  d2:d0:78:47:06:b3 <span class="comment"># if you want to set MAC manually</span></span><br><span class="line"><span class="comment">#       pre-up /sbin/ifconfig eth0 mtu 3838 # setting MTU for DHCP, static just: mtu 3838</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Wireless adapter #1</span></span><br><span class="line"><span class="comment"># Armbian ships with network-manager installed by default. To save you time</span></span><br><span class="line"><span class="comment"># and hassles consider using 'sudo nmtui' instead of configuring Wi-Fi settings</span></span><br><span class="line"><span class="comment"># manually. The below lines are only meant as an example how configuration could</span></span><br><span class="line"><span class="comment"># be done in an anachronistic way:</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment">#allow-hotplug wlan0</span></span><br><span class="line"><span class="comment">#iface wlan0 inet dhcp</span></span><br><span class="line"><span class="comment">#address 192.168.0.100</span></span><br><span class="line"><span class="comment">#netmask 255.255.255.0</span></span><br><span class="line"><span class="comment">#gateway 192.168.0.1</span></span><br><span class="line"><span class="comment">#dns-nameservers 8.8.8.8 8.8.4.4</span></span><br><span class="line"><span class="comment">#   wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf</span></span><br><span class="line"><span class="comment"># Disable power saving on compatible chipsets (prevents SSH/connection dropouts over WiFi)</span></span><br><span class="line"><span class="comment">#wireless-mode Managed</span></span><br><span class="line"><span class="comment">#wireless-power off</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Local loopback</span></span><br><span class="line">auto lo</span><br><span class="line">iface lo inet loopback</span><br><span class="line"></span><br><span class="line">And before reboot Armbian, we also need to <span class="built_in">set</span> a **FIXED** IP address (Here <span class="keyword">in</span> my <span class="keyword">case</span>: 192.168.0.36) <span class="keyword">for</span> the device with the static MAC address you just specified (Here <span class="keyword">in</span> my <span class="keyword">case</span>: **d2:d0:78:47:06:b3**).</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 3. Reboot Armbian</span></span><br><span class="line"></span><br><span class="line">Now, reboot Armbian.</span><br><span class="line"></span><br><span class="line">```console</span><br><span class="line">root@nanopineo:~<span class="comment"># sudo reboot</span></span><br></pre></td></tr></table></figure>
-<p>After a while, ssh into Armbian with created user <strong>nanopineo</strong>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">$ ssh nanopineo@192.168.0.36</span><br><span class="line">The authenticity of host <span class="string">'192.168.0.36 (192.168.0.36)'</span> can<span class="string">'t be established.</span></span><br><span class="line"><span class="string">ECDSA key fingerprint is SHA256:L0qZCYEGGallJo9jSpM63TWAYJ4vU/JzIbMJS80Lx8I.</span></span><br><span class="line"><span class="string">Are you sure you want to continue connecting (yes/no)? yes</span></span><br><span class="line"><span class="string">Warning: Permanently added '</span>192.168.0.36<span class="string">' (ECDSA) to the list of known hosts.</span></span><br><span class="line"><span class="string">nanopineo@192.168.0.36'</span>s password: </span><br><span class="line"> _   _                   ____  _   _   _            </span><br><span class="line">| \ | | __ _ _ __   ___ |  _ \(_) | \ | | ___  ___  </span><br><span class="line">|  \| |/ _` | <span class="string">'_ \ / _ \| |_) | | |  \| |/ _ \/ _ \ </span></span><br><span class="line"><span class="string">| |\  | (_| | | | | (_) |  __/| | | |\  |  __/ (_) |</span></span><br><span class="line"><span class="string">|_| \_|\__,_|_| |_|\___/|_|   |_| |_| \_|\___|\___/ </span></span><br><span class="line"><span class="string">                                                    </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Welcome to ARMBIAN 5.38 stable Debian GNU/Linux 9 (stretch) 4.14.14-sunxi   </span></span><br><span class="line"><span class="string">System load:   0.99 0.30 0.10   Up time:       0 min</span></span><br><span class="line"><span class="string">Memory usage:  16 % of 240MB    IP:            192.168.0.36</span></span><br><span class="line"><span class="string">CPU temp:      43°C           </span></span><br><span class="line"><span class="string">Usage of /:    8% of 15G    </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[ 0 security updates available, 3 updates total: apt upgrade ]</span></span><br><span class="line"><span class="string">Last check: 2018-03-01 06:30</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[ General system configuration (beta): armbian-config ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">nanopineo@nanopineo:~$</span></span><br></pre></td></tr></table></figure>
-<h2 id="4-armbian-upgrading"><a class="markdownIt-Anchor" href="#4-armbian-upgrading"></a> 4. Armbian Upgrading</h2>
-<p>Then we simply <strong>upgrade</strong> Armbian.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">nanopineo@nanopineo:~$ sudo apt update</span><br><span class="line"></span><br><span class="line">We trust you have received the usual lecture from the <span class="built_in">local</span> System</span><br><span class="line">Administrator. It usually boils down to these three things:</span><br><span class="line"></span><br><span class="line">    <span class="comment">#1) Respect the privacy of others.</span></span><br><span class="line">    <span class="comment">#2) Think before you type.</span></span><br><span class="line">    <span class="comment">#3) With great power comes great responsibility.</span></span><br><span class="line"></span><br><span class="line">[sudo] password <span class="keyword">for</span> nanopineo: </span><br><span class="line">Hit:1 http://security.debian.org stretch/updates InRelease</span><br><span class="line">Hit:4 http://apt.armbian.com stretch InRelease                                                                                    </span><br><span class="line">Ign:2 http://cdn-fastly.deb.debian.org/debian stretch InRelease                              </span><br><span class="line">Hit:3 http://cdn-fastly.deb.debian.org/debian stretch-updates InRelease</span><br><span class="line">Hit:5 http://cdn-fastly.deb.debian.org/debian stretch-backports InRelease</span><br><span class="line">Hit:6 http://cdn-fastly.deb.debian.org/debian stretch Release</span><br><span class="line">Reading package lists... Done</span><br><span class="line">Building dependency tree       </span><br><span class="line">Reading state information... Done</span><br><span class="line">3 packages can be upgraded. Run <span class="string">'apt list --upgradable'</span> to see them.</span><br><span class="line">nanopineo@nanopineo:~$ apt list --upgradable</span><br><span class="line">Listing... Done</span><br><span class="line">linux-dtb-next-sunxi/stretch 5.41 armhf [upgradable from: 5.38]</span><br><span class="line">linux-image-next-sunxi/stretch 5.41 armhf [upgradable from: 5.38]</span><br><span class="line">tzdata/stable-updates 2018c-0+deb9u1 all [upgradable from: 2017c-0+deb9u1]</span><br><span class="line">nanopineo@nanopineo:~$ sudo apt upgrade</span><br><span class="line">Reading package lists... Done</span><br><span class="line">Building dependency tree       </span><br><span class="line">Reading state information... Done</span><br><span class="line">Calculating upgrade... Done</span><br><span class="line">The following packages will be upgraded:</span><br><span class="line">  linux-dtb-next-sunxi linux-image-next-sunxi tzdata</span><br><span class="line">3 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.</span><br><span class="line">Need to get 20.2 MB of archives.</span><br><span class="line">After this operation, 240 kB of additional disk space will be used.</span><br><span class="line">Do you want to <span class="built_in">continue</span>? [Y/n] Y</span><br><span class="line">Get:1 http://cdn-fastly.deb.debian.org/debian stretch-updates/main armhf tzdata all 2018c-0+deb9u1 [264 kB]</span><br><span class="line">Get:2 http://apt.armbian.com stretch/main armhf linux-dtb-next-sunxi armhf 5.41 [175 kB]</span><br><span class="line">Get:3 http://apt.armbian.com stretch/main armhf linux-image-next-sunxi armhf 5.41 [19.7 MB]</span><br><span class="line">Fetched 20.2 MB <span class="keyword">in</span> 14s (1387 kB/s)</span><br><span class="line">perl: warning: Setting locale failed.</span><br><span class="line">perl: warning: Please check that your locale settings:</span><br><span class="line">        LANGUAGE = <span class="string">"en_US.UTF-8"</span>,</span><br><span class="line">        LC_ALL = (<span class="built_in">unset</span>),</span><br><span class="line">        LC_TIME = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_MONETARY = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_ADDRESS = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_TELEPHONE = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_MESSAGES = <span class="string">"en_US.UTF-8"</span>,</span><br><span class="line">        LC_NAME = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_MEASUREMENT = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_IDENTIFICATION = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_NUMERIC = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LC_PAPER = <span class="string">"en_CA.UTF-8"</span>,</span><br><span class="line">        LANG = <span class="string">"en_US.UTF-8"</span></span><br><span class="line">    are supported and installed on your system.</span><br><span class="line">perl: warning: Falling back to a fallback locale (<span class="string">"en_US.UTF-8"</span>).</span><br><span class="line">locale: Cannot <span class="built_in">set</span> LC_ALL to default locale: No such file or directory</span><br><span class="line">Preconfiguring packages ...</span><br><span class="line">(Reading database ... 32833 files and directories currently installed.)</span><br><span class="line">Preparing to unpack .../tzdata_2018c-0+deb9u1_all.deb ...</span><br><span class="line">Unpacking tzdata (2018c-0+deb9u1) over (2017c-0+deb9u1) ...</span><br><span class="line">Preparing to unpack .../linux-dtb-next-sunxi_5.41_armhf.deb ...</span><br><span class="line">Unpacking linux-dtb-next-sunxi (5.41) over (5.38) ...</span><br><span class="line">Preparing to unpack .../linux-image-next-sunxi_5.41_armhf.deb ...</span><br><span class="line">update-initramfs: Deleting /boot/initrd.img-4.14.14-sunxi</span><br><span class="line">Removing obsolete file uInitrd-4.14.14-sunxi</span><br><span class="line">Unpacking linux-image-next-sunxi (5.41) over (5.38) ...</span><br><span class="line">Setting up linux-dtb-next-sunxi (5.41) ...</span><br><span class="line">Setting up tzdata (2018c-0+deb9u1) ...</span><br><span class="line">locale: Cannot <span class="built_in">set</span> LC_ALL to default locale: No such file or directory</span><br><span class="line"></span><br><span class="line">Current default time zone: <span class="string">'Etc/UTC'</span></span><br><span class="line">Local time is now:      Thu Mar  1 06:34:05 UTC 2018.</span><br><span class="line">Universal Time is now:  Thu Mar  1 06:34:05 UTC 2018.</span><br><span class="line">Run <span class="string">'dpkg-reconfigure tzdata'</span> <span class="keyword">if</span> you wish to change it.</span><br><span class="line"></span><br><span class="line">Setting up linux-image-next-sunxi (5.41) ...</span><br><span class="line">update-initramfs: Generating /boot/initrd.img-4.14.18-sunxi</span><br><span class="line">update-initramfs: Converting to u-boot format</span><br><span class="line">nanopineo@nanopineo:~$</span><br></pre></td></tr></table></figure>
-<h2 id="5-kernel-doublechecking"><a class="markdownIt-Anchor" href="#5-kernel-doublechecking"></a> 5. Kernel Doublechecking</h2>
-<p>Finally, we have the system and kernel doublechecked.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">nanopineo@nanopineo:~$ uname -r</span><br><span class="line">4.14.14-sunxi</span><br><span class="line">nanopineo@nanopineo:~$ uname -a</span><br><span class="line">Linux nanopineo 4.14.14-sunxi <span class="comment">#1 SMP Thu Jan 25 12:20:57 CET 2018 armv7l GNU/Linux</span></span><br><span class="line">nanopineo@nanopineo:~$ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID: Debian</span><br><span class="line">Description:    Debian GNU/Linux 9.3 (stretch)</span><br><span class="line">Release:        9.3</span><br><span class="line">Codename:       stretch</span><br><span class="line">nanopineo@nanopineo:~$</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/01/10/SBCs/ARM/beaglebone-black-uboot-kernel/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/10/SBCs/ARM/beaglebone-black-uboot-kernel/" itemprop="url">
-                  Build U-Boot and Linux Kernel for Beaglebone and Beaglebone Black
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-01-10 00:00:00" itemprop="dateCreated datePublished" datetime="2018-01-10T00:00:00-08:00">2018-01-10</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-08-18 14:58:22" itemprop="dateModified" datetime="2019-08-18T14:58:22-07:00">2019-08-18</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Happy new year everybody. How time flies. It is already 2018. <a href="http://www.longervision.com/" target="_blank" rel="noopener">Longer Vision</a> has been struggling on this tough road towards a successful enterprise. Algorithms <strong>ONLY</strong> are <strong>NOT</strong> enough for nowadays business. <a href="https://en.wikipedia.org/wiki/Board_support_package" target="_blank" rel="noopener">BSP (board support package)</a> and <a href="https://en.wikipedia.org/wiki/Integrated_circuit_design" target="_blank" rel="noopener">IC design</a> are a must for a successful business nowadays. Thus, ever since 2018, <a href="http://www.longervision.com/" target="_blank" rel="noopener">Longer Vision</a> is going to balance <strong>both</strong> hardware <strong>and</strong> software, particularly, <a href="http://www.arm.com/" target="_blank" rel="noopener">ARM</a> based open source embedded development board and computer vision algorithms.</p>
-<p>In this blog, we are going to talk about how to build and flash <a href="http://www.denx.de/wiki/U-Boot/WebHome" target="_blank" rel="noopener">U-Boot</a> and <a href="https://www.kernel.org/" target="_blank" rel="noopener">Linux Kernel</a> onto a <a href="https://beagleboard.org/bone-original" target="_blank" rel="noopener">Beaglebone</a> and <a href="https://beagleboard.org/black" target="_blank" rel="noopener">Beaglebone Black</a>, which adopts <a href="http://www.ti.com/processors/sitara/arm-cortex-a8/am335x/overview.html" target="_blank" rel="noopener">TI AM335x</a> as its CPU. The board looks like (cited from <a href="https://beagleboard.org/black" target="_blank" rel="noopener">Beaglebone Black</a> ):</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/omap/beaglebone/black/images/BBB.jpg" alt="Beaglebone Black"></p>
-<h1 id="part-a-cross-compile-u-boot-and-linux-kernel"><a class="markdownIt-Anchor" href="#part-a-cross-compile-u-boot-and-linux-kernel"></a> PART A: Cross Compile U-Boot and Linux Kernel</h1>
-<h2 id="1-linaro-gcc"><a class="markdownIt-Anchor" href="#1-linaro-gcc"></a> 1. Linaro GCC</h2>
-<p><a href="https://www.linaro.org/" target="_blank" rel="noopener">Linaro</a> is a popular platform providing high-quality code for both <a href="https://www.kernel.org/" target="_blank" rel="noopener">Linux kernel</a> and <a href="https://developer.arm.com/open-source/gnu-toolchain/gnu-rm" target="_blank" rel="noopener">GCC tool chain</a>. Linaro’s GCC toolchain of varoius versions can be directly found <a href="https://releases.linaro.org/components/toolchain/binaries/" target="_blank" rel="noopener">here</a>.</p>
-<p>Here, we download GCC latest-6 binary under <a href="https://releases.linaro.org/components/toolchain/binaries/latest-6/arm-linux-gnueabihf/" target="_blank" rel="noopener">arm-linux-gnueabihf</a>.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ wget -c </span><br><span class="line">https://releases.linaro.org/components/toolchain/binaries/latest-6/arm-linux-gnueabihf/gcc-linaro-6.4.1-2017.11-x86_64_arm-linux-gnueabihf.tar.xz</span><br><span class="line">$ tar xf gcc-linaro-6.4.1-2017.11-x86_64_arm-linux-gnueabihf.tar.xz</span><br><span class="line">$ <span class="built_in">export</span> CC=`<span class="built_in">pwd</span>`/gcc-linaro-6.4.1-2017.11-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-</span><br></pre></td></tr></table></figure>
-<p>Test the cross compiler:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="variable">$&#123;CC&#125;</span>gcc --version</span><br><span class="line">arm-linux-gnueabihf-gcc (Linaro GCC 6.4-2017.11) 6.4.1 20171012</span><br><span class="line">Copyright (C) 2017 Free Software Foundation, Inc.</span><br><span class="line">This is free software; see the <span class="built_in">source</span> <span class="keyword">for</span> copying conditions.  There is NO</span><br><span class="line">warranty; not even <span class="keyword">for</span> MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span><br></pre></td></tr></table></figure>
-<h2 id="2-u-boot"><a class="markdownIt-Anchor" href="#2-u-boot"></a> 2. U-Boot</h2>
-<p><a href="http://www.denx.de/wiki/U-Boot" target="_blank" rel="noopener">U-Boot</a> is a universal boot loader. For <a href="https://beagleboard.org/bone-original" target="_blank" rel="noopener">Beaglebone</a> and <a href="https://beagleboard.org/black" target="_blank" rel="noopener">Beaglebone Black</a>, there are two patches which has been maintained by <a href="http://eewiki.net/display/linuxonarm" target="_blank" rel="noopener">eewiki Linux on ARM</a> on <a href="https://github.com/eewiki/u-boot-patches" target="_blank" rel="noopener">github</a>. We first download U-Boot and check out the latest release as follows:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/u-boot/u-boot</span><br><span class="line">$ <span class="built_in">cd</span> u-boot/</span><br><span class="line">$ git checkout v2018.01</span><br></pre></td></tr></table></figure>
-<p>Then check out the latest <a href="https://github.com/eewiki/u-boot-patches" target="_blank" rel="noopener">u-boot-patches</a> and patch two files under the latest release <a href="https://github.com/eewiki/u-boot-patches/tree/master/v2018.01" target="_blank" rel="noopener">v2018.01</a>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ../</span><br><span class="line">$ git <span class="built_in">clone</span> https://github.com/eewiki/u-boot-patches.git</span><br><span class="line">$ <span class="built_in">cd</span> ./u-boot-patches/v2018.01</span><br><span class="line">$ cp 0001-am335x_evm-uEnv.txt-bootz-n-fixes.patch ../../u-boot/</span><br><span class="line">$ cp 0002-U-Boot-BeagleBone-Cape-Manager.patch ../../u-boot/</span><br><span class="line">$ <span class="built_in">cd</span> ../../u-boot</span><br><span class="line">$ patch -p1 &lt; 0001-am335x_evm-uEnv.txt-bootz-n-fixes.patch</span><br><span class="line">$ patch -p1 &lt; 0002-U-Boot-BeagleBone-Cape-Manager.patch</span><br></pre></td></tr></table></figure>
-<p>Finally, we configure and build U-Boot for <a href="https://beagleboard.org/bone-original" target="_blank" rel="noopener">Beaglebone</a> and <a href="https://beagleboard.org/black" target="_blank" rel="noopener">Beaglebone Black</a> as follows:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ make ARCH=arm CROSS_COMPILE=<span class="variable">$&#123;CC&#125;</span> distclean</span><br><span class="line">$ make ARCH=arm CROSS_COMPILE=<span class="variable">$&#123;CC&#125;</span> am335x_evm_defconfig</span><br><span class="line">$ make ARCH=arm CROSS_COMPILE=<span class="variable">$&#123;CC&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="3-linux-kernel"><a class="markdownIt-Anchor" href="#3-linux-kernel"></a> 3. Linux Kernel</h2>
-<p>Due to Robert Nelson’s summary at <a href="http://eewiki.net/display/linuxonarm/BeagleBone+Black" target="_blank" rel="noopener">eewiki</a>, there are two ways to build <a href="https://beagleboard.org/bone-original" target="_blank" rel="noopener">Beaglebone</a> and <a href="https://beagleboard.org/black" target="_blank" rel="noopener">Beaglebone Black</a>: - <a href="https://github.com/RobertCNelson/bb-kernel" target="_blank" rel="noopener">Mainline</a> - <a href="https://github.com/RobertCNelson/ti-linux-kernel-dev" target="_blank" rel="noopener">TI BSP</a></p>
-<p>Their differences are: - bb-kernel: based on <a href="https://github.com/RobertCNelson/bb-kernel" target="_blank" rel="noopener">mainline</a>, no-smp, optimized for AM335x devices. - ti-linux-kernel-dev: based on <a href="https://github.com/RobertCNelson/ti-linux-kernel-dev" target="_blank" rel="noopener">TI’s git tree</a>, smp, optimized for AM335x/AM43xx/AM57x devices.</p>
-<p>Here, we are going to use <a href="https://github.com/RobertCNelson/bb-kernel" target="_blank" rel="noopener">Mainline</a> to build our own Linux Kernel. We FIRST check out <a href="https://github.com/RobertCNelson/bb-kernel" target="_blank" rel="noopener">Robert Nelson’s bb-kernel</a>.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/RobertCNelson/bb-kernel</span><br><span class="line">$ <span class="built_in">cd</span> bb-kernel/</span><br><span class="line">$ git checkout origin/am33x-v4.14 -b am33x-v4.14</span><br></pre></td></tr></table></figure>
-<p>We then check out <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git" target="_blank" rel="noopener">Linus Torvalds’ stable Linux Kernel</a>, which can be also tracked on <a href="https://github.com/torvalds/linux" target="_blank" rel="noopener">github Torvalds Linux</a>. This will take you quite a while.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git</span><br></pre></td></tr></table></figure>
-<p>Now, it’s the time to modify some of the configurations in .sh files under the checked out branch <strong>am33x-v4.14</strong>.</p>
-<h3 id="1-versionsh"><a class="markdownIt-Anchor" href="#1-versionsh"></a> 1) <a href="http://version.sh" target="_blank" rel="noopener">version.sh</a></h3>
-<p>Here, I’m using <strong>gcc_linaro_gnueabihf_6</strong> instead of <strong>gcc_linaro_gnueabihf_7</strong>.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">toolchain=<span class="string">"gcc_linaro_gnueabihf_6"</span></span><br><span class="line"><span class="comment">#toolchain="gcc_linaro_gnueabihf_7"</span></span><br></pre></td></tr></table></figure>
-<h3 id="2-systemsh"><a class="markdownIt-Anchor" href="#2-systemsh"></a> 2) <a href="http://system.sh" target="_blank" rel="noopener">system.sh</a></h3>
-<p>A file named <strong>system.sh.sample</strong> has been provided for us to configure accordingly. We FIRST do a copy.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cp system.sh.sample system.sh</span><br></pre></td></tr></table></figure>
-<p>Then, we manually re-specifying two MACROs: <strong>CC</strong> and <strong>LINUX_GIT</strong>, respectively to two directories containing the above downloaded Linaro GCC compiler and the current Torvalds’ Linux Kernel. We also specify <strong>MMC</strong> for TF/SD Card as follows:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CC=.../gcc-linaro-6.4.1-2017.11-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-</span><br><span class="line">LINUX_GIT=.../linux-stable</span><br><span class="line">MMC=/dev/mmcblk0</span><br></pre></td></tr></table></figure>
-<p>After the above configurations, we start building the Linux Kernel using the following command line. This will probably take you one hour.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./build_kernel.sh</span><br></pre></td></tr></table></figure>
-<p>When you see this <strong>Kernel Configuration</strong> page,</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/omap/beaglebone/black/images/kernelconfiguration.jpg" alt="Kernel Configuration"></p>
-<p><strong>Exit</strong> right away without any modification. And you will see:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/omap/beaglebone/black/images/afterkernelconfiguration.jpg" alt="After Kernel Configuration"></p>
-<p>After a while, you will see <strong>Linux Kernel</strong> has been successfully built:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/omap/beaglebone/black/images/kernelbuilt.jpg" alt="The Built Kernel"></p>
-<h2 id="4-root-file-system"><a class="markdownIt-Anchor" href="#4-root-file-system"></a> 4. Root File System</h2>
-<p>We then install the latest Debian (for now, Debian 9.3) according to Robert Nelson’s minimal operating system. Three commands are to be executed in a row for downloading, verifying, and extraction.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ wget -c https://rcn-ee.com/rootfs/eewiki/minfs/debian-9.3-minimal-armhf-2017-12-09.tar.xz</span><br><span class="line">$ sha256sum debian-9.3-minimal-armhf-2017-12-09.tar.xz</span><br><span class="line">5120fcfb8ff8af013737fae52dc0a7ecc2f52563a9aa8f5aa288aff0f3943d61  debian-9.3-minimal-armhf-2017-12-09.tar.xz</span><br><span class="line">$ tar xf debian-9.3-minimal-armhf-2017-12-09.tar.xz</span><br></pre></td></tr></table></figure>
-<p>Until now, most components for booting have been downloaded and built. It is the time for us to flash our own OS onto a SD card.</p>
-<h1 id="part-b-install-the-linux-os-onto-sd-card"><a class="markdownIt-Anchor" href="#part-b-install-the-linux-os-onto-sd-card"></a> PART B: Install the Linux OS onto SD Card</h1>
-<h2 id="5-setup-microsd-card"><a class="markdownIt-Anchor" href="#5-setup-microsd-card"></a> 5. Setup microSD card</h2>
-<h3 id="1-tf-card-preparation"><a class="markdownIt-Anchor" href="#1-tf-card-preparation"></a> 1) TF Card Preparation</h3>
-<p>We first check which block device that we are going to install our built system onto by command <strong>lsblk</strong>.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ lsblk</span><br><span class="line">NAME    MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT</span><br><span class="line">sdd       8:48   0 931.5G  0 disk </span><br><span class="line">└─sdd1    8:49   0 931.5G  0 part /media/jiapei/Data</span><br><span class="line">sdb       8:16   0 238.5G  0 disk </span><br><span class="line">├─sdb4    8:20   0   900M  0 part </span><br><span class="line">├─sdb2    8:18   0   128M  0 part </span><br><span class="line">├─sdb3    8:19   0 237.2G  0 part /media/jiapei/Win10</span><br><span class="line">└─sdb1    8:17   0   300M  0 part /boot/efi</span><br><span class="line">sr0      11:0    1  1024M  0 rom  </span><br><span class="line">sdc       8:32   0 238.5G  0 disk </span><br><span class="line">├─sdc2    8:34   0  30.5G  0 part [SWAP]</span><br><span class="line">├─sdc3    8:35   0 207.5G  0 part /</span><br><span class="line">└─sdc1    8:33   0   512M  0 part </span><br><span class="line">mmcblk0 179:0    0    15G  0 disk</span><br></pre></td></tr></table></figure>
-<p>We then define a MACRO <strong>DISK</strong> to specify the TF card device.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> DISK=/dev/mmcblk0</span><br></pre></td></tr></table></figure>
-<p>Afterwards, erase partition table/labels on TF card by:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dd <span class="keyword">if</span>=/dev/zero of=<span class="variable">$&#123;DISK&#125;</span> bs=1M count=10</span><br></pre></td></tr></table></figure>
-<h3 id="2-bootloader-installation"><a class="markdownIt-Anchor" href="#2-bootloader-installation"></a> 2) Bootloader installation</h3>
-<p>Now, we install the built U-Boot onto the SD card:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dd <span class="keyword">if</span>=./u-boot/MLO of=<span class="variable">$&#123;DISK&#125;</span> count=1 seek=1 bs=128k</span><br><span class="line">$ sudo dd <span class="keyword">if</span>=./u-boot/u-boot.img of=<span class="variable">$&#123;DISK&#125;</span> count=2 seek=1 bs=384k</span><br></pre></td></tr></table></figure>
-<h3 id="3-partition-preparation"><a class="markdownIt-Anchor" href="#3-partition-preparation"></a> 3) Partition Preparation</h3>
-<p>We FIRST make sure which version of <strong>sfdisk</strong> is. In my case, it is of version 2.27.1</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sfdisk --version</span><br><span class="line">sfdisk from util-linux 2.27.1</span><br></pre></td></tr></table></figure>
-<p>Then we create the partition layout by:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sfdisk <span class="variable">$&#123;DISK&#125;</span> &lt;&lt;-__EOF__</span><br><span class="line">4M,,L,*</span><br><span class="line">__EOF__</span><br></pre></td></tr></table></figure>
-<p>Afterwards, we need to format the created partition by <strong>mkfs.ext4</strong>. We also need to make sure which version of <strong>mkfs.ext4</strong> is. In my case, it is of version 1.42.13.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ mkfs.ext4 -V</span><br><span class="line">mke2fs 1.42.13 (17-May-2015)</span><br><span class="line">        Using EXT2FS Library version 1.42.13</span><br></pre></td></tr></table></figure>
-<p>Then, we format the partition by:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo mkfs.ext4 -L rootfs <span class="variable">$&#123;DISK&#125;</span>p1</span><br></pre></td></tr></table></figure>
-<p>After formatting, the TF card should be able to be either automatically mounted or manually mounted by the following command:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo mkdir -p /media/rootfs/</span><br><span class="line">$ sudo mount <span class="variable">$&#123;DISK&#125;</span>p1 /media/rootfs/</span><br></pre></td></tr></table></figure>
-<h3 id="4-backup-bootloader"><a class="markdownIt-Anchor" href="#4-backup-bootloader"></a> 4) Backup Bootloader</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo mkdir -p /media/rootfs/opt/backup/uboot/</span><br><span class="line">$ sudo cp -v ./u-boot/MLO /media/rootfs/opt/backup/uboot/</span><br><span class="line">$ sudo cp -v ./u-boot/u-boot.img /media/rootfs/opt/backup/uboot/</span><br></pre></td></tr></table></figure>
-<h3 id="5-dealing-with-old-bootloader-in-emmc-optional"><a class="markdownIt-Anchor" href="#5-dealing-with-old-bootloader-in-emmc-optional"></a> 5) Dealing with old Bootloader in eMMC (Optional)</h3>
-<p>If the old bootloader in eMMC is to be kept, please copy the following file <strong>uEnv.txt</strong> to /<strong>media/rootfs/</strong>.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##This will work with: Angstrom's 2013.06.20 u-boot.</span></span><br><span class="line"> </span><br><span class="line">loadaddr=0x82000000</span><br><span class="line">fdtaddr=0x88000000</span><br><span class="line">rdaddr=0x88080000</span><br><span class="line"> </span><br><span class="line">initrd_high=0xffffffff</span><br><span class="line">fdt_high=0xffffffff</span><br><span class="line"> </span><br><span class="line"><span class="comment">#for single partitions:</span></span><br><span class="line">mmcroot=/dev/mmcblk0p1</span><br><span class="line"> </span><br><span class="line">loadximage=load mmc 0:1 <span class="variable">$&#123;loadaddr&#125;</span> /boot/vmlinuz-<span class="variable">$&#123;uname_r&#125;</span></span><br><span class="line">loadxfdt=load mmc 0:1 <span class="variable">$&#123;fdtaddr&#125;</span> /boot/dtbs/<span class="variable">$&#123;uname_r&#125;</span>/<span class="variable">$&#123;fdtfile&#125;</span></span><br><span class="line">loadxrd=load mmc 0:1 <span class="variable">$&#123;rdaddr&#125;</span> /boot/initrd.img-<span class="variable">$&#123;uname_r&#125;</span>; setenv rdsize <span class="variable">$&#123;filesize&#125;</span></span><br><span class="line">loaduEnvtxt=load mmc 0:1 <span class="variable">$&#123;loadaddr&#125;</span> /boot/uEnv.txt ; env import -t <span class="variable">$&#123;loadaddr&#125;</span> <span class="variable">$&#123;filesize&#125;</span>;</span><br><span class="line">loadall=run loaduEnvtxt; run loadximage; run loadxfdt;</span><br><span class="line"> </span><br><span class="line">mmcargs=setenv bootargs console=tty0 console=<span class="variable">$&#123;console&#125;</span> <span class="variable">$&#123;optargs&#125;</span> <span class="variable">$&#123;cape_disable&#125;</span> <span class="variable">$&#123;cape_enable&#125;</span> root=<span class="variable">$&#123;mmcroot&#125;</span> rootfstype=<span class="variable">$&#123;mmcrootfstype&#125;</span> <span class="variable">$&#123;cmdline&#125;</span></span><br><span class="line"> </span><br><span class="line">uenvcmd=run loadall; run mmcargs; bootz <span class="variable">$&#123;loadaddr&#125;</span> - <span class="variable">$&#123;fdtaddr&#125;</span>;</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp -v ./uEnv.txt /media/rootfs/</span><br></pre></td></tr></table></figure>
-<h2 id="6-kernel-installation"><a class="markdownIt-Anchor" href="#6-kernel-installation"></a> 6. Kernel Installation</h2>
-<h3 id="1-export-macro-kernel_version"><a class="markdownIt-Anchor" href="#1-export-macro-kernel_version"></a> 1) Export MACRO kernel_version</h3>
-<p>Under the folder <strong>bb-kernel</strong>, a file named <strong>kernel_version</strong> was generated while building <a href="https://www.kernel.org/" target="_blank" rel="noopener">Linux kernel</a>. In my case, I was building the NEWEST kernel <strong>4.14.13-bone12</strong>. For convenience, we export a new MACRO <strong>kernel_version</strong>.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cat kernel_version </span><br><span class="line">4.14.13-bone12</span><br><span class="line">$ <span class="built_in">export</span> kernel_version=4.14.13-bone12</span><br></pre></td></tr></table></figure>
-<h3 id="2-extract-debian-root-file-system-onto-tf-card"><a class="markdownIt-Anchor" href="#2-extract-debian-root-file-system-onto-tf-card"></a> 2) Extract Debian Root File System onto TF Card</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo tar xfvp ./debian-9.3-minimal-armhf-2017-12-09/armhf-rootfs-debian-stretch.tar -C /media/rootfs/</span><br><span class="line">$ sync</span><br><span class="line">$ sudo chown root:root /media/rootfs/</span><br><span class="line">$ sudo chmod 755 /media/rootfs/</span><br></pre></td></tr></table></figure>
-<h3 id="3-set-uname_r-in-bootuenvtxt"><a class="markdownIt-Anchor" href="#3-set-uname_r-in-bootuenvtxt"></a> 3) Set uname_r in /boot/uEnv.txt</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh -c <span class="string">"echo 'uname_r=<span class="variable">$&#123;kernel_version&#125;</span>' &gt;&gt; /media/rootfs/boot/uEnv.txt"</span></span><br></pre></td></tr></table></figure>
-<h3 id="4-copy-kernel-image"><a class="markdownIt-Anchor" href="#4-copy-kernel-image"></a> 4) Copy Kernel Image</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo cp -v ./bb-kernel/deploy/<span class="variable">$&#123;kernel_version&#125;</span>.zImage /media/rootfs/boot/vmlinuz-<span class="variable">$&#123;kernel_version&#125;</span></span><br></pre></td></tr></table></figure>
-<h3 id="5-copy-kernel-device-tree-binaries"><a class="markdownIt-Anchor" href="#5-copy-kernel-device-tree-binaries"></a> 5) Copy Kernel Device Tree Binaries</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo mkdir -p /media/rootfs/boot/dtbs/<span class="variable">$&#123;kernel_version&#125;</span>/</span><br><span class="line">$ sudo tar xfv ./bb-kernel/deploy/<span class="variable">$&#123;kernel_version&#125;</span>-dtbs.tar.gz -C /media/rootfs/boot/dtbs/<span class="variable">$&#123;kernel_version&#125;</span>/</span><br></pre></td></tr></table></figure>
-<h3 id="6-copy-kernel-modules"><a class="markdownIt-Anchor" href="#6-copy-kernel-modules"></a> 6) Copy Kernel Modules</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo tar xfv ./bb-kernel/deploy/<span class="variable">$&#123;kernel_version&#125;</span>-modules.tar.gz -C /media/rootfs/</span><br></pre></td></tr></table></figure>
-<h3 id="7-set-file-systems-table-etcfstab"><a class="markdownIt-Anchor" href="#7-set-file-systems-table-etcfstab"></a> 7) Set File Systems Table (/etc/fstab)</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh -c <span class="string">"echo '/dev/mmcblk0p1  /  auto  errors=remount-ro  0  1' &gt;&gt; /media/rootfs/etc/fstab"</span></span><br></pre></td></tr></table></figure>
-<h3 id="8-networking"><a class="markdownIt-Anchor" href="#8-networking"></a> 8) Networking</h3>
-<p>To enable the Internet for the FIRST booting, we need to do the network configuration:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nano /media/rootfs/etc/network/interfaces</span><br></pre></td></tr></table></figure>
-<p>Add the following content:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">auto lo</span><br><span class="line">iface lo inet loopback</span><br><span class="line"> </span><br><span class="line">auto eth0</span><br><span class="line">iface eth0 inet dhcp</span><br></pre></td></tr></table></figure>
-<p>In order to use a shared SD card with multiple BeagleBones, and always enable the Ethernet interface as <strong>eth0</strong>, we need to add a particular <strong>udev rule</strong> as:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nano /media/rootfs/etc/udev/rules.d/70-persistent-net.rules</span><br></pre></td></tr></table></figure>
-<p>Add the following content:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># BeagleBone: net device ()</span></span><br><span class="line">SUBSYSTEM==<span class="string">"net"</span>, ACTION==<span class="string">"add"</span>, DRIVERS==<span class="string">"?*"</span>, ATTR&#123;dev_id&#125;==<span class="string">"0x0"</span>, ATTR&#123;<span class="built_in">type</span>&#125;==<span class="string">"1"</span>, KERNEL==<span class="string">"eth*"</span>, NAME=<span class="string">"eth0"</span></span><br></pre></td></tr></table></figure>
-<h3 id="9-remove-tf-card"><a class="markdownIt-Anchor" href="#9-remove-tf-card"></a> 9) Remove TF Card</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sync</span><br><span class="line">$ sudo umount /media/rootfs</span><br></pre></td></tr></table></figure>
-<h1 id="part-c-configurations-after-booting-from-the-sd-card"><a class="markdownIt-Anchor" href="#part-c-configurations-after-booting-from-the-sd-card"></a> PART C: Configurations after Booting from the SD Card</h1>
-<p>Insert TF card into a <a href="https://beagleboard.org/black" target="_blank" rel="noopener">Beaglebone Black</a>, connect BBB with an Internet cable, and connect a Micro HDMI cable on demand. After the flashing of on-board LEDs, you should be able to find the IP address of BBB via your router. All our future jobs are to be done via ssh command through this IP address. My personal preference is to set a static IP address for this particularly BBB in the router settings.</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -30487,7 +30465,7 @@ However, it finally turns out that my <strong>DD-WRT SL-R7202</strong> router co
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -30554,7 +30532,9 @@ However, it finally turns out that my <strong>DD-WRT SL-R7202</strong> router co
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -30715,7 +30695,11 @@ However, it finally turns out that my <strong>DD-WRT SL-R7202</strong> router co
                     
                       
                     
-                    <span class="site-state-item-count">74</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">76</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
