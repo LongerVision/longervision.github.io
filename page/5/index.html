@@ -309,6 +309,381 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/23/AI/Kaggle/PyTorch-dataset-dataloader/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/23/AI/Kaggle/PyTorch-dataset-dataloader/" itemprop="url">
+                  Kaggle Competition - PyTorch Dataset and DataLoader
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-01-23 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-23T00:00:00-08:00">2019-01-23</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-08-18 14:30:32" itemprop="dateModified" datetime="2019-08-18T14:30:32-07:00">2019-08-18</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI/Kaggle/" itemprop="url" rel="index"><span itemprop="name">Kaggle</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="preparation"><a class="markdownIt-Anchor" href="#preparation"></a> Preparation</h1>
+<h2 id="required-python-packages"><a class="markdownIt-Anchor" href="#required-python-packages"></a> Required Python Packages</h2>
+<p>We <strong>FIRST</strong> make sure 2 Python packages - <a href="https://pytorch.org/" target="_blank" rel="noopener">PyTorch</a> and <a href="https://pytorch.org/docs/stable/torchvision/index.html" target="_blank" rel="noopener">TorchVision</a> have been successfully installed.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip show torch</span><br><span class="line">Name: torch</span><br><span class="line">Version: 1.1.0a0+b6a8c45</span><br><span class="line">Summary: Tensors and Dynamic neural networks in Python with strong GPU acceleration</span><br><span class="line">Home-page: UNKNOWN</span><br><span class="line">Author: UNKNOWN</span><br><span class="line">Author-email: UNKNOWN</span><br><span class="line">License: UNKNOWN</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: </span><br><span class="line">Required-by: torchvision, torchtext, torchgan, pytorch-pretrained-bert, pyro-ppl, flair, autokeras</span><br><span class="line">➜  ~ pip show torchvision</span><br><span class="line">Name: torchvision</span><br><span class="line">Version: 0.2.1</span><br><span class="line">Summary: image and video datasets and models for torch deep learning</span><br><span class="line">Home-page: https://github.com/pytorch/vision</span><br><span class="line">Author: PyTorch Core Team</span><br><span class="line">Author-email: soumith@pytorch.org</span><br><span class="line">License: BSD</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: numpy, six, torch, pillow</span><br><span class="line">Required-by: torchgan, torchfusion, autokeras</span><br></pre></td></tr></table></figure>
+<p>As you can see, I actually built my own <a href="https://pytorch.org/" target="_blank" rel="noopener">PyTorch</a> from scratch, <strong>so that</strong> I can also use <a href="https://caffe2.ai/" target="_blank" rel="noopener">caffe2</a> sometimes. Please refer to the following:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip show caffe2</span><br><span class="line">➜  ~ python</span><br><span class="line">Python 3.6.7 (default, Oct 22 2018, 11:32:17) </span><br><span class="line">[GCC 8.2.0] on linux</span><br><span class="line">Type "help", "copyright", "credits" or "license" for more information.</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; import caffe2</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; caffe2.__version__</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File "&lt;stdin&gt;", line 1, in &lt;module&gt;</span><br><span class="line">AttributeError: module 'caffe2' has no attribute '__version__'</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; caffe2.__file__</span></span><br><span class="line">'/home/jiapei/.local/lib/python3.6/site-packages/caffe2/__init__.py'</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="test"><a class="markdownIt-Anchor" href="#test"></a> Test</h1>
+<h2 id="the-code"><a class="markdownIt-Anchor" href="#the-code"></a> The Code</h2>
+<p>Trivial modifications have been done upon the code on <a href="https://www.kaggle.com/pinocookie/pytorch-dataset-and-dataloader" target="_blank" rel="noopener">PyTorch Dataset and DataLoader</a>, as follows:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np <span class="comment"># linear algebra</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd <span class="comment"># data processing, CSV file I/O (e.g. pd.read_csv)</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="comment">#get_ipython().run_line_magic('matplotlib', 'inline')</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader, Dataset</span><br><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line"></span><br><span class="line">print(torch.__version__)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DatasetMNIST</span><span class="params">(Dataset)</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, file_path, transform=None)</span>:</span></span><br><span class="line">        self.data = pd.read_csv(file_path)</span><br><span class="line">        self.transform = transform</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> len(self.data)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        <span class="comment"># load image as ndarray type (Height * Width * Channels)</span></span><br><span class="line">        <span class="comment"># be carefull for converting dtype to np.uint8 [Unsigned integer (0 to 255)]</span></span><br><span class="line">        <span class="comment"># in this example, i don't use ToTensor() method of torchvision.transforms</span></span><br><span class="line">        <span class="comment"># so you can convert numpy ndarray shape to tensor in PyTorch (H, W, C) --&gt; (C, H, W)</span></span><br><span class="line">        image = self.data.iloc[index, <span class="number">1</span>:].values.astype(np.uint8).reshape((<span class="number">1</span>, <span class="number">28</span>, <span class="number">28</span>))</span><br><span class="line">        label = self.data.iloc[index, <span class="number">0</span>]</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> self.transform <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            image = self.transform(image)</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> image, label</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">train_dataset = DatasetMNIST(<span class="string">'./input/train.csv'</span>, transform=<span class="keyword">None</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># we can access and get data with index by __getitem__(index)</span></span><br><span class="line">img, lab = train_dataset.__getitem__(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># we now didn't convert numpy array.</span></span><br><span class="line">print(img.shape)</span><br><span class="line">print(type(img))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ### 3.3 take a look at the dataset</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># you have to use data loader in PyTorch that will accutually read the data within batch size and put into memory.</span></span><br><span class="line"></span><br><span class="line">train_loader = DataLoader(train_dataset, batch_size=<span class="number">8</span>, shuffle=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># we can use dataloader as iterator by using iter() function.</span></span><br><span class="line">train_iter = iter(train_loader)</span><br><span class="line">print(type(train_iter))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># we can look at images and labels of batch size by extracting data .next() method.</span></span><br><span class="line">images, labels = train_iter.next()</span><br><span class="line"></span><br><span class="line">print(<span class="string">'images shape on batch size = &#123;&#125;'</span>.format(images.size()))</span><br><span class="line">print(<span class="string">'labels shape on batch size = &#123;&#125;'</span>.format(labels.size()))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># make grid takes tensor as arg</span></span><br><span class="line"><span class="comment"># tensor : (batchsize, channels, height, width)</span></span><br><span class="line">grid = torchvision.utils.make_grid(images)</span><br><span class="line"></span><br><span class="line">plt.imshow(grid.numpy().transpose((<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>)))</span><br><span class="line">plt.axis(<span class="string">'off'</span>)</span><br><span class="line">plt.title(labels.numpy());</span><br><span class="line">plt.savefig(<span class="string">'1.jpg'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ### 3.4 transform is ToTensor()**</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DatasetMNIST2</span><span class="params">(Dataset)</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, file_path, transform=None)</span>:</span></span><br><span class="line">        self.data = pd.read_csv(file_path)</span><br><span class="line">        self.transform = transform</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> len(self.data)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        <span class="comment"># load image as ndarray type (Height * Width * Channels)</span></span><br><span class="line">        <span class="comment"># be carefull for converting dtype to np.uint8 [Unsigned integer (0 to 255)]</span></span><br><span class="line">        <span class="comment"># in this example, we use ToTensor(), so we define the numpy array like (H, W, C)</span></span><br><span class="line">        image = self.data.iloc[index, <span class="number">1</span>:].values.astype(np.uint8).reshape((<span class="number">28</span>, <span class="number">28</span>, <span class="number">1</span>))</span><br><span class="line">        label = self.data.iloc[index, <span class="number">0</span>]</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> self.transform <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            image = self.transform(image)</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> image, label</span><br><span class="line"></span><br><span class="line">train_dataset2 = DatasetMNIST2(<span class="string">'./input/train.csv'</span>, transform=torchvision.transforms.ToTensor())</span><br><span class="line"></span><br><span class="line">img, lab = train_dataset2.__getitem__(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'image shape at the first row : &#123;&#125;'</span>.format(img.size()))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">train_loader2 = DataLoader(train_dataset2, batch_size=<span class="number">8</span>, shuffle=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">train_iter2 = iter(train_loader2)</span><br><span class="line">print(type(train_iter2))</span><br><span class="line"></span><br><span class="line">images, labels = train_iter2.next()</span><br><span class="line"></span><br><span class="line">print(<span class="string">'images shape on batch size = &#123;&#125;'</span>.format(images.size()))</span><br><span class="line">print(<span class="string">'labels shape on batch size = &#123;&#125;'</span>.format(labels.size()))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">grid = torchvision.utils.make_grid(images)</span><br><span class="line"></span><br><span class="line">plt.imshow(grid.numpy().transpose((<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>)))</span><br><span class="line">plt.axis(<span class="string">'off'</span>)</span><br><span class="line">plt.title(labels.numpy());</span><br><span class="line">plt.savefig(<span class="string">'2.jpg'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">transform = transforms.Compose([</span><br><span class="line">    transforms.ToPILImage(), <span class="comment"># because the input dtype is numpy.ndarray</span></span><br><span class="line">    transforms.RandomHorizontalFlip(<span class="number">0.5</span>), <span class="comment"># because this method is used for PIL Image dtype</span></span><br><span class="line">    transforms.ToTensor(), <span class="comment"># because inpus dtype is PIL Image</span></span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">train_dataset3 = DatasetMNIST2(<span class="string">'./input/train.csv'</span>, transform=transform)</span><br><span class="line">train_loader3 = DataLoader(train_dataset3, batch_size=<span class="number">8</span>, shuffle=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">train_iter3 = iter(train_loader3)</span><br><span class="line">print(type(train_iter3))</span><br><span class="line"></span><br><span class="line">images, labels = train_iter3.next()</span><br><span class="line"></span><br><span class="line">print(<span class="string">'images shape on batch size = &#123;&#125;'</span>.format(images.size()))</span><br><span class="line">print(<span class="string">'labels shape on batch size = &#123;&#125;'</span>.format(labels.size()))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">grid = torchvision.utils.make_grid(images)</span><br><span class="line"></span><br><span class="line">plt.imshow(grid.numpy().transpose((<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>)))</span><br><span class="line">plt.axis(<span class="string">'off'</span>)</span><br><span class="line">plt.title(labels.numpy());</span><br><span class="line">plt.savefig(<span class="string">'3.jpg'</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="outcome"><a class="markdownIt-Anchor" href="#outcome"></a> Outcome</h2>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/general/pytorch/mnist_01.jpg" alt="MNIST 1st Load"><br>
+<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/general/pytorch/mnist_02.jpg" alt="MNIST 2nd Load"><br>
+<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/Kaggle/general/pytorch/mnist_03.jpg" alt="MNIST 3rd Load"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/22/Finance/time-series-forecasting-with-Facebook-Prophet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/22/Finance/time-series-forecasting-with-Facebook-Prophet/" itemprop="url">
+                  Time Series Forecasting with Facebook Prophet
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-01-22 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-22T00:00:00-08:00">2019-01-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-08-18 14:35:37" itemprop="dateModified" datetime="2019-08-18T14:35:37-07:00">2019-08-18</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Finance/" itemprop="url" rel="index"><span itemprop="name">Finance</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Today, we are going to test out <a href="https://facebook.github.io/prophet/" target="_blank" rel="noopener">Facebook Prophet</a> by following <a href="https://www.digitalocean.com/community/tutorials/a-guide-to-time-series-forecasting-with-prophet-in-python-3" target="_blank" rel="noopener">this DigitalOcean Tutorial</a>.</p>
+<h1 id="preparation"><a class="markdownIt-Anchor" href="#preparation"></a> Preparation</h1>
+<h2 id="required-python-packages"><a class="markdownIt-Anchor" href="#required-python-packages"></a> Required Python Packages</h2>
+<p>We <strong>FIRST</strong> make sure 2 Python packages - <a href="https://facebook.github.io/prophet/" target="_blank" rel="noopener">Prophet</a> and <a href="https://pystan.readthedocs.io/en/latest/" target="_blank" rel="noopener">PyStan</a> have been successfully installed.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip show prophet</span><br><span class="line">Name: prophet</span><br><span class="line">Version: 0.1.1</span><br><span class="line">Summary: Microframework for analyzing financial markets.</span><br><span class="line">Home-page: http://prophet.michaelsu.io/</span><br><span class="line">Author: Michael Su</span><br><span class="line">Author-email: mdasu1@gmail.com</span><br><span class="line">License: BSD</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: six, pytz, pandas</span><br><span class="line">Required-by: </span><br><span class="line">➜  ~ pip show pystan</span><br><span class="line">Name: pystan</span><br><span class="line">Version: 2.18.1.0</span><br><span class="line">Summary: Python interface to Stan, a package for Bayesian inference</span><br><span class="line">Home-page: https://github.com/stan-dev/pystan</span><br><span class="line">Author: None</span><br><span class="line">Author-email: None</span><br><span class="line">License: GPLv3</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: Cython, numpy</span><br><span class="line">Required-by: fbprophet</span><br></pre></td></tr></table></figure>
+<h2 id="download-the-time-series-data"><a class="markdownIt-Anchor" href="#download-the-time-series-data"></a> Download the Time Series Data</h2>
+<p>We just need to download the CSV file to some directory:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  facebookprophet curl -O https://assets.digitalocean.com/articles/eng_python/prophet/AirPassengers.csv</span><br><span class="line"><span class="meta">  %</span><span class="bash"> Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</span></span><br><span class="line">                                 Dload  Upload   Total   Spent    Left  Speed</span><br><span class="line">100  1748  100  1748    0     0   2281      0 --:--:-- --:--:-- --:--:--  2279</span><br></pre></td></tr></table></figure>
+<h1 id="test"><a class="markdownIt-Anchor" href="#test"></a> Test</h1>
+<h2 id="the-code"><a class="markdownIt-Anchor" href="#the-code"></a> The Code</h2>
+<p>Trivial modifications have been done upon the code on <a href="https://www.digitalocean.com/community/tutorials/a-guide-to-time-series-forecasting-with-prophet-in-python-3" target="_blank" rel="noopener">this DigitalOcean Tutorial</a>, as follows:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> fbprophet <span class="keyword">import</span> Prophet</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.style.use(<span class="string">'fivethirtyeight'</span>)</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">'AirPassengers.csv'</span>)</span><br><span class="line">df.head(<span class="number">5</span>)</span><br><span class="line">df.dtypes</span><br><span class="line"></span><br><span class="line">df[<span class="string">'Month'</span>] = pd.DatetimeIndex(df[<span class="string">'Month'</span>])</span><br><span class="line">df.dtypes</span><br><span class="line"></span><br><span class="line">df = df.rename(columns=&#123;<span class="string">'Month'</span>: <span class="string">'ds'</span>, <span class="string">'AirPassengers'</span>: <span class="string">'y'</span>&#125;)</span><br><span class="line">df.head(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">ax = df.set_index(<span class="string">'ds'</span>).plot(figsize=(<span class="number">12</span>, <span class="number">8</span>))</span><br><span class="line">ax.set_ylabel(<span class="string">'Monthly Number of Airline Passengers'</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">'Date'</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># set the uncertainty interval to 95% (the Prophet default is 80%)</span></span><br><span class="line">my_model = Prophet(interval_width=<span class="number">0.95</span>)</span><br><span class="line">my_model.fit(df)</span><br><span class="line">future_dates = my_model.make_future_dataframe(periods=<span class="number">36</span>, freq=<span class="string">'MS'</span>)</span><br><span class="line">future_dates.tail()</span><br><span class="line">forecast = my_model.predict(future_dates)</span><br><span class="line">forecast[[<span class="string">'ds'</span>, <span class="string">'yhat'</span>, <span class="string">'yhat_lower'</span>, <span class="string">'yhat_upper'</span>]].tail()</span><br><span class="line">fig1 = my_model.plot(forecast, uncertainty=<span class="keyword">True</span>)</span><br><span class="line">fig1.show()</span><br><span class="line"></span><br><span class="line">my_model.plot_components(forecast).savefig(<span class="string">'prophet_forcast.png'</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="outcome"><a class="markdownIt-Anchor" href="#outcome"></a> Outcome</h2>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/prophet/01_originaldata.jpg" alt="Original Data"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/prophet/02_forcast.jpg" alt="Forcast"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/prophet/03_forcast_components.jpg" alt="Forcast Component"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/17/AI/Kaggle/LANL-Earthquake-Prediction/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1932,501 +2307,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/11/11/GeoScience/OpenStreetMap/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/11/GeoScience/OpenStreetMap/" itemprop="url">
-                  OpenStreetMap Intruduction
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-11 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-11T00:00:00-08:00">2018-11-11</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-08-18 14:35:49" itemprop="dateModified" datetime="2019-08-18T14:35:49-07:00">2019-08-18</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Geo-Science/" itemprop="url" rel="index"><span itemprop="name">Geo Science</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Finally, I’m talking about <a href="https://en.wikipedia.org/wiki/Geographic_information_system" target="_blank" rel="noopener">Geographic Information System</a>, namely, <strong>GIS</strong>. <a href="http://rsgis.whu.edu.cn/en/index.html" target="_blank" rel="noopener">Remote Sensing and Information Engineer</a> is my bachelor’s major in <a href="https://en.wikipedia.org/wiki/School_of_Geodesy_and_Geomatics,_Wuhan_University" target="_blank" rel="noopener">Wuhan Technical University of Surveying and Mapping</a>, which is <strong>NOW</strong> a part of <a href="https://en.wikipedia.org/wiki/Wuhan_University" target="_blank" rel="noopener">Wuhan University</a>. When I was in the university, I <strong>NEVER</strong> thought I was in such an amazing department, studying such an amazing major.</p>
-<p>Alright… Let’s start today’s blog. We’re going to play <a href="https://www.openstreetmap.org" target="_blank" rel="noopener">OpenStreetMap</a> for some fun.</p>
-<h1 id="1-arcgis-with-openstreetmap"><a class="markdownIt-Anchor" href="#1-arcgis-with-openstreetmap"></a> 1. <a href="https://www.arcgis.com" target="_blank" rel="noopener">ArcGIS</a> with <a href="https://www.openstreetmap.org" target="_blank" rel="noopener">OpenStreetMap</a></h1>
-<p>We <strong>FIRST</strong> test out how <a href="https://www.arcgis.com" target="_blank" rel="noopener">ArcGIS</a> displays <a href="https://www.openstreetmap.org" target="_blank" rel="noopener">OpenStreetMap</a>.</p>
-<h2 id="11-arcgis-326"><a class="markdownIt-Anchor" href="#11-arcgis-326"></a> 1.1 <a href="https://developers.arcgis.com/javascript/3/" target="_blank" rel="noopener">ArcGIS 3.26</a></h2>
-<p>A snippet of sample code is provided for <a href="https://developers.arcgis.com/javascript/3/jssamples/map_openstreetmap.html" target="_blank" rel="noopener">ArcGIS Version 3.26</a>, cited as follows:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt; </span><br><span class="line">  &lt;head&gt; </span><br><span class="line">    &lt;meta http-equiv=<span class="string">"Content-Type"</span> content=<span class="string">"text/html; charset=utf-8"</span> /&gt;</span><br><span class="line">    &lt;meta name=<span class="string">"viewport"</span> content=<span class="string">"initial-scale=1, maximum-scale=1,user-scalable=no"</span> /&gt;</span><br><span class="line">    &lt;title&gt;OpenStreetMap&lt;<span class="regexp">/title&gt; </span></span><br><span class="line"><span class="regexp">    &lt;link rel="stylesheet" href="https:/</span><span class="regexp">/js.arcgis.com/</span><span class="number">3.26</span>/esri/css/esri.css<span class="string">"&gt;</span></span><br><span class="line"><span class="string">    &lt;style&gt;</span></span><br><span class="line"><span class="string">      html, body, #esri-map-container &#123;</span></span><br><span class="line"><span class="string">        padding: 0px;</span></span><br><span class="line"><span class="string">        margin: 0px;</span></span><br><span class="line"><span class="string">        height: 100%;</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">    &lt;/style&gt;</span></span><br><span class="line"><span class="string">    &lt;script src="</span>https:<span class="comment">//js.arcgis.com/3.26/"&gt;&lt;/script&gt;</span></span><br><span class="line">    &lt;script&gt;</span><br><span class="line">      <span class="built_in">require</span>([</span><br><span class="line">        <span class="string">"esri/map"</span>,</span><br><span class="line">        <span class="string">"esri/layers/OpenStreetMapLayer"</span>,</span><br><span class="line">        <span class="string">"dojo/domReady!"</span></span><br><span class="line">      ], <span class="function"><span class="keyword">function</span> (<span class="params">Map, OpenStreetMapLayer</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> map, openStreetMapLayer;</span><br><span class="line"></span><br><span class="line">        map = <span class="keyword">new</span> <span class="built_in">Map</span>(<span class="string">"esri-map-container"</span>, &#123;</span><br><span class="line">          center: [<span class="number">-89.924</span>, <span class="number">30.036</span>],</span><br><span class="line">          zoom: <span class="number">12</span></span><br><span class="line">        &#125;);</span><br><span class="line">        openStreetMapLayer = <span class="keyword">new</span> OpenStreetMapLayer();</span><br><span class="line">        map.addLayer(openStreetMapLayer);</span><br><span class="line">      &#125;);</span><br><span class="line">    &lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>head&gt; </span><br><span class="line">  </span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;div id=<span class="string">"esri-map-container"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  &lt;<span class="regexp">/body&gt; </span></span><br><span class="line"><span class="regexp">&lt;/</span>html&gt;</span><br></pre></td></tr></table></figure>
-<p>Please click on the following image and have a try.</p>
-<p><a href="http://worldcssa.com/arcgis/3.26/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/GeoScience/OpenStreetMap/arcgis326.jpg" alt="ArcGIS 3.26"></a></p>
-<h2 id="12-arcgis-latest"><a class="markdownIt-Anchor" href="#12-arcgis-latest"></a> 1.2 <a href="https://developers.arcgis.com/javascript/" target="_blank" rel="noopener">ArcGIS LATEST</a></h2>
-<p>A snippet of sample code is provided for <a href="https://developers.arcgis.com/javascript/3/jssamples/map_openstreetmap.html" target="_blank" rel="noopener">ArcGIS <strong>LATEST</strong> Version 4.9</a>, cited as follows:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=<span class="string">"utf-8"</span>&gt;</span><br><span class="line">  &lt;meta name=<span class="string">"viewport"</span> content=<span class="string">"initial-scale=1,maximum-scale=1,user-scalable=no"</span>&gt;</span><br><span class="line">  &lt;title&gt;OpenStreetMapLayer - <span class="number">4.9</span>&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  &lt;style&gt;</span></span><br><span class="line"><span class="regexp">    html,</span></span><br><span class="line"><span class="regexp">    body,</span></span><br><span class="line"><span class="regexp">    #viewDiv &#123;</span></span><br><span class="line"><span class="regexp">      padding: 0;</span></span><br><span class="line"><span class="regexp">      margin: 0;</span></span><br><span class="line"><span class="regexp">      height: 100%;</span></span><br><span class="line"><span class="regexp">      width: 100%;</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>style&gt;</span><br><span class="line"></span><br><span class="line">  &lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"https://js.arcgis.com/4.9/esri/css/main.css"</span>&gt;</span><br><span class="line">  &lt;script src=<span class="string">"https://js.arcgis.com/4.9/"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    <span class="built_in">require</span>([</span><br><span class="line">        <span class="string">"esri/layers/OpenStreetMapLayer"</span>,</span><br><span class="line">        <span class="string">"esri/Map"</span>,</span><br><span class="line">        <span class="string">"esri/views/SceneView"</span></span><br><span class="line">      ],</span><br><span class="line">      <span class="function"><span class="keyword">function</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">        OpenStreetMapLayer,</span></span></span><br><span class="line"><span class="function"><span class="params">        Map,</span></span></span><br><span class="line"><span class="function"><span class="params">        SceneView</span></span></span><br><span class="line"><span class="function"><span class="params">      </span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>(&#123;</span><br><span class="line">          ground: <span class="string">"world-elevation"</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> view = <span class="keyword">new</span> SceneView(&#123;</span><br><span class="line">          map: map,</span><br><span class="line">          container: <span class="string">"viewDiv"</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> osmLayer = <span class="keyword">new</span> OpenStreetMapLayer();</span><br><span class="line">        map.add(osmLayer);</span><br><span class="line">      &#125;);</span><br><span class="line">  &lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div id=<span class="string">"viewDiv"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;<span class="regexp">/body&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;/</span>html&gt;</span><br></pre></td></tr></table></figure>
-<p>Please click on the following image and have a try.</p>
-<p><a href="http://worldcssa.com/arcgis/4.9/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/GeoScience/OpenStreetMap/arcgis49.jpg" alt="ArcGIS 4.9"></a></p>
-<p><a href="https://www.arcgis.com" target="_blank" rel="noopener">ArcGIS</a> is like the <strong>CROWN</strong> of <a href>GIS</a>. Its SDK/API seems <strong>NOT</strong> fully open source but commercial. Therefore, I’d love to breifly test out some other open source.</p>
-<h1 id="2-webglearth"><a class="markdownIt-Anchor" href="#2-webglearth"></a> 2. <a href="http://www.webglearth.com/" target="_blank" rel="noopener">WebGLEarth</a></h1>
-<p>Several <a href="http://www.webglearth.com/" target="_blank" rel="noopener">WebGLEarth</a> examples are given at <a href="http://examples.webglearth.com/" target="_blank" rel="noopener">http://examples.webglearth.com/</a>, and we just try out the very <strong>FIRST</strong> example <strong>Satellite</strong>. The code is cited as:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE HTML&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;script src=<span class="string">"http://www.webglearth.com/v2/api.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line">    &lt;script&gt;</span><br><span class="line">      <span class="function"><span class="keyword">function</span> <span class="title">initialize</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> options = &#123;<span class="attr">atmosphere</span>: <span class="literal">true</span>, <span class="attr">center</span>: [<span class="number">0</span>, <span class="number">0</span>], <span class="attr">zoom</span>: <span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">var</span> earth = <span class="keyword">new</span> WE.map(<span class="string">'earth_div'</span>, options);</span><br><span class="line">        WE.tileLayer(<span class="string">'http://tileserver.maptiler.com/nasa/&#123;z&#125;/&#123;x&#125;/&#123;y&#125;.jpg'</span>, &#123;</span><br><span class="line">          minZoom: <span class="number">0</span>,</span><br><span class="line">          maxZoom: <span class="number">5</span>,</span><br><span class="line">          attribution: <span class="string">'NASA'</span></span><br><span class="line">        &#125;).addTo(earth);</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">    &lt;style&gt;</span></span><br><span class="line"><span class="regexp">      html, body&#123;padding: 0; margin: 0;&#125;</span></span><br><span class="line"><span class="regexp">      #earth_div&#123;top: 0; right: 0; bottom: 0; left: 0;</span></span><br><span class="line"><span class="regexp">                 background-color: #000; position: absolute !important;&#125;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>style&gt;</span><br><span class="line">      &lt;title&gt;WebGL Earth API: Satellite&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>head&gt;</span><br><span class="line">    &lt;body onload=<span class="string">"initialize()"</span>&gt;</span><br><span class="line">      &lt;div id=<span class="string">"earth_div"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  &lt;<span class="regexp">/body&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>html&gt;</span><br></pre></td></tr></table></figure>
-<p>Please click on the following image and have a try.</p>
-<p><a href="http://worldcssa.com/webglearth2/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/GeoScience/OpenStreetMap/webglearth2.jpg" alt="LeafletJS"></a></p>
-<h1 id="3-openglobus-based-on-openstreetmap"><a class="markdownIt-Anchor" href="#3-openglobus-based-on-openstreetmap"></a> 3. <a href="http://www.openglobus.org/" target="_blank" rel="noopener">OpenGlobus</a> Based On <a href="https://www.openstreetmap.org" target="_blank" rel="noopener">OpenStreetMap</a></h1>
-<p>“<a href="http://www.openglobus.org/" target="_blank" rel="noopener">OpenGlobus</a> is a javascript library designed to display interactive 3d maps and planets with map tiles, imagery and vector data, markers and 3d objects. It uses the WebGL technology, open source and completely free.” (Cited from <a href="https://github.com/openglobus/openglobus" target="_blank" rel="noopener">OpenGlobus Github</a>). Let’s just take the very <strong>FIRST</strong> example <a href="http://openglobus.org/examples/attribution/attribution.html" target="_blank" rel="noopener">Og - examples: Attribution</a> as our example. Code is cited as follows:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;Attribution Example&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp">    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></span><br><span class="line"><span class="regexp">    &lt;link rel="stylesheet" href="http:/</span><span class="regexp">/www.openglobus.org/</span>og.css<span class="string">" type="</span>text/css<span class="string">" /&gt;</span></span><br><span class="line"><span class="string">    &lt;script src="</span>http:<span class="comment">//www.openglobus.org/og.js"&gt;&lt;/script&gt;</span></span><br><span class="line">&lt;<span class="regexp">/head&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;body&gt;</span></span><br><span class="line"><span class="regexp">    &lt;div id="globus" style="width:100%;height:100%"&gt;&lt;/</span>div&gt;</span><br><span class="line">    &lt;button id=<span class="string">"btnOSM"</span> style=<span class="string">"position: absolute; left:0; margin:10px;"</span>&gt;<span class="built_in">Set</span> attribution&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">        document.getElementById("btnOSM").onclick = function () &#123;</span></span><br><span class="line"><span class="regexp">            states.setAttribution("Hello, WMS default USA population states example!");</span></span><br><span class="line"><span class="regexp">        &#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">        let osm = new og.layer.XYZ("OpenStreetMap", &#123;</span></span><br><span class="line"><span class="regexp">            specular: [0.0003, 0.00012, 0.00001],</span></span><br><span class="line"><span class="regexp">            shininess: 20,</span></span><br><span class="line"><span class="regexp">            diffuse: [0.89, 0.9, 0.83],</span></span><br><span class="line"><span class="regexp">            isBaseLayer: true,</span></span><br><span class="line"><span class="regexp">            url: "http:/</span><span class="regexp">/&#123;s&#125;.tile.openstreetmap.org/</span>&#123;z&#125;/&#123;x&#125;/&#123;y&#125;.png<span class="string">",</span></span><br><span class="line"><span class="string">            visibility: true,</span></span><br><span class="line"><span class="string">            attribution: 'Data @ OpenStreetMap contributors, ODbL'</span></span><br><span class="line"><span class="string">        &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        let states = new og.layer.WMS("</span>USA Population<span class="string">", &#123;</span></span><br><span class="line"><span class="string">            extent: [[-128, 24], [-66, 49]],</span></span><br><span class="line"><span class="string">            visibility: true,</span></span><br><span class="line"><span class="string">            isBaseLayer: false,</span></span><br><span class="line"><span class="string">            url: "</span>http:<span class="comment">//openglobus.org/geoserver/",</span></span><br><span class="line">            layers: <span class="string">"topp:states"</span>,</span><br><span class="line">            opacity: <span class="number">1.0</span>,</span><br><span class="line">            attribution: <span class="string">'Hi!'</span>,</span><br><span class="line">            transparentColor: [<span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>]</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> globus = <span class="keyword">new</span> og.Globe(&#123;</span><br><span class="line">            <span class="string">"target"</span>: <span class="string">"globus"</span>,</span><br><span class="line">            <span class="string">"name"</span>: <span class="string">"Earth"</span>,</span><br><span class="line">            <span class="string">"terrain"</span>: <span class="keyword">new</span> og.terrain.GlobusTerrain(),</span><br><span class="line">            <span class="string">"layers"</span>: [osm, states]</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        globus.planet.flyExtent(states.getExtent());</span><br><span class="line">    &lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br><span class="line"></span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure>
-<p>Please click on the following image and have a try.</p>
-<p><a href="http://worldcssa.com/openglobus/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/GeoScience/OpenStreetMap/openglobus.jpg" alt="OpenGlobus"></a></p>
-<h1 id="4-leafletjs-based-on-openstreetmap"><a class="markdownIt-Anchor" href="#4-leafletjs-based-on-openstreetmap"></a> 4. <a href="https://leafletjs.com" target="_blank" rel="noopener">LeafletJS</a> Based On <a href="https://www.openstreetmap.org" target="_blank" rel="noopener">OpenStreetMap</a></h1>
-<p>Several <a href="https://leafletjs.com" target="_blank" rel="noopener">LeafletJS</a> examples are given at <a href="https://leafletjs.com/examples.html" target="_blank" rel="noopener">https://leafletjs.com/examples.html</a>. Here, we took <a href="https://leafletjs.com/examples/mobile/" target="_blank" rel="noopener">Leaflet on Mobile</a> as an example (code copied).</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line"></span><br><span class="line">	&lt;title&gt;Mobile tutorial - Leaflet&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">	&lt;meta charset="utf-8" /</span>&gt;</span><br><span class="line">	&lt;meta name=<span class="string">"viewport"</span> content=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span><br><span class="line"></span><br><span class="line">	&lt;link rel=<span class="string">"shortcut icon"</span> type=<span class="string">"image/x-icon"</span> href=<span class="string">"docs/images/favicon.ico"</span> /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"</span> integrity=<span class="string">"sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="</span> crossorigin=<span class="string">""</span>/&gt;</span><br><span class="line">    &lt;script src=<span class="string">"https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"</span> integrity=<span class="string">"sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="</span> crossorigin=<span class="string">""</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	&lt;style&gt;</span><br><span class="line">		html, body &#123;</span><br><span class="line">			height: <span class="number">100</span>%;</span><br><span class="line">			margin: <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		#map &#123;</span><br><span class="line">			width: <span class="number">600</span>px;</span><br><span class="line">			height: <span class="number">400</span>px;</span><br><span class="line">		&#125;</span><br><span class="line">	&lt;<span class="regexp">/style&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">	&lt;style&gt;body &#123; padding: 0; margin: 0; &#125; #map &#123; height: 100%; width: 100vw; &#125;&lt;/</span>style&gt;</span><br><span class="line">&lt;<span class="regexp">/head&gt;</span></span><br><span class="line"><span class="regexp">&lt;body&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;div id='map'&gt;&lt;/</span>div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">	<span class="keyword">var</span> map = L.map(<span class="string">'map'</span>).fitWorld();</span><br><span class="line"></span><br><span class="line">	L.tileLayer(<span class="string">'https://api.tiles.mapbox.com/v4/&#123;id&#125;/&#123;z&#125;/&#123;x&#125;/&#123;y&#125;.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'</span>, &#123;</span><br><span class="line">		maxZoom: <span class="number">18</span>,</span><br><span class="line">		attribution: <span class="string">'Map data &amp;copy; &lt;a href="https://www.openstreetmap.org/"&gt;OpenStreetMap&lt;/a&gt; contributors, '</span> +</span><br><span class="line">			<span class="string">'&lt;a href="https://creativecommons.org/licenses/by-sa/2.0/"&gt;CC-BY-SA&lt;/a&gt;, '</span> +</span><br><span class="line">			<span class="string">'Imagery © &lt;a href="https://www.mapbox.com/"&gt;Mapbox&lt;/a&gt;'</span>,</span><br><span class="line">		id: <span class="string">'mapbox.streets'</span></span><br><span class="line">	&#125;).addTo(map);</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">onLocationFound</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">var</span> radius = e.accuracy / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">		L.marker(e.latlng).addTo(map)</span><br><span class="line">			.bindPopup(<span class="string">"You are within "</span> + radius + <span class="string">" meters from this point"</span>).openPopup();</span><br><span class="line"></span><br><span class="line">		L.circle(e.latlng, radius).addTo(map);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">onLocationError</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">		alert(e.message);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	map.on(<span class="string">'locationfound'</span>, onLocationFound);</span><br><span class="line">	map.on(<span class="string">'locationerror'</span>, onLocationError);</span><br><span class="line"></span><br><span class="line">	map.locate(&#123;<span class="attr">setView</span>: <span class="literal">true</span>, <span class="attr">maxZoom</span>: <span class="number">16</span>&#125;);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure>
-<p>Please click on the following image and have a try.</p>
-<p><a href="http://worldcssa.com/leafletjs/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/GeoScience/OpenStreetMap/leafletjs.jpg" alt="LeafletJS"></a></p>
-<h1 id="5-mapbox-gl-js-based-on-openstreetmap"><a class="markdownIt-Anchor" href="#5-mapbox-gl-js-based-on-openstreetmap"></a> 5. <a href="https://www.mapbox.com/mapbox-gl-js/api/" target="_blank" rel="noopener">Mapbox GL JS</a> Based on <a href="https://www.openstreetmap.org" target="_blank" rel="noopener">OpenStreetMap</a></h1>
-<p>From the above <a href="https://leafletjs.com" target="_blank" rel="noopener">LeafletJS</a> example, it’s clearly show that <a href="https://leafletjs.com" target="_blank" rel="noopener">LeafletJS</a> is based on <a href="https://www.mapbox.com/" target="_blank" rel="noopener">Mapbox</a>, which is further based on <a href="https://www.openstreetmap.org" target="_blank" rel="noopener">OpenStreetMap</a>. “Mapbox is a Live Location Platform.” (Cited from <a href="https://www.mapbox.com/" target="_blank" rel="noopener">https://www.mapbox.com/</a>).</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">'utf-8'</span> /&gt;</span><br><span class="line">    &lt;title&gt;Display a map&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp">    &lt;meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' /</span>&gt;</span><br><span class="line">    &lt;script src=<span class="string">'https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line">    &lt;link href=<span class="string">'https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css'</span> rel=<span class="string">'stylesheet'</span> /&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        body &#123; <span class="attr">margin</span>:<span class="number">0</span>; padding:<span class="number">0</span>; &#125;</span><br><span class="line">        #map &#123; position:absolute; top:0; bottom:0; width:100%; &#125;</span><br><span class="line">    &lt;<span class="regexp">/style&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;div id=<span class="string">'map'</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;script&gt;</span><br><span class="line">mapboxgl.accessToken = <span class="string">'pk.eyJ1IjoibG9uZ2VydmlzaW9uIiwiYSI6ImNqb2ZpN2Z5ZjA0bnMzd3FoY29oeTZwNW0ifQ.th9s23R3Njgxewe9rDdXzA'</span>;</span><br><span class="line"><span class="keyword">var</span> map = <span class="keyword">new</span> mapboxgl.Map(&#123;</span><br><span class="line">    container: <span class="string">'map'</span>, <span class="comment">// container id</span></span><br><span class="line">    style: <span class="string">'mapbox://styles/mapbox/streets-v9'</span>, <span class="comment">// stylesheet location</span></span><br><span class="line">    center: [<span class="number">-74.50</span>, <span class="number">40</span>], <span class="comment">// starting position [lng, lat]</span></span><br><span class="line">    zoom: <span class="number">9</span> <span class="comment">// starting zoom</span></span><br><span class="line">&#125;);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure>
-<p>Please click on the following image and have a try.</p>
-<p><a href="http://worldcssa.com/mapboxgljs/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/GeoScience/OpenStreetMap/mapboxgljs.jpg" alt="Mapbox GL"></a></p>
-<h1 id="6-osmbuildings-based-on-openstreetmap"><a class="markdownIt-Anchor" href="#6-osmbuildings-based-on-openstreetmap"></a> 6. <a href="https://osmbuildings.org/" target="_blank" rel="noopener">OSMBuildings</a> Based On <a href="https://www.openstreetmap.org" target="_blank" rel="noopener">OpenStreetMap</a></h1>
-<p><a href="https://osmbuildings.org/" target="_blank" rel="noopener">OSMBuildings</a> is “a 3D building geometry viewer based on <a href="https://www.openstreetmap.org" target="_blank" rel="noopener">OpenStreetMap</a> data.” (Cited from <a href="https://github.com/OSMBuildings/OSMBuildings" target="_blank" rel="noopener">https://github.com/OSMBuildings/OSMBuildings</a>). Unfortunately, from <a href="https://osmbuildings.org/register/" target="_blank" rel="noopener">OSMBuildings Registration</a>, it is <strong>NOT</strong> free. However, its demonstrations are amazing - please refer to <a href="https://osmbuildings.org/developer/" target="_blank" rel="noopener">https://osmbuildings.org/developer/</a>.</p>
-<h1 id="7-tiles-upon-openstreetmap"><a class="markdownIt-Anchor" href="#7-tiles-upon-openstreetmap"></a> 7. Tiles Upon <a href="https://www.openstreetmap.org" target="_blank" rel="noopener">OpenStreetMap</a></h1>
-<p><a href="https://www.openstreetmap.org" target="_blank" rel="noopener">OpenStreetMap</a> may be covered by different tiles in order to show different maps. For instance, <strong>Google map</strong> vs <strong>Google satellite map</strong>. Let’s take a look at <a href="http://www.webglearth.com/" target="_blank" rel="noopener">Home Page of WebGLEarth</a>, you’ll notice <a href="https://www.maptiler.com/" target="_blank" rel="noopener">MapTiler</a> at the left bottom corner. Here, we summarize 3 widely used tiles in the following:</p>
-<ul>
-<li><a href="https://cloud.maptiler.com/tiles/" target="_blank" rel="noopener">MapTiler Tiles</a></li>
-<li><a href="https://openmaptiles.com/downloads/planet/" target="_blank" rel="noopener">OpenMapTiles Data</a></li>
-<li><a href="https://blog.mapbox.com/how-i-built-a-wind-map-with-webgl-b63022b5537f" target="_blank" rel="noopener">Mapbox Tiles</a></li>
-</ul>
-<p>Generally, there are the following types of common tiles:</p>
-<ul>
-<li><a href="https://www.openstreetmap.org" target="_blank" rel="noopener">OpenStreetMap</a> vector tiles</li>
-<li>Contour lines vector tiles</li>
-<li>Hillshading raster tiles</li>
-<li>Landcover vector tiles</li>
-<li>Satellite raster tiles</li>
-<li>Terrain - quantized mesh tiles</li>
-<li>etc.</li>
-</ul>
-<h1 id="8-openlayers"><a class="markdownIt-Anchor" href="#8-openlayers"></a> 8. <a href="https://openlayers.org/" target="_blank" rel="noopener">OpenLayers</a></h1>
-<p>Besides tiles, there might be several layers (including one layer of tile) upon <a href="https://www.openstreetmap.org" target="_blank" rel="noopener">OpenStreetMap</a>, here comes <a href="https://openlayers.org/" target="_blank" rel="noopener">OpenLayers</a>: “OpenLayers makes it easy to put a dynamic map in any web page. It can display map tiles, vector data and markers loaded from any source.” (cited from <a href="https://openlayers.org/" target="_blank" rel="noopener">https://openlayers.org/</a>)</p>
-<p>A simple example of is in <a href="https://openlayers.org/en/latest/doc/quickstart.html" target="_blank" rel="noopener">OpenLayers QuickStart</a>. The code is cited as:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;!doctype html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"en"</span>&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css"</span> type=<span class="string">"text/css"</span>&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">      .map &#123;</span><br><span class="line">        height: <span class="number">400</span>px;</span><br><span class="line">        width: <span class="number">100</span>%;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;<span class="regexp">/style&gt;</span></span><br><span class="line"><span class="regexp">    &lt;script src="https:/</span><span class="regexp">/cdn.rawgit.com/</span>openlayers/openlayers.github.io/master/en/v5<span class="number">.3</span><span class="number">.0</span>/build/ol.js<span class="string">"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="string">    &lt;title&gt;OpenLayers example&lt;/title&gt;</span></span><br><span class="line"><span class="string">  &lt;/head&gt;</span></span><br><span class="line"><span class="string">  &lt;body&gt;</span></span><br><span class="line"><span class="string">    &lt;h2&gt;My Map&lt;/h2&gt;</span></span><br><span class="line"><span class="string">    &lt;div id="</span>map<span class="string">" class="</span>map<span class="string">"&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;script type="</span>text/javascript<span class="string">"&gt;</span></span><br><span class="line"><span class="string">      var map = new ol.Map(&#123;</span></span><br><span class="line"><span class="string">        target: 'map',</span></span><br><span class="line"><span class="string">        layers: [</span></span><br><span class="line"><span class="string">          new ol.layer.Tile(&#123;</span></span><br><span class="line"><span class="string">            source: new ol.source.OSM()</span></span><br><span class="line"><span class="string">          &#125;)</span></span><br><span class="line"><span class="string">        ],</span></span><br><span class="line"><span class="string">        view: new ol.View(&#123;</span></span><br><span class="line"><span class="string">          center: ol.proj.fromLonLat([37.41, 8.82]),</span></span><br><span class="line"><span class="string">          zoom: 4</span></span><br><span class="line"><span class="string">        &#125;)</span></span><br><span class="line"><span class="string">      &#125;);</span></span><br><span class="line"><span class="string">    &lt;/script&gt;</span></span><br><span class="line"><span class="string">  &lt;/body&gt;</span></span><br><span class="line"><span class="string">&lt;/html&gt;</span></span><br></pre></td></tr></table></figure>
-<p>Please click on the following image and have a try.</p>
-<p><a href="http://worldcssa.com/openlayers/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/GeoScience/OpenStreetMap/openlayers.jpg" alt="OpenLayers Quick Start"></a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/11/07/Finance/finance-data/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/07/Finance/finance-data/" itemprop="url">
-                  Retrieve Finance Data -- Google vs. Yahoo
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-07 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-07T00:00:00-08:00">2018-11-07</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-08-18 14:35:26" itemprop="dateModified" datetime="2019-08-18T14:35:26-07:00">2019-08-18</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Finance/" itemprop="url" rel="index"><span itemprop="name">Finance</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Yesterday, we briefly introduced <a href="https://www.quantopian.com" target="_blank" rel="noopener">Quantopian</a> and how to ingest <a href="https://www.quandl.com/databases/WIKIP" target="_blank" rel="noopener">Quandl WIKI Bundle data</a>. Today, we are going to briefly summarize the financial data source and how to retrieve <strong>Google</strong> and <strong>Yahoo</strong> finance data using <a href="https://pandas-datareader.readthedocs.io/en/latest/" target="_blank" rel="noopener">pandas_datareader</a>.</p>
-<h1 id="1-google-finance-data-and-yahoo-finance-data"><a class="markdownIt-Anchor" href="#1-google-finance-data-and-yahoo-finance-data"></a> 1. Google Finance Data and Yahoo Finance Data</h1>
-<p>State-of-the-art finance data source are partly summarized at <a href="http://www.financial-hacker.com/bye-yahoo-and-thank-you-for-the-fish/" target="_blank" rel="noopener">Financial Hacker</a>. Our recommended solution is to retrieve stock data by using a <strong>SINGLE</strong> framework: <a href="https://pandas-datareader.readthedocs.io/en/latest/" target="_blank" rel="noopener">pandas_datareader</a>. <a href="https://finance.yahoo.com/" target="_blank" rel="noopener">Yahoo Finance Data</a> and <a href="https://www.google.com/finance" target="_blank" rel="noopener">Google Finance Data</a> can be easily retrieved by <a href="https://www.learndatasci.com/tutorials/python-finance-part-yahoo-finance-api-pandas-matplotlib/" target="_blank" rel="noopener">This Learn Data Science Tutorial</a>.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Source</th>
-<th style="text-align:left">Request Link</th>
-<th style="text-align:left">Stock Exchange Symbol (INDEX)</th>
-<th style="text-align:left">Stock Symbol (DATA)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">Google Finance</td>
-<td style="text-align:left"><a href="https://www.google.ca/finance?q=NYSE:DATA" target="_blank" rel="noopener">https://www.google.ca/finance?q=INDEX:DATA</a></td>
-<td style="text-align:left">INDEX, ex:<br>INDEXDJX: Dow Jones<br>NASDAQ<br>INDEXNASDAQ<br>NYSE: NYSE   COMPOSITE (DJ)<br>INDEXSP: S&amp;P 500</td>
-<td style="text-align:left">DATA, ex:<br>APPL</td>
-</tr>
-<tr>
-<td style="text-align:center">Yahoo Finance</td>
-<td style="text-align:left"><a href="https://finance.yahoo.com/quote/DATA/?p=DATA" target="_blank" rel="noopener">https://finance.yahoo.com/quote/DATA?p=DATA</a></td>
-<td style="text-align:left">Totally, Yahoo provides the following indexes:<br>%5EGSPC: S&amp;P 500<br>%5EDJI: Dow 30<br>%5EIXIC: NASDAQ Composite<br>%5ERUT: Russell 2000<br>CL=F: Crude Oil Dec 18<br>GC=F: Gold Dec 18<br>SI=F: Silver Dec 18<br>%5ETNX: CBOE Interest Rate 10 Year T No<br>%5EVIX: CBOE Volatility Index<br>BTC-USD: Bitcoin USD<br>%5EFTSE: FTSE 100<br>%5EN225: Nikkei 225</td>
-<td style="text-align:left">DATA ex:<br>APPL</td>
-</tr>
-</tbody>
-</table>
-<h1 id="2-use-pandas_datareader-to-retrieve-finance-data"><a class="markdownIt-Anchor" href="#2-use-pandas_datareader-to-retrieve-finance-data"></a> 2. Use <a href="https://pandas-datareader.readthedocs.io/en/latest/" target="_blank" rel="noopener">pandas_datareader</a> to Retrieve Finance Data</h1>
-<p>A comparatively old blog <a href="https://www.learndatasci.com/tutorials/python-finance-part-yahoo-finance-api-pandas-matplotlib/" target="_blank" rel="noopener">Python for Finance, Part I: Yahoo &amp; Google Finance API, pandas, and matplotlib</a> has already given a fabulous summary. However, with the development of Python, code for finance data loading needs to be modified a bit. For <strong>4</strong> different data resource:</p>
-<h1 id="21-google-finance"><a class="markdownIt-Anchor" href="#21-google-finance"></a> 2.1 <a href="https://www.google.com/finance" target="_blank" rel="noopener">Google Finance</a></h1>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Define the instruments to download. We would like to see Apple, Microsoft and the S&amp;P500 index.</span></span><br><span class="line">tickers = [<span class="string">'AAPL'</span>, <span class="string">'MSFT'</span>, <span class="string">'^GSPC'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># We would like all available data from 01/01/2017 until 12/31/2017.</span></span><br><span class="line">start_date = <span class="string">'2017-01-01'</span></span><br><span class="line">end_date = <span class="string">'2017-12-31'</span></span><br><span class="line">df = data.DataReader(tickers, data_source=<span class="string">'google'</span>, start=start_date, end=end_date)</span><br></pre></td></tr></table></figure>
-<span style="color:red">
-Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
- Google finance has been immediately deprecated due to large breaks in the API without the introduction of a stable replacement. Pull Requests to re-enable these data connectors are welcome.  See https://github.com/pydata/pandas-datareader/issues 
-  File "....../test.py", line 16, in <module>
-    df = data.DataReader(tickers, data_source='google', start=start_date, end=end_date)
-</module></span>
-<p>From <a href="https://github.com/pydata/pandas-datareader/issues/487" target="_blank" rel="noopener">pandas-datareader issues 487</a>, we can tell <a href="https://www.google.com/finance" target="_blank" rel="noopener">Google Finance API</a> is currently down. <span style="color:red"><strong>Therefore, let’s ignore <a href="https://www.google.com/finance" target="_blank" rel="noopener">Google Finance</a> for now.</strong></span></p>
-<p>On the other hand, from the following <strong>3</strong> finance data resource, the following printed tables and generated pictures demonstrate that stock data can be successfully loaded.</p>
-<h1 id="22-yahoo-finance"><a class="markdownIt-Anchor" href="#22-yahoo-finance"></a> 2.2 <a href="https://finance.yahoo.com/" target="_blank" rel="noopener">Yahoo Finance</a></h1>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Define the instruments to download. We would like to see Apple, Microsoft and the S&amp;P500 index.</span></span><br><span class="line">tickers = [<span class="string">'AAPL'</span>, <span class="string">'MSFT'</span>, <span class="string">'^GSPC'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># We would like all available data from 01/01/2017 until 12/31/2017.</span></span><br><span class="line">start_date = <span class="string">'2017-01-01'</span></span><br><span class="line">end_date = <span class="string">'2017-12-31'</span></span><br><span class="line">df = data.DataReader(tickers, data_source=<span class="string">'yahoo'</span>, start=start_date, end=end_date)</span><br></pre></td></tr></table></figure>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">Attributes        High                                 Low             \</span><br><span class="line">Symbols           AAPL       MSFT        ^GSPC        AAPL       MSFT</span><br><span class="line">Date</span><br><span class="line">2017-01-03  116.330002  62.840000  2263.879883  114.760002  62.130001</span><br><span class="line">2017-01-04  116.510002  62.750000  2272.820068  115.750000  62.119999</span><br><span class="line">2017-01-05  116.860001  62.660000  2271.500000  115.809998  62.029999</span><br><span class="line">2017-01-06  118.160004  63.150002  2282.100098  116.470001  62.040001</span><br><span class="line">2017-01-09  119.430000  63.080002  2275.489990  117.940002  62.540001</span><br><span class="line">2017-01-10  119.379997  63.070000  2279.270020  118.300003  62.279999</span><br><span class="line">2017-01-11  119.930000  63.230000  2275.320068  118.599998  62.430000</span><br><span class="line">2017-01-12  119.300003  63.400002  2271.780029  118.209999  61.950001</span><br><span class="line">2017-01-13  119.620003  62.869999  2278.679932  118.809998  62.349998</span><br><span class="line"></span><br><span class="line">Attributes                     Open                               Close  \</span><br><span class="line">Symbols           ^GSPC        AAPL       MSFT        ^GSPC        AAPL</span><br><span class="line">Date</span><br><span class="line">2017-01-03  2245.129883  115.800003  62.790001  2251.570068  116.150002</span><br><span class="line">2017-01-04  2261.600098  115.849998  62.480000  2261.600098  116.019997</span><br><span class="line">2017-01-05  2260.449951  115.919998  62.189999  2268.179932  116.610001</span><br><span class="line">2017-01-06  2264.060059  116.779999  62.299999  2271.139893  117.910004</span><br><span class="line">2017-01-09  2268.899902  117.949997  62.759998  2273.590088  118.989998</span><br><span class="line">2017-01-10  2265.270020  118.769997  62.730000  2269.719971  119.110001</span><br><span class="line">2017-01-11  2260.830078  118.739998  62.610001  2268.600098  119.750000</span><br><span class="line">2017-01-12  2254.250000  118.900002  63.060001  2271.139893  119.250000</span><br><span class="line">2017-01-13  2271.510010  119.110001  62.619999  2272.739990  119.040001</span><br><span class="line"></span><br><span class="line">Attributes                              Volume                            \</span><br><span class="line">Symbols          MSFT        ^GSPC        AAPL        MSFT         ^GSPC</span><br><span class="line">Date</span><br><span class="line">2017-01-03  62.580002  2257.830078  28781900.0  20694100.0  3.770530e+09</span><br><span class="line">2017-01-04  62.299999  2270.750000  21118100.0  21340000.0  3.764890e+09</span><br><span class="line">2017-01-05  62.299999  2269.000000  22193600.0  24876000.0  3.761820e+09</span><br><span class="line">2017-01-06  62.840000  2276.979980  31751900.0  19922900.0  3.339890e+09</span><br><span class="line">2017-01-09  62.639999  2268.899902  33561900.0  20256600.0  3.217610e+09</span><br><span class="line">2017-01-10  62.619999  2268.899902  24462100.0  18593000.0  3.638790e+09</span><br><span class="line">2017-01-11  63.189999  2275.320068  27588600.0  21517300.0  3.620410e+09</span><br><span class="line">2017-01-12  62.610001  2270.439941  27086200.0  20968200.0  3.462130e+09</span><br><span class="line">2017-01-13  62.700001  2274.639893  26111900.0  19422300.0  3.081270e+09</span><br><span class="line"></span><br><span class="line">Attributes   Adj Close</span><br><span class="line">Symbols           AAPL       MSFT        ^GSPC</span><br><span class="line">Date</span><br><span class="line">2017-01-03  112.620964  60.431488  2257.830078</span><br><span class="line">2017-01-04  112.494911  60.161095  2270.750000</span><br><span class="line">2017-01-05  113.066986  60.161095  2269.000000</span><br><span class="line">2017-01-06  114.327484  60.682560  2276.979980</span><br><span class="line">2017-01-09  115.374664  60.489429  2268.899902</span><br><span class="line">2017-01-10  115.491020  60.470112  2268.899902</span><br><span class="line">2017-01-11  116.111588  61.020542  2275.320068</span><br><span class="line">2017-01-12  115.626762  60.460461  2270.439941</span><br><span class="line">2017-01-13  115.423149  60.547371  2274.639893</span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">AAPL Closing Price</th>
-<th style="text-align:center">MSFT Closing Price</th>
-<th style="text-align:center">S&amp;P 500 Closing Price</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pandas_datareader/yahoo/AAPL.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pandas_datareader/yahoo/AAPL.jpg" alt="AAPL Closing Price"></a></td>
-<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pandas_datareader/yahoo/MSFT.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pandas_datareader/yahoo/MSFT.jpg" alt="MSFT Closing Price"></a></td>
-<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pandas_datareader/yahoo/GSPC.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pandas_datareader/yahoo/GSPC.jpg" alt="S&amp;P 500 Closing Price"></a></td>
-</tr>
-</tbody>
-</table>
-<h1 id="23-iex"><a class="markdownIt-Anchor" href="#23-iex"></a> 2.3 <a href="https://iextrading.com/" target="_blank" rel="noopener">IEX</a></h1>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Define the instruments to download. We would like to see Apple, Microsoft and the S&amp;P500 index.</span></span><br><span class="line">tickers = [<span class="string">'AAPL'</span>, <span class="string">'MSFT'</span>, <span class="string">'SPY'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># We would like all available data from 01/01/2017 until 12/31/2017.</span></span><br><span class="line">start_date = <span class="string">'2017-01-01'</span></span><br><span class="line">end_date = <span class="string">'2017-12-31'</span></span><br><span class="line">df = data.DataReader(tickers, data_source=<span class="string">"iex"</span>, start=start_date, end=end_date)</span><br></pre></td></tr></table></figure>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">Attributes      open                         high                     \</span><br><span class="line">Symbols         AAPL     MSFT       SPY      AAPL     MSFT       SPY   </span><br><span class="line">date                                                                   </span><br><span class="line">2017-01-03  112.6732  60.6343  217.9106  113.1889  60.6825  218.6756   </span><br><span class="line">2017-01-04  112.7219  60.3349  218.4722  113.3641  60.5956  219.5664   </span><br><span class="line">2017-01-05  112.7900  60.0549  219.1016  113.7087  60.5087  219.4018   </span><br><span class="line">2017-01-06  113.6268  60.1611  219.3534  114.9695  60.9819  220.5347   </span><br><span class="line">2017-01-09  114.7652  60.6053  219.7213  116.2052  60.9143  219.8764   </span><br><span class="line">2017-01-10  115.5630  60.5763  219.3050  116.1566  60.9046  220.2442   </span><br><span class="line">2017-01-11  115.5338  60.4604  219.1888  116.6917  61.0591  219.9053   </span><br><span class="line">2017-01-12  115.6847  60.8950  219.3243  116.0787  61.2233  219.5664   </span><br><span class="line">2017-01-13  115.8939  60.4701  219.5470  116.3901  60.7067  220.1958   </span><br><span class="line"></span><br><span class="line">Attributes       low                        close                     \</span><br><span class="line">Symbols         AAPL     MSFT       SPY      AAPL     MSFT       SPY   </span><br><span class="line">date                                                                   </span><br><span class="line">2017-01-03  111.6613  59.9921  216.7909  113.0138  60.4315  218.1043   </span><br><span class="line">2017-01-04  112.6246  59.9873  218.4625  112.8873  60.1611  219.4018   </span><br><span class="line">2017-01-05  112.6830  59.9003  218.3366  113.4614  60.1611  219.2275   </span><br><span class="line">2017-01-06  113.3251  59.9100  218.7433  114.7263  60.6825  220.0118   </span><br><span class="line">2017-01-09  114.7554  60.3928  219.2433  115.7771  60.4894  219.2856   </span><br><span class="line">2017-01-10  115.1057  60.1418  218.8499  115.8939  60.4701  219.2856   </span><br><span class="line">2017-01-11  115.3976  60.2866  218.4432  116.5166  61.0205  219.9053   </span><br><span class="line">2017-01-12  115.0182  59.8231  217.8283  116.0301  60.4604  219.3534   </span><br><span class="line">2017-01-13  115.6020  60.2094  219.5083  115.8257  60.5473  219.8569   </span><br><span class="line"></span><br><span class="line">Attributes    volume                      </span><br><span class="line">Symbols         AAPL      MSFT       SPY  </span><br><span class="line">date                                      </span><br><span class="line">2017-01-03  28781865  20694101  91366522  </span><br><span class="line">2017-01-04  21118116  21339969  78744433  </span><br><span class="line">2017-01-05  22193587  24875968  78379012  </span><br><span class="line">2017-01-06  31751900  19922919  71559922  </span><br><span class="line">2017-01-09  33561948  20382730  46939676  </span><br><span class="line">2017-01-10  24462051  18593004  63771939  </span><br><span class="line">2017-01-11  27588593  21517335  74650016  </span><br><span class="line">2017-01-12  27086220  20968223  72113181  </span><br><span class="line">2017-01-13  26111948  19422310  62717865</span><br></pre></td></tr></table></figure>
-<p>As shown, for <a href="https://iextrading.com/" target="_blank" rel="noopener">IEX</a>, the retrieved data is in reversed order, and there is a <span style="color:red">hidden ERROR about the time</span> so far. Let’s just ignore it at this stage.</p>
-<h1 id="24-quandl"><a class="markdownIt-Anchor" href="#24-quandl"></a> 2.4 <a href="https://www.quandl.com/" target="_blank" rel="noopener">Quandl</a></h1>
-<p><span style="color:red"><strong>Note</strong></span>: for <a href="https://www.quandl.com/" target="_blank" rel="noopener">Quandl</a>,</p>
-<ul>
-<li>you may have to load <strong>ONE</strong> data at a time</li>
-<li>you may have to subscribe and pay to obtain <a href="https://en.wikipedia.org/wiki/S%26P_500_Index" target="_blank" rel="noopener">S&amp;P 500</a> data? Anyway, please refer to <a href="https://www.quandl.com/data/MULTPL-multpl-com/usage/quickstart/python" target="_blank" rel="noopener">Quandl MULTPL</a> and <a href="http://www.multpl.com/" target="_blank" rel="noopener">multpl.com</a></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># We would like all available data from 01/01/2017 until 12/31/2017.</span></span><br><span class="line">start_date = <span class="string">'2017-01-01'</span></span><br><span class="line">end_date = <span class="string">'2017-12-31'</span></span><br><span class="line">df = data.DataReader(<span class="string">'AAPL'</span>, data_source=<span class="string">"quandl"</span>, start=start_date, end=end_date, access_key=<span class="string">"your-quandl-api-key"</span>)</span><br><span class="line"><span class="comment"># df = data.DataReader('MSFT', data_source="quandl", start=start_date, end=end_date, access_key="your-quandl-api-key")</span></span><br></pre></td></tr></table></figure>
-<h3 id="aapl"><a class="markdownIt-Anchor" href="#aapl"></a> AAPL</h3>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">              Open     High      Low   Close      Volume  ExDividend  \</span><br><span class="line">Date</span><br><span class="line">2017-12-29  170.52  170.590  169.220  169.23  25643711.0         0.0</span><br><span class="line">2017-12-28  171.00  171.850  170.480  171.08  15997739.0         0.0</span><br><span class="line">2017-12-27  170.10  170.780  169.710  170.60  21672062.0         0.0</span><br><span class="line">2017-12-26  170.80  171.470  169.679  170.57  32968167.0         0.0</span><br><span class="line">2017-12-22  174.68  175.424  174.500  175.01  16052615.0         0.0</span><br><span class="line">2017-12-21  174.17  176.020  174.100  175.01  20356826.0         0.0</span><br><span class="line">2017-12-20  174.87  175.420  173.250  174.35  23000392.0         0.0</span><br><span class="line">2017-12-19  175.03  175.390  174.090  174.54  27078872.0         0.0</span><br><span class="line">2017-12-18  174.88  177.200  174.860  176.42  28831533.0         0.0</span><br><span class="line"></span><br><span class="line">            SplitRatio  AdjOpen  AdjHigh   AdjLow  AdjClose   AdjVolume</span><br><span class="line">Date</span><br><span class="line">2017-12-29         1.0   170.52  170.590  169.220    169.23  25643711.0</span><br><span class="line">2017-12-28         1.0   171.00  171.850  170.480    171.08  15997739.0</span><br><span class="line">2017-12-27         1.0   170.10  170.780  169.710    170.60  21672062.0</span><br><span class="line">2017-12-26         1.0   170.80  171.470  169.679    170.57  32968167.0</span><br><span class="line">2017-12-22         1.0   174.68  175.424  174.500    175.01  16052615.0</span><br><span class="line">2017-12-21         1.0   174.17  176.020  174.100    175.01  20356826.0</span><br><span class="line">2017-12-20         1.0   174.87  175.420  173.250    174.35  23000392.0</span><br><span class="line">2017-12-19         1.0   175.03  175.390  174.090    174.54  27078872.0</span><br><span class="line">2017-12-18         1.0   174.88  177.200  174.860    176.42  28831533.0</span><br></pre></td></tr></table></figure>
-<h3 id="msft"><a class="markdownIt-Anchor" href="#msft"></a> MSFT</h3>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">             Open     High     Low  Close      Volume  ExDividend  SplitRatio  \</span><br><span class="line">Date                                                                            </span><br><span class="line">2017-12-29  85.63  86.0500  85.500  85.54  18162779.0         0.0         1.0   </span><br><span class="line">2017-12-28  85.90  85.9300  85.550  85.72   9872795.0         0.0         1.0   </span><br><span class="line">2017-12-27  85.65  85.9800  85.215  85.71  13000828.0         0.0         1.0   </span><br><span class="line">2017-12-26  85.31  85.5346  85.030  85.40   9737412.0         0.0         1.0   </span><br><span class="line">2017-12-22  85.40  85.6300  84.920  85.51  14033977.0         0.0         1.0   </span><br><span class="line">2017-12-21  86.05  86.1000  85.400  85.50  16638402.0         0.0         1.0   </span><br><span class="line">2017-12-20  86.20  86.3000  84.710  85.52  23425009.0         0.0         1.0   </span><br><span class="line">2017-12-19  86.35  86.3500  85.270  85.83  23241979.0         0.0         1.0   </span><br><span class="line">2017-12-18  87.12  87.4999  86.230  86.38  21551076.0         0.0         1.0   </span><br><span class="line"></span><br><span class="line">            AdjOpen  AdjHigh  AdjLow  AdjClose   AdjVolume  </span><br><span class="line">Date                                                        </span><br><span class="line">2017-12-29    85.63  86.0500  85.500     85.54  18162779.0  </span><br><span class="line">2017-12-28    85.90  85.9300  85.550     85.72   9872795.0  </span><br><span class="line">2017-12-27    85.65  85.9800  85.215     85.71  13000828.0  </span><br><span class="line">2017-12-26    85.31  85.5346  85.030     85.40   9737412.0  </span><br><span class="line">2017-12-22    85.40  85.6300  84.920     85.51  14033977.0  </span><br><span class="line">2017-12-21    86.05  86.1000  85.400     85.50  16638402.0  </span><br><span class="line">2017-12-20    86.20  86.3000  84.710     85.52  23425009.0  </span><br><span class="line">2017-12-19    86.35  86.3500  85.270     85.83  23241979.0  </span><br><span class="line">2017-12-18    87.12  87.4999  86.230     86.38  21551076.0</span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">AAPL Closing Price</th>
-<th style="text-align:center">MSFT Closing Price</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pandas_datareader/quandl/AAPL.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pandas_datareader/quandl/AAPL.jpg" alt="AAPL Closing Price"></a></td>
-<td style="text-align:center"><a href="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pandas_datareader/quandl/MSFT.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pandas_datareader/quandl/MSFT.jpg" alt="MSFT Closing Price"></a></td>
-</tr>
-</tbody>
-</table>
-<h1 id="3-additional-python-tools"><a class="markdownIt-Anchor" href="#3-additional-python-tools"></a> 3. Additional Python Tools</h1>
-<h2 id="31-fix-yahoo-finance"><a class="markdownIt-Anchor" href="#31-fix-yahoo-finance"></a> 3.1 <a href="https://github.com/jiapei100/fix-yahoo-finance" target="_blank" rel="noopener">fix-yahoo-finance</a></h2>
-<p><a href="https://github.com/jiapei100/fix-yahoo-finance" target="_blank" rel="noopener">fix-yahoo-finance</a>.</p>
-<h2 id="32-googlefinanceclient"><a class="markdownIt-Anchor" href="#32-googlefinanceclient"></a> 3.2 <a href="https://pypi.org/project/googlefinance.client/" target="_blank" rel="noopener">googlefinance.client</a></h2>
-<p><a href="https://pypi.org/project/googlefinance.client/" target="_blank" rel="noopener">googlefinance.client</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2469,7 +2354,7 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2536,7 +2421,9 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -2697,7 +2584,11 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
                     
                       
                     
-                    <span class="site-state-item-count">74</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">76</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
