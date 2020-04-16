@@ -309,6 +309,453 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/03/02/IoT/setup-repeater-bridge-using-a-dd-wrt-router/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/02/IoT/setup-repeater-bridge-using-a-dd-wrt-router/" itemprop="url">
+                  Setup Repeater Bridge Using A dd-wrt Router
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-03-02 00:00:00" itemprop="dateCreated datePublished" datetime="2018-03-02T00:00:00-08:00">2018-03-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-04-05 20:58:09" itemprop="dateModified" datetime="2020-04-05T20:58:09-07:00">2020-04-05</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/IOT/" itemprop="url" rel="index"><span itemprop="name">IOT</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Hi, today, I’m going to revisit a very old topic, <strong>Setup Repeater Bridge Using A dd-wrt Router</strong>. This reminds me of my <strong>FIRST</strong> startup <a href="http://visionmisc.com/" target="_blank" rel="noopener">Misc Vision</a> that used to resell <a href="https://foscam.com/" target="_blank" rel="noopener">Foscam home security IP cameras</a>. That is a long story. Anyway, this blog is going to heavily cite the contents on <a href="https://www.dd-wrt.com/wiki/index.php/Repeater_Bridge" target="_blank" rel="noopener">this page</a>.</p>
+<h1 id="part-a-flash-a-supported-router-with-dd-wrt-firmware"><a class="markdownIt-Anchor" href="#part-a-flash-a-supported-router-with-dd-wrt-firmware"></a> PART A: Flash A Supported Router with DD-WRT Firmware</h1>
+<p>Before we start to tackle <strong>the problem</strong>, the open source firmware <a href="https://www.dd-wrt.com/" target="_blank" rel="noopener">DD-WRT</a> is strongly recommended to flash your router.</p>
+<h2 id="1-dd-wrt-and-openwrt"><a class="markdownIt-Anchor" href="#1-dd-wrt-and-openwrt"></a> 1. DD-WRT and OpenWRT</h2>
+<p>Two widely used open source router firmware have been published online for quite a bit of time: <a href="https://www.dd-wrt.com/" target="_blank" rel="noopener">DD-WRT</a>, <a href="https://openwrt.org/" target="_blank" rel="noopener">OpenWRT</a> In fact, each of these two are OK for router firmware flashing.</p>
+<h2 id="2-dd-wrt-supported-routers"><a class="markdownIt-Anchor" href="#2-dd-wrt-supported-routers"></a> 2. DD-WRT Supported Routers</h2>
+<p>To check if your router is supported by <a href="https://www.dd-wrt.com/" target="_blank" rel="noopener">DD-WRT</a>, you need to check <a href="https://www.dd-wrt.com/site/support/router-database" target="_blank" rel="noopener">this page</a>.</p>
+<h2 id="3-dd-wrt-sl-r7202"><a class="markdownIt-Anchor" href="#3-dd-wrt-sl-r7202"></a> 3. DD-WRT SL-R7202</h2>
+<p>In my case, I got a lot of such routers in hand and am selling them on <a href="https://vancouver.craigslist.ca/rds/sop/d/brandnew-300m-dd-wrt-router/6516713575.html" target="_blank" rel="noopener">Craigslist</a> (if anybody is interested in it, please let me know). You can also find some either <strong>continued</strong> or <strong>discontinued</strong> such products on the market, such as <a href="https://www.gearbest.com/network-devices/pp_65336.html" target="_blank" rel="noopener">Gearbest</a>.</p>
+<p>DD-WRT SL-R7202 looks good:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/miscvision/mv-7202_top.jpg" alt="DD-WRT SL-R7202 Top"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/miscvision/mv-7202_palmsize_01.jpg" alt="DD-WRT SL-R7202 Size"></p>
+<p><strong>In one word, find some DD-WRT supported router, and have it successfully flashed FIRST</strong>. As a lazy man, I’m <strong>NOT</strong> going to flash anything but just use a router coming with an existing DD-WRT firmware, namely, <strong>DD-WRT SL-R7202</strong>.</p>
+<h1 id="part-b-the-problem"><a class="markdownIt-Anchor" href="#part-b-the-problem"></a> PART B: The Problem</h1>
+<p>The problem that we are going to deal with is how to connect multiple routers, so that the Internet range can be expanded. For routers with dd-wrt firmware, there are mulitple ways to connect routers, please refer to <a href="https://www.dd-wrt.com/wiki/index.php/Linking_Routers" target="_blank" rel="noopener">https://www.dd-wrt.com/wiki/index.php/Linking_Routers</a>.</p>
+<h2 id="1-linking-routers"><a class="markdownIt-Anchor" href="#1-linking-routers"></a> 1. Linking Routers</h2>
+<p>In the following, most contents are <strong>CITED</strong> directly from <a href="https://www.dd-wrt.com/wiki/index.php/Linking_Routers" target="_blank" rel="noopener">Linking Routers</a> and its extended webpages.</p>
+<ul>
+<li>
+<p><strong>Access Point / Switch</strong> - Extend the Wireless access area using more routers, with <strong>WIRED</strong> connections between routers, or turn a <strong>WIRED</strong> port on an existing network into a Wireless Access Point. All computers will be on the same network segment, and will be able to see one another in Windows Network. This works with all devices with LAN ports, and does not require dd-wrt to be installed. &quot;</p>
+<ul>
+<li><a href="https://www.dd-wrt.com/wiki/index.php/Wireless_access_point" target="_blank" rel="noopener">Wireless Access Point</a> - Extend Wi-Fi &amp; LAN (Requires physical(just <strong>WIRED</strong>) ethernet connection between routers)</li>
+<li><a href="https://www.dd-wrt.com/wiki/index.php/Switch" target="_blank" rel="noopener">Switch</a> - Similar config as WAP, but radio disabled (accepts only <strong>WIRED</strong> connections)</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/Access_point.jpg" alt="DD-WRT Access Point Mode"></p>
+<ul>
+<li>
+<p><strong>Repeater / Repeater Bridge</strong> - Extend the Wireless access area using a second router <strong>WIRELESSLY</strong> connected to the primary. The secondary router must have dd-wrt installed; the primary does not need dd-wrt.</p>
+<ul>
+<li><a href="https://www.dd-wrt.com/wiki/index.php/Repeater_Bridge" target="_blank" rel="noopener">Repeater Bridge</a> - A wireless repeater with DHCP &amp; NAT disabled, clients on same subnet as host AP (primary router). That is, all computers can see one another in Windows Network.</li>
+<li><a href="https://www.dd-wrt.com/wiki/index.php/Wlan_Repeater" target="_blank" rel="noopener">Repeater</a> - A wireless repeater with DHCP &amp; NAT enabled, clients on different subnet from host AP (primary router). Computers connected to one router can not see computers connected to other routers in Windows Network.</li>
+<li><a href="https://www.dd-wrt.com/wiki/index.php/Universal_Wireless_Repeater" target="_blank" rel="noopener">Universal Wireless Repeater</a> - Uses a program/script called AutoAP to keep a connection to the nearest/best host AP.</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/Repeater_Bridge.jpg" alt="DD-WRT Repeater Bridge Mode"></p>
+<ul>
+<li>
+<p><strong>Client / Client Bridge</strong> - Connect two wired networks using a WiFi link (WIRELESS connection between two routers). The secondary router must have dd-wrt installed; the primary router does not need to have dd-wrt.</p>
+<ul>
+<li><a href="https://www.dd-wrt.com/wiki/index.php/Client_Bridged" target="_blank" rel="noopener">Client Bridged</a> - Join two wired networks by two Wireless routers building a bridge. All computers can see one another in Windows Network.</li>
+<li><a href="https://www.dd-wrt.com/wiki/index.php/Client_Mode" target="_blank" rel="noopener">Client Mode</a> - Join two wired networks by two Wireless routers (unbridged). Computers on one wired network can not see computers on other wired network in Windows Network.</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/Client_Bridge.jpg" alt="DD-WRT Client Bridge Mode"></p>
+<ul>
+<li>
+<p><strong>WDS</strong> - Extend the Wireless access area using more routers connected WIRELESSLY. WDS is a mesh network. Routers must almost always have the SAME chipset type for WDS to work, and any non dd-wrt routers must be WDS compatible. Using identical routers is best, but not always necessary if all devices have the same chipset types. (All Broadcom or all Atheros etc)</p>
+<ul>
+<li><a href="https://www.dd-wrt.com/wiki/index.php/WDS_Linked_router_network" target="_blank" rel="noopener">WDS Linked router network</a></li>
+</ul>
+</li>
+<li>
+<p><strong>OLSR</strong> - Extend the Wireless access area using more routers. Extra routers do not need any wired connections to each other. Use several ISP (Internet) connections. OLSR is a mesh network.</p>
+<ul>
+<li><a href="https://www.dd-wrt.com/wiki/index.php/Mesh_Networking_with_OLSR" target="_blank" rel="noopener">Mesh Networking with OLSR</a></li>
+<li><a href="http://dev.wifidog.org/wiki/doc/gateway-server/WifiDogAndOlsr%7CWifiDog" target="_blank" rel="noopener">+ OLSR</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="2-down-to-earth-case"><a class="markdownIt-Anchor" href="#2-down-to-earth-case"></a> 2. Down-to-earth Case</h2>
+<p>In my case, my laptop and some of my IoT devices can be easily connected to the <a href="https://www.shaw.ca/" target="_blank" rel="noopener">ShawCable</a> Modem/Router combo, which is on the <strong>2nd floor</strong> in my living room and directly connected to the Internet. However, my R&amp;D office is located in my garage on the <strong>1st floor</strong>, where dd-wrt router is put in. In such a case, my dd-wrt router must be connected to my <a href="https://www.shaw.ca/" target="_blank" rel="noopener">ShawCable</a> Modem/Router <strong>WIRELESSLY</strong>.</p>
+<p>Due to the reason explained in the section <strong>Difference between Client Bridge and Repeater Bridge</strong>. A standard wireless bridge (<strong>Client Bridge</strong>) connects wired clients to a secondary router as if they were connected to your main router with a cable. Secondary clients share the bandwidth of a wireless connection back to your main router. Of course, you can still connect clients to your main router using either a cable connection or a wireless connection.</p>
+<blockquote>
+<p>The <strong>limitation</strong> with standard bridging is that it only allows <strong>WIRED</strong> clients to connect to your secondary router. <strong>WIRELESS</strong> clients cannot connect to your secondary router configured as a standard bridge. Repeater Bridge <strong>allows both WIRELESS AND WIRED</strong> clients to connect to a the <strong>Repeater Bridge</strong> router, and through that device <strong>WIRELESSLY</strong> to a primary router. You can still use this mode if you only need to bridge wired clients; the extra wireless repeater capability comes along for free; however, you are not required to use it.</p>
+</blockquote>
+<p>Therefore, we select <strong>Repeater Bridge</strong> as our solution. Here, <strong>DD-WRT SL-R7202</strong> is selected as the <strong>Repeater Bridge</strong>. The difficulty is <strong>how to setup DD-WRT SL-R7202 to make it work as a wireless Repeater Bridge</strong>?</p>
+<h1 id="part-c-about-firmware-optional"><a class="markdownIt-Anchor" href="#part-c-about-firmware-optional"></a> PART C: About Firmware (Optional)</h1>
+<h2 id="1-do-we-need-firmware-upgrading"><a class="markdownIt-Anchor" href="#1-do-we-need-firmware-upgrading"></a> 1. Do We Need Firmware Upgrading?</h2>
+<p>Actually, before I come to this step, I’ve already:</p>
+<ul>
+<li>strictly followed the configuration process written on <a href="https://www.dd-wrt.com/wiki/index.php/Repeater_Bridge" target="_blank" rel="noopener">https://www.dd-wrt.com/wiki/index.php/Repeater_Bridge</a>, but <strong>FAILED</strong> many times.</li>
+<li>and afterwards, I found a video solution at <a href="https://www.youtube.com/watch?v=ByB8vVGBjh4" target="_blank" rel="noopener">https://www.youtube.com/watch?v=ByB8vVGBjh4</a>, which seems to be suitable for my case.<br>
+However, it finally turns out that my <strong>DD-WRT SL-R7202</strong> router comes with a firmware version <strong>DD-WRT (build 13064)</strong>, but the tutorial on <strong>Youtube</strong> uses a router with firmware version <strong>DD-WRT (build 21061)</strong>.</li>
+</ul>
+<p>It seems to me that a firmware upgrading is a must before we setup the <strong>Wireless Repeater Bridge Mode</strong>. But, <strong>How</strong>?</p>
+<h2 id="2-reset-to-factory-defaults-on-dd-wrt-router-the-2nd-router"><a class="markdownIt-Anchor" href="#2-reset-to-factory-defaults-on-dd-wrt-router-the-2nd-router"></a> 2. Reset to Factory Defaults on DD-WRT Router (The 2nd Router)</h2>
+<p>First of all, we need to reset DD-WRT. There is a black button on my <strong>DD-WRT SL-R7202</strong>, as shown:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/miscvision/mv-7202_back.jpg" alt="Reset Button at DD-WRT's Back"></p>
+<p>In fact, how to reset <strong>DD-WRT</strong> needs to be paid attention to. &gt; Hold the reset button until lights flash (10-30sec) or 30-30-30 if appropriate for your router. (DO NOT 30-30-30 ARM routers.)</p>
+<h2 id="3-visit-http19216811"><a class="markdownIt-Anchor" href="#3-visit-http19216811"></a> 3. Visit <a href="http://192.168.1.1" target="_blank" rel="noopener">http://192.168.1.1</a>:</h2>
+<p>After successfully reset DD-WRT router to factory default, connect it with your host computer via a <strong>WIRED</strong> cable, for better stablity. Then, we change our network connection from our <strong>FIRST router</strong> to <strong>SECOND router: dd-wrt router</strong>. Afterwards, let’s visit <a href="http://192.168.1.1" target="_blank" rel="noopener">http://192.168.1.1</a>.</p>
+<ul>
+<li><strong>NOTE</strong>: My host computer’s IP address on the <strong>FIRST</strong> router, namely, <strong>ShawCable</strong> Modem/Router is staticly set as <strong>192.168.0.8</strong> (which is able to connect to the Internet). After I switch to the Wifi <strong>dd-wrt</strong>, my host’s IP is <strong>DHCP</strong> allocated to <strong>192.168.1.103</strong>. The gateway on <strong>ShawCable</strong> is <strong>192.168.0.1</strong>, which is different from the gateway on <strong>dd-wrt 192.168.1.1</strong> by default.</li>
+</ul>
+<h3 id="1-first-page"><a class="markdownIt-Anchor" href="#1-first-page"></a> 1) FIRST Page</h3>
+<p>DD-WRT home page looks like:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/01_FirstLogin.jpg" alt="DD-WRT First Login"></p>
+<p>And it’s suggested we input a new router username <strong>root</strong> and password <strong>admin</strong>. After the button <strong>Change Password</strong> is clicked, we are entering the very first page of DD-WRT Web GUI.</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/02_FirstPage.jpg" alt="DD-WRT First Page"></p>
+<ul>
+<li>We can easily tell the firmware’s info on the top right corner.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Firmware: DD-WRT v24-sp2 (10/10/09) std</span><br><span class="line">Time: 00:01:13 up 1 min, load average: 0.12, 0.04, 0.00</span><br><span class="line">WAN IP: 0.0.0.0</span><br></pre></td></tr></table></figure>
+<ul>
+<li>And, we can also easily tell from the bottom of this page that for now, only 1 DHCP client is connected to this router, which is just our host computer: <strong>jiapei-GT72-6QE</strong>.</li>
+</ul>
+<h3 id="2-system-info-on-status-page"><a class="markdownIt-Anchor" href="#2-system-info-on-status-page"></a> 2) System Info on Status Page</h3>
+<p>DD-WRT Status page tells a lot about what’s in this router:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/03_Status_BeforeUpgrading.jpg" alt="DD-WRT Status - Before Upgrading"></p>
+<p>Clearly, our router model is <strong>Buffalo WHR-G300N</strong>, and our firmware build version is <strong>13064</strong>.</p>
+<h3 id="3-upgradable"><a class="markdownIt-Anchor" href="#3-upgradable"></a> 3) Upgradable?</h3>
+<p>We then visit <a href="https://www.dd-wrt.com/site/support/router-database" target="_blank" rel="noopener">https://www.dd-wrt.com/site/support/router-database</a>, and input <strong>WHR-G300N</strong>, two routers will be listed as:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/04_dd-wrt_WHR-G300N.jpg" alt="DD-WRT WHR-G300N"></p>
+<p>By click the <strong>FIRST</strong> one, namely <strong>v1</strong>, we get:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/05_dd-wrt_WHR-G300N_Firmware.jpg" alt="DD-WRT WHR-G300N v1: from 13064 to 14896"></p>
+<p>Clearly, we should be able to upgrade from our current firmware version <strong>13064</strong> to the newer one <strong>14896</strong>.</p>
+<p>With the existing firmware version <strong>13064</strong> installed on the router <strong>SL-R7202</strong>, we can directly upgrade the firmware through web flash by downloading the firmware <strong>WHR-G300N-webflash.bin</strong>, but ignoring downloading all <strong>TFTP</strong> and <strong>openvpn</strong> files.</p>
+<h3 id="4-firmware-upgrading"><a class="markdownIt-Anchor" href="#4-firmware-upgrading"></a> 4) Firmware Upgrading</h3>
+<p>Just click <strong>Administration -&gt; Firmware Upgrade</strong>, and then choose <strong>WHR-G300N-webflash.bin</strong>.</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/06_Firmware_Upgrade.jpg" alt="DD-WRT Administration - Firmware Upgrade"></p>
+<p>After clicking <strong>Choose file</strong>, the system is automatically upgraded after several minutes.</p>
+<p><strong>NOTE: Do NOT touch anything during the upgrading process.</strong></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/07_Upgrade_Successful.jpg" alt="DD-WRT Upgrade Successful"></p>
+<p>After firmware upgrading, we can easily tell some difference: From <strong>Setup Page</strong>, on the left-top corner, we can see the builder version is now <strong>14896</strong>. And from the right-top corner, the current firmware info is:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Firmware: DD-WRT v24-sp2 (08/07/10) std</span><br><span class="line">Time: 00:08:20 up 8 min, load average: 0.00, 0.02, 0.00</span><br><span class="line">WAN IP: 0.0.0.0</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/08_Setup_AfterUpgrading.jpg" alt="DD-WRT Setup - Basic Setup"></p>
+<p>From the <strong>Status Page</strong>, we can doublecheck the firmware version is now <strong>14896</strong>.</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/09_Status_AfterUpgrading.jpg" alt="DD-WRT Status - After Upgrading"></p>
+<h3 id="5-firmware-upgrading-is-problematic"><a class="markdownIt-Anchor" href="#5-firmware-upgrading-is-problematic"></a> 5) Firmware Upgrading is Problematic !</h3>
+<p>However, upgrading the firmware version from <strong>13064</strong> to the newer one <strong>14896</strong> is problematic, please refer to <a href="https://jgiam.com/2012/07/06/setting-up-a-repeater-bridge-with-dd-wrt-and-d-link-dir-600" target="_blank" rel="noopener">https://jgiam.com/2012/07/06/setting-up-a-repeater-bridge-with-dd-wrt-and-d-link-dir-600</a>. After carefully reading this article, and due to my practical try later on, I summarized the conclusion here first:</p>
+<ul>
+<li><span style="color:red"><strong>NOTE</strong></span>:
+<ul>
+<li><span style="color:red"><strong>KEEP using firmware version 13064, instead of 14896</strong></span></li>
+<li><span style="color:red"><strong>NEVER adding the Virtual Interfaces</strong></span></li>
+</ul>
+</li>
+</ul>
+<h1 id="part-d-wireless-repeater-bridge-same-subset"><a class="markdownIt-Anchor" href="#part-d-wireless-repeater-bridge-same-subset"></a> PART D: Wireless Repeater Bridge (Same Subset)</h1>
+<h2 id="1-wireless-basic-settings"><a class="markdownIt-Anchor" href="#1-wireless-basic-settings"></a> 1. Wireless -&gt; Basic Settings</h2>
+<p>We modify the parameters accordingly (Cited from the blog <a href="https://jgiam.com/2012/07/06/setting-up-a-repeater-bridge-with-dd-wrt-and-d-link-dir-600" target="_blank" rel="noopener">Setting up a repeater bridge with DD-WRT and D-Link DIR-600</a> ):</p>
+<ul>
+<li><strong>Physical Interface Section</strong>
+<ul>
+<li><strong>Wireless Mode</strong>: Repeater Bridge</li>
+<li><strong>Wireless Network Mode</strong>: Must Be Exactly The Same As Primary Router</li>
+<li><strong>Wireless Network Name (SSID)</strong>: Must Be Exactly The Same As Primary Router. <span style="color:red"><strong>Be Careful: DD-WRT is ONLY a 2.4G router. If your primary router has two bands, namely, 2.4G and 5G, make sure you connect to the 2.4G network.</strong></span></li>
+<li><strong>Wireless Channel</strong>: Must Be Exactly The Same As Primary Router</li>
+<li><strong>Channel Width</strong>: Must Be Exactly The Same As Primary Router</li>
+<li><strong>Wireless SSID Broadcast</strong>: Enabled</li>
+<li><strong>Network Configuration</strong>: Bridged</li>
+</ul>
+</li>
+</ul>
+<p>Then, click <strong>Save without Apply</strong>, we get:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/10_Wireless_BasicSettings.jpg" alt="DD-WRT Wireless - Basic Settings"></p>
+<h2 id="2-wireless-wireless-security"><a class="markdownIt-Anchor" href="#2-wireless-wireless-security"></a> 2. Wireless -&gt; Wireless Security</h2>
+<ul>
+<li><strong>Physical Interface section</strong>
+<ul>
+<li><strong>Security Mode</strong>: Must Be <strong>WPA2 Personal</strong>, and The Primary Router Must Be Exactly The Same.</li>
+<li><strong>WPA Algorithms</strong>: Must Be <strong>AES</strong>, and The Primary Router Must Be Exactly The Same.</li>
+<li><strong>WPA Shared Key</strong>: Must Be Exactly The Same As Primary Router</li>
+<li><strong>Key Renewal Interval (in seconds)</strong>: Leave as it is, normally, <strong>3600</strong>.</li>
+</ul>
+</li>
+</ul>
+<p>Then, click <strong>Save without Apply</strong>, we get:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/11_Wireless_Security.jpg" alt="DD-WRT Wireless - Wireless Security"></p>
+<h2 id="3-setup-basic-setup"><a class="markdownIt-Anchor" href="#3-setup-basic-setup"></a> 3. Setup -&gt; Basic Setup</h2>
+<ul>
+<li><strong>WAN Connection Type Section</strong>
+<ul>
+<li><strong>Connection Type</strong>: Disabled</li>
+<li><strong>STP</strong>: Disabled</li>
+</ul>
+</li>
+<li><strong>Optional Settings</strong>
+<ul>
+<li><strong>Router Name</strong>: DD-WRT, just let it be</li>
+</ul>
+</li>
+<li><strong>Router IP</strong>
+<ul>
+<li><strong>IP Address</strong>: 192.168.0.2 (in my case, my Primary Router IP is 192.168.0.1, and 192.168.0.2 has NOT been used yet.)</li>
+<li><strong>Subnet Mask</strong>: 255.255.255.0</li>
+<li><strong>Gateway</strong>: 192.168.0.1 (Must Be Primary Router IP)</li>
+<li><strong>Local DNS</strong>: 192.168.0.1 (Must Be Primary Router IP)</li>
+</ul>
+</li>
+<li><strong>WAN Port</strong>
+<ul>
+<li><strong>Assign WAN Port to Switch</strong>: tick</li>
+</ul>
+</li>
+<li><strong>Time Settings</strong>
+<ul>
+<li><strong>Time Zone</strong>: set correspondingly</li>
+</ul>
+</li>
+</ul>
+<p>Then, click <strong>Save without Apply</strong>, we get:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/12_Setup_BasicSetup.jpg" alt="DD-WRT Setup - Basic Setup"></p>
+<h2 id="4-setup-advanced-routing"><a class="markdownIt-Anchor" href="#4-setup-advanced-routing"></a> 4. Setup -&gt; Advanced Routing</h2>
+<ul>
+<li><strong>Operating Mode Section</strong>
+<ul>
+<li><strong>Operating Mode</strong>: Router</li>
+</ul>
+</li>
+</ul>
+<p>Then, click <strong>Save without Apply</strong>, we get:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/13_Setup_AdvancedRouting.jpg" alt="DD-WRT Setup - Advanced Routing"></p>
+<h2 id="5-services-services"><a class="markdownIt-Anchor" href="#5-services-services"></a> 5. Services -&gt; Services</h2>
+<ul>
+<li><strong>DNSMasq Section</strong>
+<ul>
+<li><strong>DNSMasq</strong>: Diable</li>
+</ul>
+</li>
+<li><strong>Secure Shell Section</strong>
+<ul>
+<li><strong>SSHd</strong>: Enable</li>
+</ul>
+</li>
+<li><strong>Telnet Section</strong>
+<ul>
+<li><strong>Telnet</strong>: Enable</li>
+</ul>
+</li>
+</ul>
+<p>Then, click <strong>Save without Apply</strong>, we get:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/14_Services_Services.jpg" alt="DD-WRT Services - Services"></p>
+<h2 id="6-security-firewall"><a class="markdownIt-Anchor" href="#6-security-firewall"></a> 6. Security -&gt; Firewall</h2>
+<p><span style="color:red"><strong>Note: Process in Sequence.</strong> </span></p>
+<ul>
+<li><strong>Block WAN Requests</strong>
+<ul>
+<li><strong>Block Anonymous WAN Requests (Ping)</strong>: untick</li>
+<li><strong>Filter Multicast</strong>: tick</li>
+<li><strong>Filter WAN NAT Redirection</strong>: untick</li>
+<li><strong>Filter IDENT (Port 113)</strong>: untick</li>
+</ul>
+</li>
+<li><strong>Firewall Protection</strong>
+<ul>
+<li><strong>SPI Firewall</strong>: Disable</li>
+</ul>
+</li>
+</ul>
+<p>Then, click <strong>Save without Apply</strong>, we get:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/15_Security_Firewall.jpg" alt="DD-WRT Security - Firewall"></p>
+<h2 id="7-administration-management"><a class="markdownIt-Anchor" href="#7-administration-management"></a> 7. Administration Management</h2>
+<ul>
+<li><strong>Remote Access Section</strong>
+<ul>
+<li><strong>Web GUI Management</strong>: Enable</li>
+<li><strong>SSH Management</strong>: Enable</li>
+<li><strong>Telnet Remote Port</strong>: Enable</li>
+<li><strong>Allow Any Remote IP</strong>: Enable</li>
+</ul>
+</li>
+</ul>
+<p>Then, click <strong>Save without Apply</strong>, we get:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/16_Administration_Management.jpg" alt="DD-WRT Administration - Management"></p>
+<p>Now, it’s the time to <strong>Apply Settings</strong></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/17_ApplySettings.jpg" alt="DD-WRT Administration - Management - Apply Settings"></p>
+<p>And finally, click <strong>Reboot Router</strong></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/18_RebootRouter.jpg" alt="DD-WRT Administration - Management - Reboot Router"></p>
+<h1 id="part-e-doublechek-repeater-bridge"><a class="markdownIt-Anchor" href="#part-e-doublechek-repeater-bridge"></a> PART E: Doublechek Repeater Bridge</h1>
+<h2 id="1-ping"><a class="markdownIt-Anchor" href="#1-ping"></a> 1. Ping</h2>
+<p>Let’s see the ping results directly:</p>
+<h3 id="1-pc-wired-connecting-to-dd-wrt-router-2"><a class="markdownIt-Anchor" href="#1-pc-wired-connecting-to-dd-wrt-router-2"></a> 1) PC Wired Connecting to DD-WRT (Router 2)</h3>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/19_dd-wrt_wired.jpg" alt="DD-WRT Wired Connection Between PC and Router 2, Namely, DD-WRT"></p>
+<h3 id="2-pc-wirelessly-connecting-to-router-1-5g"><a class="markdownIt-Anchor" href="#2-pc-wirelessly-connecting-to-router-1-5g"></a> 2) PC Wirelessly Connecting to Router 1 - 5G</h3>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/19_dd-wrt_5g.jpg" alt="DD-WRT Wifi Connection Between PC and Primary Router 1's 5G Network"></p>
+<h3 id="3-pc-wirelessly-connecting-to-router-1-24g"><a class="markdownIt-Anchor" href="#3-pc-wirelessly-connecting-to-router-1-24g"></a> 3) PC Wirelessly Connecting to Router 1 - 2.4G</h3>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/19_dd-wrt_2.4g.jpg" alt="DD-WRT Wifi Connection Between PC and Primary Router 1's 2.4G Network"></p>
+<h2 id="2-visit-http19216801-and-http19216802"><a class="markdownIt-Anchor" href="#2-visit-http19216801-and-http19216802"></a> 2. Visit <a href="http://192.168.0.1" target="_blank" rel="noopener">http://192.168.0.1</a> and <a href="http://192.168.0.2" target="_blank" rel="noopener">http://192.168.0.2</a></h2>
+<p>Most of the time, in order to get the fastest Internet speed, I use Primary Router 1’s 5G network. Therefore, for my final demonstration, my PC is wirelessly connected to the 5G network. And, I can successfully visit <a href="http://192.168.0.1" target="_blank" rel="noopener">http://192.168.0.1</a> and <a href="http://192.168.0.2" target="_blank" rel="noopener">http://192.168.0.2</a>.</p>
+<h3 id="1-http19216801"><a class="markdownIt-Anchor" href="#1-http19216801"></a> 1) <a href="http://192.168.0.1" target="_blank" rel="noopener">http://192.168.0.1</a></h3>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/20_cisco.jpg" alt="http://192.168.0.1"></p>
+<h3 id="2-http19216802"><a class="markdownIt-Anchor" href="#2-http19216802"></a> 2) <a href="http://192.168.0.2" target="_blank" rel="noopener">http://192.168.0.2</a></h3>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/20_dd-wrt.jpg" alt="http://192.168.0.2"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/02/27/SBCs/ARM/orange-pi-plus-2-armbian/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2261,214 +2708,6 @@ At the end of the code, we release the video capture handle and destroy all open
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2017/03/11/ComputerVision/OpenCV/opencv-external-posture-estimation-ArUco-diamond/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/03/11/ComputerVision/OpenCV/opencv-external-posture-estimation-ArUco-diamond/" itemprop="url">
-                  Camera Posture Estimation Using An ArUco Diamond Marker
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-03-11 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-11T00:00:00-08:00">2017-03-11</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-08-18 14:34:56" itemprop="dateModified" datetime="2019-08-18T14:34:56-07:00">2019-08-18</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Computer-Vision/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="preparation"><a class="markdownIt-Anchor" href="#preparation"></a> Preparation</h1>
-<p>Very similar to our previous post <a href="https://longervision.github.io/2017/03/10/opencv-external-posture-estimation-ArUco-single-marker/" target="_blank" rel="noopener">Camera Posture Estimation Using A Single aruco Marker</a>, you need to make sure your camera has already been calibrated. In the coding section, it’s assumed that you can successfully load the camera calibration parameters.</p>
-<h1 id="coding"><a class="markdownIt-Anchor" href="#coding"></a> Coding</h1>
-<p>The code can be found at <a href="https://github.com/LongerVision/OpenCV_Examples/blob/master/02_external_camera_posture_estimation/ArUco_diamond.py" target="_blank" rel="noopener">OpenCV Examples</a>.</p>
-<h2 id="first-of-all"><a class="markdownIt-Anchor" href="#first-of-all"></a> First of all</h2>
-<p>We need to ensure <strong><a href="http://cv2.so" target="_blank" rel="noopener">cv2.so</a></strong> is under our system path. <strong><a href="http://cv2.so" target="_blank" rel="noopener">cv2.so</a></strong> is specifically for OpenCV Python.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.append(<span class="string">'/usr/local/python/3.5'</span>)</span><br></pre></td></tr></table></figure>
-<p>Then, we import some packages to be used.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">from</span> cv2 <span class="keyword">import</span> aruco</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
-<h2 id="secondly"><a class="markdownIt-Anchor" href="#secondly"></a> Secondly</h2>
-<p>Again, we need to load all camera calibration parameters, including: <strong>cameraMatrix</strong>, <strong>distCoeffs</strong>, etc. :</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">calibrationFile = <span class="string">"calibrationFileName.xml"</span></span><br><span class="line">calibrationParams = cv2.FileStorage(calibrationFile, cv2.FILE_STORAGE_READ)</span><br><span class="line">camera_matrix = calibrationParams.getNode(<span class="string">"cameraMatrix"</span>).mat()</span><br><span class="line">dist_coeffs = calibrationParams.getNode(<span class="string">"distCoeffs"</span>).mat()</span><br></pre></td></tr></table></figure>
-<p>If you are using a calibrated fisheye camera like us, two extra parameters are to be loaded from the calibration file.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">r = calibrationParams.getNode(<span class="string">"R"</span>).mat()</span><br><span class="line">new_camera_matrix = calibrationParams.getNode(<span class="string">"newCameraMatrix"</span>).mat()</span><br></pre></td></tr></table></figure>
-<p>Afterwards, two mapping matrices are pre-calculated by calling function <a href="http://docs.opencv.org/trunk/da/d54/group__imgproc__transform.html#ga7dfb72c9cf9780a347fbe3d1c47e5d5a" target="_blank" rel="noopener">cv2.fisheye.initUndistortRectifyMap()</a> as (supposing the images to be processed are of 1080P):</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">image_size = (<span class="number">1920</span>, <span class="number">1080</span>)</span><br><span class="line">map1, map2 = cv2.fisheye.initUndistortRectifyMap(camera_matrix, dist_coeffs, r, new_camera_matrix, image_size, cv2.CV_16SC2)</span><br></pre></td></tr></table></figure>
-<h2 id="thirdly"><a class="markdownIt-Anchor" href="#thirdly"></a> Thirdly</h2>
-<p>The dictionary <strong>aruco.DICT_6X6_250</strong> is to be loaded. Although current OpenCV provides four groups of <a href="http://docs.opencv.org/trunk/d9/d6a/group__aruco.html" target="_blank" rel="noopener">aruco</a> patterns, <strong>4X4</strong>, <strong>5X5</strong>, <strong>6X6</strong>, <strong>7X7</strong>, etc., it seems OpenCV Python does NOT provide a function named <a href="http://docs.opencv.org/trunk/d9/d6a/group__aruco.html#gaf71fb897d5f03f7424c0c84715aa6228" target="_blank" rel="noopener">drawCharucoDiamond()</a>. Therefore, we have to refer to the C++ tutorial <a href="http://docs.opencv.org/trunk/d5/d07/tutorial_charuco_diamond_detection.html" target="_blank" rel="noopener">Detection of Diamond Markers</a>. And, we directly use this particular diamond marker in the tutorial:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/OpenCV_Examples/master/markers/board_charuco_diamond.png" alt="aruco.DICT_6X6_250.diamond"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aruco_dict = aruco.Dictionary_get( aruco.DICT_6X6_250 )</span><br></pre></td></tr></table></figure>
-<p>After having this aruco diamond marker printed, the edge lengths of this particular diamond marker are to be measured and stored in two variables <strong>squareLength</strong> and <strong>markerLength</strong>.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">squareLength = <span class="number">40</span>   <span class="comment"># Here, our measurement unit is centimetre.</span></span><br><span class="line">markerLength = <span class="number">25</span>   <span class="comment"># Here, our measurement unit is centimetre.</span></span><br></pre></td></tr></table></figure>
-<p>Meanwhile, create aruco detector with default parameters.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arucoParams = aruco.DetectorParameters_create()</span><br></pre></td></tr></table></figure>
-<h2 id="finally"><a class="markdownIt-Anchor" href="#finally"></a> Finally</h2>
-<p>This time, let’s test on a video stream, a .mp4 file. We first load the video file and initialize a video capture handle.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">videoFile = <span class="string">"aruco_diamond.mp4"</span></span><br><span class="line">cap = cv2.VideoCapture(videoFile)</span><br></pre></td></tr></table></figure>
-<p>Then, we calculate the camera posture frame by frame:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="keyword">True</span>):</span><br><span class="line">    ret, frame = cap.read() <span class="comment"># Capture frame-by-frame</span></span><br><span class="line">    <span class="keyword">if</span> ret == <span class="keyword">True</span>:</span><br><span class="line">        frame_remapped = cv2.remap(frame, map1, map2, cv2.INTER_LINEAR, cv2.BORDER_CONSTANT)     <span class="comment"># for fisheye remapping</span></span><br><span class="line">        frame_remapped_gray = cv2.cvtColor(frame_remapped, cv2.COLOR_BGR2GRAY)</span><br><span class="line"></span><br><span class="line">        corners, ids, rejectedImgPoints = aruco.detectMarkers(frame_remapped_gray, aruco_dict, parameters=arucoParams)  <span class="comment"># First, detect markers</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> ids != <span class="keyword">None</span>: <span class="comment"># if there is at least one marker detected</span></span><br><span class="line">            diamondCorners, diamondIds = aruco.detectCharucoDiamond(frame_remapped_gray, corners, ids, squareLength/markerLength)   <span class="comment"># Second, detect diamond markers</span></span><br><span class="line">            <span class="keyword">if</span> len(diamondCorners) &gt;= <span class="number">1</span>:    <span class="comment"># if there is at least one diamond detected</span></span><br><span class="line">                im_with_diamond = aruco.drawDetectedDiamonds(frame_remapped, diamondCorners, diamondIds, (<span class="number">0</span>,<span class="number">255</span>,<span class="number">0</span>))</span><br><span class="line">                rvec, tvec = aruco.estimatePoseSingleMarkers(diamondCorners, squareLength, camera_matrix, dist_coeffs)  <span class="comment"># posture estimation from a diamond</span></span><br><span class="line">                im_with_diamond = aruco.drawAxis(im_with_diamond, camera_matrix, dist_coeffs, rvec, tvec, <span class="number">100</span>)  <span class="comment"># axis length 100 can be changed according to your requirement</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            im_with_diamond = frame_remapped</span><br><span class="line"></span><br><span class="line">        cv2.imshow(<span class="string">"diamondLeft"</span>, im_with_diamond)   <span class="comment"># display</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> cv2.waitKey(<span class="number">2</span>) &amp; <span class="number">0xFF</span> == ord(<span class="string">'q'</span>):   <span class="comment"># press 'q' to quit</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
-<p>The drawn axis is just the world coordinators and orientations estimated from the images taken by the testing camera.<br>
-At the end of the code, we release the video capture handle and destroy all opening windows.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cap.release()   <span class="comment"># When everything done, release the capture</span></span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2516,7 +2755,7 @@ At the end of the code, we release the video capture handle and destroy all open
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">82</span>
+                    <span class="site-state-item-count">83</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2752,7 +2991,9 @@ At the end of the code, we release the video capture handle and destroy all open
                     
                       
                     
-                    <span class="site-state-item-count">77</span>
+                      
+                    
+                    <span class="site-state-item-count">78</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
