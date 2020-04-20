@@ -311,6 +311,222 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/08/22/MachineVision/MCU/exp32cam/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/22/MachineVision/MCU/exp32cam/" itemprop="url">
+                  ESP32-Cam
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-22 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-22T00:00:00-07:00">2019-08-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-04-06 01:47:58" itemprop="dateModified" datetime="2020-04-06T01:47:58-07:00">2020-04-06</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Machine-Vision/" itemprop="url" rel="index"><span itemprop="name">Machine Vision</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Machine-Vision/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <div class="video-container"><iframe src="https://www.youtube.com/embed/YQHsXMglC9A?rel=0&amp;showinfo=0" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe></div>
+<h1 id="0-preface"><a class="markdownIt-Anchor" href="#0-preface"></a> 0. Preface</h1>
+<p>My <a href="https://makeradvisor.com/esp32-cam-ov2640-camera/" target="_blank" rel="noopener">ESP32-Cam</a> has finally arrived today. The brand of <a href="https://www.ai-thinker.com" target="_blank" rel="noopener">AI Thinker</a> has been demonstrated to be reliable.</p>
+<p>In fact, I strictly followed <a href="https://randomnerdtutorials.com" target="_blank" rel="noopener">randomnerdtutorials</a>’s blog <a href="https://randomnerdtutorials.com/esp32-cam-video-streaming-face-recognition-arduino-ide/" target="_blank" rel="noopener">ESP32-CAM Video Streaming and Face Recognition with Arduino IDE</a> to demonstrate this <strong>low-cost</strong> video surveillance camera. So, in this blog, I <strong>ONLY</strong> enumerate some <strong>KEY POINTS</strong> that should be emphasized.</p>
+<h1 id="1-connection"><a class="markdownIt-Anchor" href="#1-connection"></a> 1. Connection</h1>
+<h2 id="11-schematic"><a class="markdownIt-Anchor" href="#11-schematic"></a> 1.1 Schematic</h2>
+<p><a href="https://makeradvisor.com/esp32-cam-ov2640-camera/" target="_blank" rel="noopener">ESP32-Cam</a> can be connected to my laptop exactly the same as shown (cited directly from <a href="https://randomnerdtutorials.com/esp32-cam-video-streaming-face-recognition-arduino-ide/" target="_blank" rel="noopener">ESP32-CAM Video Streaming and Face Recognition with Arduino IDE</a>).</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/MCU/ESP32-CAM-wiring-FTDI1.png" alt="ESP32-Cam Wiring FTDI 1"></p>
+<h2 id="12-real-connection"><a class="markdownIt-Anchor" href="#12-real-connection"></a> 1.2 Real Connection</h2>
+<p>The real connection looks as:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/MCU/ESP32-CAM-wiring-FTDI.jpg" alt="ESP32-Cam Wiring FTDI"></p>
+<h2 id="13-lsub"><a class="markdownIt-Anchor" href="#13-lsub"></a> 1.3 lsub</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">longervision-GT72-6QE%</span><span class="bash"> lsusb</span></span><br><span class="line">......</span><br><span class="line">Bus 001 Device 010: ID 0403:6001 Future Technology Devices International, Ltd FT232 Serial (UART) IC</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<h1 id="2-key-points-on-flashing-esp32-cam"><a class="markdownIt-Anchor" href="#2-key-points-on-flashing-esp32-cam"></a> 2. Key Points on Flashing <a href="https://makeradvisor.com/esp32-cam-ov2640-camera/" target="_blank" rel="noopener">ESP32-Cam</a></h1>
+<h2 id="21-code-modification"><a class="markdownIt-Anchor" href="#21-code-modification"></a> 2.1 Code Modification</h2>
+<p>Example code <strong>CameraWebServer</strong> should be trivially modified as:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Select camera model</span></span><br><span class="line"><span class="comment">//#define CAMERA_MODEL_WROVER_KIT</span></span><br><span class="line"><span class="comment">//#define CAMERA_MODEL_ESP_EYE</span></span><br><span class="line"><span class="comment">//#define CAMERA_MODEL_M5STACK_PSRAM</span></span><br><span class="line"><span class="comment">//#define CAMERA_MODEL_M5STACK_WIDE</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CAMERA_MODEL_AI_THINKER</span></span><br></pre></td></tr></table></figure>
+<h2 id="22-verifycompile-and-upload"><a class="markdownIt-Anchor" href="#22-verifycompile-and-upload"></a> 2.2 Verify/Compile and Upload</h2>
+<h3 id="221-verifycompile"><a class="markdownIt-Anchor" href="#221-verifycompile"></a> 2.2.1 Verify/Compile</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Sketch uses 2241942 bytes (71%) of program storage space. Maximum is 3145728 bytes.</span><br><span class="line">Global variables use 52696 bytes (16%) of dynamic memory, leaving 274984 bytes for local variables. Maximum is 327680 bytes.</span><br></pre></td></tr></table></figure>
+<h3 id="222-upload"><a class="markdownIt-Anchor" href="#222-upload"></a> 2.2.2 Upload</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br></pre></td><td class="code"><pre><span class="line">esptool.py v2.6</span><br><span class="line">Serial port /dev/ttyUSB0</span><br><span class="line">Connecting....</span><br><span class="line">Chip is ESP32D0WDQ5 (revision 1)</span><br><span class="line">Features: WiFi, BT, Dual Core, 240MHz, VRef calibration in efuse, Coding Scheme None</span><br><span class="line">MAC: c4:4f:33:13:32:7d</span><br><span class="line">Uploading stub...</span><br><span class="line">Running stub...</span><br><span class="line">Stub running...</span><br><span class="line">Configuring flash size...</span><br><span class="line">Auto-detected Flash size: 4MB</span><br><span class="line">Compressed 8192 bytes to 47...</span><br><span class="line"></span><br><span class="line">Writing at 0x0000e000... (100 %)</span><br><span class="line">Wrote 8192 bytes (47 compressed) at 0x0000e000 in 0.0 seconds (effective 4102.7 kbit/s)...</span><br><span class="line">Hash of data verified.</span><br><span class="line">Compressed 16832 bytes to 10888...</span><br><span class="line"></span><br><span class="line">Writing at 0x00001000... (100 %)</span><br><span class="line">Wrote 16832 bytes (10888 compressed) at 0x00001000 in 1.0 seconds (effective 138.0 kbit/s)...</span><br><span class="line">Hash of data verified.</span><br><span class="line">Compressed 2242064 bytes to 1795627...</span><br><span class="line"></span><br><span class="line">Writing at 0x00010000... (0 %)</span><br><span class="line">Writing at 0x00014000... (1 %)</span><br><span class="line">Writing at 0x00018000... (2 %)</span><br><span class="line">Writing at 0x0001c000... (3 %)</span><br><span class="line">Writing at 0x00020000... (4 %)</span><br><span class="line">Writing at 0x00024000... (5 %)</span><br><span class="line">Writing at 0x00028000... (6 %)</span><br><span class="line">Writing at 0x0002c000... (7 %)</span><br><span class="line">Writing at 0x00030000... (8 %)</span><br><span class="line">Writing at 0x00034000... (9 %)</span><br><span class="line">Writing at 0x00038000... (10 %)</span><br><span class="line">Writing at 0x0003c000... (10 %)</span><br><span class="line">Writing at 0x00040000... (11 %)</span><br><span class="line">Writing at 0x00044000... (12 %)</span><br><span class="line">Writing at 0x00048000... (13 %)</span><br><span class="line">Writing at 0x0004c000... (14 %)</span><br><span class="line">Writing at 0x00050000... (15 %)</span><br><span class="line">Writing at 0x00054000... (16 %)</span><br><span class="line">Writing at 0x00058000... (17 %)</span><br><span class="line">Writing at 0x0005c000... (18 %)</span><br><span class="line">Writing at 0x00060000... (19 %)</span><br><span class="line">Writing at 0x00064000... (20 %)</span><br><span class="line">Writing at 0x00068000... (20 %)</span><br><span class="line">Writing at 0x0006c000... (21 %)</span><br><span class="line">Writing at 0x00070000... (22 %)</span><br><span class="line">Writing at 0x00074000... (23 %)</span><br><span class="line">Writing at 0x00078000... (24 %)</span><br><span class="line">Writing at 0x0007c000... (25 %)</span><br><span class="line">Writing at 0x00080000... (26 %)</span><br><span class="line">Writing at 0x00084000... (27 %)</span><br><span class="line">Writing at 0x00088000... (28 %)</span><br><span class="line">Writing at 0x0008c000... (29 %)</span><br><span class="line">Writing at 0x00090000... (30 %)</span><br><span class="line">Writing at 0x00094000... (30 %)</span><br><span class="line">Writing at 0x00098000... (31 %)</span><br><span class="line">Writing at 0x0009c000... (32 %)</span><br><span class="line">Writing at 0x000a0000... (33 %)</span><br><span class="line">Writing at 0x000a4000... (34 %)</span><br><span class="line">Writing at 0x000a8000... (35 %)</span><br><span class="line">Writing at 0x000ac000... (36 %)</span><br><span class="line">Writing at 0x000b0000... (37 %)</span><br><span class="line">Writing at 0x000b4000... (38 %)</span><br><span class="line">Writing at 0x000b8000... (39 %)</span><br><span class="line">Writing at 0x000bc000... (40 %)</span><br><span class="line">Writing at 0x000c0000... (40 %)</span><br><span class="line">Writing at 0x000c4000... (41 %)</span><br><span class="line">Writing at 0x000c8000... (42 %)</span><br><span class="line">Writing at 0x000cc000... (43 %)</span><br><span class="line">Writing at 0x000d0000... (44 %)</span><br><span class="line">Writing at 0x000d4000... (45 %)</span><br><span class="line">Writing at 0x000d8000... (46 %)</span><br><span class="line">Writing at 0x000dc000... (47 %)</span><br><span class="line">Writing at 0x000e0000... (48 %)</span><br><span class="line">Writing at 0x000e4000... (49 %)</span><br><span class="line">Writing at 0x000e8000... (50 %)</span><br><span class="line">Writing at 0x000ec000... (50 %)</span><br><span class="line">Writing at 0x000f0000... (51 %)</span><br><span class="line">Writing at 0x000f4000... (52 %)</span><br><span class="line">Writing at 0x000f8000... (53 %)</span><br><span class="line">Writing at 0x000fc000... (54 %)</span><br><span class="line">Writing at 0x00100000... (55 %)</span><br><span class="line">Writing at 0x00104000... (56 %)</span><br><span class="line">Writing at 0x00108000... (57 %)</span><br><span class="line">Writing at 0x0010c000... (58 %)</span><br><span class="line">Writing at 0x00110000... (59 %)</span><br><span class="line">Writing at 0x00114000... (60 %)</span><br><span class="line">Writing at 0x00118000... (60 %)</span><br><span class="line">Writing at 0x0011c000... (61 %)</span><br><span class="line">Writing at 0x00120000... (62 %)</span><br><span class="line">Writing at 0x00124000... (63 %)</span><br><span class="line">Writing at 0x00128000... (64 %)</span><br><span class="line">Writing at 0x0012c000... (65 %)</span><br><span class="line">Writing at 0x00130000... (66 %)</span><br><span class="line">Writing at 0x00134000... (67 %)</span><br><span class="line">Writing at 0x00138000... (68 %)</span><br><span class="line">Writing at 0x0013c000... (69 %)</span><br><span class="line">Writing at 0x00140000... (70 %)</span><br><span class="line">Writing at 0x00144000... (70 %)</span><br><span class="line">Writing at 0x00148000... (71 %)</span><br><span class="line">Writing at 0x0014c000... (72 %)</span><br><span class="line">Writing at 0x00150000... (73 %)</span><br><span class="line">Writing at 0x00154000... (74 %)</span><br><span class="line">Writing at 0x00158000... (75 %)</span><br><span class="line">Writing at 0x0015c000... (76 %)</span><br><span class="line">Writing at 0x00160000... (77 %)</span><br><span class="line">Writing at 0x00164000... (78 %)</span><br><span class="line">Writing at 0x00168000... (79 %)</span><br><span class="line">Writing at 0x0016c000... (80 %)</span><br><span class="line">Writing at 0x00170000... (80 %)</span><br><span class="line">Writing at 0x00174000... (81 %)</span><br><span class="line">Writing at 0x00178000... (82 %)</span><br><span class="line">Writing at 0x0017c000... (83 %)</span><br><span class="line">Writing at 0x00180000... (84 %)</span><br><span class="line">Writing at 0x00184000... (85 %)</span><br><span class="line">Writing at 0x00188000... (86 %)</span><br><span class="line">Writing at 0x0018c000... (87 %)</span><br><span class="line">Writing at 0x00190000... (88 %)</span><br><span class="line">Writing at 0x00194000... (89 %)</span><br><span class="line">Writing at 0x00198000... (90 %)</span><br><span class="line">Writing at 0x0019c000... (90 %)</span><br><span class="line">Writing at 0x001a0000... (91 %)</span><br><span class="line">Writing at 0x001a4000... (92 %)</span><br><span class="line">Writing at 0x001a8000... (93 %)</span><br><span class="line">Writing at 0x001ac000... (94 %)</span><br><span class="line">Writing at 0x001b0000... (95 %)</span><br><span class="line">Writing at 0x001b4000... (96 %)</span><br><span class="line">Writing at 0x001b8000... (97 %)</span><br><span class="line">Writing at 0x001bc000... (98 %)</span><br><span class="line">Writing at 0x001c0000... (99 %)</span><br><span class="line">Writing at 0x001c4000... (100 %)</span><br><span class="line">Wrote 2242064 bytes (1795627 compressed) at 0x00010000 in 159.6 seconds (effective 112.4 kbit/s)...</span><br><span class="line">Hash of data verified.</span><br><span class="line">Compressed 3072 bytes to 134...</span><br><span class="line"></span><br><span class="line">Writing at 0x00008000... (100 %)</span><br><span class="line">Wrote 3072 bytes (134 compressed) at 0x00008000 in 0.0 seconds (effective 1534.2 kbit/s)...</span><br><span class="line">Hash of data verified.</span><br><span class="line"></span><br><span class="line">Leaving...</span><br><span class="line">Hard resetting via RTS pin...</span><br></pre></td></tr></table></figure>
+<h2 id="23-disconnect-gpio-0-from-gnd"><a class="markdownIt-Anchor" href="#23-disconnect-gpio-0-from-gnd"></a> 2.3 Disconnect GPIO 0 from GND</h2>
+<p>Before testing the code, be sure to <span style="color:red"><strong>disconnect GPIO 0 from GND</strong></span>.</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/MCU/ESP32-CAM-Disconnect.jpg" alt="ESP32-Cam Disconnect"></p>
+<h2 id="24-reset-esp32-cam-board"><a class="markdownIt-Anchor" href="#24-reset-esp32-cam-board"></a> 2.4 RESET ESP32-Cam Board</h2>
+<p>It’s <strong>VERY</strong> important that you <span style="color:red"><strong>open the Serial Monitor dialog to monitor the serial port</strong></span>. You will see the following outputs after <strong>resetting <a href="https://makeradvisor.com/esp32-cam-ov2640-camera/" target="_blank" rel="noopener">ESP32-Cam</a> board</strong>.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">ets Jun  8 2016 00:22:57</span><br><span class="line"></span><br><span class="line">rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)</span><br><span class="line">configsip: 0, SPIWP:0xee</span><br><span class="line">clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00</span><br><span class="line">mode:DIO, clock div:1</span><br><span class="line">load:0x3fff0018,len:4</span><br><span class="line">load:0x3fff001c,len:1100</span><br><span class="line">load:0x40078000,len:9232</span><br><span class="line">load:0x40080400,len:6400</span><br><span class="line">entry 0x400806a8</span><br><span class="line"></span><br><span class="line">[E][sccb.c:154] SCCB_Write(): SCCB_Write Failed addr:0x30, reg:0xff, data:0x01, ret:-1</span><br><span class="line">.........</span><br><span class="line">WiFi connected</span><br><span class="line">Starting web server on port: '80'</span><br><span class="line">Starting stream server on port: '81'</span><br><span class="line">Camera Ready! Use 'http://192.168.1.94' to connect</span><br></pre></td></tr></table></figure>
+<h2 id="25-video-streaming"><a class="markdownIt-Anchor" href="#25-video-streaming"></a> 2.5 Video Streaming</h2>
+<p>By visiting the allocated IP address within any web browser, you’ll see the following picture:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/MCU/ESP32-CAM-OV2460.jpg" alt="ESP32-Cam OV2460"></p>
+<p>And you’ll notice the streaming info from serial port:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">ets Jun  8 2016 00:22:57</span><br><span class="line"></span><br><span class="line">rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)</span><br><span class="line">configsip: 0, SPIWP:0xee</span><br><span class="line">clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00</span><br><span class="line">mode:DIO, clock div:1</span><br><span class="line">load:0x3fff0018,len:4</span><br><span class="line">load:0x3fff001c,len:1100</span><br><span class="line">load:0x40078000,len:9232</span><br><span class="line">load:0x40080400,len:6400</span><br><span class="line">entry 0x400806a8</span><br><span class="line"></span><br><span class="line">[E][sccb.c:154] SCCB_Write(): SCCB_Write Failed addr:0x30, reg:0xff, data:0x01, ret:-1</span><br><span class="line">.........</span><br><span class="line">WiFi connected</span><br><span class="line">Starting web server on port: '80'</span><br><span class="line">Starting stream server on port: '81'</span><br><span class="line">Camera Ready! Use 'http://192.168.1.94' to connect</span><br><span class="line">MJPG: 5297B 63ms (15.9fps), AVG: 63ms (15.9fps), 0+0+0+0=0 0</span><br><span class="line">MJPG: 5301B 40ms (25.0fps), AVG: 51ms (19.6fps), 0+0+0+0=0 0</span><br><span class="line">MJPG: 5460B 39ms (25.6fps), AVG: 47ms (21.3fps), 0+0+0+0=0 0</span><br><span class="line">MJPG: 5301B 40ms (25.0fps), AVG: 45ms (22.2fps), 0+0+0+0=0 0</span><br><span class="line">MJPG: 5460B 43ms (23.3fps), AVG: 45ms (22.2fps), 0+0+0+0=0 0</span><br><span class="line">MJPG: 5374B 41ms (24.4fps), AVG: 44ms (22.7fps), 0+0+0+0=0 0</span><br><span class="line">MJPG: 5460B 37ms (27.0fps), AVG: 43ms (23.3fps), 0+0+0+0=0 0</span><br><span class="line">MJPG: 5464B 43ms (23.3fps), AVG: 43ms (23.3fps), 0+0+0+0=0 0</span><br><span class="line">MJPG: 5460B 37ms (27.0fps), AVG: 42ms (23.8fps), 0+0+0+0=0 0</span><br><span class="line">MJPG: 5464B 46ms (21.7fps), AVG: 42ms (23.8fps), 0+0+0+0=0 0</span><br><span class="line">MJPG: 5460B 30ms (33.3fps), AVG: 41ms (24.4fps), 0+0+0+0=0 0</span><br><span class="line">MJPG: 5464B 43ms (23.3fps), AVG: 41ms (24.4fps), 0+0+0+0=0 0</span><br><span class="line">MJPG: 5460B 39ms (25.6fps), AVG: 41ms (24.4fps), 0+0+0+0=0 0</span><br><span class="line">MJPG: 5464B 37ms (27.0fps), AVG: 41ms (24.4fps), 0+0+0+0=0 0</span><br><span class="line">MJPG: 5460B 37ms (27.0fps), AVG: 41ms (24.4fps), 0+0+0+0=0 0</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<h1 id="3-multiple-camera-streaming-with-static-ips"><a class="markdownIt-Anchor" href="#3-multiple-camera-streaming-with-static-ips"></a> 3. Multiple Camera Streaming with Static IPs</h1>
+<p>I’m <strong>NOT</strong> going to talk about how to set up static IPs for IP cameras (well, yes, clearly, <a href="https://makeradvisor.com/esp32-cam-ov2640-camera/" target="_blank" rel="noopener">ESP32-Cam</a> can be looked on as a low-cost video surveillance IP camera for sure). We <strong>ONLY</strong> demonstrate 4 <a href="https://makeradvisor.com/esp32-cam-ov2640-camera/" target="_blank" rel="noopener">ESP32-Cams</a> are under streaming simultaneously with 4 statically allocated IP addresses.</p>
+<p>We show the capturing effects <strong>FIRST</strong>:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/MCU/4-esp32-cams-capturing.jpg" alt="Four ESP32-Cams Capturing"></p>
+<p>Then, we show how the cables are connected by using a power bank and an extra bread board. Here, <strong>FTDI</strong> is just used as a power adaptor to provide <strong>5V</strong> voltage.</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/MCU/4-esp32-cams-power_01.jpg" alt="Four ESP32-Cams Power On"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/MCU/4-esp32-cams_02.jpg" alt="Four ESP32-Cams Cable Connection"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/08/15/Personal/mourn-for-classmate/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -428,12 +644,12 @@
         
           
             
-        <div id="aplayer-rwMKtVDQ" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-BEuveYLj" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-rwMKtVDQ"),
+            element: document.getElementById("aplayer-BEuveYLj"),
             narrow: false,
             autoplay: true,
             showlrc: false,
@@ -1603,7 +1819,7 @@ Please use <a href="https://www.amazon.com/s?k=esp32+cam" target="_blank" rel="n
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-18 14:36:52" itemprop="dateModified" datetime="2019-08-18T14:36:52-07:00">2019-08-18</time>
+                <time title="Modified: 2020-04-20 03:36:01" itemprop="dateModified" datetime="2020-04-20T03:36:01-07:00">2020-04-20</time>
               
             
           </span>
@@ -1693,7 +1909,7 @@ However, to run the installed <strong>openmvide</strong> only brought me the fol
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ picocom /dev/ttyACM0</span><br><span class="line">picocom v3.1</span><br><span class="line"></span><br><span class="line">port is        : /dev/ttyACM0</span><br><span class="line">flowcontrol    : none</span><br><span class="line">baudrate is    : 9600</span><br><span class="line">parity is      : none</span><br><span class="line">databits are   : 8</span><br><span class="line">stopbits are   : 1</span><br><span class="line">escape is      : C-a</span><br><span class="line">local echo is  : no</span><br><span class="line">noinit is      : no</span><br><span class="line">noreset is     : no</span><br><span class="line">hangup is      : no</span><br><span class="line">nolock is      : no</span><br><span class="line">send_cmd is    : sz -vv</span><br><span class="line">receive_cmd is : rz -vv -E</span><br><span class="line">imap is        : </span><br><span class="line">omap is        : </span><br><span class="line">emap is        : crcrlf,delbs,</span><br><span class="line">logfile is     : none</span><br><span class="line">initstring     : none</span><br><span class="line">exit_after is  : not set</span><br><span class="line">exit is        : no</span><br><span class="line"></span><br><span class="line">Type [C-a] [C-h] to see available commands</span><br><span class="line">Terminal ready</span><br><span class="line">MicroPython v1.9.4-4510-g23e8457de on 2018-06-29; OPENMV3 with STM32F765</span><br><span class="line">Type "help()" for more information.</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; </span></span><br><span class="line">Terminating...</span><br><span class="line">Thanks for using picocom</span><br><span class="line">➜  ~</span><br></pre></td></tr></table></figure>
 <h1 id="flash-openmv-firmware-onto-openmv-board"><a class="markdownIt-Anchor" href="#flash-openmv-firmware-onto-openmv-board"></a> Flash OpenMV Firmware Onto OpenMV Board</h1>
 <h2 id="1-entering-dfu-mode"><a class="markdownIt-Anchor" href="#1-entering-dfu-mode"></a> 1. Entering DFU Mode</h2>
-<p>Similar to what’s discussed in our <a href="../../../../../2019/07/13/MCUs/micropython-pyboard/">previous blog</a>, we need to enter DFU mode before flashing.</p>
+<p>Similar to what’s discussed in our <a href="../../../../../../2019/07/13/SBCs/MCU/micropython-pyboard/">previous blog</a>, we need to enter DFU mode before flashing.</p>
 <ul>
 <li>Disconnect the power for OpenMV board <strong>FIRST</strong></li>
 <li>Connect <strong>BOOT pin</strong> and <strong>RST pin</strong> afterwards</li>
@@ -2093,7 +2309,7 @@ In such, **make.py** is manually modified as:
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-18 14:31:06" itemprop="dateModified" datetime="2019-08-18T14:31:06-07:00">2019-08-18</time>
+                <time title="Modified: 2020-04-20 04:08:23" itemprop="dateModified" datetime="2020-04-20T04:08:23-07:00">2020-04-20</time>
               
             
           </span>
@@ -2159,201 +2375,11 @@ In such, **make.py** is manually modified as:
 <p>Please refer to <a href="https://stackoverflow.com/questions/35465557/how-to-apply-color-in-markdown" target="_blank" rel="noopener">https://stackoverflow.com/questions/35465557/how-to-apply-color-in-markdown</a>.</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Some Markdown text with <span class="xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">"color:blue"</span>&gt;</span></span>some <span class="emphasis">*blue*</span> text<span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span>.</span><br></pre></td></tr></table></figure>
 <h2 id="test"><a class="markdownIt-Anchor" href="#test"></a> Test</h2>
-<p>Please refer to the following line in our yesterday’s blog <a href="../../../../../2019/07/06/SBCs/NVidia-Jetson-Nano-1/">NVidia Jetson Nano - 1</a>. The code is as follows:</p>
+<p>Please refer to the following line in our yesterday’s blog <a href="../../../../../../2019/07/06/SBCs/ARM/NVidia-Jetson-Nano-1/">NVidia Jetson Nano - 1</a>. The code is as follows:</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">"color:red"</span>&gt;</span></span><span class="strong">**Now, Jetson Nano is wired connected onto the Internet.**</span><span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 <h1 id="skill-2-multirowmulticolumn-cell-in-markdown-table"><a class="markdownIt-Anchor" href="#skill-2-multirowmulticolumn-cell-in-markdown-table"></a> Skill 2 - Multirow/multicolumn cell in markdown table</h1>
 <h2 id="solution-2"><a class="markdownIt-Anchor" href="#solution-2"></a> Solution</h2>
 <h2 id="test-2"><a class="markdownIt-Anchor" href="#test-2"></a> Test</h2>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/07/06/SBCs/ARM/NVidia-Jetson-Nano-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/06/SBCs/ARM/NVidia-Jetson-Nano-1/" itemprop="url">
-                  NVidia Jetson Nano - 1
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-07-06 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-06T00:00:00-07:00">2019-07-06</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-08-18 14:58:37" itemprop="dateModified" datetime="2019-08-18T14:58:37-07:00">2019-08-18</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>I got the <a href="https://ark.intel.com/content/www/us/en/ark/products/99445/intel-wireless-ac-9260.html" target="_blank" rel="noopener">Intel Wireless-AC 9260</a> today, and a proper <a href="https://www.memoryexpress.com/Products/MX76104" target="_blank" rel="noopener">128G micro SD card</a>, finally… Let’s try out <a href="https://developer.nvidia.com/embedded/jetson-nano-developer-kit" target="_blank" rel="noopener">Jetson Nano</a>.</p>
-<h1 id="part-a-install-jetpack-onto-jetson-nano"><a class="markdownIt-Anchor" href="#part-a-install-jetpack-onto-jetson-nano"></a> PART A: Install JetPack onto Jetson Nano</h1>
-<p>Let’s simply use the command <strong>dd</strong> to have <a href="https://developer.nvidia.com/embedded/jetpack" target="_blank" rel="noopener">JetPack</a> installed onto the micro SD card as follows:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜  JetPack sudo dd bs=4M if=jetson-nano-sd-r32.1.1-2019-05-31.img of=/dev/mmcblk0 conv=fsync</span><br><span class="line">[sudo] password for lvision: </span><br><span class="line">3072+0 records in</span><br><span class="line">3072+0 records out</span><br><span class="line">12884901888 bytes (13 GB, 12 GiB) copied, 311.804 s, 41.3 MB/s</span><br></pre></td></tr></table></figure>
-<h1 id="part-b-boot-into-jetson-nano-and-test-it-out"><a class="markdownIt-Anchor" href="#part-b-boot-into-jetson-nano-and-test-it-out"></a> PART B: Boot Into Jetson Nano and Test it Out</h1>
-<h2 id="1-first-boot"><a class="markdownIt-Anchor" href="#1-first-boot"></a> 1. First Boot</h2>
-<p>It seems <strong>GUI</strong> is a must for Jetson Nano’s <strong>FIRST BOOT</strong>, which is ignored in this blog.</p>
-<h2 id="2-ssh-into-jetson-nano"><a class="markdownIt-Anchor" href="#2-ssh-into-jetson-nano"></a> 2. SSH into Jetson Nano</h2>
-<p><span style="color:red"><strong>For now, Jetson Nano is wired connected onto the Internet. And it seems <a href="https://ark.intel.com/content/www/us/en/ark/products/99445/intel-wireless-ac-9260.html" target="_blank" rel="noopener">Intel Wireless-AC 9260</a> is NOT working properly with Jetson Nano yet. Details can be found at <a href="https://devtalk.nvidia.com/default/topic/1050449/jetson-nano/intel-9260-wifi-on-jetson-nano-jetbot" target="_blank" rel="noopener">https://devtalk.nvidia.com/default/topic/1050449/jetson-nano/intel-9260-wifi-on-jetson-nano-jetbot</a></strong></span></p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ssh lvision@192.168.1.71</span><br><span class="line">lvision@192.168.1.71's password: </span><br><span class="line">Welcome to Ubuntu 18.04.2 LTS (GNU/Linux 4.9.140-tegra aarch64)</span><br><span class="line"></span><br><span class="line"> * Documentation:  https://help.ubuntu.com</span><br><span class="line"> * Management:     https://landscape.canonical.com</span><br><span class="line"> * Support:        https://ubuntu.com/advantage</span><br><span class="line"></span><br><span class="line">This system has been minimized by removing packages and content that are</span><br><span class="line">not required on a system that users do not log into.</span><br><span class="line"></span><br><span class="line">To restore this content, you can run the 'unminimize' command.</span><br><span class="line"></span><br><span class="line">450 packages can be updated.</span><br><span class="line">210 updates are security updates.</span><br><span class="line"></span><br><span class="line">Last login: Sat Jul  6 18:41:11 2019 from 192.168.1.200</span><br><span class="line">lvision@lvision-desktop:~$</span><br></pre></td></tr></table></figure>
-<h2 id="3-check-jetpack-os"><a class="markdownIt-Anchor" href="#3-check-jetpack-os"></a> 3. Check JetPack OS</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">lvision@lvision-desktop:~$ uname -a</span><br><span class="line">Linux lvision-desktop 4.9.140-tegra #1 SMP PREEMPT Wed Mar 13 00:32:22 PDT 2019 aarch64 aarch64 aarch64 GNU/Linux</span><br><span class="line">lvision@lvision-desktop:~$ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID: Ubuntu</span><br><span class="line">Description:    Ubuntu 18.04.2 LTS</span><br><span class="line">Release:        18.04</span><br><span class="line">Codename:       bionic</span><br><span class="line">ilvision@lvision-desktop:~$ ip -c address</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: dummy0: &lt;BROADCAST,NOARP&gt; mtu 1500 qdisc noop state DOWN group default qlen 1000</span><br><span class="line">    link/ether 9a:c2:3a:84:96:66 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">3: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    link/ether 00:04:4b:e4:12:59 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.1.71/24 brd 192.168.1.255 scope global dynamic noprefixroute eth0</span><br><span class="line">       valid_lft 85183sec preferred_lft 85183sec</span><br><span class="line">    inet6 2001:569:7ef8:d600:858b:9c23:db05:7b3a/64 scope global temporary dynamic </span><br><span class="line">       valid_lft 7476sec preferred_lft 7176sec</span><br><span class="line">    inet6 2001:569:7ef8:d600:509c:9fe9:1cb7:2b7f/64 scope global dynamic mngtmpaddr noprefixroute </span><br><span class="line">       valid_lft 7476sec preferred_lft 7176sec</span><br><span class="line">    inet6 fe80::1714:cd7d:771d:a4/64 scope link noprefixroute </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">4: rndis0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc pfifo_fast master l4tbr0 state DOWN group default qlen 1000</span><br><span class="line">    link/ether da:d4:ee:c5:ed:e9 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">5: usb0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc pfifo_fast master l4tbr0 state DOWN group default qlen 1000</span><br><span class="line">    link/ether da:d4:ee:c5:ed:eb brd ff:ff:ff:ff:ff:ff</span><br><span class="line">6: l4tbr0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc noqueue state DOWN group default qlen 1000</span><br><span class="line">    link/ether da:d4:ee:c5:ed:e9 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.55.1/24 brd 192.168.55.255 scope global l4tbr0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::1/128 scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::a495:bff:fe21:2ad0/64 scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
-<h2 id="4-update-and-upgrade-all-upgradable-packages"><a class="markdownIt-Anchor" href="#4-update-and-upgrade-all-upgradable-packages"></a> 4. Update and Upgrade All Upgradable Packages</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">lvision@lvision-desktop:~$ sudo apt upgrade</span><br><span class="line">[sudo] password for lvision: </span><br><span class="line">Reading package lists... Done</span><br><span class="line">Building dependency tree       </span><br><span class="line">Reading state information... Done</span><br><span class="line">Calculating upgrade... Done</span><br><span class="line">The following packages were automatically installed and are no longer required:</span><br><span class="line">  apt-clone archdetect-deb busybox-static cryptsetup-bin dpkg-repack gir1.2-timezonemap-1.0 gir1.2-xkl-1.0 grub-common</span><br><span class="line">  kde-window-manager kinit kio kpackagetool5 kwayland-data kwin-common kwin-data kwin-x11 libdebian-installer4 libkdecorations2-5v5</span><br><span class="line">  libkdecorations2private5v5 libkf5activities5 libkf5attica5 libkf5completion-data libkf5completion5 libkf5declarative-data</span><br><span class="line">  libkf5declarative5 libkf5doctools5 libkf5globalaccel-data libkf5globalaccel5 libkf5globalaccelprivate5 libkf5idletime5</span><br><span class="line">  libkf5jobwidgets-data libkf5jobwidgets5 libkf5kcmutils-data libkf5kcmutils5 libkf5kiocore5 libkf5kiontlm5 libkf5kiowidgets5</span><br><span class="line">  libkf5newstuff-data libkf5newstuff5 libkf5newstuffcore5 libkf5package-data libkf5package5 libkf5plasma5 libkf5quickaddons5</span><br><span class="line">  libkf5solid5 libkf5solid5-data libkf5sonnet5-data libkf5sonnetcore5 libkf5sonnetui5 libkf5textwidgets-data libkf5textwidgets5</span><br><span class="line">  libkf5waylandclient5 libkf5waylandserver5 libkf5xmlgui-bin libkf5xmlgui-data libkf5xmlgui5 libkscreenlocker5</span><br><span class="line">  libkwin4-effect-builtins1 libkwineffects11 libkwinglutils11 libkwinxrenderutils11 libllvm6.0 libqgsttools-p1 libqt5designer5</span><br><span class="line">  libqt5help5 libqt5multimedia5 libqt5multimedia5-plugins libqt5multimediaquick-p5 libqt5multimediawidgets5 libqt5opengl5</span><br><span class="line">  libqt5positioning5 libqt5printsupport5 libqt5qml5 libqt5quick5 libqt5quickwidgets5 libqt5sensors5 libqt5sql5 libqt5test5</span><br><span class="line">  libqt5webchannel5 libqt5webkit5 libxcb-composite0 libxcb-cursor0 libxcb-damage0 os-prober python3-dbus.mainloop.pyqt5 python3-icu</span><br><span class="line">  python3-pam python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtwebkit python3-sip qml-module-org-kde-kquickcontrolsaddons</span><br><span class="line">  qml-module-qtmultimedia qml-module-qtquick2 rdate</span><br><span class="line">Use 'sudo apt autoremove' to remove them.</span><br><span class="line">The following NEW packages will be installed:</span><br><span class="line">  containerd gstreamer1.0-gtk3 libdrm-etnaviv1 libllvm8 python3-dateutil runc</span><br><span class="line">The following packages will be upgraded:</span><br><span class="line">......</span><br><span class="line">Setting up update-notifier (3.192.1.7) ...</span><br><span class="line">Setting up ubuntu-desktop (1.417.1) ...</span><br><span class="line">Processing triggers for libc-bin (2.27-3ubuntu1) ...</span><br><span class="line">Processing triggers for resolvconf (1.79ubuntu10.18.04.3) ...</span><br><span class="line">Processing triggers for initramfs-tools (0.130ubuntu3.8) ...</span><br><span class="line">update-initramfs: Generating /boot/initrd.img-4.9.140-tegra</span><br><span class="line">Warning: couldn't identify filesystem type for fsck hook, ignoring.</span><br><span class="line">/sbin/ldconfig.real: Warning: ignoring configuration file that cannot be opened: /etc/ld.so.conf.d/aarch64-linux-gnu_EGL.conf: No such file or directory</span><br><span class="line">/sbin/ldconfig.real: Warning: ignoring configuration file that cannot be opened: /etc/ld.so.conf.d/aarch64-linux-gnu_GL.conf: No such file or directory</span><br><span class="line">Processing triggers for dbus (1.12.2-1ubuntu1.1) ...</span><br></pre></td></tr></table></figure>
 
           
         
@@ -2439,7 +2465,7 @@ In such, **make.py** is manually modified as:
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">84</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2508,7 +2534,9 @@ In such, **make.py** is manually modified as:
                     
                       
                     
-                    <span class="site-state-item-count">28</span>
+                      
+                    
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -2679,7 +2707,11 @@ In such, **make.py** is manually modified as:
                     
                       
                     
-                    <span class="site-state-item-count">79</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
