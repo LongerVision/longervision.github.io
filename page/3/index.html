@@ -312,6 +312,281 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/08/23/MachineVision/ARMLinux/jevois/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/23/MachineVision/ARMLinux/jevois/" itemprop="url">
+                  JeVois Smart Machine Vision Camera
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-23 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-23T00:00:00-07:00">2019-08-23</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-04-06 03:06:28" itemprop="dateModified" datetime="2020-04-06T03:06:28-07:00">2020-04-06</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Machine-Vision/" itemprop="url" rel="index"><span itemprop="name">Machine Vision</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Machine-Vision/ARMLinux/" itemprop="url" rel="index"><span itemprop="name">ARMLinux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <div style="font-size:5rem;width:100%;text-align:center;">
+    <span class="github-emoji" alias="smile" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8">&#x1f604;</span>
+</div>
+<p><a href="http://jevois.org/" target="_blank" rel="noopener">JeVois</a> is an ARM Linux based camera module, delivered by <a href="https://www.jevoisinc.com/" target="_blank" rel="noopener">JeVois Inc.</a>. So far, this is the <strong>ONLY ARM Linux based camera module</strong> that I’m recommending, for its well-designed community as well as <a href="https://github.com/jevois" target="_blank" rel="noopener">plenty of source code on Github</a>.</p>
+<h1 id="1-specifications"><a class="markdownIt-Anchor" href="#1-specifications"></a> 1. Specifications</h1>
+<p>Clearly:</p>
+<ul>
+<li><a href="https://www.jevoisinc.com/pages/hardware" target="_blank" rel="noopener">JeVois Hardware Page</a>: JeVois is based on the <strong>Made In China</strong> ARM Linux chip <a href="http://www.allwinnertech.com/index.php?c=product&amp;a=index&amp;id=23" target="_blank" rel="noopener">Allwinners A33</a></li>
+<li><a href="https://www.jevoisinc.com/pages/software" target="_blank" rel="noopener">JeVois Software Page</a>: <a href="http://jevois.org/" target="_blank" rel="noopener">JeVois</a> runs a full Linux operating system.</li>
+</ul>
+<h1 id="2-getting-started-with-jevois"><a class="markdownIt-Anchor" href="#2-getting-started-with-jevois"></a> 2. Getting Started with Jevois</h1>
+<p>The <strong>BEST</strong> place to start with <a href="http://jevois.org/" target="_blank" rel="noopener">JeVois</a> is the following Youtube video:</p>
+<div class="video-container"><iframe   src=https://www.youtube.com/embed/pfLlk30uF6Y?rel=0&amp;showinfo=0 frameborder=0 gesture=media allow=encrypted-media allowfullscreen></iframe></div>
+<p>I’m <strong>NOT</strong> going to repeat this step-by-step setup but move forward to the demonstration step directly.</p>
+<h1 id="3-connect-jevois-with-host"><a class="markdownIt-Anchor" href="#3-connect-jevois-with-host"></a> 3. Connect <a href="http://jevois.org/" target="_blank" rel="noopener">JeVois</a> with Host</h1>
+<p>After having flashed <a href="http://jevois.org/" target="_blank" rel="noopener">JeVois</a>’s TF card with the <a href="http://jevois.org/start/software.html" target="_blank" rel="noopener">LATEST Linux image</a>, we connect <a href="http://jevois.org/" target="_blank" rel="noopener">JeVois</a> camera module into the laptop. This TF card will <strong>NOT</strong> mount onto the computer as a device automatically, but can be detected by <strong>lsusb</strong> as follows:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">longervision-GT72-6QE%</span><span class="bash"> lsusb</span></span><br><span class="line">......</span><br><span class="line">Bus 001 Device 016: ID 1d6b:0102 Linux Foundation EEM Gadget</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<h1 id="4-simple-demonstration"><a class="markdownIt-Anchor" href="#4-simple-demonstration"></a> 4. Simple Demonstration</h1>
+<h2 id="41-guvcview"><a class="markdownIt-Anchor" href="#41-guvcview"></a> 4.1 Guvcview</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Get Started</th>
+<th style="text-align:center">Image Control Default Settings</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/ARMLinux/01_jevois-get-started.jpg" alt="Get Started" /></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/ARMLinux/02_jevois-image-control.jpg" alt="Image Control Default Settings" /></td>
+</tr>
+<tr>
+<td style="text-align:center">Video Control Settings 640x480</td>
+<td style="text-align:center">Video Control Settings 640x360</td>
+</tr>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/ARMLinux/03_jevois-video-control-640x480.jpg" alt="Video Control Settings 640x480" /></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/ARMLinux/04_jevois-video-control-640x360.jpg" alt="Video Control Settings 640x360" /></td>
+</tr>
+</tbody>
+</table>
+<h2 id="42-jevois-inventor"><a class="markdownIt-Anchor" href="#42-jevois-inventor"></a> 4.2 JeVois Inventor</h2>
+<h3 id="421-jevois-tutorial"><a class="markdownIt-Anchor" href="#421-jevois-tutorial"></a> 4.2.1 JeVois Tutorial</h3>
+<p>Again, a Youtube video is suggested to follow for the demonstration:</p>
+<div class="video-container"><iframe   src=https://www.youtube.com/embed/XVMk8lRvm8k?rel=0&amp;showinfo=0 frameborder=0 gesture=media allow=encrypted-media allowfullscreen></iframe></div>
+<h3 id="422-my-test"><a class="markdownIt-Anchor" href="#422-my-test"></a> 4.2.2 My Test</h3>
+<p>You can either download <strong>JeVois Inventor</strong> directly from the <a href="http://jevois.org/start/software.html" target="_blank" rel="noopener">Official Website</a>, or like me, build <a href="https://github.com/jevois/jevois-inventor" target="_blank" rel="noopener">JeVois Inventor source code</a> from scratch, based on my own <strong>QT</strong>, etc. Anyway, after <a href="http://jevois.org/start/" target="_blank" rel="noopener">JeVois Inventor</a> has been successfully installed, it’s the time for us to test it out.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">JeVois Inventor Info</th>
+<th style="text-align:center">JeVois Inventor Parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/ARMLinux/05_jevois_inventor-info.jpg" alt="JeVois Inventor Info" /></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/ARMLinux/06_jevois_inventor-parameters.jpg" alt="JeVois Inventor Parameters" /></td>
+</tr>
+<tr>
+<td style="text-align:center">JeVois Inventor Console</td>
+<td style="text-align:center">JeVois Inventor Camera</td>
+</tr>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/ARMLinux/07_jevois_inventor-console.jpg" alt="JeVois Inventor Console" /></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/ARMLinux/08_jevois_inventor-camera.jpg" alt="JeVois Inventor Camera" /></td>
+</tr>
+<tr>
+<td style="text-align:center">JeVois Inventor Config</td>
+<td style="text-align:center">JeVois Inventor Code C++</td>
+</tr>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/ARMLinux/09_jevois_inventor-config.jpg" alt="JeVois Inventor Config" /></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/ARMLinux/10_jevois_inventor-code-c++.jpg" alt="JeVois Inventor Code C++" /></td>
+</tr>
+<tr>
+<td style="text-align:center">JeVois Inventor Console</td>
+<td style="text-align:center">JeVois Inventor Camera</td>
+</tr>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/ARMLinux/11_jevois_inventor-code-python-dnn.jpg" alt="JeVois Inventor Code Python DNN" /></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/ARMLinux/12_jevois_inventor-system.jpg" alt="JeVois Inventor System" /></td>
+</tr>
+<tr>
+<td style="text-align:center">JeVois Inventor Console</td>
+<td style="text-align:center">JeVois Inventor Camera</td>
+</tr>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/ARMLinux/13_jevois_inventor-system-export-sdcard.jpg" alt="JeVois Inventor System Export SD Card" /></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/ARMLinux/14_jevois_inventor-system-export-sdcard-content.jpg" alt="JeVois Inventor System Export SD Card Content" /></td>
+</tr>
+</tbody>
+</table>
+<p><span style="color:red"><strong>Being quite busy these days. Seriously, ARM board based on <a href="http://www.allwinnertech.com/index.php?c=product&amp;a=index&amp;id=47" target="_blank" rel="noopener">AllWinner H3</a> from my company <a href="http://www.longervision.cn/" target="_blank" rel="noopener">Longer Vision</a> is manufactured, and under test. Let’s have some fun.</strong></span></p>
+<div style="font-size:5rem;width:100%;text-align:center;">
+    <span class="github-emoji" alias="smile" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8">&#x1f604;</span>
+</div>
+<p><span style="color:red"><strong>In the end, better to listen to some music while blogging.</strong></span></p>
+<iframe src="https://open.spotify.com/embed/track/1mKXFLRA179hdOWQBwUk9e" width="300" height="380" frameborder="0" allowtransparency="allowtransparency" allow="encrypted-media"></iframe>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/08/22/MachineVision/MCU/exp32cam/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2232,193 +2507,6 @@ In such, **make.py** is manually modified as:
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/07/07/Coding/Skills/markdown_skills/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/07/Coding/Skills/markdown_skills/" itemprop="url">
-                  Markdown Skills
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-07-07 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-07T00:00:00-07:00">2019-07-07</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-04-20 04:08:23" itemprop="dateModified" datetime="2020-04-20T04:08:23-07:00">2020-04-20</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Coding/Skills/" itemprop="url" rel="index"><span itemprop="name">Skills</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Raining today…</p>
-<h1 id="skill-1-how-to-apply-color-for-words-in-markdown"><a class="markdownIt-Anchor" href="#skill-1-how-to-apply-color-for-words-in-markdown"></a> Skill 1 - How to apply color for words in markdown?</h1>
-<h2 id="solution"><a class="markdownIt-Anchor" href="#solution"></a> Solution</h2>
-<p>Please refer to <a href="https://stackoverflow.com/questions/35465557/how-to-apply-color-in-markdown" target="_blank" rel="noopener">https://stackoverflow.com/questions/35465557/how-to-apply-color-in-markdown</a>.</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Some Markdown text with <span class="xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">"color:blue"</span>&gt;</span></span>some <span class="emphasis">*blue*</span> text<span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span>.</span><br></pre></td></tr></table></figure>
-<h2 id="test"><a class="markdownIt-Anchor" href="#test"></a> Test</h2>
-<p>Please refer to the following line in our yesterday’s blog <a href="../../../../../../2019/07/06/SBCs/ARM/NVidia-Jetson-Nano-1/">NVidia Jetson Nano - 1</a>. The code is as follows:</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">"color:red"</span>&gt;</span></span><span class="strong">**Now, Jetson Nano is wired connected onto the Internet.**</span><span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-<h1 id="skill-2-multirowmulticolumn-cell-in-markdown-table"><a class="markdownIt-Anchor" href="#skill-2-multirowmulticolumn-cell-in-markdown-table"></a> Skill 2 - Multirow/multicolumn cell in markdown table</h1>
-<h2 id="solution-2"><a class="markdownIt-Anchor" href="#solution-2"></a> Solution</h2>
-<h2 id="test-2"><a class="markdownIt-Anchor" href="#test-2"></a> Test</h2>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2466,7 +2554,7 @@ In such, **make.py** is manually modified as:
                 
                   <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">85</span>
+                    <span class="site-state-item-count">86</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2712,7 +2800,9 @@ In such, **make.py** is manually modified as:
                     
                       
                     
-                    <span class="site-state-item-count">81</span>
+                      
+                    
+                    <span class="site-state-item-count">82</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
