@@ -312,6 +312,273 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/08/25/SBCs/ARM/lvt-h3-armbian/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/25/SBCs/ARM/lvt-h3-armbian/" itemprop="url">
+                  Install Armbian Debian onto Longer Vision Technology H3 Board
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-25 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-25T00:00:00-07:00">2019-08-25</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-04-05 18:56:47" itemprop="dateModified" datetime="2020-04-05T18:56:47-07:00">2020-04-05</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Today’s weather is perfect for this party: annual summer alumni party of <a href="https://en.whu.edu.cn/" target="_blank" rel="noopener">Wuhan University</a>.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Alumni</th>
+<th style="text-align:center">Me</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2019/WHUAlumniParty/Alumni.jpg" alt="Alumni" /></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2019/WHUAlumniParty/Me.jpg" alt="Me" /></td>
+</tr>
+</tbody>
+</table>
+<p>Today, I’ve got another GOOD news: <span style="color:red"><strong>our ARM Linux board based on <a href="http://www.allwinnertech.com/index.php?c=product&amp;a=index&amp;id=47" target="_blank" rel="noopener">AllWinner H3</a> is demonstrated successful</strong>.</span></p>
+<h1 id="1-hardware"><a class="markdownIt-Anchor" href="#1-hardware"></a> 1. Hardware</h1>
+<h2 id="11-appearance"><a class="markdownIt-Anchor" href="#11-appearance"></a> 1.1 Appearance</h2>
+<p>Yeah, this is how <span style="color:red"><strong>OUR OWN board</strong></span> looks like:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/LVT/h3/lvt_h3_board.jpg" alt="LongerVisionTech H3 Board" /></p>
+<h2 id="12-specifications"><a class="markdownIt-Anchor" href="#12-specifications"></a> 1.2 Specifications</h2>
+<p>From the appearance, it’s <strong>NOT</strong> hard to tell the <strong>specifications</strong>:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Device</th>
+<th style="text-align:center">Version</th>
+<th style="text-align:center">Units</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">USB</td>
+<td style="text-align:center">2.0</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">Wired</td>
+<td style="text-align:center">100Mbps</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">HDMI</td>
+<td style="text-align:center">1.4</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">Power Adaptor</td>
+<td style="text-align:center">5V</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+<h1 id="2-flash-armbian-debian"><a class="markdownIt-Anchor" href="#2-flash-armbian-debian"></a> 2. Flash Armbian Debian</h1>
+<h2 id="21-armbian-for-allwinner-h3"><a class="markdownIt-Anchor" href="#21-armbian-for-allwinner-h3"></a> 2.1 Armbian for <a href="http://www.allwinnertech.com/index.php?c=product&amp;a=index&amp;id=47" target="_blank" rel="noopener">AllWinner H3</a></h2>
+<p><a href="https://www.armbian.com/" target="_blank" rel="noopener">Armbian</a> provides abundant info for <a href="http://www.allwinnertech.com/index.php?c=product&amp;a=index&amp;id=47" target="_blank" rel="noopener">AllWinner H3</a>:</p>
+<ul>
+<li><a href="https://docs.armbian.com/Hardware_Allwinner-H3/" target="_blank" rel="noopener">Armbian Documentation - Allwinner H3 boards</a></li>
+<li><a href="https://forum.armbian.com/forum/13-allwinner-h2-h3/" target="_blank" rel="noopener">Armbian Forum - Allwinner H2 &amp; H3</a></li>
+</ul>
+<h2 id="22-armbian-for-orange-pi-pc"><a class="markdownIt-Anchor" href="#22-armbian-for-orange-pi-pc"></a> 2.2 Armbian for <a href="https://www.armbian.com/orange-pi-pc/" target="_blank" rel="noopener">Orange Pi PC</a></h2>
+<p><span style="color:red"><strong>I’m so lucky today that I tried ONLY ONE TIME</strong></span> and have this <a href="https://www.armbian.com/orange-pi-pc/" target="_blank" rel="noopener">Debian Buster with Armbian Linux for Orange Pi PC</a> successfully installed and run on our board. You just need to download and extract <a href="https://dl.armbian.com/orangepipc/Debian_buster_next.7z" target="_blank" rel="noopener">Armbian_5.91_Orangepipc_Debian_buster_next_4.19.59.img</a> out, and have it installed by <strong>dd</strong>.</p>
+<h2 id="23-longer-vision-technology-h3-board-test"><a class="markdownIt-Anchor" href="#23-longer-vision-technology-h3-board-test"></a> 2.3 Longer Vision Technology H3 Board Test</h2>
+<p>It’s <strong>NOT</strong> hard to find out your board’s IP address</p>
+<ul>
+<li>either from within your router</li>
+<li>or boot your board with a monitor and run the command <code>ip -c address</code>.</li>
+</ul>
+<p>Now, you should be able to <strong>SSH</strong> into your H3 baord directly as follows:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/LVT/h3/armbian_lvt_h3.jpg" alt="Armbian for LVT H3 Board" /></p>
+<p>After you run</p>
+<ul>
+<li><code>sudo apt update and sudo apt upgrade</code></li>
+<li><code>sudo armbian-config</code></li>
+</ul>
+<p>you should be able to upgrade your <strong>Debian Buster with Armbian Linux</strong> from <strong>4.19.59-sunxi</strong> to <strong>4.19.62-sunxi</strong>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">longervision-GT72-6QE% ssh longervision@192.168.1.96</span><br><span class="line">longervision@192.168.1.96&#39;s password: </span><br><span class="line">  ___  ____  _   ____   ____ </span><br><span class="line"> &#x2F; _ \|  _ \(_) |  _ \ &#x2F; ___|</span><br><span class="line">| | | | |_) | | | |_) | |    </span><br><span class="line">| |_| |  __&#x2F;| | |  __&#x2F;| |___ </span><br><span class="line"> \___&#x2F;|_|   |_| |_|    \____|</span><br><span class="line">                             </span><br><span class="line">Welcome to Debian Buster with Armbian Linux 4.19.62-sunxi</span><br><span class="line">System load:   0.16 0.12 0.08  	Up time:       6 min		</span><br><span class="line">Memory usage:  18 % of 460MB  	IP:            192.168.1.96</span><br><span class="line">CPU temp:      79°C           	</span><br><span class="line">Usage of &#x2F;:    2% of 58G    	</span><br><span class="line"></span><br><span class="line">Last login: Sun Aug 25 20:13:29 2019 from 192.168.1.200</span><br></pre></td></tr></table></figure>
+<h1 id="3-issues"><a class="markdownIt-Anchor" href="#3-issues"></a> 3. Issues</h1>
+<p>It’s a kind of late. Let me finish this up for now ASAP.</p>
+<h2 id="31-hardware-issues"><a class="markdownIt-Anchor" href="#31-hardware-issues"></a> 3.1 Hardware Issues</h2>
+<ul>
+<li><strong>ONLY 1</strong> USB 2.0 port is working properly.</li>
+<li>It’s <strong>EASY</strong> to reach the critical temperature, as showing:</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/LVT/h3/lvt_h3_hot.jpg" alt="Critial Temperature Reached" /></p>
+<h2 id="32-features-expected"><a class="markdownIt-Anchor" href="#32-features-expected"></a> 3.2 Features Expected</h2>
+<p>We really need a better low-cost chip to provide the support for:</p>
+<ul>
+<li>USB 3.0</li>
+<li>GigE</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/08/23/MachineVision/ARMLinux/jevois/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -920,12 +1187,12 @@
         
           
             
-        <div id="aplayer-RcwNsjlk" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-OhsEzrwS" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-RcwNsjlk"),
+            element: document.getElementById("aplayer-OhsEzrwS"),
             narrow: false,
             autoplay: true,
             showlrc: false,
@@ -2241,234 +2508,6 @@ In such, **make.py** is manually modified as:
 <h1 id="git-diff-qt-creator"><a class="markdownIt-Anchor" href="#git-diff-qt-creator"></a> git diff qt-creator</h1>
 <p>We then have to carry out a thorough comparison between <a href="https://github.com/qt-creator/qt-creator" target="_blank" rel="noopener">qt-creator</a> and <a href="https://github.com/openmv/qt-creator/tree/b587ed9f6c93c6844782dc2e54c307878419c8e1" target="_blank" rel="noopener">qt-creator in openmv-ide</a>.<br />
 –&gt;</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/07/13/SBCs/MCU/micropython-pyboard/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/13/SBCs/MCU/micropython-pyboard/" itemprop="url">
-                  MicroPython Pyboard
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-07-13 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-13T00:00:00-07:00">2019-07-13</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-08-18 14:58:58" itemprop="dateModified" datetime="2019-08-18T14:58:58-07:00">2019-08-18</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Single-Board-Computers/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Today is sunny. <sup>_</sup>… Let’s write something about <a href="http://micropython.org" target="_blank" rel="noopener">MicroPython</a> <a href="http://micropython.org/download#pyboard" target="_blank" rel="noopener">PyBoard</a>. In my test, I’m using a <a href="https://store.micropython.org/product/PYBv1.1" target="_blank" rel="noopener">PyBv1.1</a>, which embeddes a <a href="https://www.findchips.com/search/stm32f405rg?medium=tsa&amp;sa360adenid=336050895058&amp;gclid=Cj0KCQjw9pDpBRCkARIsAOzRziuOBSXZEIpfOnqW6rTfp27CFyOhilG2Vs4NOXvQPv9aRPwYnniDu1saAoTeEALw_wcB&amp;gclsrc=aw.ds" target="_blank" rel="noopener">STM32F405RG</a> microcontroller.</p>
-<h1 id="overview"><a class="markdownIt-Anchor" href="#overview"></a> Overview</h1>
-<h2 id="1-contents-in-pyboard"><a class="markdownIt-Anchor" href="#1-contents-in-pyboard"></a> 1. Contents In PyBoard</h2>
-<p>After connecting <a href="https://store.micropython.org/product/PYBv1.1" target="_blank" rel="noopener">PyBv1.1</a> via USB cable, you will possibly see a folder prompt on the screen as follows:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/pybv1.1.jpg" alt="Current Contents In PYBv1.1" /></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/pybv1.1_properties.jpg" alt="PYBv1.1 Properties" /></p>
-<h2 id="2-test-out-picocom"><a class="markdownIt-Anchor" href="#2-test-out-picocom"></a> 2. Test Out picocom</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ picocom /dev/ttyACM0</span><br><span class="line">picocom v3.1</span><br><span class="line"></span><br><span class="line">port is        : /dev/ttyACM0</span><br><span class="line">flowcontrol    : none</span><br><span class="line">baudrate is    : 9600</span><br><span class="line">parity is      : none</span><br><span class="line">databits are   : 8</span><br><span class="line">stopbits are   : 1</span><br><span class="line">escape is      : C-a</span><br><span class="line">local echo is  : no</span><br><span class="line">noinit is      : no</span><br><span class="line">noreset is     : no</span><br><span class="line">hangup is      : no</span><br><span class="line">nolock is      : no</span><br><span class="line">send_cmd is    : sz -vv</span><br><span class="line">receive_cmd is : rz -vv -E</span><br><span class="line">imap is        : </span><br><span class="line">omap is        : </span><br><span class="line">emap is        : crcrlf,delbs,</span><br><span class="line">logfile is     : none</span><br><span class="line">initstring     : none</span><br><span class="line">exit_after is  : not set</span><br><span class="line">exit is        : no</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">FATAL: cannot open /dev/ttyACM0: Permission denied</span><br></pre></td></tr></table></figure>
-<p>It looks we need to change the permission of <strong>/dev/ttyACM0</strong>.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ll /dev/ttyACM0 </span><br><span class="line">crw-rw---- 1 root dialout 166, 0 Jul  9 13:54 /dev/ttyACM0</span><br><span class="line">➜  ~ sudo chmod 777 /dev/ttyACM0</span><br></pre></td></tr></table></figure>
-<p>Reconnect…</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ picocom /dev/ttyACM0</span><br><span class="line">picocom v3.1</span><br><span class="line"></span><br><span class="line">port is        : /dev/ttyACM0</span><br><span class="line">flowcontrol    : none</span><br><span class="line">baudrate is    : 9600</span><br><span class="line">parity is      : none</span><br><span class="line">databits are   : 8</span><br><span class="line">stopbits are   : 1</span><br><span class="line">escape is      : C-a</span><br><span class="line">local echo is  : no</span><br><span class="line">noinit is      : no</span><br><span class="line">noreset is     : no</span><br><span class="line">hangup is      : no</span><br><span class="line">nolock is      : no</span><br><span class="line">send_cmd is    : sz -vv</span><br><span class="line">receive_cmd is : rz -vv -E</span><br><span class="line">imap is        : </span><br><span class="line">omap is        : </span><br><span class="line">emap is        : crcrlf,delbs,</span><br><span class="line">logfile is     : none</span><br><span class="line">initstring     : none</span><br><span class="line">exit_after is  : not set</span><br><span class="line">exit is        : no</span><br><span class="line"></span><br><span class="line">Type [C-a] [C-h] to see available commands</span><br><span class="line">Terminal ready</span><br><span class="line">MicroPython v1.9.4 on 2018-05-11; PYBv1.1 with STM32F405RG</span><br><span class="line">Type "help()" for more information.</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br></pre></td></tr></table></figure>
-<p>Press <strong>Ctrl+A</strong> then <strong>Ctrl+x</strong>, <strong>picocom</strong> will terminate its execution.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; </span></span><br><span class="line">Terminating...</span><br><span class="line">Thanks for using picocom</span><br></pre></td></tr></table></figure>
-<h2 id="3-test-out-screen"><a class="markdownIt-Anchor" href="#3-test-out-screen"></a> 3. Test Out screen</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ screen /dev/ttyACM0</span><br></pre></td></tr></table></figure>
-<p>Then you will see a micropython working console as:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>+<span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
-<p>It looks there is <strong>NO</strong> prompt after login via <strong>screen</strong>. That’s why I did <strong>1+1</strong> as a test whenever logging in by <strong>screen</strong>.</p>
-<p>Now, let’s press <strong>Ctrl+A</strong> then <strong>Ctrl+d</strong> to quit <strong>screen</strong>.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ screen /dev/ttyACM0</span><br><span class="line">[detached from 5561.pts-5.lvision-GT72-6QE]</span><br><span class="line">➜  ~</span><br></pre></td></tr></table></figure>
-<h2 id="4-very-important"><a class="markdownIt-Anchor" href="#4-very-important"></a> 4. VERY Important</h2>
-<p><span style="color:red"><strong>The code typed in the working console from either picocom or screen is corresponding to <a href="http://main.py" target="_blank" rel="noopener">main.py</a> in PYBFLASH.</strong></span></p>
-<h1 id="test"><a class="markdownIt-Anchor" href="#test"></a> Test</h1>
-<h2 id="1-led-and-switch"><a class="markdownIt-Anchor" href="#1-led-and-switch"></a> 1. LED and Switch</h2>
-<p>The code is directly copied from <a href="https://micropython.org/" target="_blank" rel="noopener">MicroPython’s homepage</a>.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pyb</span><br><span class="line"></span><br><span class="line">sw = pyb.Switch()</span><br><span class="line">led = pyb.LED(<span class="number">4</span>)</span><br><span class="line">x = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">if</span> sw():</span><br><span class="line">        x = min(<span class="number">255</span>, x+<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        x = max(<span class="number">0</span>,x<span class="number">-1</span>)</span><br><span class="line">    led.intensity(x)</span><br><span class="line">    pyb.delay(<span class="number">30</span>)</span><br></pre></td></tr></table></figure>
-<p>Press the <strong>USR</strong> switch and take a look what’s going on? <sup>_</sup> Interesting, isn’t it?</p>
-<h2 id="2-log-of-accelerometers-readings"><a class="markdownIt-Anchor" href="#2-log-of-accelerometers-readings"></a> 2. Log of Accelerometer’s Readings</h2>
-<p>Let’s try out <a href="https://github.com/micropython/micropython/blob/master/examples/accellog.py" target="_blank" rel="noopener">MicroPython’s Example Code : Accelerometer Log</a> with trivial modification.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># log the accelerometer values to a .csv-file on the SD-card</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pyb</span><br><span class="line"></span><br><span class="line">accel = pyb.Accel()                                 <span class="comment"># create object of accelerometer</span></span><br><span class="line">blue = pyb.LED(<span class="number">4</span>)                                   <span class="comment"># create object of blue LED</span></span><br><span class="line"></span><br><span class="line">log = open(<span class="string">'.log.csv'</span>, <span class="string">'w'</span>)                      <span class="comment"># open file to write data - /sd/ is the SD-card, /flash/ the internal memory</span></span><br><span class="line">blue.on()                                           <span class="comment"># turn on blue LED</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">100</span>):                                <span class="comment"># do 100 times (if the board is connected via USB, you can't write longer because the PC tries to open the filesystem which messes up your file.)</span></span><br><span class="line">        t = pyb.millis()                            <span class="comment"># get time since reset</span></span><br><span class="line">        x, y, z = accel.filtered_xyz()              <span class="comment"># get acceleration data</span></span><br><span class="line">        log.write(<span class="string">'&#123;&#125;,&#123;&#125;,&#123;&#125;,&#123;&#125;\n'</span>.format(t,x,y,z))  <span class="comment"># write data to file</span></span><br><span class="line"></span><br><span class="line">log.close()                                         <span class="comment"># close file</span></span><br><span class="line">blue.off()                                          <span class="comment"># turn off LED</span></span><br></pre></td></tr></table></figure>
-<p>Just press the <strong>RST</strong> switch, the above piece of code will automatically run once, and the onboard accelerator’s reading will be logged in file <strong>log.csv</strong>. In my test, 100 readings are logged as:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line">156,-10,-14,13</span><br><span class="line">157,-20,-28,26</span><br><span class="line">158,-30,-42,39</span><br><span class="line">159,-40,-56,52</span><br><span class="line">161,-40,-56,52</span><br><span class="line">162,-40,-56,52</span><br><span class="line">163,-40,-56,52</span><br><span class="line">164,-40,-56,52</span><br><span class="line">165,-40,-56,52</span><br><span class="line">166,-40,-56,52</span><br><span class="line">167,-40,-56,52</span><br><span class="line">169,-39,-56,53</span><br><span class="line">170,-38,-56,54</span><br><span class="line">171,-37,-56,55</span><br><span class="line">172,-36,-56,56</span><br><span class="line">173,-36,-56,56</span><br><span class="line">174,-36,-56,56</span><br><span class="line">176,-36,-56,56</span><br><span class="line">177,-36,-56,56</span><br><span class="line">178,-36,-56,56</span><br><span class="line">179,-36,-56,56</span><br><span class="line">180,-36,-56,56</span><br><span class="line">181,-36,-56,56</span><br><span class="line">183,-36,-56,56</span><br><span class="line">184,-36,-55,57</span><br><span class="line">185,-36,-54,58</span><br><span class="line">186,-36,-53,59</span><br><span class="line">187,-36,-52,60</span><br><span class="line">188,-36,-52,60</span><br><span class="line">189,-36,-52,60</span><br><span class="line">191,-36,-52,60</span><br><span class="line">192,-36,-52,60</span><br><span class="line">193,-36,-52,60</span><br><span class="line">194,-36,-52,60</span><br><span class="line">195,-36,-52,60</span><br><span class="line">322,-30,-58,58</span><br><span class="line">324,-24,-64,56</span><br><span class="line">325,-18,-70,54</span><br><span class="line">326,-12,-76,52</span><br><span class="line">327,-12,-76,52</span><br><span class="line">328,-12,-76,52</span><br><span class="line">329,-12,-76,52</span><br><span class="line">331,-12,-76,52</span><br><span class="line">332,-12,-76,52</span><br><span class="line">333,-12,-76,52</span><br><span class="line">334,-14,-73,55</span><br><span class="line">335,-16,-70,58</span><br><span class="line">336,-18,-67,61</span><br><span class="line">338,-20,-64,64</span><br><span class="line">339,-20,-64,64</span><br><span class="line">340,-20,-64,64</span><br><span class="line">341,-20,-64,64</span><br><span class="line">342,-20,-64,64</span><br><span class="line">343,-20,-64,64</span><br><span class="line">345,-20,-64,64</span><br><span class="line">346,-20,-64,64</span><br><span class="line">347,-20,-64,64</span><br><span class="line">348,-20,-64,64</span><br><span class="line">349,-18,-67,63</span><br><span class="line">350,-16,-70,62</span><br><span class="line">352,-14,-73,61</span><br><span class="line">353,-12,-76,60</span><br><span class="line">354,-12,-76,60</span><br><span class="line">355,-12,-76,60</span><br><span class="line">356,-12,-76,60</span><br><span class="line">357,-12,-76,60</span><br><span class="line">359,-12,-76,60</span><br><span class="line">360,-12,-76,60</span><br><span class="line">361,-12,-76,60</span><br><span class="line">488,-19,-68,58</span><br><span class="line">489,-26,-60,56</span><br><span class="line">490,-33,-52,54</span><br><span class="line">491,-40,-44,52</span><br><span class="line">492,-40,-44,52</span><br><span class="line">493,-40,-44,52</span><br><span class="line">495,-40,-44,52</span><br><span class="line">496,-40,-44,52</span><br><span class="line">497,-40,-44,52</span><br><span class="line">498,-41,-45,55</span><br><span class="line">499,-42,-46,58</span><br><span class="line">500,-43,-47,61</span><br><span class="line">502,-44,-48,64</span><br><span class="line">503,-44,-48,64</span><br><span class="line">504,-44,-48,64</span><br><span class="line">505,-44,-48,64</span><br><span class="line">506,-44,-48,64</span><br><span class="line">507,-44,-48,64</span><br><span class="line">509,-44,-48,64</span><br><span class="line">510,-44,-48,64</span><br><span class="line">511,-44,-48,64</span><br><span class="line">512,-44,-48,64</span><br><span class="line">513,-43,-47,65</span><br><span class="line">516,-30,-52,59</span><br><span class="line">517,-17,-57,53</span><br><span class="line">518,-2,-64,47</span><br><span class="line">519,12,-72,40</span><br><span class="line">520,14,-74,40</span><br><span class="line">521,16,-76,40</span><br><span class="line">523,16,-76,40</span><br><span class="line">524,16,-76,40</span><br></pre></td></tr></table></figure>
-<h1 id="flash-micropython-onto-pyboard"><a class="markdownIt-Anchor" href="#flash-micropython-onto-pyboard"></a> Flash Micropython Onto Pyboard</h1>
-<h2 id="1-checkout-micropython-source-code"><a class="markdownIt-Anchor" href="#1-checkout-micropython-source-code"></a> 1. Checkout Micropython Source Code</h2>
-<p>Let’s <strong>FIRST</strong> download the <strong>NEWEST</strong> <a href="https://github.com/micropython/micropython/releases" target="_blank" rel="noopener">micropython release</a>. In my case, the <strong>MOST</strong> up-to-date release is <a href="https://github.com/micropython/micropython/archive/v1.11.tar.gz" target="_blank" rel="noopener">1.11</a>. (<span style="color:red"><strong>Do <strong>NOT</strong> use the git version</strong></span> from <a href="https://github.com/micropython/micropython.git" target="_blank" rel="noopener">https://github.com/micropython/micropython.git</a> ).</p>
-<h2 id="2-build-micropython-for-pybv11"><a class="markdownIt-Anchor" href="#2-build-micropython-for-pybv11"></a> 2. Build Micropython For PYBV11</h2>
-<p><span style="color:red"><strong>We’ll strictly follow ports/stm32/README.md to build Micropython.</strong></span></p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">➜  micropython-1.11 make -C mpy-cross</span><br><span class="line">make: Entering directory '....../micropython-1.11/mpy-cross'</span><br><span class="line">Use make V=1 or set BUILD_VERBOSE in your environment to increase build verbosity.</span><br><span class="line">GEN build/genhdr/mpversion.h</span><br><span class="line">CC main.c</span><br><span class="line">LINK mpy-cross</span><br><span class="line">   text    data     bss     dec     hex filename</span><br><span class="line"> 322105   24864     864  347833   54eb9 mpy-cross</span><br><span class="line">make: Leaving directory '....../micropython-1.11/mpy-cross'</span><br></pre></td></tr></table></figure>
-<p>Then we enter subfolder <span style="color:red"><strong>ports/stm32.</strong></span> for further building.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line">➜  micropython-1.11 cd ports/stm32 </span><br><span class="line">➜  stm32 make BOARD=PYBV11 deploy</span><br><span class="line">Use make V=1 or set BUILD_VERBOSE in your environment to increase build verbosity.</span><br><span class="line">mkdir -p build-PYBV11/genhdr</span><br><span class="line">GEN build-PYBV11/genhdr/pins.h</span><br><span class="line">GEN stmconst build-PYBV11/modstm_qstr.h</span><br><span class="line">GEN build-PYBV11/genhdr/mpversion.h</span><br><span class="line">GEN build-PYBV11/genhdr/moduledefs.h</span><br><span class="line">GEN build-PYBV11/genhdr/pybcdc.inf</span><br><span class="line">GEN build-PYBV11/genhdr/pybcdc_inf.h</span><br><span class="line">GEN build-PYBV11/genhdr/pllfreqtable.h</span><br><span class="line">GEN build-PYBV11/genhdr/qstr.i.last</span><br><span class="line">GEN build-PYBV11/genhdr/qstr.split</span><br><span class="line">GEN build-PYBV11/genhdr/qstrdefs.collected.h</span><br><span class="line">QSTR updated</span><br><span class="line">GEN build-PYBV11/genhdr/qstrdefs.generated.h</span><br><span class="line">mkdir -p build-PYBV11/boards/</span><br><span class="line">mkdir -p build-PYBV11/build-PYBV11/</span><br><span class="line">mkdir -p build-PYBV11/drivers/bus/</span><br><span class="line">mkdir -p build-PYBV11/drivers/dht/</span><br><span class="line">mkdir -p build-PYBV11/drivers/memory/</span><br><span class="line">mkdir -p build-PYBV11/extmod/</span><br><span class="line">mkdir -p build-PYBV11/lib/embed/</span><br><span class="line">mkdir -p build-PYBV11/lib/libc/</span><br><span class="line">mkdir -p build-PYBV11/lib/libm/</span><br><span class="line">mkdir -p build-PYBV11/lib/mp-readline/</span><br><span class="line">mkdir -p build-PYBV11/lib/netutils/</span><br><span class="line">mkdir -p build-PYBV11/lib/oofatfs/</span><br><span class="line">mkdir -p build-PYBV11/lib/stm32lib/STM32F4xx_HAL_Driver/Src/</span><br><span class="line">mkdir -p build-PYBV11/lib/timeutils/</span><br><span class="line">mkdir -p build-PYBV11/lib/utils/</span><br><span class="line">mkdir -p build-PYBV11/py/</span><br><span class="line">mkdir -p build-PYBV11/usbdev/class/src/</span><br><span class="line">mkdir -p build-PYBV11/usbdev/core/src/</span><br><span class="line">CC ../../py/mpstate.c</span><br><span class="line">CC ../../py/nlr.c</span><br><span class="line">CC ../../py/nlrx86.c</span><br><span class="line">CC ../../py/nlrx64.c</span><br><span class="line">CC ../../py/nlrthumb.c</span><br><span class="line">CC ../../py/nlrxtensa.c</span><br><span class="line">CC ../../py/nlrsetjmp.c</span><br><span class="line">CC ../../py/malloc.c</span><br><span class="line">CC ../../py/gc.c</span><br><span class="line">CC ../../py/pystack.c</span><br><span class="line">CC ../../py/qstr.c</span><br><span class="line">CC ../../py/vstr.c</span><br><span class="line">CC ../../py/mpprint.c</span><br><span class="line">CC ../../py/unicode.c</span><br><span class="line">...</span><br><span class="line">CC lcd.c</span><br><span class="line">CC accel.c</span><br><span class="line">CC servo.c</span><br><span class="line">CC dac.c</span><br><span class="line">CC adc.c</span><br><span class="line">AS boards/startup_stm32f4.s</span><br><span class="line">CC system_stm32.c</span><br><span class="line">AS resethandler.s</span><br><span class="line">AS ../../lib/utils/gchelper_m3.s</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc_ex.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rtc.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rtc_ex.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_mmc.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sdram.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dcmi.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_can.c</span><br><span class="line">CC usbdev/core/src/usbd_core.c</span><br><span class="line">CC usbdev/core/src/usbd_ctlreq.c</span><br><span class="line">CC usbdev/core/src/usbd_ioreq.c</span><br><span class="line">CC usbdev/class/src/usbd_cdc_msc_hid.c</span><br><span class="line">CC usbdev/class/src/usbd_msc_bot.c</span><br><span class="line">CC usbdev/class/src/usbd_msc_scsi.c</span><br><span class="line">CC usbdev/class/src/usbd_msc_data.c</span><br><span class="line">CC build-PYBV11/pins_PYBV11.c</span><br><span class="line">LINK build-PYBV11/firmware.elf</span><br><span class="line">   text    data     bss     dec     hex filename</span><br><span class="line"> 332432      32   27876  360340   57f94 build-PYBV11/firmware.elf</span><br><span class="line">GEN build-PYBV11/firmware.dfu</span><br><span class="line">Writing build-PYBV11/firmware.dfu to the board</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File "../../tools/pydfu.py", line 586, in &lt;module&gt;</span><br><span class="line">    main()</span><br><span class="line">  File "../../tools/pydfu.py", line 566, in main</span><br><span class="line">    init()</span><br><span class="line">  File "../../tools/pydfu.py", line 97, in init</span><br><span class="line">    raise ValueError('No DFU device found')</span><br><span class="line">ValueError: No DFU device found</span><br><span class="line">make: *** [Makefile:442: deploy] Error 1</span><br><span class="line">➜  stm32</span><br></pre></td></tr></table></figure>
-<h2 id="3-load-micropython-on-a-microcontroller-board"><a class="markdownIt-Anchor" href="#3-load-micropython-on-a-microcontroller-board"></a> 3. Load MicroPython on a Microcontroller Board</h2>
-<p>The above <strong>ERROR</strong> message is telling that our board is <strong>NOT</strong> in the DFU mode yet. Therefore, according to the blog<br />
-<a href="https://learn.sparkfun.com/tutorials/how-to-load-micropython-on-a-microcontroller-board/pyboard" target="_blank" rel="noopener">How to Load MicroPython on a Microcontroller Board</a>, we need to make sure <span style="color:red"><strong>P1 (DFU)</strong></span> and <span style="color:red"><strong>3V3 pin</strong></span> are connected together before flashing.</p>
-<p><span style="color:red"><strong>Note: Before connecting P1 (DFU) and 3V3 pin, make sure power is disconnected from the pyboard.</strong></span></p>
-<p>Now, let’s try it again:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">➜  stm32 make BOARD=PYBV11 deploy</span><br><span class="line">Use make V=1 or set BUILD_VERBOSE in your environment to increase build verbosity.</span><br><span class="line">Writing build-PYBV11/firmware.dfu to the board</span><br><span class="line">File: build-PYBV11/firmware.dfu</span><br><span class="line">    b'DfuSe' v1, image size: 332773, targets: 1</span><br><span class="line">    b'Target' 0, alt setting: 0, name: "ST...", size: 332488, elements: 2</span><br><span class="line">      0, address: 0x08000000, size: 14824</span><br><span class="line">      1, address: 0x08020000, size: 317648</span><br><span class="line">    usb: 0483:df11, device: 0x0000, dfu: 0x011a, b'UFD', 16, 0x60c9ebae</span><br><span class="line">Writing memory...</span><br><span class="line">0x08000000   14824 [=========================] 100% </span><br><span class="line">0x08020000  317648 [=========================] 100% </span><br><span class="line">Exiting DFU...</span><br><span class="line">➜  stm32</span><br></pre></td></tr></table></figure>
-<p>Let’s try <strong>picocom</strong> connection again:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">➜  stm32 picocom /dev/ttyACM0</span><br><span class="line">picocom v3.1</span><br><span class="line"></span><br><span class="line">port is        : /dev/ttyACM0</span><br><span class="line">flowcontrol    : none</span><br><span class="line">baudrate is    : 9600</span><br><span class="line">parity is      : none</span><br><span class="line">databits are   : 8</span><br><span class="line">stopbits are   : 1</span><br><span class="line">escape is      : C-a</span><br><span class="line">local echo is  : no</span><br><span class="line">noinit is      : no</span><br><span class="line">noreset is     : no</span><br><span class="line">hangup is      : no</span><br><span class="line">nolock is      : no</span><br><span class="line">send_cmd is    : sz -vv</span><br><span class="line">receive_cmd is : rz -vv -E</span><br><span class="line">imap is        : </span><br><span class="line">omap is        : </span><br><span class="line">emap is        : crcrlf,delbs,</span><br><span class="line">logfile is     : none</span><br><span class="line">initstring     : none</span><br><span class="line">exit_after is  : not set</span><br><span class="line">exit is        : no</span><br><span class="line"></span><br><span class="line">Type [C-a] [C-h] to see available commands</span><br><span class="line">Terminal ready</span><br><span class="line">MicroPython v1.11 on 2019-07-13; PYBv1.1 with STM32F405RG</span><br><span class="line">Type "help()" for more information.</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; </span></span><br><span class="line">Terminating...</span><br><span class="line">Thanks for using picocom</span><br><span class="line">➜  stm32</span><br></pre></td></tr></table></figure>
-<h2 id="4-optional-dfu-util"><a class="markdownIt-Anchor" href="#4-optional-dfu-util"></a> 4. Optional: dfu-util</h2>
-<p>Due to the <a href="https://github.com/micropython/micropython/wiki/Pyboard-Firmware-Update" target="_blank" rel="noopener">Pyboard Firmware Update Wiki</a>, we may also use <strong>dfu-util</strong> to flash the board.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ sudo dfu-util -l</span><br><span class="line">[sudo] password for lvision: </span><br><span class="line">dfu-util 0.9</span><br><span class="line"></span><br><span class="line">Copyright 2005-2009 Weston Schmidt, Harald Welte and OpenMoko Inc.</span><br><span class="line">Copyright 2010-2016 Tormod Volden and Stefan Schmidt</span><br><span class="line">This program is Free Software and has ABSOLUTELY NO WARRANTY</span><br><span class="line">Please report bugs to http:&#x2F;&#x2F;sourceforge.net&#x2F;p&#x2F;dfu-util&#x2F;tickets&#x2F;</span><br></pre></td></tr></table></figure>
 
           
         
