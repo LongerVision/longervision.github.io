@@ -310,6 +310,244 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2020/06/14/Cloud/cluster-rpi-kubernetes-docker-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/06/14/Cloud/cluster-rpi-kubernetes-docker-3/" itemprop="url">
+                  A Cluster of Raspberry Pis (3) - docker registry
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-06-14 13:22:19 / Modified: 12:19:54" itemprop="dateCreated datePublished" datetime="2020-06-14T13:22:19-07:00">2020-06-14</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Cloud/" itemprop="url" rel="index"><span itemprop="name">Cloud</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-docker"><a class="markdownIt-Anchor" href="#1-docker"></a> 1. <a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a></h1>
+<h2 id="11-container-vs-virtual-machine"><a class="markdownIt-Anchor" href="#11-container-vs-virtual-machine"></a> 1.1 Container VS. Virtual Machine</h2>
+<p>Briefly refer to: [What’s the Diff: VMs vs Containers] and [Bare Metal Servers, Virtual Servers, and Containerization].</p>
+<h2 id="12-docker-vs-vmware"><a class="markdownIt-Anchor" href="#12-docker-vs-vmware"></a> 1.2 <a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a> VS. [VMWare]</h2>
+<p>Briefly refer to: [Docker vs VMWare: How Do They Stack Up?].</p>
+<p>For me, I used to use [Virtual Box] (a virtual machine) a lot, but now start using <a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a> (the leading container).</p>
+<h2 id="13-install-docker-on-raspberry-pi"><a class="markdownIt-Anchor" href="#13-install-docker-on-raspberry-pi"></a> 1.3 Install Docker on [Raspberry Pi]</h2>
+<p>I actually refer to Alex Ellis’ blog: [Get Started with Docker on Raspberry Pi].</p>
+<h3 id="131-modify-bootconfigtxt"><a class="markdownIt-Anchor" href="#131-modify-bootconfigtxt"></a> 1.3.1 Modify /boot/config.txt</h3>
+<table style="text-align:center;">
+  <tr>
+    <td>Hostname</td>
+    <td>/boot/config.txt</td>
+  </tr>
+  <tr>
+    <td>pi01</td>
+    <td>
+      <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ tail -5 /boot/config.txt</span><br><span class="line">[all]</span><br><span class="line"><span class="comment">#dtoverlay=vc4-fkms-v3d</span></span><br><span class="line">start_x=1</span><br><span class="line">gpu_mem=128</span><br><span class="line"><span class="comment">#arm_64bit=1</span></span><br></pre></td></tr></table></figure>
+    </td>
+  </tr>
+  <tr>
+    <td>pi02</td>
+    <td>
+      <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pi@pi02:~ $ tail -5 /boot/config.txt</span><br><span class="line"></span><br><span class="line">[all]</span><br><span class="line"><span class="comment">#dtoverlay=vc4-fkms-v3d</span></span><br><span class="line">start_x=1</span><br><span class="line">gpu_mem=64</span><br></pre></td></tr></table></figure>
+    </td>
+  </tr>
+    <tr>
+    <td>pi03</td>
+    <td>
+      <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  pi@pi03:~ $ tail -5 /boot/config.txt</span><br><span class="line"></span><br><span class="line">[all]</span><br><span class="line"><span class="comment">#dtoverlay=vc4-fkms-v3d</span></span><br><span class="line">start_x=1</span><br><span class="line">gpu_mem=32</span><br></pre></td></tr></table></figure>
+    </td>
+  </tr>
+  <tr>
+    <td>pi04</td>
+    <td>
+      <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pi@pi04:~ $ tail -5 /boot/config.txt</span><br><span class="line"></span><br><span class="line">[all]</span><br><span class="line"><span class="comment">#dtoverlay=vc4-fkms-v3d</span></span><br><span class="line">start_x=1</span><br><span class="line">gpu_mem=32</span><br></pre></td></tr></table></figure>
+    </td>
+  </tr>
+</table>
+<h3 id="132-docker-installation"><a class="markdownIt-Anchor" href="#132-docker-installation"></a> 1.3.2 Docker Installation</h3>
+<p>Run the following 4 commands one by one:</p>
+<ul>
+<li><code>curl -sSL https://get.docker.com | sh</code></li>
+<li><code>sudo systemctl enable docker</code></li>
+<li><code>sudo systemctl start docker</code></li>
+<li><code>sudo usermod -aG docker pi</code></li>
+</ul>
+<p>Afterwards, reboot all [Raspberry Pi].</p>
+<p>Finally, let’s check the installed <a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a> version:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">pi@pi0X:~ $ docker version</span><br><span class="line">Client: Docker Engine - Community</span><br><span class="line"> Version:           19.03.11</span><br><span class="line"> API version:       1.40</span><br><span class="line"> Go version:        go1.13.10</span><br><span class="line"> Git commit:        42e35e6</span><br><span class="line"> Built:             Mon Jun  1 09:20:15 2020</span><br><span class="line"> OS/Arch:           linux/arm</span><br><span class="line"> Experimental:      false</span><br><span class="line"></span><br><span class="line">Server: Docker Engine - Community</span><br><span class="line"> Engine:</span><br><span class="line">  Version:          19.03.11</span><br><span class="line">  API version:      1.40 (minimum version 1.12)</span><br><span class="line">  Go version:       go1.13.10</span><br><span class="line">  Git commit:       42e35e6</span><br><span class="line">  Built:            Mon Jun  1 09:14:09 2020</span><br><span class="line">  OS/Arch:          linux/arm</span><br><span class="line">  Experimental:     false</span><br><span class="line"> containerd:</span><br><span class="line">  Version:          1.2.13</span><br><span class="line">  GitCommit:        7ad184331fa3e55e52b890ea95e65ba581ae3429</span><br><span class="line"> runc:</span><br><span class="line">  Version:          1.0.0-rc10</span><br><span class="line">  GitCommit:        dc9208a3303feef5b3839f4323d9beb36df0a9dd</span><br><span class="line"> docker-init:</span><br><span class="line">  Version:          0.18.0</span><br><span class="line">  GitCommit:        fec3683</span><br></pre></td></tr></table></figure>
+<p>, where <strong>X=1, or 2, or 3, or 4</strong>.</p>
+<h3 id="133-test-arm-image-pulled-from-docker-hub"><a class="markdownIt-Anchor" href="#133-test-arm-image-pulled-from-docker-hub"></a> 1.3.3 Test ARM Image Pulled from [Docker Hub]</h3>
+<h4 id="1331-docker-pull-docker-run-docker-exec"><a class="markdownIt-Anchor" href="#1331-docker-pull-docker-run-docker-exec"></a> 1.3.3.1 Docker Pull, Docker Run, Docker Exec</h4>
+<p>Due to respective architectures of these 4 [Raspberry Pi]s, I tried to use [Docker Hub] image [arm64v8/alpine] for <strong>pi01</strong>, and [Docker Hub] image [arm32v6/alpine] for <strong>pi02</strong>, <strong>pi03</strong> and <strong>pi04</strong>. However, it finally turns out that [Pi4 64-bit raspbian kernel] is <strong>NOT</strong> quite stable yet.</p>
+<h5 id="pi01"><a class="markdownIt-Anchor" href="#pi01"></a> pi01</h5>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ docker pull arm64v8/alpine</span><br><span class="line">Using default tag: latest</span><br><span class="line">latest: Pulling from arm64v8/alpine</span><br><span class="line">b538f80385f9: Pull complete </span><br><span class="line">Digest: sha256:3b3f647d2d99cac772ed64c4791e5d9b750dd5fe0b25db653ec4976f7b72837c</span><br><span class="line">Status: Downloaded newer image for arm64v8/alpine:latest</span><br><span class="line">docker.io/arm64v8/alpine:latest</span><br><span class="line">pi@pi01:~ $ docker images</span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">arm64v8/alpine      latest              62ee0e9f8440        11 days ago         5.32MB</span><br><span class="line">pi@pi01:~ $ docker run -it -d arm64v8/alpine</span><br><span class="line">4deed42b3a29231bde40176c5c385d9f04bbf5188383b2ede4a09383360d69bb</span><br><span class="line">pi@pi01:~ $ docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                           PORTS               NAMES</span><br><span class="line">4deed42b3a29        arm64v8/alpine      "/bin/sh"           49 seconds ago      Restarting (159) 8 seconds ago                       inspiring_mendeleev</span><br><span class="line">pi@pi01:~ $ docker ps -a</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line">4deed42b3a29        arm64v8/alpine      "/bin/sh"           51 seconds ago      Up 2 seconds                            inspiring_mendeleev</span><br><span class="line">pi@pi02:~ $</span><br></pre></td></tr></table></figure>
+<p>It looks [Docker Hub] images from repository <strong>arm64v8</strong> are <strong>NOT</strong> working properly on my [Raspberry Pi 4 Model B Rev 1.4 8GB] with [Pi4 64-bit raspbian kernel]. To <strong>further</strong> demonstrate this, I’m trying some other images from repository either <strong>arm64v8</strong> or <strong>aarch64</strong> (deprecated):</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ docker images</span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">alpine              latest              3ddac682c5b6        12 days ago         4.77MB</span><br><span class="line">arm64v8/alpine      latest              62ee0e9f8440        12 days ago         5.32MB</span><br><span class="line">arm64v8/ubuntu      latest              dbc66a3d7b82        6 weeks ago         66.7MB</span><br><span class="line">aarch64/ubuntu      latest              5227400055a2        3 years ago         122MB</span><br><span class="line">pi@pi01:~ $ docker ps -a</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES</span><br><span class="line">e06eaba12e82        alpine              "/bin/sh"           2 hours ago         Up 2 hours                                     relaxed_cerf</span><br><span class="line">ba8d858d36f0        aarch64/ubuntu      "/bin/bash"         2 hours ago         Exited (159) 2 hours ago                       nifty_sutherland</span><br><span class="line">08346701599a        arm64v8/ubuntu      "/bin/bash"         2 hours ago         Exited (159) 2 hours ago                       jolly_fermi</span><br><span class="line">ccda6c95f81d        arm64v8/alpine      "/bin/sh"           4 hours ago         Exited (159) 4 hours ago                       nifty_gates</span><br></pre></td></tr></table></figure>
+<p>None of the three images [arm64v8/alpine], [arm64v8/ubuntu], [aarch64/ubuntu] can <strong>UP</strong> for 3 seconds.</p>
+<div style="font-size:5rem;width:100%;text-align:center;">
+    <span class="github-emoji" alias="sweat" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f613.png?v8">&#x1f613;</span>
+    <span class="github-emoji" alias="pensive" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f614.png?v8">&#x1f614;</span>
+</div> 
+<p>Well, I can pull <strong>alpine</strong> and keep it <strong>UP</strong> instead of <strong>arm64v8/alpine</strong> though.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ docker pull alpine</span><br><span class="line">Using default tag: latest</span><br><span class="line">latest: Pulling from library/alpine</span><br><span class="line">b4b72e716706: Pull complete </span><br><span class="line">Digest: sha256:185518070891758909c9f839cf4ca393ee977ac378609f700f60a771a2dfe321</span><br><span class="line">Status: Downloaded newer image for alpine:latest</span><br><span class="line">docker.io/library/alpine:latest</span><br><span class="line">pi@pi01:~ $ docker run -it -d alpine</span><br><span class="line">e06eaba12e82d9266aa3dacd8eb0484e385f810e08806f0bec282bc3b5122a85</span><br><span class="line">pi@pi01:~ $ docker ps </span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line">e06eaba12e82        alpine              "/bin/sh"           10 seconds ago      Up 2 seconds                            relaxed_cerf</span><br><span class="line">pi@pi01:~ $ docker ps -a</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                        PORTS               NAMES</span><br><span class="line">e06eaba12e82        alpine              "/bin/sh"           12 seconds ago      Up 5 seconds                                      relaxed_cerf</span><br><span class="line">ba8d858d36f0        aarch64/ubuntu      "/bin/bash"         3 minutes ago       Exited (159) 2 minutes ago                        nifty_sutherland</span><br><span class="line">08346701599a        arm64v8/ubuntu      "/bin/bash"         28 minutes ago      Exited (159) 28 minutes ago                       jolly_fermi</span><br><span class="line">ccda6c95f81d        arm64v8/alpine      "/bin/sh"           2 hours ago         Exited (159) 2 hours ago                          nifty_gates</span><br><span class="line">pi@pi01:~ $ docker exec -it e06eaba12e82 /bin/sh</span><br><span class="line">/ # cat /etc/os-release</span><br><span class="line">NAME="Alpine Linux"</span><br><span class="line">ID=alpine</span><br><span class="line">VERSION_ID=3.12.0</span><br><span class="line">PRETTY_NAME="Alpine Linux v3.12"</span><br><span class="line">HOME_URL="https://alpinelinux.org/"</span><br><span class="line">BUG_REPORT_URL="https://bugs.alpinelinux.org/"</span><br><span class="line">/ # uname -a</span><br><span class="line">Linux e06eaba12e82 5.4.44-v8+ #1320 SMP PREEMPT Wed Jun 3 16:20:05 BST 2020 aarch64 Linux</span><br><span class="line">/ # exit</span><br><span class="line">pi@pi01:~ $</span><br></pre></td></tr></table></figure>
+<p>However, due to a bunch of the other unstabilities, I <strong>downgrade</strong> the system from [Pi4 64-bit raspbian kernel] to [Raspberry Pi OS (32-bit) with desktop 2020-05-27]. <span style="color:red">And it’s interesting that image from <strong>arm32v6/alpine</strong> are exactly the same as image directly from <strong>alpine</strong>, namely 3ddac682c5b6</span>.</p>
+<p>By the way, please refer to my posts:</p>
+<ul>
+<li><a href="https://github.com/alpinelinux/docker-alpine/issues/92" target="_blank" rel="noopener">https://github.com/alpinelinux/docker-alpine/issues/92</a>,</li>
+<li><a href="https://www.raspberrypi.org/forums/viewtopic.php?f=29&amp;t=250730&amp;p=1677106#p1677005" target="_blank" rel="noopener">https://www.raspberrypi.org/forums/viewtopic.php?f=29&amp;t=250730&amp;p=1677106#p1677005</a></li>
+<li><a href="https://www.raspberrypi.org/forums/viewtopic.php?f=29&amp;t=250730&amp;p=1677106#p1677106" target="_blank" rel="noopener">https://www.raspberrypi.org/forums/viewtopic.php?f=29&amp;t=250730&amp;p=1677106#p1677106</a></li>
+</ul>
+<h5 id="pi0x"><a class="markdownIt-Anchor" href="#pi0x"></a> pi0X</h5>
+<p>Let’s take <strong>pi02</strong> as an example.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">pi@pi02:~ $ docker pull arm32v6/alpine</span><br><span class="line">Using default tag: latest</span><br><span class="line">latest: Pulling from arm32v6/alpine</span><br><span class="line">b4b72e716706: Pull complete </span><br><span class="line">Digest: sha256:71465c7d45a086a2181ce33bb47f7eaef5c233eace65704da0c5e5454a79cee5</span><br><span class="line">Status: Downloaded newer image for arm32v6/alpine:latest</span><br><span class="line">docker.io/arm32v6/alpine:latest</span><br><span class="line">pi@pi02:~ $ docker images</span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">arm32v6/alpine      latest              3ddac682c5b6        11 days ago         4.77MB</span><br><span class="line">pi@pi02:~ $ docker run -it -d arm32v6/alpine</span><br><span class="line">f77f0a81732db03d4660e0c84e92066367b603d6fe49d8ce47bb62e764877618</span><br><span class="line">pi@pi02:~ $ docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line">f77f0a81732d        arm32v6/alpine      "/bin/sh"           9 seconds ago       Up 3 seconds                            awesome_moser</span><br><span class="line">pi@pi02:~ $ docker ps -a</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line">f77f0a81732d        arm32v6/alpine      "/bin/sh"           9 seconds ago       Up 3 seconds                            awesome_moser</span><br><span class="line">pi@pi02:~ $ docker exec -it f77f0a81732d /bin/sh</span><br><span class="line">/ # cat /etc/os-release</span><br><span class="line">NAME="Alpine Linux"</span><br><span class="line">ID=alpine</span><br><span class="line">VERSION_ID=3.12.0</span><br><span class="line">PRETTY_NAME="Alpine Linux v3.12"</span><br><span class="line">HOME_URL="https://alpinelinux.org/"</span><br><span class="line">BUG_REPORT_URL="https://bugs.alpinelinux.org/"</span><br><span class="line">/ # uname -a</span><br><span class="line">Linux f77f0a81732d 4.19.118-v7l+ #1311 SMP Mon Apr 27 14:26:42 BST 2020 armv7l Linux</span><br><span class="line">/ # exit</span><br><span class="line">pi@pi02:~ $</span><br></pre></td></tr></table></figure>
+<p>, where <strong>X=1, or 2, or 3, or 4</strong>.</p>
+<h4 id="1332-docker-login-docker-commit"><a class="markdownIt-Anchor" href="#1332-docker-login-docker-commit"></a> 1.3.3.2 Docker Login &amp; Docker Commit</h4>
+<p>In order to avoid issues about <strong>registry</strong>, we can run <strong>docker login</strong>, so that a configuration file <code>/home/pi/.docker/config.json</code> will also be automatically generated.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ docker login</span><br><span class="line">Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.</span><br><span class="line">Username: jiapei100</span><br><span class="line">Password: </span><br><span class="line">WARNING! Your password will be stored unencrypted in /home/pi/.docker/config.json.</span><br><span class="line">Configure a credential helper to remove this warning. See</span><br><span class="line">https://docs.docker.com/engine/reference/commandline/login/#credentials-store</span><br><span class="line"></span><br><span class="line">Login Succeeded</span><br><span class="line">pi@pi01:~ $ docker commit 561025c3974e</span><br><span class="line">sha256:4fb0183bf76ad8dd0e3620e90b162a58c7bebb135e0081454cee4b2ae40d6881</span><br></pre></td></tr></table></figure>
+<p>In my previous blog [A Cluster of Raspberry Pis with Kubernetes/Docker], I left one question: what is the relationship between <a href="https://kubernetes.io/" target="_blank" rel="noopener">Kubernetes</a> and <a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>? [Minikube vs. kind vs. k3s - What should I use?] clarifies their relationship and differences, and mentioned in its final table (cited as follows):</p>
+<p>Well, I believe this is already toooooo much for this blog. I’ll have to wait until I have my recreation room renovated to my office, and a new desktop will be able to bring me some fresh air. That will be the master of my real cluster, from where, I may be able to try out the <strong>full</strong> <a href="https://kubernetes.io/" target="_blank" rel="noopener">Kubernetes</a>. Good night…</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2020/06/13/Cloud/cluster-rpi-kubernetes-docker-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -520,256 +758,6 @@
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> 79  ✔  kubectl get deployments</span><br><span class="line">  ~ </span><br><span class="line">NAME           READY   UP-TO-DATE   AVAILABLE   AGE</span><br><span class="line">nginx-sample   1/1     1            1           12m</span><br><span class="line"> 80  ✔  kubectl get pods</span><br><span class="line">  ~ </span><br><span class="line">NAME                           READY   STATUS    RESTARTS   AGE</span><br><span class="line">nginx-sample-879f5cf56-kg6xf   1/1     Running   0          12m</span><br><span class="line"> 81  ✔  kubectl get pods -o wide</span><br><span class="line">  ~ </span><br><span class="line">NAME                           READY   STATUS    RESTARTS   AGE   IP           NODE   NOMINATED NODE   READINESS GATES</span><br><span class="line">nginx-sample-879f5cf56-kg6xf   1/1     Running   0          12m   10.42.0.15   pi01   &lt;none&gt;           &lt;none&gt;</span><br></pre></td></tr></table></figure>
 <p>Now, let’s expose this service and take a look from the browser:</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> 82  ✔  kubectl expose deployment nginx-sample --type="NodePort" --port 80 </span><br><span class="line">  ~ </span><br><span class="line">service/nginx-sample exposed</span><br><span class="line"> 83  ✔  kubectl get services </span><br><span class="line">  ~ </span><br><span class="line">NAME           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE</span><br><span class="line">kubernetes     ClusterIP   10.43.0.1       &lt;none&gt;        443/TCP        96m</span><br><span class="line">nginx-sample   NodePort    10.43.195.237   &lt;none&gt;        80:30734/TCP   72s</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2020/06/12/Cloud/cluster-rpi-kubernetes-docker-3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/06/12/Cloud/cluster-rpi-kubernetes-docker-3/" itemprop="url">
-                  A Cluster of Raspberry Pis (3) - docker registry
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-06-12 13:22:19" itemprop="dateCreated datePublished" datetime="2020-06-12T13:22:19-07:00">2020-06-12</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-06-14 02:43:15" itemprop="dateModified" datetime="2020-06-14T02:43:15-07:00">2020-06-14</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Cloud/" itemprop="url" rel="index"><span itemprop="name">Cloud</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="1-docker"><a class="markdownIt-Anchor" href="#1-docker"></a> 1. <a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a></h1>
-<h2 id="11-container-vs-virtual-machine"><a class="markdownIt-Anchor" href="#11-container-vs-virtual-machine"></a> 1.1 Container VS. Virtual Machine</h2>
-<p>Briefly refer to: [What’s the Diff: VMs vs Containers] and [Bare Metal Servers, Virtual Servers, and Containerization].</p>
-<h2 id="12-docker-vs-vmware"><a class="markdownIt-Anchor" href="#12-docker-vs-vmware"></a> 1.2 <a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a> VS. [VMWare]</h2>
-<p>Briefly refer to: [Docker vs VMWare: How Do They Stack Up?].</p>
-<p>For me, I used to use [Virtual Box] (a virtual machine) a lot, but now start using <a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a> (the leading container).</p>
-<h2 id="13-install-docker-on-raspberry-pi"><a class="markdownIt-Anchor" href="#13-install-docker-on-raspberry-pi"></a> 1.3 Install Docker on [Raspberry Pi]</h2>
-<p>I actually refer to Alex Ellis’ blog: [Get Started with Docker on Raspberry Pi].</p>
-<h3 id="131-modify-bootconfigtxt"><a class="markdownIt-Anchor" href="#131-modify-bootconfigtxt"></a> 1.3.1 Modify /boot/config.txt</h3>
-<table style="text-align:center;">
-  <tr>
-    <td>Hostname</td>
-    <td>/boot/config.txt</td>
-  </tr>
-  <tr>
-    <td>pi01</td>
-    <td>
-      <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ tail -5 /boot/config.txt</span><br><span class="line">[all]</span><br><span class="line"><span class="comment">#dtoverlay=vc4-fkms-v3d</span></span><br><span class="line">start_x=1</span><br><span class="line">gpu_mem=128</span><br><span class="line"><span class="comment">#arm_64bit=1</span></span><br></pre></td></tr></table></figure>
-    </td>
-  </tr>
-  <tr>
-    <td>pi02</td>
-    <td>
-      <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pi@pi02:~ $ tail -5 /boot/config.txt</span><br><span class="line"></span><br><span class="line">[all]</span><br><span class="line"><span class="comment">#dtoverlay=vc4-fkms-v3d</span></span><br><span class="line">start_x=1</span><br><span class="line">gpu_mem=64</span><br></pre></td></tr></table></figure>
-    </td>
-  </tr>
-    <tr>
-    <td>pi03</td>
-    <td>
-      <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  pi@pi03:~ $ tail -5 /boot/config.txt</span><br><span class="line"></span><br><span class="line">[all]</span><br><span class="line"><span class="comment">#dtoverlay=vc4-fkms-v3d</span></span><br><span class="line">start_x=1</span><br><span class="line">gpu_mem=32</span><br></pre></td></tr></table></figure>
-    </td>
-  </tr>
-  <tr>
-    <td>pi04</td>
-    <td>
-      <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pi@pi04:~ $ tail -5 /boot/config.txt</span><br><span class="line"></span><br><span class="line">[all]</span><br><span class="line"><span class="comment">#dtoverlay=vc4-fkms-v3d</span></span><br><span class="line">start_x=1</span><br><span class="line">gpu_mem=32</span><br></pre></td></tr></table></figure>
-    </td>
-  </tr>
-</table>
-<h3 id="132-docker-installation"><a class="markdownIt-Anchor" href="#132-docker-installation"></a> 1.3.2 Docker Installation</h3>
-<p>Run the following 4 commands one by one:</p>
-<ul>
-<li><code>curl -sSL https://get.docker.com | sh</code></li>
-<li><code>sudo systemctl enable docker</code></li>
-<li><code>sudo systemctl start docker</code></li>
-<li><code>sudo usermod -aG docker pi</code></li>
-</ul>
-<p>Afterwards, reboot all [Raspberry Pi].</p>
-<p>Finally, let’s check the installed <a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a> version:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">pi@pi0X:~ $ docker version</span><br><span class="line">Client: Docker Engine - Community</span><br><span class="line"> Version:           19.03.11</span><br><span class="line"> API version:       1.40</span><br><span class="line"> Go version:        go1.13.10</span><br><span class="line"> Git commit:        42e35e6</span><br><span class="line"> Built:             Mon Jun  1 09:20:15 2020</span><br><span class="line"> OS/Arch:           linux/arm</span><br><span class="line"> Experimental:      false</span><br><span class="line"></span><br><span class="line">Server: Docker Engine - Community</span><br><span class="line"> Engine:</span><br><span class="line">  Version:          19.03.11</span><br><span class="line">  API version:      1.40 (minimum version 1.12)</span><br><span class="line">  Go version:       go1.13.10</span><br><span class="line">  Git commit:       42e35e6</span><br><span class="line">  Built:            Mon Jun  1 09:14:09 2020</span><br><span class="line">  OS/Arch:          linux/arm</span><br><span class="line">  Experimental:     false</span><br><span class="line"> containerd:</span><br><span class="line">  Version:          1.2.13</span><br><span class="line">  GitCommit:        7ad184331fa3e55e52b890ea95e65ba581ae3429</span><br><span class="line"> runc:</span><br><span class="line">  Version:          1.0.0-rc10</span><br><span class="line">  GitCommit:        dc9208a3303feef5b3839f4323d9beb36df0a9dd</span><br><span class="line"> docker-init:</span><br><span class="line">  Version:          0.18.0</span><br><span class="line">  GitCommit:        fec3683</span><br></pre></td></tr></table></figure>
-<p>, where <strong>X=1, or 2, or 3, or 4</strong>.</p>
-<h3 id="133-test-arm-image-pulled-from-docker-hub"><a class="markdownIt-Anchor" href="#133-test-arm-image-pulled-from-docker-hub"></a> 1.3.3 Test ARM Image Pulled from [Docker Hub]</h3>
-<h4 id="1331-docker-pull-docker-run-docker-exec"><a class="markdownIt-Anchor" href="#1331-docker-pull-docker-run-docker-exec"></a> 1.3.3.1 Docker Pull, Docker Run, Docker Exec</h4>
-<p>Due to respective architectures of these 4 [Raspberry Pi]s, I tried to use [Docker Hub] image [arm64v8/alpine] for <strong>pi01</strong>, and [Docker Hub] image [arm32v6/alpine] for <strong>pi02</strong>, <strong>pi03</strong> and <strong>pi04</strong>. However, it finally turns out that [Pi4 64-bit raspbian kernel] is <strong>NOT</strong> quite stable yet.</p>
-<h5 id="pi01"><a class="markdownIt-Anchor" href="#pi01"></a> pi01</h5>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ docker pull arm64v8/alpine</span><br><span class="line">Using default tag: latest</span><br><span class="line">latest: Pulling from arm64v8/alpine</span><br><span class="line">b538f80385f9: Pull complete </span><br><span class="line">Digest: sha256:3b3f647d2d99cac772ed64c4791e5d9b750dd5fe0b25db653ec4976f7b72837c</span><br><span class="line">Status: Downloaded newer image for arm64v8/alpine:latest</span><br><span class="line">docker.io/arm64v8/alpine:latest</span><br><span class="line">pi@pi01:~ $ docker images</span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">arm64v8/alpine      latest              62ee0e9f8440        11 days ago         5.32MB</span><br><span class="line">pi@pi01:~ $ docker run -it -d arm64v8/alpine</span><br><span class="line">4deed42b3a29231bde40176c5c385d9f04bbf5188383b2ede4a09383360d69bb</span><br><span class="line">pi@pi01:~ $ docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                           PORTS               NAMES</span><br><span class="line">4deed42b3a29        arm64v8/alpine      "/bin/sh"           49 seconds ago      Restarting (159) 8 seconds ago                       inspiring_mendeleev</span><br><span class="line">pi@pi01:~ $ docker ps -a</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line">4deed42b3a29        arm64v8/alpine      "/bin/sh"           51 seconds ago      Up 2 seconds                            inspiring_mendeleev</span><br><span class="line">pi@pi02:~ $</span><br></pre></td></tr></table></figure>
-<p>It looks [Docker Hub] images from repository <strong>arm64v8</strong> are <strong>NOT</strong> working properly on my [Raspberry Pi 4 Model B Rev 1.4 8GB] with [Pi4 64-bit raspbian kernel]. To <strong>further</strong> demonstrate this, I’m trying some other images from repository either <strong>arm64v8</strong> or <strong>aarch64</strong> (deprecated):</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ docker images</span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">alpine              latest              3ddac682c5b6        12 days ago         4.77MB</span><br><span class="line">arm64v8/alpine      latest              62ee0e9f8440        12 days ago         5.32MB</span><br><span class="line">arm64v8/ubuntu      latest              dbc66a3d7b82        6 weeks ago         66.7MB</span><br><span class="line">aarch64/ubuntu      latest              5227400055a2        3 years ago         122MB</span><br><span class="line">pi@pi01:~ $ docker ps -a</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES</span><br><span class="line">e06eaba12e82        alpine              "/bin/sh"           2 hours ago         Up 2 hours                                     relaxed_cerf</span><br><span class="line">ba8d858d36f0        aarch64/ubuntu      "/bin/bash"         2 hours ago         Exited (159) 2 hours ago                       nifty_sutherland</span><br><span class="line">08346701599a        arm64v8/ubuntu      "/bin/bash"         2 hours ago         Exited (159) 2 hours ago                       jolly_fermi</span><br><span class="line">ccda6c95f81d        arm64v8/alpine      "/bin/sh"           4 hours ago         Exited (159) 4 hours ago                       nifty_gates</span><br></pre></td></tr></table></figure>
-<p>None of the three images [arm64v8/alpine], [arm64v8/ubuntu], [aarch64/ubuntu] can <strong>UP</strong> for 3 seconds.</p>
-<div style="font-size:5rem;width:100%;text-align:center;">
-    <span class="github-emoji" alias="sweat" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f613.png?v8">&#x1f613;</span>
-    <span class="github-emoji" alias="pensive" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f614.png?v8">&#x1f614;</span>
-</div> 
-<p>Well, I can pull <strong>alpine</strong> and keep it <strong>UP</strong> instead of <strong>arm64v8/alpine</strong> though.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ docker pull alpine</span><br><span class="line">Using default tag: latest</span><br><span class="line">latest: Pulling from library/alpine</span><br><span class="line">b4b72e716706: Pull complete </span><br><span class="line">Digest: sha256:185518070891758909c9f839cf4ca393ee977ac378609f700f60a771a2dfe321</span><br><span class="line">Status: Downloaded newer image for alpine:latest</span><br><span class="line">docker.io/library/alpine:latest</span><br><span class="line">pi@pi01:~ $ docker run -it -d alpine</span><br><span class="line">e06eaba12e82d9266aa3dacd8eb0484e385f810e08806f0bec282bc3b5122a85</span><br><span class="line">pi@pi01:~ $ docker ps </span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line">e06eaba12e82        alpine              "/bin/sh"           10 seconds ago      Up 2 seconds                            relaxed_cerf</span><br><span class="line">pi@pi01:~ $ docker ps -a</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                        PORTS               NAMES</span><br><span class="line">e06eaba12e82        alpine              "/bin/sh"           12 seconds ago      Up 5 seconds                                      relaxed_cerf</span><br><span class="line">ba8d858d36f0        aarch64/ubuntu      "/bin/bash"         3 minutes ago       Exited (159) 2 minutes ago                        nifty_sutherland</span><br><span class="line">08346701599a        arm64v8/ubuntu      "/bin/bash"         28 minutes ago      Exited (159) 28 minutes ago                       jolly_fermi</span><br><span class="line">ccda6c95f81d        arm64v8/alpine      "/bin/sh"           2 hours ago         Exited (159) 2 hours ago                          nifty_gates</span><br><span class="line">pi@pi01:~ $ docker exec -it e06eaba12e82 /bin/sh</span><br><span class="line">/ # cat /etc/os-release</span><br><span class="line">NAME="Alpine Linux"</span><br><span class="line">ID=alpine</span><br><span class="line">VERSION_ID=3.12.0</span><br><span class="line">PRETTY_NAME="Alpine Linux v3.12"</span><br><span class="line">HOME_URL="https://alpinelinux.org/"</span><br><span class="line">BUG_REPORT_URL="https://bugs.alpinelinux.org/"</span><br><span class="line">/ # uname -a</span><br><span class="line">Linux e06eaba12e82 5.4.44-v8+ #1320 SMP PREEMPT Wed Jun 3 16:20:05 BST 2020 aarch64 Linux</span><br><span class="line">/ # exit</span><br><span class="line">pi@pi01:~ $</span><br></pre></td></tr></table></figure>
-<p>However, due to a bunch of the other unstabilities, I <strong>downgrade</strong> the system from [Pi4 64-bit raspbian kernel] to [Raspberry Pi OS (32-bit) with desktop 2020-05-27]. <span style="color:red">And it’s interesting that image from <strong>arm32v6/alpine</strong> are exactly the same as image directly from <strong>alpine</strong>, namely 3ddac682c5b6</span>.</p>
-<p>By the way, please refer to my posts:</p>
-<ul>
-<li><a href="https://github.com/alpinelinux/docker-alpine/issues/92" target="_blank" rel="noopener">https://github.com/alpinelinux/docker-alpine/issues/92</a>,</li>
-<li><a href="https://www.raspberrypi.org/forums/viewtopic.php?f=29&amp;t=250730&amp;p=1677106#p1677005" target="_blank" rel="noopener">https://www.raspberrypi.org/forums/viewtopic.php?f=29&amp;t=250730&amp;p=1677106#p1677005</a></li>
-<li><a href="https://www.raspberrypi.org/forums/viewtopic.php?f=29&amp;t=250730&amp;p=1677106#p1677106" target="_blank" rel="noopener">https://www.raspberrypi.org/forums/viewtopic.php?f=29&amp;t=250730&amp;p=1677106#p1677106</a></li>
-</ul>
-<h5 id="pi0x"><a class="markdownIt-Anchor" href="#pi0x"></a> pi0X</h5>
-<p>Let’s take <strong>pi02</strong> as an example.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">pi@pi02:~ $ docker pull arm32v6/alpine</span><br><span class="line">Using default tag: latest</span><br><span class="line">latest: Pulling from arm32v6/alpine</span><br><span class="line">b4b72e716706: Pull complete </span><br><span class="line">Digest: sha256:71465c7d45a086a2181ce33bb47f7eaef5c233eace65704da0c5e5454a79cee5</span><br><span class="line">Status: Downloaded newer image for arm32v6/alpine:latest</span><br><span class="line">docker.io/arm32v6/alpine:latest</span><br><span class="line">pi@pi02:~ $ docker images</span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">arm32v6/alpine      latest              3ddac682c5b6        11 days ago         4.77MB</span><br><span class="line">pi@pi02:~ $ docker run -it -d arm32v6/alpine</span><br><span class="line">f77f0a81732db03d4660e0c84e92066367b603d6fe49d8ce47bb62e764877618</span><br><span class="line">pi@pi02:~ $ docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line">f77f0a81732d        arm32v6/alpine      "/bin/sh"           9 seconds ago       Up 3 seconds                            awesome_moser</span><br><span class="line">pi@pi02:~ $ docker ps -a</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line">f77f0a81732d        arm32v6/alpine      "/bin/sh"           9 seconds ago       Up 3 seconds                            awesome_moser</span><br><span class="line">pi@pi02:~ $ docker exec -it f77f0a81732d /bin/sh</span><br><span class="line">/ # cat /etc/os-release</span><br><span class="line">NAME="Alpine Linux"</span><br><span class="line">ID=alpine</span><br><span class="line">VERSION_ID=3.12.0</span><br><span class="line">PRETTY_NAME="Alpine Linux v3.12"</span><br><span class="line">HOME_URL="https://alpinelinux.org/"</span><br><span class="line">BUG_REPORT_URL="https://bugs.alpinelinux.org/"</span><br><span class="line">/ # uname -a</span><br><span class="line">Linux f77f0a81732d 4.19.118-v7l+ #1311 SMP Mon Apr 27 14:26:42 BST 2020 armv7l Linux</span><br><span class="line">/ # exit</span><br><span class="line">pi@pi02:~ $</span><br></pre></td></tr></table></figure>
-<p>, where <strong>X=1, or 2, or 3, or 4</strong>.</p>
-<h4 id="1332-docker-login-docker-commit"><a class="markdownIt-Anchor" href="#1332-docker-login-docker-commit"></a> 1.3.3.2 Docker Login &amp; Docker Commit</h4>
-<p>In order to avoid issues about <strong>registry</strong>, we can run <strong>docker login</strong>, so that a configuration file <code>/home/pi/.docker/config.json</code> will also be automatically generated.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ docker login</span><br><span class="line">Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.</span><br><span class="line">Username: jiapei100</span><br><span class="line">Password: </span><br><span class="line">WARNING! Your password will be stored unencrypted in /home/pi/.docker/config.json.</span><br><span class="line">Configure a credential helper to remove this warning. See</span><br><span class="line">https://docs.docker.com/engine/reference/commandline/login/#credentials-store</span><br><span class="line"></span><br><span class="line">Login Succeeded</span><br><span class="line">pi@pi01:~ $ docker commit 561025c3974e</span><br><span class="line">sha256:4fb0183bf76ad8dd0e3620e90b162a58c7bebb135e0081454cee4b2ae40d6881</span><br></pre></td></tr></table></figure>
-<p>In my previous blog [A Cluster of Raspberry Pis with Kubernetes/Docker], I left one question: what is the relationship between <a href="https://kubernetes.io/" target="_blank" rel="noopener">Kubernetes</a> and <a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>? [Minikube vs. kind vs. k3s - What should I use?] clarifies their relationship and differences, and mentioned in its final table (cited as follows):</p>
-<p>Well, I believe this is already toooooo much for this blog. I’ll have to wait until I have my recreation room renovated to my office, and a new desktop will be able to bring me some fresh air. That will be the master of my real cluster, from where, I may be able to try out the <strong>full</strong> <a href="https://kubernetes.io/" target="_blank" rel="noopener">Kubernetes</a>. Good night…</p>
 
           
         
