@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="English">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo3d.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo3d_32X32.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo3d_16x16.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo3d.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Profile Frontal Top           Today is Sunday. Vancouver is sunny. It’s been quite a while that I haven’t written anything. It took me a couple of weeks to have my tax reported finally. Hmmm… Anywa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Cluster of Raspberry Pis (1) - Configuration">
+<meta property="og:url" content="http://longervision.ca/2020/06/07/Cloud/cluster-rpi-kubernetes-docker-1/index.html">
+<meta property="og:site_name" content="Longer Vision Technology">
+<meta property="og:description" content="Profile Frontal Top           Today is Sunday. Vancouver is sunny. It’s been quite a while that I haven’t written anything. It took me a couple of weeks to have my tax reported finally. Hmmm… Anywa">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/cloud/rpicluster/profile.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/cloud/rpicluster/front.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/cloud/rpicluster/top.jpg">
+<meta property="article:published_time" content="2020-06-07T07:00:00.000Z">
+<meta property="article:modified_time" content="2020-06-14T10:35:07.582Z">
+<meta property="article:author" content="Nobody">
+<meta property="article:tag" content="Docker, Kubernetes, Raspberry Pi, Cluster, Supercomputer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/cloud/rpicluster/profile.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://longervision.ca/2020/06/07/Cloud/cluster-rpi-kubernetes-docker-1/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>A Cluster of Raspberry Pis (1) - Configuration | Longer Vision Technology</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+<meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="English">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Longer Vision Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Github Blog</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2020/06/07/Cloud/cluster-rpi-kubernetes-docker-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">A Cluster of Raspberry Pis (1) - Configuration
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-06-07 00:00:00" itemprop="dateCreated datePublished" datetime="2020-06-07T00:00:00-07:00">2020-06-07</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-06-14 03:35:07" itemprop="dateModified" datetime="2020-06-14T03:35:07-07:00">2020-06-14</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Cloud/" itemprop="url" rel="index"><span itemprop="name">Cloud</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <table>
+<thead>
+<tr>
+<th style="text-align:center">Profile</th>
+<th style="text-align:center">Frontal</th>
+<th style="text-align:center">Top</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/cloud/rpicluster/profile.jpg" alt="Profile View" /></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/cloud/rpicluster/front.jpg" alt="Frontal View" /></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/cloud/rpicluster/top.jpg" alt="Top View" /></td>
+</tr>
+</tbody>
+</table>
+<p>Today is Sunday. Vancouver is sunny. It’s been quite a while that I haven’t written anything. It took me a couple of weeks to have my tax reported finally. Hmmm… Anyway, finally, I’ve got some time to talk about  <a href="https://en.wikipedia.org/wiki/Supercomputer" target="_blank" rel="noopener">Supercomputer</a>:</p>
+<ul>
+<li>a cluster of 4 <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener">Raspberry Pi</a>s. In my case:
+<ul>
+<li>1 <a href="https://www.raspberrypi.org/products/raspberry-pi-4-model-b/?variant=raspberry-pi-4-model-b-8gb" target="_blank" rel="noopener">Raspberry Pi 4 Model B Rev 1.4 8GB</a>, installed with <a href="https://www.raspberrypi.org/forums/viewtopic.php?t=250730" target="_blank" rel="noopener">Pi4 64-bit raspbian kernel</a></li>
+<li>1 <a href="https://www.raspberrypi.org/products/raspberry-pi-4-model-b/?variant=raspberry-pi-4-model-b-4gb" target="_blank" rel="noopener">Raspberry Pi 4 Model B Rev 1.1 4GB</a>, installed with <a href="https://www.raspberrypi.org/downloads/raspberry-pi-os/" target="_blank" rel="noopener">Raspberry Pi OS (32-bit) with desktop 2020-05-27</a></li>
+<li>2 <a href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/" target="_blank" rel="noopener">Raspberry Pi 3 Model B Rev 1.2 1GB</a>, installed with <a href="https://www.raspberrypi.org/downloads/raspberry-pi-os/" target="_blank" rel="noopener"><br />
+Raspberry Pi OS (32-bit) with desktop 2020-05-27</a></li>
+</ul>
+</li>
+<li><a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a></li>
+<li><a href="https://kubernetes.io/" target="_blank" rel="noopener">Kubernetes</a></li>
+</ul>
+<p>This is going to be <strong>a series of 3 blogs</strong>.</p>
+<h1 id="1-compare-all-raspberry-pi-variants"><a class="markdownIt-Anchor" href="#1-compare-all-raspberry-pi-variants"></a> 1. Compare All <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener">Raspberry Pi</a> Variants</h1>
+<p>Refer to: <a href="https://socialcompare.com/en/comparison/raspberrypi-models-comparison" target="_blank" rel="noopener">Comparison of All Raspberry Pi Variants</a>.</p>
+<h1 id="2-four-raspberry-pis"><a class="markdownIt-Anchor" href="#2-four-raspberry-pis"></a> 2. Four <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener">Raspberry Pi</a>s</h1>
+<p>Here, please guarantee the 4 <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener">Raspberry Pi</a>s are respectively designated with the following hostnames:</p>
+<ul>
+<li><strong>pi01</strong></li>
+<li><strong>pi02</strong></li>
+<li><strong>pi03</strong></li>
+<li><strong>pi04</strong></li>
+</ul>
+<h2 id="21-raspberry-pi-4-model-b-rev-14-8gb-with-pi4-64-bit-raspbian-kernel"><a class="markdownIt-Anchor" href="#21-raspberry-pi-4-model-b-rev-14-8gb-with-pi4-64-bit-raspbian-kernel"></a> 2.1 <a href="https://www.raspberrypi.org/products/raspberry-pi-4-model-b/?variant=raspberry-pi-4-model-b-8gb" target="_blank" rel="noopener">Raspberry Pi 4 Model B Rev 1.4 8GB</a> with <a href="https://www.raspberrypi.org/forums/viewtopic.php?t=250730" target="_blank" rel="noopener">Pi4 64-bit raspbian kernel</a></h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ hostname</span><br><span class="line">pi01</span><br><span class="line">pi@pi01:~ $ uname -a</span><br><span class="line">Linux pi01 5.4.44-v8+ #1320 SMP PREEMPT Wed Jun 3 16:20:05 BST 2020 aarch64 GNU/Linux</span><br><span class="line">pi@pi01:~ $ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID:	Raspbian</span><br><span class="line">Description:	Raspbian GNU/Linux 10 (buster)</span><br><span class="line">Release:	10</span><br><span class="line">Codename:	buster</span><br><span class="line">pi@pi01:~ $ cat /proc/meminfo</span><br><span class="line">MemTotal:        7950652 kB</span><br><span class="line">MemFree:         7749820 kB</span><br><span class="line">MemAvailable:    7770884 kB</span><br><span class="line">Buffers:           16092 kB</span><br><span class="line">Cached:           105460 kB</span><br><span class="line">SwapCached:            0 kB</span><br><span class="line">Active:            91600 kB</span><br><span class="line">Inactive:          47532 kB</span><br><span class="line">Active(anon):      17832 kB</span><br><span class="line">Inactive(anon):     8404 kB</span><br><span class="line">Active(file):      73768 kB</span><br><span class="line">Inactive(file):    39128 kB</span><br><span class="line">Unevictable:          16 kB</span><br><span class="line">Mlocked:              16 kB</span><br><span class="line">SwapTotal:        102396 kB</span><br><span class="line">SwapFree:         102396 kB</span><br><span class="line">Dirty:                44 kB</span><br><span class="line">Writeback:             0 kB</span><br><span class="line">AnonPages:         17628 kB</span><br><span class="line">Mapped:            26968 kB</span><br><span class="line">Shmem:              8652 kB</span><br><span class="line">KReclaimable:      16632 kB</span><br><span class="line">Slab:              35720 kB</span><br><span class="line">SReclaimable:      16632 kB</span><br><span class="line">SUnreclaim:        19088 kB</span><br><span class="line">KernelStack:        2304 kB</span><br><span class="line">PageTables:         1284 kB</span><br><span class="line">NFS_Unstable:          0 kB</span><br><span class="line">Bounce:                0 kB</span><br><span class="line">WritebackTmp:          0 kB</span><br><span class="line">CommitLimit:     4077720 kB</span><br><span class="line">Committed_AS:     181984 kB</span><br><span class="line">VmallocTotal:   262930368 kB</span><br><span class="line">VmallocUsed:        7680 kB</span><br><span class="line">VmallocChunk:          0 kB</span><br><span class="line">Percpu:              688 kB</span><br><span class="line">CmaTotal:         262144 kB</span><br><span class="line">CmaFree:          256244 kB</span><br><span class="line">pi@pi01:~ $ cat /proc/cpuinfo</span><br><span class="line">processor	: 0</span><br><span class="line">BogoMIPS	: 108.00</span><br><span class="line">Features	: fp asimd evtstrm crc32 cpuid</span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xd08</span><br><span class="line">CPU revision	: 3</span><br><span class="line"></span><br><span class="line">processor	: 1</span><br><span class="line">BogoMIPS	: 108.00</span><br><span class="line">Features	: fp asimd evtstrm crc32 cpuid</span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xd08</span><br><span class="line">CPU revision	: 3</span><br><span class="line"></span><br><span class="line">processor	: 2</span><br><span class="line">BogoMIPS	: 108.00</span><br><span class="line">Features	: fp asimd evtstrm crc32 cpuid</span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xd08</span><br><span class="line">CPU revision	: 3</span><br><span class="line"></span><br><span class="line">processor	: 3</span><br><span class="line">BogoMIPS	: 108.00</span><br><span class="line">Features	: fp asimd evtstrm crc32 cpuid</span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xd08</span><br><span class="line">CPU revision	: 3</span><br><span class="line"></span><br><span class="line">Hardware	: BCM2835</span><br><span class="line">Revision	: d03114</span><br><span class="line">Serial		: 10000000bc6e6e05</span><br><span class="line">Model		: Raspberry Pi 4 Model B Rev 1.4</span><br></pre></td></tr></table></figure>
+<p>In fact, there are still quite a lot of issues about <a href="https://www.raspberrypi.org/forums/viewtopic.php?t=250730" target="_blank" rel="noopener">Pi4 64-bit raspbian kernel</a>, I have to downgrade the system from <a href="https://www.raspberrypi.org/forums/viewtopic.php?t=250730" target="_blank" rel="noopener">Pi4 64-bit raspbian kernel</a> to <a href="https://www.raspberrypi.org/downloads/raspberry-pi-os/" target="_blank" rel="noopener">Raspberry Pi OS (32-bit) with desktop 2020-05-27</a>.</p>
+<h2 id="22-raspberry-pi-4-model-b-rev-11-4gb-with-raspberry-pi-os-32-bit-with-desktop-2020-05-27"><a class="markdownIt-Anchor" href="#22-raspberry-pi-4-model-b-rev-11-4gb-with-raspberry-pi-os-32-bit-with-desktop-2020-05-27"></a> 2.2 <a href="https://www.raspberrypi.org/products/raspberry-pi-4-model-b/?variant=raspberry-pi-4-model-b-4gb" target="_blank" rel="noopener">Raspberry Pi 4 Model B Rev 1.1 4GB</a> with <a href="https://www.raspberrypi.org/downloads/raspberry-pi-os/" target="_blank" rel="noopener">Raspberry Pi OS (32-bit) with desktop 2020-05-27</a></h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">pi@pi02:~ $ hostname</span><br><span class="line">pi02</span><br><span class="line">pi@pi02:~ $ uname -a</span><br><span class="line">Linux pi02 4.19.118-v7l+ #1311 SMP Mon Apr 27 14:26:42 BST 2020 armv7l GNU/Linux</span><br><span class="line">pi@pi02:~ $ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID:	Raspbian</span><br><span class="line">Description:	Raspbian GNU/Linux 10 (buster)</span><br><span class="line">Release:	10</span><br><span class="line">Codename:	buster</span><br><span class="line">pi@pi02:~ $ cat /proc/meminfo</span><br><span class="line">MemTotal:        3999744 kB</span><br><span class="line">MemFree:         3556984 kB</span><br><span class="line">MemAvailable:    3761604 kB</span><br><span class="line">Buffers:           42296 kB</span><br><span class="line">Cached:           270688 kB</span><br><span class="line">SwapCached:            0 kB</span><br><span class="line">Active:           196952 kB</span><br><span class="line">Inactive:         133824 kB</span><br><span class="line">Active(anon):      18036 kB</span><br><span class="line">Inactive(anon):     8376 kB</span><br><span class="line">Active(file):     178916 kB</span><br><span class="line">Inactive(file):   125448 kB</span><br><span class="line">Unevictable:          16 kB</span><br><span class="line">Mlocked:              16 kB</span><br><span class="line">HighTotal:       3264512 kB</span><br><span class="line">HighFree:        2965564 kB</span><br><span class="line">LowTotal:         735232 kB</span><br><span class="line">LowFree:          591420 kB</span><br><span class="line">SwapTotal:        102396 kB</span><br><span class="line">SwapFree:         102396 kB</span><br><span class="line">Dirty:                40 kB</span><br><span class="line">Writeback:             0 kB</span><br><span class="line">AnonPages:         17848 kB</span><br><span class="line">Mapped:            26708 kB</span><br><span class="line">Shmem:              8624 kB</span><br><span class="line">Slab:              54128 kB</span><br><span class="line">SReclaimable:      27336 kB</span><br><span class="line">SUnreclaim:        26792 kB</span><br><span class="line">KernelStack:        1024 kB</span><br><span class="line">PageTables:         1172 kB</span><br><span class="line">NFS_Unstable:          0 kB</span><br><span class="line">Bounce:                0 kB</span><br><span class="line">WritebackTmp:          0 kB</span><br><span class="line">CommitLimit:     2102268 kB</span><br><span class="line">Committed_AS:     184320 kB</span><br><span class="line">VmallocTotal:     245760 kB</span><br><span class="line">VmallocUsed:           0 kB</span><br><span class="line">VmallocChunk:          0 kB</span><br><span class="line">Percpu:              656 kB</span><br><span class="line">CmaTotal:         262144 kB</span><br><span class="line">CmaFree:          223228 kB</span><br><span class="line">pi@pi02:~ $ cat /proc/cpuinfo</span><br><span class="line">processor	: 0</span><br><span class="line">model name	: ARMv7 Processor rev 3 (v7l)</span><br><span class="line">BogoMIPS	: 108.00</span><br><span class="line">Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xd08</span><br><span class="line">CPU revision	: 3</span><br><span class="line"></span><br><span class="line">processor	: 1</span><br><span class="line">model name	: ARMv7 Processor rev 3 (v7l)</span><br><span class="line">BogoMIPS	: 108.00</span><br><span class="line">Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xd08</span><br><span class="line">CPU revision	: 3</span><br><span class="line"></span><br><span class="line">processor	: 2</span><br><span class="line">model name	: ARMv7 Processor rev 3 (v7l)</span><br><span class="line">BogoMIPS	: 108.00</span><br><span class="line">Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xd08</span><br><span class="line">CPU revision	: 3</span><br><span class="line"></span><br><span class="line">processor	: 3</span><br><span class="line">model name	: ARMv7 Processor rev 3 (v7l)</span><br><span class="line">BogoMIPS	: 108.00</span><br><span class="line">Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xd08</span><br><span class="line">CPU revision	: 3</span><br><span class="line"></span><br><span class="line">Hardware	: BCM2835</span><br><span class="line">Revision	: c03111</span><br><span class="line">Serial		: 100000006c0c9b01</span><br><span class="line">Model		: Raspberry Pi 4 Model B Rev 1.1</span><br></pre></td></tr></table></figure>
+<h2 id="23-raspberry-pi-3-model-b-rev-12-1gb-with-raspberry-pi-os-32-bit-with-desktop-2020-05-27"><a class="markdownIt-Anchor" href="#23-raspberry-pi-3-model-b-rev-12-1gb-with-raspberry-pi-os-32-bit-with-desktop-2020-05-27"></a> 2.3 <a href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/" target="_blank" rel="noopener">Raspberry Pi 3 Model B Rev 1.2 1GB</a> with <a href="https://www.raspberrypi.org/downloads/raspberry-pi-os/" target="_blank" rel="noopener">Raspberry Pi OS (32-bit) with desktop 2020-05-27</a></h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">pi@pi03:~ $ hostname</span><br><span class="line">pi03</span><br><span class="line">pi@pi03:~ $ uname -a</span><br><span class="line">Linux pi03 4.19.118-v7+ #1311 SMP Mon Apr 27 14:21:24 BST 2020 armv7l GNU/Linux</span><br><span class="line">pi@pi03:~ $ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID:	Raspbian</span><br><span class="line">Description:	Raspbian GNU/Linux 10 (buster)</span><br><span class="line">Release:	10</span><br><span class="line">Codename:	buster</span><br><span class="line">pi@pi03:~ $ cat /proc/meminfo</span><br><span class="line">MemTotal:         895500 kB</span><br><span class="line">MemFree:          375644 kB</span><br><span class="line">MemAvailable:     709712 kB</span><br><span class="line">Buffers:           54464 kB</span><br><span class="line">Cached:           317028 kB</span><br><span class="line">SwapCached:            0 kB</span><br><span class="line">Active:           244084 kB</span><br><span class="line">Inactive:         197180 kB</span><br><span class="line">Active(anon):      70032 kB</span><br><span class="line">Inactive(anon):     6488 kB</span><br><span class="line">Active(file):     174052 kB</span><br><span class="line">Inactive(file):   190692 kB</span><br><span class="line">Unevictable:          16 kB</span><br><span class="line">Mlocked:              16 kB</span><br><span class="line">SwapTotal:        102396 kB</span><br><span class="line">SwapFree:         102396 kB</span><br><span class="line">Dirty:                20 kB</span><br><span class="line">Writeback:             0 kB</span><br><span class="line">AnonPages:         69816 kB</span><br><span class="line">Mapped:            80468 kB</span><br><span class="line">Shmem:              6752 kB</span><br><span class="line">Slab:              59000 kB</span><br><span class="line">SReclaimable:      28552 kB</span><br><span class="line">SUnreclaim:        30448 kB</span><br><span class="line">KernelStack:        1600 kB</span><br><span class="line">PageTables:         3252 kB</span><br><span class="line">NFS_Unstable:          0 kB</span><br><span class="line">Bounce:                0 kB</span><br><span class="line">WritebackTmp:          0 kB</span><br><span class="line">CommitLimit:      550144 kB</span><br><span class="line">Committed_AS:     837224 kB</span><br><span class="line">VmallocTotal:    1163264 kB</span><br><span class="line">VmallocUsed:           0 kB</span><br><span class="line">VmallocChunk:          0 kB</span><br><span class="line">Percpu:              640 kB</span><br><span class="line">CmaTotal:           8192 kB</span><br><span class="line">CmaFree:            6280 kB</span><br><span class="line">pi@pi03:~ $ cat /proc/cpuinfo</span><br><span class="line">processor	: 0</span><br><span class="line">model name	: ARMv7 Processor rev 4 (v7l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xd03</span><br><span class="line">CPU revision	: 4</span><br><span class="line"></span><br><span class="line">processor	: 1</span><br><span class="line">model name	: ARMv7 Processor rev 4 (v7l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xd03</span><br><span class="line">CPU revision	: 4</span><br><span class="line"></span><br><span class="line">processor	: 2</span><br><span class="line">model name	: ARMv7 Processor rev 4 (v7l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xd03</span><br><span class="line">CPU revision	: 4</span><br><span class="line"></span><br><span class="line">processor	: 3</span><br><span class="line">model name	: ARMv7 Processor rev 4 (v7l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xd03</span><br><span class="line">CPU revision	: 4</span><br><span class="line"></span><br><span class="line">Hardware	: BCM2835</span><br><span class="line">Revision	: a02082</span><br><span class="line">Serial		: 000000009fcc6a22</span><br><span class="line">Model		: Raspberry Pi 3 Model B Rev 1.2</span><br></pre></td></tr></table></figure>
+<h2 id="24-raspberry-pi-3-model-b-rev-12-1gb-with-raspberry-pi-os-32-bit-with-desktop-2020-05-27"><a class="markdownIt-Anchor" href="#24-raspberry-pi-3-model-b-rev-12-1gb-with-raspberry-pi-os-32-bit-with-desktop-2020-05-27"></a> 2.4 <a href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/" target="_blank" rel="noopener">Raspberry Pi 3 Model B Rev 1.2 1GB</a> with <a href="https://www.raspberrypi.org/downloads/raspberry-pi-os/" target="_blank" rel="noopener">Raspberry Pi OS (32-bit) with desktop 2020-05-27</a></h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">pi@pi04:~ $ hostname</span><br><span class="line">pi04</span><br><span class="line">pi@pi04:~ $ uname -a</span><br><span class="line">Linux pi04 4.19.118-v7+ #1311 SMP Mon Apr 27 14:21:24 BST 2020 armv7l GNU/Linux</span><br><span class="line">pi@pi04:~ $ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID:	Raspbian</span><br><span class="line">Description:	Raspbian GNU/Linux 10 (buster)</span><br><span class="line">Release:	10</span><br><span class="line">Codename:	buster</span><br><span class="line">pi@pi04:~ $ cat /proc/meminfo</span><br><span class="line">MemTotal:         895500 kB</span><br><span class="line">MemFree:          417612 kB</span><br><span class="line">MemAvailable:     727524 kB</span><br><span class="line">Buffers:           50624 kB</span><br><span class="line">Cached:           296456 kB</span><br><span class="line">SwapCached:            0 kB</span><br><span class="line">Active:           225904 kB</span><br><span class="line">Inactive:         174124 kB</span><br><span class="line">Active(anon):      53244 kB</span><br><span class="line">Inactive(anon):     5968 kB</span><br><span class="line">Active(file):     172660 kB</span><br><span class="line">Inactive(file):   168156 kB</span><br><span class="line">Unevictable:          16 kB</span><br><span class="line">Mlocked:              16 kB</span><br><span class="line">SwapTotal:        102396 kB</span><br><span class="line">SwapFree:         102396 kB</span><br><span class="line">Dirty:                16 kB</span><br><span class="line">Writeback:             0 kB</span><br><span class="line">AnonPages:         52960 kB</span><br><span class="line">Mapped:            65096 kB</span><br><span class="line">Shmem:              6240 kB</span><br><span class="line">Slab:              57688 kB</span><br><span class="line">SReclaimable:      28096 kB</span><br><span class="line">SUnreclaim:        29592 kB</span><br><span class="line">KernelStack:        1464 kB</span><br><span class="line">PageTables:         2724 kB</span><br><span class="line">NFS_Unstable:          0 kB</span><br><span class="line">Bounce:                0 kB</span><br><span class="line">WritebackTmp:          0 kB</span><br><span class="line">CommitLimit:      550144 kB</span><br><span class="line">Committed_AS:     715652 kB</span><br><span class="line">VmallocTotal:    1163264 kB</span><br><span class="line">VmallocUsed:           0 kB</span><br><span class="line">VmallocChunk:          0 kB</span><br><span class="line">Percpu:              640 kB</span><br><span class="line">CmaTotal:           8192 kB</span><br><span class="line">CmaFree:            6152 kB</span><br><span class="line">pi@pi04:~ $ cat /proc/cpuinfo</span><br><span class="line">processor	: 0</span><br><span class="line">model name	: ARMv7 Processor rev 4 (v7l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xd03</span><br><span class="line">CPU revision	: 4</span><br><span class="line"></span><br><span class="line">processor	: 1</span><br><span class="line">model name	: ARMv7 Processor rev 4 (v7l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xd03</span><br><span class="line">CPU revision	: 4</span><br><span class="line"></span><br><span class="line">processor	: 2</span><br><span class="line">model name	: ARMv7 Processor rev 4 (v7l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xd03</span><br><span class="line">CPU revision	: 4</span><br><span class="line"></span><br><span class="line">processor	: 3</span><br><span class="line">model name	: ARMv7 Processor rev 4 (v7l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xd03</span><br><span class="line">CPU revision	: 4</span><br><span class="line"></span><br><span class="line">Hardware	: BCM2835</span><br><span class="line">Revision	: a22082</span><br><span class="line">Serial		: 000000003fc1b876</span><br><span class="line">Model		: Raspberry Pi 3 Model B Rev 1.2</span><br></pre></td></tr></table></figure>
+<h1 id="3-raspberry-pi-cluster-configuration"><a class="markdownIt-Anchor" href="#3-raspberry-pi-cluster-configuration"></a> 3. <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener">Raspberry Pi</a> Cluster Configuration</h1>
+<p>This section partly refers to <a href="https://magpi.raspberrypi.org/articles/build-a-raspberry-pi-cluster-computer" target="_blank" rel="noopener">Build a Raspberry Pi cluster computer</a>, <a href="https://thenewstack.io/installing-mpi-python-raspberry-pi-cluster-runs-docker/" target="_blank" rel="noopener">Installing MPI for Python on a Raspberry Pi Cluster</a> and <a href="https://www.instructables.com/id/How-to-Make-a-Raspberry-Pi-SuperComputer/" target="_blank" rel="noopener">Instructables: How to Make a Raspberry Pi SuperComputer!</a>.</p>
+<p>Actually, the cluster can certainly be arbitrarily configured as you wish. A typical configuration is <strong>1-master-3-workers</strong>, but which one should be the <strong>master</strong>? Is it really a good idea to <strong>ALWAYS</strong> designate the <strong>MOST powerful</strong> one as the <strong>master</strong>? Particularly, in my case, 4 <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener">Raspberry Pi</a>s are of different versions, so that they are of different computing capability.</p>
+<h2 id="31-configure-hostfile"><a class="markdownIt-Anchor" href="#31-configure-hostfile"></a> 3.1 Configure Hostfile</h2>
+<p>It’s always a good idea to configure <strong>hostfile</strong> on the <strong>master</strong> node. However, as reasons mentioned above, there is <strong>NO</strong> priority among <strong>ALL</strong> nodes in my case, I configured <strong>hostfile</strong> for <strong>ALL</strong> 4 <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener">Raspberry Pi</a>s.</p>
+<table>
+<thead>
+<tr>
+<th>node</th>
+<th style="text-align:center">hostfile</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pi01</td>
+<td style="text-align:center">192.168.1.253   slots=4 <br> 192.168.1.251   slots=4 <br> 192.168.1.249   slots=4 <br> 192.168.1.247   slots=4</td>
+</tr>
+<tr>
+<td>pi02</td>
+<td style="text-align:center">192.168.1.251   slots=4 <br> 192.168.1.253   slots=4 <br> 192.168.1.249   slots=4 <br> 192.168.1.247   slots=4</td>
+</tr>
+<tr>
+<td>pi03</td>
+<td style="text-align:center">192.168.1.249   slots=4 <br> 192.168.1.253   slots=4 <br> 192.168.1.251   slots=4 <br> 192.168.1.247   slots=4</td>
+</tr>
+<tr>
+<td>pi04</td>
+<td style="text-align:center">192.168.1.247   slots=4 <br> 192.168.1.253   slots=4 <br> 192.168.1.251   slots=4 <br> 192.168.1.249   slots=4</td>
+</tr>
+</tbody>
+</table>
+<h2 id="32-ssh-keygen"><a class="markdownIt-Anchor" href="#32-ssh-keygen"></a> 3.2 SSH-KEYGEN</h2>
+<p>In order to test multiple nodes across the cluster, we need to generate SSH keys to avoid inputting password for logging into the other nodes all the time. In such, for each <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener">Raspberry Pi</a>, you’ll have to generate a SSH key by <code>ssh-keygen -t rsa</code>, and push this generated key using command <code>ssh-copy-id</code> onto the other 3 <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener">Raspberry Pi</a>s. Finally, for a cluster of 4 <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener">Raspberry Pi</a>s, there are 3 authorized keys stored in file <code>/home/pi/.ssh/authorized_keys</code> on each of the 4 <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener">Raspberry Pi</a>s.</p>
+<h1 id="4-cluster-test"><a class="markdownIt-Anchor" href="#4-cluster-test"></a> 4. Cluster Test</h1>
+<h2 id="41-command-mpiexec"><a class="markdownIt-Anchor" href="#41-command-mpiexec"></a> 4.1 Command mpiexec</h2>
+<h3 id="411-argument-hostfile-and-n"><a class="markdownIt-Anchor" href="#411-argument-hostfile-and-n"></a> 4.1.1 Argument: -hostfile and -n</h3>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ mpiexec -hostfile hostfile -n 16 hostname </span><br><span class="line">pi01</span><br><span class="line">pi01</span><br><span class="line">pi01</span><br><span class="line">pi01</span><br><span class="line">pi02</span><br><span class="line">pi02</span><br><span class="line">pi02</span><br><span class="line">pi03</span><br><span class="line">pi03</span><br><span class="line">pi03</span><br><span class="line">pi02</span><br><span class="line">pi03</span><br><span class="line">pi04</span><br><span class="line">pi04</span><br><span class="line">pi04</span><br><span class="line">pi04</span><br></pre></td></tr></table></figure>
+<p>For a cluster of 4 <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener">Raspberry Pi</a>s, there will be 4*4=16 CPUs in total. Therefore, the maximum number to specify for argument <strong>-n</strong> will be 16. Otherwise, you’ll meet the following <strong>ERROR</strong> message:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ mpiexec -hostfile hostfile -n 20 hostname </span><br><span class="line">--------------------------------------------------------------------------</span><br><span class="line">There are not enough slots available in the system to satisfy the 20 slots</span><br><span class="line">that were requested by the application:</span><br><span class="line">  hostname</span><br><span class="line"></span><br><span class="line">Either request fewer slots for your application, or make more slots available</span><br><span class="line">for use.</span><br><span class="line">--------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+<h3 id="412-execute-python-example-mpi4py-helloworldpy"><a class="markdownIt-Anchor" href="#412-execute-python-example-mpi4py-helloworldpy"></a> 4.1.2 Execute Python Example <a href="https://bitbucket.org/mpi4py/mpi4py/src/master/demo/helloworld.py" target="_blank" rel="noopener">mpi4py helloworld.py</a></h3>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ mpiexec -hostfile hostfile -n 16 python Downloads/helloworld.py </span><br><span class="line">Hello, World! I am process 1 of 16 on pi01.</span><br><span class="line">Hello, World! I am process 5 of 16 on pi02.</span><br><span class="line">Hello, World! I am process 6 of 16 on pi02.</span><br><span class="line">Hello, World! I am process 7 of 16 on pi02.</span><br><span class="line">Hello, World! I am process 4 of 16 on pi02.</span><br><span class="line">Hello, World! I am process 15 of 16 on pi04.</span><br><span class="line">Hello, World! I am process 12 of 16 on pi04.</span><br><span class="line">Hello, World! I am process 13 of 16 on pi04.</span><br><span class="line">Hello, World! I am process 14 of 16 on pi04.</span><br><span class="line">Hello, World! I am process 2 of 16 on pi01.</span><br><span class="line">Hello, World! I am process 0 of 16 on pi01.</span><br><span class="line">Hello, World! I am process 3 of 16 on pi01.</span><br><span class="line">Hello, World! I am process 9 of 16 on pi03.</span><br><span class="line">Hello, World! I am process 10 of 16 on pi03.</span><br><span class="line">Hello, World! I am process 11 of 16 on pi03.</span><br><span class="line">Hello, World! I am process 8 of 16 on pi03.</span><br></pre></td></tr></table></figure>
+<h2 id="42-mpi4py-examples"><a class="markdownIt-Anchor" href="#42-mpi4py-examples"></a> 4.2 <a href="https://github.com/jbornschein/mpi4py-examples" target="_blank" rel="noopener">mpi4py-examples</a></h2>
+<p>Run all examples with argument <code>--hostfile ~/hostfile</code>, namely, 16 cores in a row.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~/Downloads/mpi4py-examples $ mpirun --hostfile ~/hostfile ./01-hello-world </span><br><span class="line">Hello! I'm rank 1 from 16 running in total...</span><br><span class="line">Hello! I'm rank 2 from 16 running in total...</span><br><span class="line">Hello! I'm rank 3 from 16 running in total...</span><br><span class="line">Hello! I'm rank 0 from 16 running in total...</span><br><span class="line">Hello! I'm rank 6 from 16 running in total...</span><br><span class="line">Hello! I'm rank 7 from 16 running in total...</span><br><span class="line">Hello! I'm rank 4 from 16 running in total...</span><br><span class="line">Hello! I'm rank 5 from 16 running in total...</span><br><span class="line">Hello! I'm rank 12 from 16 running in total...</span><br><span class="line">Hello! I'm rank 10 from 16 running in total...</span><br><span class="line">Hello! I'm rank 11 from 16 running in total...</span><br><span class="line">Hello! I'm rank 13 from 16 running in total...</span><br><span class="line">Hello! I'm rank 9 from 16 running in total...</span><br><span class="line">Hello! I'm rank 14 from 16 running in total...</span><br><span class="line">Hello! I'm rank 8 from 16 running in total...</span><br><span class="line">Hello! I'm rank 15 from 16 running in total...</span><br></pre></td></tr></table></figure>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~/Downloads/mpi4py-examples $ mpirun --hostfile ~/hostfile ./02-broadcast </span><br><span class="line">------------------------------------------------------------------------------</span><br><span class="line">  Running on 16 cores</span><br><span class="line"> ------------------------------------------------------------------------------</span><br><span class="line"> [00] [0. 1. 2. 3. 4.]</span><br><span class="line">[04] [0. 1. 2. 3. 4.]</span><br><span class="line">[03] [0. 1. 2. 3. 4.]</span><br><span class="line">[05] [0. 1. 2. 3. 4.]</span><br><span class="line">[07] [0. 1. 2. 3. 4.]</span><br><span class="line">[01] [0. 1. 2. 3. 4.]</span><br><span class="line">[15] [0. 1. 2. 3. 4.]</span><br><span class="line">[13] [0. 1. 2. 3. 4.]</span><br><span class="line">[12] [0. 1. 2. 3. 4.]</span><br><span class="line">[11] [0. 1. 2. 3. 4.]</span><br><span class="line">[08] [0. 1. 2. 3. 4.]</span><br><span class="line">[09] [0. 1. 2. 3. 4.]</span><br><span class="line">[02] [0. 1. 2. 3. 4.]</span><br><span class="line">[10] [0. 1. 2. 3. 4.]</span><br><span class="line">[06] [0. 1. 2. 3. 4.]</span><br><span class="line">[14] [0. 1. 2. 3. 4.]</span><br></pre></td></tr></table></figure>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~/Downloads/mpi4py-examples $ mpirun --hostfile ~/hostfile python ./09-task-pull.py </span><br><span class="line">Master starting with 15 workers</span><br><span class="line">I am a worker with rank 1 on pi01.</span><br><span class="line">I am a worker with rank 2 on pi01.</span><br><span class="line">I am a worker with rank 3 on pi01.</span><br><span class="line">I am a worker with rank 4 on pi02.</span><br><span class="line">I am a worker with rank 5 on pi02.</span><br><span class="line">I am a worker with rank 6 on pi02.</span><br><span class="line">I am a worker with rank 7 on pi02.</span><br><span class="line">Sending task 0 to worker 2</span><br><span class="line">Sending task 1 to worker 1</span><br><span class="line">Sending task 2 to worker 3</span><br><span class="line">Got data from worker 2</span><br><span class="line">Sending task 3 to worker 2</span><br><span class="line">Got data from worker 3</span><br><span class="line">Sending task 4 to worker 3</span><br><span class="line">Got data from worker 1</span><br><span class="line">Got data from worker 2</span><br><span class="line">Sending task 5 to worker 1</span><br><span class="line">Sending task 6 to worker 2</span><br><span class="line">Got data from worker 3</span><br><span class="line">Sending task 7 to worker 3</span><br><span class="line">Got data from worker 1</span><br><span class="line">Got data from worker 2</span><br><span class="line">Sending task 8 to worker 1</span><br><span class="line">Sending task 9 to worker 2</span><br><span class="line">Got data from worker 3</span><br><span class="line">Sending task 10 to worker 3</span><br><span class="line">Got data from worker 1</span><br><span class="line">Got data from worker 2</span><br><span class="line">Sending task 11 to worker 1</span><br><span class="line">Sending task 12 to worker 2</span><br><span class="line">Got data from worker 3</span><br><span class="line">Sending task 13 to worker 3</span><br><span class="line">Got data from worker 1</span><br><span class="line">Got data from worker 2</span><br><span class="line">Sending task 14 to worker 1</span><br><span class="line">Sending task 15 to worker 2</span><br><span class="line">Got data from worker 3</span><br><span class="line">Sending task 16 to worker 3</span><br><span class="line">Got data from worker 1</span><br><span class="line">Got data from worker 2</span><br><span class="line">Sending task 17 to worker 1</span><br><span class="line">Sending task 18 to worker 2</span><br><span class="line">Got data from worker 3</span><br><span class="line">Sending task 19 to worker 3</span><br><span class="line">Got data from worker 1</span><br><span class="line">Sending task 20 to worker 1</span><br><span class="line">Got data from worker 2</span><br><span class="line">Sending task 21 to worker 2</span><br><span class="line">Got data from worker 3</span><br><span class="line">Sending task 22 to worker 3</span><br><span class="line">Got data from worker 1</span><br><span class="line">Sending task 23 to worker 1</span><br><span class="line">Got data from worker 2</span><br><span class="line">Got data from worker 3</span><br><span class="line">Sending task 24 to worker 2</span><br><span class="line">Sending task 25 to worker 3</span><br><span class="line">Got data from worker 2</span><br><span class="line">Got data from worker 1</span><br><span class="line">Sending task 26 to worker 2</span><br><span class="line">Got data from worker 3</span><br><span class="line">Sending task 27 to worker 3</span><br><span class="line">Got data from worker 2</span><br><span class="line">Sending task 28 to worker 1</span><br><span class="line">Sending task 29 to worker 2</span><br><span class="line">Got data from worker 3</span><br><span class="line">Sending task 30 to worker 3</span><br><span class="line">Got data from worker 2</span><br><span class="line">Got data from worker 1</span><br><span class="line">Sending task 31 to worker 2</span><br><span class="line">Got data from worker 2</span><br><span class="line">Got data from worker 3</span><br><span class="line">Worker 2 exited.</span><br><span class="line">Worker 1 exited.</span><br><span class="line">Worker 3 exited.</span><br><span class="line">I am a worker with rank 15 on pi04.</span><br><span class="line">I am a worker with rank 12 on pi04.</span><br><span class="line">I am a worker with rank 8 on pi03.</span><br><span class="line">I am a worker with rank 13 on pi04.</span><br><span class="line">I am a worker with rank 9 on pi03.</span><br><span class="line">I am a worker with rank 14 on pi04.</span><br><span class="line">I am a worker with rank 10 on pi03.</span><br><span class="line">I am a worker with rank 11 on pi03.</span><br><span class="line">Worker 5 exited.</span><br><span class="line">Worker 4 exited.</span><br><span class="line">Worker 6 exited.</span><br><span class="line">Worker 7 exited.</span><br><span class="line">Worker 15 exited.</span><br><span class="line">Worker 8 exited.</span><br><span class="line">Worker 9 exited.</span><br><span class="line">Worker 10 exited.</span><br><span class="line">Worker 11 exited.</span><br><span class="line">Worker 12 exited.</span><br><span class="line">Worker 13 exited.</span><br><span class="line">Worker 14 exited.</span><br><span class="line">Master finishing</span><br></pre></td></tr></table></figure>
+<h2 id="43-example-mpi4py-primepy"><a class="markdownIt-Anchor" href="#43-example-mpi4py-primepy"></a> 4.3 Example <a href="https://github.com/mrpjevans/cluster-prime/blob/master/prime.py" target="_blank" rel="noopener">mpi4py prime.py</a></h2>
+<h3 id="431-computing-capability-for-each-cpu"><a class="markdownIt-Anchor" href="#431-computing-capability-for-each-cpu"></a> 4.3.1 Computing Capability For Each CPU</h3>
+<p>Here, we’re taking <a href="https://github.com/mrpjevans/cluster-prime/blob/master/prime.py" target="_blank" rel="noopener">mpi4py prime.py</a> as our example.</p>
+<table style="text-align:center;">
+  <tr>
+    <td>Hostname</td>
+    <td>Computing Time</td>
+  </tr>
+  <tr>
+    <td>pi01</td>
+    <td>
+      <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ mpiexec -n 1 python prime.py 100000</span><br><span class="line">Find all primes up to: 100000</span><br><span class="line">Nodes: 1</span><br><span class="line">Time elasped: 214.86 seconds</span><br><span class="line">Primes discovered: 9592</span><br></pre></td></tr></table></figure>
+    </td>
+  </tr>
+  <tr>
+    <td>pi02</td>
+    <td>
+      <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pi@pi02:~ $ mpiexec -n 1 python prime.py 100000</span><br><span class="line">Find all primes up to: 100000</span><br><span class="line">Nodes: 1</span><br><span class="line">Time elasped: 212.2 seconds</span><br><span class="line">Primes discovered: 9592</span><br></pre></td></tr></table></figure>
+    </td>
+  </tr>
+    <tr>
+    <td>pi03</td>
+    <td>
+      <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pi@pi03:~ $ mpiexec -n 1 python prime.py 100000</span><br><span class="line">Find all primes up to: 100000</span><br><span class="line">Nodes: 1</span><br><span class="line">Time elasped: 665.24 seconds</span><br><span class="line">Primes discovered: 9592</span><br></pre></td></tr></table></figure>
+    </td>
+  </tr>
+  <tr>
+    <td>pi04</td>
+    <td>
+      <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pi@pi04:~ $ mpiexec -n 1 python prime.py 100000</span><br><span class="line">Find all primes up to: 100000</span><br><span class="line">Nodes: 1</span><br><span class="line">Time elasped: 684.64 seconds</span><br><span class="line">Primes discovered: 9592</span><br></pre></td></tr></table></figure>
+    </td>
+  </tr>
+</table>
+<p><span style="color:red"> Clearly, the computing capability of each CPU on <strong>pi01/pi02</strong> is roughly 3 times faster than the CPU on <strong>pi03/pi04</strong>, which can be easily estimated from the parameter <strong>BogoMIPS</strong>: </span></p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>108.00</mn><mo stretchy="false">(</mo><mi>p</mi><mi>i</mi><mn>01</mn><mi mathvariant="normal">/</mi><mi>p</mi><mi>i</mi><mn>02</mn><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mn>38.40</mn><mo stretchy="false">(</mo><mi>p</mi><mi>i</mi><mn>03</mn><mi mathvariant="normal">/</mi><mi>p</mi><mi>i</mi><mn>04</mn><mo stretchy="false">)</mo><mo>≈</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">108.00 (pi01/pi02) / 38.40 (pi03/pi04) \approx 3 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">8</span><span class="mord">.</span><span class="mord">0</span><span class="mord">0</span><span class="mopen">(</span><span class="mord mathdefault">p</span><span class="mord mathdefault">i</span><span class="mord">0</span><span class="mord">1</span><span class="mord">/</span><span class="mord mathdefault">p</span><span class="mord mathdefault">i</span><span class="mord">0</span><span class="mord">2</span><span class="mclose">)</span><span class="mord">/</span><span class="mord">3</span><span class="mord">8</span><span class="mord">.</span><span class="mord">4</span><span class="mord">0</span><span class="mopen">(</span><span class="mord mathdefault">p</span><span class="mord mathdefault">i</span><span class="mord">0</span><span class="mord">3</span><span class="mord">/</span><span class="mord mathdefault">p</span><span class="mord mathdefault">i</span><span class="mord">0</span><span class="mord">4</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span></span></p>
+<h3 id="432-computing-capability-for-each-raspberry-pi"><a class="markdownIt-Anchor" href="#432-computing-capability-for-each-raspberry-pi"></a> 4.3.2 Computing Capability For Each <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener">Raspberry Pi</a></h3>
+<p>Clearly, on each of my <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener">Raspberry Pi</a>, including</p>
+<ul>
+<li>pi01: <a href="https://www.raspberrypi.org/products/raspberry-pi-4-model-b/?variant=raspberry-pi-4-model-b-8gb" target="_blank" rel="noopener">Raspberry Pi 4 Model B Rev 1.4 8GB</a></li>
+<li>pi02: <a href="https://www.raspberrypi.org/products/raspberry-pi-4-model-b/?variant=raspberry-pi-4-model-b-4gb" target="_blank" rel="noopener">Raspberry Pi 4 Model B Rev 1.1 4GB</a></li>
+<li>pi03 &amp; pi04: <a href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/" target="_blank" rel="noopener">Raspberry Pi 3 Model B Rev 1.2 1GB</a></li>
+</ul>
+<p>there are 4 CPUs. So, let’s take a look at the result when specify argument <code>-n 4</code>.</p>
+<table style="text-align:center;">
+  <tr>
+    <td>Master</td>
+    <td>Worker</td>
+    <td>Computing Time</td>
+  </tr>
+  <tr>
+    <td>pi01</td>
+    <td>
+      pi02<br>
+      pi03<br>
+      pi04
+    </td>
+    <td>
+      <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ mpiexec -n 4 python prime.py 100000</span><br><span class="line">Find all primes up to: 100000</span><br><span class="line">Nodes: 4</span><br><span class="line">Time elasped: 50.92 seconds</span><br><span class="line">Primes discovered: 9592</span><br></pre></td></tr></table></figure>
+    </td>
+  </tr>
+  <tr>
+    <td>pi02</td>
+    <td>
+      pi01<br>
+      pi03<br>
+      pi04
+    </td>
+    <td>
+      <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pi@pi02:~ $ mpiexec -n 4 python prime.py 100000</span><br><span class="line">Find all primes up to: 100000</span><br><span class="line">Nodes: 4</span><br><span class="line">Time elasped: 52.83 seconds</span><br><span class="line">Primes discovered: 9592</span><br></pre></td></tr></table></figure>
+    </td>
+  </tr>
+  <tr>
+    <td>pi03</td>
+    <td>
+      pi01<br>
+      pi02<br>
+      pi04
+    </td>
+    <td>
+      <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pi@pi03:~ $ mpiexec -n 4 python prime.py 100000</span><br><span class="line">Find all primes up to: 100000</span><br><span class="line">Nodes: 4</span><br><span class="line">Time elasped: 171.81 seconds</span><br><span class="line">Primes discovered: 9592</span><br></pre></td></tr></table></figure>
+    </td>
+  </tr>
+  <tr>
+    <td>pi04</td>
+    <td>
+      pi01<br>
+      pi02<br>
+      pi03
+    </td>
+    <td>
+      <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pi@pi04:~ $ mpiexec -n 4 python prime.py 100000</span><br><span class="line">Find all primes up to: 100000</span><br><span class="line">Nodes: 4</span><br><span class="line">Time elasped: 171.7 seconds</span><br><span class="line">Primes discovered: 9592</span><br></pre></td></tr></table></figure>
+    </td>
+  </tr>
+</table>
+<!-- <span style="color:red"> It looks no matter which [Raspberry Pi] is designated as **master**, the computing time keeps **roughly the same**.</span> -->
+<p><span style="color:red">Clearly, to make full use of 4 CPUs <code>-n 4</code> is roughly 4 times faster than just to use 1 CPU <code>-n 1</code>.</span></p>
+<h3 id="433-computing-capability-for-the-cluster"><a class="markdownIt-Anchor" href="#433-computing-capability-for-the-cluster"></a> 4.3.3 Computing Capability For The cluster</h3>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ mpiexec -d --hostfile hostfile -n 16 python prime.py 100000</span><br><span class="line">[pi01:02952] procdir: /tmp/ompi.pi01.1000/pid.2952/0/0</span><br><span class="line">[pi01:02952] jobdir: /tmp/ompi.pi01.1000/pid.2952/0</span><br><span class="line">[pi01:02952] top: /tmp/ompi.pi01.1000/pid.2952</span><br><span class="line">[pi01:02952] top: /tmp/ompi.pi01.1000</span><br><span class="line">[pi01:02952] tmp: /tmp</span><br><span class="line">[pi01:02952] sess_dir_cleanup: job session dir does not exist</span><br><span class="line">[pi01:02952] sess_dir_cleanup: top session dir not empty - leaving</span><br><span class="line">[pi01:02952] procdir: /tmp/ompi.pi01.1000/pid.2952/0/0</span><br><span class="line">[pi01:02952] jobdir: /tmp/ompi.pi01.1000/pid.2952/0</span><br><span class="line">[pi01:02952] top: /tmp/ompi.pi01.1000/pid.2952</span><br><span class="line">[pi01:02952] top: /tmp/ompi.pi01.1000</span><br><span class="line">[pi01:02952] tmp: /tmp</span><br><span class="line">[pi03:05194] procdir: /tmp/ompi.pi03.1000/jf.16718/0/2</span><br><span class="line">[pi03:05194] jobdir: /tmp/ompi.pi03.1000/jf.16718/0</span><br><span class="line">[pi03:05194] top: /tmp/ompi.pi03.1000/jf.16718</span><br><span class="line">[pi03:05194] top: /tmp/ompi.pi03.1000</span><br><span class="line">[pi03:05194] tmp: /tmp</span><br><span class="line">[pi03:05194] sess_dir_cleanup: job session dir does not exist</span><br><span class="line">[pi03:05194] sess_dir_cleanup: top session dir not empty - leaving</span><br><span class="line">[pi03:05194] procdir: /tmp/ompi.pi03.1000/jf.16718/0/2</span><br><span class="line">[pi03:05194] jobdir: /tmp/ompi.pi03.1000/jf.16718/0</span><br><span class="line">[pi03:05194] top: /tmp/ompi.pi03.1000/jf.16718</span><br><span class="line">[pi03:05194] top: /tmp/ompi.pi03.1000</span><br><span class="line">[pi03:05194] tmp: /tmp</span><br><span class="line">[pi04:05035] procdir: /tmp/ompi.pi04.1000/jf.16718/0/3</span><br><span class="line">[pi04:05035] jobdir: /tmp/ompi.pi04.1000/jf.16718/0</span><br><span class="line">[pi04:05035] top: /tmp/ompi.pi04.1000/jf.16718</span><br><span class="line">[pi04:05035] top: /tmp/ompi.pi04.1000</span><br><span class="line">[pi04:05035] tmp: /tmp</span><br><span class="line">[pi04:05035] sess_dir_cleanup: job session dir does not exist</span><br><span class="line">[pi04:05035] sess_dir_cleanup: top session dir not empty - leaving</span><br><span class="line">[pi04:05035] procdir: /tmp/ompi.pi04.1000/jf.16718/0/3</span><br><span class="line">[pi04:05035] jobdir: /tmp/ompi.pi04.1000/jf.16718/0</span><br><span class="line">[pi04:05035] top: /tmp/ompi.pi04.1000/jf.16718</span><br><span class="line">[pi04:05035] top: /tmp/ompi.pi04.1000</span><br><span class="line">[pi04:05035] tmp: /tmp</span><br><span class="line">[pi02:05126] procdir: /tmp/ompi.pi02.1000/jf.16718/0/1</span><br><span class="line">[pi02:05126] jobdir: /tmp/ompi.pi02.1000/jf.16718/0</span><br><span class="line">[pi02:05126] top: /tmp/ompi.pi02.1000/jf.16718</span><br><span class="line">[pi02:05126] top: /tmp/ompi.pi02.1000</span><br><span class="line">[pi02:05126] tmp: /tmp</span><br><span class="line">[pi02:05126] sess_dir_cleanup: job session dir does not exist</span><br><span class="line">[pi02:05126] sess_dir_cleanup: top session dir not empty - leaving</span><br><span class="line">[pi02:05126] procdir: /tmp/ompi.pi02.1000/jf.16718/0/1</span><br><span class="line">[pi02:05126] jobdir: /tmp/ompi.pi02.1000/jf.16718/0</span><br><span class="line">[pi02:05126] top: /tmp/ompi.pi02.1000/jf.16718</span><br><span class="line">[pi02:05126] top: /tmp/ompi.pi02.1000</span><br><span class="line">[pi02:05126] tmp: /tmp</span><br><span class="line">[pi01:02952] [[16718,0],0] Releasing job data for [INVALID]</span><br><span class="line">[pi01:02962] procdir: /tmp/ompi.pi01.1000/pid.2952/1/2</span><br><span class="line">[pi01:02962] jobdir: /tmp/ompi.pi01.1000/pid.2952/1</span><br><span class="line">[pi01:02962] top: /tmp/ompi.pi01.1000/pid.2952</span><br><span class="line">[pi01:02962] top: /tmp/ompi.pi01.1000</span><br><span class="line">[pi01:02962] tmp: /tmp</span><br><span class="line">[pi01:02960] procdir: /tmp/ompi.pi01.1000/pid.2952/1/0</span><br><span class="line">[pi01:02960] jobdir: /tmp/ompi.pi01.1000/pid.2952/1</span><br><span class="line">[pi01:02960] top: /tmp/ompi.pi01.1000/pid.2952</span><br><span class="line">[pi01:02960] top: /tmp/ompi.pi01.1000</span><br><span class="line">[pi01:02960] tmp: /tmp</span><br><span class="line">[pi01:02963] procdir: /tmp/ompi.pi01.1000/pid.2952/1/3</span><br><span class="line">[pi01:02963] jobdir: /tmp/ompi.pi01.1000/pid.2952/1</span><br><span class="line">[pi01:02963] top: /tmp/ompi.pi01.1000/pid.2952</span><br><span class="line">[pi01:02963] top: /tmp/ompi.pi01.1000</span><br><span class="line">[pi01:02963] tmp: /tmp</span><br><span class="line">[pi02:05132] procdir: /tmp/ompi.pi02.1000/jf.16718/1/6</span><br><span class="line">[pi02:05132] jobdir: /tmp/ompi.pi02.1000/jf.16718/1</span><br><span class="line">[pi02:05132] top: /tmp/ompi.pi02.1000/jf.16718</span><br><span class="line">[pi02:05132] top: /tmp/ompi.pi02.1000</span><br><span class="line">[pi02:05132] tmp: /tmp</span><br><span class="line">[pi02:05131] procdir: /tmp/ompi.pi02.1000/jf.16718/1/5</span><br><span class="line">[pi02:05131] jobdir: /tmp/ompi.pi02.1000/jf.16718/1</span><br><span class="line">[pi02:05131] top: /tmp/ompi.pi02.1000/jf.16718</span><br><span class="line">[pi02:05131] top: /tmp/ompi.pi02.1000</span><br><span class="line">[pi02:05131] tmp: /tmp</span><br><span class="line">[pi01:02961] procdir: /tmp/ompi.pi01.1000/pid.2952/1/1</span><br><span class="line">[pi01:02961] jobdir: /tmp/ompi.pi01.1000/pid.2952/1</span><br><span class="line">[pi01:02961] top: /tmp/ompi.pi01.1000/pid.2952</span><br><span class="line">[pi01:02961] top: /tmp/ompi.pi01.1000</span><br><span class="line">[pi01:02961] tmp: /tmp</span><br><span class="line">[pi02:05130] procdir: /tmp/ompi.pi02.1000/jf.16718/1/4</span><br><span class="line">[pi02:05130] jobdir: /tmp/ompi.pi02.1000/jf.16718/1</span><br><span class="line">[pi02:05130] top: /tmp/ompi.pi02.1000/jf.16718</span><br><span class="line">[pi02:05130] top: /tmp/ompi.pi02.1000</span><br><span class="line">[pi02:05130] tmp: /tmp</span><br><span class="line">[pi02:05133] procdir: /tmp/ompi.pi02.1000/jf.16718/1/7</span><br><span class="line">[pi02:05133] jobdir: /tmp/ompi.pi02.1000/jf.16718/1</span><br><span class="line">[pi02:05133] top: /tmp/ompi.pi02.1000/jf.16718</span><br><span class="line">[pi02:05133] top: /tmp/ompi.pi02.1000</span><br><span class="line">[pi02:05133] tmp: /tmp</span><br><span class="line">  MPIR_being_debugged = 0</span><br><span class="line">  MPIR_debug_state = 1</span><br><span class="line">  MPIR_partial_attach_ok = 1</span><br><span class="line">  MPIR_i_am_starter = 0</span><br><span class="line">  MPIR_forward_output = 0</span><br><span class="line">  MPIR_proctable_size = 16</span><br><span class="line">  MPIR_proctable:</span><br><span class="line">    (i, host, exe, pid) = (0, pi01, /usr/bin/python, 2960)</span><br><span class="line">    (i, host, exe, pid) = (1, pi01, /usr/bin/python, 2961)</span><br><span class="line">    (i, host, exe, pid) = (2, pi01, /usr/bin/python, 2962)</span><br><span class="line">    (i, host, exe, pid) = (3, pi01, /usr/bin/python, 2963)</span><br><span class="line">    (i, host, exe, pid) = (4, 192.168.1.251, /usr/bin/python, 5130)</span><br><span class="line">    (i, host, exe, pid) = (5, 192.168.1.251, /usr/bin/python, 5131)</span><br><span class="line">    (i, host, exe, pid) = (6, 192.168.1.251, /usr/bin/python, 5132)</span><br><span class="line">    (i, host, exe, pid) = (7, 192.168.1.251, /usr/bin/python, 5133)</span><br><span class="line">    (i, host, exe, pid) = (8, 192.168.1.249, /usr/bin/python, 5198)</span><br><span class="line">    (i, host, exe, pid) = (9, 192.168.1.249, /usr/bin/python, 5199)</span><br><span class="line">    (i, host, exe, pid) = (10, 192.168.1.249, /usr/bin/python, 5200)</span><br><span class="line">    (i, host, exe, pid) = (11, 192.168.1.249, /usr/bin/python, 5201)</span><br><span class="line">    (i, host, exe, pid) = (12, 192.168.1.247, /usr/bin/python, 5039)</span><br><span class="line">    (i, host, exe, pid) = (13, 192.168.1.247, /usr/bin/python, 5040)</span><br><span class="line">    (i, host, exe, pid) = (14, 192.168.1.247, /usr/bin/python, 5041)</span><br><span class="line">    (i, host, exe, pid) = (15, 192.168.1.247, /usr/bin/python, 5042)</span><br><span class="line">MPIR_executable_path: NULL</span><br><span class="line">MPIR_server_arguments: NULL</span><br><span class="line">[pi03:05198] procdir: /tmp/ompi.pi03.1000/jf.16718/1/8</span><br><span class="line">[pi03:05198] jobdir: /tmp/ompi.pi03.1000/jf.16718/1</span><br><span class="line">[pi03:05198] top: /tmp/ompi.pi03.1000/jf.16718</span><br><span class="line">[pi03:05198] top: /tmp/ompi.pi03.1000</span><br><span class="line">[pi03:05198] tmp: /tmp</span><br><span class="line">[pi03:05199] procdir: /tmp/ompi.pi03.1000/jf.16718/1/9</span><br><span class="line">[pi03:05199] jobdir: /tmp/ompi.pi03.1000/jf.16718/1</span><br><span class="line">[pi03:05199] top: /tmp/ompi.pi03.1000/jf.16718</span><br><span class="line">[pi03:05199] top: /tmp/ompi.pi03.1000</span><br><span class="line">[pi03:05199] tmp: /tmp</span><br><span class="line">[pi03:05200] procdir: /tmp/ompi.pi03.1000/jf.16718/1/10</span><br><span class="line">[pi03:05200] jobdir: /tmp/ompi.pi03.1000/jf.16718/1</span><br><span class="line">[pi03:05200] top: /tmp/ompi.pi03.1000/jf.16718</span><br><span class="line">[pi03:05200] top: /tmp/ompi.pi03.1000</span><br><span class="line">[pi03:05200] tmp: /tmp</span><br><span class="line">[pi03:05201] procdir: /tmp/ompi.pi03.1000/jf.16718/1/11</span><br><span class="line">[pi03:05201] jobdir: /tmp/ompi.pi03.1000/jf.16718/1</span><br><span class="line">[pi03:05201] top: /tmp/ompi.pi03.1000/jf.16718</span><br><span class="line">[pi03:05201] top: /tmp/ompi.pi03.1000</span><br><span class="line">[pi03:05201] tmp: /tmp</span><br><span class="line">[pi04:05040] procdir: /tmp/ompi.pi04.1000/jf.16718/1/13</span><br><span class="line">[pi04:05040] jobdir: /tmp/ompi.pi04.1000/jf.16718/1</span><br><span class="line">[pi04:05040] top: /tmp/ompi.pi04.1000/jf.16718</span><br><span class="line">[pi04:05040] top: /tmp/ompi.pi04.1000</span><br><span class="line">[pi04:05040] tmp: /tmp</span><br><span class="line">[pi04:05039] procdir: /tmp/ompi.pi04.1000/jf.16718/1/12</span><br><span class="line">[pi04:05039] jobdir: /tmp/ompi.pi04.1000/jf.16718/1</span><br><span class="line">[pi04:05039] top: /tmp/ompi.pi04.1000/jf.16718</span><br><span class="line">[pi04:05039] top: /tmp/ompi.pi04.1000</span><br><span class="line">[pi04:05039] tmp: /tmp</span><br><span class="line">[pi04:05041] procdir: /tmp/ompi.pi04.1000/jf.16718/1/14</span><br><span class="line">[pi04:05041] jobdir: /tmp/ompi.pi04.1000/jf.16718/1</span><br><span class="line">[pi04:05041] top: /tmp/ompi.pi04.1000/jf.16718</span><br><span class="line">[pi04:05041] top: /tmp/ompi.pi04.1000</span><br><span class="line">[pi04:05041] tmp: /tmp</span><br><span class="line">[pi04:05042] procdir: /tmp/ompi.pi04.1000/jf.16718/1/15</span><br><span class="line">[pi04:05042] jobdir: /tmp/ompi.pi04.1000/jf.16718/1</span><br><span class="line">[pi04:05042] top: /tmp/ompi.pi04.1000/jf.16718</span><br><span class="line">[pi04:05042] top: /tmp/ompi.pi04.1000</span><br><span class="line">[pi04:05042] tmp: /tmp</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Docker-Kubernetes-Raspberry-Pi-Cluster-Supercomputer/" rel="tag"># Docker, Kubernetes, Raspberry Pi, Cluster, Supercomputer</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/30/MachineVision/ARMLinux/e-consystems-e-CAM50_CUNANO/" rel="next" title="e-con Systems e-CAM50_CUNANO">
+                <i class="fa fa-chevron-left"></i> e-con Systems e-CAM50_CUNANO
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/12/Cloud/cluster-rpi-kubernetes-docker-3/" rel="prev" title="A Cluster of Raspberry Pis (3) - docker registry">
+                A Cluster of Raspberry Pis (3) - docker registry <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Nobody</p>
+              <p class="site-description motion-element" itemprop="description">Longer Vision Technology Github Blog</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/%20%7C%7C%20archive">
+                
+                    <span class="site-state-item-count">88</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">84</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-compare-all-raspberry-pi-variants"><span class="nav-number">1.</span> <span class="nav-text"> 1. Compare All Raspberry Pi Variants</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-four-raspberry-pis"><span class="nav-number">2.</span> <span class="nav-text"> 2. Four Raspberry Pis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#21-raspberry-pi-4-model-b-rev-14-8gb-with-pi4-64-bit-raspbian-kernel"><span class="nav-number">2.1.</span> <span class="nav-text"> 2.1 Raspberry Pi 4 Model B Rev 1.4 8GB with Pi4 64-bit raspbian kernel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#22-raspberry-pi-4-model-b-rev-11-4gb-with-raspberry-pi-os-32-bit-with-desktop-2020-05-27"><span class="nav-number">2.2.</span> <span class="nav-text"> 2.2 Raspberry Pi 4 Model B Rev 1.1 4GB with Raspberry Pi OS (32-bit) with desktop 2020-05-27</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#23-raspberry-pi-3-model-b-rev-12-1gb-with-raspberry-pi-os-32-bit-with-desktop-2020-05-27"><span class="nav-number">2.3.</span> <span class="nav-text"> 2.3 Raspberry Pi 3 Model B Rev 1.2 1GB with Raspberry Pi OS (32-bit) with desktop 2020-05-27</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#24-raspberry-pi-3-model-b-rev-12-1gb-with-raspberry-pi-os-32-bit-with-desktop-2020-05-27"><span class="nav-number">2.4.</span> <span class="nav-text"> 2.4 Raspberry Pi 3 Model B Rev 1.2 1GB with Raspberry Pi OS (32-bit) with desktop 2020-05-27</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-raspberry-pi-cluster-configuration"><span class="nav-number">3.</span> <span class="nav-text"> 3. Raspberry Pi Cluster Configuration</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#31-configure-hostfile"><span class="nav-number">3.1.</span> <span class="nav-text"> 3.1 Configure Hostfile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#32-ssh-keygen"><span class="nav-number">3.2.</span> <span class="nav-text"> 3.2 SSH-KEYGEN</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-cluster-test"><span class="nav-number">4.</span> <span class="nav-text"> 4. Cluster Test</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#41-command-mpiexec"><span class="nav-number">4.1.</span> <span class="nav-text"> 4.1 Command mpiexec</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#411-argument-hostfile-and-n"><span class="nav-number">4.1.1.</span> <span class="nav-text"> 4.1.1 Argument: -hostfile and -n</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#412-execute-python-example-mpi4py-helloworldpy"><span class="nav-number">4.1.2.</span> <span class="nav-text"> 4.1.2 Execute Python Example mpi4py helloworld.py</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#42-mpi4py-examples"><span class="nav-number">4.2.</span> <span class="nav-text"> 4.2 mpi4py-examples</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#43-example-mpi4py-primepy"><span class="nav-number">4.3.</span> <span class="nav-text"> 4.3 Example mpi4py prime.py</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#431-computing-capability-for-each-cpu"><span class="nav-number">4.3.1.</span> <span class="nav-text"> 4.3.1 Computing Capability For Each CPU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#432-computing-capability-for-each-raspberry-pi"><span class="nav-number">4.3.2.</span> <span class="nav-text"> 4.3.2 Computing Capability For Each Raspberry Pi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#433-computing-capability-for-the-cluster"><span class="nav-number">4.3.3.</span> <span class="nav-text"> 4.3.3 Computing Capability For The cluster</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nobody</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v4.2.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+   
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
