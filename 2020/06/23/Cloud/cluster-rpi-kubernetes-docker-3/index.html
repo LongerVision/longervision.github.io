@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="English">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo3d.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo3d_32X32.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo3d_16x16.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo3d.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="In my previous blog A Cluster of Raspberry Pis (1) - Configuration, I left one question: what is the relationship between Kubernetes and Docker? Minikube vs. kind vs. k3s - What should I use? clarifie">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Cluster of Raspberry Pis (3) - k3s">
+<meta property="og:url" content="http://longervision.ca/2020/06/23/Cloud/cluster-rpi-kubernetes-docker-3/index.html">
+<meta property="og:site_name" content="Longer Vision Technology">
+<meta property="og:description" content="In my previous blog A Cluster of Raspberry Pis (1) - Configuration, I left one question: what is the relationship between Kubernetes and Docker? Minikube vs. kind vs. k3s - What should I use? clarifie">
+<meta property="article:published_time" content="2020-06-24T03:17:51.000Z">
+<meta property="article:modified_time" content="2020-06-23T07:19:48.714Z">
+<meta property="article:author" content="Nobody">
+<meta property="article:tag" content="Docker, Kubernetes, k3s, Raspberry Pi, Cluster, Supercomputer">
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+  <link rel="canonical" href="http://longervision.ca/2020/06/23/Cloud/cluster-rpi-kubernetes-docker-3/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>A Cluster of Raspberry Pis (3) - k3s | Longer Vision Technology</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+<meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="English">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Longer Vision Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Github Blog</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2020/06/23/Cloud/cluster-rpi-kubernetes-docker-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">A Cluster of Raspberry Pis (3) - k3s
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-06-23 20:17:51 / Modified: 00:19:48" itemprop="dateCreated datePublished" datetime="2020-06-23T20:17:51-07:00">2020-06-23</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Cloud/" itemprop="url" rel="index"><span itemprop="name">Cloud</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>In my previous blog <a href="../../../../../2020/06/07/Cloud/cluster-rpi-kubernetes-docker-1/">A Cluster of Raspberry Pis (1) - Configuration</a>, I left one question: what is the relationship between <a href="https://kubernetes.io/" target="_blank" rel="noopener">Kubernetes</a> and <a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>? <a href="https://brennerm.github.io/posts/minikube-vs-kind-vs-k3s.html" target="_blank" rel="noopener">Minikube vs. kind vs. k3s - What should I use?</a> clarifies their relationship and differences, and mentioned in its final table (cited as follows):</p>
+<p>Well, I believe this is already toooooo much for this blog. I’ll have to wait until I have my recreation room renovated to my office, and a new desktop will be able to bring me some fresh air. That will be the master of my real cluster, from where, I may be able to try out the <strong>full</strong> <a href="https://kubernetes.io/" target="_blank" rel="noopener">Kubernetes</a>. Good night…</p>
+<h1 id="1-kubernetes"><a class="markdownIt-Anchor" href="#1-kubernetes"></a> 1 <a href="https://kubernetes.io/" target="_blank" rel="noopener">Kubernetes</a></h1>
+<p><code>Kubernetes (commonly stylized as k8s) is an open-source container-orchestration system for automating application deployment, scaling, and management.</code> (cited from <a href="https://en.wikipedia.org/wiki/Kubernetes" target="_blank" rel="noopener">Wikipedia</a>)</p>
+<p>On <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener">Raspberry Pi</a>, a lightweight variant of <a href="https://kubernetes.io/" target="_blank" rel="noopener">Kubernetes</a> is normally preferred. A variety of choices are available:</p>
+<ul>
+<li><a href="https://microk8s.io/" target="_blank" rel="noopener">MicroK8s</a>: <code>MicroK8s is only available for 64-bit Ubuntu images.</code> (Cited from <a href="https://ubuntu.com/tutorials/how-to-kubernetes-cluster-on-raspberry-pi#3-setting-up-each-pi" target="_blank" rel="noopener">How to build a Raspberry Pi Kubernetes cluster using MicroK8s: Setting up each Pi</a>)</li>
+<li><a href="https://k3s.io/" target="_blank" rel="noopener">k3s</a>, <a href="https://k3d.io/" target="_blank" rel="noopener">k3d</a>, <a href="https://k3d.io/" target="_blank" rel="noopener">k3d</a></li>
+<li><a href="https://minikube.sigs.k8s.io/" target="_blank" rel="noopener">Minikube</a></li>
+<li><a href="https://kind.sigs.k8s.io/" target="_blank" rel="noopener">kind</a></li>
+<li><a href="https://github.com/kubernetes/kubeadm" target="_blank" rel="noopener">Kubeadm</a></li>
+</ul>
+<p><a href="https://brennerm.github.io/posts/minikube-vs-kind-vs-k3s.html" target="_blank" rel="noopener">Minikube vs. kind vs. k3s - What should I use?</a> elaborates the differences among <a href="https://minikube.sigs.k8s.io/" target="_blank" rel="noopener">Minikube</a>, <a href="https://kind.sigs.k8s.io/" target="_blank" rel="noopener">kind</a> and <a href="https://k3s.io/" target="_blank" rel="noopener">k3s</a>. Its final table is cited as follows:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"><a href="https://minikube.sigs.k8s.io/" target="_blank" rel="noopener">minikube</a></th>
+<th style="text-align:left"><a href="https://kind.sigs.k8s.io/" target="_blank" rel="noopener">kind</a></th>
+<th style="text-align:left"><a href="https://k3s.io/" target="_blank" rel="noopener">k3s</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">runtime</td>
+<td style="text-align:left">VM</td>
+<td style="text-align:left">container</td>
+<td style="text-align:left">native</td>
+</tr>
+<tr>
+<td style="text-align:left">supported architectures</td>
+<td style="text-align:left">AMD64</td>
+<td style="text-align:left">AMD64</td>
+<td style="text-align:left">AMD64, ARMv7, ARM64</td>
+</tr>
+<tr>
+<td style="text-align:left">supported container runtimes</td>
+<td style="text-align:left"><a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>, <a href="https://cri-o.io/" target="_blank" rel="noopener">CRI-O</a>, <a href="https://containerd.io/" target="_blank" rel="noopener">containerd</a>, <a href="https://gvisor.dev/" target="_blank" rel="noopener">gVisor</a></td>
+<td style="text-align:left"><a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a></td>
+<td style="text-align:left"><a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>, <a href="https://containerd.io/" target="_blank" rel="noopener">containerd</a></td>
+</tr>
+<tr>
+<td style="text-align:left">startup time: initial/following</td>
+<td style="text-align:left">5:19 / 3:15</td>
+<td style="text-align:left">2:48 / 1:06</td>
+<td style="text-align:left">0:15 / 0:15</td>
+</tr>
+<tr>
+<td style="text-align:left">memory requirements</td>
+<td style="text-align:left">2GB</td>
+<td style="text-align:left">8GB (Windows, MacOS)</td>
+<td style="text-align:left">512 MB</td>
+</tr>
+<tr>
+<td style="text-align:left">requires root?</td>
+<td style="text-align:left">no</td>
+<td style="text-align:left">no</td>
+<td style="text-align:left">yes (rootless is experimental)</td>
+</tr>
+<tr>
+<td style="text-align:left">multi-cluster support</td>
+<td style="text-align:left">yes</td>
+<td style="text-align:left">yes</td>
+<td style="text-align:left">no (can be achieved using containers)</td>
+</tr>
+<tr>
+<td style="text-align:left">multi-node support</td>
+<td style="text-align:left">no</td>
+<td style="text-align:left">yes</td>
+<td style="text-align:left">yes</td>
+</tr>
+<tr>
+<td style="text-align:left">project page</td>
+<td style="text-align:left"><a href="https://minikube.sigs.k8s.io/" target="_blank" rel="noopener">minikube</a></td>
+<td style="text-align:left"><a href="https://kind.sigs.k8s.io/" target="_blank" rel="noopener">kind</a></td>
+<td style="text-align:left"><a href="https://k3s.io/" target="_blank" rel="noopener">k3s</a></td>
+</tr>
+</tbody>
+</table>
+<p>Here in my case, I’m going to use <a href="https://k3s.io/" target="_blank" rel="noopener">k3s</a> to manage and monitor the cluster. The following 2 blogs are strongly recommended from me.</p>
+<ul>
+<li><a href="https://opensource.com/article/20/3/kubernetes-raspberry-pi-k3s" target="_blank" rel="noopener">Run Kubernetes on a Raspberry Pi with k3s</a></li>
+<li><a href="https://medium.com/@alexellisuk/kubernetes-1-18-broke-kubectl-run-heres-what-to-do-about-it-2a88e5fb389a" target="_blank" rel="noopener">Kubernetes 1.18 broke “kubectl run”, here’s what to do about it</a></li>
+</ul>
+<h1 id="2-preparation"><a class="markdownIt-Anchor" href="#2-preparation"></a> 2. Preparation</h1>
+<p>Let’s take a look at the <strong>IP</strong> info of <strong>ALL</strong> 4 <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener">Raspberry Pi</a>s. Let’s take <strong>pi04</strong> as the example this time. <strong>pi01</strong>, <strong>pi02</strong>, <strong>pi03</strong> are having very similar <strong>IP</strong> info as <strong>pi04</strong>.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    link/ether b8:27:eb:c1:b8:76 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.1.247/24 brd 192.168.1.255 scope global noprefixroute eth0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 2001:569:7fb8:c600:ca9b:d758:2534:8a9d/64 scope global dynamic mngtmpaddr noprefixroute </span><br><span class="line">       valid_lft 7480sec preferred_lft 7180sec</span><br><span class="line">    inet6 fe80::80b5:3a3e:defe:24aa/64 scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">3: wlan0: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc noop state DOWN group default qlen 1000</span><br><span class="line">    link/ether b8:27:eb:94:ed:23 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">4: wlan1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000</span><br><span class="line">    link/ether e8:4e:06:35:16:6d brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.1.245/24 brd 192.168.1.255 scope global dynamic noprefixroute wlan1</span><br><span class="line">       valid_lft 86060sec preferred_lft 75260sec</span><br><span class="line">    inet6 2001:569:7fb8:c600:5996:3c23:ef08:c367/64 scope global dynamic mngtmpaddr noprefixroute </span><br><span class="line">       valid_lft 7480sec preferred_lft 7180sec</span><br><span class="line">    inet6 fe80::a0ff:56e3:77f5:9bf2/64 scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+<p>As mentioned in <a href="../../../../../2020/06/07/Cloud/cluster-rpi-kubernetes-docker-1/">A Cluster of Raspberry Pis (1) - Configuration</a>, <strong>pi04</strong> is an old <a href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/" target="_blank" rel="noopener">Raspberry Pi 3 Model B Rev 1.2 1GB</a>, which is unfortunately with a broken <strong>Wifi</strong> interface <strong>wlan0</strong>. Therefore, I’ve got to insert a <strong>Wifi</strong> dongle in order to have <strong>Wifi wlan1</strong> enabled.</p>
+<h1 id="3-k3s-installation-and-configuration"><a class="markdownIt-Anchor" href="#3-k3s-installation-and-configuration"></a> 3. <a href="https://k3s.io/" target="_blank" rel="noopener">k3s</a> Installation and Configuration</h1>
+<h2 id="31-k3s-installation-on-master-node-pi01"><a class="markdownIt-Anchor" href="#31-k3s-installation-on-master-node-pi01"></a> 3.1 <a href="https://k3s.io/" target="_blank" rel="noopener">k3s</a> Installation on Master Node pi01</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ curl -sfL https://get.k3s.io | sh -</span><br><span class="line">[INFO]  Finding release for channel stable</span><br><span class="line">[INFO]  Using v1.18.3+k3s1 as release</span><br><span class="line">[INFO]  Downloading hash https://github.com/rancher/k3s/releases/download/v1.18.3+k3s1/sha256sum-arm.txt</span><br><span class="line">[INFO]  Downloading binary https://github.com/rancher/k3s/releases/download/v1.18.3+k3s1/k3s-armhf</span><br><span class="line">[INFO]  Verifying binary download</span><br><span class="line">[INFO]  Installing k3s to /usr/local/bin/k3s</span><br><span class="line">[INFO]  Creating /usr/local/bin/kubectl symlink to k3s</span><br><span class="line">[INFO]  Creating /usr/local/bin/crictl symlink to k3s</span><br><span class="line">[INFO]  Skipping /usr/local/bin/ctr symlink to k3s, command exists in PATH at /usr/bin/ctr</span><br><span class="line">[INFO]  Creating killall script /usr/local/bin/k3s-killall.sh</span><br><span class="line">[INFO]  Creating uninstall script /usr/local/bin/k3s-uninstall.sh</span><br><span class="line">[INFO]  env: Creating environment file /etc/systemd/system/k3s.service.env</span><br><span class="line">[INFO]  systemd: Creating service file /etc/systemd/system/k3s.service</span><br><span class="line">[INFO]  systemd: Enabling k3s unit</span><br><span class="line">Created symlink /etc/systemd/system/multi-user.target.wants/k3s.service → /etc/systemd/system/k3s.service.</span><br><span class="line">[INFO]  systemd: Starting k3s</span><br><span class="line">pi@pi01:~ $ sudo kubectl get nodes</span><br><span class="line">NAME   STATUS   ROLES    AGE     VERSION</span><br><span class="line">pi01   Ready    master   2m42s   v1.18.3+k3s1</span><br></pre></td></tr></table></figure>
+<p>If we take a look at <strong>IP</strong> info, one additional <strong>flannel.1</strong> interface is added as follows:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">4: flannel.1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1450 qdisc noqueue state UNKNOWN group default </span><br><span class="line">    link/ether 3e:53:91:ce:b9:46 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 10.42.0.0/32 brd 10.42.0.0 scope global flannel.1</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet 169.254.238.88/16 brd 169.254.255.255 scope global noprefixroute flannel.1</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::59c5:fbf9:aaf7:46fb/64 scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+<h2 id="32-k3s-installation-on-work-node-pi01-pi02-pi03"><a class="markdownIt-Anchor" href="#32-k3s-installation-on-work-node-pi01-pi02-pi03"></a> 3.2 <a href="https://k3s.io/" target="_blank" rel="noopener">k3s</a> Installation on Work Node pi01, pi02, pi03</h2>
+<p>Before moving forward, we need to write down <strong>node token</strong> on the <strong>master node</strong>, which will be used while the other <strong>work nodes</strong> join in the cluster.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ sudo cat /var/lib/rancher/k3s/server/node-token</span><br><span class="line">K10cedbc6396ab68f6bee0d2df3eb005f0ff9ea17275aed2763b6bf07a06e83ce47::server:9a0d84f3bd8044b341c95f967badd5d3</span><br></pre></td></tr></table></figure>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">pi@pi0X:~ $ curl -sfL http://get.k3s.io | K3S_URL=https://192.168.1.253:6443 \</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> K3S_TOKEN=K10cedbc6396ab68f6bee0d2df3eb005f0ff9ea17275aed2763b6bf07a06e83ce47::server:9a0d84f3bd8044b341c95f967badd5d3 sh -</span></span><br><span class="line">[INFO]  Finding release for channel stable</span><br><span class="line">[INFO]  Using v1.18.3+k3s1 as release</span><br><span class="line">[INFO]  Downloading hash https://github.com/rancher/k3s/releases/download/v1.18.3+k3s1/sha256sum-arm.txt</span><br><span class="line">[INFO]  Skipping binary downloaded, installed k3s matches hash</span><br><span class="line">[INFO]  Skipping /usr/local/bin/kubectl symlink to k3s, command exists in PATH at /usr/bin/kubectl</span><br><span class="line">[INFO]  Skipping /usr/local/bin/crictl symlink to k3s, command exists in PATH at /usr/bin/crictl</span><br><span class="line">[INFO]  Skipping /usr/local/bin/ctr symlink to k3s, command exists in PATH at /usr/bin/ctr</span><br><span class="line">[INFO]  Creating killall script /usr/local/bin/k3s-killall.sh</span><br><span class="line">[INFO]  Creating uninstall script /usr/local/bin/k3s-agent-uninstall.sh</span><br><span class="line">[INFO]  env: Creating environment file /etc/systemd/system/k3s-agent.service.env</span><br><span class="line">[INFO]  systemd: Creating service file /etc/systemd/system/k3s-agent.service</span><br><span class="line">[INFO]  systemd: Enabling k3s-agent unit</span><br><span class="line">Created symlink /etc/systemd/system/multi-user.target.wants/k3s-agent.service → /etc/systemd/system/k3s-agent.service.</span><br><span class="line">[INFO]  systemd: Starting k3s-agent</span><br></pre></td></tr></table></figure>
+<p>, where <strong>X=2, or 3, or 4</strong>.</p>
+<h2 id="33-take-a-look-on-pi01"><a class="markdownIt-Anchor" href="#33-take-a-look-on-pi01"></a> 3.3 Take a Look on pi01</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ sudo kubectl get nodes</span><br><span class="line">NAME   STATUS   ROLES    AGE     VERSION</span><br><span class="line">pi02   Ready    &lt;none&gt;   5m7s    v1.18.3+k3s1</span><br><span class="line">pi03   Ready    &lt;none&gt;   4m18s   v1.18.3+k3s1</span><br><span class="line">pi01   Ready    master   20m     v1.18.3+k3s1</span><br><span class="line">pi04   Ready    &lt;none&gt;   11s     v1.18.3+k3s1</span><br></pre></td></tr></table></figure>
+<h2 id="34-access-raspberry-pi-cluster-from-pc"><a class="markdownIt-Anchor" href="#34-access-raspberry-pi-cluster-from-pc"></a> 3.4 Access <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener">Raspberry Pi</a> Cluster from PC</h2>
+<p>We can further configure our PC to be able to access the <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener">Raspberry Pi</a> Cluster. For details, please refer to <a href="https://opensource.com/article/20/3/kubernetes-raspberry-pi-k3s" target="_blank" rel="noopener">Run Kubernetes on a Raspberry Pi with k3s</a>. On my laptop, I can do:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> ✔  kubectl get nodes</span><br><span class="line">NAME   STATUS   ROLES    AGE     VERSION</span><br><span class="line">pi02   Ready    &lt;none&gt;   3h27m   v1.18.3+k3s1</span><br><span class="line">pi03   Ready    &lt;none&gt;   3h26m   v1.18.3+k3s1</span><br><span class="line">pi04   Ready    &lt;none&gt;   3h22m   v1.18.3+k3s1</span><br><span class="line">pi01   Ready    master   3h42m   v1.18.3+k3s1</span><br></pre></td></tr></table></figure>
+<p>We can even specify the role name by the following command:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> ✔  kubectl label nodes pi0X kubernetes.io/role=worker</span><br><span class="line">node/pi0X labeled</span><br></pre></td></tr></table></figure>
+<p>, where <strong>X=2, or 3, or 4</strong>.</p>
+<p>Let’s take a look at all nodes again:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"> 64  ✔  kubectl get nodes</span><br><span class="line">NAME   STATUS   ROLES    AGE    VERSION</span><br><span class="line">pi04   Ready    worker   2d7h   v1.18.3+k3s1</span><br><span class="line">pi03   Ready    worker   2d7h   v1.18.3+k3s1</span><br><span class="line">pi01   Ready    master   2d7h   v1.18.3+k3s1</span><br><span class="line">pi02   Ready    worker   2d7h   v1.18.3+k3s1</span><br><span class="line"> 66  ✘  kubectl get pods --all-namespaces</span><br><span class="line">  ~ </span><br><span class="line">NAMESPACE              NAME                                         READY   STATUS             RESTARTS   AGE</span><br><span class="line">kube-system            helm-install-traefik-m49zm                   0/1     Completed          0          2d7h</span><br><span class="line">kube-system            svclb-traefik-djtgw                          2/2     Running            2          2d7h</span><br><span class="line">kube-system            svclb-traefik-cn76f                          2/2     Running            2          2d7h</span><br><span class="line">kube-system            local-path-provisioner-6d59f47c7-5gz67       1/1     Running            1          2d7h</span><br><span class="line">kube-system            svclb-traefik-7bwtl                          2/2     Running            2          2d7h</span><br><span class="line">kube-system            coredns-8655855d6-wg68z                      1/1     Running            1          2d7h</span><br><span class="line">kube-system            traefik-758cd5fc85-vn7xg                     1/1     Running            1          2d7h</span><br><span class="line">kube-system            metrics-server-7566d596c8-v2vgp              1/1     Running            1          2d7h</span><br><span class="line">kube-system            svclb-traefik-r9x5v                          2/2     Running            4          2d7h</span><br><span class="line">kubernetes-dashboard   dashboard-metrics-scraper-6b4884c9d5-ct6lh   1/1     Running            0          43h</span><br><span class="line">kubernetes-dashboard   kubernetes-dashboard-7b544877d5-s4spx        0/1     CrashLoopBackOff   489        43h</span><br><span class="line"> 67  ✔  kubectl get pods</span><br><span class="line">  ~ </span><br><span class="line">No resources found in default namespace.</span><br></pre></td></tr></table></figure>
+<h1 id="4-create-deployment"><a class="markdownIt-Anchor" href="#4-create-deployment"></a> 4. Create Deployment</h1>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> 73  ✔  kubectl create deployment nginx-sample --image=nginx</span><br><span class="line">  ~ </span><br><span class="line">deployment.apps/nginx-sample created</span><br></pre></td></tr></table></figure>
+<p>After a while, <strong>nginx-sample</strong> will be successfully deployed.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> 79  ✔  kubectl get deployments</span><br><span class="line">  ~ </span><br><span class="line">NAME           READY   UP-TO-DATE   AVAILABLE   AGE</span><br><span class="line">nginx-sample   1/1     1            1           12m</span><br><span class="line"> 80  ✔  kubectl get pods</span><br><span class="line">  ~ </span><br><span class="line">NAME                           READY   STATUS    RESTARTS   AGE</span><br><span class="line">nginx-sample-879f5cf56-kg6xf   1/1     Running   0          12m</span><br><span class="line"> 81  ✔  kubectl get pods -o wide</span><br><span class="line">  ~ </span><br><span class="line">NAME                           READY   STATUS    RESTARTS   AGE   IP           NODE   NOMINATED NODE   READINESS GATES</span><br><span class="line">nginx-sample-879f5cf56-kg6xf   1/1     Running   0          12m   10.42.0.15   pi01   &lt;none&gt;           &lt;none&gt;</span><br></pre></td></tr></table></figure>
+<p>Now, let’s expose this service and take a look from the browser:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> 82  ✔  kubectl expose deployment nginx-sample --type="NodePort" --port 80 </span><br><span class="line">  ~ </span><br><span class="line">service/nginx-sample exposed</span><br><span class="line"> 83  ✔  kubectl get services </span><br><span class="line">  ~ </span><br><span class="line">NAME           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE</span><br><span class="line">kubernetes     ClusterIP   10.43.0.1       &lt;none&gt;        443/TCP        96m</span><br><span class="line">nginx-sample   NodePort    10.43.195.237   &lt;none&gt;        80:30734/TCP   72s</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Docker-Kubernetes-k3s-Raspberry-Pi-Cluster-Supercomputer/" rel="tag"># Docker, Kubernetes, k3s, Raspberry Pi, Cluster, Supercomputer</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/22/Cloud/cluster-rpi-kubernetes-docker-2/" rel="next" title="A Cluster of Raspberry Pis (2) - docker registry">
+                <i class="fa fa-chevron-left"></i> A Cluster of Raspberry Pis (2) - docker registry
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Nobody</p>
+              <p class="site-description motion-element" itemprop="description">Longer Vision Technology Github Blog</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/%20%7C%7C%20archive">
+                
+                    <span class="site-state-item-count">89</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">84</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-kubernetes"><span class="nav-number">1.</span> <span class="nav-text"> 1 Kubernetes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-preparation"><span class="nav-number">2.</span> <span class="nav-text"> 2. Preparation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-k3s-installation-and-configuration"><span class="nav-number">3.</span> <span class="nav-text"> 3. k3s Installation and Configuration</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#31-k3s-installation-on-master-node-pi01"><span class="nav-number">3.1.</span> <span class="nav-text"> 3.1 k3s Installation on Master Node pi01</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#32-k3s-installation-on-work-node-pi01-pi02-pi03"><span class="nav-number">3.2.</span> <span class="nav-text"> 3.2 k3s Installation on Work Node pi01, pi02, pi03</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#33-take-a-look-on-pi01"><span class="nav-number">3.3.</span> <span class="nav-text"> 3.3 Take a Look on pi01</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#34-access-raspberry-pi-cluster-from-pc"><span class="nav-number">3.4.</span> <span class="nav-text"> 3.4 Access Raspberry Pi Cluster from PC</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-create-deployment"><span class="nav-number">4.</span> <span class="nav-text"> 4. Create Deployment</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nobody</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v4.2.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+   
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
