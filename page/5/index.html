@@ -819,7 +819,7 @@ etc.</li>
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-07-03 01:13:43" itemprop="dateModified" datetime="2020-07-03T01:13:43-07:00">2020-07-03</time>
+                <time title="Modified: 2020-09-09 22:32:16" itemprop="dateModified" datetime="2020-09-09T22:32:16-07:00">2020-09-09</time>
               
             
           </span>
@@ -938,7 +938,11 @@ For the 2nd time, after <strong>libcups2-dev</strong> had been installed from Ub
 <p><strong>Solution</strong>: <a href="https://askubuntu.com/questions/915725/not-rebooting-to-the-lastest-kernel-after-update-to-grub-2" target="_blank" rel="noopener">Not rebooting to the lastest kernel after update to grub 2</a></p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo grub-install /dev/sdb</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo update-grub</span></span><br></pre></td></tr></table></figure>
 <p><strong>Reason</strong>: <strong>grub</strong> is <strong>NOT</strong> installed under the <strong>RIGHT</strong> hard drive.</p>
-
+<h1 id="skill-14-meson-conflicts-against-pathlib"><a class="markdownIt-Anchor" href="#skill-14-meson-conflicts-against-pathlib"></a> Skill 14 - Meson Conflicts Against pathlib?</h1>
+<p><strong>Solution</strong>:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> pip uninstall pathlib</span></span><br></pre></td></tr></table></figure>
+<p>More details can be found <a href="https://github.com/Kozea/WeasyPrint/issues/807" target="_blank" rel="noopener">https://github.com/Kozea/WeasyPrint/issues/807</a>.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> 12  ✔  python</span><br><span class="line">  4s  ~/.local/lib/python3.6/site-packages </span><br><span class="line">Python 3.6.9 (default, Jul 17 2020, 12:50:27) </span><br><span class="line">[GCC 8.4.0] on linux</span><br><span class="line">Type "help", "copyright", "credits" or "license" for more information.</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; from pathlib import Path</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; <span class="built_in">print</span>(Path().read_text)</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File "&lt;stdin&gt;", line 1, in &lt;module&gt;</span><br><span class="line">AttributeError: 'PosixPath' object has no attribute 'read_text'</span><br></pre></td></tr></table></figure>
           
         
       
