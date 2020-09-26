@@ -1223,7 +1223,7 @@ etc.</li>
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-09-09 22:32:16" itemprop="dateModified" datetime="2020-09-09T22:32:16-07:00">2020-09-09</time>
+                <time title="Modified: 2020-09-26 08:43:27" itemprop="dateModified" datetime="2020-09-26T08:43:27-07:00">2020-09-26</time>
               
             
           </span>
@@ -1347,6 +1347,18 @@ For the 2nd time, after <strong>libcups2-dev</strong> had been installed from Ub
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> pip uninstall pathlib</span></span><br></pre></td></tr></table></figure>
 <p>More details can be found <a href="https://github.com/Kozea/WeasyPrint/issues/807" target="_blank" rel="noopener">https://github.com/Kozea/WeasyPrint/issues/807</a>.</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> 12  ✔  python</span><br><span class="line">  4s  ~/.local/lib/python3.6/site-packages </span><br><span class="line">Python 3.6.9 (default, Jul 17 2020, 12:50:27) </span><br><span class="line">[GCC 8.4.0] on linux</span><br><span class="line">Type "help", "copyright", "credits" or "license" for more information.</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; from pathlib import Path</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; <span class="built_in">print</span>(Path().read_text)</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File "&lt;stdin&gt;", line 1, in &lt;module&gt;</span><br><span class="line">AttributeError: 'PosixPath' object has no attribute 'read_text'</span><br></pre></td></tr></table></figure>
+<h1 id="skill-15-run-gdb-with-user-root"><a class="markdownIt-Anchor" href="#skill-15-run-gdb-with-user-root"></a> Skill 15 - Run gdb with user root</h1>
+<ul>
+<li>Create a script called <strong>gdb</strong> in e.g. my home directory, containing: <code>pkexec /usr/bin/gdb &quot;$@&quot;</code></li>
+<li>make it executable</li>
+<li>modify the <code>launch.json</code> in <strong>VSCode</strong> to call the script (obviously change username accordingly) by adding <code>miDebuggerPath</code>:</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">  "externalConsole": false,</span><br><span class="line">  "miDebuggerPath": "/home/&lt;username&gt;/gdb",</span><br><span class="line">  "MIMode": "gdb",</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<ul>
+<li>whilst debugging, use <code>top</code> or such like to verify the process is running as <strong>root</strong>.</li>
+</ul>
+<p>Solution: <a href="https://stackoverflow.com/questions/40033311/how-to-debug-programs-with-sudo-in-vscode" target="_blank" rel="noopener">How to debug programs with “sudo” in VSCODE</a>.</p>
+
           
         
       
