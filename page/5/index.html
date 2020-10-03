@@ -174,6 +174,95 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/07/06/SBCs/ARM/NVidia-Jetson-Nano-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/06/SBCs/ARM/NVidia-Jetson-Nano-1/" class="post-title-link" itemprop="url">NVidia Jetson Nano - 1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-07-06 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-06T00:00:00-07:00">2019-07-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-08-18 14:58:37" itemprop="dateModified" datetime="2019-08-18T14:58:37-07:00">2019-08-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>I got the <a target="_blank" rel="noopener" href="https://ark.intel.com/content/www/us/en/ark/products/99445/intel-wireless-ac-9260.html">Intel Wireless-AC 9260</a> today, and a proper <a target="_blank" rel="noopener" href="https://www.memoryexpress.com/Products/MX76104">128G micro SD card</a>, finally… Let’s try out <a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetson-nano-developer-kit">Jetson Nano</a>.</p>
+<h1 id="PART-A-Install-JetPack-onto-Jetson-Nano"><a href="#PART-A-Install-JetPack-onto-Jetson-Nano" class="headerlink" title="PART A: Install JetPack onto Jetson Nano"></a>PART A: Install JetPack onto Jetson Nano</h1><p>Let’s simply use the command <strong>dd</strong> to have <a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetpack">JetPack</a> installed onto the micro SD card as follows:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜  JetPack sudo dd bs=4M if=jetson-nano-sd-r32.1.1-2019-05-31.img of=/dev/mmcblk0 conv=fsync</span><br><span class="line">[sudo] password for lvision: </span><br><span class="line">3072+0 records in</span><br><span class="line">3072+0 records out</span><br><span class="line">12884901888 bytes (13 GB, 12 GiB) copied, 311.804 s, 41.3 MB/s</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="PART-B-Boot-Into-Jetson-Nano-and-Test-it-Out"><a href="#PART-B-Boot-Into-Jetson-Nano-and-Test-it-Out" class="headerlink" title="PART B: Boot Into Jetson Nano and Test it Out"></a>PART B: Boot Into Jetson Nano and Test it Out</h1><h2 id="1-First-Boot"><a href="#1-First-Boot" class="headerlink" title="1. First Boot"></a>1. First Boot</h2><p>It seems <strong>GUI</strong> is a must for Jetson Nano’s <strong>FIRST BOOT</strong>, which is ignored in this blog.</p>
+<h2 id="2-SSH-into-Jetson-Nano"><a href="#2-SSH-into-Jetson-Nano" class="headerlink" title="2. SSH into Jetson Nano"></a>2. SSH into Jetson Nano</h2><p><span style="color:red"><strong>For now, Jetson Nano is wired connected onto the Internet. And it seems <a target="_blank" rel="noopener" href="https://ark.intel.com/content/www/us/en/ark/products/99445/intel-wireless-ac-9260.html">Intel Wireless-AC 9260</a> is NOT working properly with Jetson Nano yet. Details can be found at <a target="_blank" rel="noopener" href="https://devtalk.nvidia.com/default/topic/1050449/jetson-nano/intel-9260-wifi-on-jetson-nano-jetbot">https://devtalk.nvidia.com/default/topic/1050449/jetson-nano/intel-9260-wifi-on-jetson-nano-jetbot</a></strong></span></p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ssh lvision@192.168.1.71</span><br><span class="line">lvision@192.168.1.71&#x27;s password: </span><br><span class="line">Welcome to Ubuntu 18.04.2 LTS (GNU/Linux 4.9.140-tegra aarch64)</span><br><span class="line"></span><br><span class="line"> * Documentation:  https://help.ubuntu.com</span><br><span class="line"> * Management:     https://landscape.canonical.com</span><br><span class="line"> * Support:        https://ubuntu.com/advantage</span><br><span class="line"></span><br><span class="line">This system has been minimized by removing packages and content that are</span><br><span class="line">not required on a system that users do not log into.</span><br><span class="line"></span><br><span class="line">To restore this content, you can run the &#x27;unminimize&#x27; command.</span><br><span class="line"></span><br><span class="line">450 packages can be updated.</span><br><span class="line">210 updates are security updates.</span><br><span class="line"></span><br><span class="line">Last login: Sat Jul  6 18:41:11 2019 from 192.168.1.200</span><br><span class="line">lvision@lvision-desktop:~$</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Check-JetPack-OS"><a href="#3-Check-JetPack-OS" class="headerlink" title="3. Check JetPack OS"></a>3. Check JetPack OS</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">lvision@lvision-desktop:~$ uname -a</span><br><span class="line">Linux lvision-desktop 4.9.140-tegra #1 SMP PREEMPT Wed Mar 13 00:32:22 PDT 2019 aarch64 aarch64 aarch64 GNU/Linux</span><br><span class="line">lvision@lvision-desktop:~$ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID: Ubuntu</span><br><span class="line">Description:    Ubuntu 18.04.2 LTS</span><br><span class="line">Release:        18.04</span><br><span class="line">Codename:       bionic</span><br><span class="line">ilvision@lvision-desktop:~$ ip -c address</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: dummy0: &lt;BROADCAST,NOARP&gt; mtu 1500 qdisc noop state DOWN group default qlen 1000</span><br><span class="line">    link/ether 9a:c2:3a:84:96:66 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">3: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    link/ether 00:04:4b:e4:12:59 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.1.71/24 brd 192.168.1.255 scope global dynamic noprefixroute eth0</span><br><span class="line">       valid_lft 85183sec preferred_lft 85183sec</span><br><span class="line">    inet6 2001:569:7ef8:d600:858b:9c23:db05:7b3a/64 scope global temporary dynamic </span><br><span class="line">       valid_lft 7476sec preferred_lft 7176sec</span><br><span class="line">    inet6 2001:569:7ef8:d600:509c:9fe9:1cb7:2b7f/64 scope global dynamic mngtmpaddr noprefixroute </span><br><span class="line">       valid_lft 7476sec preferred_lft 7176sec</span><br><span class="line">    inet6 fe80::1714:cd7d:771d:a4/64 scope link noprefixroute </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">4: rndis0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc pfifo_fast master l4tbr0 state DOWN group default qlen 1000</span><br><span class="line">    link/ether da:d4:ee:c5:ed:e9 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">5: usb0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc pfifo_fast master l4tbr0 state DOWN group default qlen 1000</span><br><span class="line">    link/ether da:d4:ee:c5:ed:eb brd ff:ff:ff:ff:ff:ff</span><br><span class="line">6: l4tbr0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc noqueue state DOWN group default qlen 1000</span><br><span class="line">    link/ether da:d4:ee:c5:ed:e9 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.55.1/24 brd 192.168.55.255 scope global l4tbr0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::1/128 scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::a495:bff:fe21:2ad0/64 scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-Update-and-Upgrade-All-Upgradable-Packages"><a href="#4-Update-and-Upgrade-All-Upgradable-Packages" class="headerlink" title="4. Update and Upgrade All Upgradable Packages"></a>4. Update and Upgrade All Upgradable Packages</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">lvision@lvision-desktop:~$ sudo apt upgrade</span><br><span class="line">[sudo] password for lvision: </span><br><span class="line">Reading package lists... Done</span><br><span class="line">Building dependency tree       </span><br><span class="line">Reading state information... Done</span><br><span class="line">Calculating upgrade... Done</span><br><span class="line">The following packages were automatically installed and are no longer required:</span><br><span class="line">  apt-clone archdetect-deb busybox-static cryptsetup-bin dpkg-repack gir1.2-timezonemap-1.0 gir1.2-xkl-1.0 grub-common</span><br><span class="line">  kde-window-manager kinit kio kpackagetool5 kwayland-data kwin-common kwin-data kwin-x11 libdebian-installer4 libkdecorations2-5v5</span><br><span class="line">  libkdecorations2private5v5 libkf5activities5 libkf5attica5 libkf5completion-data libkf5completion5 libkf5declarative-data</span><br><span class="line">  libkf5declarative5 libkf5doctools5 libkf5globalaccel-data libkf5globalaccel5 libkf5globalaccelprivate5 libkf5idletime5</span><br><span class="line">  libkf5jobwidgets-data libkf5jobwidgets5 libkf5kcmutils-data libkf5kcmutils5 libkf5kiocore5 libkf5kiontlm5 libkf5kiowidgets5</span><br><span class="line">  libkf5newstuff-data libkf5newstuff5 libkf5newstuffcore5 libkf5package-data libkf5package5 libkf5plasma5 libkf5quickaddons5</span><br><span class="line">  libkf5solid5 libkf5solid5-data libkf5sonnet5-data libkf5sonnetcore5 libkf5sonnetui5 libkf5textwidgets-data libkf5textwidgets5</span><br><span class="line">  libkf5waylandclient5 libkf5waylandserver5 libkf5xmlgui-bin libkf5xmlgui-data libkf5xmlgui5 libkscreenlocker5</span><br><span class="line">  libkwin4-effect-builtins1 libkwineffects11 libkwinglutils11 libkwinxrenderutils11 libllvm6.0 libqgsttools-p1 libqt5designer5</span><br><span class="line">  libqt5help5 libqt5multimedia5 libqt5multimedia5-plugins libqt5multimediaquick-p5 libqt5multimediawidgets5 libqt5opengl5</span><br><span class="line">  libqt5positioning5 libqt5printsupport5 libqt5qml5 libqt5quick5 libqt5quickwidgets5 libqt5sensors5 libqt5sql5 libqt5test5</span><br><span class="line">  libqt5webchannel5 libqt5webkit5 libxcb-composite0 libxcb-cursor0 libxcb-damage0 os-prober python3-dbus.mainloop.pyqt5 python3-icu</span><br><span class="line">  python3-pam python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtwebkit python3-sip qml-module-org-kde-kquickcontrolsaddons</span><br><span class="line">  qml-module-qtmultimedia qml-module-qtquick2 rdate</span><br><span class="line">Use &#x27;sudo apt autoremove&#x27; to remove them.</span><br><span class="line">The following NEW packages will be installed:</span><br><span class="line">  containerd gstreamer1.0-gtk3 libdrm-etnaviv1 libllvm8 python3-dateutil runc</span><br><span class="line">The following packages will be upgraded:</span><br><span class="line">......</span><br><span class="line">Setting up update-notifier (3.192.1.7) ...</span><br><span class="line">Setting up ubuntu-desktop (1.417.1) ...</span><br><span class="line">Processing triggers for libc-bin (2.27-3ubuntu1) ...</span><br><span class="line">Processing triggers for resolvconf (1.79ubuntu10.18.04.3) ...</span><br><span class="line">Processing triggers for initramfs-tools (0.130ubuntu3.8) ...</span><br><span class="line">update-initramfs: Generating /boot/initrd.img-4.9.140-tegra</span><br><span class="line">Warning: couldn&#x27;t identify filesystem type for fsck hook, ignoring.</span><br><span class="line">/sbin/ldconfig.real: Warning: ignoring configuration file that cannot be opened: /etc/ld.so.conf.d/aarch64-linux-gnu_EGL.conf: No such file or directory</span><br><span class="line">/sbin/ldconfig.real: Warning: ignoring configuration file that cannot be opened: /etc/ld.so.conf.d/aarch64-linux-gnu_GL.conf: No such file or directory</span><br><span class="line">Processing triggers for dbus (1.12.2-1ubuntu1.1) ...</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/07/01/Robotics/Arduino-Robotic-Arm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1206,129 +1295,6 @@ Please refer to [Armbian docs - How to set fixed IP?](https://docs.armbian.com/U
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/29/Robotics/IgnitionRobotics-Gazebo/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/01/29/Robotics/IgnitionRobotics-Gazebo/" class="post-title-link" itemprop="url">Ignition Robotics - Gazebo</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-01-29 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-29T00:00:00-08:00">2019-01-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:38:23" itemprop="dateModified" datetime="2019-08-18T14:38:23-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Robotics/" itemprop="url" rel="index"><span itemprop="name">Robotics</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>It seems <a target="_blank" rel="noopener" href="http://gazebosim.org/">Gazebo</a> is <strong>NOW</strong> a part of <a target="_blank" rel="noopener" href="https://ignitionrobotics.org/">Ignition Robotics</a>??? Please take a look at my Ignition Robotics Bitbucket Issue <a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-gazebo/issues/11/whats-the-realationship-between-ign-gazebo">What’s the realationship between ign-gazebo and gazebo?</a> And, today, let’s <strong>build <a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/">IgnitionRobotics</a> from source</strong>.</p>
-<h1 id="How-to-Build-IgnitionRobotics"><a href="#How-to-Build-IgnitionRobotics" class="headerlink" title="How to Build IgnitionRobotics"></a>How to Build IgnitionRobotics</h1><h2 id="Use-Branch-gz11"><a href="#Use-Branch-gz11" class="headerlink" title="Use Branch gz11"></a>Use Branch gz11</h2><p><span style="color:red"><strong>NOTE</strong>: In order to have the <strong>LATEST</strong> version built, please make sure you always give the priority to branch <strong>gz11</strong> rather than branch <strong>default</strong>.</span></p>
-<p>For instance <a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-cmake/src/gz11/">ign-cmake</a>:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://bitbucket.org/ignitionrobotics/ign-cmake/src/gz11/</span><br></pre></td></tr></table></figure>
-
-<h2 id="Important-Things"><a href="#Important-Things" class="headerlink" title="Important Things"></a>Important Things</h2><p>Two things to emphasize before building.</p>
-<ol>
-<li>To have all the packages at <a target="_blank" rel="noopener" href="https://ignitionrobotics.org/libs">Ignition Robotics Development Libraries</a> successfully built, we need to build all libraries <strong>in a particular sequence</strong>.</li>
-<li>Some required 3rd-party libraries are <strong>additionally</strong> installed while building <a target="_blank" rel="noopener" href="https://ignitionrobotics.org/libs">Ignition Robotics Development Libraries</a>, including:</li>
-</ol>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/OSGeo/gdal/">gdal</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/dartsim/dart">DART</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/openscenegraph/OpenSceneGraph">OpenSceneGraph</a></li>
-<li><a target="_blank" rel="noopener" href="https://bitbucket.org/sinbad/ogre/src/v2-1/">Ogre2</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/vrpn/vrpn">vrpn</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/OSVR/OSVR-Core.git">OSVR</a>: Please make sure <strong>unifiedvideoinertialtracker</strong> is excluded from building for now.<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#add_subdirectory(unifiedvideoinertialtracker)</span></span><br></pre></td></tr></table></figure></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/facebook/folly/">folly</a>: required by <strong>unifiedvideoinertialtracker</strong>, which requires <a target="_blank" rel="noopener" href="https://www.boost.org/">boost</a> built by <strong>C++14</strong>. For now, this is <strong>excluded</strong> from building.</li>
-</ul>
-<h2 id="Build-Ignition-Robotics"><a href="#Build-Ignition-Robotics" class="headerlink" title="Build Ignition Robotics"></a>Build Ignition Robotics</h2><p>Now, let’s start building <a target="_blank" rel="noopener" href="https://ignitionrobotics.org/libs">Ignition Robotics Development Libraries</a>.</p>
-<ol>
-<li><a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-cmake/src/gz11/">ign-cmake</a>: <strong>BUILD_TESTING OFF</strong></li>
-<li><a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-math/src/gz11">ign-math</a>: <strong>ruby-dev needs to be installed FIRST</strong></li>
-<li><a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-common/src/gz11">ign-common</a>: <strong>libgts needs to be installed FIRST</strong></li>
-<li><a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-tools/src/default/">ign-tools</a></li>
-<li><a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-msgs/src/gz11/">ign-msgs</a></li>
-<li><a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-transport/src/gz11/">ign-transport</a>: <strong>CXX_FLAGS=-I/usr/include/c++/7</strong> and comment out line #35 of file <strong>test_config.h</strong>.<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//#include &lt;filesystem&gt; // line 35</span></span><br></pre></td></tr></table></figure></li>
-<li><a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-rendering/src/default/">ign-rendering</a>: Modify <strong>CMakeLists.txt line 62</strong>, <strong>ogre</strong> to <strong>ogre2</strong></li>
-<li><a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-plugin/src/gz11/">ign-plugin</a></li>
-<li><a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-gui/src/gz11/">ign-gui</a></li>
-<li><a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-fuel-tools/src/default/">ign-fuel-tools</a></li>
-<li><a target="_blank" rel="noopener" href="https://bitbucket.org/osrf/sdformat/src/gz11/">SDFormat8</a>: <strong>C++8 is required for building</strong></li>
-<li><a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-physics/src/gz11/">ign-physics</a>: Since I’m using <a target="_blank" rel="noopener" href="https://github.com/dartsim/dart">dart 7.0</a>, please figure out some trivial bugs about <strong>DartLoader</strong> in file <a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-physics/src/default/test/plugins/DARTDoublePendulum.cc">DARTDoublePendulum.cc</a>.</li>
-<li><a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-sensors/src/default/">ign-sensors</a></li>
-<li><a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-gazebo/src/default/">ign-gazebo</a></li>
-<li><a target="_blank" rel="noopener" href="https://bitbucket.org/osrf/gazebo/src/default/">gazebo</a>: <strong>Going to be deprecated soon</strong><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-- BUILD WARNINGS</span><br><span class="line">-- Oculus Rift support will be disabled.</span><br><span class="line">-- END BUILD WARNINGS</span><br></pre></td></tr></table></figure>
-
-
-</li>
-</ol>
-<h1 id="Some-Bugs-Proposed-by-Me"><a href="#Some-Bugs-Proposed-by-Me" class="headerlink" title="Some Bugs Proposed by Me"></a>Some Bugs Proposed by Me</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-gazebo/issues/11/whats-the-realationship-between-ign-gazebo">What’s the realationship between ign-gazebo and gazebo?</a></li>
-<li><a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-rendering/issues/43/should-i-have-both-ogre-and-ogre2">Should I have both OGRE and OGRE2 installed?</a></li>
-<li><a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-gui/issues/38/gz11-missing-ignition-rendering1">gz11 - Missing: ignition-rendering1 (Components: ogre)</a></li>
-<li><a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-cmake/issues/50/make-6-cmakefiles-codecheck-error-1">make[6]: *** [CMakeFiles/codecheck] Error 1</a></li>
-</ul>
-<h1 id="Some-Tests"><a href="#Some-Tests" class="headerlink" title="Some Tests"></a>Some Tests</h1><h2 id="ign-rendering-via-Ogre2-Test"><a href="#ign-rendering-via-Ogre2-Test" class="headerlink" title="ign-rendering via Ogre2 Test"></a><a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-rendering/src/gz11/">ign-rendering</a> via <a target="_blank" rel="noopener" href="https://bitbucket.org/sinbad/ogre/branch/v2-1">Ogre2</a> Test</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">21:31:15: Starting .../IgnitionRobotics/Ogre2Demo...</span><br><span class="line">[Wrn] [ColladaLoader.cc:2070] Triangle input semantic: &#x27;COLOR&#x27; is currently not supported</span><br><span class="line">[Msg] Loading plugin [ignition-rendering1-ogre2]</span><br><span class="line">===============================</span><br><span class="line">  TAB - Switch render engines  </span><br><span class="line">  ESC - Exit                   </span><br><span class="line">===============================</span><br><span class="line">Selected visual at position: 309 294: pump</span><br><span class="line">Selected visual at position: 458 307: sphere</span><br><span class="line">Selected visual at position: 515 327: pump</span><br><span class="line">Selected visual at position: 447 365: pump</span><br><span class="line">Selected visual at position: 497 427: plane</span><br><span class="line">Selected visual at position: 197 328: cylinder</span><br><span class="line">Selected visual at position: 241 394: cylinder</span><br><span class="line">Selected visual at position: 130 340: duck</span><br><span class="line">Selected visual at position: 419 444: duck</span><br><span class="line">No visual found at position: 503 296</span><br><span class="line">Selected visual at position: 505 350: pump</span><br><span class="line">Selected visual at position: 412 326: pump</span><br><span class="line">Selected visual at position: 385 230: duck</span><br><span class="line">Selected visual at position: 361 264: box</span><br><span class="line">Selected visual at position: 396 270: sphere</span><br><span class="line">Selected visual at position: 322 335: pump</span><br><span class="line">Selected visual at position: 359 352: plane</span><br><span class="line">Selected visual at position: 539 422: plane</span><br><span class="line">Selected visual at position: 406 366: pump</span><br><span class="line">Selected visual at position: 431 374: pump</span><br><span class="line">Selected visual at position: 510 422: cylinder</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Robots/IgnitionRobotics/01_ogre2_demo.png" alt="Ogre2 Demo"></p>
-<h2 id="ign-gazebo-Performance-Test"><a href="#ign-gazebo-Performance-Test" class="headerlink" title="ign-gazebo Performance Test"></a><a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-gazebo/src/default/">ign-gazebo</a> Performance Test</h2><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Robots/IgnitionRobotics/02_matching-entity.png" alt="Matching Entity"></p>
-<h2 id="ign-gazebo-Integration-Test"><a href="#ign-gazebo-Integration-Test" class="headerlink" title="ign-gazebo Integration Test"></a><a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-gazebo/src/default/">ign-gazebo</a> Integration Test</h2>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1398,7 +1364,7 @@ Please refer to [Armbian docs - How to set fixed IP?](https://docs.armbian.com/U
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">89</span>
+          <span class="site-state-item-count">90</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1407,7 +1373,7 @@ Please refer to [Armbian docs - How to set fixed IP?](https://docs.armbian.com/U
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">87</span>
+        <span class="site-state-item-count">88</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
