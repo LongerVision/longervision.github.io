@@ -13,11 +13,13 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"8.0.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
 
   <meta name="description" content="Today, let’s try to build the MOST RECENT GCC 9.1. We strictly follow the TERRIFIC blog How to Build a GCC Cross-Compiler with trivial modifications for my x86_64 desktop instead of aarch64 cross comp">
@@ -33,10 +35,11 @@
 <meta property="article:tag" content="Linux, GCC">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="http://longervision.ca/2019/06/20/OperatingSystems/CompilersTools/build-gcc/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -56,49 +59,61 @@
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">Longer Vision Technology</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">Github Blog</p>
   </div>
@@ -111,9 +126,8 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
+  <ul class="main-menu menu">
         <li class="menu-item menu-item-home">
 
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
@@ -134,21 +148,6 @@
     <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
   </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-schedule">
-
-    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
-
-  </li>
   </ul>
 </nav>
 
@@ -156,6 +155,64 @@
 
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Preparations"><span class="nav-number">1.</span> <span class="nav-text">Preparations</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Packages-Required-on-HOST"><span class="nav-number">1.1.</span> <span class="nav-text">Packages Required on HOST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Get-ALL-Packages-for-Building-GCC"><span class="nav-number">1.2.</span> <span class="nav-text">Get ALL Packages for Building GCC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prepare-Symbolic-Links"><span class="nav-number">1.3.</span> <span class="nav-text">Prepare Symbolic Links</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prepare-Build-Target-Folder"><span class="nav-number">1.4.</span> <span class="nav-text">Prepare Build Target Folder</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Start-Building"><span class="nav-number">2.</span> <span class="nav-text">Start Building</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Binutils"><span class="nav-number">2.1.</span> <span class="nav-text">Binutils</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-Kernel-Headers"><span class="nav-number">2.2.</span> <span class="nav-text">Linux Kernel Headers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-C-Compilers"><span class="nav-number">2.3.</span> <span class="nav-text">C&#x2F;C++ Compilers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GLibc"><span class="nav-number">2.4.</span> <span class="nav-text">GLibc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Compiler-Support-Library"><span class="nav-number">2.5.</span> <span class="nav-text">Compiler Support Library</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-Standard-C-Library"><span class="nav-number">2.6.</span> <span class="nav-text">Build Standard C Library</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-Standard-C-Library-1"><span class="nav-number">2.7.</span> <span class="nav-text">Build Standard C++ Library</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Finishing-and-Test"><span class="nav-number">3.</span> <span class="nav-text">Finishing and Test</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Check-GCC-Version"><span class="nav-number">3.1.</span> <span class="nav-text">Check GCC Version</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Run-Hello-World"><span class="nav-number">3.2.</span> <span class="nav-text">Run Hello World</span></a></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Nobody</p>
+  <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">89</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
@@ -164,19 +221,24 @@
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
+      
 
-    
+      
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/06/20/OperatingSystems/CompilersTools/build-gcc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -193,37 +255,39 @@
           Build GCC
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-06-20 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-20T00:00:00-07:00">2019-06-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-20 02:57:02" itemprop="dateModified" datetime="2020-04-20T02:57:02-07:00">2020-04-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Operating-System/" itemprop="url" rel="index"><span itemprop="name">Operating System</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Operating-System/Compiler/" itemprop="url" rel="index"><span itemprop="name">Compiler</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-06-20 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-20T00:00:00-07:00">2019-06-20</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-04-20 02:57:02" itemprop="dateModified" datetime="2020-04-20T02:57:02-07:00">2020-04-20</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Operating-System/" itemprop="url" rel="index"><span itemprop="name">Operating System</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Operating-System/Compiler/" itemprop="url" rel="index"><span itemprop="name">Compiler</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -232,8 +296,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
         <p>Today, let’s try to build the <strong>MOST RECENT</strong> <a target="_blank" rel="noopener" href="https://gcc.gnu.org/gcc-9/">GCC 9.1</a>. We strictly follow the <strong>TERRIFIC</strong> blog <a target="_blank" rel="noopener" href="https://preshing.com/20141119/how-to-build-a-gcc-cross-compiler/">How to Build a GCC Cross-Compiler</a> with trivial modifications for my <strong>x86_64</strong> desktop instead of <strong>aarch64</strong> cross compile.</p>
 <h1 id="Preparations"><a href="#Preparations" class="headerlink" title="Preparations"></a>Preparations</h1><h2 id="Packages-Required-on-HOST"><a href="#Packages-Required-on-HOST" class="headerlink" title="Packages Required on HOST"></a>Packages Required on HOST</h2><p>Some packages are required to install on the host computer, including:</p>
 <ul>
@@ -293,36 +355,35 @@
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/Linux-GCC/" rel="tag"># Linux, GCC</a>
           </div>
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2019/06/05/SBCs/ARM/orange-pi-3-official/" rel="prev" title="Install Ubuntu Desktop from Official Orange Pi Website onto Orange Pi 3">
-      <i class="fa fa-chevron-left"></i> Install Ubuntu Desktop from Official Orange Pi Website onto Orange Pi 3
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2019/06/21/SBCs/ARM/huawei-HiSilicon-build-GCC-for-Hikey970/" rel="next" title="Build GCC For HiSilicon Hikey 970">
-      Build GCC For HiSilicon Hikey 970 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/06/05/SBCs/ARM/orange-pi-3-official/" rel="prev" title="Install Ubuntu Desktop from Official Orange Pi Website onto Orange Pi 3">
+                  <i class="fa fa-chevron-left"></i> Install Ubuntu Desktop from Official Orange Pi Website onto Orange Pi 3
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/06/21/SBCs/ARM/huawei-HiSilicon-build-GCC-for-Hikey970/" rel="next" title="Build GCC For HiSilicon Hikey 970">
+                  Build GCC For HiSilicon Hikey 970 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
           </div>
-          
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -331,7 +392,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -340,81 +401,20 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Preparations"><span class="nav-number">1.</span> <span class="nav-text">Preparations</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Packages-Required-on-HOST"><span class="nav-number">1.1.</span> <span class="nav-text">Packages Required on HOST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Get-ALL-Packages-for-Building-GCC"><span class="nav-number">1.2.</span> <span class="nav-text">Get ALL Packages for Building GCC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prepare-Symbolic-Links"><span class="nav-number">1.3.</span> <span class="nav-text">Prepare Symbolic Links</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prepare-Build-Target-Folder"><span class="nav-number">1.4.</span> <span class="nav-text">Prepare Build Target Folder</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Start-Building"><span class="nav-number">2.</span> <span class="nav-text">Start Building</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Binutils"><span class="nav-number">2.1.</span> <span class="nav-text">Binutils</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-Kernel-Headers"><span class="nav-number">2.2.</span> <span class="nav-text">Linux Kernel Headers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-C-Compilers"><span class="nav-number">2.3.</span> <span class="nav-text">C&#x2F;C++ Compilers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GLibc"><span class="nav-number">2.4.</span> <span class="nav-text">GLibc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Compiler-Support-Library"><span class="nav-number">2.5.</span> <span class="nav-text">Compiler Support Library</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-Standard-C-Library"><span class="nav-number">2.6.</span> <span class="nav-text">Build Standard C Library</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-Standard-C-Library-1"><span class="nav-number">2.7.</span> <span class="nav-text">Build Standard C++ Library</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Finishing-and-Test"><span class="nav-number">3.</span> <span class="nav-text">Finishing and Test</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Check-GCC-Version"><span class="nav-number">3.1.</span> <span class="nav-text">Check GCC Version</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Run-Hello-World"><span class="nav-number">3.2.</span> <span class="nav-text">Run Hello World</span></a></li></ol></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Nobody</p>
-  <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">91</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">28</span>
-        <span class="site-state-item-name">categories</span>
-      </div>
-      <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">89</span>
-        <span class="site-state-item-name">tags</span>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
+      
 
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
+      
 
 <div class="copyright">
   
@@ -425,39 +425,15 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Nobody</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
 
@@ -475,7 +451,17 @@
 
 
 
+
+
+
   
+
+
+
+
+
+
+
 
   
 
