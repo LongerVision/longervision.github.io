@@ -13,11 +13,13 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"8.0.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
 
   <meta name="description" content="It’s been quite a while before I write down this similar blog as my previous Single Board Computer blogs. Banana Pi Pro is a SBC with AllWinner A20 ARM CPU, which is also just of card size (Cited from">
@@ -37,10 +39,11 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/bananapi/Pro_A20.jpg">
 
+
 <link rel="canonical" href="http://longervision.ca/2018/09/04/SBCs/ARM/banana-pi-pro-armbian/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -60,49 +63,61 @@
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">Longer Vision Technology</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">Github Blog</p>
   </div>
@@ -115,9 +130,8 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
+  <ul class="main-menu menu">
         <li class="menu-item menu-item-home">
 
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
@@ -138,21 +152,6 @@
     <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
   </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-schedule">
-
-    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
-
-  </li>
   </ul>
 </nav>
 
@@ -160,6 +159,64 @@
 
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PART-A-Install-Ubuntu-Desktop-Built-By-Armbian-onto-Banana-Pi-Pro"><span class="nav-number">1.</span> <span class="nav-text">PART A: Install Ubuntu Desktop Built By Armbian onto Banana Pi Pro</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Download-Armbian-Ubuntu-Desktop-for-Banana-Pi-Pro"><span class="nav-number">1.1.</span> <span class="nav-text">1. Download Armbian Ubuntu Desktop for Banana Pi Pro</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Install-Armbian-Ubuntu-Desktop-for-Banana-Pi-Pro"><span class="nav-number">1.2.</span> <span class="nav-text">2. Install Armbian Ubuntu Desktop for Banana Pi Pro</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PART-B-Boot-Into-Armbian-Network-Configuration-Locale-Configuration-and-Armbian-Upgrading"><span class="nav-number">2.</span> <span class="nav-text">PART B: Boot Into Armbian, Network Configuration, Locale Configuration and Armbian Upgrading</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Boot-Into-Armbian"><span class="nav-number">2.1.</span> <span class="nav-text">1. Boot Into Armbian</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Network-Configuration"><span class="nav-number">2.2.</span> <span class="nav-text">2. Network Configuration</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-How-to-connect-to-wireless"><span class="nav-number">2.2.1.</span> <span class="nav-text">1). How to connect to wireless?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-How-to-set-fixed-IP"><span class="nav-number">2.2.2.</span> <span class="nav-text">2). How to set fixed IP?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-SSH-Into-Banana-Pi-Pro"><span class="nav-number">2.3.</span> <span class="nav-text">3. SSH Into Banana Pi Pro</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Locale-Configuration"><span class="nav-number">2.4.</span> <span class="nav-text">4. Locale Configuration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Armbian-Upgrading"><span class="nav-number">2.5.</span> <span class="nav-text">5. Armbian Upgrading</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Kernel-Doublechecking"><span class="nav-number">2.6.</span> <span class="nav-text">6. Kernel Doublechecking</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Appendix"><span class="nav-number">3.</span> <span class="nav-text">Appendix</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Nobody</p>
+  <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">89</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
@@ -168,19 +225,24 @@
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
+      
 
-    
+      
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/09/04/SBCs/ARM/banana-pi-pro-armbian/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -197,37 +259,39 @@
           Install Armbian Ubuntu Desktop onto Banana Pi Pro
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-09-04 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-04T00:00:00-07:00">2018-09-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-20 03:55:21" itemprop="dateModified" datetime="2020-04-20T03:55:21-07:00">2020-04-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
-                </span>
-            </span>
+      <time title="Created: 2018-09-04 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-04T00:00:00-07:00">2018-09-04</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-04-20 03:55:21" itemprop="dateModified" datetime="2020-04-20T03:55:21-07:00">2020-04-20</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -236,8 +300,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
         <p>It’s been quite a while before I write down this <strong>similar</strong> blog as my previous <strong>Single Board Computer</strong> blogs. <a target="_blank" rel="noopener" href="http://www.lemaker.org/product-bananapro-specification.html">Banana Pi Pro</a> is a <strong>SBC</strong> with <a target="_blank" rel="noopener" href="http://www.allwinnertech.com/index.php?c=product&a=index&id=45">AllWinner A20</a> ARM CPU, which is also just of card size (Cited from <a target="_blank" rel="noopener" href="http://www.lemaker.org/product-bananapro-specification.html">LeMaker Official website</a>).</p>
 <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/bananapi/Pro_A20.jpg" alt="Orange Pi Plus 2"></p>
 <p>Now, we follow our previous blog <a href="../../../../../../2018/02/24/SBCs/ARM/nanopi-neo-armbian/">Install Armbian Debian Server onto NanoPi NEO</a> to install Armbian Ubuntu Desktop onto <a target="_blank" rel="noopener" href="http://www.lemaker.org/product-bananapro-specification.html">Banana Pi Pro</a>.</p>
@@ -309,36 +371,35 @@
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/Banana-Pi-Pro-AllWinner-A20-Armbian-Ubuntu-Mainline-Linux-Kernel-BSP/" rel="tag"># Banana Pi Pro, AllWinner A20, Armbian, Ubuntu, Mainline Linux Kernel, BSP</a>
           </div>
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2018/09/01/AI/DeepLearning/tensorflow-object-tracking/" rel="prev" title="Tensorflow Object Tracking">
-      <i class="fa fa-chevron-left"></i> Tensorflow Object Tracking
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2018/09/15/Tools/uPyCraft_PyQt5/" rel="next" title="uPyCraft_PyQt5">
-      uPyCraft_PyQt5 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/09/01/AI/DeepLearning/tensorflow-object-tracking/" rel="prev" title="Tensorflow Object Tracking">
+                  <i class="fa fa-chevron-left"></i> Tensorflow Object Tracking
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/09/15/Tools/uPyCraft_PyQt5/" rel="next" title="uPyCraft_PyQt5">
+                  uPyCraft_PyQt5 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
           </div>
-          
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -347,7 +408,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -356,81 +417,20 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PART-A-Install-Ubuntu-Desktop-Built-By-Armbian-onto-Banana-Pi-Pro"><span class="nav-number">1.</span> <span class="nav-text">PART A: Install Ubuntu Desktop Built By Armbian onto Banana Pi Pro</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Download-Armbian-Ubuntu-Desktop-for-Banana-Pi-Pro"><span class="nav-number">1.1.</span> <span class="nav-text">1. Download Armbian Ubuntu Desktop for Banana Pi Pro</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Install-Armbian-Ubuntu-Desktop-for-Banana-Pi-Pro"><span class="nav-number">1.2.</span> <span class="nav-text">2. Install Armbian Ubuntu Desktop for Banana Pi Pro</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PART-B-Boot-Into-Armbian-Network-Configuration-Locale-Configuration-and-Armbian-Upgrading"><span class="nav-number">2.</span> <span class="nav-text">PART B: Boot Into Armbian, Network Configuration, Locale Configuration and Armbian Upgrading</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Boot-Into-Armbian"><span class="nav-number">2.1.</span> <span class="nav-text">1. Boot Into Armbian</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Network-Configuration"><span class="nav-number">2.2.</span> <span class="nav-text">2. Network Configuration</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-How-to-connect-to-wireless"><span class="nav-number">2.2.1.</span> <span class="nav-text">1). How to connect to wireless?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-How-to-set-fixed-IP"><span class="nav-number">2.2.2.</span> <span class="nav-text">2). How to set fixed IP?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-SSH-Into-Banana-Pi-Pro"><span class="nav-number">2.3.</span> <span class="nav-text">3. SSH Into Banana Pi Pro</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Locale-Configuration"><span class="nav-number">2.4.</span> <span class="nav-text">4. Locale Configuration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Armbian-Upgrading"><span class="nav-number">2.5.</span> <span class="nav-text">5. Armbian Upgrading</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Kernel-Doublechecking"><span class="nav-number">2.6.</span> <span class="nav-text">6. Kernel Doublechecking</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Appendix"><span class="nav-number">3.</span> <span class="nav-text">Appendix</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Nobody</p>
-  <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">91</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">28</span>
-        <span class="site-state-item-name">categories</span>
-      </div>
-      <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">89</span>
-        <span class="site-state-item-name">tags</span>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
+      
 
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
+      
 
 <div class="copyright">
   
@@ -441,39 +441,15 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Nobody</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
 
@@ -491,7 +467,17 @@
 
 
 
+
+
+
   
+
+
+
+
+
+
+
 
   
 

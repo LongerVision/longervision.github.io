@@ -13,11 +13,13 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"8.0.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
 
   <meta name="description" content="Longer Vision Technology Github Blog">
@@ -31,10 +33,11 @@
 <meta property="article:tag" content="Longer Vision, Computer Vision, AI, Machine Learning">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="http://longervision.ca/page/9/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -54,49 +57,61 @@
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">Longer Vision Technology</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">Github Blog</p>
   </div>
@@ -109,9 +124,8 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
+  <ul class="main-menu menu">
         <li class="menu-item menu-item-home">
 
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
@@ -132,21 +146,6 @@
     <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
   </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-schedule">
-
-    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
-
-  </li>
   </ul>
 </nav>
 
@@ -154,6 +153,63 @@
 
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Nobody</p>
+  <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">89</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
@@ -162,18 +218,23 @@
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content index posts-expand">
-            
+    <div class="main-inner index posts-expand">
       
+
+      
+    
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/02/24/SBCs/ARM/nanopi-neo-armbian/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -191,37 +252,39 @@
             <a href="/2018/02/24/SBCs/ARM/nanopi-neo-armbian/" class="post-title-link" itemprop="url">Install Armbian Debian Server onto NanoPi NEO</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-02-24 00:00:00" itemprop="dateCreated datePublished" datetime="2018-02-24T00:00:00-08:00">2018-02-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-20 03:43:10" itemprop="dateModified" datetime="2020-04-20T03:43:10-07:00">2020-04-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
-                </span>
-            </span>
+      <time title="Created: 2018-02-24 00:00:00" itemprop="dateCreated datePublished" datetime="2018-02-24T00:00:00-08:00">2018-02-24</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-04-20 03:43:10" itemprop="dateModified" datetime="2020-04-20T03:43:10-07:00">2020-04-20</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -230,8 +293,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Hi, all, I flied back and forth between ShenZhen China and Vancouver Canada in January 2018, and took a holiday break in California USA during Chinese Spring Festival in Febrary 2018. Now, I’m back to Vancouver and write this blog. Today, we are going to talk about how to flash the most recent <a target="_blank" rel="noopener" href="https://www.kernel.org/">Linux Kernel</a> onto an <a target="_blank" rel="noopener" href="http://www.friendlyarm.net/products/nanopi-neo">NanoPi NEO</a>. The board looks like (cited from <a target="_blank" rel="noopener" href="http://wiki.friendlyarm.com/wiki/index.php/NanoPi_NEO">NanoPi NEO</a> ):</p>
 <p><img src="https://raw.githubusercontent.com/LongerVision/BSP/master/Embedded/AllWinner/nanopi/NEO_H3.jpg" alt="NanoPi NEO"></p>
 <p>Different from <a href="../../../../../../2018/01/10/SBCs/ARM/beaglebone-black-uboot-kernel/">our previous blog</a> where <a target="_blank" rel="noopener" href="http://www.denx.de/wiki/U-Boot/WebHome">U-Boot</a> and <a target="_blank" rel="noopener" href="https://www.kernel.org/">Linux Kernel</a> are manually built, here, we download and install the <a target="_blank" rel="noopener" href="https://www.armbian.com/nanopi-neo/">built Ubuntu from Armbian</a> directly.</p>
@@ -284,18 +345,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/01/10/SBCs/ARM/beaglebone-black-uboot-kernel/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -313,37 +381,39 @@
             <a href="/2018/01/10/SBCs/ARM/beaglebone-black-uboot-kernel/" class="post-title-link" itemprop="url">Build U-Boot and Linux Kernel for Beaglebone and Beaglebone Black</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-01-10 00:00:00" itemprop="dateCreated datePublished" datetime="2018-01-10T00:00:00-08:00">2018-01-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:58:22" itemprop="dateModified" datetime="2019-08-18T14:58:22-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
-                </span>
-            </span>
+      <time title="Created: 2018-01-10 00:00:00" itemprop="dateCreated datePublished" datetime="2018-01-10T00:00:00-08:00">2018-01-10</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:58:22" itemprop="dateModified" datetime="2019-08-18T14:58:22-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -352,8 +422,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Happy new year everybody. How time flies. It is already 2018. <a target="_blank" rel="noopener" href="http://www.longervision.com/">Longer Vision</a> has been struggling on this tough road towards a successful enterprise. Algorithms <strong>ONLY</strong> are <strong>NOT</strong> enough for nowadays business. <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Board_support_package">BSP (board support package)</a> and <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Integrated_circuit_design">IC design</a> are a must for a successful business nowadays. Thus, ever since 2018, <a target="_blank" rel="noopener" href="http://www.longervision.com/">Longer Vision</a> is going to balance <strong>both</strong> hardware <strong>and</strong> software, particularly, <a target="_blank" rel="noopener" href="http://www.arm.com/">ARM</a> based open source embedded development board and computer vision algorithms.</p>
 <p>In this blog, we are going to talk about how to build and flash <a target="_blank" rel="noopener" href="http://www.denx.de/wiki/U-Boot/WebHome">U-Boot</a> and <a target="_blank" rel="noopener" href="https://www.kernel.org/">Linux Kernel</a> onto a <a target="_blank" rel="noopener" href="https://beagleboard.org/bone-original">Beaglebone</a> and <a target="_blank" rel="noopener" href="https://beagleboard.org/black">Beaglebone Black</a>, which adopts <a target="_blank" rel="noopener" href="http://www.ti.com/processors/sitara/arm-cortex-a8/am335x/overview.html">TI AM335x</a> as its CPU. The board looks like (cited from <a target="_blank" rel="noopener" href="https://beagleboard.org/black">Beaglebone Black</a> ):</p>
 <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/omap/beaglebone/black/images/BBB.jpg" alt="Beaglebone Black"></p>
@@ -479,18 +547,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2017/03/18/ComputerVision/OpenCV/opencv-internal-calibration-circle-grid/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -508,37 +583,39 @@
             <a href="/2017/03/18/ComputerVision/OpenCV/opencv-internal-calibration-circle-grid/" class="post-title-link" itemprop="url">Camera Calibration Using a Circle Grid</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2017-03-18 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-18T00:00:00-07:00">2017-03-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:35:12" itemprop="dateModified" datetime="2019-08-18T14:35:12-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer-Vision/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
-                </span>
-            </span>
+      <time title="Created: 2017-03-18 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-18T00:00:00-07:00">2017-03-18</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:35:12" itemprop="dateModified" datetime="2019-08-18T14:35:12-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Computer-Vision/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -547,8 +624,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <h1 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h1><p>By reading two of our previous blogs <a target="_blank" rel="noopener" href="https://longervision.github.io/2017/03/19/opencv-internal-calibration-chessboard/">Camera Calibration Using a Chessboard</a> and <a target="_blank" rel="noopener" href="https://longervision.github.io/2017/03/13/opencv-external-posture-estimation-circle-grid/">Camera Posture Estimation Using Circle Grid Pattern</a>, it wouldn’t be hard to replace the chessboard by a circle grid to calculate camera calibration parameters.</p>
 <h1 id="Coding"><a href="#Coding" class="headerlink" title="Coding"></a>Coding</h1><p>Our code can be found at <a target="_blank" rel="noopener" href="https://github.com/LongerVision/OpenCV_Examples/blob/master/01_internal_camera_calibration/circle_grid.py">OpenCV Examples</a>.</p>
 <h2 id="First-of-all"><a href="#First-of-all" class="headerlink" title="First of all"></a>First of all</h2><p>As mentioned in <a target="_blank" rel="noopener" href="https://longervision.github.io/2017/03/19/opencv-internal-calibration-chessboard/">Camera Calibration Using a Chessboard</a>, for intrinsic parameters estimation, namely, camera calibration, there is <strong>NO</strong> need to measure the circle unit size. And the circle gird is to be adopted is exactly the same one as used in <a target="_blank" rel="noopener" href="https://longervision.github.io/2017/03/13/opencv-external-posture-estimation-circle-grid/">Camera Posture Estimation Using Circle Grid Pattern</a>:</p>
@@ -579,18 +654,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2017/03/16/ComputerVision/OpenCV/opencv-internal-calibration-chessboard/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -608,37 +690,39 @@
             <a href="/2017/03/16/ComputerVision/OpenCV/opencv-internal-calibration-chessboard/" class="post-title-link" itemprop="url">Camera Calibration Using a Chessboard</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2017-03-16 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-16T00:00:00-07:00">2017-03-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:35:09" itemprop="dateModified" datetime="2019-08-18T14:35:09-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer-Vision/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
-                </span>
-            </span>
+      <time title="Created: 2017-03-16 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-16T00:00:00-07:00">2017-03-16</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:35:09" itemprop="dateModified" datetime="2019-08-18T14:35:09-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Computer-Vision/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -647,8 +731,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <h1 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h1><p>Traditionally, a camera is calibrated using a chessboard. Existing documentations are already out there and have discussed camera calibration in detail, for example, <a target="_blank" rel="noopener" href="http://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_calib3d/py_calibration/py_calibration.html">OpenCV-Python Tutorials</a>.</p>
 <h1 id="Coding"><a href="#Coding" class="headerlink" title="Coding"></a>Coding</h1><p>Our code can be found at <a target="_blank" rel="noopener" href="https://github.com/LongerVision/OpenCV_Examples/blob/master/01_internal_camera_calibration/chessboard.py">OpenCV Examples</a>.</p>
 <h2 id="First-of-all"><a href="#First-of-all" class="headerlink" title="First of all"></a>First of all</h2><p>Unlike estimating camera postures which is dealing with the extrinsic parameters, camera calibration is to calculate the intrinsic parameters. In such a case, there is <strong>NO</strong> need for us to measure the cell size of the chessboard. Anyway, the adopted chessboard is just an ordinary chessboard as:</p>
@@ -678,18 +760,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2017/03/15/ComputerVision/OpenCV/OpenCV%20Python%20ArUco%20Documentation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -707,37 +796,39 @@
             <a href="/2017/03/15/ComputerVision/OpenCV/OpenCV%20Python%20ArUco%20Documentation/" class="post-title-link" itemprop="url">OpenCV Python ArUco Documentation</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2017-03-15 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-15T00:00:00-07:00">2017-03-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:31:57" itemprop="dateModified" datetime="2019-08-18T14:31:57-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer-Vision/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
-                </span>
-            </span>
+      <time title="Created: 2017-03-15 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-15T00:00:00-07:00">2017-03-15</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:31:57" itemprop="dateModified" datetime="2019-08-18T14:31:57-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Computer-Vision/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -746,8 +837,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <h1 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h1><p>Open a bash terminal, and type in the following commands:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ python</span><br><span class="line">Python 3.5.2 (default, Nov 17 2016, 17:05:23)</span><br><span class="line">[GCC 5.4.0 20160609] on linux</span><br><span class="line">Type <span class="string">&quot;help&quot;</span>, <span class="string">&quot;copyright&quot;</span>, <span class="string">&quot;credits&quot;</span> or <span class="string">&quot;license&quot;</span> <span class="keyword">for</span> more information.</span><br><span class="line">&gt;&gt;&gt; import cv2</span><br><span class="line">&gt;&gt;&gt; <span class="built_in">help</span> (cv2.aruco)</span><br></pre></td></tr></table></figure>
 
@@ -762,18 +851,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2017/03/14/ComputerVision/OpenCV/opencv-external-posture-estimation-circle-grid/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -791,37 +887,39 @@
             <a href="/2017/03/14/ComputerVision/OpenCV/opencv-external-posture-estimation-circle-grid/" class="post-title-link" itemprop="url">Camera Posture Estimation Using Circle Grid Pattern</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2017-03-14 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-14T00:00:00-07:00">2017-03-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-23 04:45:54" itemprop="dateModified" datetime="2020-04-23T04:45:54-07:00">2020-04-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer-Vision/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
-                </span>
-            </span>
+      <time title="Created: 2017-03-14 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-14T00:00:00-07:00">2017-03-14</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-04-23 04:45:54" itemprop="dateModified" datetime="2020-04-23T04:45:54-07:00">2020-04-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Computer-Vision/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -830,8 +928,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <h1 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h1><p>A widely used asymmetric circle grid pattern can be found in <a target="_blank" rel="noopener" href="http://docs.opencv.org/2.4/_downloads/acircles_pattern.png">doc of OpenCV 2.4</a>. Same as previous blogs, the camera needs to be calibrated beforehand. For this asymmetric circle grid example, a sequence of images (instead of a video stream) is tested.</p>
 <h1 id="Coding"><a href="#Coding" class="headerlink" title="Coding"></a>Coding</h1><p>The code can be found at <a target="_blank" rel="noopener" href="https://github.com/LongerVision/Examples_OpenCV/blob/master/01_internal_camera_calibration/circle_grid.py">OpenCV Examples</a>.</p>
 <h2 id="First-of-all"><a href="#First-of-all" class="headerlink" title="First of all"></a>First of all</h2><p>We need to ensure <strong>cv2.so</strong> is under our system path. <strong>cv2.so</strong> is specifically for OpenCV Python.</p>
@@ -878,18 +974,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2017/03/13/ComputerVision/OpenCV/opencv-external-posture-estimation-ChArUco-board/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -907,37 +1010,39 @@
             <a href="/2017/03/13/ComputerVision/OpenCV/opencv-external-posture-estimation-ChArUco-board/" class="post-title-link" itemprop="url">Camera Posture Estimation Using A ChArUco Board</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2017-03-13 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-13T00:00:00-07:00">2017-03-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-23 02:14:31" itemprop="dateModified" datetime="2020-04-23T02:14:31-07:00">2020-04-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer-Vision/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
-                </span>
-            </span>
+      <time title="Created: 2017-03-13 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-13T00:00:00-07:00">2017-03-13</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-04-23 02:14:31" itemprop="dateModified" datetime="2020-04-23T02:14:31-07:00">2020-04-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Computer-Vision/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -946,8 +1051,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <h1 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h1><p>ChAruco is an integrated marker, which combines a chessboard with an aruco marker. The code is also very similar to the code in our previous blog <a href="../../../../../../2017/03/12/ComputerVision/OpenCV/opencv-external-posture-estimation-ArUco-board/">aruco board</a>.</p>
 <h1 id="Coding"><a href="#Coding" class="headerlink" title="Coding"></a>Coding</h1><p>The code can be found at <a target="_blank" rel="noopener" href="https://github.com/LongerVision/OpenCV_Examples/blob/master/03_external_camera_posture_estimation/ChArUco_board.py">OpenCV Examples</a>. And the code in the first two subsections are exactly the same as what’s written in our previous blogs. We’ll neglect the first two subsections ever since.</p>
 <h2 id="First-of-all"><a href="#First-of-all" class="headerlink" title="First of all"></a>First of all</h2><p>Exactly the same as in previous blogs.</p>
@@ -978,18 +1081,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2017/03/12/ComputerVision/OpenCV/opencv-external-posture-estimation-ArUco-board/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1007,37 +1117,39 @@
             <a href="/2017/03/12/ComputerVision/OpenCV/opencv-external-posture-estimation-ArUco-board/" class="post-title-link" itemprop="url">Camera Posture Estimation Using An ArUco Board</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2017-03-12 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-12T00:00:00-08:00">2017-03-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-23 04:45:17" itemprop="dateModified" datetime="2020-04-23T04:45:17-07:00">2020-04-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer-Vision/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
-                </span>
-            </span>
+      <time title="Created: 2017-03-12 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-12T00:00:00-08:00">2017-03-12</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-04-23 04:45:17" itemprop="dateModified" datetime="2020-04-23T04:45:17-07:00">2020-04-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Computer-Vision/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -1046,8 +1158,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <h1 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h1><p>Today, let’s test on an aruco board, instead of a <a target="_blank" rel="noopener" href="https://longervision.github.io/2017/03/10/opencv-external-posture-estimation-ArUco-single-marker/">single marker</a> or a <a target="_blank" rel="noopener" href="https://longervision.github.io/2017/03/11/opencv-external-posture-estimation-ArUco-diamond/">diamond marker</a>. Again, you need to make sure your camera has already been calibrated. In the coding section, it’s assumed that you can successfully load the camera calibration parameters.</p>
 <h1 id="Coding"><a href="#Coding" class="headerlink" title="Coding"></a>Coding</h1><p>The code can be found at <a target="_blank" rel="noopener" href="https://github.com/LongerVision/OpenCV_Examples/blob/master/03_external_camera_posture_estimation/ArUco_single_marker.py">OpenCV Examples</a>.</p>
 <h2 id="First-of-all"><a href="#First-of-all" class="headerlink" title="First of all"></a>First of all</h2><p>We need to ensure <strong>cv2.so</strong> is under our system path. <strong>cv2.so</strong> is specifically for OpenCV Python.</p>
@@ -1093,18 +1203,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2017/03/11/ComputerVision/OpenCV/opencv-external-posture-estimation-ArUco-diamond/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1122,37 +1239,39 @@
             <a href="/2017/03/11/ComputerVision/OpenCV/opencv-external-posture-estimation-ArUco-diamond/" class="post-title-link" itemprop="url">Camera Posture Estimation Using An ArUco Diamond Marker</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2017-03-11 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-11T00:00:00-08:00">2017-03-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-23 04:45:36" itemprop="dateModified" datetime="2020-04-23T04:45:36-07:00">2020-04-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer-Vision/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
-                </span>
-            </span>
+      <time title="Created: 2017-03-11 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-11T00:00:00-08:00">2017-03-11</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-04-23 04:45:36" itemprop="dateModified" datetime="2020-04-23T04:45:36-07:00">2020-04-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Computer-Vision/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -1161,8 +1280,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <h1 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h1><p>Very similar to our previous post <a target="_blank" rel="noopener" href="https://longervision.github.io/2017/03/10/opencv-external-posture-estimation-ArUco-single-marker/">Camera Posture Estimation Using A Single aruco Marker</a>, you need to make sure your camera has already been calibrated. In the coding section, it’s assumed that you can successfully load the camera calibration parameters.</p>
 <h1 id="Coding"><a href="#Coding" class="headerlink" title="Coding"></a>Coding</h1><p>The code can be found at <a target="_blank" rel="noopener" href="https://github.com/LongerVision/OpenCV_Examples/blob/master/03_external_camera_posture_estimation/ArUco_diamond.py">OpenCV Examples</a>.</p>
 <h2 id="First-of-all"><a href="#First-of-all" class="headerlink" title="First of all"></a>First of all</h2><p>We need to ensure <strong>cv2.so</strong> is under our system path. <strong>cv2.so</strong> is specifically for OpenCV Python.</p>
@@ -1208,18 +1325,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2017/03/10/ComputerVision/OpenCV/opencv-external-posture-estimation-ArUco-single-marker/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1237,37 +1361,39 @@
             <a href="/2017/03/10/ComputerVision/OpenCV/opencv-external-posture-estimation-ArUco-single-marker/" class="post-title-link" itemprop="url">Camera Posture Estimation Using A Single ArUco Marker</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2017-03-10 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-10T00:00:00-08:00">2017-03-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-23 04:45:46" itemprop="dateModified" datetime="2020-04-23T04:45:46-07:00">2020-04-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer-Vision/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
-                </span>
-            </span>
+      <time title="Created: 2017-03-10 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-10T00:00:00-08:00">2017-03-10</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-04-23 04:45:46" itemprop="dateModified" datetime="2020-04-23T04:45:46-07:00">2020-04-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Computer-Vision/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -1276,8 +1402,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <h1 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h1><p>Before start coding, you need to ensure your camera has already been calibrated. (Camera calibration is covered in our blog as well.) In the coding section, it’s assumed that you can successfully load the camera calibration parameters.</p>
 <h1 id="Coding"><a href="#Coding" class="headerlink" title="Coding"></a>Coding</h1><p>The code can be found at <a target="_blank" rel="noopener" href="https://github.com/LongerVision/OpenCV_Examples/blob/master/03_external_camera_posture_estimation/ArUco_single_marker.py">OpenCV Examples</a>.</p>
 <h2 id="First-of-all"><a href="#First-of-all" class="headerlink" title="First of all"></a>First of all</h2><p>We need to ensure <strong>cv2.so</strong> is under our system path. <strong>cv2.so</strong> is specifically for OpenCV Python.</p>
@@ -1322,13 +1446,16 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
-  
-  
+</div>
+
+
+
 
 
   
@@ -1338,8 +1465,7 @@
 
 
 
-          </div>
-          
+      
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -1348,7 +1474,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -1357,80 +1483,20 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Nobody</p>
-  <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">91</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">28</span>
-        <span class="site-state-item-name">categories</span>
-      </div>
-      <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">89</span>
-        <span class="site-state-item-name">tags</span>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
+      
 
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
+      
 
 <div class="copyright">
   
@@ -1441,39 +1507,15 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Nobody</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
 
@@ -1491,7 +1533,17 @@
 
 
 
+
+
+
   
+
+
+
+
+
+
+
 
   
 

@@ -13,11 +13,13 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"8.0.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
 
   <meta name="description" content="Longer Vision Technology Github Blog">
@@ -31,10 +33,11 @@
 <meta property="article:tag" content="Longer Vision, Computer Vision, AI, Machine Learning">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="http://longervision.ca/page/6/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -54,49 +57,61 @@
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">Longer Vision Technology</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">Github Blog</p>
   </div>
@@ -109,9 +124,8 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
+  <ul class="main-menu menu">
         <li class="menu-item menu-item-home">
 
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
@@ -132,21 +146,6 @@
     <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
   </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-schedule">
-
-    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
-
-  </li>
   </ul>
 </nav>
 
@@ -154,6 +153,63 @@
 
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Nobody</p>
+  <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">89</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
@@ -162,18 +218,23 @@
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content index posts-expand">
-            
+    <div class="main-inner index posts-expand">
       
+
+      
+    
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/02/28/Tools/ubuntu-18.0.4.2+nvidia-418.43+cuda-10.1+cudnn-7.5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -191,33 +252,35 @@
             <a href="/2019/02/28/Tools/ubuntu-18.0.4.2+nvidia-418.43+cuda-10.1+cudnn-7.5/" class="post-title-link" itemprop="url">Ubuntu 18.04.2 + NVidia 418.43 + Cuda 10.1 + Cudnn 7.5</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-02-28 00:00:00" itemprop="dateCreated datePublished" datetime="2019-02-28T00:00:00-08:00">2019-02-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:53:11" itemprop="dateModified" datetime="2019-08-18T14:53:11-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-02-28 00:00:00" itemprop="dateCreated datePublished" datetime="2019-02-28T00:00:00-08:00">2019-02-28</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:53:11" itemprop="dateModified" datetime="2019-08-18T14:53:11-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -226,8 +289,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Today seems to be the <strong>FIRST</strong> big day pf 2019? So many important packages (including operating systems) have released their <strong>NEW</strong> updates. Alright, let’s take a look what I’ve done today.</p>
 <h1 id="Updates-Today"><a href="#Updates-Today" class="headerlink" title="Updates Today"></a>Updates Today</h1><h2 id="Ubuntu-18-04-2"><a href="#Ubuntu-18-04-2" class="headerlink" title="Ubuntu 18.04.2"></a>Ubuntu 18.04.2</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ uname -r</span><br><span class="line">4.18.0-15-generic</span><br><span class="line">➜  ~ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID: Ubuntu</span><br><span class="line">Description:    Ubuntu 18.04.2 LTS</span><br><span class="line">Release:        18.04</span><br><span class="line">Codename:       bionic</span><br></pre></td></tr></table></figure>
 
@@ -249,18 +310,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/29/Robotics/IgnitionRobotics-Gazebo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -278,33 +346,35 @@
             <a href="/2019/01/29/Robotics/IgnitionRobotics-Gazebo/" class="post-title-link" itemprop="url">Ignition Robotics - Gazebo</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-01-29 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-29T00:00:00-08:00">2019-01-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:38:23" itemprop="dateModified" datetime="2019-08-18T14:38:23-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Robotics/" itemprop="url" rel="index"><span itemprop="name">Robotics</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-01-29 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-29T00:00:00-08:00">2019-01-29</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:38:23" itemprop="dateModified" datetime="2019-08-18T14:38:23-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Robotics/" itemprop="url" rel="index"><span itemprop="name">Robotics</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -313,8 +383,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>It seems <a target="_blank" rel="noopener" href="http://gazebosim.org/">Gazebo</a> is <strong>NOW</strong> a part of <a target="_blank" rel="noopener" href="https://ignitionrobotics.org/">Ignition Robotics</a>??? Please take a look at my Ignition Robotics Bitbucket Issue <a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-gazebo/issues/11/whats-the-realationship-between-ign-gazebo">What’s the realationship between ign-gazebo and gazebo?</a> And, today, let’s <strong>build <a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/">IgnitionRobotics</a> from source</strong>.</p>
 <h1 id="How-to-Build-IgnitionRobotics"><a href="#How-to-Build-IgnitionRobotics" class="headerlink" title="How to Build IgnitionRobotics"></a>How to Build IgnitionRobotics</h1><h2 id="Use-Branch-gz11"><a href="#Use-Branch-gz11" class="headerlink" title="Use Branch gz11"></a>Use Branch gz11</h2><p><span style="color:red"><strong>NOTE</strong>: In order to have the <strong>LATEST</strong> version built, please make sure you always give the priority to branch <strong>gz11</strong> rather than branch <strong>default</strong>.</span></p>
 <p>For instance <a target="_blank" rel="noopener" href="https://bitbucket.org/ignitionrobotics/ign-cmake/src/gz11/">ign-cmake</a>:</p>
@@ -372,18 +440,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/26/GeoScience/ZR3D-drone-4-Surveying-Mapping/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -401,33 +476,35 @@
             <a href="/2019/01/26/GeoScience/ZR3D-drone-4-Surveying-Mapping/" class="post-title-link" itemprop="url">ZR3D Drone for Surveying & Mapping</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-01-26 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-26T00:00:00-08:00">2019-01-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:35:55" itemprop="dateModified" datetime="2019-08-18T14:35:55-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Geo-Science/" itemprop="url" rel="index"><span itemprop="name">Geo Science</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-01-26 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-26T00:00:00-08:00">2019-01-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:35:55" itemprop="dateModified" datetime="2019-08-18T14:35:55-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Geo-Science/" itemprop="url" rel="index"><span itemprop="name">Geo Science</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -436,8 +513,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Robots/Drones/04_zr3d_southsurvey_6wings_overview_01.jpg" alt="ZR3D South Survey Drone with 6 Wings Overview"></p>
 <p>In my <a target="_blank" rel="noopener" href="https://longervision.github.io/2019/01/25/DeepLearning/TorchSeg-HUST/">last blog</a>, I talked about <a target="_blank" rel="noopener" href="https://github.com/ycszen/TorchSeg">TorchSeg</a>, a <a target="_blank" rel="noopener" href="https://pytorch.org/">PyTorch</a> open source developed by my <strong>master’s lab, namely: <a target="_blank" rel="noopener" href="http://auto.hust.edu.cn/info/1108/3394.htm">The State-Level key Laboratory of Multispectral Signal Processing</a></strong> in <strong><a target="_blank" rel="noopener" href="http://english.hust.edu.cn/">Huazhong University of Science and Technology</a></strong>.</p>
 <p>Today, I’m going to introduce professional drones developed by a start-up company <strong><a target="_blank" rel="noopener" href="http://www.zr3d.cn/">ZR3D</a></strong>, which is spinned-out from my <strong>bachelor’s department, namely: <a target="_blank" rel="noopener" href="http://rsgis.whu.edu.cn/">School of Remote Sensing and Information Engineering</a></strong> in <strong><a target="_blank" rel="noopener" href="https://en.whu.edu.cn/">Wuhan University</a></strong>. By the way, <strong><a target="_blank" rel="noopener" href="http://www.lmars.whu.edu.cn/">The State key Laboratory of Information Engineering in Surveying, Mapping and Remote Sensing</a></strong> in <strong><a target="_blank" rel="noopener" href="https://en.whu.edu.cn/">Wuhan University</a></strong> is specialized in <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Photogrammetry">Tilt photogrammetry</a>.</p>
@@ -515,18 +590,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/25/AI/DeepLearning/TorchSeg-HUST/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -544,37 +626,39 @@
             <a href="/2019/01/25/AI/DeepLearning/TorchSeg-HUST/" class="post-title-link" itemprop="url">TorchSeg - HUST's Semantic Segmentation algorithms in PyTorch</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-01-25 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-25T00:00:00-08:00">2019-01-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:29:58" itemprop="dateModified" datetime="2019-08-18T14:29:58-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-01-25 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-25T00:00:00-08:00">2019-01-25</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:29:58" itemprop="dateModified" datetime="2019-08-18T14:29:58-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -583,8 +667,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Happily got the info that my <strong>master’s supervisor’s lab, namely: <a target="_blank" rel="noopener" href="http://auto.hust.edu.cn/info/1108/3394.htm">The State-Level key Laboratory of Multispectral Signal Processing</a></strong> in <strong><a target="_blank" rel="noopener" href="http://english.hust.edu.cn/">Huazhong University of Science and Technology</a></strong> released <a target="_blank" rel="noopener" href="https://github.com/ycszen/TorchSeg">TorchSeg</a> just yesterday. I can’t helping testing it out.</p>
 <h1 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h1><h2 id="Python-Packages"><a href="#Python-Packages" class="headerlink" title="Python Packages"></a>Python Packages</h2><p>According to the <a target="_blank" rel="noopener" href="https://github.com/ycszen/TorchSeg/blob/master/README.md">README.md</a> on <a target="_blank" rel="noopener" href="https://github.com/ycszen/TorchSeg">TorchSeg</a>, serveral packages need to be prepared <strong>FIRST</strong>:</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip show torch</span><br><span class="line">Name: torch</span><br><span class="line">Version: 1.1.0a0+b6a8c45</span><br><span class="line">Summary: Tensors and Dynamic neural networks in Python with strong GPU acceleration</span><br><span class="line">Home-page: UNKNOWN</span><br><span class="line">Author: UNKNOWN</span><br><span class="line">Author-email: UNKNOWN</span><br><span class="line">License: UNKNOWN</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: </span><br><span class="line">Required-by: torchvision, torchtext, torchgan, pytorch-pretrained-bert, pyro-ppl, flair, autokeras</span><br><span class="line">➜  ~ pip show torchvision</span><br><span class="line">Name: torchvision</span><br><span class="line">Version: 0.2.1</span><br><span class="line">Summary: image and video datasets and models for torch deep learning</span><br><span class="line">Home-page: https://github.com/pytorch/vision</span><br><span class="line">Author: PyTorch Core Team</span><br><span class="line">Author-email: soumith@pytorch.org</span><br><span class="line">License: BSD</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: numpy, torch, pillow, six</span><br><span class="line">Required-by: torchgan, torchfusion, autokeras</span><br><span class="line">➜  ~ pip show easydict</span><br><span class="line">Name: easydict</span><br><span class="line">Version: 1.9</span><br><span class="line">Summary: Access dict values as attributes (works recursively).</span><br><span class="line">Home-page: https://github.com/makinacorpus/easydict</span><br><span class="line">Author: Mathieu Leplatre</span><br><span class="line">Author-email: mathieu.leplatre@makina-corpus.com</span><br><span class="line">License: LPGL, see LICENSE file.</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: </span><br><span class="line">Required-by: luminoth</span><br><span class="line">➜  ~ pip show apex</span><br><span class="line">Name: apex</span><br><span class="line">Version: 0.1</span><br><span class="line">Summary: PyTorch Extensions written by NVIDIA</span><br><span class="line">Home-page: UNKNOWN</span><br><span class="line">Author: UNKNOWN</span><br><span class="line">Author-email: UNKNOWN</span><br><span class="line">License: UNKNOWN</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages/apex-0.1-py3.6.egg</span><br><span class="line">Requires: </span><br><span class="line">Required-by: </span><br><span class="line">➜  ~ pip show tqdm</span><br><span class="line">Name: tqdm</span><br><span class="line">Version: 4.29.1</span><br><span class="line">Summary: Fast, Extensible Progress Meter</span><br><span class="line">Home-page: https://github.com/tqdm/tqdm</span><br><span class="line">Author: Noam Yorav-Raphael</span><br><span class="line">Author-email: noamraph@gmail.com</span><br><span class="line">License: MPLv2.0, MIT Licences</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: </span><br><span class="line">Required-by: TPOT, torchtext, torchfusion, thinc, tensorpack, skorch, shap, pytorch-pretrained-bert, pyro-ppl, optimuspyspark, kaggle, flair, autokeras, tf-pose</span><br></pre></td></tr></table></figure>
@@ -629,18 +711,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/22/Finance/time-series-forecasting-with-Facebook-Prophet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -658,33 +747,35 @@
             <a href="/2019/01/22/Finance/time-series-forecasting-with-Facebook-Prophet/" class="post-title-link" itemprop="url">Time Series Forecasting with Facebook Prophet</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-01-22 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-22T00:00:00-08:00">2019-01-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:35:37" itemprop="dateModified" datetime="2019-08-18T14:35:37-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Finance/" itemprop="url" rel="index"><span itemprop="name">Finance</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-01-22 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-22T00:00:00-08:00">2019-01-22</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:35:37" itemprop="dateModified" datetime="2019-08-18T14:35:37-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Finance/" itemprop="url" rel="index"><span itemprop="name">Finance</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -693,8 +784,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Today, we are going to test out <a target="_blank" rel="noopener" href="https://facebook.github.io/prophet/">Facebook Prophet</a> by following <a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/a-guide-to-time-series-forecasting-with-prophet-in-python-3">this DigitalOcean Tutorial</a>.</p>
 <h1 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h1><h2 id="Required-Python-Packages"><a href="#Required-Python-Packages" class="headerlink" title="Required Python Packages"></a>Required Python Packages</h2><p>We <strong>FIRST</strong> make sure 2 Python packages - <a target="_blank" rel="noopener" href="https://facebook.github.io/prophet/">Prophet</a> and <a target="_blank" rel="noopener" href="https://pystan.readthedocs.io/en/latest/">PyStan</a> have been successfully installed.</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip show prophet</span><br><span class="line">Name: prophet</span><br><span class="line">Version: 0.1.1</span><br><span class="line">Summary: Microframework for analyzing financial markets.</span><br><span class="line">Home-page: http://prophet.michaelsu.io/</span><br><span class="line">Author: Michael Su</span><br><span class="line">Author-email: mdasu1@gmail.com</span><br><span class="line">License: BSD</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: six, pytz, pandas</span><br><span class="line">Required-by: </span><br><span class="line">➜  ~ pip show pystan</span><br><span class="line">Name: pystan</span><br><span class="line">Version: 2.18.1.0</span><br><span class="line">Summary: Python interface to Stan, a package for Bayesian inference</span><br><span class="line">Home-page: https://github.com/stan-dev/pystan</span><br><span class="line">Author: None</span><br><span class="line">Author-email: None</span><br><span class="line">License: GPLv3</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: Cython, numpy</span><br><span class="line">Required-by: fbprophet</span><br></pre></td></tr></table></figure>
@@ -716,18 +805,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/09/Coding/Bugs/matplotlib-path-home/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -745,37 +841,39 @@
             <a href="/2019/01/09/Coding/Bugs/matplotlib-path-home/" class="post-title-link" itemprop="url">Matplotlib.pyplot - AttributeError - type object 'Path' has no attribute 'home'</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-01-09 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-09T00:00:00-08:00">2019-01-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:30:53" itemprop="dateModified" datetime="2019-08-18T14:30:53-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Coding/Bugs/" itemprop="url" rel="index"><span itemprop="name">Bugs</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-01-09 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-09T00:00:00-08:00">2019-01-09</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:30:53" itemprop="dateModified" datetime="2019-08-18T14:30:53-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/Bugs/" itemprop="url" rel="index"><span itemprop="name">Bugs</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -784,8 +882,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <h1 id="AttributeError-type-object-‘Path’-has-no-attribute-‘home’"><a href="#AttributeError-type-object-‘Path’-has-no-attribute-‘home’" class="headerlink" title="AttributeError: type object ‘Path’ has no attribute ‘home’"></a>AttributeError: type object ‘Path’ has no attribute ‘home’</h1><p>This error message is found while I was trying to <strong>from matplotlib.pyplot as plt</strong> today. I’ve got <strong>NO</strong> idea what had happened to my <strong>python</strong>. But, it seems this issue had been met and solved in some public posts. For instance:</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/addok/addok/issues/280">github addok</a></li>
@@ -816,18 +912,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/06/Coding/Bugs/flownet2-pytorch-vid2vid/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -845,37 +948,39 @@
             <a href="/2019/01/06/Coding/Bugs/flownet2-pytorch-vid2vid/" class="post-title-link" itemprop="url">3 Bugs - Pytorch, Flownet2-Pytorch and vid2vid</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-01-06 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-06T00:00:00-08:00">2019-01-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:30:47" itemprop="dateModified" datetime="2019-08-18T14:30:47-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Coding/Bugs/" itemprop="url" rel="index"><span itemprop="name">Bugs</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-01-06 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-06T00:00:00-08:00">2019-01-06</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:30:47" itemprop="dateModified" datetime="2019-08-18T14:30:47-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/Bugs/" itemprop="url" rel="index"><span itemprop="name">Bugs</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -884,8 +989,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Haven’t successfully tested three packages (all related to <a target="_blank" rel="noopener" href="https://github.com/pytorch/pytorch">PyTorch</a>), <a target="_blank" rel="noopener" href="https://github.com/pytorch/pytorch">PyTorch</a>, <a target="_blank" rel="noopener" href="https://github.com/NVIDIA/flownet2-pytorch">FlowNet2-Pytorch</a> and <a target="_blank" rel="noopener" href="https://github.com/NVIDIA/vid2vid">vid2vid</a>. Looking forward to assistance…</p>
 <h1 id="PyTorch"><a href="#PyTorch" class="headerlink" title="PyTorch"></a>PyTorch</h1><h2 id="The-Bug"><a href="#The-Bug" class="headerlink" title="The Bug"></a>The Bug</h2><p>After having successfully installed <a target="_blank" rel="noopener" href="https://github.com/pytorch/pytorch">PyTorch</a> current version <strong>1.1</strong>, I still failed to <strong>import torch</strong>. Please refer to the following <strong>ERROR</strong>.</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python</span><br><span class="line">Python 3.6.7 (default, Oct 22 2018, 11:32:17) </span><br><span class="line">[GCC 8.2.0] on linux</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; import torch</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">  File &quot;~/.local/lib/python3.6/site-packages/torch/__init__.py&quot;, line 84, in &lt;module&gt;</span><br><span class="line">    from torch._C import *</span><br><span class="line">ImportError: ~/.local/lib/python3.6/site-packages/torch/lib/libcaffe2.so: undefined symbol: _ZTIN3c1010TensorImplE</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; import caffe2</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; caffe2.__version__</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">AttributeError: module &#x27;caffe2&#x27; has no attribute &#x27;__version__&#x27;</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; caffe2.__file__</span></span><br><span class="line">&#x27;~/.local/lib/python3.6/site-packages/caffe2/__init__.py&#x27;</span><br></pre></td></tr></table></figure>
@@ -950,18 +1053,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/01/Personal/cheers-2019/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -979,33 +1089,35 @@
             <a href="/2019/01/01/Personal/cheers-2019/" class="post-title-link" itemprop="url">Happy New Year 2019</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-01-01 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-01T00:00:00-08:00">2019-01-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:37:42" itemprop="dateModified" datetime="2019-08-18T14:37:42-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Personal/" itemprop="url" rel="index"><span itemprop="name">Personal</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-01-01 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-01T00:00:00-08:00">2019-01-01</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:37:42" itemprop="dateModified" datetime="2019-08-18T14:37:42-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Personal/" itemprop="url" rel="index"><span itemprop="name">Personal</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -1014,8 +1126,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>With the most inspiring speech by Arnold Schwarzenegger, 2019 arrived… I’ve got something in my mind as well…</p>
 <p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Px7bjMyPA30"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2019/NewYear/Schwarzenegger_2018.jpg" alt="Schwarzenegger&#39;s Speech"></a></p>
 <p>Everybody has a dream/goal. <strong>NEVER EVER</strong> blow it out… Here comes the preface of my PhD’s thesis… It’s been 10 years already… This is <strong>NOT ONLY</strong> my attitude towards science, <strong>BUT ALSO</strong> towards those so-called professors(<strong>叫兽</strong>) and specialists(<strong>砖家</strong>). </p>
@@ -1029,18 +1139,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/12/22/Medical/pydicom/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1058,33 +1175,35 @@
             <a href="/2018/12/22/Medical/pydicom/" class="post-title-link" itemprop="url">Display DICOM using pydicom</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-12-22 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-22T00:00:00-08:00">2018-12-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-06 01:53:49" itemprop="dateModified" datetime="2020-04-06T01:53:49-07:00">2020-04-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Medical/" itemprop="url" rel="index"><span itemprop="name">Medical</span></a>
-                </span>
-            </span>
+      <time title="Created: 2018-12-22 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-22T00:00:00-08:00">2018-12-22</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-04-06 01:53:49" itemprop="dateModified" datetime="2020-04-06T01:53:49-07:00">2020-04-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Medical/" itemprop="url" rel="index"><span itemprop="name">Medical</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -1093,8 +1212,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Merry Christmas everybody. Let’s take a look at the <a target="_blank" rel="noopener" href="https://www.coquitlam.ca/parks-recreation-and-culture/arts-and-culture/special-events-calendar/LightsatLafarge.aspx">Christmas Lights around Lafarge Lake in Coquitlam</a> FIRST.</p>
 <table>
 <thead>
@@ -1139,18 +1256,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/12/20/Finance/time-series-4-python-with-pyflux/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1168,33 +1292,35 @@
             <a href="/2018/12/20/Finance/time-series-4-python-with-pyflux/" class="post-title-link" itemprop="url">Time Series for Python with PyFlux</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-12-20 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-20T00:00:00-08:00">2018-12-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:35:34" itemprop="dateModified" datetime="2019-08-18T14:35:34-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Finance/" itemprop="url" rel="index"><span itemprop="name">Finance</span></a>
-                </span>
-            </span>
+      <time title="Created: 2018-12-20 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-20T00:00:00-08:00">2018-12-20</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:35:34" itemprop="dateModified" datetime="2019-08-18T14:35:34-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Finance/" itemprop="url" rel="index"><span itemprop="name">Finance</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -1203,8 +1329,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Merry Christmas buddy! </p>
 <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2018/Christmas.jpg" alt="Christmas Lights in Surrey"></p>
 <p>It’s been quite a while without writing anything. Today, we are going to introduce <a target="_blank" rel="noopener" href="https://pyflux.readthedocs.io/">PyFlux</a> for time seriers analysis. Cannonical models are to be directly adopted from <a target="_blank" rel="noopener" href="https://pyflux.readthedocs.io/">PyFlux Documents</a> and tested in this blog.</p>
@@ -1254,13 +1378,16 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
-  
-  
+</div>
+
+
+
 
 
   
@@ -1270,8 +1397,7 @@
 
 
 
-          </div>
-          
+      
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -1280,7 +1406,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -1289,80 +1415,20 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Nobody</p>
-  <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">91</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">28</span>
-        <span class="site-state-item-name">categories</span>
-      </div>
-      <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">89</span>
-        <span class="site-state-item-name">tags</span>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
+      
 
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
+      
 
 <div class="copyright">
   
@@ -1373,39 +1439,15 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Nobody</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
 
@@ -1423,7 +1465,17 @@
 
 
 
+
+
+
   
+
+
+
+
+
+
+
 
   
 

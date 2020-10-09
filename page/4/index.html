@@ -13,11 +13,13 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"8.0.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
 
   <meta name="description" content="Longer Vision Technology Github Blog">
@@ -31,10 +33,11 @@
 <meta property="article:tag" content="Longer Vision, Computer Vision, AI, Machine Learning">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="http://longervision.ca/page/4/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -54,24 +57,36 @@
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
@@ -79,26 +94,26 @@
 <script src="/assets/js/APlayer.min.js" class="aplayer-script-marker"></script>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">Longer Vision Technology</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">Github Blog</p>
   </div>
@@ -111,9 +126,8 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
+  <ul class="main-menu menu">
         <li class="menu-item menu-item-home">
 
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
@@ -134,21 +148,6 @@
     <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
   </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-schedule">
-
-    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
-
-  </li>
   </ul>
 </nav>
 
@@ -156,6 +155,63 @@
 
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Nobody</p>
+  <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">89</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
@@ -164,18 +220,23 @@
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content index posts-expand">
-            
+    <div class="main-inner index posts-expand">
       
+
+      
+    
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/08/23/MachineVision/ARMLinux/jevois/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -193,37 +254,39 @@
             <a href="/2019/08/23/MachineVision/ARMLinux/jevois/" class="post-title-link" itemprop="url">JeVois Smart Machine Vision Camera</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-08-23 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-23T00:00:00-07:00">2019-08-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-29 21:43:35" itemprop="dateModified" datetime="2020-09-29T21:43:35-07:00">2020-09-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Vision/" itemprop="url" rel="index"><span itemprop="name">Machine Vision</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Vision/ARMLinux/" itemprop="url" rel="index"><span itemprop="name">ARMLinux</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-08-23 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-23T00:00:00-07:00">2019-08-23</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-09-29 21:43:35" itemprop="dateModified" datetime="2020-09-29T21:43:35-07:00">2020-09-29</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Machine-Vision/" itemprop="url" rel="index"><span itemprop="name">Machine Vision</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Machine-Vision/ARMLinux/" itemprop="url" rel="index"><span itemprop="name">ARMLinux</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -232,8 +295,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <div style="font-size:5rem;width:100%;text-align:center;">
     <span class="github-emoji" alias="smile" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8">&#x1f604;</span>
 </div>
@@ -334,18 +395,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/08/22/MachineVision/MCU/exp32cam/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -363,37 +431,39 @@
             <a href="/2019/08/22/MachineVision/MCU/exp32cam/" class="post-title-link" itemprop="url">ESP32-Cam</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-08-22 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-22T00:00:00-07:00">2019-08-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-29 21:19:35" itemprop="dateModified" datetime="2020-09-29T21:19:35-07:00">2020-09-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Vision/" itemprop="url" rel="index"><span itemprop="name">Machine Vision</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Vision/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-08-22 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-22T00:00:00-07:00">2019-08-22</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-09-29 21:19:35" itemprop="dateModified" datetime="2020-09-29T21:19:35-07:00">2020-09-29</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Machine-Vision/" itemprop="url" rel="index"><span itemprop="name">Machine Vision</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Machine-Vision/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -402,8 +472,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <iframe width="560" height="315" src="https://www.youtube.com/embed/YQHsXMglC9A?rel=0&amp;showinfo=0" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
 
 
@@ -453,18 +521,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/08/15/Personal/mourn-for-classmate/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -482,33 +557,35 @@
             <a href="/2019/08/15/Personal/mourn-for-classmate/" class="post-title-link" itemprop="url">Mourn For Classmate</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-08-15 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-15T00:00:00-07:00">2019-08-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:37:52" itemprop="dateModified" datetime="2019-08-18T14:37:52-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Personal/" itemprop="url" rel="index"><span itemprop="name">Personal</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-08-15 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-15T00:00:00-07:00">2019-08-15</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:37:52" itemprop="dateModified" datetime="2019-08-18T14:37:52-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Personal/" itemprop="url" rel="index"><span itemprop="name">Personal</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -517,15 +594,13 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           
-        <div id="aplayer-wBUZAFRM" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-FAPaSGaG" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-wBUZAFRM"),
+            element: document.getElementById("aplayer-FAPaSGaG"),
             narrow: false,
             autoplay: true,
             showlrc: false,
@@ -558,18 +633,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/08/07/SBCs/RISC-V/Widora-AIRV-K210-AI-Kendryte/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -587,37 +669,39 @@
             <a href="/2019/08/07/SBCs/RISC-V/Widora-AIRV-K210-AI-Kendryte/" class="post-title-link" itemprop="url">Widora AIRV/K210 Board with ESP8266/ESP8285 Espressif Wifi and Kendryte K210 AI</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-08-07 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-07T00:00:00-07:00">2019-08-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:59:15" itemprop="dateModified" datetime="2019-08-18T14:59:15-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/Risc-V/" itemprop="url" rel="index"><span itemprop="name">Risc-V</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-08-07 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-07T00:00:00-07:00">2019-08-07</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:59:15" itemprop="dateModified" datetime="2019-08-18T14:59:15-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/Risc-V/" itemprop="url" rel="index"><span itemprop="name">Risc-V</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -626,8 +710,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Having been keeping an eye on <a target="_blank" rel="noopener" href="https://www.widora.io/">Widora</a> and <a target="_blank" rel="noopener" href="https://www.espressif.com/">Espressif</a> for quite a bit. I finally decided to test out <a target="_blank" rel="noopener" href="https://www.widora.io/">Widora</a>‘s development board <a target="_blank" rel="noopener" href="https://dev.widora.io/zh/airv">AIRV</a>.</p>
 <h1 id="1-Background-Knowledge"><a href="#1-Background-Knowledge" class="headerlink" title="1. Background Knowledge"></a>1. Background Knowledge</h1><h2 id="1-1-Espressif"><a href="#1-1-Espressif" class="headerlink" title="1.1 Espressif"></a>1.1 Espressif</h2><p><a target="_blank" rel="noopener" href="https://www.espressif.com/">Espressif</a> is based in Shanghai, China, focusing on Wifi/Bluetooth chips, now have two main Wifi modules:</p>
 <ul>
@@ -663,18 +745,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/08/02/SBCs/RISC-V/SiFive-HiFive1-rev-b/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -692,37 +781,39 @@
             <a href="/2019/08/02/SBCs/RISC-V/SiFive-HiFive1-rev-b/" class="post-title-link" itemprop="url">SiFive HiFive1 Rev B</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-08-02 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-02T00:00:00-07:00">2019-08-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:59:09" itemprop="dateModified" datetime="2019-08-18T14:59:09-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/Risc-V/" itemprop="url" rel="index"><span itemprop="name">Risc-V</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-08-02 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-02T00:00:00-07:00">2019-08-02</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:59:09" itemprop="dateModified" datetime="2019-08-18T14:59:09-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/Risc-V/" itemprop="url" rel="index"><span itemprop="name">Risc-V</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -731,8 +822,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Today, I got a very <strong>BAD</strong> news: one of my <strong>BEST</strong> classmates in <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%AD%A6%E9%92%A2%E4%B8%89%E4%B8%AD">my senior middle school</a> has been staying in the hospital for <strong>OVER</strong> 3 months. <strong>The very serious pancreatitis</strong> has used up <strong>ALL</strong> his family’s savings. <strong>That</strong> is the current Chinese <strong>medical system</strong>. Chinese people have <strong>NO</strong> 2nd choice:</p>
 <ul>
 <li>either be the ruled class, who need to pay unaffordable <strong>medical service fee</strong></li>
@@ -841,18 +930,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/07/27/Medical/ecg/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -870,33 +966,35 @@
             <a href="/2019/07/27/Medical/ecg/" class="post-title-link" itemprop="url">Electrocardiography (ECG)</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-07-27 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-27T00:00:00-07:00">2019-07-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:37:17" itemprop="dateModified" datetime="2019-08-18T14:37:17-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Medical/" itemprop="url" rel="index"><span itemprop="name">Medical</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-07-27 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-27T00:00:00-07:00">2019-07-27</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:37:17" itemprop="dateModified" datetime="2019-08-18T14:37:17-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Medical/" itemprop="url" rel="index"><span itemprop="name">Medical</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -905,8 +1003,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Just finished reviewing a paper talking about <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Electrocardiography">Electrocardiography (ECG)</a> biometrics 10 minutes ago. Let’s continue having some fun of ECG right away.</p>
 <h1 id="Fundamental-Knowledge-About-ECG"><a href="#Fundamental-Knowledge-About-ECG" class="headerlink" title="Fundamental Knowledge About ECG"></a>Fundamental Knowledge About ECG</h1><p>Details can be found on <a target="_blank" rel="noopener" href="https://www.aclsmedicaltraining.com/basics-of-ecg/">ACLS Medical Training</a>. Let’s cite the key graph as follows:</p>
 <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/medical/ECG/ecg.png" alt="ECG Basics"></p>
@@ -925,18 +1021,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/07/26/Tools/setup-qtchooser/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -954,33 +1057,35 @@
             <a href="/2019/07/26/Tools/setup-qtchooser/" class="post-title-link" itemprop="url">Setup qtchooser</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-07-26 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-26T00:00:00-07:00">2019-07-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-05 21:29:08" itemprop="dateModified" datetime="2020-04-05T21:29:08-07:00">2020-04-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-07-26 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-26T00:00:00-07:00">2019-07-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-04-05 21:29:08" itemprop="dateModified" datetime="2020-04-05T21:29:08-07:00">2020-04-05</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -989,8 +1094,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Three things you need to verify:</p>
 <h1 id="1-Contents-In-File-usr-share-qtchooser-qt5-x86-64-linux-gnu-conf"><a href="#1-Contents-In-File-usr-share-qtchooser-qt5-x86-64-linux-gnu-conf" class="headerlink" title="1. Contents In File /usr/share/qtchooser/qt5-x86_64-linux-gnu.conf"></a>1. Contents In File /usr/share/qtchooser/qt5-x86_64-linux-gnu.conf</h1><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ cd /usr/share/qtchooser</span><br><span class="line">➜  qtchooser ls</span><br><span class="line">qt4-x86_64-linux-gnu.conf  qt5-x86_64-linux-gnu.conf</span><br><span class="line">➜  qtchooser cat qt4-x86_64-linux-gnu.conf </span><br><span class="line">/usr/lib/x86_64-linux-gnu/qt4/bin</span><br><span class="line">/usr/lib/x86_64-linux-gnu</span><br><span class="line">➜  qtchooser cat qt5-x86_64-linux-gnu.conf </span><br><span class="line">/opt/Qt/Current/gcc_64/bin</span><br><span class="line">/opt/Qt/Current/gcc_64/lib</span><br></pre></td></tr></table></figure>
 
@@ -1008,18 +1111,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/07/16/MachineVision/MCU/pixycam/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1037,37 +1147,39 @@
             <a href="/2019/07/16/MachineVision/MCU/pixycam/" class="post-title-link" itemprop="url">Pixy Cam</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-07-16 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-16T00:00:00-07:00">2019-07-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:36:39" itemprop="dateModified" datetime="2019-08-18T14:36:39-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Vision/" itemprop="url" rel="index"><span itemprop="name">Machine Vision</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Vision/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-07-16 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-16T00:00:00-07:00">2019-07-16</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:36:39" itemprop="dateModified" datetime="2019-08-18T14:36:39-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Machine-Vision/" itemprop="url" rel="index"><span itemprop="name">Machine Vision</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Machine-Vision/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -1076,8 +1188,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Today I’d love to talk about <a target="_blank" rel="noopener" href="https://pixycam.com/">Pixy Cam</a> a bit, which I do <strong>NOT</strong> recommend at all. There are several reasons:</p>
 <ul>
 <li><strong>Price</strong>: As you can see from <a target="_blank" rel="noopener" href="https://www.amazon.ca/Pixy2-Smart-Vision-Sensor-BeagleBone/dp/B07D1CLYD2/ref=sr_1_1?gclid=CjwKCAjw67XpBRBqEiwA5RCocZcNnVMtD-6YUDkrqhWsYBf8PKYrNt_kcOmaaRNcP4RVBr442pfj-hoC6mQQAvD_BwE&hvadid=325303908437&hvdev=c&hvlocphy=9001503&hvnetw=g&hvpos=1t1&hvqmt=b&hvrand=1506181385331065786&hvtargid=kwd-298550479822&hydadcr=7080_9981754&keywords=pixy+2&qid=1563332989&s=gateway&sr=8-1">Amazon</a>, it’s comparatively expensive, $95 USD.</li>
@@ -1093,18 +1203,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/07/15/MachineVision/MCU/openmv/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1122,37 +1239,39 @@
             <a href="/2019/07/15/MachineVision/MCU/openmv/" class="post-title-link" itemprop="url">OpenMV</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-07-15 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-15T00:00:00-07:00">2019-07-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-20 03:36:01" itemprop="dateModified" datetime="2020-04-20T03:36:01-07:00">2020-04-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Vision/" itemprop="url" rel="index"><span itemprop="name">Machine Vision</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Vision/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-07-15 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-15T00:00:00-07:00">2019-07-15</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-04-20 03:36:01" itemprop="dateModified" datetime="2020-04-20T03:36:01-07:00">2020-04-20</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Machine-Vision/" itemprop="url" rel="index"><span itemprop="name">Machine Vision</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Machine-Vision/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -1161,8 +1280,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>It’s almost July 10, let me continue testing something else: <a target="_blank" rel="noopener" href="https://openmv.io/">OpenMV</a>. I used to have purchased 2 <a target="_blank" rel="noopener" href="https://openmv.io/">OpenMV</a> cameras, respectively:</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://openmv.io/collections/cams/products/openmv-cam">OpenMV Cam M4 V2</a> with <a target="_blank" rel="noopener" href="https://www.st.com/en/microcontrollers-microprocessors/stm32f427vg.html">STM32F427VG</a></li>
@@ -1264,18 +1381,25 @@ In such, **make.py** is manually modified as:
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/07/13/SBCs/MCU/micropython-pyboard/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1293,37 +1417,39 @@ In such, **make.py** is manually modified as:
             <a href="/2019/07/13/SBCs/MCU/micropython-pyboard/" class="post-title-link" itemprop="url">MicroPython Pyboard</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-07-13 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-13T00:00:00-07:00">2019-07-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:58:58" itemprop="dateModified" datetime="2019-08-18T14:58:58-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-07-13 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-13T00:00:00-07:00">2019-07-13</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:58:58" itemprop="dateModified" datetime="2019-08-18T14:58:58-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -1332,8 +1458,6 @@ In such, **make.py** is manually modified as:
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Today is sunny. ^_^… Let’s write something about <a target="_blank" rel="noopener" href="http://micropython.org/">MicroPython</a> <a target="_blank" rel="noopener" href="http://micropython.org/download#pyboard">PyBoard</a>. In my test, I’m using a <a target="_blank" rel="noopener" href="https://store.micropython.org/product/PYBv1.1">PyBv1.1</a>, which embeddes a <a target="_blank" rel="noopener" href="https://www.findchips.com/search/stm32f405rg?medium=tsa&sa360adenid=336050895058&gclid=Cj0KCQjw9pDpBRCkARIsAOzRziuOBSXZEIpfOnqW6rTfp27CFyOhilG2Vs4NOXvQPv9aRPwYnniDu1saAoTeEALw_wcB&gclsrc=aw.ds">STM32F405RG</a> microcontroller.</p>
 <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><h2 id="1-Contents-In-PyBoard"><a href="#1-Contents-In-PyBoard" class="headerlink" title="1. Contents In PyBoard"></a>1. Contents In PyBoard</h2><p>After connecting <a target="_blank" rel="noopener" href="https://store.micropython.org/product/PYBv1.1">PyBv1.1</a> via USB cable, you will possibly see a folder prompt on the screen as follows:</p>
 <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/pybv1.1.jpg" alt="Current Contents In PYBv1.1"></p>
@@ -1400,13 +1524,16 @@ In such, **make.py** is manually modified as:
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
-  
-  
+</div>
+
+
+
 
 
   
@@ -1416,8 +1543,7 @@ In such, **make.py** is manually modified as:
 
 
 
-          </div>
-          
+      
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -1426,7 +1552,7 @@ In such, **make.py** is manually modified as:
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -1435,80 +1561,20 @@ In such, **make.py** is manually modified as:
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Nobody</p>
-  <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">91</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">28</span>
-        <span class="site-state-item-name">categories</span>
-      </div>
-      <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">89</span>
-        <span class="site-state-item-name">tags</span>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
+      
 
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
+      
 
 <div class="copyright">
   
@@ -1519,39 +1585,15 @@ In such, **make.py** is manually modified as:
   </span>
   <span class="author" itemprop="copyrightHolder">Nobody</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
 
@@ -1569,7 +1611,17 @@ In such, **make.py** is manually modified as:
 
 
 
+
+
+
   
+
+
+
+
+
+
+
 
   
 

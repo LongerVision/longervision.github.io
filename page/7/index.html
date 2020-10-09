@@ -13,11 +13,13 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"8.0.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
 
   <meta name="description" content="Longer Vision Technology Github Blog">
@@ -31,10 +33,11 @@
 <meta property="article:tag" content="Longer Vision, Computer Vision, AI, Machine Learning">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="http://longervision.ca/page/7/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -54,49 +57,61 @@
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">Longer Vision Technology</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">Github Blog</p>
   </div>
@@ -109,9 +124,8 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
+  <ul class="main-menu menu">
         <li class="menu-item menu-item-home">
 
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
@@ -132,21 +146,6 @@
     <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
   </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-schedule">
-
-    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
-
-  </li>
   </ul>
 </nav>
 
@@ -154,6 +153,63 @@
 
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Nobody</p>
+  <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">89</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
@@ -162,18 +218,23 @@
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content index posts-expand">
-            
+    <div class="main-inner index posts-expand">
       
+
+      
+    
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/11/29/Tools/fundamental-usage-of-mysql/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -191,33 +252,35 @@
             <a href="/2018/11/29/Tools/fundamental-usage-of-mysql/" class="post-title-link" itemprop="url">Fundamental Usage of MySQL</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-11-29 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-29T00:00:00-08:00">2018-11-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:52:58" itemprop="dateModified" datetime="2019-08-18T14:52:58-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a>
-                </span>
-            </span>
+      <time title="Created: 2018-11-29 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-29T00:00:00-08:00">2018-11-29</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:52:58" itemprop="dateModified" datetime="2019-08-18T14:52:58-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -226,8 +289,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>This blog is just to solve some bugs while using <a target="_blank" rel="noopener" href="https://www.mysql.com/">MySQL</a> as a server. Assuming you’ve already installed <strong>mysql-server</strong>, <strong>mysql-server-5.7</strong>, and <strong>mysql-server-core-5.7</strong>.</p>
 <h1 id="1-Errors"><a href="#1-Errors" class="headerlink" title="1. Errors"></a>1. Errors</h1><h2 id="1-1-Failed-to-start-mysql-service-Unit-mysql-service-not-found"><a href="#1-1-Failed-to-start-mysql-service-Unit-mysql-service-not-found" class="headerlink" title="1.1 Failed to start mysql.service: Unit mysql.service not found."></a>1.1 Failed to start mysql.service: Unit mysql.service not found.</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ sudo service mysqld start</span><br><span class="line">[sudo] password <span class="keyword">for</span> jiapei:</span><br><span class="line">Failed to start mysqld.service: Unit mysqld.service not found.</span><br><span class="line">➜  ~ /etc/init.d/mysql stop</span><br><span class="line">[ ok ] Stopping mysql (via systemctl): mysql.service.</span><br><span class="line">➜  ~ /etc/init.d/mysql start</span><br><span class="line">[ ok ] Starting mysql (via systemctl): mysql.service.</span><br></pre></td></tr></table></figure>
 
@@ -265,18 +326,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/11/11/GeoScience/OpenStreetMap/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -294,33 +362,35 @@
             <a href="/2018/11/11/GeoScience/OpenStreetMap/" class="post-title-link" itemprop="url">OpenStreetMap Intruduction</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-11-11 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-11T00:00:00-08:00">2018-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-18 02:10:29" itemprop="dateModified" datetime="2020-05-18T02:10:29-07:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Geo-Science/" itemprop="url" rel="index"><span itemprop="name">Geo Science</span></a>
-                </span>
-            </span>
+      <time title="Created: 2018-11-11 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-11T00:00:00-08:00">2018-11-11</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-05-18 02:10:29" itemprop="dateModified" datetime="2020-05-18T02:10:29-07:00">2020-05-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Geo-Science/" itemprop="url" rel="index"><span itemprop="name">Geo Science</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -329,8 +399,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Finally, I’m talking about <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Geographic_information_system">Geographic Information System</a>, namely, <strong>GIS</strong>. <a target="_blank" rel="noopener" href="http://rsgis.whu.edu.cn/en/index.html">Remote Sensing and Information Engineer</a> is my bachelor’s major in <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/School_of_Geodesy_and_Geomatics,_Wuhan_University">Wuhan Technical University of Surveying and Mapping</a>, which is <strong>NOW</strong> a part of <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Wuhan_University">Wuhan University</a>. When I was in the university, I <strong>NEVER</strong> thought I was in such an amazing department, studying such an amazing major.</p>
 <p>Alright… Let’s start today’s blog. We’re going to play <a target="_blank" rel="noopener" href="https://www.openstreetmap.org/">OpenStreetMap</a> for some fun.</p>
 <h1 id="1-ArcGIS-with-OpenStreetMap"><a href="#1-ArcGIS-with-OpenStreetMap" class="headerlink" title="1. ArcGIS with OpenStreetMap"></a>1. <a target="_blank" rel="noopener" href="https://www.arcgis.com/">ArcGIS</a> with <a target="_blank" rel="noopener" href="https://www.openstreetmap.org/">OpenStreetMap</a></h1><p>We <strong>FIRST</strong> test out how <a target="_blank" rel="noopener" href="https://www.arcgis.com/">ArcGIS</a> displays <a target="_blank" rel="noopener" href="https://www.openstreetmap.org/">OpenStreetMap</a>.</p>
@@ -421,18 +489,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/11/07/Finance/finance-data/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -450,33 +525,35 @@
             <a href="/2018/11/07/Finance/finance-data/" class="post-title-link" itemprop="url">Retrieve Finance Data -- Google vs. Yahoo</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-11-07 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-07T00:00:00-08:00">2018-11-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:35:26" itemprop="dateModified" datetime="2019-08-18T14:35:26-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Finance/" itemprop="url" rel="index"><span itemprop="name">Finance</span></a>
-                </span>
-            </span>
+      <time title="Created: 2018-11-07 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-07T00:00:00-08:00">2018-11-07</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:35:26" itemprop="dateModified" datetime="2019-08-18T14:35:26-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Finance/" itemprop="url" rel="index"><span itemprop="name">Finance</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -485,8 +562,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Yesterday, we briefly introduced <a target="_blank" rel="noopener" href="https://www.quantopian.com/">Quantopian</a> and how to ingest <a target="_blank" rel="noopener" href="https://www.quandl.com/databases/WIKIP">Quandl WIKI Bundle data</a>. Today, we are going to briefly summarize the financial data source and how to retrieve <strong>Google</strong> and <strong>Yahoo</strong> finance data using <a target="_blank" rel="noopener" href="https://pandas-datareader.readthedocs.io/en/latest/">pandas_datareader</a>.</p>
 <h1 id="1-Google-Finance-Data-and-Yahoo-Finance-Data"><a href="#1-Google-Finance-Data-and-Yahoo-Finance-Data" class="headerlink" title="1. Google Finance Data and Yahoo Finance Data"></a>1. Google Finance Data and Yahoo Finance Data</h1><p>State-of-the-art finance data source are partly summarized at <a target="_blank" rel="noopener" href="http://www.financial-hacker.com/bye-yahoo-and-thank-you-for-the-fish/">Financial Hacker</a>. Our recommended solution is to retrieve stock data by using a <strong>SINGLE</strong> framework: <a target="_blank" rel="noopener" href="https://pandas-datareader.readthedocs.io/en/latest/">pandas_datareader</a>. <a target="_blank" rel="noopener" href="https://finance.yahoo.com/">Yahoo Finance Data</a> and <a target="_blank" rel="noopener" href="https://www.google.com/finance">Google Finance Data</a> can be easily retrieved by <a target="_blank" rel="noopener" href="https://www.learndatasci.com/tutorials/python-finance-part-yahoo-finance-api-pandas-matplotlib/">This Learn Data Science Tutorial</a>.</p>
 <table>
@@ -567,18 +642,25 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/11/06/Finance/quantopian-introduction-ai-in-finance/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -596,33 +678,35 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
             <a href="/2018/11/06/Finance/quantopian-introduction-ai-in-finance/" class="post-title-link" itemprop="url">Quantopian Introduction - AI In Finance?</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-11-06 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-06T00:00:00-08:00">2018-11-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:35:31" itemprop="dateModified" datetime="2019-08-18T14:35:31-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Finance/" itemprop="url" rel="index"><span itemprop="name">Finance</span></a>
-                </span>
-            </span>
+      <time title="Created: 2018-11-06 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-06T00:00:00-08:00">2018-11-06</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:35:31" itemprop="dateModified" datetime="2019-08-18T14:35:31-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Finance/" itemprop="url" rel="index"><span itemprop="name">Finance</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -631,8 +715,6 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Today, let’s have some fun of AI in finance. We are going to use a tool named <a target="_blank" rel="noopener" href="https://www.quantopian.com/">Quantopian</a>. As far as I know, functional programming language <a target="_blank" rel="noopener" href="https://haskell-lang.org/">Haskell</a> has been widely used in <a target="_blank" rel="noopener" href="https://www.investopedia.com/terms/q/quantitativeanalysis.asp">quantitative analysis</a>. That’s possibly why a dependent package of <a target="_blank" rel="noopener" href="https://www.quantopian.com/">Quantopian</a>, namely <a target="_blank" rel="noopener" href="https://pandoc.org/">pandoc</a>, requires <a target="_blank" rel="noopener" href="https://docs.haskellstack.org/en/stable/README/">The Haskell Tool Stack</a> for its installation. Therefore, <a target="_blank" rel="noopener" href="https://haskell-lang.org/">Haskell</a> and <a target="_blank" rel="noopener" href="https://pandoc.org/">pandoc</a> need to be installed before <a target="_blank" rel="noopener" href="https://www.quantopian.com/">Quantopian</a> installation.</p>
 <h1 id="1-Preparations"><a href="#1-Preparations" class="headerlink" title="1. Preparations"></a>1. Preparations</h1><h2 id="1-1-Haskell-Installation"><a href="#1-1-Haskell-Installation" class="headerlink" title="1.1 Haskell Installation"></a>1.1 <a target="_blank" rel="noopener" href="https://haskell-lang.org/">Haskell</a> Installation</h2><p>Please refer to <a target="_blank" rel="noopener" href="https://docs.haskellstack.org/en/stable/install_and_upgrade/">https://docs.haskellstack.org/en/stable/install_and_upgrade/</a>:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ curl -sSL https://get.haskellstack.org/ | sh</span><br></pre></td></tr></table></figure>
@@ -678,18 +760,25 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/11/03/AI/DeepLearning/Pose-AI-Happy-Halloween/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -707,37 +796,39 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
             <a href="/2018/11/03/AI/DeepLearning/Pose-AI-Happy-Halloween/" class="post-title-link" itemprop="url">Pose AI - Happy Birthday to Me and Happy Halloween</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-11-03 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-03T00:00:00-07:00">2018-11-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:29:42" itemprop="dateModified" datetime="2019-08-18T14:29:42-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a>
-                </span>
-            </span>
+      <time title="Created: 2018-11-03 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-03T00:00:00-07:00">2018-11-03</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:29:42" itemprop="dateModified" datetime="2019-08-18T14:29:42-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -746,8 +837,6 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>October 31, 2018 is <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Halloween">Halloween</a>… ^_^ Happy <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Halloween">Halloween</a> everyone… </p>
 <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2018/Halloween.jpg" alt="Happy Halloween"></p>
 <p>And, <strong>Happy Birthday To Myself</strong>. Such an old <strong>NOBODY</strong>… <strong>DON’T ask my age.</strong> Anyway, enjoy life…</p>
@@ -853,18 +942,25 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/10/17/SBCs/ARM/huawei-HiSilicon-hikey970-Lebuntu/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -882,37 +978,39 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
             <a href="/2018/10/17/SBCs/ARM/huawei-HiSilicon-hikey970-Lebuntu/" class="post-title-link" itemprop="url">HiSilicon Hikey 970 - Flash Lebuntu</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-10-17 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-17T00:00:00-07:00">2018-10-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-20 04:06:55" itemprop="dateModified" datetime="2020-04-20T04:06:55-07:00">2020-04-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
-                </span>
-            </span>
+      <time title="Created: 2018-10-17 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-17T00:00:00-07:00">2018-10-17</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-04-20 04:06:55" itemprop="dateModified" datetime="2020-04-20T04:06:55-07:00">2020-04-20</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -921,8 +1019,6 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Hi, everyone… I’ve been so busy and haven’t written anything for a bit. My previous boss at <a target="_blank" rel="noopener" href="https://www.lenovo.com/">Lenovo</a> is now in Vancouver for annual executive meeting. She brought me a <a target="_blank" rel="noopener" href="https://www.huawei.com/">Huawei</a> <a target="_blank" rel="noopener" href="http://www.hisilicon.com/">HiSilicon</a> <a target="_blank" rel="noopener" href="https://www.96boards.org/product/hikey970/">Hikey 970</a>.</p>
 <p>Several things before testing:</p>
 <ul>
@@ -1016,18 +1112,25 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/09/15/Tools/uPyCraft_PyQt5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1045,33 +1148,35 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
             <a href="/2018/09/15/Tools/uPyCraft_PyQt5/" class="post-title-link" itemprop="url">uPyCraft_PyQt5</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-09-15 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-15T00:00:00-07:00">2018-09-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:53:15" itemprop="dateModified" datetime="2019-08-18T14:53:15-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a>
-                </span>
-            </span>
+      <time title="Created: 2018-09-15 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-15T00:00:00-07:00">2018-09-15</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:53:15" itemprop="dateModified" datetime="2019-08-18T14:53:15-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -1080,8 +1185,6 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>I’ve been looking for an IDE for debugging various microcontroller boards, such as <a target="_blank" rel="noopener" href="https://openmv.io/">OpenMV</a> and <a target="_blank" rel="noopener" href="http://micropython.org/">PyBoard</a>, etc. There are some fundamental requirements:</p>
 <ul>
 <li>Open source</li>
@@ -1129,18 +1232,25 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/09/04/SBCs/ARM/banana-pi-pro-armbian/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1158,37 +1268,39 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
             <a href="/2018/09/04/SBCs/ARM/banana-pi-pro-armbian/" class="post-title-link" itemprop="url">Install Armbian Ubuntu Desktop onto Banana Pi Pro</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-09-04 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-04T00:00:00-07:00">2018-09-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-20 03:55:21" itemprop="dateModified" datetime="2020-04-20T03:55:21-07:00">2020-04-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
-                </span>
-            </span>
+      <time title="Created: 2018-09-04 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-04T00:00:00-07:00">2018-09-04</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-04-20 03:55:21" itemprop="dateModified" datetime="2020-04-20T03:55:21-07:00">2020-04-20</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -1197,8 +1309,6 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>It’s been quite a while before I write down this <strong>similar</strong> blog as my previous <strong>Single Board Computer</strong> blogs. <a target="_blank" rel="noopener" href="http://www.lemaker.org/product-bananapro-specification.html">Banana Pi Pro</a> is a <strong>SBC</strong> with <a target="_blank" rel="noopener" href="http://www.allwinnertech.com/index.php?c=product&a=index&id=45">AllWinner A20</a> ARM CPU, which is also just of card size (Cited from <a target="_blank" rel="noopener" href="http://www.lemaker.org/product-bananapro-specification.html">LeMaker Official website</a>).</p>
 <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/bananapi/Pro_A20.jpg" alt="Orange Pi Plus 2"></p>
 <p>Now, we follow our previous blog <a href="../../../../../../2018/02/24/SBCs/ARM/nanopi-neo-armbian/">Install Armbian Debian Server onto NanoPi NEO</a> to install Armbian Ubuntu Desktop onto <a target="_blank" rel="noopener" href="http://www.lemaker.org/product-bananapro-specification.html">Banana Pi Pro</a>.</p>
@@ -1270,18 +1380,25 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/09/01/AI/DeepLearning/tensorflow-object-tracking/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1299,37 +1416,39 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
             <a href="/2018/09/01/AI/DeepLearning/tensorflow-object-tracking/" class="post-title-link" itemprop="url">Tensorflow Object Tracking</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-09-01 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-01T00:00:00-07:00">2018-09-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:29:54" itemprop="dateModified" datetime="2019-08-18T14:29:54-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a>
-                </span>
-            </span>
+      <time title="Created: 2018-09-01 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-01T00:00:00-07:00">2018-09-01</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:29:54" itemprop="dateModified" datetime="2019-08-18T14:29:54-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -1338,8 +1457,6 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>It seems <a target="_blank" rel="noopener" href="https://www.tensorflow.org/">Tensorflow</a> evolves pretty fast. Today we are testing object tracking based on <a target="_blank" rel="noopener" href="https://www.tensorflow.org/">Tensorflow</a>.</p>
 <h1 id="1-Environment"><a href="#1-Environment" class="headerlink" title="1. Environment"></a>1. Environment</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python</span><br><span class="line">Python 3.6.6 (default, Sep 12 2018, 18:26:19) </span><br><span class="line">[GCC 8.0.1 20180414 (experimental) [trunk revision 259383]] on linux</span><br><span class="line">Type <span class="string">&quot;help&quot;</span>, <span class="string">&quot;copyright&quot;</span>, <span class="string">&quot;credits&quot;</span> or <span class="string">&quot;license&quot;</span> <span class="keyword">for</span> more information.</span><br><span class="line">&gt;&gt;&gt; import tensorflow as tf</span><br><span class="line">&gt;&gt;&gt; tf.__version__</span><br><span class="line"><span class="string">&#x27;1.12.0-rc0&#x27;</span></span><br><span class="line">&gt;&gt;&gt; import cv2</span><br><span class="line">&gt;&gt;&gt; cv2.__version__</span><br><span class="line"><span class="string">&#x27;3.4.3&#x27;</span></span><br></pre></td></tr></table></figure>
 
@@ -1363,18 +1480,25 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/07/12/AI/DeepLearning/posture_recognition_by_a_single_2d_webcam/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1392,37 +1516,39 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
             <a href="/2018/07/12/AI/DeepLearning/posture_recognition_by_a_single_2d_webcam/" class="post-title-link" itemprop="url">Posture Recognition by A Single 2D Webcam</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-07-12 00:00:00" itemprop="dateCreated datePublished" datetime="2018-07-12T00:00:00-07:00">2018-07-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:29:47" itemprop="dateModified" datetime="2019-08-18T14:29:47-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a>
-                </span>
-            </span>
+      <time title="Created: 2018-07-12 00:00:00" itemprop="dateCreated datePublished" datetime="2018-07-12T00:00:00-07:00">2018-07-12</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:29:47" itemprop="dateModified" datetime="2019-08-18T14:29:47-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -1431,8 +1557,6 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Busy again. Simple test about posture recognition. <span class="github-emoji" alias="laughing" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f606.png?v8">&#x1f606;</span><br><strong>Yup… it is ME again, several minutes ago…</strong></p>
 <p><a target="_blank" rel="noopener" href="https://www.facebook.com/LongerVisionTechnologyUSA/videos/1061784230645446/"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/tf-pose-estimation/00000555.jpg" alt="Nobody - Yeah, it&#39;s ME"></a></p>
 
@@ -1442,13 +1566,16 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
-  
-  
+</div>
+
+
+
 
 
   
@@ -1458,8 +1585,7 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
 
 
 
-          </div>
-          
+      
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -1468,7 +1594,7 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -1477,80 +1603,20 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Nobody</p>
-  <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">91</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">28</span>
-        <span class="site-state-item-name">categories</span>
-      </div>
-      <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">89</span>
-        <span class="site-state-item-name">tags</span>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
+      
 
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
+      
 
 <div class="copyright">
   
@@ -1561,39 +1627,15 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
   </span>
   <span class="author" itemprop="copyrightHolder">Nobody</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
 
@@ -1611,7 +1653,17 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
 
 
 
+
+
+
   
+
+
+
+
+
+
+
 
   
 

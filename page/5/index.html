@@ -13,11 +13,13 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"8.0.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
 
   <meta name="description" content="Longer Vision Technology Github Blog">
@@ -31,10 +33,11 @@
 <meta property="article:tag" content="Longer Vision, Computer Vision, AI, Machine Learning">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="http://longervision.ca/page/5/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -54,49 +57,61 @@
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">Longer Vision Technology</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">Github Blog</p>
   </div>
@@ -109,9 +124,8 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
+  <ul class="main-menu menu">
         <li class="menu-item menu-item-home">
 
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
@@ -132,21 +146,6 @@
     <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
   </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-schedule">
-
-    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
-
-  </li>
   </ul>
 </nav>
 
@@ -154,6 +153,63 @@
 
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Nobody</p>
+  <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">89</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
@@ -162,18 +218,23 @@
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content index posts-expand">
-            
+    <div class="main-inner index posts-expand">
       
+
+      
+    
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/07/07/Coding/Skills/markdown_skills/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -191,37 +252,39 @@
             <a href="/2019/07/07/Coding/Skills/markdown_skills/" class="post-title-link" itemprop="url">Markdown Skills</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-07-07 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-07T00:00:00-07:00">2019-07-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-20 04:08:23" itemprop="dateModified" datetime="2020-04-20T04:08:23-07:00">2020-04-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Coding/Skills/" itemprop="url" rel="index"><span itemprop="name">Skills</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-07-07 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-07T00:00:00-07:00">2019-07-07</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-04-20 04:08:23" itemprop="dateModified" datetime="2020-04-20T04:08:23-07:00">2020-04-20</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/Skills/" itemprop="url" rel="index"><span itemprop="name">Skills</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -230,8 +293,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Raining today…</p>
 <h1 id="Skill-1-How-to-apply-color-for-words-in-markdown"><a href="#Skill-1-How-to-apply-color-for-words-in-markdown" class="headerlink" title="Skill 1 - How to apply color for words in markdown?"></a>Skill 1 - How to apply color for words in markdown?</h1><h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>Please refer to <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/35465557/how-to-apply-color-in-markdown">https://stackoverflow.com/questions/35465557/how-to-apply-color-in-markdown</a>.</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Some Markdown text with <span class="xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&quot;color:blue&quot;</span>&gt;</span></span>some <span class="emphasis">*blue*</span> text<span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span>.</span><br></pre></td></tr></table></figure>
@@ -247,18 +308,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/07/06/SBCs/ARM/NVidia-Jetson-Nano-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -276,37 +344,39 @@
             <a href="/2019/07/06/SBCs/ARM/NVidia-Jetson-Nano-1/" class="post-title-link" itemprop="url">NVidia Jetson Nano - 1</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-07-06 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-06T00:00:00-07:00">2019-07-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:58:37" itemprop="dateModified" datetime="2019-08-18T14:58:37-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-07-06 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-06T00:00:00-07:00">2019-07-06</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:58:37" itemprop="dateModified" datetime="2019-08-18T14:58:37-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -315,8 +385,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>I got the <a target="_blank" rel="noopener" href="https://ark.intel.com/content/www/us/en/ark/products/99445/intel-wireless-ac-9260.html">Intel Wireless-AC 9260</a> today, and a proper <a target="_blank" rel="noopener" href="https://www.memoryexpress.com/Products/MX76104">128G micro SD card</a>, finally… Let’s try out <a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetson-nano-developer-kit">Jetson Nano</a>.</p>
 <h1 id="PART-A-Install-JetPack-onto-Jetson-Nano"><a href="#PART-A-Install-JetPack-onto-Jetson-Nano" class="headerlink" title="PART A: Install JetPack onto Jetson Nano"></a>PART A: Install JetPack onto Jetson Nano</h1><p>Let’s simply use the command <strong>dd</strong> to have <a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetpack">JetPack</a> installed onto the micro SD card as follows:</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜  JetPack sudo dd bs=4M if=jetson-nano-sd-r32.1.1-2019-05-31.img of=/dev/mmcblk0 conv=fsync</span><br><span class="line">[sudo] password for lvision: </span><br><span class="line">3072+0 records in</span><br><span class="line">3072+0 records out</span><br><span class="line">12884901888 bytes (13 GB, 12 GiB) copied, 311.804 s, 41.3 MB/s</span><br></pre></td></tr></table></figure>
@@ -336,18 +404,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/07/01/Robotics/Arduino-Robotic-Arm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -365,33 +440,35 @@
             <a href="/2019/07/01/Robotics/Arduino-Robotic-Arm/" class="post-title-link" itemprop="url">Arduino Based Robotic Arm</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-07-01 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-01T00:00:00-07:00">2019-07-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-18 14:38:17" itemprop="dateModified" datetime="2019-08-18T14:38:17-07:00">2019-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Robotics/" itemprop="url" rel="index"><span itemprop="name">Robotics</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-07-01 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-01T00:00:00-07:00">2019-07-01</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2019-08-18 14:38:17" itemprop="dateModified" datetime="2019-08-18T14:38:17-07:00">2019-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Robotics/" itemprop="url" rel="index"><span itemprop="name">Robotics</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -400,8 +477,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Happy 2019’s <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Canada_Day">Canada Day</a>.</p>
 <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2019/CanadaDay/Surrey.jpg" alt="Happy Canada Day"></p>
 <p>Having simply demoed two Arduino-controlled robotic arms the other day, I had some videos updated onto <a target="_blank" rel="noopener" href="https://www.facebook.com/longervisionrobot/">Longer Vision Robot’s Facebook</a> today, namely, <a target="_blank" rel="noopener" href="https://globalnews.ca/news/5448484/canada-day-vancouver-2019/">2019’s Canada Day</a>.</p>
@@ -441,18 +516,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/06/21/SBCs/ARM/huawei-HiSilicon-build-GCC-for-Hikey970/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -470,37 +552,39 @@
             <a href="/2019/06/21/SBCs/ARM/huawei-HiSilicon-build-GCC-for-Hikey970/" class="post-title-link" itemprop="url">Build GCC For HiSilicon Hikey 970</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-06-21 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-21T00:00:00-07:00">2019-06-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-20 03:57:21" itemprop="dateModified" datetime="2020-04-20T03:57:21-07:00">2020-04-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-06-21 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-21T00:00:00-07:00">2019-06-21</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-04-20 03:57:21" itemprop="dateModified" datetime="2020-04-20T03:57:21-07:00">2020-04-20</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -509,8 +593,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>By following our previous blog <a href="../../../../../../2019/06/20/OperatingSystems/CompilersTools/build-gcc/">Build GCC</a>, we should be able to <strong>CROSS-BUILD</strong> GCC for various ARM architectures. Today, we are building <a target="_blank" rel="noopener" href="https://gcc.gnu.org/gcc-9/">GCC 9.1.0</a> for <a target="_blank" rel="noopener" href="https://www.96boards.org/product/hikey970/">Hikey 970</a>, which is of <a target="_blank" rel="noopener" href="https://en.wikichip.org/wiki/arm/aarch64">aarch64</a> architecture. (More details about <strong>aarch64</strong> can be found on <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/ARM_architecture#AArch64_features">ARM architecture</a> )</p>
 <h1 id="Start-Building"><a href="#Start-Building" class="headerlink" title="Start Building"></a>Start Building</h1><h2 id="Binutils"><a href="#Binutils" class="headerlink" title="Binutils"></a>Binutils</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line">➜  aarch64 mkdir build-binutils</span><br><span class="line">➜  aarch64 cd build-binutils</span><br><span class="line">lvision@hikey970:~/Downloads/Programming/GCC/build-binutils$ ../binutils-2.32/configure --prefix=/opt/aarch64 --enable-shared --enable-vtable-verify</span><br><span class="line">checking build system type... aarch64-unknown-linux-gnu</span><br><span class="line">checking host system type... aarch64-unknown-linux-gnu</span><br><span class="line">checking target system type... aarch64-unknown-linux-gnu</span><br><span class="line">checking for a BSD-compatible install... /usr/bin/install -c</span><br><span class="line">checking whether ln works... yes</span><br><span class="line">checking whether ln -s works... yes</span><br><span class="line">checking for a sed that does not truncate output... /bin/sed</span><br><span class="line">checking for gawk... gawk</span><br><span class="line">checking for gcc... gcc</span><br><span class="line">checking whether the C compiler works... yes</span><br><span class="line">checking for C compiler default output file name... a.out</span><br><span class="line">checking for suffix of executables... </span><br><span class="line">checking whether we are cross compiling... no</span><br><span class="line">checking for suffix of object files... o</span><br><span class="line">checking whether we are using the GNU C compiler... yes</span><br><span class="line">checking whether gcc accepts -g... yes</span><br><span class="line">checking for gcc option to accept ISO C89... none needed</span><br><span class="line">checking for g++... g++</span><br><span class="line">checking whether we are using the GNU C++ compiler... yes</span><br><span class="line">checking whether g++ accepts -g... yes</span><br><span class="line">checking whether g++ accepts -static-libstdc++ -static-libgcc... yes</span><br><span class="line">checking for gnatbind... gnatbind</span><br><span class="line">checking for gnatmake... gnatmake</span><br><span class="line">checking whether compiler driver understands Ada... no</span><br><span class="line">checking how to compare bootstrapped objects... cmp --ignore-initial=16 $$f1 $$f2</span><br><span class="line">checking for objdir... .libs</span><br><span class="line">checking for isl 0.15 or later... yes</span><br><span class="line">checking for default BUILD_CONFIG... </span><br><span class="line">checking for --enable-vtable-verify... yes</span><br><span class="line">checking for bison... bison -y</span><br><span class="line">checking for bison... bison</span><br><span class="line">checking for gm4... no</span><br><span class="line">checking for gnum4... no</span><br><span class="line">checking for m4... m4</span><br><span class="line">checking for flex... flex</span><br><span class="line">checking for flex... flex</span><br><span class="line">checking for makeinfo... makeinfo</span><br><span class="line">checking for expect... expect</span><br><span class="line">checking for runtest... no</span><br><span class="line">checking for ar... ar</span><br><span class="line">checking for as... as</span><br><span class="line">checking for dlltool... no</span><br><span class="line">checking for ld... ld</span><br><span class="line">checking for lipo... no</span><br><span class="line">checking for nm... nm</span><br><span class="line">checking for ranlib... ranlib</span><br><span class="line">checking for strip... strip</span><br><span class="line">checking for windres... no</span><br><span class="line">checking for windmc... no</span><br><span class="line">checking for objcopy... objcopy</span><br><span class="line">checking for objdump... objdump</span><br><span class="line">checking for readelf... readelf</span><br><span class="line">checking for cc... cc</span><br><span class="line">checking for c++... c++</span><br><span class="line">checking for gcc... gcc</span><br><span class="line">checking for gfortran... gfortran</span><br><span class="line">checking for gccgo... gccgo</span><br><span class="line">checking for ar... ar</span><br><span class="line">checking for as... as</span><br><span class="line">checking for dlltool... no</span><br><span class="line">checking for ld... ld</span><br><span class="line">checking for lipo... no</span><br><span class="line">checking for nm... nm</span><br><span class="line">checking for objcopy... objcopy</span><br><span class="line">checking for objdump... objdump</span><br><span class="line">checking for ranlib... ranlib</span><br><span class="line">checking for readelf... readelf</span><br><span class="line">checking for strip... strip</span><br><span class="line">checking for windres... no</span><br><span class="line">checking for windmc... no</span><br><span class="line">checking where to find the target ar... just compiled</span><br><span class="line">checking where to find the target as... just compiled</span><br><span class="line">checking where to find the target cc... host tool</span><br><span class="line">checking where to find the target c++... host tool</span><br><span class="line">checking where to find the target c++ for libstdc++... host tool</span><br><span class="line">checking where to find the target dlltool... just compiled</span><br><span class="line">checking where to find the target gcc... host tool</span><br><span class="line">checking where to find the target gfortran... host tool</span><br><span class="line">checking where to find the target gccgo... host tool</span><br><span class="line">checking where to find the target ld... just compiled</span><br><span class="line">checking where to find the target lipo... host tool</span><br><span class="line">checking where to find the target nm... just compiled</span><br><span class="line">checking where to find the target objcopy... just compiled</span><br><span class="line">checking where to find the target objdump... just compiled</span><br><span class="line">checking where to find the target ranlib... just compiled</span><br><span class="line">checking where to find the target readelf... just compiled</span><br><span class="line">checking where to find the target strip... just compiled</span><br><span class="line">checking where to find the target windres... just compiled</span><br><span class="line">checking where to find the target windmc... just compiled</span><br><span class="line">checking whether to enable maintainer-specific portions of Makefiles... no</span><br><span class="line">configure: creating ./config.status</span><br><span class="line">config.status: creating Makefile</span><br><span class="line">➜  build-binutils make -j4</span><br><span class="line">......</span><br><span class="line">➜  build-binutils make install</span><br><span class="line">➜  build-binutils cd ..</span><br></pre></td></tr></table></figure>
 
@@ -538,18 +620,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/06/20/OperatingSystems/CompilersTools/build-gcc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -567,37 +656,39 @@
             <a href="/2019/06/20/OperatingSystems/CompilersTools/build-gcc/" class="post-title-link" itemprop="url">Build GCC</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-06-20 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-20T00:00:00-07:00">2019-06-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-20 02:57:02" itemprop="dateModified" datetime="2020-04-20T02:57:02-07:00">2020-04-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Operating-System/" itemprop="url" rel="index"><span itemprop="name">Operating System</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Operating-System/Compiler/" itemprop="url" rel="index"><span itemprop="name">Compiler</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-06-20 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-20T00:00:00-07:00">2019-06-20</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-04-20 02:57:02" itemprop="dateModified" datetime="2020-04-20T02:57:02-07:00">2020-04-20</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Operating-System/" itemprop="url" rel="index"><span itemprop="name">Operating System</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Operating-System/Compiler/" itemprop="url" rel="index"><span itemprop="name">Compiler</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -606,8 +697,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Today, let’s try to build the <strong>MOST RECENT</strong> <a target="_blank" rel="noopener" href="https://gcc.gnu.org/gcc-9/">GCC 9.1</a>. We strictly follow the <strong>TERRIFIC</strong> blog <a target="_blank" rel="noopener" href="https://preshing.com/20141119/how-to-build-a-gcc-cross-compiler/">How to Build a GCC Cross-Compiler</a> with trivial modifications for my <strong>x86_64</strong> desktop instead of <strong>aarch64</strong> cross compile.</p>
 <h1 id="Preparations"><a href="#Preparations" class="headerlink" title="Preparations"></a>Preparations</h1><h2 id="Packages-Required-on-HOST"><a href="#Packages-Required-on-HOST" class="headerlink" title="Packages Required on HOST"></a>Packages Required on HOST</h2><p>Some packages are required to install on the host computer, including:</p>
 <ul>
@@ -667,18 +756,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/06/05/SBCs/ARM/orange-pi-3-official/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -696,37 +792,39 @@
             <a href="/2019/06/05/SBCs/ARM/orange-pi-3-official/" class="post-title-link" itemprop="url">Install Ubuntu Desktop from Official Orange Pi Website onto Orange Pi 3</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-06-05 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-05T00:00:00-07:00">2019-06-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-20 03:45:25" itemprop="dateModified" datetime="2020-04-20T03:45:25-07:00">2020-04-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-06-05 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-05T00:00:00-07:00">2019-06-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-04-20 03:45:25" itemprop="dateModified" datetime="2020-04-20T03:45:25-07:00">2020-04-20</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -735,8 +833,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>According to our previous blog <a href="../../../../../../2019/05/12/SBCs/ARM/orange-pi-3-armbian/">Install Armbian Ubuntu Desktop Nightly Built onto Orange Pi 3</a>, Wifi module of <a target="_blank" rel="noopener" href="http://www.orangepi.org/Orange%20Pi%203/">Orange Pi 3</a> with <a target="_blank" rel="noopener" href="https://dl.armbian.com/orangepi3/nightly/">Armbian nightly built for Orange Pi 3</a> does <strong>NOT</strong> function well. Therefore, today, we resort back to the Ubuntu Desktop distro from Orange Pi’s official website.</p>
 <h1 id="PART-A-Install-Ubuntu-Desktop-from-Official-Orange-Pi-Website-onto-Orange-Pi-3"><a href="#PART-A-Install-Ubuntu-Desktop-from-Official-Orange-Pi-Website-onto-Orange-Pi-3" class="headerlink" title="PART A: Install Ubuntu Desktop from Official Orange Pi Website onto Orange Pi 3"></a>PART A: Install Ubuntu Desktop from Official Orange Pi Website onto Orange Pi 3</h1><h2 id="1-Download-Ubuntu-Desktop-for-Orange-Pi-3-from-Official-Orange-Pi-Website"><a href="#1-Download-Ubuntu-Desktop-for-Orange-Pi-3-from-Official-Orange-Pi-Website" class="headerlink" title="1. Download Ubuntu Desktop for Orange Pi 3 from Official Orange Pi Website"></a>1. Download Ubuntu Desktop for Orange Pi 3 from Official Orange Pi Website</h2><p>We <strong>FIRST</strong> go visiting Orange Pi’s official website <a target="_blank" rel="noopener" href="http://www.orangepi.org/downloadresources/">http://www.orangepi.org/downloadresources/</a> and find the <a target="_blank" rel="noopener" href="http://www.orangepi.org/downloadresources/OrangePi3/2019-01-23/orangepi3_82ad209229e957e13fa953491c.html">Ubuntu Desktop distro</a> for <a target="_blank" rel="noopener" href="http://www.orangepi.org/Orange%20Pi%203/">Orange Pi 3</a>.</p>
 <p>After <strong>OrangePi_3_xenial_desktop_linux4.9_v1.3.img.tar.gz</strong> has been downloaded, we had it extracted as follows:</p>
@@ -784,18 +880,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/06/03/Coding/Skills/bash_skills/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -813,37 +916,39 @@
             <a href="/2019/06/03/Coding/Skills/bash_skills/" class="post-title-link" itemprop="url">Bash Skills</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-06-03 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-03T00:00:00-07:00">2019-06-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-26 08:43:27" itemprop="dateModified" datetime="2020-09-26T08:43:27-07:00">2020-09-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Coding/Skills/" itemprop="url" rel="index"><span itemprop="name">Skills</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-06-03 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-03T00:00:00-07:00">2019-06-03</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-09-26 08:43:27" itemprop="dateModified" datetime="2020-09-26T08:43:27-07:00">2020-09-26</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/Skills/" itemprop="url" rel="index"><span itemprop="name">Skills</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -852,8 +957,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Back to Vancouver, Canada now. Start writing something again. Just wanna write down some very useful bash scripts.</p>
 <h1 id="Skill-1-How-to-upgrade-all-Python-packages-with-pip"><a href="#Skill-1-How-to-upgrade-all-Python-packages-with-pip" class="headerlink" title="Skill 1 - How to upgrade all Python packages with pip?"></a>Skill 1 - How to upgrade all Python packages with pip?</h1><h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>Please refer to <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2720014/how-to-upgrade-all-python-packages-with-pip">https://stackoverflow.com/questions/2720014/how-to-upgrade-all-python-packages-with-pip</a>. Bash script is:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip list --outdated --format=freeze | grep -v <span class="string">&#x27;^\-e&#x27;</span> | cut -d = -f 1  | xargs -n1 pip install -U --user</span><br></pre></td></tr></table></figure>
@@ -948,18 +1051,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/05/12/SBCs/ARM/orange-pi-3-armbian/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -977,37 +1087,39 @@
             <a href="/2019/05/12/SBCs/ARM/orange-pi-3-armbian/" class="post-title-link" itemprop="url">Install Armbian Ubuntu Desktop Nightly Built onto Orange Pi 3</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-05-12 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-12T00:00:00-07:00">2019-05-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-20 03:59:37" itemprop="dateModified" datetime="2020-04-20T03:59:37-07:00">2020-04-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-05-12 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-12T00:00:00-07:00">2019-05-12</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-04-20 03:59:37" itemprop="dateModified" datetime="2020-04-20T03:59:37-07:00">2020-04-20</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -1016,8 +1128,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Today, let’s have some fun of <a target="_blank" rel="noopener" href="http://www.orangepi.org/Orange%20Pi%203/">Orange Pi 3</a>, which adopts <a target="_blank" rel="noopener" href="http://www.allwinnertech.com/index.php?c=product&a=index&id=66">AllWinner H6</a> as its CPU. The board looks like (cited from <a target="_blank" rel="noopener" href="http://www.orangepi.org/Orange%20Pi%203/">Orange Pi 3</a> ):</p>
 <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/orangepi/3/00_h6.jpg" alt="Orange Pi 3"></p>
 <p>By following our previous blog <a href="../../../../../../2018/02/27/SBCs/ARM/orange-pi-plus-2-armbian/">Install Armbian Ubuntu Desktop with the Newest Supported Mainline Linux Kernel onto Orange Pi Plus 2</a>, we’ll have <a target="_blank" rel="noopener" href="https://dl.armbian.com/orangepi3/nightly/">the Nightly Built Armbian Ubuntu Desktop</a> installed onto <a target="_blank" rel="noopener" href="http://www.orangepi.org/Orange%20Pi%203/">Orange Pi 3</a>.</p>
@@ -1054,18 +1164,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/04/16/SBCs/ARM/banana-pi-m3-armbian/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1083,37 +1200,39 @@
             <a href="/2019/04/16/SBCs/ARM/banana-pi-m3-armbian/" class="post-title-link" itemprop="url">Install Armbian Ubuntu Desktop With Kernel 5.0 onto Banana Pi M3</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-04-16 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-16T00:00:00-07:00">2019-04-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-20 04:03:40" itemprop="dateModified" datetime="2020-04-20T04:03:40-07:00">2020-04-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-04-16 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-16T00:00:00-07:00">2019-04-16</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-04-20 04:03:40" itemprop="dateModified" datetime="2020-04-20T04:03:40-07:00">2020-04-20</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -1122,8 +1241,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/bananapi/M3_A83T.jpg" alt="Orange Pi M3"></p>
 <p>Hello, everybody. I’m now back in ShenZhen, China, and testing several types of <strong>Single Board Computers</strong>. I’ve got to say: <strong>Made In China</strong> is amazing. <a target="_blank" rel="noopener" href="http://www.banana-pi.org/m3.html">Banana Pi M3</a> is a <strong>SBC</strong> with <a target="_blank" rel="noopener" href="http://www.allwinnertech.com/index.php?c=product&a=index&id=24">AllWinner A83T</a> ARM CPU, which is also of credit-card size. Some detailed features can be found on the open source technical supporter <a target="_blank" rel="noopener" href="http://linux-sunxi.org/A83T">Sunxi</a>. Please pay attention to the following key points:</p>
 <ul>
@@ -1208,18 +1325,25 @@ Please refer to [Armbian docs - How to set fixed IP?](https://docs.armbian.com/U
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/04/14/Tools/videojs-test/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1237,33 +1361,35 @@ Please refer to [Armbian docs - How to set fixed IP?](https://docs.armbian.com/U
             <a href="/2019/04/14/Tools/videojs-test/" class="post-title-link" itemprop="url">How To Use Video.JS ?</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-04-14 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-14T00:00:00-07:00">2019-04-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-05 21:02:54" itemprop="dateModified" datetime="2020-04-05T21:02:54-07:00">2020-04-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-04-14 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-14T00:00:00-07:00">2019-04-14</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-04-05 21:02:54" itemprop="dateModified" datetime="2020-04-05T21:02:54-07:00">2020-04-05</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -1272,8 +1398,6 @@ Please refer to [Armbian docs - How to set fixed IP?](https://docs.armbian.com/U
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>I’m currently in ShenZhen, China. Required by a business project, I’ll have to test out <a target="_blank" rel="noopener" href="https://videojs.com/">Video.JS</a> these days.</p>
 <h1 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h1><h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;title&gt;Welcome to visionopen.com!&lt;/title&gt;</span><br><span class="line">  &lt;link href=<span class="string">&quot;https://vjs.zencdn.net/7.4.1/video-js.css&quot;</span> rel=<span class="string">&quot;stylesheet&quot;</span>&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- If you<span class="string">&#x27;d like to support IE8 (for Video.js versions prior to v7) --&gt;</span></span><br><span class="line"><span class="string">  &lt;script src=&quot;https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js&quot;&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="string">&lt;/head&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;body&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  &lt;table&gt;</span></span><br><span class="line"><span class="string">    &lt;tr&gt;</span></span><br><span class="line"><span class="string">      &lt;th&gt;</span></span><br><span class="line"><span class="string">        &lt;video id=&#x27;</span>TianTian_01<span class="string">&#x27; class=&#x27;</span>video-js<span class="string">&#x27; controls preload=&#x27;</span>auto<span class="string">&#x27; width=&#x27;</span><span class="number">320</span><span class="string">&#x27; height=&#x27;</span><span class="number">568</span><span class="string">&#x27;</span></span><br><span class="line"><span class="string">        poster=&#x27;</span>./TianTian_01.jpg<span class="string">&#x27; data-setup=&#x27;</span>&#123;&#125;<span class="string">&#x27;&gt;</span></span><br><span class="line"><span class="string">          &lt;source src=&quot;./TianTian_01.mp4&quot; type=&quot;video/mp4&quot;&gt;&lt;/source&gt;</span></span><br><span class="line"><span class="string">        &lt;/video&gt;</span></span><br><span class="line"><span class="string">      &lt;/th&gt;</span></span><br><span class="line"><span class="string">      &lt;th&gt;</span></span><br><span class="line"><span class="string">        &lt;video id=&#x27;</span>TianTian_02<span class="string">&#x27; class=&#x27;</span>video-js<span class="string">&#x27; controls preload=&#x27;</span>auto<span class="string">&#x27; width=&#x27;</span><span class="number">320</span><span class="string">&#x27; height=&#x27;</span><span class="number">568</span><span class="string">&#x27;</span></span><br><span class="line"><span class="string">        poster=&#x27;</span>./TianTian_02.jpg<span class="string">&#x27; data-setup=&#x27;</span>&#123;&#125;<span class="string">&#x27;&gt;</span></span><br><span class="line"><span class="string">          &lt;source src=&quot;./TianTian_02.mp4&quot; type=&quot;video/mp4&quot;&gt;&lt;/source&gt;</span></span><br><span class="line"><span class="string">        &lt;/video&gt;</span></span><br><span class="line"><span class="string">      &lt;/th&gt;</span></span><br><span class="line"><span class="string">      &lt;th&gt;</span></span><br><span class="line"><span class="string">        &lt;video id=&#x27;</span>TianTian_03<span class="string">&#x27; class=&#x27;</span>video-js<span class="string">&#x27; controls preload=&#x27;</span>auto<span class="string">&#x27; width=&#x27;</span><span class="number">320</span><span class="string">&#x27; height=&#x27;</span><span class="number">568</span><span class="string">&#x27;</span></span><br><span class="line"><span class="string">        poster=&#x27;</span>./TianTian_03.jpg<span class="string">&#x27; data-setup=&#x27;</span>&#123;&#125;<span class="string">&#x27;&gt;</span></span><br><span class="line"><span class="string">          &lt;source src=&quot;./TianTian_03.mp4&quot; type=&quot;video/mp4&quot;&gt;&lt;/source&gt;</span></span><br><span class="line"><span class="string">        &lt;/video&gt;</span></span><br><span class="line"><span class="string">      &lt;/th&gt;</span></span><br><span class="line"><span class="string">      &lt;th&gt;</span></span><br><span class="line"><span class="string">        &lt;video id=&#x27;</span>TianTian_04<span class="string">&#x27; class=&#x27;</span>video-js<span class="string">&#x27; controls preload=&#x27;</span>auto<span class="string">&#x27; width=&#x27;</span><span class="number">320</span><span class="string">&#x27; height=&#x27;</span><span class="number">568</span><span class="string">&#x27;</span></span><br><span class="line"><span class="string">        poster=&#x27;</span>./TianTian_04.jpg<span class="string">&#x27; data-setup=&#x27;</span>&#123;&#125;<span class="string">&#x27;&gt;</span></span><br><span class="line"><span class="string">          &lt;source src=&quot;./TianTian_04.mp4&quot; type=&quot;video/mp4&quot;&gt;&lt;/source&gt;</span></span><br><span class="line"><span class="string">        &lt;/video&gt;</span></span><br><span class="line"><span class="string">      &lt;/th&gt;</span></span><br><span class="line"><span class="string">      &lt;th&gt;</span></span><br><span class="line"><span class="string">        &lt;video id=&#x27;</span>TianTian_05<span class="string">&#x27; class=&#x27;</span>video-js<span class="string">&#x27; controls preload=&#x27;</span>auto<span class="string">&#x27; width=&#x27;</span><span class="number">320</span><span class="string">&#x27; height=&#x27;</span><span class="number">568</span><span class="string">&#x27;</span></span><br><span class="line"><span class="string">        poster=&#x27;</span>./TianTian_05.jpg<span class="string">&#x27; data-setup=&#x27;</span>&#123;&#125;<span class="string">&#x27;&gt;</span></span><br><span class="line"><span class="string">          &lt;source src=&quot;./TianTian_05.mp4&quot; type=&quot;video/mp4&quot;&gt;&lt;/source&gt;</span></span><br><span class="line"><span class="string">        &lt;/video&gt;</span></span><br><span class="line"><span class="string">      &lt;/th&gt;</span></span><br><span class="line"><span class="string">      &lt;th&gt;</span></span><br><span class="line"><span class="string">        &lt;video id=&#x27;</span>TianTian_06<span class="string">&#x27; class=&#x27;</span>video-js<span class="string">&#x27; controls preload=&#x27;</span>auto<span class="string">&#x27; width=&#x27;</span><span class="number">320</span><span class="string">&#x27; height=&#x27;</span><span class="number">568</span><span class="string">&#x27;</span></span><br><span class="line"><span class="string">        poster=&#x27;</span>./TianTian_06.jpg<span class="string">&#x27; data-setup=&#x27;</span>&#123;&#125;<span class="string">&#x27;&gt;</span></span><br><span class="line"><span class="string">          &lt;source src=&quot;./TianTian_06.mp4&quot; type=&quot;video/mp4&quot;&gt;&lt;/source&gt;</span></span><br><span class="line"><span class="string">        &lt;/video&gt;</span></span><br><span class="line"><span class="string">      &lt;/th&gt;</span></span><br><span class="line"><span class="string">    &lt;/tr&gt;</span></span><br><span class="line"><span class="string">  &lt;/table&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  &lt;script src=&#x27;</span>https:<span class="comment">//vjs.zencdn.net/7.4.1/video.js&#x27;&gt;&lt;/script&gt;</span></span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
 
@@ -1285,13 +1409,16 @@ Please refer to [Armbian docs - How to set fixed IP?](https://docs.armbian.com/U
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
-  
-  
+</div>
+
+
+
 
 
   
@@ -1301,8 +1428,7 @@ Please refer to [Armbian docs - How to set fixed IP?](https://docs.armbian.com/U
 
 
 
-          </div>
-          
+      
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -1311,7 +1437,7 @@ Please refer to [Armbian docs - How to set fixed IP?](https://docs.armbian.com/U
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -1320,80 +1446,20 @@ Please refer to [Armbian docs - How to set fixed IP?](https://docs.armbian.com/U
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Nobody</p>
-  <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">91</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">28</span>
-        <span class="site-state-item-name">categories</span>
-      </div>
-      <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">89</span>
-        <span class="site-state-item-name">tags</span>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
+      
 
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
+      
 
 <div class="copyright">
   
@@ -1404,39 +1470,15 @@ Please refer to [Armbian docs - How to set fixed IP?](https://docs.armbian.com/U
   </span>
   <span class="author" itemprop="copyrightHolder">Nobody</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
 
@@ -1454,7 +1496,17 @@ Please refer to [Armbian docs - How to set fixed IP?](https://docs.armbian.com/U
 
 
 
+
+
+
   
+
+
+
+
+
+
+
 
   
 

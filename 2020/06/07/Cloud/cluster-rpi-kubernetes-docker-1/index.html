@@ -13,11 +13,13 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"8.0.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
 
   <meta name="description" content="Profile Frontal Top         Today is Sunday. Vancouver is sunny. It’s been quite a while that I haven’t written anything. It took me a couple of weeks to have my tax reported finally. Hmmm… Anyway,">
@@ -37,10 +39,11 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/cloud/rpicluster/profile.jpg">
 
+
 <link rel="canonical" href="http://longervision.ca/2020/06/07/Cloud/cluster-rpi-kubernetes-docker-1/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -60,49 +63,61 @@
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">Longer Vision Technology</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">Github Blog</p>
   </div>
@@ -115,9 +130,8 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
+  <ul class="main-menu menu">
         <li class="menu-item menu-item-home">
 
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
@@ -138,21 +152,6 @@
     <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
   </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-schedule">
-
-    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
-
-  </li>
   </ul>
 </nav>
 
@@ -160,6 +159,64 @@
 
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Compare-All-Raspberry-Pi-Variants"><span class="nav-number">1.</span> <span class="nav-text">1. Compare All Raspberry Pi Variants</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Four-Raspberry-Pis"><span class="nav-number">2.</span> <span class="nav-text">2. Four Raspberry Pis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-pi01-Raspberry-Pi-4-Model-B-Rev-1-4-8GB-with-Raspberry-Pi-OS-32-bit-with-desktop-2020-05-27"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 pi01: Raspberry Pi 4 Model B Rev 1.4 8GB with Raspberry Pi OS (32-bit) with desktop 2020-05-27</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-pi02-Raspberry-Pi-4-Model-B-Rev-1-1-4GB-with-Raspberry-Pi-OS-32-bit-with-desktop-2020-05-27"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 pi02: Raspberry Pi 4 Model B Rev 1.1 4GB with Raspberry Pi OS (32-bit) with desktop 2020-05-27</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-pi03-Raspberry-Pi-3-Model-B-Rev-1-2-1GB-with-Raspberry-Pi-OS-32-bit-with-desktop-2020-05-27"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 pi03: Raspberry Pi 3 Model B Rev 1.2 1GB with Raspberry Pi OS (32-bit) with desktop 2020-05-27</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-pi04-Raspberry-Pi-3-Model-B-Rev-1-2-1GB-with-Raspberry-Pi-OS-32-bit-with-desktop-2020-05-27"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 pi04: Raspberry Pi 3 Model B Rev 1.2 1GB with Raspberry Pi OS (32-bit) with desktop 2020-05-27</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Raspberry-Pi-Cluster-Configuration"><span class="nav-number">3.</span> <span class="nav-text">3. Raspberry Pi Cluster Configuration</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Configure-Hostfile"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Configure Hostfile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-SSH-KEYGEN"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 SSH-KEYGEN</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Cluster-Test"><span class="nav-number">4.</span> <span class="nav-text">4. Cluster Test</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-Command-mpiexec"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 Command mpiexec</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-1-Argument-hostfile-and-n"><span class="nav-number">4.1.1.</span> <span class="nav-text">4.1.1 Argument: -hostfile and -n</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-2-Execute-Python-Example-mpi4py-helloworld-py"><span class="nav-number">4.1.2.</span> <span class="nav-text">4.1.2 Execute Python Example mpi4py helloworld.py</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-mpi4py-examples"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 mpi4py-examples</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-1-mpi4py-examples-01-hello-world"><span class="nav-number">4.2.1.</span> <span class="nav-text">4.2.1 mpi4py-examples 01-hello-world</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-2-mpi4py-examples-02-broadcast"><span class="nav-number">4.2.2.</span> <span class="nav-text">4.2.2 mpi4py-examples 02-broadcast</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-3-mpi4py-examples-03-scatter-gather"><span class="nav-number">4.2.3.</span> <span class="nav-text">4.2.3 mpi4py-examples 03-scatter-gather</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-4-mpi4py-examples-04-image-spectrogram"><span class="nav-number">4.2.4.</span> <span class="nav-text">4.2.4 mpi4py-examples 04-image-spectrogram</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-5-mpi4py-examples-05-pseudo-whitening"><span class="nav-number">4.2.5.</span> <span class="nav-text">4.2.5 mpi4py-examples 05-pseudo-whitening</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-6-NULL"><span class="nav-number">4.2.6.</span> <span class="nav-text">4.2.6 NULL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-7-mpi4py-examples-07-matrix-vector-product"><span class="nav-number">4.2.7.</span> <span class="nav-text">4.2.7 mpi4py-examples 07-matrix-vector-product</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-8-mpi4py-examples-08-matrix-matrix-product-py"><span class="nav-number">4.2.8.</span> <span class="nav-text">4.2.8 mpi4py-examples 08-matrix-matrix-product.py</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-9-mpi4py-examples-09-task-pull-py"><span class="nav-number">4.2.9.</span> <span class="nav-text">4.2.9 mpi4py-examples 09-task-pull.py</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-10-mpi4py-examples-10-task-pull-spawn-py"><span class="nav-number">4.2.10.</span> <span class="nav-text">4.2.10 mpi4py-examples 10-task-pull-spawn.py</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-Example-mpi4py-prime-py"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 Example mpi4py prime.py</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-1-Computing-Capability-For-Each-CPU"><span class="nav-number">4.3.1.</span> <span class="nav-text">4.3.1 Computing Capability For Each CPU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-2-Computing-Capability-For-Each-Raspberry-Pi"><span class="nav-number">4.3.2.</span> <span class="nav-text">4.3.2 Computing Capability For Each Raspberry Pi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-3-Computing-Capability-For-The-cluster"><span class="nav-number">4.3.3.</span> <span class="nav-text">4.3.3 Computing Capability For The cluster</span></a></li></ol></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Nobody</p>
+  <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">89</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
@@ -168,19 +225,24 @@
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
+      
 
-    
+      
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="English">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2020/06/07/Cloud/cluster-rpi-kubernetes-docker-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -197,33 +259,35 @@
           A Cluster of Raspberry Pis (1) - Configuration
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-06-07 00:00:00" itemprop="dateCreated datePublished" datetime="2020-06-07T00:00:00-07:00">2020-06-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-22 17:32:17" itemprop="dateModified" datetime="2020-06-22T17:32:17-07:00">2020-06-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cloud/" itemprop="url" rel="index"><span itemprop="name">Cloud</span></a>
-                </span>
-            </span>
+      <time title="Created: 2020-06-07 00:00:00" itemprop="dateCreated datePublished" datetime="2020-06-07T00:00:00-07:00">2020-06-07</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-06-22 17:32:17" itemprop="dateModified" datetime="2020-06-22T17:32:17-07:00">2020-06-22</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Cloud/" itemprop="url" rel="index"><span itemprop="name">Cloud</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -232,8 +296,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
         <table>
 <thead>
 <tr>
@@ -502,36 +564,35 @@
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/Docker-Kubernetes-Raspberry-Pi-Cluster-Supercomputer/" rel="tag"># Docker, Kubernetes, Raspberry Pi, Cluster, Supercomputer</a>
           </div>
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/04/30/MachineVision/ARMLinux/e-consystems-e-CAM50_CUNANO/" rel="prev" title="e-con Systems e-CAM50_CUNANO">
-      <i class="fa fa-chevron-left"></i> e-con Systems e-CAM50_CUNANO
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/06/16/SBCs/MCU/microbit/" rel="next" title="micro:bit">
-      micro:bit <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/04/30/MachineVision/ARMLinux/e-consystems-e-CAM50_CUNANO/" rel="prev" title="e-con Systems e-CAM50_CUNANO">
+                  <i class="fa fa-chevron-left"></i> e-con Systems e-CAM50_CUNANO
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/06/16/SBCs/MCU/microbit/" rel="next" title="micro:bit">
+                  micro:bit <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
           </div>
-          
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -540,7 +601,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -549,81 +610,20 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Compare-All-Raspberry-Pi-Variants"><span class="nav-number">1.</span> <span class="nav-text">1. Compare All Raspberry Pi Variants</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Four-Raspberry-Pis"><span class="nav-number">2.</span> <span class="nav-text">2. Four Raspberry Pis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-pi01-Raspberry-Pi-4-Model-B-Rev-1-4-8GB-with-Raspberry-Pi-OS-32-bit-with-desktop-2020-05-27"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 pi01: Raspberry Pi 4 Model B Rev 1.4 8GB with Raspberry Pi OS (32-bit) with desktop 2020-05-27</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-pi02-Raspberry-Pi-4-Model-B-Rev-1-1-4GB-with-Raspberry-Pi-OS-32-bit-with-desktop-2020-05-27"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 pi02: Raspberry Pi 4 Model B Rev 1.1 4GB with Raspberry Pi OS (32-bit) with desktop 2020-05-27</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-pi03-Raspberry-Pi-3-Model-B-Rev-1-2-1GB-with-Raspberry-Pi-OS-32-bit-with-desktop-2020-05-27"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 pi03: Raspberry Pi 3 Model B Rev 1.2 1GB with Raspberry Pi OS (32-bit) with desktop 2020-05-27</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-pi04-Raspberry-Pi-3-Model-B-Rev-1-2-1GB-with-Raspberry-Pi-OS-32-bit-with-desktop-2020-05-27"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 pi04: Raspberry Pi 3 Model B Rev 1.2 1GB with Raspberry Pi OS (32-bit) with desktop 2020-05-27</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Raspberry-Pi-Cluster-Configuration"><span class="nav-number">3.</span> <span class="nav-text">3. Raspberry Pi Cluster Configuration</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Configure-Hostfile"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Configure Hostfile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-SSH-KEYGEN"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 SSH-KEYGEN</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Cluster-Test"><span class="nav-number">4.</span> <span class="nav-text">4. Cluster Test</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-Command-mpiexec"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 Command mpiexec</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-1-Argument-hostfile-and-n"><span class="nav-number">4.1.1.</span> <span class="nav-text">4.1.1 Argument: -hostfile and -n</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-2-Execute-Python-Example-mpi4py-helloworld-py"><span class="nav-number">4.1.2.</span> <span class="nav-text">4.1.2 Execute Python Example mpi4py helloworld.py</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-mpi4py-examples"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 mpi4py-examples</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-1-mpi4py-examples-01-hello-world"><span class="nav-number">4.2.1.</span> <span class="nav-text">4.2.1 mpi4py-examples 01-hello-world</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-2-mpi4py-examples-02-broadcast"><span class="nav-number">4.2.2.</span> <span class="nav-text">4.2.2 mpi4py-examples 02-broadcast</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-3-mpi4py-examples-03-scatter-gather"><span class="nav-number">4.2.3.</span> <span class="nav-text">4.2.3 mpi4py-examples 03-scatter-gather</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-4-mpi4py-examples-04-image-spectrogram"><span class="nav-number">4.2.4.</span> <span class="nav-text">4.2.4 mpi4py-examples 04-image-spectrogram</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-5-mpi4py-examples-05-pseudo-whitening"><span class="nav-number">4.2.5.</span> <span class="nav-text">4.2.5 mpi4py-examples 05-pseudo-whitening</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-6-NULL"><span class="nav-number">4.2.6.</span> <span class="nav-text">4.2.6 NULL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-7-mpi4py-examples-07-matrix-vector-product"><span class="nav-number">4.2.7.</span> <span class="nav-text">4.2.7 mpi4py-examples 07-matrix-vector-product</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-8-mpi4py-examples-08-matrix-matrix-product-py"><span class="nav-number">4.2.8.</span> <span class="nav-text">4.2.8 mpi4py-examples 08-matrix-matrix-product.py</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-9-mpi4py-examples-09-task-pull-py"><span class="nav-number">4.2.9.</span> <span class="nav-text">4.2.9 mpi4py-examples 09-task-pull.py</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-10-mpi4py-examples-10-task-pull-spawn-py"><span class="nav-number">4.2.10.</span> <span class="nav-text">4.2.10 mpi4py-examples 10-task-pull-spawn.py</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-Example-mpi4py-prime-py"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 Example mpi4py prime.py</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-1-Computing-Capability-For-Each-CPU"><span class="nav-number">4.3.1.</span> <span class="nav-text">4.3.1 Computing Capability For Each CPU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-2-Computing-Capability-For-Each-Raspberry-Pi"><span class="nav-number">4.3.2.</span> <span class="nav-text">4.3.2 Computing Capability For Each Raspberry Pi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-3-Computing-Capability-For-The-cluster"><span class="nav-number">4.3.3.</span> <span class="nav-text">4.3.3 Computing Capability For The cluster</span></a></li></ol></li></ol></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Nobody</p>
-  <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">91</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">28</span>
-        <span class="site-state-item-name">categories</span>
-      </div>
-      <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">89</span>
-        <span class="site-state-item-name">tags</span>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
+      
 
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
+      
 
 <div class="copyright">
   
@@ -634,39 +634,15 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Nobody</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
 
@@ -684,7 +660,17 @@
 
 
 
+
+
+
   
+
+
+
+
+
+
+
 
   
 
