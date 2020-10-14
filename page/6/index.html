@@ -193,7 +193,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">92</span>
+          <span class="site-state-item-count">93</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -237,6 +237,167 @@
       
 
       
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/04/16/SBCs/ARM/banana-pi-m3-armbian/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/16/SBCs/ARM/banana-pi-m3-armbian/" class="post-title-link" itemprop="url">Install Armbian Ubuntu Desktop With Kernel 5.0 onto Banana Pi M3</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-04-16 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-16T00:00:00-07:00">2019-04-16</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-04-20 04:03:40" itemprop="dateModified" datetime="2020-04-20T04:03:40-07:00">2020-04-20</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/bananapi/M3_A83T.jpg" alt="Orange Pi M3"></p>
+<p>Hello, everybody. I’m now back in ShenZhen, China, and testing several types of <strong>Single Board Computers</strong>. I’ve got to say: <strong>Made In China</strong> is amazing. <a target="_blank" rel="noopener" href="http://www.banana-pi.org/m3.html">Banana Pi M3</a> is a <strong>SBC</strong> with <a target="_blank" rel="noopener" href="http://www.allwinnertech.com/index.php?c=product&a=index&id=24">AllWinner A83T</a> ARM CPU, which is also of credit-card size. Some detailed features can be found on the open source technical supporter <a target="_blank" rel="noopener" href="http://linux-sunxi.org/A83T">Sunxi</a>. Please pay attention to the following key points:</p>
+<ul>
+<li>A83T SoC’s CPU is of 32-bit address</li>
+<li>A83T SoC comes with <a target="_blank" rel="noopener" href="https://www.imgtec.com/graphics-processors/">Power VR</a> <a target="_blank" rel="noopener" href="https://www.imgtec.com/blog/the-powervr-sgx544mp-a-modern-gpu-for-todays-leading-platforms/">SGX544MP1</a> GPU</li>
+<li>Current Linux Kernel 5.X <strong>ALREADY</strong> provides support for A83T, please refer to <a target="_blank" rel="noopener" href="https://github.com/torvalds/linux/blob/master/arch/arm/boot/dts/sun8i-a83t-allwinner-h8homlet-v2.dts">Github</a></li>
+</ul>
+<p>Now, we follow our previous blog <a href="../../../../../../2018/09/04/SBCs/ARM/banana-pi-pro-armbian/">Install Armbian Ubuntu Desktop onto Banana Pi Pro</a> to install Armbian Ubuntu Desktop onto <a target="_blank" rel="noopener" href="http://www.banana-pi.org/m3.html">Banana Pi M3</a>.</p>
+<h1 id="PART-A-Install-Ubuntu-Desktop-Built-By-Armbian-onto-Banana-Pi-M3"><a href="#PART-A-Install-Ubuntu-Desktop-Built-By-Armbian-onto-Banana-Pi-M3" class="headerlink" title="PART A: Install Ubuntu Desktop Built By Armbian onto Banana Pi M3"></a>PART A: Install Ubuntu Desktop Built By Armbian onto Banana Pi M3</h1><h2 id="1-Download-Armbian-Ubuntu-Desktop-for-Banana-Pi-M3"><a href="#1-Download-Armbian-Ubuntu-Desktop-for-Banana-Pi-M3" class="headerlink" title="1. Download Armbian Ubuntu Desktop for Banana Pi M3"></a>1. Download Armbian Ubuntu Desktop for Banana Pi M3</h2><p>We <strong>FIRST</strong> go visiting the website <a target="_blank" rel="noopener" href="https://www.armbian.com/bananapi-m3//">https://www.armbian.com/bananapi-m3/</a> and click <strong>Armbian Bionic</strong> icon, a file named <strong>Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop</strong> will be automatically downloaded.</p>
+<p>Then, we extract this .<strong>7z</strong> file by</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">➜  operatingsystems 7z x Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop.7z -oArmbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop </span><br><span class="line"></span><br><span class="line">7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21</span><br><span class="line">p7zip Version 16.02 (locale=en_CA.UTF-8,Utf16=on,HugeFiles=on,64 bits,8 CPUs Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz (506E3),ASM,AES-NI)</span><br><span class="line"></span><br><span class="line">Scanning the drive <span class="keyword">for</span> archives:</span><br><span class="line">1 file, 441800089 bytes (422 MiB)</span><br><span class="line"></span><br><span class="line">Extracting archive: Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop.7z</span><br><span class="line">--</span><br><span class="line">Path = Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop.7z</span><br><span class="line">Type = 7z</span><br><span class="line">Physical Size = 441800089</span><br><span class="line">Headers Size = 308</span><br><span class="line">Method = LZMA2:25</span><br><span class="line">Solid = +</span><br><span class="line">Blocks = 1</span><br><span class="line"></span><br><span class="line">Everything is Ok                                                     </span><br><span class="line"></span><br><span class="line">Files: 4</span><br><span class="line">Size:       1946176594</span><br><span class="line">Compressed: 441800089</span><br><span class="line">➜  operatingsystems ll Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop</span><br><span class="line">total 1.9G</span><br><span class="line">-rw-rw-r-- 1 jiapei jiapei 1.9G Feb 10 22:50 Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop.img</span><br><span class="line">-rw-rw-r-- 1 jiapei jiapei  833 Feb 10 22:50 Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop.img.asc</span><br><span class="line">-rw-r--r-- 1 jiapei jiapei  19K Feb 10 22:50 armbian.txt</span><br><span class="line">-rw-rw-r-- 1 jiapei jiapei  129 Feb 10 22:50 sha256sum.sha</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="2-Install-Armbian-Ubuntu-Desktop-for-Banana-Pi-M3"><a href="#2-Install-Armbian-Ubuntu-Desktop-for-Banana-Pi-M3" class="headerlink" title="2. Install Armbian Ubuntu Desktop for Banana Pi M3"></a>2. Install Armbian Ubuntu Desktop for Banana Pi M3</h2><p>After the extracted image file is prepared, it’s the time to install the Armbian Ubuntu Desktop onto our TF card. We <strong>FIRST</strong> format the TF card:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ sudo umount /dev/mmcblk0p1</span><br><span class="line">umount: /dev/mmcblk0p1: not mounted.</span><br><span class="line">➜  ~ sudo mkfs.ext4 /dev/mmcblk0</span><br><span class="line">mke2fs 1.44.1 (24-Mar-2018)</span><br><span class="line">Found a gpt partition table <span class="keyword">in</span> /dev/mmcblk0</span><br><span class="line">Proceed anyway? (y,N) y</span><br><span class="line">Discarding device blocks: <span class="keyword">done</span>                            </span><br><span class="line">Creating filesystem with 7579648 4k blocks and 1896832 inodes</span><br><span class="line">Filesystem UUID: 5c3be436-4e8c-43e4-ab21-6d5232420881</span><br><span class="line">Superblock backups stored on blocks: </span><br><span class="line">        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, </span><br><span class="line">        4096000</span><br><span class="line"></span><br><span class="line">Allocating group tables: <span class="keyword">done</span>                            </span><br><span class="line">Writing inode tables: <span class="keyword">done</span>                            </span><br><span class="line">Creating journal (32768 blocks): <span class="keyword">done</span></span><br><span class="line">Writing superblocks and filesystem accounting information: <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<p>Afterwards, use <strong>dd</strong> to install the downloaded Armbian Ubuntu Desktop image.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop sudo dd bs=4M <span class="keyword">if</span>=Armbian_5.83_Bananapim3_Ubuntu_bionic_next_4.19.38_desktop.img of=/dev/mmcblk0 conv=fsync</span><br><span class="line">464+0 records <span class="keyword">in</span></span><br><span class="line">464+0 records out</span><br><span class="line">1946157056 bytes (1.9 GB, 1.8 GiB) copied, 258.486 s, 7.5 MB/s</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="PART-B-SSH-Into-Armbian-Update-amp-Upgrade-Network-Configuration-Locale-Configuration"><a href="#PART-B-SSH-Into-Armbian-Update-amp-Upgrade-Network-Configuration-Locale-Configuration" class="headerlink" title="PART B: SSH Into Armbian, Update &amp; Upgrade, Network Configuration, Locale Configuration"></a>PART B: SSH Into Armbian, Update &amp; Upgrade, Network Configuration, Locale Configuration</h1><p><span style="color:red"><strong>NOTE</strong>: Whenever you met some unsolvable issue after you boot into Armbian, please use the command <code>armbianmonitor -U</code> to log the issue.</span></p>
+<h2 id="1-SSH-Into-Banana-Pi-M3"><a href="#1-SSH-Into-Banana-Pi-M3" class="headerlink" title="1. SSH Into Banana Pi M3"></a>1. SSH Into Banana Pi M3</h2><p>We now unplug the TF card from the host and put it into the <a target="_blank" rel="noopener" href="http://www.banana-pi.org/m3.html">Banana Pi M3</a>, Armbian Ubuntu Desktop boots successfully. The default username and password are respectively: <strong>root</strong> and <strong>1234</strong>. In our case, <a target="_blank" rel="noopener" href="http://www.banana-pi.org/m3.html">Banana Pi M3</a> is connected to a network cable first, and it’s <strong>NOT</strong> hard for us to get the <strong>IP</strong> address of <a target="_blank" rel="noopener" href="http://www.banana-pi.org/m3.html">Banana Pi M3</a> by using command line <strong>nmap</strong> (Details can be checked via <strong>Google</strong>). After setting up a <strong>NEW user</strong> as well as <strong>password</strong> by following the previous blog <a href="../../../../../../2018/09/04/SBCs/ARM/banana-pi-pro-armbian/">Install Armbian Ubuntu Desktop onto Banana Pi Pro</a>, you should be able to log into <a target="_blank" rel="noopener" href="http://www.banana-pi.org/m3.html">Banana Pi M3</a> with account <strong>root</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ssh root@192.168.1.80</span><br><span class="line">The authenticity of host <span class="string">&#x27;192.168.1.80 (192.168.1.80)&#x27;</span> can<span class="string">&#x27;t be established.</span></span><br><span class="line"><span class="string">ECDSA key fingerprint is SHA256:xLRt0ppGzbutHHcE3JRyaKw9A0baub3MDAxFF9GNfdk.</span></span><br><span class="line"><span class="string">Are you sure you want to continue connecting (yes/no)? yes</span></span><br><span class="line"><span class="string">Warning: Permanently added &#x27;</span>192.168.1.80<span class="string">&#x27; (ECDSA) to the list of known hosts.</span></span><br><span class="line"><span class="string">root@192.168.1.80&#x27;</span>s password: </span><br><span class="line"> ____                                  ____  _   __  __ _____ </span><br><span class="line">| __ )  __ _ _ __   __ _ _ __   __ _  |  _ \(_) |  \/  |___ / </span><br><span class="line">|  _ \ / _` | <span class="string">&#x27;_ \ / _` | &#x27;</span>_ \ / _` | | |_) | | | |\/| | |_ \ </span><br><span class="line">| |_) | (_| | | | | (_| | | | | (_| | |  __/| | | |  | |___) |</span><br><span class="line">|____/ \__,_|_| |_|\__,_|_| |_|\__,_| |_|   |_| |_|  |_|____/ </span><br><span class="line">                                                              </span><br><span class="line"></span><br><span class="line">Welcome to ARMBIAN 5.83 stable Ubuntu 18.04.2 LTS 4.19.38-sunxi   </span><br><span class="line">System load:   0.08 0.10 0.08   Up time:       33 min</span><br><span class="line">Memory usage:  12 % of 2013MB   IP:            192.168.1.80</span><br><span class="line">Usage of /:    6% of 29G    </span><br><span class="line"></span><br><span class="line">[ General system configuration (beta): armbian-config ]</span><br><span class="line"></span><br><span class="line">Last login: Thu Apr 18 08:53:31 2019 from 192.168.1.21</span><br><span class="line"></span><br><span class="line">root@bananapim3:~<span class="comment"># </span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="2-Kernel-Doublechecking"><a href="#2-Kernel-Doublechecking" class="headerlink" title="2. Kernel Doublechecking"></a>2. Kernel Doublechecking</h2><p>Finally, we have the system and kernel doublechecked.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root@bananapim3:~<span class="comment"># uname -r</span></span><br><span class="line">4.19.38-sunxi</span><br><span class="line">root@bananapim3:~<span class="comment"># uname -a</span></span><br><span class="line">Linux bananapim3 4.19.38-sunxi <span class="comment">#5.83 SMP Sun Feb 10 21:36:17 CET 2019 armv7l armv7l armv7l GNU/Linux</span></span><br><span class="line">root@bananapim3:~<span class="comment"># lsb_release -a</span></span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID: Ubuntu</span><br><span class="line">Description:    Ubuntu 18.04.2 LTS</span><br><span class="line">Release:        18.04</span><br><span class="line">Codename:       bionic</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="3-Update-amp-Upgrade"><a href="#3-Update-amp-Upgrade" class="headerlink" title="3. Update &amp; Upgrade"></a>3. Update &amp; Upgrade</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">root@bananapim3:~<span class="comment"># sudo apt update</span></span><br><span class="line">Get:1 https://apt.armbian.com bionic InRelease [18.9 kB]</span><br><span class="line">Get:2 https://apt.armbian.com bionic/main armhf Packages [288 kB]</span><br><span class="line">Hit:3 http://ports.ubuntu.com bionic InRelease                                     </span><br><span class="line">Get:4 http://ports.ubuntu.com bionic-security InRelease [88.7 kB]                  </span><br><span class="line">Get:5 http://ports.ubuntu.com bionic-updates InRelease [88.7 kB]</span><br><span class="line">Get:6 http://ports.ubuntu.com bionic-backports InRelease [74.6 kB]</span><br><span class="line">Get:7 http://ports.ubuntu.com bionic-security/main armhf Packages [216 kB]</span><br><span class="line">Get:8 https://apt.armbian.com bionic/bionic-utils armhf Packages [4767 B]</span><br><span class="line">Get:9 http://ports.ubuntu.com bionic-security/restricted armhf Packages [3968 B]</span><br><span class="line">Get:10 http://ports.ubuntu.com bionic-security/universe armhf Packages [238 kB]</span><br><span class="line">Get:11 http://ports.ubuntu.com bionic-security/multiverse armhf Packages [1924 B]</span><br><span class="line">Get:12 http://ports.ubuntu.com bionic-updates/main armhf Packages [452 kB]</span><br><span class="line">Get:13 http://ports.ubuntu.com bionic-updates/restricted armhf Packages [6488 B]</span><br><span class="line">Get:14 http://ports.ubuntu.com bionic-updates/universe armhf Packages [713 kB]</span><br><span class="line">Get:15 http://ports.ubuntu.com bionic-updates/multiverse armhf Packages [3592 B]</span><br><span class="line">Get:16 http://ports.ubuntu.com bionic-backports/main armhf Packages [1020 B]</span><br><span class="line">Get:17 http://ports.ubuntu.com bionic-backports/universe armhf Packages [3468 B]                                                                                                                             </span><br><span class="line">Fetched 2203 kB <span class="keyword">in</span> 45s (48.6 kB/s)                                                                                                                                                                           </span><br><span class="line">Reading package lists... Done</span><br><span class="line">Building dependency tree       </span><br><span class="line">Reading state information... Done</span><br><span class="line">155 packages can be upgraded. Run <span class="string">&#x27;apt list --upgradable&#x27;</span> to see them.</span><br><span class="line">root@bananapim3:~<span class="comment"># apt list --upgradable</span></span><br><span class="line">Listing... Done</span><br><span class="line">......</span><br><span class="line">root@bananapim3:~<span class="comment"># sudo apt upgrade</span></span><br><span class="line">.....</span><br><span class="line">Processing triggers <span class="keyword">for</span> libc-bin (2.27-3ubuntu1) ...</span><br><span class="line">Processing triggers <span class="keyword">for</span> resolvconf (1.79ubuntu10.18.04.3) ...</span><br><span class="line">Processing triggers <span class="keyword">for</span> initramfs-tools (0.130ubuntu3.7) ...</span><br><span class="line">update-initramfs: Generating /boot/initrd.img-4.19.25-sunxi</span><br><span class="line">update-initramfs: Converting to u-boot format</span><br><span class="line">root@bananapim3:~<span class="comment"># uname -a</span></span><br><span class="line">Linux bananapim3 4.19.25-sunxi <span class="comment">#5.78 SMP Mon Apr 8 07:46:22 CEST 2019 armv7l armv7l armv7l GNU/Linux</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="4-Locale-Configuration"><a href="#4-Locale-Configuration" class="headerlink" title="4. Locale Configuration"></a>4. Locale Configuration</h2><p>Clearly, from the above login info, our timezone seems to be wrong. Command <strong>dpkg-reconfigure tzdata</strong> is able to reset our timezone.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@bananapim3:~<span class="comment"># dpkg-reconfigure tzdata</span></span><br><span class="line"></span><br><span class="line">Current default time zone: <span class="string">&#x27;Asia/Shanghai&#x27;</span></span><br><span class="line">Local time is now:      Thu Apr 18 18:47:22 CST 2019.</span><br><span class="line">Universal Time is now:  Thu Apr 18 10:47:22 UTC 2019.</span><br></pre></td></tr></table></figure>
+
+<p>During the above process, you’ll set the following 2 pages correspondingly:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/01_SystemLocale_Asia.jpg" alt="System Locale Asia"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/02_SystemLocale_Shanghai.jpg" alt="System Locale Shanghai"></p>
+<p>By using the command <strong>date</strong>, we’ll see the timezone has been successfully reset.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@bananapim3:~<span class="comment"># date</span></span><br><span class="line">Tue Apr 18 18:49:25 CST 2019</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="5-Network-Configuration"><a href="#5-Network-Configuration" class="headerlink" title="5. Network Configuration"></a>5. Network Configuration</h2><h3 id="1-How-to-connect-to-wireless"><a href="#1-How-to-connect-to-wireless" class="headerlink" title="1). How to connect to wireless?"></a>1). How to connect to wireless?</h3><p>Please refer to <a target="_blank" rel="noopener" href="https://docs.armbian.com/User-Guide_Getting-Started/#how-to-connect-to-wireless">Armbian docs - How to connect to wireless?</a>, </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@bananapim3:~$ nmtui-connect SSID</span><br></pre></td></tr></table></figure>
+
+<p>However, according to my <strong>CURRENT</strong> issue posted at <a target="_blank" rel="noopener" href="https://forum.armbian.com/topic/10213-build-newest-linux-kernel-509-on-banana-pi-m3">Build NEWEST Linux Kernel 5.0.9 on Banana Pi M3</a>, <a target="_blank" rel="noopener" href="http://www.allwinnertech.com/index.php?c=product&a=index&id=24">AllWinner A83T</a>‘s Wifi module does <strong>NOT</strong> function well.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">lvision@bananapim3:~$ ip -c address</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: dummy0: &lt;BROADCAST,NOARP&gt; mtu 1500 qdisc noop state DOWN group default qlen 1000</span><br><span class="line">    link/ether 5a:cb:89:ad:49:96 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">3: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000</span><br><span class="line">    link/ether 02:01:06:95:68:df brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.1.80/24 brd 192.168.1.255 scope global dynamic noprefixroute eth0</span><br><span class="line">       valid_lft 3069140548sec preferred_lft 3069140548sec</span><br><span class="line">    inet6 fe80::8ea3:62cb:7b8b:e872/64 scope link noprefixroute </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+
+<p>Clearly, <strong>wlan0</strong> does <strong>NOT</strong> exist.</p>
+<h1 id="PART-C-Upgrade-Linux-Kernel-From-4-XX-To-5-XX"><a href="#PART-C-Upgrade-Linux-Kernel-From-4-XX-To-5-XX" class="headerlink" title="PART C: Upgrade Linux Kernel From 4.XX To 5.XX"></a>PART C: Upgrade Linux Kernel From 4.XX To 5.XX</h1><h2 id="1-Generate-Configure-File"><a href="#1-Generate-Configure-File" class="headerlink" title="1. Generate Configure File"></a>1. Generate Configure File</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">lvision@bananapim3:~/Downloads/linux-5.1.7$ make sunxi_defconfig</span><br><span class="line">  HOSTCC  scripts/basic/fixdep</span><br><span class="line">  HOSTCC  scripts/kconfig/conf.o</span><br><span class="line">  HOSTCC  scripts/kconfig/confdata.o</span><br><span class="line">  HOSTCC  scripts/kconfig/expr.o</span><br><span class="line">  LEX     scripts/kconfig/lexer.lex.c</span><br><span class="line">  YACC    scripts/kconfig/parser.tab.h</span><br><span class="line">  HOSTCC  scripts/kconfig/lexer.lex.o</span><br><span class="line">  YACC    scripts/kconfig/parser.tab.c</span><br><span class="line">  HOSTCC  scripts/kconfig/parser.tab.o</span><br><span class="line">  HOSTCC  scripts/kconfig/preprocess.o</span><br><span class="line">  HOSTCC  scripts/kconfig/symbol.o</span><br><span class="line">  HOSTLD  scripts/kconfig/conf</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># configuration written to .config</span></span><br><span class="line"><span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-Browse-Configure-File"><a href="#2-Browse-Configure-File" class="headerlink" title="2. Browse Configure File"></a>2. Browse Configure File</h2><p>Then, we can take a look at our configuration content by using:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lvision@bananapim3:~/Downloads/linux-5.1.7$ less .config</span><br></pre></td></tr></table></figure>
+
+<p>which is pasted at <a target="_blank" rel="noopener" href="https://pastebin.com/swZWAt9t">my pastebin sunxi_defconfig</a>.</p>
+<h2 id="3-make-menuconfig"><a href="#3-make-menuconfig" class="headerlink" title="3. make menuconfig"></a>3. make menuconfig</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">lvision@bananapim3:~/Downloads/linux-5.1.7$ make menuconfig</span><br><span class="line">  UPD     scripts/kconfig/mconf-cfg</span><br><span class="line">  HOSTCC  scripts/kconfig/mconf.o</span><br><span class="line">  HOSTCC  scripts/kconfig/lxdialog/checklist.o</span><br><span class="line">  HOSTCC  scripts/kconfig/lxdialog/inputbox.o</span><br><span class="line">  HOSTCC  scripts/kconfig/lxdialog/menubox.o</span><br><span class="line">  HOSTCC  scripts/kconfig/lxdialog/textbox.o</span><br><span class="line">  HOSTCC  scripts/kconfig/lxdialog/util.o</span><br><span class="line">  HOSTCC  scripts/kconfig/lxdialog/yesno.o</span><br><span class="line">  HOSTLD  scripts/kconfig/mconf</span><br><span class="line">scripts/kconfig/mconf  Kconfig</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">*** End of the configuration.</span><br><span class="line">*** Execute <span class="string">&#x27;make&#x27;</span> to start the build or try <span class="string">&#x27;make help&#x27;</span>.</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">lvision@bananapim3:~/Downloads/kernel/linux-5.1.7$ make -j 4 Image modules dtbs</span><br><span class="line">...</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra-trimslice.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra-utils.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra-wm8753.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra-wm8903.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra-wm9712.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra20-ac97.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra20-das.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra20-i2s.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra20-spdif.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra30-ahub.ko</span><br><span class="line">  LD [M]  sound/soc/tegra/snd-soc-tegra30-i2s.ko</span><br><span class="line">  LD [M]  sound/soundcore.ko</span><br><span class="line">  LD [M]  sound/usb/snd-usb-audio.ko</span><br><span class="line">  LD [M]  sound/usb/snd-usbmidi-lib.ko</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h1><p>We can of course follow our previous blog <a href="../../../../../../2018/02/27/SBCs/ARM/orange-pi-plus-2-armbian/">Install Armbian Ubuntu Desktop with the Newest Supported Mainline Linux Kernel onto Orange Pi Plus 2</a> to upgrade the <strong>NEWEST</strong> <a target="_blank" rel="noopener" href="https://www.denx.de/wiki/U-Boot">U-Boot</a> and <a target="_blank" rel="noopener" href="https://www.kernel.org/">Linux Kernel</a> for <a target="_blank" rel="noopener" href="http://www.banana-pi.org/m3.html">Banana Pi M3</a>, which is <strong>NOT</strong> going to be discussed here again.</p>
+<!---
+
+### 2). How to set fixed IP?
+
+Please refer to [Armbian docs - How to set fixed IP?](https://docs.armbian.com/User-Guide_Getting-Started/#how-to-set-fixed-ip), and modify the file **/etc/network/interfaces** as follows:
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">root@bananapim3:~$ vim /etc/network/interfaces</span><br><span class="line"><span class="built_in">source</span> /etc/network/interfaces.d/*</span><br><span class="line"><span class="comment"># Network is managed by Network manager</span></span><br><span class="line">auto lo</span><br><span class="line">iface lo inet loopback</span><br><span class="line"></span><br><span class="line"><span class="comment"># Wifi</span></span><br><span class="line">auto wlan0</span><br><span class="line">iface wlan0 inet static</span><br><span class="line">    address 192.168.0.82</span><br><span class="line">    netmask 255.255.255.0</span><br><span class="line">    network 192.168.0.0</span><br><span class="line">    broadcast 192.168.0.1</span><br><span class="line">    gateway 192.168.0.1</span><br><span class="line">    dns-nameservers 192.168.0.1 8.8.8.8</span><br><span class="line">    wpa-ssid XXXXXXXX</span><br><span class="line">    wpa-psk YYYYYYYY</span><br></pre></td></tr></table></figure>
+
+<p>Afterwards, a reboot (meanwhile, you may have to set up your own router for a fixed IP) will bring your <a target="_blank" rel="noopener" href="http://www.banana-pi.org/m3.html">Banana Pi M3</a> a fixed IP address. Here in my case: <strong>192.168.0.82</strong>.</p>
+<h3 id="3-Check-IP-Address"><a href="#3-Check-IP-Address" class="headerlink" title="3). Check IP Address"></a>3). Check IP Address</h3><p>And, let’s have a look at current IP of <a target="_blank" rel="noopener" href="http://www.banana-pi.org/m3.html">Banana Pi M3</a>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">root@bananapim3:~<span class="comment"># ip -c address</span></span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: dummy0: &lt;BROADCAST,NOARP&gt; mtu 1500 qdisc noop state DOWN group default qlen 1000</span><br><span class="line">    link/ether 06:ff:e9:32:<span class="built_in">fc</span>:5d brd ff:ff:ff:ff:ff:ff</span><br><span class="line">3: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000</span><br><span class="line">    link/ether 02:01:06:95:68:df brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.1.80/24 brd 192.168.1.255 scope global dynamic noprefixroute eth0</span><br><span class="line">       valid_lft 3069402692sec preferred_lft 3069402692sec</span><br><span class="line">    inet6 fe80::60f6:8ba6:4238:f3ca/64 scope link noprefixroute</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+
+<p>–&gt;</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
     
 
 
@@ -1226,123 +1387,6 @@
 <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2019/NewYear/preface.jpg" alt="Preface of My PhD Thesis"></p>
 <p>So, today, I’m <strong>NOT</strong> going to repeat any cliches, <strong>BUT</strong> happily encouraged by Arnold Schwarzenegger’s speech. We will definitely have a fruitful 2019. Let’s have some pizza.</p>
 <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2019/NewYear/pizza.jpg" alt="Pizza"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/12/22/Medical/pydicom/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/12/22/Medical/pydicom/" class="post-title-link" itemprop="url">Display DICOM using pydicom</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2018-12-22 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-22T00:00:00-08:00">2018-12-22</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-04-06 01:53:49" itemprop="dateModified" datetime="2020-04-06T01:53:49-07:00">2020-04-06</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Medical/" itemprop="url" rel="index"><span itemprop="name">Medical</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Merry Christmas everybody. Let’s take a look at the <a target="_blank" rel="noopener" href="https://www.coquitlam.ca/parks-recreation-and-culture/arts-and-culture/special-events-calendar/LightsatLafarge.aspx">Christmas Lights around Lafarge Lake in Coquitlam</a> FIRST.</p>
-<table>
-<thead>
-<tr>
-<th align="center">Lafarge Lake Christmas Lights 01</th>
-<th align="center">Lafarge Lake Christmas Lights 02</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2018/LafargeLake/ChristmasLight_01.jpg" alt="Lafarge Lake Christmas Lights 01"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2018/LafargeLake/ChristmasLight_02.jpg" alt="Lafarge Lake Christmas Lights 02"></td>
-</tr>
-<tr>
-<td align="center">Lafarge Lake Christmas Lights 03</td>
-<td align="center">Lafarge Lake Christmas Lights 04</td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2018/LafargeLake/ChristmasLight_03.jpg" alt="Lafarge Lake Christmas Lights 03"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2018/LafargeLake/ChristmasLight_04.jpg" alt="Lafarge Lake Christmas Lights 04"></td>
-</tr>
-<tr>
-<td align="center">Lafarge Lake Christmas Lights 05</td>
-<td align="center">Lafarge Lake Christmas Lights 06</td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2018/LafargeLake/ChristmasLight_05.jpg" alt="Lafarge Lake Christmas Lights 05"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2018/LafargeLake/ChristmasLight_06.jpg" alt="Lafarge Lake Christmas Lights 06"></td>
-</tr>
-</tbody></table>
-<p>Now, it’s the time to test <a target="_blank" rel="noopener" href="https://pydicom.github.io/">PyDicom</a>.</p>
-<h1 id="Get-Started"><a href="#Get-Started" class="headerlink" title="Get Started"></a>Get Started</h1><p>Copy and paste that piece of code from <a target="_blank" rel="noopener" href="https://medium.com/@taposhdr/medical-image-analysis-with-deep-learning-i-23d518abf531">Medical Image Analysis with Deep Learning </a> with trivial modifications as follows:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> pydicom <span class="keyword">as</span> pdicom</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> glob</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> scipy.ndimage</span><br><span class="line"><span class="keyword">from</span> skimage <span class="keyword">import</span> measure, morphology</span><br><span class="line"><span class="keyword">from</span> mpl_toolkits.mplot3d.art3d <span class="keyword">import</span> Poly3DCollection</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Prepare dicom images</span></span><br><span class="line">INPUT_FOLDER = <span class="string">&#x27;./&#x27;</span></span><br><span class="line">patients = os.listdir(INPUT_FOLDER)</span><br><span class="line">patients.sort()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Collect all dicom images</span></span><br><span class="line">lstFilesDCM = []   <span class="comment"># create an empty list</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_scan2</span>(<span class="params">path</span>):</span></span><br><span class="line">    <span class="keyword">for</span> dirName, subdirList, fileList <span class="keyword">in</span> os.walk(path):</span><br><span class="line">        <span class="keyword">for</span> filename <span class="keyword">in</span> fileList:</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&quot;.dcm&quot;</span> <span class="keyword">in</span> filename.lower():  </span><br><span class="line">                lstFilesDCM.append(os.path.join(dirName, filename))</span><br><span class="line">    <span class="keyword">return</span> lstFilesDCM</span><br><span class="line"></span><br><span class="line">first_patient = load_scan2(INPUT_FOLDER)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Get ref file</span></span><br><span class="line"><span class="keyword">print</span> (lstFilesDCM[<span class="number">0</span>])</span><br><span class="line">RefDs = pdicom.read_file(lstFilesDCM[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load dimensions based on the number of rows, columns and slices (along z axis)</span></span><br><span class="line">ConstPixelDims = (int(RefDs.Rows), int(RefDs.Columns), len(lstFilesDCM))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load spacing values (in mm)</span></span><br><span class="line">ConstPixelSpacing = (float(RefDs.PixelSpacing[<span class="number">0</span>]), float(RefDs.PixelSpacing[<span class="number">1</span>]), float(RefDs.SliceThickness))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">x = np.arange(<span class="number">0.0</span>, (ConstPixelDims[<span class="number">0</span>]+<span class="number">1</span>)*ConstPixelSpacing[<span class="number">0</span>], ConstPixelSpacing[<span class="number">0</span>])</span><br><span class="line">y = np.arange(<span class="number">0.0</span>, (ConstPixelDims[<span class="number">1</span>]+<span class="number">1</span>)*ConstPixelSpacing[<span class="number">1</span>], ConstPixelSpacing[<span class="number">1</span>])</span><br><span class="line">z = np.arange(<span class="number">0.0</span>, (ConstPixelDims[<span class="number">2</span>]+<span class="number">1</span>)*ConstPixelSpacing[<span class="number">2</span>], ConstPixelSpacing[<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># The array is sized based on &#x27;ConstPixelDims&#x27;</span></span><br><span class="line"></span><br><span class="line">ArrayDicom = np.zeros(ConstPixelDims, dtype=RefDs.pixel_array.dtype)</span><br><span class="line"></span><br><span class="line"><span class="comment"># loop through all the DICOM files</span></span><br><span class="line"><span class="keyword">for</span> filenameDCM <span class="keyword">in</span> lstFilesDCM:</span><br><span class="line">    <span class="comment"># read the file</span></span><br><span class="line">    ds = pdicom.read_file(filenameDCM)</span><br><span class="line">    <span class="comment"># store the raw image data</span></span><br><span class="line">    ArrayDicom[:, :, lstFilesDCM.index(filenameDCM)] = ds.pixel_array</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">plt.figure(dpi=<span class="number">1600</span>)</span><br><span class="line">plt.axes().set_aspect(<span class="string">&#x27;equal&#x27;</span>, <span class="string">&#x27;datalim&#x27;</span>)</span><br><span class="line">plt.set_cmap(plt.gray())</span><br><span class="line">plt.pcolormesh(y, x, np.flipud(ArrayDicom[:, :, <span class="number">80</span>]))</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="Display-DICOM"><a href="#Display-DICOM" class="headerlink" title="Display DICOM"></a>Display DICOM</h1><p>I did a MRI scan in 2015, in <a target="_blank" rel="noopener" href="http://www.siat.ac.cn/">SIAT</a>, for the purpose of research. The scan resolution is <strong>NOT</strong> very high. Anyway, a bunch of DICOM images can be viewed as follows:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/medical/MRI/dcms.jpg" alt="DICOM images"></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/medical/MRI/me.png" alt="MRI - me"></p>
 
       
     </div>
