@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="English">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","version":"8.2.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+  </script>
+<meta name="description" content="Back to Canada for around 1 month. It’s the time for me to write something. Good to know that PTI is released open source a couple of days ago. Let’s take a look at its performance today. Sorry that I">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pivotal Tuning Inversion (PTI)">
+<meta property="og:url" content="http://longervision.ca/2021/06/26/AI/DeepLearning/Pivotal-Tuning-Inversion-StyleGAN/index.html">
+<meta property="og:site_name" content="Longer Vision Technology">
+<meta property="og:description" content="Back to Canada for around 1 month. It’s the time for me to write something. Good to know that PTI is released open source a couple of days ago. Let’s take a look at its performance today. Sorry that I">
+<meta property="og:locale">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/01_personal_image.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/02_aligned_image.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/03_inversion_before_PTI.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/04_PTI.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/05_rotation_left_before_PTI.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/05_rotation_left_PTI.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/06_rotation_right_before_PTI.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/06_rotation_right_PTI.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/07_no_smile_before_PTI.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/07_no_smile_PTI.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/08_smile_before_PTI.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/08_smile_PTI.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/09_young_before_PTI.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/09_young_PTI.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/10_old_before_PTI.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/10_old_PTI.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/11_afro.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/12_mohawk.png">
+<meta property="article:published_time" content="2021-06-26T07:00:00.000Z">
+<meta property="article:modified_time" content="2021-06-27T06:45:44.902Z">
+<meta property="article:author" content="Nobody">
+<meta property="article:tag" content="PTI, GAN, StyleGAN, Deep Learning, Machine Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/01_personal_image.png">
+
+
+<link rel="canonical" href="http://longervision.ca/2021/06/26/AI/DeepLearning/Pivotal-Tuning-Inversion-StyleGAN/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'English'
+  };
+</script>
+<title>Pivotal Tuning Inversion (PTI) | Longer Vision Technology</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Longer Vision Technology</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Github Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Style-Change-on-Myself"><span class="nav-number">1.</span> <span class="nav-text">Style Change on Myself</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Style-Change-to-Another-Person"><span class="nav-number">2.</span> <span class="nav-text">Style Change to Another Person</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Nobody</p>
+  <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">92</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">90</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2021/06/26/AI/DeepLearning/Pivotal-Tuning-Inversion-StyleGAN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Pivotal Tuning Inversion (PTI)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-06-26 00:00:00 / Modified: 23:45:44" itemprop="dateCreated datePublished" datetime="2021-06-26T00:00:00-07:00">2021-06-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>Back to Canada for around 1 month. It’s the time for me to write something. Good to know that <a target="_blank" rel="noopener" href="https://github.com/danielroich/PTI">PTI</a> is released open source a couple of days ago. Let’s take a look at its performance today. Sorry that I seriously have <strong>NO</strong> time to investigate the details, having been busy in a robotic arm project. Therefore, a couple of resultant images are displayed as follows to demonstrate <a target="_blank" rel="noopener" href="https://github.com/danielroich/PTI">PTI</a>‘s performance.</p>
+<h2 id="Style-Change-on-Myself"><a href="#Style-Change-on-Myself" class="headerlink" title="Style Change on Myself"></a>Style Change on Myself</h2><table>
+<thead>
+<tr>
+<th align="center">When I was young</th>
+<th align="center">Aligned Image</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/01_personal_image.png" alt="When I was young"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/02_aligned_image.png" alt="Aligned Image"></td>
+</tr>
+<tr>
+<td align="center">Inversion before PTI</td>
+<td align="center">PTIed Image</td>
+</tr>
+<tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/03_inversion_before_PTI.png" alt="Inversion before PTI"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/04_PTI.png" alt="PTIed Image"></td>
+</tr>
+<tr>
+<td align="center">Rotation Left before PTI</td>
+<td align="center">Rotation Left PTIed Image</td>
+</tr>
+<tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/05_rotation_left_before_PTI.png" alt="Rotation Left before PTI"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/05_rotation_left_PTI.png" alt="Rotation Left PTIed Image"></td>
+</tr>
+<tr>
+<td align="center">Rotation Right before PTI</td>
+<td align="center">Rotation Right PTIed Image</td>
+</tr>
+<tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/06_rotation_right_before_PTI.png" alt="Rotation Left before PTI"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/06_rotation_right_PTI.png" alt="Rotation Left PTIed Image"></td>
+</tr>
+<tr>
+<td align="center">No Smile before PTI</td>
+<td align="center">No Smile PTIed Image</td>
+</tr>
+<tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/07_no_smile_before_PTI.png" alt="No Smile before PTI"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/07_no_smile_PTI.png" alt="No Smile PTIed Image"></td>
+</tr>
+<tr>
+<td align="center">Smile before PTI</td>
+<td align="center">Smile PTIed Image</td>
+</tr>
+<tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/08_smile_before_PTI.png" alt="Smile before PTI"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/08_smile_PTI.png" alt="Smile PTIed Image"></td>
+</tr>
+<tr>
+<td align="center">Young before PTI</td>
+<td align="center">Young PTIed Image</td>
+</tr>
+<tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/09_young_before_PTI.png" alt="Young before PTI"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/09_young_PTI.png" alt="Young PTIed Image"></td>
+</tr>
+<tr>
+<td align="center">Old before PTI</td>
+<td align="center">Old PTIed Image</td>
+</tr>
+<tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/10_old_before_PTI.png" alt="Old before PTI"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/10_old_PTI.png" alt="Old PTIed Image"></td>
+</tr>
+</tbody></table>
+<h2 id="Style-Change-to-Another-Person"><a href="#Style-Change-to-Another-Person" class="headerlink" title="Style Change to Another Person"></a>Style Change to Another Person</h2><table>
+<thead>
+<tr>
+<th align="center">afro</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/11_afro.png" alt="Afro"></td>
+</tr>
+<tr>
+<td align="center">mohawk</td>
+</tr>
+<tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/12_mohawk.png" alt="Afro"></td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PTI-GAN-StyleGAN-Deep-Learning-Machine-Learning/" rel="tag"># PTI, GAN, StyleGAN, Deep Learning, Machine Learning</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/10/04/Personal/music_Chinese_style/" rel="prev" title="Music - Chinese Style">
+                  <i class="fa fa-chevron-left"></i> Music - Chinese Style
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nobody</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
