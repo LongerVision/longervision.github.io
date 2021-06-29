@@ -159,7 +159,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">92</span>
+          <span class="site-state-item-count">93</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -199,6 +199,127 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2017/03/11/ComputerVision/OpenCV/opencv-external-posture-estimation-ArUco-diamond/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/03/11/ComputerVision/OpenCV/opencv-external-posture-estimation-ArUco-diamond/" class="post-title-link" itemprop="url">Camera Posture Estimation Using An ArUco Diamond Marker</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2017-03-11 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-11T00:00:00-08:00">2017-03-11</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2021-06-05 21:18:22" itemprop="dateModified" datetime="2021-06-05T21:18:22-07:00">2021-06-05</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Computer-Vision/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h1><p>Very similar to our previous post <a target="_blank" rel="noopener" href="https://longervision.github.io/2017/03/10/opencv-external-posture-estimation-ArUco-single-marker/">Camera Posture Estimation Using A Single aruco Marker</a>, you need to make sure your camera has already been calibrated. In the coding section, it’s assumed that you can successfully load the camera calibration parameters.</p>
+<h1 id="Coding"><a href="#Coding" class="headerlink" title="Coding"></a>Coding</h1><p>The code can be found at <a target="_blank" rel="noopener" href="https://github.com/LongerVision/OpenCV_Examples/blob/master/03_external_camera_posture_estimation/ArUco_diamond.py">OpenCV Examples</a>.</p>
+<h2 id="First-of-all"><a href="#First-of-all" class="headerlink" title="First of all"></a>First of all</h2><p>We need to ensure <strong>cv2.so</strong> is under our system path. <strong>cv2.so</strong> is specifically for OpenCV Python.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.append(<span class="string">&#x27;/usr/local/python/3.5&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Then, we import some packages to be used.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">from</span> cv2 <span class="keyword">import</span> aruco</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Secondly"><a href="#Secondly" class="headerlink" title="Secondly"></a>Secondly</h2><p>Again, we need to load all camera calibration parameters, including: <strong>cameraMatrix</strong>, <strong>distCoeffs</strong>, etc. :</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">calibrationFile = <span class="string">&quot;calibrationFileName.xml&quot;</span></span><br><span class="line">calibrationParams = cv2.FileStorage(calibrationFile, cv2.FILE_STORAGE_READ)</span><br><span class="line">camera_matrix = calibrationParams.getNode(<span class="string">&quot;cameraMatrix&quot;</span>).mat()</span><br><span class="line">dist_coeffs = calibrationParams.getNode(<span class="string">&quot;distCoeffs&quot;</span>).mat()</span><br></pre></td></tr></table></figure>
+
+<p>If you are using a calibrated fisheye camera like us, two extra parameters are to be loaded from the calibration file.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">r = calibrationParams.getNode(<span class="string">&quot;R&quot;</span>).mat()</span><br><span class="line">new_camera_matrix = calibrationParams.getNode(<span class="string">&quot;newCameraMatrix&quot;</span>).mat()</span><br></pre></td></tr></table></figure>
+
+<p>Afterwards, two mapping matrices are pre-calculated by calling function <a target="_blank" rel="noopener" href="http://docs.opencv.org/master/da/d54/group__imgproc__transform.html#ga7dfb72c9cf9780a347fbe3d1c47e5d5a">cv2.fisheye.initUndistortRectifyMap()</a> as (supposing the images to be processed are of 1080P):</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">image_size = (<span class="number">1920</span>, <span class="number">1080</span>)</span><br><span class="line">map1, map2 = cv2.fisheye.initUndistortRectifyMap(camera_matrix, dist_coeffs, r, new_camera_matrix, image_size, cv2.CV_16SC2)</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Thirdly"><a href="#Thirdly" class="headerlink" title="Thirdly"></a>Thirdly</h2><p>The dictionary <strong>aruco.DICT_6X6_250</strong> is to be loaded. Although current OpenCV provides four groups of <a target="_blank" rel="noopener" href="http://docs.opencv.org/master/d9/d6a/group__aruco.html">aruco</a> patterns, <strong>4X4</strong>, <strong>5X5</strong>, <strong>6X6</strong>, <strong>7X7</strong>, etc., it seems OpenCV Python does NOT provide a function named <a target="_blank" rel="noopener" href="http://docs.opencv.org/master/d9/d6a/group__aruco.html#gaf71fb897d5f03f7424c0c84715aa6228">drawCharucoDiamond()</a>. Therefore, we have to refer to the C++ tutorial <a target="_blank" rel="noopener" href="http://docs.opencv.org/master/d5/d07/tutorial_charuco_diamond_detection.html">Detection of Diamond Markers</a>. And, we directly use this particular diamond marker in the tutorial:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/OpenCV_Examples/master/markers/board_charuco_diamond.png" alt="aruco.DICT_6X6_250.diamond"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aruco_dict = aruco.Dictionary_get( aruco.DICT_6X6_250 )</span><br></pre></td></tr></table></figure>
+
+<p>After having this aruco diamond marker printed, the edge lengths of this particular diamond marker are to be measured and stored in two variables <strong>squareLength</strong> and <strong>markerLength</strong>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">squareLength = <span class="number">40</span>   <span class="comment"># Here, our measurement unit is centimetre.</span></span><br><span class="line">markerLength = <span class="number">25</span>   <span class="comment"># Here, our measurement unit is centimetre.</span></span><br></pre></td></tr></table></figure>
+
+<p>Meanwhile, create aruco detector with default parameters.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arucoParams = aruco.DetectorParameters_create()</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Finally"><a href="#Finally" class="headerlink" title="Finally"></a>Finally</h2><p>This time, let’s test on a video stream, a .mp4 file. We first load the video file and initialize a video capture handle.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">videoFile = <span class="string">&quot;aruco_diamond.mp4&quot;</span></span><br><span class="line">cap = cv2.VideoCapture(videoFile)</span><br></pre></td></tr></table></figure>
+
+<p>Then, we calculate the camera posture frame by frame:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="literal">True</span>):</span><br><span class="line">    ret, frame = cap.read() <span class="comment"># Capture frame-by-frame</span></span><br><span class="line">    <span class="keyword">if</span> ret == <span class="literal">True</span>:</span><br><span class="line">        frame_remapped = cv2.remap(frame, map1, map2, cv2.INTER_LINEAR, cv2.BORDER_CONSTANT)     <span class="comment"># for fisheye remapping</span></span><br><span class="line">        frame_remapped_gray = cv2.cvtColor(frame_remapped, cv2.COLOR_BGR2GRAY)</span><br><span class="line"></span><br><span class="line">        corners, ids, rejectedImgPoints = aruco.detectMarkers(frame_remapped_gray, aruco_dict, parameters=arucoParams)  <span class="comment"># First, detect markers</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> ids != <span class="literal">None</span>: <span class="comment"># if there is at least one marker detected</span></span><br><span class="line">            diamondCorners, diamondIds = aruco.detectCharucoDiamond(frame_remapped_gray, corners, ids, squareLength/markerLength)   <span class="comment"># Second, detect diamond markers</span></span><br><span class="line">            <span class="keyword">if</span> len(diamondCorners) &gt;= <span class="number">1</span>:    <span class="comment"># if there is at least one diamond detected</span></span><br><span class="line">                im_with_diamond = aruco.drawDetectedDiamonds(frame_remapped, diamondCorners, diamondIds, (<span class="number">0</span>,<span class="number">255</span>,<span class="number">0</span>))</span><br><span class="line">                rvec, tvec = aruco.estimatePoseSingleMarkers(diamondCorners, squareLength, camera_matrix, dist_coeffs)  <span class="comment"># posture estimation from a diamond</span></span><br><span class="line">                im_with_diamond = aruco.drawAxis(im_with_diamond, camera_matrix, dist_coeffs, rvec, tvec, <span class="number">100</span>)  <span class="comment"># axis length 100 can be changed according to your requirement</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            im_with_diamond = frame_remapped</span><br><span class="line"></span><br><span class="line">        cv2.imshow(<span class="string">&quot;diamondLeft&quot;</span>, im_with_diamond)   <span class="comment"># display</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> cv2.waitKey(<span class="number">2</span>) &amp; <span class="number">0xFF</span> == ord(<span class="string">&#x27;q&#x27;</span>):   <span class="comment"># press &#x27;q&#x27; to quit</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+
+<p>The drawn axis is just the world coordinators and orientations estimated from the images taken by the testing camera.<br>At the end of the code, we release the video capture handle and destroy all opening windows.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cap.release()   <span class="comment"># When everything done, release the capture</span></span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
