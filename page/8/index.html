@@ -159,7 +159,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">92</span>
+          <span class="site-state-item-count">93</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -199,6 +199,105 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/09/01/AI/DeepLearning/tensorflow-object-tracking/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/09/01/AI/DeepLearning/tensorflow-object-tracking/" class="post-title-link" itemprop="url">Tensorflow Object Tracking</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2018-09-01 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-01T00:00:00-07:00">2018-09-01</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2021-06-05 21:18:21" itemprop="dateModified" datetime="2021-06-05T21:18:21-07:00">2021-06-05</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>It seems <a target="_blank" rel="noopener" href="https://www.tensorflow.org/">Tensorflow</a> evolves pretty fast. Today we are testing object tracking based on <a target="_blank" rel="noopener" href="https://www.tensorflow.org/">Tensorflow</a>.</p>
+<h1 id="1-Environment"><a href="#1-Environment" class="headerlink" title="1. Environment"></a>1. Environment</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python</span><br><span class="line">Python 3.6.6 (default, Sep 12 2018, 18:26:19) </span><br><span class="line">[GCC 8.0.1 20180414 (experimental) [trunk revision 259383]] on linux</span><br><span class="line">Type <span class="string">&quot;help&quot;</span>, <span class="string">&quot;copyright&quot;</span>, <span class="string">&quot;credits&quot;</span> or <span class="string">&quot;license&quot;</span> <span class="keyword">for</span> more information.</span><br><span class="line">&gt;&gt;&gt; import tensorflow as tf</span><br><span class="line">&gt;&gt;&gt; tf.__version__</span><br><span class="line"><span class="string">&#x27;1.12.0-rc0&#x27;</span></span><br><span class="line">&gt;&gt;&gt; import cv2</span><br><span class="line">&gt;&gt;&gt; cv2.__version__</span><br><span class="line"><span class="string">&#x27;3.4.3&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="2-Object-Tracking"><a href="#2-Object-Tracking" class="headerlink" title="2. Object Tracking"></a>2. Object Tracking</h1><h2 id="2-1-Concepts"><a href="#2-1-Concepts" class="headerlink" title="2.1 Concepts"></a>2.1 Concepts</h2><p>There are several fundamental concepts to be re-emphasized (Here, we took one single concerned object as our example. There might be <strong>multiple</strong> concerned objects):</p>
+<ul>
+<li><strong>detection</strong>: You don’t know whethere there is a concerned object in the field of view or not, which you will know after the detection. And, if there is such a concerned object in the view, the object location is to be given.</li>
+<li><strong>tracking</strong>: You know where the concerned object was. Based on the prior knowledge, you are to determine where this object is going to be next?</li>
+<li><strong>location</strong>: Both detection and tracking are looked on as locating the concerned object.</li>
+<li><strong>recognition</strong>: Only after the concerned object has been located, more detailed information may be <strong>recognized</strong> afterwards.</li>
+</ul>
+<h2 id="2-2-Testing"><a href="#2-2-Testing" class="headerlink" title="2.2 Testing"></a>2.2 Testing</h2><p>Now, let’s test out <a target="_blank" rel="noopener" href="https://github.com/ildoonet/tf-adnet-tracking">Deep Object Tracking Implementation in Tensorflow</a>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">➜  tf-adnet-tracking git:(master) ✗ python runner.py by_dataset  --vid-path=./data/freeman1/</span><br><span class="line">VIDEOIO ERROR: V4L: can<span class="string">&#x27;t open camera by index 0</span></span><br><span class="line"><span class="string">Test:  0.0</span></span><br><span class="line"><span class="string">Ratio:  0.0</span></span><br><span class="line"><span class="string">Frame Rate:  0.0</span></span><br><span class="line"><span class="string">Width:  0.0</span></span><br><span class="line"><span class="string">Height:  0.0</span></span><br><span class="line"><span class="string">Brightness:  0.0</span></span><br><span class="line"><span class="string">Contrast:  0.0</span></span><br><span class="line"><span class="string">Saturation:  0.0</span></span><br><span class="line"><span class="string">Hue:  0.0</span></span><br><span class="line"><span class="string">Gain:  0.0</span></span><br><span class="line"><span class="string">Exposure:  0.0</span></span><br><span class="line"><span class="string">2018-11-04 19:20:54.997017: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:993] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero</span></span><br><span class="line"><span class="string">2018-11-04 19:20:54.997514: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1432] Found device 0 with properties: </span></span><br><span class="line"><span class="string">name: GeForce GTX 980M major: 5 minor: 2 memoryClockRate(GHz): 1.1265</span></span><br><span class="line"><span class="string">pciBusID: 0000:01:00.0</span></span><br><span class="line"><span class="string">totalMemory: 3.94GiB freeMemory: 3.14GiB</span></span><br><span class="line"><span class="string">2018-11-04 19:20:54.997565: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0</span></span><br><span class="line"><span class="string">2018-11-04 19:20:55.222053: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:</span></span><br><span class="line"><span class="string">2018-11-04 19:20:55.222092: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 </span></span><br><span class="line"><span class="string">2018-11-04 19:20:55.222100: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N </span></span><br><span class="line"><span class="string">2018-11-04 19:20:55.222278: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 2854 MB memory) -&gt; physical GPU (device: 0, name: GeForce GTX 980M, pci bus id: 0000:01:00.0, compute capability: 5.2)</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:55,738] [networks] [INFO] all global variables initialized</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:55,865] [networks] [INFO] conv1/weights:0 : original weights assigned. [0]=[[[-0.08093996 -0.03</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:55,877] [networks] [INFO] conv1/biases:0 : original weights assigned. [0]=-1.5706328</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:55,922] [networks] [INFO] conv2/weights:0 : original weights assigned. [0]=[[[-0.00856966 -0.00</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:55,936] [networks] [INFO] conv2/biases:0 : original weights assigned. [0]=-0.06253582</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:56,016] [networks] [INFO] conv3/weights:0 : original weights assigned. [0]=[[[ 0.00339902  0.00</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:56,033] [networks] [INFO] conv3/biases:0 : original weights assigned. [0]=-0.071603894</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:56,236] [networks] [INFO] fc4/weights:0 : original weights assigned. [0]=[[[ 2.6850728e-03  2</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:56,254] [networks] [INFO] fc4/biases:0 : original weights assigned. [0]=0.10009623</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:56,286] [networks] [INFO] fc5/weights:0 : original weights assigned. [0]=[[[-0.01758034  0.01</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:56,310] [networks] [INFO] fc5/biases:0 : original weights assigned. [0]=0.13894661</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:56,332] [networks] [INFO] fc6_1/weights:0 : original weights assigned. [0]=[[[ 0.001359    0.01</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:56,358] [networks] [INFO] fc6_1/biases:0 : original weights assigned. [0]=0.01</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:56,379] [networks] [INFO] fc6_2/weights:0 : original weights assigned. [0]=[[[-1.23225665e-02  </span></span><br><span class="line"><span class="string">[2018-11-04 19:20:56,400] [networks] [INFO] fc6_2/biases:0 : original weights assigned. [0]=0.0</span></span><br><span class="line"><span class="string">[]</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:56,482] [ADNetRunner] [INFO] ---- start dataset l=326</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:58,451] [ADNetRunner] [INFO] ADNetRunner.initial_finetune t=1541388056.484</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:59,194] [ADNetRunner] [DEBUG] redetection success=True</span></span><br><span class="line"><span class="string">[2018-11-04 19:20:59,487] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:01,750] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:03,691] [ADNetRunner] [DEBUG] redetection success=False</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:03,975] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:04,878] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:07,524] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:08,925] [ADNetRunner] [DEBUG] redetection success=True</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:09,249] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:10,825] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:11,768] [ADNetRunner] [DEBUG] redetection success=True</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:12,096] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:14,021] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:16,867] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:19,710] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:22,677] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:25,711] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:26,202] [ADNetRunner] [DEBUG] redetection success=True</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:26,567] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:26,837] [ADNetRunner] [DEBUG] redetection success=True</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:27,152] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:29,387] [ADNetRunner] [DEBUG] finetuned</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:31,371] [ADNetRunner] [INFO] ----</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:31,371] [ADNetRunner] [INFO] total: 34.8886</span></span><br><span class="line"><span class="string">initial_finetune: 1.9675</span></span><br><span class="line"><span class="string">tracking.do_action: 5.4896</span></span><br><span class="line"><span class="string">tracking.save_samples.roi: 0.5116</span></span><br><span class="line"><span class="string">tracking.save_samples.feat: 17.9738</span></span><br><span class="line"><span class="string">tracking.online_finetune: 6.2583</span></span><br><span class="line"><span class="string">[2018-11-04 19:21:31,371] [ADNetRunner] [INFO] 9.344 FPS</span></span><br></pre></td></tr></table></figure>
+
+
+<p><a target="_blank" rel="noopener" href="https://www.facebook.com/jiapei100/videos/1150092865148114/"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/face/tf-adnet-tracking/facetracking_148.jpg" alt="Face Tracking Based on Tensorflow"></a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1408,312 +1507,6 @@
 <p>$$<br>\Delta w_{ij}^k = - \alpha \frac {\partial {E(X,\theta)} } {\partial w_{ij}^k}<br>$$</p>
 <h2 id="2-PyTorch-Implementation-of-Canonical-CNN"><a href="#2-PyTorch-Implementation-of-Canonical-CNN" class="headerlink" title="2. PyTorch Implementation of Canonical CNN"></a>2. PyTorch Implementation of Canonical CNN</h2><script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <p>&#123;% asset_jupyter /usr/bin/python ../../../ipynb/01_PyTorch_CNN_MNIST.ipynb %&#125;</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/03/02/IoT/setup-repeater-bridge-using-a-dd-wrt-router/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/03/02/IoT/setup-repeater-bridge-using-a-dd-wrt-router/" class="post-title-link" itemprop="url">Setup Repeater Bridge Using A dd-wrt Router</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2018-03-02 00:00:00" itemprop="dateCreated datePublished" datetime="2018-03-02T00:00:00-08:00">2018-03-02</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-06-05 21:18:21" itemprop="dateModified" datetime="2021-06-05T21:18:21-07:00">2021-06-05</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/IOT/" itemprop="url" rel="index"><span itemprop="name">IOT</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Hi, today, I’m going to revisit a very old topic, <strong>Setup Repeater Bridge Using A dd-wrt Router</strong>. This reminds me of my <strong>FIRST</strong> startup <a target="_blank" rel="noopener" href="http://visionmisc.com/">Misc Vision</a> that used to resell <a target="_blank" rel="noopener" href="https://foscam.com/">Foscam home security IP cameras</a>. That is a long story. Anyway, this blog is going to heavily cite the contents on <a target="_blank" rel="noopener" href="https://www.dd-wrt.com/wiki/index.php/Repeater_Bridge">this page</a>.</p>
-<h1 id="PART-A-Flash-A-Supported-Router-with-DD-WRT-Firmware"><a href="#PART-A-Flash-A-Supported-Router-with-DD-WRT-Firmware" class="headerlink" title="PART A: Flash A Supported Router with DD-WRT Firmware"></a>PART A: Flash A Supported Router with DD-WRT Firmware</h1><p>Before we start to tackle <strong>the problem</strong>, the open source firmware <a target="_blank" rel="noopener" href="https://www.dd-wrt.com/">DD-WRT</a> is strongly recommended to flash your router.</p>
-<h2 id="1-DD-WRT-and-OpenWRT"><a href="#1-DD-WRT-and-OpenWRT" class="headerlink" title="1. DD-WRT and OpenWRT"></a>1. DD-WRT and OpenWRT</h2><p>Two widely used open source router firmware have been published online for quite a bit of time: <a target="_blank" rel="noopener" href="https://www.dd-wrt.com/">DD-WRT</a>, <a target="_blank" rel="noopener" href="https://openwrt.org/">OpenWRT</a> In fact, each of these two are OK for router firmware flashing.</p>
-<h2 id="2-DD-WRT-Supported-Routers"><a href="#2-DD-WRT-Supported-Routers" class="headerlink" title="2. DD-WRT Supported Routers"></a>2. DD-WRT Supported Routers</h2><p>To check if your router is supported by <a target="_blank" rel="noopener" href="https://www.dd-wrt.com/">DD-WRT</a>, you need to check <a target="_blank" rel="noopener" href="https://www.dd-wrt.com/site/support/router-database">this page</a>.</p>
-<h2 id="3-DD-WRT-SL-R7202"><a href="#3-DD-WRT-SL-R7202" class="headerlink" title="3. DD-WRT SL-R7202"></a>3. DD-WRT SL-R7202</h2><p>In my case, I got a lot of such routers in hand and am selling them on <a target="_blank" rel="noopener" href="https://vancouver.craigslist.ca/rds/sop/d/brandnew-300m-dd-wrt-router/6516713575.html">Craigslist</a> (if anybody is interested in it, please let me know). You can also find some either <strong>continued</strong> or <strong>discontinued</strong> such products on the market, such as <a target="_blank" rel="noopener" href="https://www.gearbest.com/network-devices/pp_65336.html">Gearbest</a>.</p>
-<p>DD-WRT SL-R7202 looks good:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/miscvision/mv-7202_top.jpg" alt="DD-WRT SL-R7202 Top"></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/miscvision/mv-7202_palmsize_01.jpg" alt="DD-WRT SL-R7202 Size"></p>
-<p><strong>In one word, find some DD-WRT supported router, and have it successfully flashed FIRST</strong>. As a lazy man, I’m <strong>NOT</strong> going to flash anything but just use a router coming with an existing DD-WRT firmware, namely, <strong>DD-WRT SL-R7202</strong>.</p>
-<h1 id="PART-B-The-Problem"><a href="#PART-B-The-Problem" class="headerlink" title="PART B: The Problem"></a>PART B: The Problem</h1><p>The problem that we are going to deal with is how to connect multiple routers, so that the Internet range can be expanded. For routers with dd-wrt firmware, there are mulitple ways to connect routers, please refer to <a target="_blank" rel="noopener" href="https://www.dd-wrt.com/wiki/index.php/Linking_Routers">https://www.dd-wrt.com/wiki/index.php/Linking_Routers</a>.</p>
-<h2 id="1-Linking-Routers"><a href="#1-Linking-Routers" class="headerlink" title="1. Linking Routers"></a>1. Linking Routers</h2><p>In the following, most contents are <strong>CITED</strong> directly from <a target="_blank" rel="noopener" href="https://www.dd-wrt.com/wiki/index.php/Linking_Routers">Linking Routers</a> and its extended webpages.</p>
-<ul>
-<li><p><strong>Access Point / Switch</strong> - Extend the Wireless access area using more routers, with <strong>WIRED</strong> connections between routers, or turn a <strong>WIRED</strong> port on an existing network into a Wireless Access Point. All computers will be on the same network segment, and will be able to see one another in Windows Network. This works with all devices with LAN ports, and does not require dd-wrt to be installed. “</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.dd-wrt.com/wiki/index.php/Wireless_access_point">Wireless Access Point</a> - Extend Wi-Fi &amp; LAN (Requires physical(just <strong>WIRED</strong>) ethernet connection between routers)</li>
-<li><a target="_blank" rel="noopener" href="https://www.dd-wrt.com/wiki/index.php/Switch">Switch</a> - Similar config as WAP, but radio disabled (accepts only <strong>WIRED</strong> connections)</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/Access_point.jpg" alt="DD-WRT Access Point Mode"></p>
-<ul>
-<li><p><strong>Repeater / Repeater Bridge</strong> - Extend the Wireless access area using a second router <strong>WIRELESSLY</strong> connected to the primary. The secondary router must have dd-wrt installed; the primary does not need dd-wrt.</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.dd-wrt.com/wiki/index.php/Repeater_Bridge">Repeater Bridge</a> - A wireless repeater with DHCP &amp; NAT disabled, clients on same subnet as host AP (primary router). That is, all computers can see one another in Windows Network.</li>
-<li><a target="_blank" rel="noopener" href="https://www.dd-wrt.com/wiki/index.php/Wlan_Repeater">Repeater</a> - A wireless repeater with DHCP &amp; NAT enabled, clients on different subnet from host AP (primary router). Computers connected to one router can not see computers connected to other routers in Windows Network.</li>
-<li><a target="_blank" rel="noopener" href="https://www.dd-wrt.com/wiki/index.php/Universal_Wireless_Repeater">Universal Wireless Repeater</a> - Uses a program/script called AutoAP to keep a connection to the nearest/best host AP.</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/Repeater_Bridge.jpg" alt="DD-WRT Repeater Bridge Mode"></p>
-<ul>
-<li><p><strong>Client / Client Bridge</strong> - Connect two wired networks using a WiFi link (WIRELESS connection between two routers). The secondary router must have dd-wrt installed; the primary router does not need to have dd-wrt.</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.dd-wrt.com/wiki/index.php/Client_Bridged">Client Bridged</a> - Join two wired networks by two Wireless routers building a bridge. All computers can see one another in Windows Network.</li>
-<li><a target="_blank" rel="noopener" href="https://www.dd-wrt.com/wiki/index.php/Client_Mode">Client Mode</a> - Join two wired networks by two Wireless routers (unbridged). Computers on one wired network can not see computers on other wired network in Windows Network.</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/Client_Bridge.jpg" alt="DD-WRT Client Bridge Mode"></p>
-<ul>
-<li><p><strong>WDS</strong> - Extend the Wireless access area using more routers connected WIRELESSLY. WDS is a mesh network. Routers must almost always have the SAME chipset type for WDS to work, and any non dd-wrt routers must be WDS compatible. Using identical routers is best, but not always necessary if all devices have the same chipset types. (All Broadcom or all Atheros etc)</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.dd-wrt.com/wiki/index.php/WDS_Linked_router_network">WDS Linked router network</a></li>
-</ul>
-</li>
-<li><p><strong>OLSR</strong> - Extend the Wireless access area using more routers. Extra routers do not need any wired connections to each other. Use several ISP (Internet) connections. OLSR is a mesh network.</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.dd-wrt.com/wiki/index.php/Mesh_Networking_with_OLSR">Mesh Networking with OLSR</a></li>
-<li><a target="_blank" rel="noopener" href="http://dev.wifidog.org/wiki/doc/gateway-server/WifiDogAndOlsr%7CWifiDog">+ OLSR</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="2-Down-to-earth-Case"><a href="#2-Down-to-earth-Case" class="headerlink" title="2. Down-to-earth Case"></a>2. Down-to-earth Case</h2><p>In my case, my laptop and some of my IoT devices can be easily connected to the <a target="_blank" rel="noopener" href="https://www.shaw.ca/">ShawCable</a> Modem/Router combo, which is on the <strong>2nd floor</strong> in my living room and directly connected to the Internet. However, my R&amp;D office is located in my garage on the <strong>1st floor</strong>, where dd-wrt router is put in. In such a case, my dd-wrt router must be connected to my <a target="_blank" rel="noopener" href="https://www.shaw.ca/">ShawCable</a> Modem/Router <strong>WIRELESSLY</strong>.</p>
-<p>Due to the reason explained in the section <strong>Difference between Client Bridge and Repeater Bridge</strong>. A standard wireless bridge (<strong>Client Bridge</strong>) connects wired clients to a secondary router as if they were connected to your main router with a cable. Secondary clients share the bandwidth of a wireless connection back to your main router. Of course, you can still connect clients to your main router using either a cable connection or a wireless connection.</p>
-<blockquote>
-<p>The <strong>limitation</strong> with standard bridging is that it only allows <strong>WIRED</strong> clients to connect to your secondary router. <strong>WIRELESS</strong> clients cannot connect to your secondary router configured as a standard bridge. Repeater Bridge <strong>allows both WIRELESS AND WIRED</strong> clients to connect to a the <strong>Repeater Bridge</strong> router, and through that device <strong>WIRELESSLY</strong> to a primary router. You can still use this mode if you only need to bridge wired clients; the extra wireless repeater capability comes along for free; however, you are not required to use it.</p>
-</blockquote>
-<p>Therefore, we select <strong>Repeater Bridge</strong> as our solution. Here, <strong>DD-WRT SL-R7202</strong> is selected as the <strong>Repeater Bridge</strong>. The difficulty is <strong>how to setup DD-WRT SL-R7202 to make it work as a wireless Repeater Bridge</strong>?</p>
-<h1 id="PART-C-About-Firmware-Optional"><a href="#PART-C-About-Firmware-Optional" class="headerlink" title="PART C: About Firmware (Optional)"></a>PART C: About Firmware (Optional)</h1><h2 id="1-Do-We-Need-Firmware-Upgrading"><a href="#1-Do-We-Need-Firmware-Upgrading" class="headerlink" title="1. Do We Need Firmware Upgrading?"></a>1. Do We Need Firmware Upgrading?</h2><p>Actually, before I come to this step, I’ve already:</p>
-<ul>
-<li>strictly followed the configuration process written on <a target="_blank" rel="noopener" href="https://www.dd-wrt.com/wiki/index.php/Repeater_Bridge">https://www.dd-wrt.com/wiki/index.php/Repeater_Bridge</a>, but <strong>FAILED</strong> many times. </li>
-<li>and afterwards, I found a video solution at <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=ByB8vVGBjh4">https://www.youtube.com/watch?v=ByB8vVGBjh4</a>, which seems to be suitable for my case.<br>However, it finally turns out that my <strong>DD-WRT SL-R7202</strong> router comes with a firmware version <strong>DD-WRT (build 13064)</strong>, but the tutorial on <strong>Youtube</strong> uses a router with firmware version <strong>DD-WRT (build 21061)</strong>.</li>
-</ul>
-<p>It seems to me that a firmware upgrading is a must before we setup the <strong>Wireless Repeater Bridge Mode</strong>. But, <strong>How</strong>?</p>
-<h2 id="2-Reset-to-Factory-Defaults-on-DD-WRT-Router-The-2nd-Router"><a href="#2-Reset-to-Factory-Defaults-on-DD-WRT-Router-The-2nd-Router" class="headerlink" title="2. Reset to Factory Defaults on DD-WRT Router (The 2nd Router)"></a>2. Reset to Factory Defaults on DD-WRT Router (The 2nd Router)</h2><p>First of all, we need to reset DD-WRT. There is a black button on my <strong>DD-WRT SL-R7202</strong>, as shown:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/miscvision/mv-7202_back.jpg" alt="Reset Button at DD-WRT&#39;s Back"></p>
-<p>In fact, how to reset <strong>DD-WRT</strong> needs to be paid attention to. &gt; Hold the reset button until lights flash (10-30sec) or 30-30-30 if appropriate for your router. (DO NOT 30-30-30 ARM routers.)</p>
-<h2 id="3-Visit-http-192-168-1-1"><a href="#3-Visit-http-192-168-1-1" class="headerlink" title="3. Visit http://192.168.1.1:"></a>3. Visit <a target="_blank" rel="noopener" href="http://192.168.1.1/">http://192.168.1.1</a>:</h2><p>After successfully reset DD-WRT router to factory default, connect it with your host computer via a <strong>WIRED</strong> cable, for better stablity. Then, we change our network connection from our <strong>FIRST router</strong> to <strong>SECOND router: dd-wrt router</strong>. Afterwards, let’s visit <a target="_blank" rel="noopener" href="http://192.168.1.1/">http://192.168.1.1</a>.</p>
-<ul>
-<li><strong>NOTE</strong>: My host computer’s IP address on the <strong>FIRST</strong> router, namely, <strong>ShawCable</strong> Modem/Router is staticly set as <strong>192.168.0.8</strong> (which is able to connect to the Internet). After I switch to the Wifi <strong>dd-wrt</strong>, my host’s IP is <strong>DHCP</strong> allocated to <strong>192.168.1.103</strong>. The gateway on <strong>ShawCable</strong> is <strong>192.168.0.1</strong>, which is different from the gateway on <strong>dd-wrt 192.168.1.1</strong> by default.</li>
-</ul>
-<h3 id="1-FIRST-Page"><a href="#1-FIRST-Page" class="headerlink" title="1) FIRST Page"></a>1) FIRST Page</h3><p>DD-WRT home page looks like:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/01_FirstLogin.jpg" alt="DD-WRT First Login"></p>
-<p>And it’s suggested we input a new router username <strong>root</strong> and password <strong>admin</strong>. After the button <strong>Change Password</strong> is clicked, we are entering the very first page of DD-WRT Web GUI.</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/02_FirstPage.jpg" alt="DD-WRT First Page"></p>
-<ul>
-<li>We can easily tell the firmware’s info on the top right corner.</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Firmware: DD-WRT v24-sp2 (10/10/09) std</span><br><span class="line">Time: 00:01:13 up 1 min, load average: 0.12, 0.04, 0.00</span><br><span class="line">WAN IP: 0.0.0.0</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>And, we can also easily tell from the bottom of this page that for now, only 1 DHCP client is connected to this router, which is just our host computer: <strong>jiapei-GT72-6QE</strong>.</li>
-</ul>
-<h3 id="2-System-Info-on-Status-Page"><a href="#2-System-Info-on-Status-Page" class="headerlink" title="2) System Info on Status Page"></a>2) System Info on Status Page</h3><p>DD-WRT Status page tells a lot about what’s in this router:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/03_Status_BeforeUpgrading.jpg" alt="DD-WRT Status - Before Upgrading"></p>
-<p>Clearly, our router model is <strong>Buffalo WHR-G300N</strong>, and our firmware build version is <strong>13064</strong>.</p>
-<h3 id="3-Upgradable"><a href="#3-Upgradable" class="headerlink" title="3) Upgradable?"></a>3) Upgradable?</h3><p>We then visit <a target="_blank" rel="noopener" href="https://www.dd-wrt.com/site/support/router-database">https://www.dd-wrt.com/site/support/router-database</a>, and input <strong>WHR-G300N</strong>, two routers will be listed as:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/04_dd-wrt_WHR-G300N.jpg" alt="DD-WRT WHR-G300N"></p>
-<p>By click the <strong>FIRST</strong> one, namely <strong>v1</strong>, we get:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/05_dd-wrt_WHR-G300N_Firmware.jpg" alt="DD-WRT WHR-G300N v1: from 13064 to 14896"></p>
-<p>Clearly, we should be able to upgrade from our current firmware version <strong>13064</strong> to the newer one <strong>14896</strong>.</p>
-<p>With the existing firmware version <strong>13064</strong> installed on the router <strong>SL-R7202</strong>, we can directly upgrade the firmware through web flash by downloading the firmware <strong>WHR-G300N-webflash.bin</strong>, but ignoring downloading all <strong>TFTP</strong> and <strong>openvpn</strong> files.</p>
-<h3 id="4-Firmware-Upgrading"><a href="#4-Firmware-Upgrading" class="headerlink" title="4) Firmware Upgrading"></a>4) Firmware Upgrading</h3><p>Just click <strong>Administration -&gt; Firmware Upgrade</strong>, and then choose <strong>WHR-G300N-webflash.bin</strong>.</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/06_Firmware_Upgrade.jpg" alt="DD-WRT Administration - Firmware Upgrade"></p>
-<p>After clicking <strong>Choose file</strong>, the system is automatically upgraded after several minutes. </p>
-<p><strong>NOTE: Do NOT touch anything during the upgrading process.</strong></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/07_Upgrade_Successful.jpg" alt="DD-WRT Upgrade Successful"></p>
-<p>After firmware upgrading, we can easily tell some difference: From <strong>Setup Page</strong>, on the left-top corner, we can see the builder version is now <strong>14896</strong>. And from the right-top corner, the current firmware info is:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Firmware: DD-WRT v24-sp2 (08/07/10) std</span><br><span class="line">Time: 00:08:20 up 8 min, load average: 0.00, 0.02, 0.00</span><br><span class="line">WAN IP: 0.0.0.0</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/08_Setup_AfterUpgrading.jpg" alt="DD-WRT Setup - Basic Setup"></p>
-<p>From the <strong>Status Page</strong>, we can doublecheck the firmware version is now <strong>14896</strong>.</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/09_Status_AfterUpgrading.jpg" alt="DD-WRT Status - After Upgrading"></p>
-<h3 id="5-Firmware-Upgrading-is-Problematic"><a href="#5-Firmware-Upgrading-is-Problematic" class="headerlink" title="5) Firmware Upgrading is Problematic !"></a>5) Firmware Upgrading is Problematic !</h3><p>However, upgrading the firmware version from <strong>13064</strong> to the newer one <strong>14896</strong> is problematic, please refer to <a target="_blank" rel="noopener" href="https://jgiam.com/2012/07/06/setting-up-a-repeater-bridge-with-dd-wrt-and-d-link-dir-600">https://jgiam.com/2012/07/06/setting-up-a-repeater-bridge-with-dd-wrt-and-d-link-dir-600</a>. After carefully reading this article, and due to my practical try later on, I summarized the conclusion here first:</p>
-<ul>
-<li><span style="color:red"><strong>NOTE</strong></span>:<ul>
-<li><span style="color:red"><strong>KEEP using firmware version 13064, instead of 14896</strong></span></li>
-<li><span style="color:red"><strong>NEVER adding the Virtual Interfaces</strong></span></li>
-</ul>
-</li>
-</ul>
-<h1 id="PART-D-Wireless-Repeater-Bridge-Same-Subset"><a href="#PART-D-Wireless-Repeater-Bridge-Same-Subset" class="headerlink" title="PART D: Wireless Repeater Bridge (Same Subset)"></a>PART D: Wireless Repeater Bridge (Same Subset)</h1><h2 id="1-Wireless-gt-Basic-Settings"><a href="#1-Wireless-gt-Basic-Settings" class="headerlink" title="1. Wireless -&gt; Basic Settings"></a>1. Wireless -&gt; Basic Settings</h2><p>We modify the parameters accordingly (Cited from the blog <a target="_blank" rel="noopener" href="https://jgiam.com/2012/07/06/setting-up-a-repeater-bridge-with-dd-wrt-and-d-link-dir-600">Setting up a repeater bridge with DD-WRT and D-Link DIR-600</a> ): </p>
-<ul>
-<li><strong>Physical Interface Section</strong> <ul>
-<li><strong>Wireless Mode</strong>: Repeater Bridge </li>
-<li><strong>Wireless Network Mode</strong>: Must Be Exactly The Same As Primary Router </li>
-<li><strong>Wireless Network Name (SSID)</strong>: Must Be Exactly The Same As Primary Router. <span style="color:red"><strong>Be Careful: DD-WRT is ONLY a 2.4G router. If your primary router has two bands, namely, 2.4G and 5G, make sure you connect to the 2.4G network.</strong></span></li>
-<li><strong>Wireless Channel</strong>: Must Be Exactly The Same As Primary Router </li>
-<li><strong>Channel Width</strong>: Must Be Exactly The Same As Primary Router </li>
-<li><strong>Wireless SSID Broadcast</strong>: Enabled </li>
-<li><strong>Network Configuration</strong>: Bridged</li>
-</ul>
-</li>
-</ul>
-<p>Then, click <strong>Save without Apply</strong>, we get:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/10_Wireless_BasicSettings.jpg" alt="DD-WRT Wireless - Basic Settings"></p>
-<h2 id="2-Wireless-gt-Wireless-Security"><a href="#2-Wireless-gt-Wireless-Security" class="headerlink" title="2. Wireless -&gt; Wireless Security"></a>2. Wireless -&gt; Wireless Security</h2><ul>
-<li><strong>Physical Interface section</strong><ul>
-<li><strong>Security Mode</strong>: Must Be <strong>WPA2 Personal</strong>, and The Primary Router Must Be Exactly The Same.</li>
-<li><strong>WPA Algorithms</strong>: Must Be <strong>AES</strong>, and The Primary Router Must Be Exactly The Same.</li>
-<li><strong>WPA Shared Key</strong>: Must Be Exactly The Same As Primary Router</li>
-<li><strong>Key Renewal Interval (in seconds)</strong>: Leave as it is, normally, <strong>3600</strong>.</li>
-</ul>
-</li>
-</ul>
-<p>Then, click <strong>Save without Apply</strong>, we get:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/11_Wireless_Security.jpg" alt="DD-WRT Wireless - Wireless Security"></p>
-<h2 id="3-Setup-gt-Basic-Setup"><a href="#3-Setup-gt-Basic-Setup" class="headerlink" title="3. Setup -&gt; Basic Setup"></a>3. Setup -&gt; Basic Setup</h2><ul>
-<li><strong>WAN Connection Type Section</strong><ul>
-<li><strong>Connection Type</strong>: Disabled</li>
-<li><strong>STP</strong>: Disabled</li>
-</ul>
-</li>
-<li><strong>Optional Settings</strong><ul>
-<li><strong>Router Name</strong>: DD-WRT, just let it be</li>
-</ul>
-</li>
-<li><strong>Router IP</strong><ul>
-<li><strong>IP Address</strong>: 192.168.0.2 (in my case, my Primary Router IP is 192.168.0.1, and 192.168.0.2 has NOT been used yet.)</li>
-<li><strong>Subnet Mask</strong>: 255.255.255.0</li>
-<li><strong>Gateway</strong>: 192.168.0.1 (Must Be Primary Router IP)</li>
-<li><strong>Local DNS</strong>: 192.168.0.1 (Must Be Primary Router IP)</li>
-</ul>
-</li>
-<li><strong>WAN Port</strong><ul>
-<li><strong>Assign WAN Port to Switch</strong>: tick</li>
-</ul>
-</li>
-<li><strong>Time Settings</strong><ul>
-<li><strong>Time Zone</strong>: set correspondingly</li>
-</ul>
-</li>
-</ul>
-<p>Then, click <strong>Save without Apply</strong>, we get:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/12_Setup_BasicSetup.jpg" alt="DD-WRT Setup - Basic Setup"></p>
-<h2 id="4-Setup-gt-Advanced-Routing"><a href="#4-Setup-gt-Advanced-Routing" class="headerlink" title="4. Setup -&gt; Advanced Routing"></a>4. Setup -&gt; Advanced Routing</h2><ul>
-<li><strong>Operating Mode Section</strong><ul>
-<li><strong>Operating Mode</strong>: Router</li>
-</ul>
-</li>
-</ul>
-<p>Then, click <strong>Save without Apply</strong>, we get:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/13_Setup_AdvancedRouting.jpg" alt="DD-WRT Setup - Advanced Routing"></p>
-<h2 id="5-Services-gt-Services"><a href="#5-Services-gt-Services" class="headerlink" title="5. Services -&gt; Services"></a>5. Services -&gt; Services</h2><ul>
-<li><strong>DNSMasq Section</strong><ul>
-<li><strong>DNSMasq</strong>: Diable</li>
-</ul>
-</li>
-<li><strong>Secure Shell Section</strong><ul>
-<li><strong>SSHd</strong>: Enable</li>
-</ul>
-</li>
-<li><strong>Telnet Section</strong><ul>
-<li><strong>Telnet</strong>: Enable</li>
-</ul>
-</li>
-</ul>
-<p>Then, click <strong>Save without Apply</strong>, we get:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/14_Services_Services.jpg" alt="DD-WRT Services - Services"></p>
-<h2 id="6-Security-gt-Firewall"><a href="#6-Security-gt-Firewall" class="headerlink" title="6. Security -&gt; Firewall"></a>6. Security -&gt; Firewall</h2><p><span style="color:red"><strong>Note: Process in Sequence.</strong> </span></p>
-<ul>
-<li><strong>Block WAN Requests</strong><ul>
-<li><strong>Block Anonymous WAN Requests (Ping)</strong>: untick </li>
-<li><strong>Filter Multicast</strong>: tick </li>
-<li><strong>Filter WAN NAT Redirection</strong>: untick </li>
-<li><strong>Filter IDENT (Port 113)</strong>: untick </li>
-</ul>
-</li>
-<li><strong>Firewall Protection</strong><ul>
-<li><strong>SPI Firewall</strong>: Disable</li>
-</ul>
-</li>
-</ul>
-<p>Then, click <strong>Save without Apply</strong>, we get:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/15_Security_Firewall.jpg" alt="DD-WRT Security - Firewall"></p>
-<h2 id="7-Administration-Management"><a href="#7-Administration-Management" class="headerlink" title="7. Administration Management"></a>7. Administration Management</h2><ul>
-<li><strong>Remote Access Section</strong><ul>
-<li><strong>Web GUI Management</strong>: Enable</li>
-<li><strong>SSH Management</strong>: Enable</li>
-<li><strong>Telnet Remote Port</strong>: Enable</li>
-<li><strong>Allow Any Remote IP</strong>: Enable </li>
-</ul>
-</li>
-</ul>
-<p>Then, click <strong>Save without Apply</strong>, we get:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/16_Administration_Management.jpg" alt="DD-WRT Administration - Management"></p>
-<p>Now, it’s the time to <strong>Apply Settings</strong></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/17_ApplySettings.jpg" alt="DD-WRT Administration - Management - Apply Settings"></p>
-<p>And finally, click <strong>Reboot Router</strong></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/18_RebootRouter.jpg" alt="DD-WRT Administration - Management - Reboot Router"></p>
-<h1 id="PART-E-Doublechek-Repeater-Bridge"><a href="#PART-E-Doublechek-Repeater-Bridge" class="headerlink" title="PART E: Doublechek Repeater Bridge"></a>PART E: Doublechek Repeater Bridge</h1><h2 id="1-Ping"><a href="#1-Ping" class="headerlink" title="1. Ping"></a>1. Ping</h2><p>Let’s see the ping results directly:</p>
-<h3 id="1-PC-Wired-Connecting-to-DD-WRT-Router-2"><a href="#1-PC-Wired-Connecting-to-DD-WRT-Router-2" class="headerlink" title="1) PC Wired Connecting to DD-WRT (Router 2)"></a>1) PC Wired Connecting to DD-WRT (Router 2)</h3><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/19_dd-wrt_wired.jpg" alt="DD-WRT Wired Connection Between PC and Router 2, Namely, DD-WRT"></p>
-<h3 id="2-PC-Wirelessly-Connecting-to-Router-1-5G"><a href="#2-PC-Wirelessly-Connecting-to-Router-1-5G" class="headerlink" title="2) PC Wirelessly Connecting to Router 1 - 5G"></a>2) PC Wirelessly Connecting to Router 1 - 5G</h3><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/19_dd-wrt_5g.jpg" alt="DD-WRT Wifi Connection Between PC and Primary Router 1&#39;s 5G Network"></p>
-<h3 id="3-PC-Wirelessly-Connecting-to-Router-1-2-4G"><a href="#3-PC-Wirelessly-Connecting-to-Router-1-2-4G" class="headerlink" title="3) PC Wirelessly Connecting to Router 1 - 2.4G"></a>3) PC Wirelessly Connecting to Router 1 - 2.4G</h3><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/19_dd-wrt_2.4g.jpg" alt="DD-WRT Wifi Connection Between PC and Primary Router 1&#39;s 2.4G Network"></p>
-<h2 id="2-Visit-http-192-168-0-1-and-http-192-168-0-2"><a href="#2-Visit-http-192-168-0-1-and-http-192-168-0-2" class="headerlink" title="2. Visit http://192.168.0.1 and http://192.168.0.2"></a>2. Visit <a target="_blank" rel="noopener" href="http://192.168.0.1/">http://192.168.0.1</a> and <a target="_blank" rel="noopener" href="http://192.168.0.2/">http://192.168.0.2</a></h2><p>Most of the time, in order to get the fastest Internet speed, I use Primary Router 1’s 5G network. Therefore, for my final demonstration, my PC is wirelessly connected to the 5G network. And, I can successfully visit <a target="_blank" rel="noopener" href="http://192.168.0.1/">http://192.168.0.1</a> and <a target="_blank" rel="noopener" href="http://192.168.0.2/">http://192.168.0.2</a>.</p>
-<h3 id="1-http-192-168-0-1"><a href="#1-http-192-168-0-1" class="headerlink" title="1) http://192.168.0.1"></a>1) <a target="_blank" rel="noopener" href="http://192.168.0.1/">http://192.168.0.1</a></h3><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/20_cisco.jpg" alt="http://192.168.0.1"></p>
-<h3 id="2-http-192-168-0-2"><a href="#2-http-192-168-0-2" class="headerlink" title="2) http://192.168.0.2"></a>2) <a target="_blank" rel="noopener" href="http://192.168.0.2/">http://192.168.0.2</a></h3><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/IoT/dd-wrt/20_dd-wrt.jpg" alt="http://192.168.0.2"></p>
 
       
     </div>
