@@ -2,9 +2,9 @@
 <html lang="English">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 6.0.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -16,13 +16,10 @@
 
 
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","version":"8.2.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
-  </script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 <meta name="description" content="1. Container VS. Virtual MachineBriefly refer to: What’s the Diff: VMs vs Containers and Bare Metal Servers, Virtual Servers, and Containerization. 2. Docker VS. VMWareBriefly refer to: Docker vs VMWa">
 <meta property="og:type" content="article">
 <meta property="og:title" content="A Cluster of Raspberry Pis (2) - docker &amp; docker swarm">
@@ -42,15 +39,10 @@
 <link rel="canonical" href="http://longervision.ca/2020/06/22/Cloud/cluster-rpi-kubernetes-docker-2/">
 
 
-<script class="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'English'
-  };
-</script>
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"English","comments":true,"permalink":"http://longervision.ca/2020/06/22/Cloud/cluster-rpi-kubernetes-docker-2/","path":"2020/06/22/Cloud/cluster-rpi-kubernetes-docker-2/","title":"A Cluster of Raspberry Pis (2) - docker & docker swarm"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>A Cluster of Raspberry Pis (2) - docker & docker swarm | Longer Vision Technology</title>
   
 
@@ -58,40 +50,8 @@
 
 
   <noscript>
-  <style>
-  body { margin-top: 2rem; }
-
-  .use-motion .menu-item,
-  .use-motion .sidebar,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header {
-    visibility: visible;
-  }
-
-  .use-motion .header,
-  .use-motion .site-brand-container .toggle,
-  .use-motion .footer { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle,
-  .use-motion .custom-logo-image {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line {
-    transform: scaleX(1);
-  }
-
-  .search-pop-overlay, .sidebar-nav { display: none; }
-  .sidebar-panel { display: block; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
@@ -109,7 +69,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Longer Vision Technology</h1>
+      <p class="site-title">Longer Vision Technology</p>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">Github Blog</p>
@@ -163,19 +123,19 @@
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/archives">
-          <span class="site-state-item-count">95</span>
+        <a href="/archives/">
+          <span class="site-state-item-count">97</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
+          <a href="/categories/">
         <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">92</span>
+          <a href="/tags/">
+        <span class="site-state-item-count">94</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -193,7 +153,7 @@
     </header>
 
     
-  <div class="back-to-top" role="button">
+  <div class="back-to-top" role="button" aria-label="Back to top">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
@@ -240,13 +200,13 @@
 
       <time title="Created: 2020-06-22 13:22:19" itemprop="dateCreated datePublished" datetime="2020-06-22T13:22:19-07:00">2020-06-22</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-06-05 21:18:21" itemprop="dateModified" datetime="2021-06-05T21:18:21-07:00">2021-06-05</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2021-06-05 21:18:21" itemprop="dateModified" datetime="2021-06-05T21:18:21-07:00">2021-06-05</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -437,10 +397,10 @@
 
 
 <p>Since service <code>alexellis2/arm-alpinehello</code> is <strong>only</strong> running on <strong>master</strong> <strong>pi01</strong> and <strong>worker</strong> <strong>pi02</strong>, let’s just check respective <strong>docker logs</strong> in the following:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ docker logs b2c313ac8200</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> hello@1.0.0 start /root</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> node index.js</span></span><br><span class="line"></span><br><span class="line">I&#x27;m listening.</span><br></pre></td></tr></table></figure>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ docker logs b2c313ac8200</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> hello@1.0.0 start /root</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> node index.js</span></span><br><span class="line"></span><br><span class="line">I&#x27;m listening.</span><br></pre></td></tr></table></figure>
 
 
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pi@pi02:~ $ docker logs 918e211b5784</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> hello@1.0.0 start /root</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> node index.js</span></span><br><span class="line"></span><br><span class="line">I&#x27;m listening.</span><br></pre></td></tr></table></figure>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pi@pi02:~ $ docker logs 918e211b5784</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> hello@1.0.0 start /root</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> node index.js</span></span><br><span class="line"></span><br><span class="line">I&#x27;m listening.</span><br></pre></td></tr></table></figure>
 
 
 
@@ -494,7 +454,7 @@
 <li>it’s interesting that <code>alexellis2/redis-arm</code> is still running on node <strong>pi03</strong>.</li>
 </ul>
 <h2 id="4-5-Docker-Swarm-Visualizer"><a href="#4-5-Docker-Swarm-Visualizer" class="headerlink" title="4.5 Docker Swarm Visualizer"></a>4.5 <a target="_blank" rel="noopener" href="https://docs.docker.com/engine/swarm/">Docker Swarm</a> Visualizer</h2><p>Our final topie of this blog is the <a target="_blank" rel="noopener" href="https://hub.docker.com/r/dockersamples/visualizer">Docker Swarm Visualizer</a>. Official <a target="_blank" rel="noopener" href="https://www.docker.com/">Docker</a> documentation has provided the details <a target="_blank" rel="noopener" href="https://hub.docker.com/r/dockersamples/visualizer">Docker Swarm Visualizer</a>, and <a target="_blank" rel="noopener" href="https://github.com/dockersamples/docker-swarm-visualizer">Docker Swarm Visualizer Source Code</a> has also been provided on Github.</p>
-<h3 id="4-5-1-On-Leader"><a href="#4-5-1-On-Leader" class="headerlink" title="4.5.1 On Leader"></a>4.5.1 On Leader</h3><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ docker run -it -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock dockersamples/visualizer</span><br><span class="line">Unable to find image &#x27;dockersamples/visualizer:latest&#x27; locally</span><br><span class="line">latest: Pulling from dockersamples/visualizer</span><br><span class="line">cd784148e348: Pull complete </span><br><span class="line">f6268ae5d1d7: Pull complete </span><br><span class="line">97eb9028b14b: Pull complete </span><br><span class="line">9975a7a2a3d1: Pull complete </span><br><span class="line">ba903e5e6801: Pull complete </span><br><span class="line">7f034edb1086: Pull complete </span><br><span class="line">cd5dbf77b483: Pull complete </span><br><span class="line">5e7311667ddb: Pull complete </span><br><span class="line">687c1072bfcb: Pull complete </span><br><span class="line">aa18e5d3472c: Pull complete </span><br><span class="line">a3da1957bd6b: Pull complete </span><br><span class="line">e42dbf1c67c4: Pull complete </span><br><span class="line">5a18b01011d2: Pull complete </span><br><span class="line">Digest: sha256:54d65cbcbff52ee7d789cd285fbe68f07a46e3419c8fcded437af4c616915c85</span><br><span class="line">Status: Downloaded newer image for dockersamples/visualizer:latest</span><br><span class="line">910e83cd7ba4de02be370f4b0280d7f7fecb9d80ed8578f3238f68beab28aac7</span><br><span class="line">pi@pi01:~ $ docker service create \</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">   --name=viz \</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">   --publish=8080:8080/tcp \</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">   --constraint=node.role==manager \</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">   --mount=<span class="built_in">type</span>=<span class="built_in">bind</span>,src=/var/run/docker.sock,dst=/var/run/docker.sock \</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">   alexellis2/visualizer-arm:latest</span></span><br><span class="line">61tr8x3conmamkekzp6cqro6a</span><br><span class="line">overall progress: 1 out of 1 tasks </span><br><span class="line">1/1: running   [==================================================&gt;] </span><br><span class="line">verify: Service converged </span><br></pre></td></tr></table></figure>
+<h3 id="4-5-1-On-Leader"><a href="#4-5-1-On-Leader" class="headerlink" title="4.5.1 On Leader"></a>4.5.1 On Leader</h3><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ docker run -it -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock dockersamples/visualizer</span><br><span class="line">Unable to find image &#x27;dockersamples/visualizer:latest&#x27; locally</span><br><span class="line">latest: Pulling from dockersamples/visualizer</span><br><span class="line">cd784148e348: Pull complete </span><br><span class="line">f6268ae5d1d7: Pull complete </span><br><span class="line">97eb9028b14b: Pull complete </span><br><span class="line">9975a7a2a3d1: Pull complete </span><br><span class="line">ba903e5e6801: Pull complete </span><br><span class="line">7f034edb1086: Pull complete </span><br><span class="line">cd5dbf77b483: Pull complete </span><br><span class="line">5e7311667ddb: Pull complete </span><br><span class="line">687c1072bfcb: Pull complete </span><br><span class="line">aa18e5d3472c: Pull complete </span><br><span class="line">a3da1957bd6b: Pull complete </span><br><span class="line">e42dbf1c67c4: Pull complete </span><br><span class="line">5a18b01011d2: Pull complete </span><br><span class="line">Digest: sha256:54d65cbcbff52ee7d789cd285fbe68f07a46e3419c8fcded437af4c616915c85</span><br><span class="line">Status: Downloaded newer image for dockersamples/visualizer:latest</span><br><span class="line">910e83cd7ba4de02be370f4b0280d7f7fecb9d80ed8578f3238f68beab28aac7</span><br><span class="line">pi@pi01:~ $ docker service create \</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">   --name=viz \</span></span><br><span class="line"><span class="bash">&gt;   --publish=8080:8080/tcp \</span></span><br><span class="line"><span class="bash">&gt;   --constraint=node.role==manager \</span></span><br><span class="line"><span class="bash">&gt;   --mount=<span class="built_in">type</span>=<span class="built_in">bind</span>,src=/var/run/docker.sock,dst=/var/run/docker.sock \</span></span><br><span class="line"><span class="bash">&gt;   alexellis2/visualizer-arm:latest</span></span><br><span class="line">61tr8x3conmamkekzp6cqro6a</span><br><span class="line">overall progress: 1 out of 1 tasks </span><br><span class="line">1/1: running   [==================================================&gt;] </span><br><span class="line">verify: Service converged </span><br></pre></td></tr></table></figure>
 
 
 <h3 id="4-5-2-On-Remote-Laptop"><a href="#4-5-2-On-Remote-Laptop" class="headerlink" title="4.5.2 On Remote Laptop"></a>4.5.2 On Remote Laptop</h3><p>Now, let’s visualize our <a target="_blank" rel="noopener" href="https://docs.docker.com/engine/swarm/">docker swarm</a> beautifully from laptop by entering the <strong>leader</strong>‘s IP address at port <strong>8080</strong>:</p>
@@ -534,28 +494,6 @@
 
 
 
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      const commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
 </div>
   </main>
 
@@ -571,18 +509,17 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Nobody</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
     </div>
   </footer>
 
   
-  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
-
 
 
 
