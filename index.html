@@ -119,18 +119,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">98</span>
+          <span class="site-state-item-count">104</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">95</span>
+        <span class="site-state-item-count">98</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -159,6 +159,1026 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2022/03/08/AI/CanonicalMachineLearning/XGBoost-LightGBM-CatBoost-H2O/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/03/08/AI/CanonicalMachineLearning/XGBoost-LightGBM-CatBoost-H2O/" class="post-title-link" itemprop="url">XGBoost vs. LightGBM vs. CatBoost vs. H2O</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-03-08 00:00:00" itemprop="dateCreated datePublished" datetime="2022-03-08T00:00:00-08:00">2022-03-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-03-04 17:55:25" itemprop="dateModified" datetime="2022-03-04T17:55:25-08:00">2022-03-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/CanonicalMachineLearning/" itemprop="url" rel="index"><span itemprop="name">CanonicalMachineLearning</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Happened to come across a blog <a target="_blank" rel="noopener" href="https://neptune.ai/blog/xgboost-vs-lightgbm">XGBoost vs LightGBM: How Are They Different</a>. Let’s investigate a bit wider and deeper into the following 3 machine learning open source packages.</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://xgboost.ai/">XGBoost</a>: <a target="_blank" rel="noopener" href="https://xgboost.readthedocs.io/">XGBoost Doc</a>, <a target="_blank" rel="noopener" href="https://github.com/dmlc/xgboost">XGBoost Source Code</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/research/project/lightgbm/">LightGBM</a>: <a target="_blank" rel="noopener" href="https://lightgbm.readthedocs.io/">LightGBM Doc</a>, <a target="_blank" rel="noopener" href="https://github.com/microsoft/LightGBM">LightGBM Source Code</a></li>
+<li><a target="_blank" rel="noopener" href="https://catboost.ai/">CatBoost</a>: <a target="_blank" rel="noopener" href="https://catboost.ai/en/docs/">CatBoost Doc</a>, <a target="_blank" rel="noopener" href="https://github.com/catboost/catboost">CatBoost Source Code</a></li>
+<li><a target="_blank" rel="noopener" href="https://h2o.ai/">H2O</a>: <a target="_blank" rel="noopener" href="https://docs.h2o.ai/h2o/latest-stable/h2o-py/docs/index.html">H2O Doc</a>, <a target="_blank" rel="noopener" href="https://github.com/h2oai/h2o-3">H2O Source Code</a></li>
+</ul>
+<h1 id="1-Some-Readings"><a href="#1-Some-Readings" class="headerlink" title="1. Some Readings"></a>1. Some Readings</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://neptune.ai/blog/xgboost-vs-lightgbm">XGBoost vs LightGBM: How Are They Different</a></li>
+<li><a target="_blank" rel="noopener" href="https://neptune.ai/blog/gradient-boosted-decision-trees-guide">Gradient Boosted Decision Trees [Guide]: a Conceptual Explanation</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.analyticsvidhya.com/blog/2020/10/adaboost-and-gradient-boost-comparitive-study-between-2-popular-ensemble-model-techniques/">AdaBoost and Gradient Boost – Comparitive Study Between 2 Popular Ensemble Model Techniques</a></li>
+<li><a target="_blank" rel="noopener" href="https://analyticsindiamag.com/adaboost-vs-gradient-boosting-a-comparison-of-leading-boosting-algorithms/">AdaBoost Vs Gradient Boosting: A Comparison Of Leading Boosting Algorithms</a></li>
+<li><a target="_blank" rel="noopener" href="https://analyticsindiamag.com/primer-ensemble-learning-bagging-boosting/">A Primer to Ensemble Learning – Bagging and Boosting </a></li>
+<li><a target="_blank" rel="noopener" href="https://towardsdatascience.com/ensemble-methods-bagging-boosting-and-stacking-c9214a10a205">Ensemble methods: bagging, boosting and stacking</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.kaggle.com/prashant111/catboost-classifier-in-python/">CatBoost Classifier in Python</a></li>
+</ul>
+<p>Cited from <a target="_blank" rel="noopener" href="https://neptune.ai/blog/xgboost-vs-lightgbm">XGBoost vs LightGBM: How Are They Different</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Two of the most popular algorithms that are based on Gradient Boosted Machines are XGBoost and LightGBM. </span><br></pre></td></tr></table></figure>
+
+
+<h1 id="2-Concepts"><a href="#2-Concepts" class="headerlink" title="2. Concepts"></a>2. Concepts</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Bootstrap_aggregating">Bootstrap Aggregating</a>: also named <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Bootstrap_aggregating">Bagging</a>. A typical <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Bootstrap_aggregating">Bagging</a> method is <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Random_forest">Random Forest</a>.</li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Boosting_(machine_learning)">Boosting</a>: A typical <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Boosting_(machine_learning)">Boosting</a> method is <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/AdaBoost">AdaBoost</a>, short for <a href="">Adaptive Boosting</a>.</li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Ensemble_learning">Ensemble</a>: As summarized, <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Bootstrap_aggregating">Bagging</a>, <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Boosting_(machine_learning)">Boosting</a>, and <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Ensemble_learning#Stacking">Stacking</a> <strong>ALL</strong> belong to <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Ensemble_learning">Ensemble</a>.</li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cascading_classifiers">Cascading</a>: citing: <code>Unlike voting or stacking ensembles, which are multiexpert systems, cascading is a multistage one.</code></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Gradient_boosting">Gradient Boosting</a>: citing: <code>originated in the observation by Leo Breiman</code>, an American academician, also proposed <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Random_forest">Random Forest</a>.</li>
+</ul>
+<h1 id="3-XGBoost"><a href="#3-XGBoost" class="headerlink" title="3. XGBoost"></a>3. <a target="_blank" rel="noopener" href="https://xgboost.ai/">XGBoost</a></h1><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip show xgboost</span><br><span class="line">Name: xgboost</span><br><span class="line">Version: 1.5.2</span><br><span class="line">Summary: XGBoost Python Package</span><br><span class="line">Home-page: https://github.com/dmlc/xgboost</span><br><span class="line">Author: </span><br><span class="line">Author-email: </span><br><span class="line">License: Apache-2.0</span><br><span class="line">Location: /home/lvision/.local/lib/python3.8/site-packages</span><br><span class="line">Requires: numpy, scipy</span><br><span class="line">Required-by: autoviz</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="4-LightGBM"><a href="#4-LightGBM" class="headerlink" title="4. LightGBM"></a>4. <a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/research/project/lightgbm/">LightGBM</a></h1><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip show lightgbm</span><br><span class="line">Name: lightgbm</span><br><span class="line">Version: 3.3.2</span><br><span class="line">Summary: LightGBM Python Package</span><br><span class="line">Home-page: https://github.com/microsoft/LightGBM</span><br><span class="line">Author: </span><br><span class="line">Author-email: </span><br><span class="line">License: The MIT License (Microsoft)</span><br><span class="line">Location: /home/lvision/.local/lib/python3.8/site-packages</span><br><span class="line">Requires: numpy, scikit-learn, scipy, wheel</span><br><span class="line">Required-by: </span><br></pre></td></tr></table></figure>
+
+
+<h1 id="5-CatBoost"><a href="#5-CatBoost" class="headerlink" title="5. CatBoost"></a>5. <a target="_blank" rel="noopener" href="https://catboost.ai/">CatBoost</a></h1><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip show catboost</span><br><span class="line">Name: catboost</span><br><span class="line">Version: 1.0.4</span><br><span class="line">Summary: Catboost Python Package</span><br><span class="line">Home-page: https://catboost.ai</span><br><span class="line">Author: CatBoost Developers</span><br><span class="line">Author-email: </span><br><span class="line">License: Apache License, Version 2.0</span><br><span class="line">Location: /home/lvision/.local/lib/python3.8/site-packages</span><br><span class="line">Requires: graphviz, matplotlib, numpy, pandas, plotly, scipy, six</span><br><span class="line">Required-by: </span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="6-H2O"><a href="#6-H2O" class="headerlink" title="6. H2O"></a>6. <a target="_blank" rel="noopener" href="https://h2o.ai/">H2O</a></h1><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip show h2o</span><br><span class="line">Name: h2o</span><br><span class="line">Version: 3.36.0.3</span><br><span class="line">Summary: H2O, Fast Scalable Machine Learning, for python </span><br><span class="line">Home-page: https://github.com/h2oai/h2o-3.git</span><br><span class="line">Author: H2O.ai</span><br><span class="line">Author-email: support@h2o.ai</span><br><span class="line">License: Apache v2</span><br><span class="line">Location: /home/lvision/.local/lib/python3.8/site-packages</span><br><span class="line">Requires: future, requests, tabulate</span><br><span class="line">Required-by: </span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2022/03/05/AI/CanonicalMachineLearning/EDA-tSNE/EDA-tSNE-2-MNIST/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/03/05/AI/CanonicalMachineLearning/EDA-tSNE/EDA-tSNE-2-MNIST/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-03-05 10:05:49" itemprop="dateCreated datePublished" datetime="2022-03-05T10:05:49-08:00">2022-03-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Copy and paste from</span></span><br><span class="line"><span class="comment"># https://towardsdatascience.com/visualising-high-dimensional-datasets-using-pca-and-t-sne-in-python-8ef87e7915b</span></span><br><span class="line"><span class="comment"># with trivial modifications</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Author: Nobody in Computer Vision</span></span><br><span class="line"><span class="comment"># Date: 2022-03-05</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># Contacts:</span></span><br><span class="line"><span class="comment"># Company: Longer Vision Technology</span></span><br><span class="line"><span class="comment"># Email: jiapei@longervision.com</span></span><br><span class="line"><span class="comment"># Website: https://www.longervision.com</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Fashion MNIST reader</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_mnist</span>(<span class="params">path, kind=<span class="string">&#x27;train&#x27;</span></span>):</span></span><br><span class="line">    <span class="keyword">import</span> os</span><br><span class="line">    <span class="keyword">import</span> gzip</span><br><span class="line">    <span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Load MNIST data from `path`&quot;&quot;&quot;</span></span><br><span class="line">    labels_path = os.path.join(path,</span><br><span class="line">                               <span class="string">&#x27;%s-labels-idx1-ubyte.gz&#x27;</span></span><br><span class="line">                               % kind)</span><br><span class="line">    images_path = os.path.join(path,</span><br><span class="line">                               <span class="string">&#x27;%s-images-idx3-ubyte.gz&#x27;</span></span><br><span class="line">                               % kind)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> gzip.<span class="built_in">open</span>(labels_path, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> lbpath:</span><br><span class="line">        labels = np.frombuffer(lbpath.read(), dtype=np.uint8,</span><br><span class="line">                               offset=<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> gzip.<span class="built_in">open</span>(images_path, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> imgpath:</span><br><span class="line">        images = np.frombuffer(imgpath.read(), dtype=np.uint8,</span><br><span class="line">                               offset=<span class="number">16</span>).reshape(<span class="built_in">len</span>(labels), <span class="number">784</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> images, labels</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">X_train, y_train = load_mnist(<span class="string">&#x27;/media/lvision/Sabrent/datasets/fashion_mnist&#x27;</span>, kind=<span class="string">&#x27;train&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(X_train.shape)</span><br><span class="line"><span class="built_in">print</span>(y_train)</span><br><span class="line"><span class="built_in">print</span>(y_train.shape)</span><br></pre></td></tr></table></figure>
+
+<pre><code>(60000, 784)
+[9 0 0 ... 3 0 5]
+(60000,)
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> matplotlib.patheffects <span class="keyword">as</span> PathEffects</span><br><span class="line">%matplotlib inline</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line">sns.set_style(<span class="string">&#x27;darkgrid&#x27;</span>)</span><br><span class="line">sns.set_palette(<span class="string">&#x27;muted&#x27;</span>)</span><br><span class="line">sns.set_context(<span class="string">&quot;notebook&quot;</span>, font_scale=<span class="number">1.5</span>,</span><br><span class="line">                rc=&#123;<span class="string">&quot;lines.linewidth&quot;</span>: <span class="number">2.5</span>&#125;)</span><br><span class="line">RS = <span class="number">123</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Utility function to visualize the outputs of PCA and t-SNE</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fashion_scatter</span>(<span class="params">x, colors</span>):</span></span><br><span class="line">    <span class="comment"># choose a color palette with seaborn.</span></span><br><span class="line">    num_classes = <span class="built_in">len</span>(np.unique(colors))</span><br><span class="line">    palette = np.array(sns.color_palette(<span class="string">&quot;hls&quot;</span>, num_classes))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># create a scatter plot.</span></span><br><span class="line">    f = plt.figure(figsize=(<span class="number">8</span>, <span class="number">8</span>))</span><br><span class="line">    ax = plt.subplot(aspect=<span class="string">&#x27;equal&#x27;</span>)</span><br><span class="line">    sc = ax.scatter(x[:,<span class="number">0</span>], x[:,<span class="number">1</span>], lw=<span class="number">0</span>, s=<span class="number">40</span>, c=palette[colors.astype(np.<span class="built_in">int</span>)])</span><br><span class="line">    plt.xlim(-<span class="number">25</span>, <span class="number">25</span>)</span><br><span class="line">    plt.ylim(-<span class="number">25</span>, <span class="number">25</span>)</span><br><span class="line">    ax.axis(<span class="string">&#x27;off&#x27;</span>)</span><br><span class="line">    ax.axis(<span class="string">&#x27;tight&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># add the labels for each digit corresponding to the label</span></span><br><span class="line">    txts = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(num_classes):</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Position of each label at median of data points.</span></span><br><span class="line"></span><br><span class="line">        xtext, ytext = np.median(x[colors == i, :], axis=<span class="number">0</span>)</span><br><span class="line">        txt = ax.text(xtext, ytext, <span class="built_in">str</span>(i), fontsize=<span class="number">24</span>)</span><br><span class="line">        txt.set_path_effects([</span><br><span class="line">            PathEffects.Stroke(linewidth=<span class="number">5</span>, foreground=<span class="string">&quot;w&quot;</span>),</span><br><span class="line">            PathEffects.Normal()])</span><br><span class="line">        txts.append(txt)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> f, ax, sc, txts</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Subset first 20k data points to visualize</span></span><br><span class="line">x_subset = X_train[<span class="number">0</span>:<span class="number">20000</span>]</span><br><span class="line">y_subset = y_train[<span class="number">0</span>:<span class="number">20000</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> (np.unique(y_subset))</span><br></pre></td></tr></table></figure>
+
+<pre><code>[0 1 2 3 4 5 6 7 8 9]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> PCA</span><br><span class="line"></span><br><span class="line">time_start = time.time()</span><br><span class="line"></span><br><span class="line">pca = PCA(n_components=<span class="number">4</span>)</span><br><span class="line">pca_result = pca.fit_transform(x_subset)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;PCA done! Time elapsed: &#123;&#125; seconds&#x27;</span>.<span class="built_in">format</span>(time.time()-time_start))</span><br></pre></td></tr></table></figure>
+
+<pre><code>PCA done! Time elapsed: 0.7926383018493652 seconds
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pca_df = pd.DataFrame(columns = [<span class="string">&#x27;pca1&#x27;</span>,<span class="string">&#x27;pca2&#x27;</span>,<span class="string">&#x27;pca3&#x27;</span>,<span class="string">&#x27;pca4&#x27;</span>])</span><br><span class="line"></span><br><span class="line">pca_df[<span class="string">&#x27;pca1&#x27;</span>] = pca_result[:,<span class="number">0</span>]</span><br><span class="line">pca_df[<span class="string">&#x27;pca2&#x27;</span>] = pca_result[:,<span class="number">1</span>]</span><br><span class="line">pca_df[<span class="string">&#x27;pca3&#x27;</span>] = pca_result[:,<span class="number">2</span>]</span><br><span class="line">pca_df[<span class="string">&#x27;pca4&#x27;</span>] = pca_result[:,<span class="number">3</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;Variance explained per principal component: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(pca.explained_variance_ratio_))</span><br></pre></td></tr></table></figure>
+
+<pre><code>Variance explained per principal component: [0.29021329 0.1778743  0.06015076 0.04975864]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">top_two_comp = pca_df[[<span class="string">&#x27;pca1&#x27;</span>,<span class="string">&#x27;pca2&#x27;</span>]] <span class="comment"># taking first and second principal component</span></span><br><span class="line"></span><br><span class="line">fashion_scatter(top_two_comp.values,y_subset) <span class="comment"># Visualizing the PCA output</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>/tmp/ipykernel_3852428/2307473512.py:11: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  sc = ax.scatter(x[:,0], x[:,1], lw=0, s=40, c=palette[colors.astype(np.int)])
+
+
+
+
+
+(&lt;Figure size 576x576 with 1 Axes&gt;,
+ &lt;AxesSubplot:&gt;,
+ &lt;matplotlib.collections.PathCollection at 0x7fc7190a8220&gt;,
+ [Text(774.4497664226483, -689.6949155550468, &#39;0&#39;),
+  Text(42.86381926014401, -1429.364390836378, &#39;1&#39;),
+  Text(1098.2843326495163, 376.9753232934469, &#39;2&#39;),
+  Text(329.2719860683994, -1111.489809090023, &#39;3&#39;),
+  Text(1266.9709868256105, 295.4662008396093, &#39;4&#39;),
+  Text(-1589.557323392114, 61.86773393697598, &#39;5&#39;),
+  Text(713.4727983678105, -65.68701122739054, &#39;6&#39;),
+  Text(-1521.4109429504147, 335.665625321843, &#39;7&#39;),
+  Text(63.81768171682446, 1003.3250404493501, &#39;8&#39;),
+  Text(-645.6906091267293, 1168.2384039046956, &#39;9&#39;)])
+</code></pre>
+<p><img src="EDA-tSNE-2-MNIST_files/EDA-tSNE-2-MNIST_8_2.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.manifold <span class="keyword">import</span> TSNE</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line">time_start = time.time()</span><br><span class="line"></span><br><span class="line">fashion_tsne = TSNE(learning_rate=<span class="string">&#x27;auto&#x27;</span>, init=<span class="string">&#x27;pca&#x27;</span>, random_state=RS).fit_transform(x_subset)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;t-SNE done! Time elapsed: &#123;&#125; seconds&#x27;</span>.<span class="built_in">format</span>(time.time()-time_start))</span><br></pre></td></tr></table></figure>
+
+<pre><code>/home/lvision/.local/lib/python3.8/site-packages/sklearn/manifold/_t_sne.py:982: FutureWarning: The PCA initialization in TSNE will change to have the standard deviation of PC1 equal to 1e-4 in 1.2. This will ensure better convergence.
+  warnings.warn(
+
+
+t-SNE done! Time elapsed: 43.96088123321533 seconds
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fashion_scatter(fashion_tsne, y_subset)</span><br></pre></td></tr></table></figure>
+
+<pre><code>/tmp/ipykernel_3852428/2307473512.py:11: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  sc = ax.scatter(x[:,0], x[:,1], lw=0, s=40, c=palette[colors.astype(np.int)])
+
+
+
+
+
+(&lt;Figure size 576x576 with 1 Axes&gt;,
+ &lt;AxesSubplot:&gt;,
+ &lt;matplotlib.collections.PathCollection at 0x7fc718ff0700&gt;,
+ [Text(778.7831, -690.5499, &#39;0&#39;),
+  Text(41.839653, -1422.7478, &#39;1&#39;),
+  Text(1117.2075, 377.60907, &#39;2&#39;),
+  Text(336.99088, -1105.6271, &#39;3&#39;),
+  Text(1268.7771, 291.67786, &#39;4&#39;),
+  Text(-1574.2866, 44.31055, &#39;5&#39;),
+  Text(716.95105, -71.590546, &#39;6&#39;),
+  Text(-1506.3627, 342.83994, &#39;7&#39;),
+  Text(67.689384, 1006.9206, &#39;8&#39;),
+  Text(-646.5144, 1174.269, &#39;9&#39;)])
+</code></pre>
+<p><img src="EDA-tSNE-2-MNIST_files/EDA-tSNE-2-MNIST_10_2.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">time_start = time.time()</span><br><span class="line"></span><br><span class="line">pca_50 = PCA(n_components=<span class="number">50</span>)</span><br><span class="line">pca_result_50 = pca_50.fit_transform(x_subset)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;PCA with 50 components done! Time elapsed: &#123;&#125; seconds&#x27;</span>.<span class="built_in">format</span>(time.time()-time_start))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;Cumulative variance explained by 50 principal components: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(np.<span class="built_in">sum</span>(pca_50.explained_variance_ratio_)))</span><br></pre></td></tr></table></figure>
+
+<pre><code>PCA with 50 components done! Time elapsed: 2.172032594680786 seconds
+Cumulative variance explained by 50 principal components: 0.8625161212057489
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line">time_start = time.time()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fashion_pca_tsne = TSNE(learning_rate=<span class="string">&#x27;auto&#x27;</span>, init=<span class="string">&#x27;pca&#x27;</span>, random_state=RS).fit_transform(pca_result_50)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;t-SNE done! Time elapsed: &#123;&#125; seconds&#x27;</span>.<span class="built_in">format</span>(time.time()-time_start))</span><br></pre></td></tr></table></figure>
+
+<pre><code>/home/lvision/.local/lib/python3.8/site-packages/sklearn/manifold/_t_sne.py:982: FutureWarning: The PCA initialization in TSNE will change to have the standard deviation of PC1 equal to 1e-4 in 1.2. This will ensure better convergence.
+  warnings.warn(
+
+
+t-SNE done! Time elapsed: 40.08835172653198 seconds
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fashion_scatter(fashion_pca_tsne, y_subset)</span><br></pre></td></tr></table></figure>
+
+<pre><code>/tmp/ipykernel_3852428/2307473512.py:11: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  sc = ax.scatter(x[:,0], x[:,1], lw=0, s=40, c=palette[colors.astype(np.int)])
+
+
+
+
+
+(&lt;Figure size 576x576 with 1 Axes&gt;,
+ &lt;AxesSubplot:&gt;,
+ &lt;matplotlib.collections.PathCollection at 0x7fc71745d790&gt;,
+ [Text(782.2962, -689.9176, &#39;0&#39;),
+  Text(41.347614, -1423.7305, &#39;1&#39;),
+  Text(1113.7422, 381.17953, &#39;2&#39;),
+  Text(331.26837, -1107.6791, &#39;3&#39;),
+  Text(1275.3954, 286.95758, &#39;4&#39;),
+  Text(-1581.365, 46.893547, &#39;5&#39;),
+  Text(717.2779, -79.60612, &#39;6&#39;),
+  Text(-1509.5262, 348.0835, &#39;7&#39;),
+  Text(73.7935, 1008.3449, &#39;8&#39;),
+  Text(-645.55835, 1172.3257, &#39;9&#39;)])
+</code></pre>
+<p><img src="EDA-tSNE-2-MNIST_files/EDA-tSNE-2-MNIST_13_2.png" alt="png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2022/03/05/AI/CanonicalMachineLearning/EDA-tSNE/EDA-tSNE-1-MNIST/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/03/05/AI/CanonicalMachineLearning/EDA-tSNE/EDA-tSNE-1-MNIST/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-03-05 00:33:11" itemprop="dateCreated datePublished" datetime="2022-03-05T00:33:11-08:00">2022-03-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Copy and paste from</span></span><br><span class="line"><span class="comment"># https://towardsdatascience.com/visualising-high-dimensional-datasets-using-pca-and-t-sne-in-python-8ef87e7915b</span></span><br><span class="line"><span class="comment"># with trivial modifications</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Author: Nobody in Computer Vision</span></span><br><span class="line"><span class="comment"># Date: 2022-03-04</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># Contacts:</span></span><br><span class="line"><span class="comment"># Company: Longer Vision Technology</span></span><br><span class="line"><span class="comment"># Email: jiapei@longervision.com</span></span><br><span class="line"><span class="comment"># Website: https://www.longervision.com</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> fetch_openml</span><br><span class="line"><span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> PCA</span><br><span class="line"><span class="keyword">from</span> sklearn.manifold <span class="keyword">import</span> TSNE</span><br><span class="line">%matplotlib inline</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> mpl_toolkits.mplot3d <span class="keyword">import</span> Axes3D</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mnist = fetch_openml(<span class="string">&quot;mnist_784&quot;</span>)</span><br><span class="line">X = mnist.data / <span class="number">255.0</span></span><br><span class="line">y = mnist.target</span><br><span class="line"><span class="built_in">print</span>(X.shape, y.shape)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>(70000, 784) (70000,)
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">feat_cols = [ <span class="string">&#x27;pixel&#x27;</span>+<span class="built_in">str</span>(i+<span class="number">1</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(X.shape[<span class="number">1</span>]) ]</span><br><span class="line">df = pd.DataFrame(X,columns=feat_cols)</span><br><span class="line">df[<span class="string">&#x27;y&#x27;</span>] = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, y))</span><br><span class="line">df[<span class="string">&#x27;label&#x27;</span>] = y.apply(<span class="keyword">lambda</span> i: <span class="built_in">str</span>(i))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Size of the dataframe: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(df.shape))</span><br><span class="line">X, y = <span class="literal">None</span>, <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>Size of the dataframe: (70000, 786)
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># For reproducability of the results</span></span><br><span class="line">np.random.seed(<span class="number">42</span>)</span><br><span class="line">rndperm = np.random.permutation(df.shape[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">plt.gray()</span><br><span class="line">fig = plt.figure( figsize=(<span class="number">16</span>,<span class="number">7</span>) )</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">15</span>):</span><br><span class="line">    ax = fig.add_subplot(<span class="number">3</span>,<span class="number">5</span>,i+<span class="number">1</span>, title=<span class="string">&quot;Digit: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(<span class="built_in">str</span>(df.loc[rndperm[i],<span class="string">&#x27;label&#x27;</span>])) )</span><br><span class="line">    ax.matshow(df.loc[rndperm[i],feat_cols].values.reshape((<span class="number">28</span>,<span class="number">28</span>)).astype(<span class="built_in">float</span>))</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&lt;Figure size 432x288 with 0 Axes&gt;
+</code></pre>
+<p><img src="EDA-tSNE-1-MNIST_files/EDA-tSNE-1-MNIST_5_1.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pca = PCA(n_components=<span class="number">3</span>)</span><br><span class="line">pca_result = pca.fit_transform(df[feat_cols].values)</span><br><span class="line">df[<span class="string">&#x27;pca-one&#x27;</span>] = pca_result[:,<span class="number">0</span>]</span><br><span class="line">df[<span class="string">&#x27;pca-two&#x27;</span>] = pca_result[:,<span class="number">1</span>] </span><br><span class="line">df[<span class="string">&#x27;pca-three&#x27;</span>] = pca_result[:,<span class="number">2</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Explained variation per principal component: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(pca.explained_variance_ratio_))</span><br></pre></td></tr></table></figure>
+
+<pre><code>Explained variation per principal component: [0.09746116 0.07155445 0.06149531]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(<span class="number">16</span>,<span class="number">10</span>))</span><br><span class="line">sns.scatterplot(</span><br><span class="line">    x=<span class="string">&quot;pca-one&quot;</span>, y=<span class="string">&quot;pca-two&quot;</span>,</span><br><span class="line">    hue=<span class="string">&quot;y&quot;</span>,</span><br><span class="line">    palette=sns.color_palette(<span class="string">&quot;hls&quot;</span>, <span class="number">10</span>),</span><br><span class="line">    data=df.loc[rndperm,:],</span><br><span class="line">    legend=<span class="string">&quot;full&quot;</span>,</span><br><span class="line">    alpha=<span class="number">0.3</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&lt;AxesSubplot:xlabel=&#39;pca-one&#39;, ylabel=&#39;pca-two&#39;&gt;
+</code></pre>
+<p><img src="EDA-tSNE-1-MNIST_files/EDA-tSNE-1-MNIST_7_1.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">df</span><br><span class="line">c=df.loc[rndperm,:][<span class="string">&quot;label&quot;</span>]</span><br><span class="line"><span class="built_in">print</span>(c)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(c))</span><br></pre></td></tr></table></figure>
+
+<pre><code>46730    8
+48393    4
+41416    8
+34506    7
+43725    7
+        ..
+37194    6
+6265     6
+54886    1
+860      0
+15795    0
+Name: label, Length: 70000, dtype: category
+Categories (10, object): [&#39;0&#39;, &#39;1&#39;, &#39;2&#39;, &#39;3&#39;, ..., &#39;6&#39;, &#39;7&#39;, &#39;8&#39;, &#39;9&#39;]
+&lt;class &#39;pandas.core.series.Series&#39;&gt;
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ax = plt.figure(figsize=(<span class="number">16</span>,<span class="number">10</span>)).add_subplot(projection=<span class="string">&#x27;3d&#x27;</span>)</span><br><span class="line">ax.scatter(</span><br><span class="line">    xs=df.loc[rndperm,:][<span class="string">&quot;pca-one&quot;</span>], </span><br><span class="line">    ys=df.loc[rndperm,:][<span class="string">&quot;pca-two&quot;</span>], </span><br><span class="line">    zs=df.loc[rndperm,:][<span class="string">&quot;pca-three&quot;</span>], </span><br><span class="line">    c=df.loc[rndperm,:][<span class="string">&quot;y&quot;</span>], </span><br><span class="line">    cmap=<span class="string">&#x27;tab10&#x27;</span></span><br><span class="line">)</span><br><span class="line">ax.set_xlabel(<span class="string">&#x27;pca-one&#x27;</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">&#x27;pca-two&#x27;</span>)</span><br><span class="line">ax.set_zlabel(<span class="string">&#x27;pca-three&#x27;</span>)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p><img src="EDA-tSNE-1-MNIST_files/EDA-tSNE-1-MNIST_9_0.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">N = <span class="number">10000</span></span><br><span class="line">df_subset = df.loc[rndperm[:N],:].copy()</span><br><span class="line">data_subset = df_subset[feat_cols].values</span><br><span class="line">pca = PCA(n_components=<span class="number">3</span>)</span><br><span class="line">pca_result = pca.fit_transform(data_subset)</span><br><span class="line">df_subset[<span class="string">&#x27;pca-one&#x27;</span>] = pca_result[:,<span class="number">0</span>]</span><br><span class="line">df_subset[<span class="string">&#x27;pca-two&#x27;</span>] = pca_result[:,<span class="number">1</span>] </span><br><span class="line">df_subset[<span class="string">&#x27;pca-three&#x27;</span>] = pca_result[:,<span class="number">2</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Explained variation per principal component: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(pca.explained_variance_ratio_))</span><br></pre></td></tr></table></figure>
+
+<pre><code>Explained variation per principal component: [0.09819946 0.07123677 0.06113222]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">time_start = time.time()</span><br><span class="line">tsne = TSNE(n_components=<span class="number">2</span>, learning_rate=<span class="string">&#x27;auto&#x27;</span>, init=<span class="string">&#x27;pca&#x27;</span>, verbose=<span class="number">1</span>, perplexity=<span class="number">40</span>, n_iter=<span class="number">300</span>)</span><br><span class="line">tsne_results = tsne.fit_transform(data_subset)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;t-SNE done! Time elapsed: &#123;&#125; seconds&#x27;</span>.<span class="built_in">format</span>(time.time()-time_start))</span><br></pre></td></tr></table></figure>
+
+<pre><code>[t-SNE] Computing 121 nearest neighbors...
+[t-SNE] Indexed 10000 samples in 0.003s...
+[t-SNE] Computed neighbors for 10000 samples in 1.547s...
+[t-SNE] Computed conditional probabilities for sample 1000 / 10000
+[t-SNE] Computed conditional probabilities for sample 2000 / 10000
+[t-SNE] Computed conditional probabilities for sample 3000 / 10000
+[t-SNE] Computed conditional probabilities for sample 4000 / 10000
+[t-SNE] Computed conditional probabilities for sample 5000 / 10000
+[t-SNE] Computed conditional probabilities for sample 6000 / 10000
+[t-SNE] Computed conditional probabilities for sample 7000 / 10000
+[t-SNE] Computed conditional probabilities for sample 8000 / 10000
+[t-SNE] Computed conditional probabilities for sample 9000 / 10000
+[t-SNE] Computed conditional probabilities for sample 10000 / 10000
+[t-SNE] Mean sigma: 2.117974
+
+
+/home/lvision/.local/lib/python3.8/site-packages/sklearn/manifold/_t_sne.py:982: FutureWarning: The PCA initialization in TSNE will change to have the standard deviation of PC1 equal to 1e-4 in 1.2. This will ensure better convergence.
+  warnings.warn(
+
+
+[t-SNE] KL divergence after 250 iterations with early exaggeration: 85.990288
+[t-SNE] KL divergence after 300 iterations: 2.786253
+t-SNE done! Time elapsed: 8.129722356796265 seconds
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">df_subset[<span class="string">&#x27;tsne-2d-one&#x27;</span>] = tsne_results[:,<span class="number">0</span>]</span><br><span class="line">df_subset[<span class="string">&#x27;tsne-2d-two&#x27;</span>] = tsne_results[:,<span class="number">1</span>]</span><br><span class="line">plt.figure(figsize=(<span class="number">16</span>,<span class="number">10</span>))</span><br><span class="line">sns.scatterplot(</span><br><span class="line">    x=<span class="string">&quot;tsne-2d-one&quot;</span>, y=<span class="string">&quot;tsne-2d-two&quot;</span>,</span><br><span class="line">    hue=<span class="string">&quot;y&quot;</span>,</span><br><span class="line">    palette=sns.color_palette(<span class="string">&quot;hls&quot;</span>, <span class="number">10</span>),</span><br><span class="line">    data=df_subset,</span><br><span class="line">    legend=<span class="string">&quot;full&quot;</span>,</span><br><span class="line">    alpha=<span class="number">0.3</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&lt;AxesSubplot:xlabel=&#39;tsne-2d-one&#39;, ylabel=&#39;tsne-2d-two&#39;&gt;
+</code></pre>
+<p><img src="EDA-tSNE-1-MNIST_files/EDA-tSNE-1-MNIST_12_1.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(<span class="number">16</span>,<span class="number">7</span>))</span><br><span class="line">ax1 = plt.subplot(<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line">sns.scatterplot(</span><br><span class="line">    x=<span class="string">&quot;pca-one&quot;</span>, y=<span class="string">&quot;pca-two&quot;</span>,</span><br><span class="line">    hue=<span class="string">&quot;y&quot;</span>,</span><br><span class="line">    palette=sns.color_palette(<span class="string">&quot;hls&quot;</span>, <span class="number">10</span>),</span><br><span class="line">    data=df_subset,</span><br><span class="line">    legend=<span class="string">&quot;full&quot;</span>,</span><br><span class="line">    alpha=<span class="number">0.3</span>,</span><br><span class="line">    ax=ax1</span><br><span class="line">)</span><br><span class="line">ax2 = plt.subplot(<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line">sns.scatterplot(</span><br><span class="line">    x=<span class="string">&quot;tsne-2d-one&quot;</span>, y=<span class="string">&quot;tsne-2d-two&quot;</span>,</span><br><span class="line">    hue=<span class="string">&quot;y&quot;</span>,</span><br><span class="line">    palette=sns.color_palette(<span class="string">&quot;hls&quot;</span>, <span class="number">10</span>),</span><br><span class="line">    data=df_subset,</span><br><span class="line">    legend=<span class="string">&quot;full&quot;</span>,</span><br><span class="line">    alpha=<span class="number">0.3</span>,</span><br><span class="line">    ax=ax2</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&lt;AxesSubplot:xlabel=&#39;tsne-2d-one&#39;, ylabel=&#39;tsne-2d-two&#39;&gt;
+</code></pre>
+<p><img src="EDA-tSNE-1-MNIST_files/EDA-tSNE-1-MNIST_13_1.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pca_50 = PCA(n_components=<span class="number">50</span>)</span><br><span class="line">pca_result_50 = pca_50.fit_transform(data_subset)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Cumulative explained variation for 50 principal components: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(np.<span class="built_in">sum</span>(pca_50.explained_variance_ratio_)))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>Cumulative explained variation for 50 principal components: 0.8261769578399734
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">time_start = time.time()</span><br><span class="line">tsne = TSNE(n_components=<span class="number">2</span>, learning_rate=<span class="string">&#x27;auto&#x27;</span>, init=<span class="string">&#x27;pca&#x27;</span>, verbose=<span class="number">0</span>, perplexity=<span class="number">40</span>, n_iter=<span class="number">300</span>)</span><br><span class="line">tsne_pca_results = tsne.fit_transform(pca_result_50)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;t-SNE done! Time elapsed: &#123;&#125; seconds&#x27;</span>.<span class="built_in">format</span>(time.time()-time_start))</span><br></pre></td></tr></table></figure>
+
+<pre><code>/home/lvision/.local/lib/python3.8/site-packages/sklearn/manifold/_t_sne.py:982: FutureWarning: The PCA initialization in TSNE will change to have the standard deviation of PC1 equal to 1e-4 in 1.2. This will ensure better convergence.
+  warnings.warn(
+
+
+t-SNE done! Time elapsed: 7.227182388305664 seconds
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">df_subset[<span class="string">&#x27;tsne-pca50-one&#x27;</span>] = tsne_pca_results[:,<span class="number">0</span>]</span><br><span class="line">df_subset[<span class="string">&#x27;tsne-pca50-two&#x27;</span>] = tsne_pca_results[:,<span class="number">1</span>]</span><br><span class="line">plt.figure(figsize=(<span class="number">16</span>,<span class="number">4</span>))</span><br><span class="line">ax1 = plt.subplot(<span class="number">1</span>, <span class="number">3</span>, <span class="number">1</span>)</span><br><span class="line">sns.scatterplot(</span><br><span class="line">    x=<span class="string">&quot;pca-one&quot;</span>, y=<span class="string">&quot;pca-two&quot;</span>,</span><br><span class="line">    hue=<span class="string">&quot;y&quot;</span>,</span><br><span class="line">    palette=sns.color_palette(<span class="string">&quot;hls&quot;</span>, <span class="number">10</span>),</span><br><span class="line">    data=df_subset,</span><br><span class="line">    legend=<span class="string">&quot;full&quot;</span>,</span><br><span class="line">    alpha=<span class="number">0.3</span>,</span><br><span class="line">    ax=ax1</span><br><span class="line">)</span><br><span class="line">ax2 = plt.subplot(<span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>)</span><br><span class="line">sns.scatterplot(</span><br><span class="line">    x=<span class="string">&quot;tsne-2d-one&quot;</span>, y=<span class="string">&quot;tsne-2d-two&quot;</span>,</span><br><span class="line">    hue=<span class="string">&quot;y&quot;</span>,</span><br><span class="line">    palette=sns.color_palette(<span class="string">&quot;hls&quot;</span>, <span class="number">10</span>),</span><br><span class="line">    data=df_subset,</span><br><span class="line">    legend=<span class="string">&quot;full&quot;</span>,</span><br><span class="line">    alpha=<span class="number">0.3</span>,</span><br><span class="line">    ax=ax2</span><br><span class="line">)</span><br><span class="line">ax3 = plt.subplot(<span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>)</span><br><span class="line">sns.scatterplot(</span><br><span class="line">    x=<span class="string">&quot;tsne-pca50-one&quot;</span>, y=<span class="string">&quot;tsne-pca50-two&quot;</span>,</span><br><span class="line">    hue=<span class="string">&quot;y&quot;</span>,</span><br><span class="line">    palette=sns.color_palette(<span class="string">&quot;hls&quot;</span>, <span class="number">10</span>),</span><br><span class="line">    data=df_subset,</span><br><span class="line">    legend=<span class="string">&quot;full&quot;</span>,</span><br><span class="line">    alpha=<span class="number">0.3</span>,</span><br><span class="line">    ax=ax3</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&lt;AxesSubplot:xlabel=&#39;tsne-pca50-one&#39;, ylabel=&#39;tsne-pca50-two&#39;&gt;
+</code></pre>
+<p><img src="EDA-tSNE-1-MNIST_files/EDA-tSNE-1-MNIST_16_1.png" alt="png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2022/03/04/AI/CanonicalMachineLearning/EDA-tSNE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/03/04/AI/CanonicalMachineLearning/EDA-tSNE/" class="post-title-link" itemprop="url">Exploratory Data Analysis (EDA）and t-distributed Stochastic Neighbor Embedding (t-SNE)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-03-04 00:00:00" itemprop="dateCreated datePublished" datetime="2022-03-04T00:00:00-08:00">2022-03-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-03-05 10:18:29" itemprop="dateModified" datetime="2022-03-05T10:18:29-08:00">2022-03-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/Kaggle/" itemprop="url" rel="index"><span itemprop="name">Kaggle</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="1-Definition-of-EDA"><a href="#1-Definition-of-EDA" class="headerlink" title="1. Definition of EDA"></a>1. Definition of EDA</h1><p>Directly refer to <a target="_blank" rel="noopener" href="https://www.analyticsvidhya.com/blog/2021/04/rapid-fire-eda-process-using-python-for-ml-implementation/">Rapid-Fire EDA process using Python for ML Implementation</a>.</p>
+<p>Clearly, <a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html">PCA</a> is a part of <a href="">EDA</a></p>
+<p>Here is another good tutorial for <a target="_blank" rel="noopener" href="https://www.analyticsvidhya.com/blog/2021/04/rapid-fire-eda-process-using-python-for-ml-implementation/">EDA</a>: <a target="_blank" rel="noopener" href="https://towardsdatascience.com/a-starter-pack-to-exploratory-data-analysis-with-python-pandas-seaborn-and-scikit-learn-a77889485baf">A Starter Pack to Exploratory Data Analysis with Python, pandas, seaborn, and scikit-learn</a>.</p>
+<h1 id="2-Visualization-with-t-SNE"><a href="#2-Visualization-with-t-SNE" class="headerlink" title="2. Visualization with t-SNE"></a>2. Visualization with <a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">t-SNE</a></h1><ul>
+<li>Definition: <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/T-distributed_stochastic_neighbor_embedding">t-SNE  on Wikipedia</a></li>
+<li>t-SNE in <a target="_blank" rel="noopener" href="https://scikit-learn.org/">scikit-learn</a>: <a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">sklearn.manifold.TSNE</a></li>
+<li>Tutorials:<ul>
+<li><a target="_blank" rel="noopener" href="https://towardsdatascience.com/visualising-high-dimensional-datasets-using-pca-and-t-sne-in-python-8ef87e7915b">Visualising high-dimensional datasets using PCA and t-SNE in Python</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.datacamp.com/community/tutorials/introduction-t-sne">Introduction to t-SNE</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="3-Try-Analyzing-and-Visualizing-MNIST"><a href="#3-Try-Analyzing-and-Visualizing-MNIST" class="headerlink" title="3. Try Analyzing and Visualizing MNIST"></a>3. Try Analyzing and Visualizing <a target="_blank" rel="noopener" href="http://yann.lecun.com/exdb/mnist/">MNIST</a></h1><p>Let’s just refer to the <a target="_blank" rel="noopener" href="https://towardsdatascience.com/visualising-high-dimensional-datasets-using-pca-and-t-sne-in-python-8ef87e7915b"><strong>FIRST</strong> tutorial</a> and try out how to analyze and visualize the famous dataset <a target="_blank" rel="noopener" href="http://yann.lecun.com/exdb/mnist/">MNIST</a>.</p>
+<p>Please refer to my <strong>copy-paste-modification</strong> <code>jupyter notebook</code> code at <a target="_blank" rel="noopener" href="https://github.com/LongerVision/Kaggle/blob/main/fundamentals/EDA-tSNE-1-MNIST.ipynb">https://github.com/LongerVision/Kaggle</a>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Copy and paste from</span></span><br><span class="line"><span class="comment"># https://towardsdatascience.com/visualising-high-dimensional-datasets-using-pca-and-t-sne-in-python-8ef87e7915b</span></span><br><span class="line"><span class="comment"># with trivial modifications</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Author: Nobody in Computer Vision</span></span><br><span class="line"><span class="comment"># Date: 2022-03-04</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># Contacts:</span></span><br><span class="line"><span class="comment"># Company: Longer Vision Technology</span></span><br><span class="line"><span class="comment"># Email: jiapei@longervision.com</span></span><br><span class="line"><span class="comment"># Website: https://www.longervision.com</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> fetch_openml</span><br><span class="line"><span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> PCA</span><br><span class="line"><span class="keyword">from</span> sklearn.manifold <span class="keyword">import</span> TSNE</span><br><span class="line">%matplotlib inline</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> mpl_toolkits.mplot3d <span class="keyword">import</span> Axes3D</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mnist = fetch_openml(<span class="string">&quot;mnist_784&quot;</span>)</span><br><span class="line">X = mnist.data / <span class="number">255.0</span></span><br><span class="line">y = mnist.target</span><br><span class="line"><span class="built_in">print</span>(X.shape, y.shape)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>(70000, 784) (70000,)
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">feat_cols = [ <span class="string">&#x27;pixel&#x27;</span>+<span class="built_in">str</span>(i+<span class="number">1</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(X.shape[<span class="number">1</span>]) ]</span><br><span class="line">df = pd.DataFrame(X,columns=feat_cols)</span><br><span class="line">df[<span class="string">&#x27;y&#x27;</span>] = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, y))</span><br><span class="line">df[<span class="string">&#x27;label&#x27;</span>] = y.apply(<span class="keyword">lambda</span> i: <span class="built_in">str</span>(i))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Size of the dataframe: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(df.shape))</span><br><span class="line">X, y = <span class="literal">None</span>, <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>Size of the dataframe: (70000, 786)
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># For reproducability of the results</span></span><br><span class="line">np.random.seed(<span class="number">42</span>)</span><br><span class="line">rndperm = np.random.permutation(df.shape[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">plt.gray()</span><br><span class="line">fig = plt.figure( figsize=(<span class="number">16</span>,<span class="number">7</span>) )</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">15</span>):</span><br><span class="line">    ax = fig.add_subplot(<span class="number">3</span>,<span class="number">5</span>,i+<span class="number">1</span>, title=<span class="string">&quot;Digit: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(<span class="built_in">str</span>(df.loc[rndperm[i],<span class="string">&#x27;label&#x27;</span>])) )</span><br><span class="line">    ax.matshow(df.loc[rndperm[i],feat_cols].values.reshape((<span class="number">28</span>,<span class="number">28</span>)).astype(<span class="built_in">float</span>))</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&lt;Figure size 432x288 with 0 Axes&gt;
+</code></pre>
+<p><img src="EDA-tSNE-1-MNIST_files/EDA-tSNE-1-MNIST_5_1.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pca = PCA(n_components=<span class="number">3</span>)</span><br><span class="line">pca_result = pca.fit_transform(df[feat_cols].values)</span><br><span class="line">df[<span class="string">&#x27;pca-one&#x27;</span>] = pca_result[:,<span class="number">0</span>]</span><br><span class="line">df[<span class="string">&#x27;pca-two&#x27;</span>] = pca_result[:,<span class="number">1</span>] </span><br><span class="line">df[<span class="string">&#x27;pca-three&#x27;</span>] = pca_result[:,<span class="number">2</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Explained variation per principal component: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(pca.explained_variance_ratio_))</span><br></pre></td></tr></table></figure>
+
+<pre><code>Explained variation per principal component: [0.09746116 0.07155445 0.06149531]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(<span class="number">16</span>,<span class="number">10</span>))</span><br><span class="line">sns.scatterplot(</span><br><span class="line">    x=<span class="string">&quot;pca-one&quot;</span>, y=<span class="string">&quot;pca-two&quot;</span>,</span><br><span class="line">    hue=<span class="string">&quot;y&quot;</span>,</span><br><span class="line">    palette=sns.color_palette(<span class="string">&quot;hls&quot;</span>, <span class="number">10</span>),</span><br><span class="line">    data=df.loc[rndperm,:],</span><br><span class="line">    legend=<span class="string">&quot;full&quot;</span>,</span><br><span class="line">    alpha=<span class="number">0.3</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&lt;AxesSubplot:xlabel=&#39;pca-one&#39;, ylabel=&#39;pca-two&#39;&gt;
+</code></pre>
+<p><img src="EDA-tSNE-1-MNIST_files/EDA-tSNE-1-MNIST_7_1.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">df</span><br><span class="line">c=df.loc[rndperm,:][<span class="string">&quot;label&quot;</span>]</span><br><span class="line"><span class="built_in">print</span>(c)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(c))</span><br></pre></td></tr></table></figure>
+
+<pre><code>46730    8
+48393    4
+41416    8
+34506    7
+43725    7
+        ..
+37194    6
+6265     6
+54886    1
+860      0
+15795    0
+Name: label, Length: 70000, dtype: category
+Categories (10, object): [&#39;0&#39;, &#39;1&#39;, &#39;2&#39;, &#39;3&#39;, ..., &#39;6&#39;, &#39;7&#39;, &#39;8&#39;, &#39;9&#39;]
+&lt;class &#39;pandas.core.series.Series&#39;&gt;
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ax = plt.figure(figsize=(<span class="number">16</span>,<span class="number">10</span>)).add_subplot(projection=<span class="string">&#x27;3d&#x27;</span>)</span><br><span class="line">ax.scatter(</span><br><span class="line">    xs=df.loc[rndperm,:][<span class="string">&quot;pca-one&quot;</span>], </span><br><span class="line">    ys=df.loc[rndperm,:][<span class="string">&quot;pca-two&quot;</span>], </span><br><span class="line">    zs=df.loc[rndperm,:][<span class="string">&quot;pca-three&quot;</span>], </span><br><span class="line">    c=df.loc[rndperm,:][<span class="string">&quot;y&quot;</span>], </span><br><span class="line">    cmap=<span class="string">&#x27;tab10&#x27;</span></span><br><span class="line">)</span><br><span class="line">ax.set_xlabel(<span class="string">&#x27;pca-one&#x27;</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">&#x27;pca-two&#x27;</span>)</span><br><span class="line">ax.set_zlabel(<span class="string">&#x27;pca-three&#x27;</span>)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p><img src="EDA-tSNE-1-MNIST_files/EDA-tSNE-1-MNIST_9_0.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">N = <span class="number">10000</span></span><br><span class="line">df_subset = df.loc[rndperm[:N],:].copy()</span><br><span class="line">data_subset = df_subset[feat_cols].values</span><br><span class="line">pca = PCA(n_components=<span class="number">3</span>)</span><br><span class="line">pca_result = pca.fit_transform(data_subset)</span><br><span class="line">df_subset[<span class="string">&#x27;pca-one&#x27;</span>] = pca_result[:,<span class="number">0</span>]</span><br><span class="line">df_subset[<span class="string">&#x27;pca-two&#x27;</span>] = pca_result[:,<span class="number">1</span>] </span><br><span class="line">df_subset[<span class="string">&#x27;pca-three&#x27;</span>] = pca_result[:,<span class="number">2</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Explained variation per principal component: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(pca.explained_variance_ratio_))</span><br></pre></td></tr></table></figure>
+
+<pre><code>Explained variation per principal component: [0.09819946 0.07123677 0.06113222]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">time_start = time.time()</span><br><span class="line">tsne = TSNE(n_components=<span class="number">2</span>, learning_rate=<span class="string">&#x27;auto&#x27;</span>, init=<span class="string">&#x27;pca&#x27;</span>, verbose=<span class="number">1</span>, perplexity=<span class="number">40</span>, n_iter=<span class="number">300</span>)</span><br><span class="line">tsne_results = tsne.fit_transform(data_subset)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;t-SNE done! Time elapsed: &#123;&#125; seconds&#x27;</span>.<span class="built_in">format</span>(time.time()-time_start))</span><br></pre></td></tr></table></figure>
+
+<pre><code>[t-SNE] Computing 121 nearest neighbors...
+[t-SNE] Indexed 10000 samples in 0.003s...
+[t-SNE] Computed neighbors for 10000 samples in 1.547s...
+[t-SNE] Computed conditional probabilities for sample 1000 / 10000
+[t-SNE] Computed conditional probabilities for sample 2000 / 10000
+[t-SNE] Computed conditional probabilities for sample 3000 / 10000
+[t-SNE] Computed conditional probabilities for sample 4000 / 10000
+[t-SNE] Computed conditional probabilities for sample 5000 / 10000
+[t-SNE] Computed conditional probabilities for sample 6000 / 10000
+[t-SNE] Computed conditional probabilities for sample 7000 / 10000
+[t-SNE] Computed conditional probabilities for sample 8000 / 10000
+[t-SNE] Computed conditional probabilities for sample 9000 / 10000
+[t-SNE] Computed conditional probabilities for sample 10000 / 10000
+[t-SNE] Mean sigma: 2.117974
+
+
+/home/lvision/.local/lib/python3.8/site-packages/sklearn/manifold/_t_sne.py:982: FutureWarning: The PCA initialization in TSNE will change to have the standard deviation of PC1 equal to 1e-4 in 1.2. This will ensure better convergence.
+  warnings.warn(
+
+
+[t-SNE] KL divergence after 250 iterations with early exaggeration: 85.990288
+[t-SNE] KL divergence after 300 iterations: 2.786253
+t-SNE done! Time elapsed: 8.129722356796265 seconds
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">df_subset[<span class="string">&#x27;tsne-2d-one&#x27;</span>] = tsne_results[:,<span class="number">0</span>]</span><br><span class="line">df_subset[<span class="string">&#x27;tsne-2d-two&#x27;</span>] = tsne_results[:,<span class="number">1</span>]</span><br><span class="line">plt.figure(figsize=(<span class="number">16</span>,<span class="number">10</span>))</span><br><span class="line">sns.scatterplot(</span><br><span class="line">    x=<span class="string">&quot;tsne-2d-one&quot;</span>, y=<span class="string">&quot;tsne-2d-two&quot;</span>,</span><br><span class="line">    hue=<span class="string">&quot;y&quot;</span>,</span><br><span class="line">    palette=sns.color_palette(<span class="string">&quot;hls&quot;</span>, <span class="number">10</span>),</span><br><span class="line">    data=df_subset,</span><br><span class="line">    legend=<span class="string">&quot;full&quot;</span>,</span><br><span class="line">    alpha=<span class="number">0.3</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&lt;AxesSubplot:xlabel=&#39;tsne-2d-one&#39;, ylabel=&#39;tsne-2d-two&#39;&gt;
+</code></pre>
+<p><img src="EDA-tSNE-1-MNIST_files/EDA-tSNE-1-MNIST_12_1.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(<span class="number">16</span>,<span class="number">7</span>))</span><br><span class="line">ax1 = plt.subplot(<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line">sns.scatterplot(</span><br><span class="line">    x=<span class="string">&quot;pca-one&quot;</span>, y=<span class="string">&quot;pca-two&quot;</span>,</span><br><span class="line">    hue=<span class="string">&quot;y&quot;</span>,</span><br><span class="line">    palette=sns.color_palette(<span class="string">&quot;hls&quot;</span>, <span class="number">10</span>),</span><br><span class="line">    data=df_subset,</span><br><span class="line">    legend=<span class="string">&quot;full&quot;</span>,</span><br><span class="line">    alpha=<span class="number">0.3</span>,</span><br><span class="line">    ax=ax1</span><br><span class="line">)</span><br><span class="line">ax2 = plt.subplot(<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line">sns.scatterplot(</span><br><span class="line">    x=<span class="string">&quot;tsne-2d-one&quot;</span>, y=<span class="string">&quot;tsne-2d-two&quot;</span>,</span><br><span class="line">    hue=<span class="string">&quot;y&quot;</span>,</span><br><span class="line">    palette=sns.color_palette(<span class="string">&quot;hls&quot;</span>, <span class="number">10</span>),</span><br><span class="line">    data=df_subset,</span><br><span class="line">    legend=<span class="string">&quot;full&quot;</span>,</span><br><span class="line">    alpha=<span class="number">0.3</span>,</span><br><span class="line">    ax=ax2</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&lt;AxesSubplot:xlabel=&#39;tsne-2d-one&#39;, ylabel=&#39;tsne-2d-two&#39;&gt;
+</code></pre>
+<p><img src="EDA-tSNE-1-MNIST_files/EDA-tSNE-1-MNIST_13_1.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pca_50 = PCA(n_components=<span class="number">50</span>)</span><br><span class="line">pca_result_50 = pca_50.fit_transform(data_subset)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Cumulative explained variation for 50 principal components: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(np.<span class="built_in">sum</span>(pca_50.explained_variance_ratio_)))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>Cumulative explained variation for 50 principal components: 0.8261769578399734
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">time_start = time.time()</span><br><span class="line">tsne = TSNE(n_components=<span class="number">2</span>, learning_rate=<span class="string">&#x27;auto&#x27;</span>, init=<span class="string">&#x27;pca&#x27;</span>, verbose=<span class="number">0</span>, perplexity=<span class="number">40</span>, n_iter=<span class="number">300</span>)</span><br><span class="line">tsne_pca_results = tsne.fit_transform(pca_result_50)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;t-SNE done! Time elapsed: &#123;&#125; seconds&#x27;</span>.<span class="built_in">format</span>(time.time()-time_start))</span><br></pre></td></tr></table></figure>
+
+<pre><code>/home/lvision/.local/lib/python3.8/site-packages/sklearn/manifold/_t_sne.py:982: FutureWarning: The PCA initialization in TSNE will change to have the standard deviation of PC1 equal to 1e-4 in 1.2. This will ensure better convergence.
+  warnings.warn(
+
+
+t-SNE done! Time elapsed: 7.227182388305664 seconds
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">df_subset[<span class="string">&#x27;tsne-pca50-one&#x27;</span>] = tsne_pca_results[:,<span class="number">0</span>]</span><br><span class="line">df_subset[<span class="string">&#x27;tsne-pca50-two&#x27;</span>] = tsne_pca_results[:,<span class="number">1</span>]</span><br><span class="line">plt.figure(figsize=(<span class="number">16</span>,<span class="number">4</span>))</span><br><span class="line">ax1 = plt.subplot(<span class="number">1</span>, <span class="number">3</span>, <span class="number">1</span>)</span><br><span class="line">sns.scatterplot(</span><br><span class="line">    x=<span class="string">&quot;pca-one&quot;</span>, y=<span class="string">&quot;pca-two&quot;</span>,</span><br><span class="line">    hue=<span class="string">&quot;y&quot;</span>,</span><br><span class="line">    palette=sns.color_palette(<span class="string">&quot;hls&quot;</span>, <span class="number">10</span>),</span><br><span class="line">    data=df_subset,</span><br><span class="line">    legend=<span class="string">&quot;full&quot;</span>,</span><br><span class="line">    alpha=<span class="number">0.3</span>,</span><br><span class="line">    ax=ax1</span><br><span class="line">)</span><br><span class="line">ax2 = plt.subplot(<span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>)</span><br><span class="line">sns.scatterplot(</span><br><span class="line">    x=<span class="string">&quot;tsne-2d-one&quot;</span>, y=<span class="string">&quot;tsne-2d-two&quot;</span>,</span><br><span class="line">    hue=<span class="string">&quot;y&quot;</span>,</span><br><span class="line">    palette=sns.color_palette(<span class="string">&quot;hls&quot;</span>, <span class="number">10</span>),</span><br><span class="line">    data=df_subset,</span><br><span class="line">    legend=<span class="string">&quot;full&quot;</span>,</span><br><span class="line">    alpha=<span class="number">0.3</span>,</span><br><span class="line">    ax=ax2</span><br><span class="line">)</span><br><span class="line">ax3 = plt.subplot(<span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>)</span><br><span class="line">sns.scatterplot(</span><br><span class="line">    x=<span class="string">&quot;tsne-pca50-one&quot;</span>, y=<span class="string">&quot;tsne-pca50-two&quot;</span>,</span><br><span class="line">    hue=<span class="string">&quot;y&quot;</span>,</span><br><span class="line">    palette=sns.color_palette(<span class="string">&quot;hls&quot;</span>, <span class="number">10</span>),</span><br><span class="line">    data=df_subset,</span><br><span class="line">    legend=<span class="string">&quot;full&quot;</span>,</span><br><span class="line">    alpha=<span class="number">0.3</span>,</span><br><span class="line">    ax=ax3</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&lt;AxesSubplot:xlabel=&#39;tsne-pca50-one&#39;, ylabel=&#39;tsne-pca50-two&#39;&gt;
+</code></pre>
+<p><img src="EDA-tSNE-1-MNIST_files/EDA-tSNE-1-MNIST_16_1.png" alt="png"></p>
+<h1 id="4-Try-Analyzing-and-Visualizing-Fashion-MNIST"><a href="#4-Try-Analyzing-and-Visualizing-Fashion-MNIST" class="headerlink" title="4. Try Analyzing and Visualizing Fashion-MNIST"></a>4. Try Analyzing and Visualizing <a target="_blank" rel="noopener" href="https://github.com/zalandoresearch/fashion-mnist">Fashion-MNIST</a></h1><p>Let’s then refer to the <a target="_blank" rel="noopener" href="https://www.datacamp.com/community/tutorials/introduction-t-sne"><strong>SECOND</strong> tutorial</a> and try out how to analyze and visualize <a target="_blank" rel="noopener" href="https://github.com/zalandoresearch/fashion-mnist">Fashion-MNIST</a>.</p>
+<p>Please refer to my <strong>copy-paste-modification</strong> <code>jupyter notebook</code> code at <a target="_blank" rel="noopener" href="https://github.com/LongerVision/Kaggle/blob/main/fundamentals/EDA-tSNE-2-MNIST.ipynb">https://github.com/LongerVision/Kaggle</a>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Copy and paste from</span></span><br><span class="line"><span class="comment"># https://towardsdatascience.com/visualising-high-dimensional-datasets-using-pca-and-t-sne-in-python-8ef87e7915b</span></span><br><span class="line"><span class="comment"># with trivial modifications</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Author: Nobody in Computer Vision</span></span><br><span class="line"><span class="comment"># Date: 2022-03-05</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># Contacts:</span></span><br><span class="line"><span class="comment"># Company: Longer Vision Technology</span></span><br><span class="line"><span class="comment"># Email: jiapei@longervision.com</span></span><br><span class="line"><span class="comment"># Website: https://www.longervision.com</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Fashion MNIST reader</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_mnist</span>(<span class="params">path, kind=<span class="string">&#x27;train&#x27;</span></span>):</span></span><br><span class="line">    <span class="keyword">import</span> os</span><br><span class="line">    <span class="keyword">import</span> gzip</span><br><span class="line">    <span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Load MNIST data from `path`&quot;&quot;&quot;</span></span><br><span class="line">    labels_path = os.path.join(path,</span><br><span class="line">                               <span class="string">&#x27;%s-labels-idx1-ubyte.gz&#x27;</span></span><br><span class="line">                               % kind)</span><br><span class="line">    images_path = os.path.join(path,</span><br><span class="line">                               <span class="string">&#x27;%s-images-idx3-ubyte.gz&#x27;</span></span><br><span class="line">                               % kind)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> gzip.<span class="built_in">open</span>(labels_path, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> lbpath:</span><br><span class="line">        labels = np.frombuffer(lbpath.read(), dtype=np.uint8,</span><br><span class="line">                               offset=<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> gzip.<span class="built_in">open</span>(images_path, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> imgpath:</span><br><span class="line">        images = np.frombuffer(imgpath.read(), dtype=np.uint8,</span><br><span class="line">                               offset=<span class="number">16</span>).reshape(<span class="built_in">len</span>(labels), <span class="number">784</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> images, labels</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">X_train, y_train = load_mnist(<span class="string">&#x27;....../fashion_mnist&#x27;</span>, kind=<span class="string">&#x27;train&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(X_train.shape)</span><br><span class="line"><span class="built_in">print</span>(y_train)</span><br><span class="line"><span class="built_in">print</span>(y_train.shape)</span><br></pre></td></tr></table></figure>
+
+<pre><code>(60000, 784)
+[9 0 0 ... 3 0 5]
+(60000,)
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> matplotlib.patheffects <span class="keyword">as</span> PathEffects</span><br><span class="line">%matplotlib inline</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line">sns.set_style(<span class="string">&#x27;darkgrid&#x27;</span>)</span><br><span class="line">sns.set_palette(<span class="string">&#x27;muted&#x27;</span>)</span><br><span class="line">sns.set_context(<span class="string">&quot;notebook&quot;</span>, font_scale=<span class="number">1.5</span>,</span><br><span class="line">                rc=&#123;<span class="string">&quot;lines.linewidth&quot;</span>: <span class="number">2.5</span>&#125;)</span><br><span class="line">RS = <span class="number">123</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Utility function to visualize the outputs of PCA and t-SNE</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fashion_scatter</span>(<span class="params">x, colors</span>):</span></span><br><span class="line">    <span class="comment"># choose a color palette with seaborn.</span></span><br><span class="line">    num_classes = <span class="built_in">len</span>(np.unique(colors))</span><br><span class="line">    palette = np.array(sns.color_palette(<span class="string">&quot;hls&quot;</span>, num_classes))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># create a scatter plot.</span></span><br><span class="line">    f = plt.figure(figsize=(<span class="number">8</span>, <span class="number">8</span>))</span><br><span class="line">    ax = plt.subplot(aspect=<span class="string">&#x27;equal&#x27;</span>)</span><br><span class="line">    sc = ax.scatter(x[:,<span class="number">0</span>], x[:,<span class="number">1</span>], lw=<span class="number">0</span>, s=<span class="number">40</span>, c=palette[colors.astype(np.<span class="built_in">int</span>)])</span><br><span class="line">    plt.xlim(-<span class="number">25</span>, <span class="number">25</span>)</span><br><span class="line">    plt.ylim(-<span class="number">25</span>, <span class="number">25</span>)</span><br><span class="line">    ax.axis(<span class="string">&#x27;off&#x27;</span>)</span><br><span class="line">    ax.axis(<span class="string">&#x27;tight&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># add the labels for each digit corresponding to the label</span></span><br><span class="line">    txts = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(num_classes):</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Position of each label at median of data points.</span></span><br><span class="line"></span><br><span class="line">        xtext, ytext = np.median(x[colors == i, :], axis=<span class="number">0</span>)</span><br><span class="line">        txt = ax.text(xtext, ytext, <span class="built_in">str</span>(i), fontsize=<span class="number">24</span>)</span><br><span class="line">        txt.set_path_effects([</span><br><span class="line">            PathEffects.Stroke(linewidth=<span class="number">5</span>, foreground=<span class="string">&quot;w&quot;</span>),</span><br><span class="line">            PathEffects.Normal()])</span><br><span class="line">        txts.append(txt)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> f, ax, sc, txts</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Subset first 20k data points to visualize</span></span><br><span class="line">x_subset = X_train[<span class="number">0</span>:<span class="number">20000</span>]</span><br><span class="line">y_subset = y_train[<span class="number">0</span>:<span class="number">20000</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> (np.unique(y_subset))</span><br></pre></td></tr></table></figure>
+
+<pre><code>[0 1 2 3 4 5 6 7 8 9]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> PCA</span><br><span class="line"></span><br><span class="line">time_start = time.time()</span><br><span class="line"></span><br><span class="line">pca = PCA(n_components=<span class="number">4</span>)</span><br><span class="line">pca_result = pca.fit_transform(x_subset)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;PCA done! Time elapsed: &#123;&#125; seconds&#x27;</span>.<span class="built_in">format</span>(time.time()-time_start))</span><br></pre></td></tr></table></figure>
+
+<pre><code>PCA done! Time elapsed: 0.7926383018493652 seconds
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pca_df = pd.DataFrame(columns = [<span class="string">&#x27;pca1&#x27;</span>,<span class="string">&#x27;pca2&#x27;</span>,<span class="string">&#x27;pca3&#x27;</span>,<span class="string">&#x27;pca4&#x27;</span>])</span><br><span class="line"></span><br><span class="line">pca_df[<span class="string">&#x27;pca1&#x27;</span>] = pca_result[:,<span class="number">0</span>]</span><br><span class="line">pca_df[<span class="string">&#x27;pca2&#x27;</span>] = pca_result[:,<span class="number">1</span>]</span><br><span class="line">pca_df[<span class="string">&#x27;pca3&#x27;</span>] = pca_result[:,<span class="number">2</span>]</span><br><span class="line">pca_df[<span class="string">&#x27;pca4&#x27;</span>] = pca_result[:,<span class="number">3</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;Variance explained per principal component: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(pca.explained_variance_ratio_))</span><br></pre></td></tr></table></figure>
+
+<pre><code>Variance explained per principal component: [0.29021329 0.1778743  0.06015076 0.04975864]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">top_two_comp = pca_df[[<span class="string">&#x27;pca1&#x27;</span>,<span class="string">&#x27;pca2&#x27;</span>]] <span class="comment"># taking first and second principal component</span></span><br><span class="line"></span><br><span class="line">fashion_scatter(top_two_comp.values,y_subset) <span class="comment"># Visualizing the PCA output</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>/tmp/ipykernel_3852428/2307473512.py:11: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  sc = ax.scatter(x[:,0], x[:,1], lw=0, s=40, c=palette[colors.astype(np.int)])
+
+
+
+
+
+(&lt;Figure size 576x576 with 1 Axes&gt;,
+ &lt;AxesSubplot:&gt;,
+ &lt;matplotlib.collections.PathCollection at 0x7fc7190a8220&gt;,
+ [Text(774.4497664226483, -689.6949155550468, &#39;0&#39;),
+  Text(42.86381926014401, -1429.364390836378, &#39;1&#39;),
+  Text(1098.2843326495163, 376.9753232934469, &#39;2&#39;),
+  Text(329.2719860683994, -1111.489809090023, &#39;3&#39;),
+  Text(1266.9709868256105, 295.4662008396093, &#39;4&#39;),
+  Text(-1589.557323392114, 61.86773393697598, &#39;5&#39;),
+  Text(713.4727983678105, -65.68701122739054, &#39;6&#39;),
+  Text(-1521.4109429504147, 335.665625321843, &#39;7&#39;),
+  Text(63.81768171682446, 1003.3250404493501, &#39;8&#39;),
+  Text(-645.6906091267293, 1168.2384039046956, &#39;9&#39;)])
+</code></pre>
+<p><img src="EDA-tSNE-2-MNIST_files/EDA-tSNE-2-MNIST_8_2.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.manifold <span class="keyword">import</span> TSNE</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line">time_start = time.time()</span><br><span class="line"></span><br><span class="line">fashion_tsne = TSNE(learning_rate=<span class="string">&#x27;auto&#x27;</span>, init=<span class="string">&#x27;pca&#x27;</span>, random_state=RS).fit_transform(x_subset)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;t-SNE done! Time elapsed: &#123;&#125; seconds&#x27;</span>.<span class="built_in">format</span>(time.time()-time_start))</span><br></pre></td></tr></table></figure>
+
+<pre><code>/home/lvision/.local/lib/python3.8/site-packages/sklearn/manifold/_t_sne.py:982: FutureWarning: The PCA initialization in TSNE will change to have the standard deviation of PC1 equal to 1e-4 in 1.2. This will ensure better convergence.
+  warnings.warn(
+
+
+t-SNE done! Time elapsed: 43.96088123321533 seconds
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fashion_scatter(fashion_tsne, y_subset)</span><br></pre></td></tr></table></figure>
+
+<pre><code>/tmp/ipykernel_3852428/2307473512.py:11: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  sc = ax.scatter(x[:,0], x[:,1], lw=0, s=40, c=palette[colors.astype(np.int)])
+
+
+
+
+
+(&lt;Figure size 576x576 with 1 Axes&gt;,
+ &lt;AxesSubplot:&gt;,
+ &lt;matplotlib.collections.PathCollection at 0x7fc718ff0700&gt;,
+ [Text(778.7831, -690.5499, &#39;0&#39;),
+  Text(41.839653, -1422.7478, &#39;1&#39;),
+  Text(1117.2075, 377.60907, &#39;2&#39;),
+  Text(336.99088, -1105.6271, &#39;3&#39;),
+  Text(1268.7771, 291.67786, &#39;4&#39;),
+  Text(-1574.2866, 44.31055, &#39;5&#39;),
+  Text(716.95105, -71.590546, &#39;6&#39;),
+  Text(-1506.3627, 342.83994, &#39;7&#39;),
+  Text(67.689384, 1006.9206, &#39;8&#39;),
+  Text(-646.5144, 1174.269, &#39;9&#39;)])
+</code></pre>
+<p><img src="EDA-tSNE-2-MNIST_files/EDA-tSNE-2-MNIST_10_2.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">time_start = time.time()</span><br><span class="line"></span><br><span class="line">pca_50 = PCA(n_components=<span class="number">50</span>)</span><br><span class="line">pca_result_50 = pca_50.fit_transform(x_subset)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;PCA with 50 components done! Time elapsed: &#123;&#125; seconds&#x27;</span>.<span class="built_in">format</span>(time.time()-time_start))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;Cumulative variance explained by 50 principal components: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(np.<span class="built_in">sum</span>(pca_50.explained_variance_ratio_)))</span><br></pre></td></tr></table></figure>
+
+<pre><code>PCA with 50 components done! Time elapsed: 2.172032594680786 seconds
+Cumulative variance explained by 50 principal components: 0.8625161212057489
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line">time_start = time.time()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fashion_pca_tsne = TSNE(learning_rate=<span class="string">&#x27;auto&#x27;</span>, init=<span class="string">&#x27;pca&#x27;</span>, random_state=RS).fit_transform(pca_result_50)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;t-SNE done! Time elapsed: &#123;&#125; seconds&#x27;</span>.<span class="built_in">format</span>(time.time()-time_start))</span><br></pre></td></tr></table></figure>
+
+<pre><code>/home/lvision/.local/lib/python3.8/site-packages/sklearn/manifold/_t_sne.py:982: FutureWarning: The PCA initialization in TSNE will change to have the standard deviation of PC1 equal to 1e-4 in 1.2. This will ensure better convergence.
+  warnings.warn(
+
+
+t-SNE done! Time elapsed: 40.08835172653198 seconds
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fashion_scatter(fashion_pca_tsne, y_subset)</span><br></pre></td></tr></table></figure>
+
+<pre><code>/tmp/ipykernel_3852428/2307473512.py:11: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  sc = ax.scatter(x[:,0], x[:,1], lw=0, s=40, c=palette[colors.astype(np.int)])
+
+
+
+
+
+(&lt;Figure size 576x576 with 1 Axes&gt;,
+ &lt;AxesSubplot:&gt;,
+ &lt;matplotlib.collections.PathCollection at 0x7fc71745d790&gt;,
+ [Text(782.2962, -689.9176, &#39;0&#39;),
+  Text(41.347614, -1423.7305, &#39;1&#39;),
+  Text(1113.7422, 381.17953, &#39;2&#39;),
+  Text(331.26837, -1107.6791, &#39;3&#39;),
+  Text(1275.3954, 286.95758, &#39;4&#39;),
+  Text(-1581.365, 46.893547, &#39;5&#39;),
+  Text(717.2779, -79.60612, &#39;6&#39;),
+  Text(-1509.5262, 348.0835, &#39;7&#39;),
+  Text(73.7935, 1008.3449, &#39;8&#39;),
+  Text(-645.55835, 1172.3257, &#39;9&#39;)])
+</code></pre>
+<p><img src="EDA-tSNE-2-MNIST_files/EDA-tSNE-2-MNIST_13_2.png" alt="png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2022/03/04/AI/Kaggle/birdclef-2022/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/03/04/AI/Kaggle/birdclef-2022/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-03-04 00:00:00 / Modified: 17:37:20" itemprop="dateCreated datePublished" datetime="2022-03-04T00:00:00-08:00">2022-03-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/Kaggle/" itemprop="url" rel="index"><span itemprop="name">Kaggle</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="1-EDA"><a href="#1-EDA" class="headerlink" title="1. EDA"></a>1. EDA</h1><p>What is EDA? For short of Exploratory Data Analysis.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2022/02/13/AI/DeepLearning/Activation-Functions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/02/13/AI/DeepLearning/Activation-Functions/" class="post-title-link" itemprop="url">Activation Functions</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-02-13 00:00:00" itemprop="dateCreated datePublished" datetime="2022-02-13T00:00:00-08:00">2022-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-03-05 00:16:53" itemprop="dateModified" datetime="2022-03-05T00:16:53-08:00">2022-03-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Happy new year everyone. Such a long time I haven’t taken a look at <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Activation_function">activation functions</a>. It might be a good time for me to review and check.</p>
+<p>#1. Resource</p>
+<p>Let’s first take a look at <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Activation_function">activation functions</a> of year 2022.</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Activation_function">Wikipedia</a></li>
+<li><a target="_blank" rel="noopener" href="https://krutikabapat.github.io/Swish-Vs-Mish-Latest-Activation-Functions/">Swish Vs Mish: Latest Activation Functions</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.mdpi.com/2079-9292/11/4/540/pdf">Smish: A Novel Activation Function for Deep Learning Methods</a>, strongly recommend to read this article</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/nmaac/acon">ACON - Activate or Not: Learning Customized Activation, CVPR 2021.</a>, same thing can be found at <a target="_blank" rel="noopener" href="https://programmer.ink/think/summary-of-neural-network-activation-function-2022.01.html">Summary of neural network activation function. 2022.01</a>, strongly recommend to read this article</li>
+<li><a target="_blank" rel="noopener" href="https://www.analyticsvidhya.com/blog/2022/01/activation-functions-for-neural-networks-and-their-implementation-in-python/">Activation Functions for Neural Networks and their Implementation in Python</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.v7labs.com/blog/neural-networks-activation-functions">12 Types of Neural Network Activation Functions: How to Choose?</a></li>
+</ul>
+<p>I would strongly recommend you to read the 2 articles mentioned above, particularly: <a target="_blank" rel="noopener" href="https://www.mdpi.com/2079-9292/11/4/540/pdf">Smish</a>.</p>
+<p>#2. </p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -199,7 +1219,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-01-13 14:29:43" itemprop="dateModified" datetime="2022-01-13T14:29:43-08:00">2022-01-13</time>
+      <time title="Modified: 2022-01-13 16:54:48" itemprop="dateModified" datetime="2022-01-13T16:54:48-08:00">2022-01-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -275,13 +1295,13 @@
 <h1 id="2-Quick-Start"><a href="#2-Quick-Start" class="headerlink" title="2. Quick Start"></a>2. Quick Start</h1><p>Now, let’s follow the <a target="_blank" rel="noopener" href="http://jevois.org/start/startPro.html">Quick Start</a> and take a test of <a target="_blank" rel="noopener" href="https://www.jevoisinc.com/collections/jevois-hardware/products/jevois-pro-deep-learning-smart-camera">JeVois Pro</a>. After successfully flashing the TF card, let’s boot up <a target="_blank" rel="noopener" href="https://www.jevoisinc.com/collections/jevois-hardware/products/jevois-pro-deep-learning-smart-camera">JeVois Pro</a>, For the first booting, it’s better we connect both <strong>HDMI</strong> and <strong>keyboard and mouse</strong>.</p>
 <p><a target="_blank" rel="noopener" href="https://www.jevoisinc.com/collections/jevois-hardware/products/jevois-pro-deep-learning-smart-camera">JeVois Pro</a> has 3 booting choices, as follows. </p>
 <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/ARMLinux/jevois-pro/JeVois-Pro.jpg" alt="JeVois-Pro 3 Boot Choices"></p>
-<p>For my convenience to set up the network, I chose <strong>Ubuntu Graphical</strong>. And, now it’s the time for us to plug in our Wifi dongle or Wifi module before rebooting.</p>
+<p>For my convenience of setting up the network, I chose <strong>Ubuntu Graphical</strong>. And, now it’s the time for us to plug in our Wifi dongle/module before rebooting. Then, reboot.</p>
 <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/ARMLinux/jevois-pro/JeVois_XFCE.png" alt="JeVois-Pro XFCE"></p>
 <p>Clearly, <a target="_blank" rel="noopener" href="https://www.jevoisinc.com/collections/jevois-hardware/products/jevois-pro-deep-learning-smart-camera">JeVois Pro</a>‘s <strong>Ubuntu Graphical</strong> comes with GUI <a target="_blank" rel="noopener" href="https://xfce.org/">XFCE</a>.</p>
 <h1 id="3-SSH-Into-JeVois-Pro"><a href="#3-SSH-Into-JeVois-Pro" class="headerlink" title="3. SSH Into JeVois Pro"></a>3. SSH Into <a target="_blank" rel="noopener" href="https://www.jevoisinc.com/collections/jevois-hardware/products/jevois-pro-deep-learning-smart-camera">JeVois Pro</a></h1><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ssh jevois@192.168.1.78</span><br><span class="line">The authenticity of host &#x27;192.168.1.78 (192.168.1.78)&#x27; can&#x27;t be established.</span><br><span class="line">ECDSA key fingerprint is SHA256:JS0C5IOYk3dkPj8s5U/7QGvtswZowO5+QfpFJNMfBfE.</span><br><span class="line">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span><br><span class="line">Warning: Permanently added &#x27;192.168.1.78&#x27; (ECDSA) to the list of known hosts.</span><br><span class="line">jevois@192.168.1.78&#x27;s password: </span><br><span class="line"></span><br><span class="line">Welcome to JeVois Fenix 1.0.7 Ubuntu 20.04.3 LTS Linux 4.9.241  </span><br><span class="line">     _    __     __    _       ____            </span><br><span class="line">    | | __\ \   / /__ (_)___  |  _ \ _ __ ___  </span><br><span class="line"> _  | |/ _ \ \ / / _ \| / __| | |_) | &#x27;__/ _ \ </span><br><span class="line">| |_| |  __/\ V / (_) | \__ \ |  __/| | | (_) |</span><br><span class="line"> \___/ \___| \_/ \___/|_|___/ |_|   |_|  \___/ </span><br><span class="line">                                               </span><br><span class="line"></span><br><span class="line"> * Website:        https://jevois.org</span><br><span class="line"> * Documentation:  https://jevois.org/doc</span><br><span class="line"> * Forum:          https://jevois.org/qa</span><br><span class="line"></span><br><span class="line">jevois@JeVoisPro:~$ </span><br></pre></td></tr></table></figure>
 
 
-<h1 id="4-NO-RTSP-Video-Streaming"><a href="#4-NO-RTSP-Video-Streaming" class="headerlink" title="4. NO RTSP Video Streaming"></a>4. NO RTSP Video Streaming</h1><p>According to my Email to <a target="_blank" rel="noopener" href="https://www.jevoisinc.com/">JeVois Inc.</a> and their reply, <a target="_blank" rel="noopener" href="https://www.jevoisinc.com/collections/jevois-hardware/products/jevois-pro-deep-learning-smart-camera">JeVois Pro</a> hasn’t implemented the video streaming part yet. Clearly, two parts are needed to be transferred via Wifi:</p>
+<h1 id="4-NO-RTSP-Video-Streaming"><a href="#4-NO-RTSP-Video-Streaming" class="headerlink" title="4. NO RTSP Video Streaming"></a>4. NO RTSP Video Streaming</h1><p>According to my Email to <a target="_blank" rel="noopener" href="https://www.jevoisinc.com/">JeVois Inc.</a> and their reply, <a target="_blank" rel="noopener" href="https://www.jevoisinc.com/collections/jevois-hardware/products/jevois-pro-deep-learning-smart-camera">JeVois Pro</a> hasn’t implemented the video streaming part yet. Clearly, two streams are needed to be transferred via Wifi:</p>
 <ul>
 <li>the original captured video stream</li>
 <li>the processed resultant video stream</li>
@@ -772,717 +1792,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2021/07/06/MachineVision/ARMLinux/e-consystems-e-CAM50_CUNANO/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/07/06/MachineVision/ARMLinux/e-consystems-e-CAM50_CUNANO/" class="post-title-link" itemprop="url">e-con Systems e-CAM50_CUNANO</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-07-06 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-06T00:00:00-07:00">2021-07-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2021-07-07 14:33:42" itemprop="dateModified" datetime="2021-07-07T14:33:42-07:00">2021-07-07</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Machine-Vision/" itemprop="url" rel="index"><span itemprop="name">Machine Vision</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Machine-Vision/ARMLinux/" itemprop="url" rel="index"><span itemprop="name">ARMLinux</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>I kept an eye on <a target="_blank" rel="noopener" href="https://www.e-consystems.com/">e-con Systems </a> for over 3 years. Finally, I decided to try its products this year (2020). Today, we are going to test its newly product <a target="_blank" rel="noopener" href="https://www.e-consystems.com/nvidia-cameras/jetson-nano-cameras/5mp-mipi-nano-camera.asp">e-CAM50_CUNANO</a> on <a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetson-nano-developer-kit">NVidia Jetson Nano</a>, actually, a <a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetson-nano-2gb-developer-kit">NVidia Jetson Nano 2G</a>. Please find all documentations from <a target="_blank" rel="noopener" href="https://www.e-consystems.com/nvidia-cameras/jetson-nano-cameras/5mp-mipi-nano-camera.asp#documents">e-CAM50_CUNANO’s website</a>. Here, we’ll follow <strong>e-con_e-CAM50_CUNANO_Developer_Guide.pdf</strong>.</p>
-<p>Such a busy year, unbelievably busy. I can’t believe when I started the investigation of <a target="_blank" rel="noopener" href="https://www.e-consystems.com/nvidia-cameras/jetson-nano-cameras/5mp-mipi-nano-camera.asp">e-CAM50_CUNANO</a> again, it’s already been a year after. Okay, let’s start.</p>
-<h1 id="1-Relative-Material"><a href="#1-Relative-Material" class="headerlink" title="1. Relative Material"></a>1. Relative Material</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://www.e-consystems.com/nvidia-cameras/jetson-nano-cameras/5mp-mipi-nano-camera.asp">Official e-CAM50_CUNANO Website</a></li>
-<li><a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetson-partner-supported-cameras">Jetson Partner Supported Cameras</a></li>
-<li><a target="_blank" rel="noopener" href="https://elinux.org/Jetson_Nano">Jetson Nano Embedded Linux Wiki</a></li>
-</ul>
-<h1 id="2-Compatibility"><a href="#2-Compatibility" class="headerlink" title="2. Compatibility"></a>2. Compatibility</h1><ul>
-<li>From <a target="_blank" rel="noopener" href="https://www.e-consystems.com/nvidia-cameras/jetson-nano-cameras/5mp-mipi-nano-camera.asp">official e-CAM50_CUNANO Website</a>, it’s clearly written from its <a target="_blank" rel="noopener" href="https://www.e-consystems.com/nvidia-cameras/jetson-nano-cameras/5mp-mipi-nano-camera.asp#software">software tab</a>: </li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Supported Jetpack &amp; L4T Version</span><br><span class="line">    NVIDIA® Jetson NANO™ - JetPack 4.3.1 L4T32.3.1</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>My board is a <a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetson-nano-2gb-developer-kit">Jetson Nano 2GB Developer Kit</a>, on which I’ve already installed Jetpack 4.5.1.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ jetson_release -v</span><br><span class="line"> - NVIDIA Jetson Nano (Developer Kit Version)</span><br><span class="line">   * Jetpack 4.5.1 [L4T 32.5.1]</span><br><span class="line">   * NV Power Mode: MAXN - Type: 0</span><br><span class="line">   * jetson_stats.service: active</span><br><span class="line"> - Board info:</span><br><span class="line">   * Type: Nano (Developer Kit Version)</span><br><span class="line">   * SOC Family: tegra210 - ID:33</span><br><span class="line">   * Module: P3448-0003 - Board: P3542-000</span><br><span class="line">   * Code Name: batuu</span><br><span class="line">   * Boardids: 3448</span><br><span class="line">   * CUDA GPU architecture (ARCH_BIN): 5.3</span><br><span class="line">   * Serial Number: 1423720056255</span><br><span class="line"> - Libraries:</span><br><span class="line">   * CUDA: 10.2.89</span><br><span class="line">   * cuDNN: 8.0.0.180</span><br><span class="line">   * TensorRT: 7.1.3.0</span><br><span class="line">   * Visionworks: 1.6.0.501</span><br><span class="line">   * OpenCV: 4.1.1 compiled CUDA: NO</span><br><span class="line">   * VPI: ii libnvvpi1 1.0.15 arm64 NVIDIA Vision Programming Interface library</span><br><span class="line">   * Vulkan: 1.2.70</span><br><span class="line"> - jetson-stats:</span><br><span class="line">   * Version 3.1.0</span><br><span class="line">   * Works on Python 3.6.9</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>It looks by directly plug in <a target="_blank" rel="noopener" href="https://www.e-consystems.com/nvidia-cameras/jetson-nano-cameras/5mp-mipi-nano-camera.asp">e-CAM50_CUNANO</a> onto <a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetson-nano-2gb-developer-kit">Jetson Nano 2GB Developer Kit</a>, there is <strong>NO</strong> camera detected.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ls /dev/video*</span><br><span class="line">zsh: no matches found: /dev/video*</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>Therefore, it looks we need to build a driver of <a target="_blank" rel="noopener" href="https://www.onsemi.com/products/sensors/image-sensors-processors/image-sensors/ar0521">AR0521</a> for my board:</p>
-<ul>
-<li>hardware: <a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetson-nano-2gb-developer-kit">Jetson Nano 2GB Developer Kit</a></li>
-<li>software: <a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetpack">Jetpack 4.5.1</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2021/06/29/MachineVision/SmartCamera/OpenCV-AI-KIT/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/06/29/MachineVision/SmartCamera/OpenCV-AI-KIT/" class="post-title-link" itemprop="url">OpenCV AI KIT</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2021-06-29 00:00:00 / Modified: 18:11:21" itemprop="dateCreated datePublished" datetime="2021-06-29T00:00:00-07:00">2021-06-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Machine-Vision/" itemprop="url" rel="index"><span itemprop="name">Machine Vision</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Machine-Vision/Smart-Camera/" itemprop="url" rel="index"><span itemprop="name">Smart Camera</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Hmmm, today, Vancouver’s weather is cooling down a little bit. As mentioned in my previous blog <a href="../../../../../../2021/06/28/AI/DeepLearning/detectron2-2/">Detectron2 - 2</a>, I received <a target="_blank" rel="noopener" href="https://www.kickstarter.com/projects/opencv/opencv-ai-kit">OpenCV AI KIT</a> yesterday. Today, let’s try it out.</p>
-<h1 id="1-About-OpenCV-AI-KIT"><a href="#1-About-OpenCV-AI-KIT" class="headerlink" title="1. About OpenCV AI KIT"></a>1. About <a target="_blank" rel="noopener" href="https://www.kickstarter.com/projects/opencv/opencv-ai-kit">OpenCV AI KIT</a></h1><h2 id="1-1-OpenCV-AI-KIT-on-Kick-Starter"><a href="#1-1-OpenCV-AI-KIT-on-Kick-Starter" class="headerlink" title="1.1 OpenCV AI KIT on Kick Starter"></a>1.1 <a target="_blank" rel="noopener" href="https://www.kickstarter.com/projects/opencv/opencv-ai-kit">OpenCV AI KIT</a> on Kick Starter</h2><p>It looks there are a variety of <strong>OpenCV AI kits</strong>, from the official websites of its manufacturer <a target="_blank" rel="noopener" href="https://luxonis.com/">Luxonis</a>:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://docs.luxonis.com/en/latest/pages/products/bw1093/">OAK-1</a></li>
-<li><a target="_blank" rel="noopener" href="https://docs.luxonis.com/en/latest/pages/products/bw1098obc/">OAK-D</a></li>
-<li><a target="_blank" rel="noopener" href="https://docs.luxonis.com/en/latest/pages/products/bw1098wifi/">OAK-D-WiFi</a></li>
-</ul>
-<h2 id="1-2-How-does-my-OpenCV-AI-KIT-look-like"><a href="#1-2-How-does-my-OpenCV-AI-KIT-look-like" class="headerlink" title="1.2 How does my OpenCV AI KIT look like?"></a>1.2 How does my <a target="_blank" rel="noopener" href="https://www.kickstarter.com/projects/opencv/opencv-ai-kit">OpenCV AI KIT</a> look like?</h2><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/SmartCamera/OpenCVAIKIT/OpenCV-AI-KIT.jpg" alt="OpenCV-AI-KIT"></p>
-<p>From my picture above, clearly, I’ve got a set of <a target="_blank" rel="noopener" href="https://docs.luxonis.com/en/latest/pages/products/bw1098wifi/">OAK-D-WiFi</a> at hand.</p>
-<h2 id="1-3-OAK-D-WiFi‘s-Capability"><a href="#1-3-OAK-D-WiFi‘s-Capability" class="headerlink" title="1.3 OAK-D-WiFi‘s Capability"></a>1.3 <a target="_blank" rel="noopener" href="https://docs.luxonis.com/en/latest/pages/products/bw1098wifi/">OAK-D-WiFi</a>‘s Capability</h2><p>From its official website, <a target="_blank" rel="noopener" href="https://docs.luxonis.com/en/latest/pages/products/bw1098wifi/">OAK-D-WiFi</a> is of unbelievably powerful.</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/products/details/processors/movidius-vpu/movidius-myriad-x.html">Intel® Movidius™ Myriad™ X VPU </a>: accelerates AI algorithms</li>
-<li><a target="_blank" rel="noopener" href="https://luxonis.com/depthai">DepthAI</a>: brings <strong>realtime</strong> spatial AI</li>
-<li><a target="_blank" rel="noopener" href="https://www.espressif.com/en/products/socs/esp32">ESP32</a>: enables both WiFi and Bluetooth</li>
-</ul>
-<p>Let’s take a look at the device from command line:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ lsusb | grep MyriadX</span><br><span class="line">Bus 011 Device 025: ID 03e7:2485 Intel Movidius MyriadX</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="2-Demonstration"><a href="#2-Demonstration" class="headerlink" title="2. Demonstration"></a>2. Demonstration</h1><p>Let’s just run <a target="_blank" rel="noopener" href="https://github.com/luxonis/depthai/blob/main/depthai_demo.py">depthai_demo.py</a> and see its performance first.</p>
-<h2 id="2-1-Some-Findings"><a href="#2-1-Some-Findings" class="headerlink" title="2.1 Some Findings"></a>2.1 Some Findings</h2><h3 id="2-1-1-Image-Resolutions"><a href="#2-1-1-Image-Resolutions" class="headerlink" title="2.1.1 Image Resolutions"></a>2.1.1 Image Resolutions</h3><ul>
-<li>Resultant depth images are of size <strong>640x400</strong></li>
-<li>Resultant color images are of size <strong>300x300</strong></li>
-</ul>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  results git:(main) ✗ file depth/depth_03847.jpg</span><br><span class="line">depth/depth_03847.jpg: JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, baseline, precision 8, 640x400, components 3</span><br><span class="line">➜  results git:(main) ✗ file color/color_03847.jpg</span><br><span class="line">color/color_03847.jpg: JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, baseline, precision 8, 300x300, components 3</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="2-1-2-More-depth-images-than-color-images"><a href="#2-1-2-More-depth-images-than-color-images" class="headerlink" title="2.1.2 More depth images than color images"></a>2.1.2 More depth images than color images</h3><p><a target="_blank" rel="noopener" href="https://github.com/luxonis/depthai/blob/main/depthai_demo.py">depthai_demo.py</a> successfully starts inquiring a depth image earlier than a color image, and stops inquiring the depth image later than the color image. In order to use both color image and depth image at the same time, we should make sure both color image and depth image are successfully inquired at the same frame index.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  results git:(main) ✗ ls color | wc -l</span><br><span class="line">3736</span><br><span class="line">➜  results git:(main) ✗ ls depth | wc -l</span><br><span class="line">3797</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="2-2-Results"><a href="#2-2-Results" class="headerlink" title="2.2 Results"></a>2.2 Results</h2><h3 id="2-1-1-Single-Image"><a href="#2-1-1-Single-Image" class="headerlink" title="2.1.1 Single Image"></a>2.1.1 Single Image</h3><p>Let’s take a look at my demo (yeah, I’m the player), the resultant color image and depth image with index 1000.</p>
-<table>
-<thead>
-<tr>
-<th align="center">color_01000</th>
-<th align="center">depth_01000</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/SmartCamera/OpenCVAIKIT/color_01000.jpg" alt="color_01000"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/SmartCamera/OpenCVAIKIT/depth_01000.jpg" alt="depth_01000"></td>
-</tr>
-</tbody></table>
-<h3 id="2-1-2-Video"><a href="#2-1-2-Video" class="headerlink" title="2.1.2 Video"></a>2.1.2 Video</h3><iframe width="1280" height="546" src="https://www.youtube.com/embed/HIzGD3TnuoM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2021/06/28/AI/DeepLearning/detectron2-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/06/28/AI/DeepLearning/detectron2-2/" class="post-title-link" itemprop="url">Detectron2 - 2</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-06-28 00:00:00" itemprop="dateCreated datePublished" datetime="2021-06-28T00:00:00-07:00">2021-06-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2021-06-29 16:02:42" itemprop="dateModified" datetime="2021-06-29T16:02:42-07:00">2021-06-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>For my <strong>FIRST</strong> blog <a href="../../../../../2020/04/06/AI/DeepLearning/detectron2-1/">Detectron2 - 1</a> has already demonstrated its stunning capability, I <strong>NEVER</strong> thought I’ll have a 2nd chance to write a 2nd blog about <a target="_blank" rel="noopener" href="https://github.com/facebookresearch/detectron2">detectron2</a>.</p>
-<ul>
-<li>This <strong>Facebook</strong> blog <a target="_blank" rel="noopener" href="https://ai.facebook.com/blog/-detectron2-a-pytorch-based-modular-object-detection-library-">Detectron2: A PyTorch-based modular object detection library</a> has been quite a while.</li>
-<li>And this <strong>Kaggle</strong> blog <a target="_blank" rel="noopener" href="https://www.kaggle.com/maartenvandevelde/object-detection-with-detectron2-pytorch/notebook">Object Detection with Detectron2 - PyTorch</a> has elaborated <a target="_blank" rel="noopener" href="https://github.com/facebookresearch/detectron2">detectron2</a>‘s capability of object detection.</li>
-</ul>
-<p>In this <strong>crazy</strong> year 2021 (yeah, today is <a target="_blank" rel="noopener" href="https://www.cbc.ca/news/canada/british-columbia/b-c-heat-wave-shatters-canadian-record-for-highest-temperature-ever-recorded-1.6082192">THE HOTTEST EVER DAY recorded in Canada</a> ), <a target="_blank" rel="noopener" href="https://github.com/facebookresearch/detectron2">detectron2</a> has some updates as in its <a target="_blank" rel="noopener" href="https://github.com/facebookresearch/detectron2#whats-new">What’s New</a>. Today, I’d love to test out <a target="_blank" rel="noopener" href="https://github.com/facebookresearch/detectron2/tree/master/projects/DensePose">Densepose</a> in depth. By the way, today, I finally received <a target="_blank" rel="noopener" href="https://www.kickstarter.com/projects/opencv/opencv-ai-kit">OpenCV AI KIT</a>. We’ll have some fun on that next week.</p>
-<h1 id="1-My-Environments"><a href="#1-My-Environments" class="headerlink" title="1. My Environments"></a>1. My Environments</h1><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID:	Ubuntu</span><br><span class="line">Description:	Ubuntu 20.04.2 LTS</span><br><span class="line">Release:	20.04</span><br><span class="line">Codename:	focal</span><br><span class="line">➜  ~ python --version</span><br><span class="line">Python 3.8.5</span><br><span class="line">➜  ~ pip show torch</span><br><span class="line">Name: torch</span><br><span class="line">Version: 1.10.0a0+git3137bbe</span><br><span class="line">Summary: Tensors and Dynamic neural networks in Python with strong GPU acceleration</span><br><span class="line">Home-page: https://pytorch.org/</span><br><span class="line">Author: PyTorch Team</span><br><span class="line">Author-email: packages@pytorch.org</span><br><span class="line">License: BSD-3</span><br><span class="line">Location: ~/.local/lib/python3.8/site-packages</span><br><span class="line">Requires: typing-extensions</span><br><span class="line">Required-by: torchvision, torchaudio, torchtext</span><br><span class="line">➜  ~ pip show torchvision</span><br><span class="line">Name: torchvision</span><br><span class="line">Version: 0.11.0a0+0013d93</span><br><span class="line">Summary: image and video datasets and models for torch deep learning</span><br><span class="line">Home-page: https://github.com/pytorch/vision</span><br><span class="line">Author: PyTorch Core Team</span><br><span class="line">Author-email: soumith@pytorch.org</span><br><span class="line">License: BSD</span><br><span class="line">Location: ~/.local/lib/python3.8/site-packages/torchvision-0.11.0a0+0013d93-py3.8-linux-x86_64.egg</span><br><span class="line">Requires: numpy, torch, pillow</span><br><span class="line">Required-by: </span><br><span class="line">➜  ~ pip show detectron2</span><br><span class="line">Name: detectron2</span><br><span class="line">Version: 0.4.1</span><br><span class="line">Summary: Detectron2 is FAIR&#x27;s next-generation research platform for object detection and segmentation.</span><br><span class="line">Home-page: https://github.com/facebookresearch/detectron2</span><br><span class="line">Author: FAIR</span><br><span class="line">Author-email: None</span><br><span class="line">License: UNKNOWN</span><br><span class="line">Location: ~/.local/lib/python3.8/site-packages/detectron2-0.4.1-py3.8-linux-x86_64.egg</span><br><span class="line">Requires: Pillow, matplotlib, pycocotools, termcolor, yacs, tabulate, cloudpickle, tqdm, tensorboard, fvcore, iopath, future, pydot, omegaconf, hydra-core, black</span><br><span class="line">Required-by: </span><br><span class="line">➜  ~ apt show opencv</span><br><span class="line">Package: opencv</span><br><span class="line">Version: 4.5.2-6</span><br><span class="line">Status: install ok installed</span><br><span class="line">Priority: extra</span><br><span class="line">Section: checkinstall</span><br><span class="line">Maintainer: root@lvision-MS-7C59</span><br><span class="line">Installed-Size: 2,188 MB</span><br><span class="line">Provides: build</span><br><span class="line">Download-Size: unknown</span><br><span class="line">APT-Manual-Installed: yes</span><br><span class="line">APT-Sources: /var/lib/dpkg/status</span><br><span class="line">Description: Package created with checkinstall 1.6.3</span><br><span class="line">➜  ~ gcc --version</span><br><span class="line">gcc (GCC) 10.3.1 20210627</span><br><span class="line">Copyright (C) 2020 Free Software Foundation, Inc.</span><br><span class="line">This is free software; see the source for copying conditions.  There is NO</span><br><span class="line">warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="2-DensePose-in-Detectron2"><a href="#2-DensePose-in-Detectron2" class="headerlink" title="2. DensePose in Detectron2"></a>2. <a target="_blank" rel="noopener" href="https://github.com/facebookresearch/detectron2/tree/master/projects/DensePose">DensePose in Detectron2</a></h1><h2 id="2-1-Demo-on-Single-Image"><a href="#2-1-Demo-on-Single-Image" class="headerlink" title="2.1 Demo on Single Image"></a>2.1 Demo on Single Image</h2><p>We first extract a single image from a youtube video <a target="_blank" rel="noopener" href="https://youtu.be/oX6Lhhl7sPo">Dance Workout- EXO: Love Shot, follow by Kkardio</a>. <strong><span style="color:red">The reasons why we select this video are: there are two parts of the video:</span></strong></p>
-<ul>
-<li><strong><span style="color:red">the left part contains multiple front-facing dancers</span></strong></li>
-<li><strong><span style="color:red">the right part contains a single back-facing fllower</span></strong></li>
-</ul>
-<h3 id="2-1-1-Command-Line-for-IUV"><a href="#2-1-1-Command-Line-for-IUV" class="headerlink" title="2.1.1 Command Line for IUV"></a>2.1.1 Command Line for IUV</h3><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">➜  DensePose git:(master) ✗ python apply_net.py show configs/densepose_rcnn_R_50_FPN_s1x.yaml ./pkl/IUV/R_50_FPN_s1x.pkl image.png dp_contour,bbox --output image_densepose_contour.png </span><br><span class="line">The checkpoint state_dict contains keys that are not used by the model:</span><br><span class="line">  proposal_generator.anchor_generator.cell_anchors.&#123;0, 1, 2, 3, 4&#125;</span><br><span class="line">~/.local/lib/python3.8/site-packages/torch/_tensor.py:585: UserWarning: floor_divide is deprecated, and will be removed in a future version of pytorch. It currently rounds toward 0 (like the &#x27;trunc&#x27; function NOT &#x27;floor&#x27;). This results in incorrect rounding for negative values.</span><br><span class="line">To keep the current behavior, use torch.div(a, b, rounding_mode=&#x27;trunc&#x27;), or for actual floor division, use torch.div(a, b, rounding_mode=&#x27;floor&#x27;). (Triggered internally at  ../aten/src/ATen/native/BinaryOps.cpp:461.)</span><br><span class="line">  return torch.floor_divide(self, other)</span><br><span class="line">~/.local/lib/python3.8/site-packages/torch/nn/functional.py:718: UserWarning: Named tensors and all their associated APIs are an experimental feature and subject to change. Please do not use them for anything important until they are released as stable. (Triggered internally at  ../c10/core/TensorImpl.h:1292.)</span><br><span class="line">  return torch.max_pool2d(input, kernel_size, stride, padding, dilation, ceil_mode)</span><br><span class="line">....../detectron2/projects/DensePose/densepose/vis/densepose_results.py:133: UserWarning: The following kwargs were not used by contour: &#x27;cfg&#x27;, &#x27;texture_atlas&#x27;, &#x27;texture_atlases_dict&#x27;</span><br><span class="line">  plt.contour(u, self.levels, extent=extent, **self.plot_args)</span><br><span class="line">....../detectron2/projects/DensePose/densepose/vis/densepose_results.py:134: UserWarning: The following kwargs were not used by contour: &#x27;cfg&#x27;, &#x27;texture_atlas&#x27;, &#x27;texture_atlases_dict&#x27;</span><br><span class="line">  plt.contour(v, self.levels, extent=extent, **self.plot_args)</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="2-1-2-Command-Line-for-CSE"><a href="#2-1-2-Command-Line-for-CSE" class="headerlink" title="2.1.2 Command Line for CSE"></a>2.1.2 Command Line for CSE</h3><p>It looks <strong><span style="color:red">smpl_uvSnapshot_colors.jpg</span></strong> is missing?</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">➜  DensePose git:(master) ✗ python apply_net.py show configs/cse/densepose_rcnn_R_50_FPN_s1x.yaml ./pkl/CSE/R_50_FPN_s1x.pkl image.png dp_vertex,bbox -v</span><br><span class="line">[06/28 16:19:54 apply_net]: Loading config from configs/cse/densepose_rcnn_R_50_FPN_s1x.yaml</span><br><span class="line">[06/28 16:19:54 apply_net]: Loading model from ./pkl/CSE/R_50_FPN_s1x.pkl</span><br><span class="line">The checkpoint state_dict contains keys that are not used by the model:</span><br><span class="line">  pixel_mean</span><br><span class="line">  pixel_std</span><br><span class="line">  proposal_generator.anchor_generator.cell_anchors.&#123;0, 1, 2, 3, 4&#125;</span><br><span class="line">[06/28 16:19:56 apply_net]: Loading data from image.png</span><br><span class="line">~/.local/lib/python3.8/site-packages/torch/_tensor.py:585: UserWarning: floor_divide is deprecated, and will be removed in a future version of pytorch. It currently rounds toward 0 (like the &#x27;trunc&#x27; function NOT &#x27;floor&#x27;). This results in incorrect rounding for negative values.</span><br><span class="line">To keep the current behavior, use torch.div(a, b, rounding_mode=&#x27;trunc&#x27;), or for actual floor division, use torch.div(a, b, rounding_mode=&#x27;floor&#x27;). (Triggered internally at  ../aten/src/ATen/native/BinaryOps.cpp:461.)</span><br><span class="line">  return torch.floor_divide(self, other)</span><br><span class="line">~/.local/lib/python3.8/site-packages/torch/nn/functional.py:718: UserWarning: Named tensors and all their associated APIs are an experimental feature and subject to change. Please do not use them for anything important until they are released as stable. (Triggered internally at  ../c10/core/TensorImpl.h:1292.)</span><br><span class="line">  return torch.max_pool2d(input, kernel_size, stride, padding, dilation, ceil_mode)</span><br><span class="line">[06/28 16:19:57 apply_net]: Processing image.png</span><br><span class="line">~/.local/lib/python3.8/site-packages/torch/nn/functional.py:3609: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.</span><br><span class="line">  warnings.warn(</span><br><span class="line">[06/28 16:19:58 apply_net]: Output saved to outputres.0001.png</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="2-1-3-Results"><a href="#2-1-3-Results" class="headerlink" title="2.1.3 Results"></a>2.1.3 Results</h3><table>
-<thead>
-<tr>
-<th align="center">Dance Workout- EXO: Love Shot, follow by Kkardio</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/2021Revisited/image.png" alt="Dance Workout- EXO: Love Shot, follow by Kkardio"></td>
-</tr>
-<tr>
-<td align="center">Dense Pose Contour IUV</td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/2021Revisited/image_densepose_contour.0001.png" alt="Dense Pose Contour IUV "></td>
-</tr>
-<tr>
-<td align="center">Dense Pose Continuous Surface Embedding</td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/2021Revisited/outputres.0001.png" alt="Dense Pose CSE "></td>
-</tr>
-</tbody></table>
-<p>From the <strong>CSE</strong> result, it’s quite obvious that <a target="_blank" rel="noopener" href="https://github.com/facebookresearch/detectron2/blob/master/projects/DensePose/doc/DENSEPOSE_CSE.md">detectron2 Densepose CSE</a> is able to tell the left leg from the right leg.</p>
-<h2 id="2-2-Demo-on-Video"><a href="#2-2-Demo-on-Video" class="headerlink" title="2.2 Demo on Video"></a>2.2 Demo on Video</h2><p>The original video is embedded in the following:</p>
-<iframe width="1280" height="720" src="https://www.youtube.com/embed/oX6Lhhl7sPo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-
-<h3 id="2-2-1-Code"><a href="#2-2-1-Code" class="headerlink" title="2.2.1 Code"></a>2.2.1 Code</h3><p>The code I used for my demo heavily relies on <a target="_blank" rel="noopener" href="https://github.com/facebookresearch/detectron2/issues/481">detectron2 issue 481</a> and <a target="_blank" rel="noopener" href="https://github.com/facebookresearch/detectron2/blob/master/projects/DensePose/apply_net.py">detectron2 Densepose apply_net.py</a>. Please modify the code by yourself according to your own applications.</p>
-<h3 id="2-2-2-Results"><a href="#2-2-2-Results" class="headerlink" title="2.2.2 Results"></a>2.2.2 Results</h3><h4 id="2-2-2-1-IUV"><a href="#2-2-2-1-IUV" class="headerlink" title="2.2.2.1 IUV"></a>2.2.2.1 IUV</h4><p><a target="_blank" rel="noopener" href="https://github.com/facebookresearch/detectron2/blob/master/projects/DensePose/doc/DENSEPOSE_IUV.md#ModelZoo">IUV Model Zoo</a></p>
-<iframe width="1280" height="720" src="https://www.youtube.com/embed/Wmn3LGiVFXM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-
-<h4 id="2-2-2-2-CSE"><a href="#2-2-2-2-CSE" class="headerlink" title="2.2.2.2 CSE"></a>2.2.2.2 CSE</h4><p><a target="_blank" rel="noopener" href="https://github.com/facebookresearch/detectron2/blob/master/projects/DensePose/doc/DENSEPOSE_CSE.md#ModelZoo">CSE Model Zoo</a></p>
-<iframe width="1280" height="720" src="https://www.youtube.com/embed/ZynCrpCnZ2Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-<p>Again, from the <strong>CSE</strong> result, it’s quite obvious that <a target="_blank" rel="noopener" href="https://github.com/facebookresearch/detectron2/blob/master/projects/DensePose/doc/DENSEPOSE_CSE.md">detectron2 Densepose CSE</a> is able to tell the left leg from the right leg.</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2021/06/26/AI/DeepLearning/Pivotal-Tuning-Inversion-StyleGAN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/06/26/AI/DeepLearning/Pivotal-Tuning-Inversion-StyleGAN/" class="post-title-link" itemprop="url">Pivotal Tuning Inversion (PTI)</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2021-06-26 00:00:00 / Modified: 23:45:44" itemprop="dateCreated datePublished" datetime="2021-06-26T00:00:00-07:00">2021-06-26</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Back to Canada for around 1 month. It’s the time for me to write something. Good to know that <a target="_blank" rel="noopener" href="https://github.com/danielroich/PTI">PTI</a> is released open source a couple of days ago. Let’s take a look at its performance today. Sorry that I seriously have <strong>NO</strong> time to investigate the details, having been busy in a robotic arm project. Therefore, a couple of resultant images are displayed as follows to demonstrate <a target="_blank" rel="noopener" href="https://github.com/danielroich/PTI">PTI</a>‘s performance.</p>
-<h2 id="Style-Change-on-Myself"><a href="#Style-Change-on-Myself" class="headerlink" title="Style Change on Myself"></a>Style Change on Myself</h2><table>
-<thead>
-<tr>
-<th align="center">When I was young</th>
-<th align="center">Aligned Image</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/01_personal_image.png" alt="When I was young"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/02_aligned_image.png" alt="Aligned Image"></td>
-</tr>
-<tr>
-<td align="center">Inversion before PTI</td>
-<td align="center">PTIed Image</td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/03_inversion_before_PTI.png" alt="Inversion before PTI"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/04_PTI.png" alt="PTIed Image"></td>
-</tr>
-<tr>
-<td align="center">Rotation Left before PTI</td>
-<td align="center">Rotation Left PTIed Image</td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/05_rotation_left_before_PTI.png" alt="Rotation Left before PTI"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/05_rotation_left_PTI.png" alt="Rotation Left PTIed Image"></td>
-</tr>
-<tr>
-<td align="center">Rotation Right before PTI</td>
-<td align="center">Rotation Right PTIed Image</td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/06_rotation_right_before_PTI.png" alt="Rotation Left before PTI"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/06_rotation_right_PTI.png" alt="Rotation Left PTIed Image"></td>
-</tr>
-<tr>
-<td align="center">No Smile before PTI</td>
-<td align="center">No Smile PTIed Image</td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/07_no_smile_before_PTI.png" alt="No Smile before PTI"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/07_no_smile_PTI.png" alt="No Smile PTIed Image"></td>
-</tr>
-<tr>
-<td align="center">Smile before PTI</td>
-<td align="center">Smile PTIed Image</td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/08_smile_before_PTI.png" alt="Smile before PTI"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/08_smile_PTI.png" alt="Smile PTIed Image"></td>
-</tr>
-<tr>
-<td align="center">Young before PTI</td>
-<td align="center">Young PTIed Image</td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/09_young_before_PTI.png" alt="Young before PTI"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/09_young_PTI.png" alt="Young PTIed Image"></td>
-</tr>
-<tr>
-<td align="center">Old before PTI</td>
-<td align="center">Old PTIed Image</td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/10_old_before_PTI.png" alt="Old before PTI"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/10_old_PTI.png" alt="Old PTIed Image"></td>
-</tr>
-</tbody></table>
-<h2 id="Style-Change-to-Another-Person"><a href="#Style-Change-to-Another-Person" class="headerlink" title="Style Change to Another Person"></a>Style Change to Another Person</h2><table>
-<thead>
-<tr>
-<th align="center">afro</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/11_afro.png" alt="Afro"></td>
-</tr>
-<tr>
-<td align="center">mohawk</td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/12_mohawk.png" alt="Afro"></td>
-</tr>
-</tbody></table>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2020/10/04/Personal/music_Chinese_style/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/10/04/Personal/music_Chinese_style/" class="post-title-link" itemprop="url">Music - Chinese Style</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2020-10-04 00:00:00" itemprop="dateCreated datePublished" datetime="2020-10-04T00:00:00-07:00">2020-10-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2021-06-05 21:18:22" itemprop="dateModified" datetime="2021-06-05T21:18:22-07:00">2021-06-05</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Personal/" itemprop="url" rel="index"><span itemprop="name">Personal</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Music day. This is <strong>THE</strong> traditional Chinese culture. Revolution culture HAS <strong>NEVER</strong> BEEN.</p>
-<iframe width="1280" height="720" src="https://www.youtube.com/embed/2dIqUZRgFLw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2020/10/02/AI/DeepLearning/ENet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/10/02/AI/DeepLearning/ENet/" class="post-title-link" itemprop="url">ENet Real-Time Semantic Segmentation</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2020-10-02 00:00:00" itemprop="dateCreated datePublished" datetime="2020-10-02T00:00:00-07:00">2020-10-02</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2021-06-05 21:18:22" itemprop="dateModified" datetime="2021-06-05T21:18:22-07:00">2021-06-05</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1606.02147">ENet</a> was published in 2016… Hmmmm… It’s a shame that I just got to know it… Anyway, the performance seems to be <strong>REALLY GOOD</strong>…</p>
-<div style="font-size:5rem;width:100%;text-align:center;">
-    <span class="github-emoji" alias="+1" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f44d.png?v8">&#x1f44d;</span>
-</div>
-
-
-<p>In fact, this video is somewhat <strong>stolen</strong>. I would like to advertise for <strong>SOME</strong> publication. I’ll let you know a couple of months later.</p>
-<p>It’s sad to hear <a target="_blank" rel="noopener" href="https://www.whitehouse.gov/people/donald-j-trump/">Donald J. Trump</a> is detected as <strong>positive</strong> and now a <strong>patient</strong>, please refer to <a target="_blank" rel="noopener" href="https://www.cnn.com/2020/10/02/politics/president-donald-trump-coronavirus-positive-test/index.html">Trump’s positive Covid-19 test throws country into fresh upheaval</a>. I really would suggest <strong>everybody</strong>, particularly <strong>me</strong>, to be <strong>ALWAYS positive</strong> and <strong>patient</strong>. <a target="_blank" rel="noopener" href="https://www.kelowna.ca/">Kelowna</a>, I’m coming to you again.</p>
-<iframe width="1280" height="1024" src="https://www.youtube.com/embed/__hu4Jfw_Qo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 </div>
