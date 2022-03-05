@@ -1,0 +1,239 @@
+<pre><code class="python"># Copy and paste from
+# https://towardsdatascience.com/visualising-high-dimensional-datasets-using-pca-and-t-sne-in-python-8ef87e7915b
+# with trivial modifications
+#
+# Author: Nobody in Computer Vision
+# Date: 2022-03-05
+# 
+# Contacts:
+# Company: Longer Vision Technology
+# Email: jiapei@longervision.com
+# Website: https://www.longervision.com
+</code></pre>
+<pre><code class="python"># Fashion MNIST reader
+
+def load_mnist(path, kind=&#39;train&#39;):
+    import os
+    import gzip
+    import numpy as np
+
+    &quot;&quot;&quot;Load MNIST data from `path`&quot;&quot;&quot;
+    labels_path = os.path.join(path,
+                               &#39;%s-labels-idx1-ubyte.gz&#39;
+                               % kind)
+    images_path = os.path.join(path,
+                               &#39;%s-images-idx3-ubyte.gz&#39;
+                               % kind)
+
+    with gzip.open(labels_path, &#39;rb&#39;) as lbpath:
+        labels = np.frombuffer(lbpath.read(), dtype=np.uint8,
+                               offset=8)
+
+    with gzip.open(images_path, &#39;rb&#39;) as imgpath:
+        images = np.frombuffer(imgpath.read(), dtype=np.uint8,
+                               offset=16).reshape(len(labels), 784)
+
+    return images, labels
+</code></pre>
+<pre><code class="python">X_train, y_train = load_mnist(&#39;/media/lvision/Sabrent/datasets/fashion_mnist&#39;, kind=&#39;train&#39;)
+print(X_train.shape)
+print(y_train)
+print(y_train.shape)
+</code></pre>
+<pre><code>(60000, 784)
+[9 0 0 ... 3 0 5]
+(60000,)
+</code></pre>
+<pre><code class="python">import time
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.patheffects as PathEffects
+%matplotlib inline
+
+import seaborn as sns
+sns.set_style(&#39;darkgrid&#39;)
+sns.set_palette(&#39;muted&#39;)
+sns.set_context(&quot;notebook&quot;, font_scale=1.5,
+                rc={&quot;lines.linewidth&quot;: 2.5})
+RS = 123
+</code></pre>
+<pre><code class="python"># Utility function to visualize the outputs of PCA and t-SNE
+
+def fashion_scatter(x, colors):
+    # choose a color palette with seaborn.
+    num_classes = len(np.unique(colors))
+    palette = np.array(sns.color_palette(&quot;hls&quot;, num_classes))
+
+    # create a scatter plot.
+    f = plt.figure(figsize=(8, 8))
+    ax = plt.subplot(aspect=&#39;equal&#39;)
+    sc = ax.scatter(x[:,0], x[:,1], lw=0, s=40, c=palette[colors.astype(np.int)])
+    plt.xlim(-25, 25)
+    plt.ylim(-25, 25)
+    ax.axis(&#39;off&#39;)
+    ax.axis(&#39;tight&#39;)
+
+    # add the labels for each digit corresponding to the label
+    txts = []
+
+    for i in range(num_classes):
+
+        # Position of each label at median of data points.
+
+        xtext, ytext = np.median(x[colors == i, :], axis=0)
+        txt = ax.text(xtext, ytext, str(i), fontsize=24)
+        txt.set_path_effects([
+            PathEffects.Stroke(linewidth=5, foreground=&quot;w&quot;),
+            PathEffects.Normal()])
+        txts.append(txt)
+
+    return f, ax, sc, txts
+</code></pre>
+<pre><code class="python"># Subset first 20k data points to visualize
+x_subset = X_train[0:20000]
+y_subset = y_train[0:20000]
+
+print (np.unique(y_subset))
+</code></pre>
+<pre><code>[0 1 2 3 4 5 6 7 8 9]
+</code></pre>
+<pre><code class="python">from sklearn.decomposition import PCA
+
+time_start = time.time()
+
+pca = PCA(n_components=4)
+pca_result = pca.fit_transform(x_subset)
+
+print (&#39;PCA done! Time elapsed: {} seconds&#39;.format(time.time()-time_start))
+</code></pre>
+<pre><code>PCA done! Time elapsed: 0.7926383018493652 seconds
+</code></pre>
+<pre><code class="python">pca_df = pd.DataFrame(columns = [&#39;pca1&#39;,&#39;pca2&#39;,&#39;pca3&#39;,&#39;pca4&#39;])
+
+pca_df[&#39;pca1&#39;] = pca_result[:,0]
+pca_df[&#39;pca2&#39;] = pca_result[:,1]
+pca_df[&#39;pca3&#39;] = pca_result[:,2]
+pca_df[&#39;pca4&#39;] = pca_result[:,3]
+
+print (&#39;Variance explained per principal component: {}&#39;.format(pca.explained_variance_ratio_))
+</code></pre>
+<pre><code>Variance explained per principal component: [0.29021329 0.1778743  0.06015076 0.04975864]
+</code></pre>
+<pre><code class="python">top_two_comp = pca_df[[&#39;pca1&#39;,&#39;pca2&#39;]] # taking first and second principal component
+
+fashion_scatter(top_two_comp.values,y_subset) # Visualizing the PCA output
+</code></pre>
+<pre><code>/tmp/ipykernel_3852428/2307473512.py:11: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  sc = ax.scatter(x[:,0], x[:,1], lw=0, s=40, c=palette[colors.astype(np.int)])
+
+
+
+
+
+(&lt;Figure size 576x576 with 1 Axes&gt;,
+ &lt;AxesSubplot:&gt;,
+ &lt;matplotlib.collections.PathCollection at 0x7fc7190a8220&gt;,
+ [Text(774.4497664226483, -689.6949155550468, &#39;0&#39;),
+  Text(42.86381926014401, -1429.364390836378, &#39;1&#39;),
+  Text(1098.2843326495163, 376.9753232934469, &#39;2&#39;),
+  Text(329.2719860683994, -1111.489809090023, &#39;3&#39;),
+  Text(1266.9709868256105, 295.4662008396093, &#39;4&#39;),
+  Text(-1589.557323392114, 61.86773393697598, &#39;5&#39;),
+  Text(713.4727983678105, -65.68701122739054, &#39;6&#39;),
+  Text(-1521.4109429504147, 335.665625321843, &#39;7&#39;),
+  Text(63.81768171682446, 1003.3250404493501, &#39;8&#39;),
+  Text(-645.6906091267293, 1168.2384039046956, &#39;9&#39;)])
+</code></pre>
+<p><img src="EDA-tSNE-2-MNIST_files/EDA-tSNE-2-MNIST_8_2.png" alt="png"></p>
+<pre><code class="python">from sklearn.manifold import TSNE
+import time
+time_start = time.time()
+
+fashion_tsne = TSNE(learning_rate=&#39;auto&#39;, init=&#39;pca&#39;, random_state=RS).fit_transform(x_subset)
+
+print (&#39;t-SNE done! Time elapsed: {} seconds&#39;.format(time.time()-time_start))
+</code></pre>
+<pre><code>/home/lvision/.local/lib/python3.8/site-packages/sklearn/manifold/_t_sne.py:982: FutureWarning: The PCA initialization in TSNE will change to have the standard deviation of PC1 equal to 1e-4 in 1.2. This will ensure better convergence.
+  warnings.warn(
+
+
+t-SNE done! Time elapsed: 43.96088123321533 seconds
+</code></pre>
+<pre><code class="python">fashion_scatter(fashion_tsne, y_subset)
+</code></pre>
+<pre><code>/tmp/ipykernel_3852428/2307473512.py:11: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  sc = ax.scatter(x[:,0], x[:,1], lw=0, s=40, c=palette[colors.astype(np.int)])
+
+
+
+
+
+(&lt;Figure size 576x576 with 1 Axes&gt;,
+ &lt;AxesSubplot:&gt;,
+ &lt;matplotlib.collections.PathCollection at 0x7fc718ff0700&gt;,
+ [Text(778.7831, -690.5499, &#39;0&#39;),
+  Text(41.839653, -1422.7478, &#39;1&#39;),
+  Text(1117.2075, 377.60907, &#39;2&#39;),
+  Text(336.99088, -1105.6271, &#39;3&#39;),
+  Text(1268.7771, 291.67786, &#39;4&#39;),
+  Text(-1574.2866, 44.31055, &#39;5&#39;),
+  Text(716.95105, -71.590546, &#39;6&#39;),
+  Text(-1506.3627, 342.83994, &#39;7&#39;),
+  Text(67.689384, 1006.9206, &#39;8&#39;),
+  Text(-646.5144, 1174.269, &#39;9&#39;)])
+</code></pre>
+<p><img src="EDA-tSNE-2-MNIST_files/EDA-tSNE-2-MNIST_10_2.png" alt="png"></p>
+<pre><code class="python">time_start = time.time()
+
+pca_50 = PCA(n_components=50)
+pca_result_50 = pca_50.fit_transform(x_subset)
+
+print (&#39;PCA with 50 components done! Time elapsed: {} seconds&#39;.format(time.time()-time_start))
+
+print (&#39;Cumulative variance explained by 50 principal components: {}&#39;.format(np.sum(pca_50.explained_variance_ratio_)))
+</code></pre>
+<pre><code>PCA with 50 components done! Time elapsed: 2.172032594680786 seconds
+Cumulative variance explained by 50 principal components: 0.8625161212057489
+</code></pre>
+<pre><code class="python">import time
+time_start = time.time()
+
+
+fashion_pca_tsne = TSNE(learning_rate=&#39;auto&#39;, init=&#39;pca&#39;, random_state=RS).fit_transform(pca_result_50)
+
+print (&#39;t-SNE done! Time elapsed: {} seconds&#39;.format(time.time()-time_start))
+</code></pre>
+<pre><code>/home/lvision/.local/lib/python3.8/site-packages/sklearn/manifold/_t_sne.py:982: FutureWarning: The PCA initialization in TSNE will change to have the standard deviation of PC1 equal to 1e-4 in 1.2. This will ensure better convergence.
+  warnings.warn(
+
+
+t-SNE done! Time elapsed: 40.08835172653198 seconds
+</code></pre>
+<pre><code class="python">fashion_scatter(fashion_pca_tsne, y_subset)
+</code></pre>
+<pre><code>/tmp/ipykernel_3852428/2307473512.py:11: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  sc = ax.scatter(x[:,0], x[:,1], lw=0, s=40, c=palette[colors.astype(np.int)])
+
+
+
+
+
+(&lt;Figure size 576x576 with 1 Axes&gt;,
+ &lt;AxesSubplot:&gt;,
+ &lt;matplotlib.collections.PathCollection at 0x7fc71745d790&gt;,
+ [Text(782.2962, -689.9176, &#39;0&#39;),
+  Text(41.347614, -1423.7305, &#39;1&#39;),
+  Text(1113.7422, 381.17953, &#39;2&#39;),
+  Text(331.26837, -1107.6791, &#39;3&#39;),
+  Text(1275.3954, 286.95758, &#39;4&#39;),
+  Text(-1581.365, 46.893547, &#39;5&#39;),
+  Text(717.2779, -79.60612, &#39;6&#39;),
+  Text(-1509.5262, 348.0835, &#39;7&#39;),
+  Text(73.7935, 1008.3449, &#39;8&#39;),
+  Text(-645.55835, 1172.3257, &#39;9&#39;)])
+</code></pre>
+<p><img src="EDA-tSNE-2-MNIST_files/EDA-tSNE-2-MNIST_13_2.png" alt="png"></p>
