@@ -119,13 +119,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-count">103</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-count">32</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -159,6 +159,209 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2020/06/23/Cloud/cluster-rpi-kubernetes-docker-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/06/23/Cloud/cluster-rpi-kubernetes-docker-3/" class="post-title-link" itemprop="url">A Cluster of Raspberry Pis (3) - k3s</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-06-23 20:17:51" itemprop="dateCreated datePublished" datetime="2020-06-23T20:17:51-07:00">2020-06-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2021-06-05 21:18:21" itemprop="dateModified" datetime="2021-06-05T21:18:21-07:00">2021-06-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Cloud/" itemprop="url" rel="index"><span itemprop="name">Cloud</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>In this blog, we’re going to explore <a target="_blank" rel="noopener" href="https://kubernetes.io/">Kubernetes</a>. However, there is a <strong>VERY FIRST</strong> question to be answered: what is the relationship between <a target="_blank" rel="noopener" href="https://kubernetes.io/">Kubernetes</a> and <a target="_blank" rel="noopener" href="https://www.docker.com/">Docker</a>? Let’s start our journey of today:</p>
+<h1 id="1-Kubernetes"><a href="#1-Kubernetes" class="headerlink" title="1 Kubernetes"></a>1 <a target="_blank" rel="noopener" href="https://kubernetes.io/">Kubernetes</a></h1><p><code>Kubernetes (commonly stylized as k8s) is an open-source container-orchestration system for automating application deployment, scaling, and management.</code> (cited from <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Kubernetes">Wikipedia</a>)</p>
+<p>On <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/">Raspberry Pi</a>, a lightweight variant of <a target="_blank" rel="noopener" href="https://kubernetes.io/">Kubernetes</a> is normally preferred. A variety of choices are available:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://microk8s.io/">MicroK8s</a>: <code>MicroK8s is only available for 64-bit Ubuntu images.</code> (Cited from <a target="_blank" rel="noopener" href="https://ubuntu.com/tutorials/how-to-kubernetes-cluster-on-raspberry-pi#3-setting-up-each-pi">How to build a Raspberry Pi Kubernetes cluster using MicroK8s: Setting up each Pi</a>)</li>
+<li><a target="_blank" rel="noopener" href="https://k3s.io/">k3s</a>, <a target="_blank" rel="noopener" href="https://k3d.io/">k3d</a>, <a target="_blank" rel="noopener" href="https://k3d.io/">k3d</a></li>
+<li><a target="_blank" rel="noopener" href="https://minikube.sigs.k8s.io/">Minikube</a></li>
+<li><a target="_blank" rel="noopener" href="https://kind.sigs.k8s.io/">kind</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/kubernetes/kubeadm">Kubeadm</a></li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://brennerm.github.io/posts/minikube-vs-kind-vs-k3s.html">Minikube vs. kind vs. k3s - What should I use?</a> elaborates the differences among <a target="_blank" rel="noopener" href="https://minikube.sigs.k8s.io/">Minikube</a>, <a target="_blank" rel="noopener" href="https://kind.sigs.k8s.io/">kind</a> and <a target="_blank" rel="noopener" href="https://k3s.io/">k3s</a>. Its final table is cited as follows:</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left"><a target="_blank" rel="noopener" href="https://minikube.sigs.k8s.io/">minikube</a></th>
+<th align="left"><a target="_blank" rel="noopener" href="https://kind.sigs.k8s.io/">kind</a></th>
+<th align="left"><a target="_blank" rel="noopener" href="https://k3s.io/">k3s</a></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">runtime</td>
+<td align="left">VM</td>
+<td align="left">container</td>
+<td align="left">native</td>
+</tr>
+<tr>
+<td align="left">supported architectures</td>
+<td align="left">AMD64</td>
+<td align="left">AMD64</td>
+<td align="left">AMD64, ARMv7, ARM64</td>
+</tr>
+<tr>
+<td align="left">supported container runtimes</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.docker.com/">Docker</a>, <a target="_blank" rel="noopener" href="https://cri-o.io/">CRI-O</a>, <a target="_blank" rel="noopener" href="https://containerd.io/">containerd</a>, <a target="_blank" rel="noopener" href="https://gvisor.dev/">gVisor</a></td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.docker.com/">Docker</a></td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.docker.com/">Docker</a>, <a target="_blank" rel="noopener" href="https://containerd.io/">containerd</a></td>
+</tr>
+<tr>
+<td align="left">startup time: initial/following</td>
+<td align="left">5:19 / 3:15</td>
+<td align="left">2:48 / 1:06</td>
+<td align="left">0:15 / 0:15</td>
+</tr>
+<tr>
+<td align="left">memory requirements</td>
+<td align="left">2GB</td>
+<td align="left">8GB (Windows, MacOS)</td>
+<td align="left">512 MB</td>
+</tr>
+<tr>
+<td align="left">requires root?</td>
+<td align="left">no</td>
+<td align="left">no</td>
+<td align="left">yes (rootless is experimental)</td>
+</tr>
+<tr>
+<td align="left">multi-cluster support</td>
+<td align="left">yes</td>
+<td align="left">yes</td>
+<td align="left">no (can be achieved using containers)</td>
+</tr>
+<tr>
+<td align="left">multi-node support</td>
+<td align="left">no</td>
+<td align="left">yes</td>
+<td align="left">yes</td>
+</tr>
+<tr>
+<td align="left">project page</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://minikube.sigs.k8s.io/">minikube</a></td>
+<td align="left"><a target="_blank" rel="noopener" href="https://kind.sigs.k8s.io/">kind</a></td>
+<td align="left"><a target="_blank" rel="noopener" href="https://k3s.io/">k3s</a></td>
+</tr>
+</tbody></table>
+<p>Here in my case, I’m going to use <a target="_blank" rel="noopener" href="https://k3s.io/">k3s</a> to manage and monitor the cluster. The following 2 blogs are strongly recommended from me.</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://opensource.com/article/20/3/kubernetes-raspberry-pi-k3s">Run Kubernetes on a Raspberry Pi with k3s</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@alexellisuk/kubernetes-1-18-broke-kubectl-run-heres-what-to-do-about-it-2a88e5fb389a">Kubernetes 1.18 broke “kubectl run”, here’s what to do about it</a></li>
+</ul>
+<h1 id="2-Preparation"><a href="#2-Preparation" class="headerlink" title="2. Preparation"></a>2. Preparation</h1><p>Let’s take a look at the <strong>IP</strong> info of <strong>ALL</strong> 4 <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/">Raspberry Pi</a>s. Let’s take <strong>pi04</strong> as the example this time. <strong>pi01</strong>, <strong>pi02</strong>, <strong>pi03</strong> are having very similar <strong>IP</strong> info as <strong>pi04</strong>.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    link/ether b8:27:eb:c1:b8:76 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.1.247/24 brd 192.168.1.255 scope global noprefixroute eth0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 2001:569:7fb8:c600:ca9b:d758:2534:8a9d/64 scope global dynamic mngtmpaddr noprefixroute </span><br><span class="line">       valid_lft 7480sec preferred_lft 7180sec</span><br><span class="line">    inet6 fe80::80b5:3a3e:defe:24aa/64 scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">3: wlan0: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc noop state DOWN group default qlen 1000</span><br><span class="line">    link/ether b8:27:eb:94:ed:23 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">4: wlan1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000</span><br><span class="line">    link/ether e8:4e:06:35:16:6d brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.1.245/24 brd 192.168.1.255 scope global dynamic noprefixroute wlan1</span><br><span class="line">       valid_lft 86060sec preferred_lft 75260sec</span><br><span class="line">    inet6 2001:569:7fb8:c600:5996:3c23:ef08:c367/64 scope global dynamic mngtmpaddr noprefixroute </span><br><span class="line">       valid_lft 7480sec preferred_lft 7180sec</span><br><span class="line">    inet6 fe80::a0ff:56e3:77f5:9bf2/64 scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+
+
+<p>As mentioned in <a href="../../../../../2020/06/07/Cloud/cluster-rpi-kubernetes-docker-1/">A Cluster of Raspberry Pis (1) - Configuration</a>, <strong>pi04</strong> is an old <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry Pi 3 Model B Rev 1.2 1GB</a>, which is unfortunately with a broken <strong>Wifi</strong> interface <strong>wlan0</strong>. Therefore, I’ve got to insert a <strong>Wifi</strong> dongle in order to have <strong>Wifi wlan1</strong> enabled.</p>
+<h1 id="3-k3s-Installation-and-Configuration"><a href="#3-k3s-Installation-and-Configuration" class="headerlink" title="3. k3s Installation and Configuration"></a>3. <a target="_blank" rel="noopener" href="https://k3s.io/">k3s</a> Installation and Configuration</h1><h2 id="3-1-k3s-Installation-on-Master-Node-pi01"><a href="#3-1-k3s-Installation-on-Master-Node-pi01" class="headerlink" title="3.1 k3s Installation on Master Node pi01"></a>3.1 <a target="_blank" rel="noopener" href="https://k3s.io/">k3s</a> Installation on Master Node pi01</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ curl -sfL https://get.k3s.io | sh -</span><br><span class="line">[INFO]  Finding release for channel stable</span><br><span class="line">[INFO]  Using v1.18.3+k3s1 as release</span><br><span class="line">[INFO]  Downloading hash https://github.com/rancher/k3s/releases/download/v1.18.3+k3s1/sha256sum-arm.txt</span><br><span class="line">[INFO]  Downloading binary https://github.com/rancher/k3s/releases/download/v1.18.3+k3s1/k3s-armhf</span><br><span class="line">[INFO]  Verifying binary download</span><br><span class="line">[INFO]  Installing k3s to /usr/local/bin/k3s</span><br><span class="line">[INFO]  Creating /usr/local/bin/kubectl symlink to k3s</span><br><span class="line">[INFO]  Creating /usr/local/bin/crictl symlink to k3s</span><br><span class="line">[INFO]  Skipping /usr/local/bin/ctr symlink to k3s, command exists in PATH at /usr/bin/ctr</span><br><span class="line">[INFO]  Creating killall script /usr/local/bin/k3s-killall.sh</span><br><span class="line">[INFO]  Creating uninstall script /usr/local/bin/k3s-uninstall.sh</span><br><span class="line">[INFO]  env: Creating environment file /etc/systemd/system/k3s.service.env</span><br><span class="line">[INFO]  systemd: Creating service file /etc/systemd/system/k3s.service</span><br><span class="line">[INFO]  systemd: Enabling k3s unit</span><br><span class="line">Created symlink /etc/systemd/system/multi-user.target.wants/k3s.service → /etc/systemd/system/k3s.service.</span><br><span class="line">[INFO]  systemd: Starting k3s</span><br><span class="line">pi@pi01:~ $ sudo kubectl get nodes</span><br><span class="line">NAME   STATUS   ROLES    AGE     VERSION</span><br><span class="line">pi01   Ready    master   2m42s   v1.18.3+k3s1</span><br></pre></td></tr></table></figure>
+
+
+<p>If we take a look at <strong>IP</strong> info, one additional <strong>flannel.1</strong> interface is added as follows:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">4: flannel.1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1450 qdisc noqueue state UNKNOWN group default </span><br><span class="line">    link/ether 3e:53:91:ce:b9:46 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 10.42.0.0/32 brd 10.42.0.0 scope global flannel.1</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet 169.254.238.88/16 brd 169.254.255.255 scope global noprefixroute flannel.1</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::59c5:fbf9:aaf7:46fb/64 scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-2-k3s-Installation-on-Work-Node-pi01-pi02-pi03"><a href="#3-2-k3s-Installation-on-Work-Node-pi01-pi02-pi03" class="headerlink" title="3.2 k3s Installation on Work Node pi01, pi02, pi03"></a>3.2 <a target="_blank" rel="noopener" href="https://k3s.io/">k3s</a> Installation on Work Node pi01, pi02, pi03</h2><p>Before moving forward, we need to write down <strong>node token</strong> on the <strong>master node</strong>, which will be used while the other <strong>work nodes</strong> join in the cluster.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ sudo cat /var/lib/rancher/k3s/server/node-token</span><br><span class="line">K10cedbc6396ab68f6bee0d2df3eb005f0ff9ea17275aed2763b6bf07a06e83ce47::server:9a0d84f3bd8044b341c95f967badd5d3</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">pi@pi0X:~ $ curl -sfL http://get.k3s.io | K3S_URL=https://192.168.1.253:6443 \</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> K3S_TOKEN=K10cedbc6396ab68f6bee0d2df3eb005f0ff9ea17275aed2763b6bf07a06e83ce47::server:9a0d84f3bd8044b341c95f967badd5d3 sh -</span></span><br><span class="line">[INFO]  Finding release for channel stable</span><br><span class="line">[INFO]  Using v1.18.3+k3s1 as release</span><br><span class="line">[INFO]  Downloading hash https://github.com/rancher/k3s/releases/download/v1.18.3+k3s1/sha256sum-arm.txt</span><br><span class="line">[INFO]  Skipping binary downloaded, installed k3s matches hash</span><br><span class="line">[INFO]  Skipping /usr/local/bin/kubectl symlink to k3s, command exists in PATH at /usr/bin/kubectl</span><br><span class="line">[INFO]  Skipping /usr/local/bin/crictl symlink to k3s, command exists in PATH at /usr/bin/crictl</span><br><span class="line">[INFO]  Skipping /usr/local/bin/ctr symlink to k3s, command exists in PATH at /usr/bin/ctr</span><br><span class="line">[INFO]  Creating killall script /usr/local/bin/k3s-killall.sh</span><br><span class="line">[INFO]  Creating uninstall script /usr/local/bin/k3s-agent-uninstall.sh</span><br><span class="line">[INFO]  env: Creating environment file /etc/systemd/system/k3s-agent.service.env</span><br><span class="line">[INFO]  systemd: Creating service file /etc/systemd/system/k3s-agent.service</span><br><span class="line">[INFO]  systemd: Enabling k3s-agent unit</span><br><span class="line">Created symlink /etc/systemd/system/multi-user.target.wants/k3s-agent.service → /etc/systemd/system/k3s-agent.service.</span><br><span class="line">[INFO]  systemd: Starting k3s-agent</span><br></pre></td></tr></table></figure>
+<p>, where <strong>X=2, or 3, or 4</strong>.</p>
+<h2 id="3-3-Take-a-Look-on-pi01"><a href="#3-3-Take-a-Look-on-pi01" class="headerlink" title="3.3 Take a Look on pi01"></a>3.3 Take a Look on pi01</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ sudo kubectl get nodes</span><br><span class="line">NAME   STATUS   ROLES    AGE     VERSION</span><br><span class="line">pi02   Ready    &lt;none&gt;   5m7s    v1.18.3+k3s1</span><br><span class="line">pi03   Ready    &lt;none&gt;   4m18s   v1.18.3+k3s1</span><br><span class="line">pi01   Ready    master   20m     v1.18.3+k3s1</span><br><span class="line">pi04   Ready    &lt;none&gt;   11s     v1.18.3+k3s1</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="3-4-Access-Raspberry-Pi-Cluster-from-PC"><a href="#3-4-Access-Raspberry-Pi-Cluster-from-PC" class="headerlink" title="3.4 Access Raspberry Pi Cluster from PC"></a>3.4 Access <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/">Raspberry Pi</a> Cluster from PC</h2><p>We can further configure our PC to be able to access the <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/">Raspberry Pi</a> Cluster. For details, please refer to <a target="_blank" rel="noopener" href="https://opensource.com/article/20/3/kubernetes-raspberry-pi-k3s">Run Kubernetes on a Raspberry Pi with k3s</a>. On my laptop, I can do:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> ✔  kubectl get nodes</span><br><span class="line">NAME   STATUS   ROLES    AGE     VERSION</span><br><span class="line">pi02   Ready    &lt;none&gt;   3h27m   v1.18.3+k3s1</span><br><span class="line">pi03   Ready    &lt;none&gt;   3h26m   v1.18.3+k3s1</span><br><span class="line">pi04   Ready    &lt;none&gt;   3h22m   v1.18.3+k3s1</span><br><span class="line">pi01   Ready    master   3h42m   v1.18.3+k3s1</span><br></pre></td></tr></table></figure>
+
+<p>We can even specify the role name by the following command:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> ✔  kubectl label nodes pi0X kubernetes.io/role=worker</span><br><span class="line">node/pi0X labeled</span><br></pre></td></tr></table></figure>
+<p>, where <strong>X=2, or 3, or 4</strong>.</p>
+<p>Let’s take a look at all nodes again:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"> 64  ✔  kubectl get nodes</span><br><span class="line">NAME   STATUS   ROLES    AGE    VERSION</span><br><span class="line">pi04   Ready    worker   2d7h   v1.18.3+k3s1</span><br><span class="line">pi03   Ready    worker   2d7h   v1.18.3+k3s1</span><br><span class="line">pi01   Ready    master   2d7h   v1.18.3+k3s1</span><br><span class="line">pi02   Ready    worker   2d7h   v1.18.3+k3s1</span><br><span class="line"> 66  ✘  kubectl get pods --all-namespaces</span><br><span class="line">  ~ </span><br><span class="line">NAMESPACE              NAME                                         READY   STATUS             RESTARTS   AGE</span><br><span class="line">kube-system            helm-install-traefik-m49zm                   0/1     Completed          0          2d7h</span><br><span class="line">kube-system            svclb-traefik-djtgw                          2/2     Running            2          2d7h</span><br><span class="line">kube-system            svclb-traefik-cn76f                          2/2     Running            2          2d7h</span><br><span class="line">kube-system            local-path-provisioner-6d59f47c7-5gz67       1/1     Running            1          2d7h</span><br><span class="line">kube-system            svclb-traefik-7bwtl                          2/2     Running            2          2d7h</span><br><span class="line">kube-system            coredns-8655855d6-wg68z                      1/1     Running            1          2d7h</span><br><span class="line">kube-system            traefik-758cd5fc85-vn7xg                     1/1     Running            1          2d7h</span><br><span class="line">kube-system            metrics-server-7566d596c8-v2vgp              1/1     Running            1          2d7h</span><br><span class="line">kube-system            svclb-traefik-r9x5v                          2/2     Running            4          2d7h</span><br><span class="line">kubernetes-dashboard   dashboard-metrics-scraper-6b4884c9d5-ct6lh   1/1     Running            0          43h</span><br><span class="line">kubernetes-dashboard   kubernetes-dashboard-7b544877d5-s4spx        0/1     CrashLoopBackOff   489        43h</span><br><span class="line"> 67  ✔  kubectl get pods</span><br><span class="line">  ~ </span><br><span class="line">No resources found in default namespace.</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="4-Create-Deployment"><a href="#4-Create-Deployment" class="headerlink" title="4. Create Deployment"></a>4. Create Deployment</h1><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> 73  ✔  kubectl create deployment nginx-sample --image=nginx</span><br><span class="line">  ~ </span><br><span class="line">deployment.apps/nginx-sample created</span><br></pre></td></tr></table></figure>
+
+<p>After a while, <strong>nginx-sample</strong> will be successfully deployed.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> 79  ✔  kubectl get deployments</span><br><span class="line">  ~ </span><br><span class="line">NAME           READY   UP-TO-DATE   AVAILABLE   AGE</span><br><span class="line">nginx-sample   1/1     1            1           12m</span><br><span class="line"> 80  ✔  kubectl get pods</span><br><span class="line">  ~ </span><br><span class="line">NAME                           READY   STATUS    RESTARTS   AGE</span><br><span class="line">nginx-sample-879f5cf56-kg6xf   1/1     Running   0          12m</span><br><span class="line"> 81  ✔  kubectl get pods -o wide</span><br><span class="line">  ~ </span><br><span class="line">NAME                           READY   STATUS    RESTARTS   AGE   IP           NODE   NOMINATED NODE   READINESS GATES</span><br><span class="line">nginx-sample-879f5cf56-kg6xf   1/1     Running   0          12m   10.42.0.15   pi01   &lt;none&gt;           &lt;none&gt;</span><br></pre></td></tr></table></figure>
+
+
+<p>Now, let’s expose this service and take a look from the browser:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> 82  ✔  kubectl expose deployment nginx-sample --type=&quot;NodePort&quot; --port 80 </span><br><span class="line">  ~ </span><br><span class="line">service/nginx-sample exposed</span><br><span class="line"> 83  ✔  kubectl get services </span><br><span class="line">  ~ </span><br><span class="line">NAME           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE</span><br><span class="line">kubernetes     ClusterIP   10.43.0.1       &lt;none&gt;        443/TCP        96m</span><br><span class="line">nginx-sample   NodePort    10.43.195.237   &lt;none&gt;        80:30734/TCP   72s</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1767,224 +1970,6 @@ Not to spend time on setting-up TensorFlow.js and JQuery I encourage you just to
 
 <iframe width="1079" height="705" src="https://www.youtube.com/embed/2v2JqRSuCoc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2020/04/15/AI/EdgeComputing/google-coral-mendel/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/04/15/AI/EdgeComputing/google-coral-mendel/" class="post-title-link" itemprop="url">Google Coral</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2020-04-15 00:00:00" itemprop="dateCreated datePublished" datetime="2020-04-15T00:00:00-07:00">2020-04-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2021-06-05 21:18:22" itemprop="dateModified" datetime="2021-06-05T21:18:22-07:00">2021-06-05</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/AI/EdgeComputing/" itemprop="url" rel="index"><span itemprop="name">EdgeComputing</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>First snow in 2020. Actually, it is <strong>ALSO</strong> the <strong>FIRST</strong> snow for the winter from 2019 to 2020.</p>
-<table>
-<thead>
-<tr>
-<th align="center">First Snow 1</th>
-<th align="center">First Snow 2</th>
-<th align="center">First Snow 3</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2020/FirstSnow/snow_01.jpg" alt="First Snow 1"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2020/FirstSnow/snow_02.jpg" alt="First Snow 2"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2020/FirstSnow/snow_03.jpg" alt="First Snow 3"></td>
-</tr>
-</tbody></table>
-<p>Both my son and the Chinese New Year are coming. Let’s start the mode of celebrating. Today, I’m going to do the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Hot_pot">hotpot</a>.</p>
-<table>
-<thead>
-<tr>
-<th align="center">Hotpot 1</th>
-<th align="center">Hotpot 2</th>
-<th align="center">Hotpot 3</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2020/FirstSnow/hotpot_01.jpg" alt="Hotpot 1"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2020/FirstSnow/hotpot_02.jpg" alt="Hotpot 2"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2020/FirstSnow/hotpot_03.jpg" alt="Hotpot 3"></td>
-</tr>
-</tbody></table>
-<p>It looks in 1-day time, everybody is doing the edge computing. Today, we’re going to have some fun of <a target="_blank" rel="noopener" href="https://coral.ai/">Google Coral</a>.</p>
-<h1 id="1-Google-Coral-USB-Accelerator"><a href="#1-Google-Coral-USB-Accelerator" class="headerlink" title="1. Google Coral USB Accelerator"></a>1. Google Coral USB Accelerator</h1><p>Image cited from <a target="_blank" rel="noopener" href="https://coral.ai/">Coral official website</a>.</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/EdgeComputing/GoogleCoral/accelerator.jpg" alt="Google Coral Accelerator"></p>
-<p>To try out <a target="_blank" rel="noopener" href="https://coral.ai/products/accelerator">Google Coral USB Accelerator</a> is comparitively simple. The <strong>ONLY</strong> thing to do is just to follow <a target="_blank" rel="noopener" href="https://coral.ai/docs/accelerator/get-started/">Google Doc - Get started with the USB Accelerator</a>. Anyway, let’s test it out with the following commands.</p>
-<p>Make sure we are able to list the device.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  classification git:(master) ✗ lsusb</span><br><span class="line">Bus 002 Device 003: ID 1a6e:089a Global Unichip Corp.</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<p>We then checkout <a target="_blank" rel="noopener" href="https://github.com/google-coral/edgetpu">Google Coral Edgue TPU</a> and test the example <a target="_blank" rel="noopener" href="https://github.com/google-coral/edgetpu/blob/master/examples/classify_image.py">classify_image.py</a>.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">➜  edgetpu git:(master) pwd</span><br><span class="line">/opt/google/edgetpu</span><br><span class="line">➜  edgetpu git:(master) python3 examples/classify_image.py \</span><br><span class="line">--model test_data/mobilenet_v2_1.0_224_inat_bird_quant_edgetpu.tflite \</span><br><span class="line">--label test_data/inat_bird_labels.txt \</span><br><span class="line">--image test_data/parrot.jpg</span><br><span class="line">---------------------------</span><br><span class="line">Ara macao (Scarlet Macaw)</span><br><span class="line">Score :  0.6796875</span><br><span class="line">---------------------------</span><br><span class="line">Platycercus elegans (Crimson Rosella)</span><br><span class="line">Score :  0.12109375</span><br></pre></td></tr></table></figure>
-
-<p>BTW, I’m going to discuss</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://coral.ai/docs/edgetpu/faq/">Google Coral TPU</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.movidius.com/solutions/vision-processing-unit">Intel Movidius VPU</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.cambricon.com/">Cambricon NPU</a> which has been adopted in <a target="_blank" rel="noopener" href="https://www.96boards.org/product/hikey970/">HuaWei Hikey 970</a> and <a target="_blank" rel="noopener" href="http://t.rock-chips.com/en/portal.php?mod=view&aid=4">Rockchip 3399 Pro</a></li>
-</ul>
-<p>sooner or later. Just keep an eye on my blog.</p>
-<h1 id="2-Google-Coral-Dev-Board"><a href="#2-Google-Coral-Dev-Board" class="headerlink" title="2. Google Coral Dev Board"></a>2. Google Coral Dev Board</h1><p>In the following, we’re going to disscuss <a target="_blank" rel="noopener" href="https://coral.ai/products/dev-board">Google Coral Dev Board</a> more. Image cited from <a target="_blank" rel="noopener" href="https://coral.ai/">Coral official website</a>.</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/EdgeComputing/GoogleCoral/devboard.jpg" alt="Google Coral Devboard"></p>
-<h2 id="2-1-Mendel-Installation"><a href="#2-1-Mendel-Installation" class="headerlink" title="2.1 Mendel Installation"></a>2.1 Mendel Installation</h2><h3 id="2-1-1-Mendel-Linux-Preparation"><a href="#2-1-1-Mendel-Linux-Preparation" class="headerlink" title="2.1.1 Mendel Linux Preparation"></a>2.1.1 Mendel Linux Preparation</h3><p>Google Corel Mendel Linux can be downloaded from <a target="_blank" rel="noopener" href="https://coral.ai/software/">https://coral.ai/software/</a>. In our case, we are going to try <a target="_blank" rel="noopener" href="https://dl.google.com/coral/mendel/enterprise/mendel-enterprise-day-13.zip">Mendel Linux 4.0</a>.</p>
-<h3 id="2-1-2-Connect-Dev-Board-Via-Micro-USB-Serial-Port"><a href="#2-1-2-Connect-Dev-Board-Via-Micro-USB-Serial-Port" class="headerlink" title="2.1.2 Connect Dev Board Via Micro-USB Serial Port"></a>2.1.2 Connect Dev Board Via Micro-USB Serial Port</h3><p>On the host, we should be able to see:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">➜  mendel-enterprise-day-13 lsusb</span><br><span class="line">......</span><br><span class="line">Bus 001 Device 020: ID 10c4:ea70 Cygnal Integrated Products, Inc. CP210x UART Bridge</span><br><span class="line">......</span><br><span class="line">➜  mendel-enterprise-day-13 dmesg | grep ttyUSB</span><br><span class="line">[45021.091322] usb 1-8: cp210x converter now attached to ttyUSB0</span><br><span class="line">[45021.092681] usb 1-8: cp210x converter now attached to ttyUSB1</span><br><span class="line">➜  mendel-enterprise-day-13 ll /dev/ttyUSB*</span><br><span class="line">crwxrwxrwx 1 root dialout 188, 0 Apr  6 21:33 /dev/ttyUSB0</span><br><span class="line">crwxrwxrwx 1 root dialout 188, 1 Apr  6 21:25 /dev/ttyUSB1</span><br><span class="line">➜  mendel-enterprise-day-13 screen /dev/ttyUSB0 115200</span><br><span class="line">.....</span><br></pre></td></tr></table></figure>
-
-<p>Now what you see is a black screen. After having connected the Type C power cable, you should be able to see:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">[ 2871.285085] NOHZ: local_softirq_pending 08</span><br><span class="line">[ 2871.376306] NOHZ: local_softirq_pending 08</span><br><span class="line">[ 2872.117716] NOHZ: local_softirq_pending 08</span><br><span class="line">[ 2874.283909] NOHZ: local_softirq_pending 08</span><br><span class="line">[ 2875.286859] NOHZ: local_softirq_pending 08</span><br><span class="line"></span><br><span class="line">U-Boot SPL 2017.03.3 (Nov 08 2019 - 22:29:30)</span><br><span class="line">power_bd71837_init</span><br><span class="line">pmic debug: name=BD71837</span><br><span class="line">Board id: 6</span><br><span class="line">check ddr4_pmu_train_imem code</span><br><span class="line">check ddr4_pmu_train_imem code pass</span><br><span class="line">check ddr4_pmu_train_dmem code</span><br><span class="line">check ddr4_pmu_train_dmem code pass</span><br><span class="line">Training PASS</span><br><span class="line">Training PASS</span><br><span class="line">check ddr4_pmu_train_imem code</span><br><span class="line">check ddr4_pmu_train_imem code pass</span><br><span class="line">check ddr4_pmu_train_dmem code</span><br><span class="line">check ddr4_pmu_train_dmem code pass</span><br><span class="line">Training PASS</span><br><span class="line">Normal Boot</span><br><span class="line">Trying to boot from MMC1</span><br><span class="line">hdr read sector 300, count=1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">U-Boot 2017.03.3 (Nov 08 2019 - 22:29:30 +0000)</span><br><span class="line"></span><br><span class="line">CPU:   Freescale i.MX8MQ rev2.0 1500 MHz (running at 1000 MHz)</span><br><span class="line">CPU:   Commercial temperature grade (0C to 95C) at 64C</span><br><span class="line">Reset cause: POR</span><br><span class="line">Model: Freescale i.MX8MQ Phanbell</span><br><span class="line">DRAM:  1 GiB</span><br><span class="line">Board id: 6</span><br><span class="line">Baseboard id: 1</span><br><span class="line">MMC:   FSL_SDHC: 0, FSL_SDHC: 1</span><br><span class="line">*** Warning - bad CRC, using default environment</span><br><span class="line"></span><br><span class="line">In:    serial</span><br><span class="line">Out:   serial</span><br><span class="line">Err:   serial</span><br><span class="line"></span><br><span class="line"> BuildInfo:</span><br><span class="line">  - ATF</span><br><span class="line">  - U-Boot 2017.03.3</span><br><span class="line"></span><br><span class="line">flash target is MMC:0</span><br><span class="line">Net:</span><br><span class="line">Warning: ethernet@30be0000 using MAC address from ROM</span><br><span class="line">eth0: ethernet@30be0000</span><br><span class="line">Fastboot: Normal</span><br><span class="line">Hit any key to stop autoboot:  0</span><br><span class="line">u-boot=&gt; [A</span><br></pre></td></tr></table></figure>
-
-<p>That is shown on the <strong>screen</strong> monitor of <a target="_blank" rel="noopener" href="https://coral.ai/products/dev-board">Google Coral Dev Board</a>. We now need to input <code>fastboot 0</code> on <code>u-boot=&gt;</code> prompt. After having connected the Type C OTG cable, we should be able to see on the host:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  mendel-enterprise-day-13 fastboot devices</span><br><span class="line">101989d6f32efb39	fastboot</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-1-3-Flash-Corel-Dev-Board"><a href="#2-1-3-Flash-Corel-Dev-Board" class="headerlink" title="2.1.3 Flash Corel Dev Board"></a>2.1.3 Flash Corel Dev Board</h3><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">➜  mendel-enterprise-day-13 ls</span><br><span class="line">boot_arm64.img  flash.sh  partition-table-16gb.img  partition-table-64gb.img  partition-table-8gb.img  README  recovery.img  rootfs_arm64.img  u-boot.imx</span><br><span class="line">➜  mendel-enterprise-day-13 bash flash.sh</span><br><span class="line">Sending &#x27;bootloader0&#x27; (991 KB)                     OKAY [  0.055s]</span><br><span class="line">Writing &#x27;bootloader0&#x27;                              OKAY [  0.190s]</span><br><span class="line">Finished. Total time: 0.266s</span><br><span class="line">Rebooting into bootloader                          OKAY [  0.024s]</span><br><span class="line">Finished. Total time: 0.125s</span><br><span class="line">Sending &#x27;gpt&#x27; (33 KB)                              OKAY [  0.018s]</span><br><span class="line">Writing &#x27;gpt&#x27;                                      OKAY [  0.309s]</span><br><span class="line">Finished. Total time: 0.346s</span><br><span class="line">Rebooting into bootloader                          OKAY [  0.022s]</span><br><span class="line">Finished. Total time: 0.122s</span><br><span class="line">Erasing &#x27;misc&#x27;                                     OKAY [  0.069s]</span><br><span class="line">Finished. Total time: 0.079s</span><br><span class="line">Sending &#x27;boot&#x27; (131072 KB)                         OKAY [  5.321s]</span><br><span class="line">Writing &#x27;boot&#x27;                                     OKAY [  3.632s]</span><br><span class="line">Finished. Total time: 8.972s</span><br><span class="line">Sending sparse &#x27;rootfs&#x27; 1/4 (368422 KB)            OKAY [ 14.792s]</span><br><span class="line">Writing &#x27;rootfs&#x27;                                   OKAY [ 36.191s]</span><br><span class="line">Sending sparse &#x27;rootfs&#x27; 2/4 (408501 KB)            OKAY [ 16.646s]</span><br><span class="line">Writing &#x27;rootfs&#x27;                                   OKAY [ 18.944s]</span><br><span class="line">Sending sparse &#x27;rootfs&#x27; 3/4 (389107 KB)            OKAY [ 15.881s]</span><br><span class="line">Writing &#x27;rootfs&#x27;                                   OKAY [ 37.021s]</span><br><span class="line">Sending sparse &#x27;rootfs&#x27; 4/4 (231325 KB)            OKAY [  9.482s]</span><br><span class="line">Writing &#x27;rootfs&#x27;                                   OKAY [ 65.204s]</span><br><span class="line">Finished. Total time: 214.205s</span><br><span class="line">Rebooting                                          OKAY [  0.005s]</span><br><span class="line">Finished. Total time: 0.105s</span><br><span class="line">➜  mendel-enterprise-day-13 </span><br></pre></td></tr></table></figure>
-
-
-<h3 id="2-1-4-Boot-Mendel"><a href="#2-1-4-Boot-Mendel" class="headerlink" title="2.1.4 Boot Mendel"></a>2.1.4 Boot Mendel</h3><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/EdgeComputing/GoogleCoral/screen-reboot.png" alt="Screen Snapshot Reboot"></p>
-<p>After a while, you’ll see:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/EdgeComputing/GoogleCoral/screen-login.png" alt="Screen Snapshot Login"></p>
-<p>Now, login with</p>
-<ul>
-<li>username: mendel</li>
-<li>password: mendel</li>
-</ul>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ mdt devices</span><br><span class="line">mocha-shrimp		(192.168.100.2)</span><br></pre></td></tr></table></figure>
-
-<p>You will be able to see <a target="_blank" rel="noopener" href="https://coral.ai/products/dev-board">Google Coral Dev Board</a> is NOW connected. If you don’t see the <strong>EXPECTED</strong> output <strong>mocha-shrimp (192.168.101.2)</strong>, just <strong>plug out and plug in the Type C power cable</strong> again.</p>
-<p>Unfortunately, <strong>mdt</strong> tool does <strong>NOT</strong> work properly.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">➜  mendel-enterprise-day-13 mdt shell</span><br><span class="line">Waiting for a device...</span><br><span class="line">Connecting to mocha-shrimp at 192.168.101.2</span><br><span class="line">Key not present on mocha-shrimp -- pushing</span><br><span class="line"></span><br><span class="line">It looks like you&#x27;re trying to connect to a device that isn&#x27;t connected</span><br><span class="line">to your workstation via USB and doesn&#x27;t have the SSH key this MDT generated.</span><br><span class="line">To connect with `mdt shell` you will need to first connect to your device</span><br><span class="line">ONLY via USB.</span><br><span class="line"></span><br><span class="line">Cowardly refusing to attempt to push a key to a public machine.</span><br></pre></td></tr></table></figure>
-
-<p>This <strong>bug</strong> has been clarified on <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/58938727/unable-to-connect-google-coral-using-otg-port">StackOverflow</a>. By modifying file <strong>vim $HOME/.local/lib/python3.6/site-packages/mdt/sshclient.py</strong> line 86, from <code>if not self.address.startswith(&#39;192.168.100&#39;):</code> to <code>if not self.address.startswith(&#39;192.168.10&#39;):</code>, problem solved.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">➜  mendel-enterprise-day-13 mdt shell</span><br><span class="line">Waiting for a device...</span><br><span class="line">Connecting to mocha-shrimp at 192.168.101.2</span><br><span class="line">Key not present on mocha-shrimp -- pushing</span><br><span class="line">Linux mocha-shrimp 4.14.98-imx #1 SMP PREEMPT Fri Nov 8 23:28:21 UTC 2019 aarch64</span><br><span class="line"></span><br><span class="line">The programs included with the Mendel GNU/Linux system are free software;</span><br><span class="line">the exact distribution terms for each program are described in the</span><br><span class="line">individual files in /usr/share/doc/*/copyright.</span><br><span class="line"></span><br><span class="line">Mendel GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent</span><br><span class="line">permitted by applicable law.</span><br><span class="line">Last login: Thu Feb 14 10:12:02 2019</span><br><span class="line">mendel@mocha-shrimp:~$ ls</span><br><span class="line">mendel@mocha-shrimp:~$ pwd</span><br><span class="line">/home/mendel</span><br><span class="line">mendel@mocha-shrimp:~$ uname -a</span><br><span class="line">Linux mocha-shrimp 4.14.98-imx #1 SMP PREEMPT Fri Nov 8 23:28:21 UTC 2019 aarch64 GNU/Linux</span><br><span class="line">mendel@mocha-shrimp:~$ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID:	Mendel</span><br><span class="line">Description:	Mendel GNU/Linux 4 (Day)</span><br><span class="line">Release:	10.0</span><br><span class="line">Codename:	day</span><br><span class="line">mendel@mocha-shrimp:~$ ip -c address</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: eth0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc mq state DOWN group default qlen 1000</span><br><span class="line">    link/ether 7c:d9:5c:b1:fa:cc brd ff:ff:ff:ff:ff:ff</span><br><span class="line">3: wlan0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc mq state DOWN group default qlen 3000</span><br><span class="line">    link/ether 7c:d9:5c:b1:fa:cd brd ff:ff:ff:ff:ff:ff</span><br><span class="line">4: p2p0: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc noop state DOWN group default qlen 3000</span><br><span class="line">    link/ether 00:0a:f5:89:89:81 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">5: usb0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc pfifo_fast state DOWN group default qlen 1000</span><br><span class="line">    link/ether 02:22:78:0d:f6:df brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.100.2/24 brd 192.168.100.255 scope global noprefixroute usb0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::cc6d:b3d4:f07e:eed1/64 scope link tentative noprefixroute </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">6: usb1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    link/ether 02:22:78:0d:f6:de brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.101.2/24 brd 192.168.101.255 scope global noprefixroute usb1</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::5bf4:c217:d9c9:859c/64 scope link noprefixroute </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">mendel@mocha-shrimp:~$</span><br></pre></td></tr></table></figure>
-
-<p>After activate the Internet by <strong>nmtui</strong>, we can <strong>NOW</strong> clearly see the <strong>wlan0</strong> IP is automatically allocated.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mendel@mocha-shrimp:~$ ip -c address</span><br><span class="line">......</span><br><span class="line">3: wlan0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 3000</span><br><span class="line">    link/ether 7c:d9:5c:b1:fa:cd brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.1.110/24 brd 192.168.1.255 scope global dynamic noprefixroute wlan0</span><br><span class="line">       valid_lft 86367sec preferred_lft 86367sec</span><br><span class="line">    inet6 2001:569:7e6e:dc00:d1c4:697a:f60e:b5a4/64 scope global dynamic noprefixroute </span><br><span class="line">       valid_lft 7468sec preferred_lft 7168sec</span><br><span class="line">    inet6 fe80::e10b:9dc6:60c4:b91b/64 scope link noprefixroute </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-
-<p>Of course, we can setup a static IP for this particular <a target="_blank" rel="noopener" href="https://coral.ai/products/dev-board">Google Coral Dev Board</a> afterwards.</p>
-<h3 id="2-1-5-SSH-into-Mendel"><a href="#2-1-5-SSH-into-Mendel" class="headerlink" title="2.1.5 SSH into Mendel"></a>2.1.5 SSH into Mendel</h3><p>In order to <strong>SSH</strong> into Mendel and connect remotely, we need to do <a target="_blank" rel="noopener" href="https://coral.ai/docs/dev-board/mdt/#connect-to-a-boards-shell">Connect to a board’s shell</a> on the host computer. You <strong>MUST pushkey</strong> before you can ssh into the board via the <strong>Internet IP</strong> instead of the virtual IP via USB, say <strong>192.168.100.2</strong> or <strong>192.168.101.2</strong>.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ssh -i  ~/.ssh/id_rsa_mendel.pub mendel@192.168.1.97</span><br><span class="line">Connection closed by 192.168.1.97 port 22</span><br></pre></td></tr></table></figure>
-
-<p>However, for now, I’ve got <strong>NO</strong> idea why <strong>ssh</strong> <strong>NETVER</strong> works for <a target="_blank" rel="noopener" href="https://coral.ai/products/dev-board">Google Coral Dev Board</a> any more.</p>
-<p><span style="color:red"><strong>From now on, a huge modification.</strong></span></p>
-<h2 id="2-2-Flash-from-U-Boot-on-an-SD-card"><a href="#2-2-Flash-from-U-Boot-on-an-SD-card" class="headerlink" title="2.2 Flash from U-Boot on an SD card"></a>2.2 Flash from U-Boot on an SD card</h2><p><code>If you get unlucky and you can&#39;t even boot your board into U-Boot, then you can recover the system by booting into U-Boot from an image on the SD card and then reflash the board from your Linux</code> (cited from <a target="_blank" rel="noopener" href="https://coral.ai/docs/dev-board/reflash/#flash-from-u-boot-on-an-sd-card">Google Coral Dev Board’s Official Doc</a>). Now, <code>fastboot devices</code> from host is NOW back.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  mendel-enterprise-day-13 fastboot devices</span><br><span class="line">101989d6f32efb39	fastboot</span><br></pre></td></tr></table></figure>
-
-<p>The, we reflash <a target="_blank" rel="noopener" href="https://coral.ai/products/dev-board">Google Coral Dev Board</a>.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">➜  mendel-enterprise-day-13 bash flash.sh </span><br><span class="line">Sending &#x27;bootloader0&#x27; (991 KB)                     OKAY [  0.056s]</span><br><span class="line">Writing &#x27;bootloader0&#x27;                              OKAY [  0.190s]</span><br><span class="line">Finished. Total time: 0.267s</span><br><span class="line">Rebooting into bootloader                          OKAY [  0.024s]</span><br><span class="line">Finished. Total time: 0.125s</span><br><span class="line">Sending &#x27;gpt&#x27; (33 KB)                              OKAY [  0.018s]</span><br><span class="line">Writing &#x27;gpt&#x27;                                      OKAY [  0.308s]</span><br><span class="line">Finished. Total time: 0.420s</span><br><span class="line">Rebooting into bootloader                          OKAY [  0.022s]</span><br><span class="line">Finished. Total time: 0.122s</span><br><span class="line">Erasing &#x27;misc&#x27;                                     OKAY [  0.069s]</span><br><span class="line">Finished. Total time: 0.079s</span><br><span class="line">Sending &#x27;boot&#x27; (131072 KB)                         OKAY [  5.331s]</span><br><span class="line">Writing &#x27;boot&#x27;                                     OKAY [  3.604s]</span><br><span class="line">Finished. Total time: 8.954s</span><br><span class="line">Sending sparse &#x27;rootfs&#x27; 1/4 (368422 KB)            OKAY [ 14.924s]</span><br><span class="line">Writing &#x27;rootfs&#x27;                                   OKAY [ 35.731s]</span><br><span class="line">Sending sparse &#x27;rootfs&#x27; 2/4 (408501 KB)            OKAY [ 16.079s]</span><br><span class="line">Writing &#x27;rootfs&#x27;                                   OKAY [ 18.689s]</span><br><span class="line">Sending sparse &#x27;rootfs&#x27; 3/4 (389107 KB)            OKAY [ 15.396s]</span><br><span class="line">Writing &#x27;rootfs&#x27;                                   OKAY [ 36.536s]</span><br><span class="line">Sending sparse &#x27;rootfs&#x27; 4/4 (231325 KB)            OKAY [  9.290s]</span><br><span class="line">Writing &#x27;rootfs&#x27;                                   OKAY [ 64.694s]</span><br><span class="line">Finished. Total time: 212.891s</span><br><span class="line">Rebooting                                          OKAY [  0.005s]</span><br><span class="line">Finished. Total time: 0.105s</span><br></pre></td></tr></table></figure>
-
-<p>Now we are able to run <code>mdt shell</code> successfully.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">➜  mendel-enterprise-day-13 mdt shell</span><br><span class="line">Waiting for a device...</span><br><span class="line">Connecting to green-snail at 192.168.100.2</span><br><span class="line">Key not present on green-snail -- pushing</span><br><span class="line">Linux green-snail 4.14.98-imx #1 SMP PREEMPT Fri Nov 8 23:28:21 UTC 2019 aarch64</span><br><span class="line"></span><br><span class="line">The programs included with the Mendel GNU/Linux system are free software;</span><br><span class="line">the exact distribution terms for each program are described in the</span><br><span class="line">individual files in /usr/share/doc/*/copyright.</span><br><span class="line"></span><br><span class="line">Mendel GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent</span><br><span class="line">permitted by applicable law.</span><br><span class="line">Last login: Mon Nov 11 18:19:48 2019</span><br></pre></td></tr></table></figure>
-
-<p>Run <code>ssh-keygen</code> and <code>pushkey</code> consequently:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">➜  .ssh ssh-keygen</span><br><span class="line">Generating public/private rsa key pair.</span><br><span class="line">Enter file in which to save the key (/home/longervision/.ssh/id_rsa): /home/longervision/.ssh/id_rsa_mendel </span><br><span class="line">Enter passphrase (empty for no passphrase): </span><br><span class="line">Enter same passphrase again: </span><br><span class="line">Your identification has been saved in /home/longervision/.ssh/id_rsa_mendel.</span><br><span class="line">Your public key has been saved in /home/longervision/.ssh/id_rsa_mendel.pub.</span><br><span class="line">The key fingerprint is:</span><br><span class="line">......</span><br><span class="line">➜  .ssh mdt pushkey ~/.ssh/id_rsa_mendel.pub </span><br><span class="line">Waiting for a device...</span><br><span class="line">Connecting to green-snail at 192.168.100.2</span><br><span class="line">Pushing /home/longervision/.ssh/id_rsa_mendel.pub</span><br><span class="line">Key /home/longervision/.ssh/id_rsa_mendel.pub pushed.</span><br></pre></td></tr></table></figure>
-
-<p>Then, with <code>mdt shell</code>, run command <code>nmtui</code> to activate <code>wlan0</code>.</p>
-<p>Let’s briefly summarize:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://coral.ai/docs/dev-board/reflash/#flash-from-u-boot-on-an-sd-card">Reflash <strong>Google Coral Dev Board</strong> using a SD Card</a></li>
-<li><a target="_blank" rel="noopener" href="https://coral.ai/docs/dev-board/mdt/#mdt-commands">MDT commands</a></li>
-</ul>
-<h2 id="2-3-Demonstration"><a href="#2-3-Demonstration" class="headerlink" title="2.3 Demonstration"></a>2.3 Demonstration</h2><h3 id="2-3-1-edgetpu-demo-–device-amp-edgetpu-demo-–stream"><a href="#2-3-1-edgetpu-demo-–device-amp-edgetpu-demo-–stream" class="headerlink" title="2.3.1 edgetpu_demo –device &amp; edgetpu_demo –stream"></a>2.3.1 edgetpu_demo –device &amp; edgetpu_demo –stream</h3><p>Let’s ignore <strong>edgetpu_demo –device</strong> for I <strong>ALMOST NEVER</strong> work with a <strong>GUI</strong> mode. The demo video is on my youtube channel, please refer to:</p>
-<iframe width="1253" height="705" src="https://www.youtube.com/embed/lwM2epg6Ryw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-
-<p>On console, it just displays as:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">mendel@deft-orange:~$ edgetpu_demo --stream</span><br><span class="line">Press &#x27;q&#x27; to quit.</span><br><span class="line">Press &#x27;n&#x27; to switch between models.</span><br><span class="line"></span><br><span class="line">(edgetpu_detect_server:9991): Gtk-WARNING **: 07:56:57.725: Locale not supported by C library.</span><br><span class="line">	Using the fallback &#x27;C&#x27; locale.</span><br><span class="line">INFO:edgetpuvision.streaming.server:Listening on ports tcp: 4665, web: 4664, annexb: 4666</span><br><span class="line">INFO:edgetpuvision.streaming.server:New web connection from 192.168.1.200:37536</span><br><span class="line">INFO:edgetpuvision.streaming.server:Number of active clients: 1</span><br><span class="line">INFO:edgetpuvision.streaming.server:New web connection from 192.168.1.200:37538</span><br><span class="line">INFO:edgetpuvision.streaming.server:[192.168.1.200:37536] Rx thread finished</span><br><span class="line">INFO:edgetpuvision.streaming.server:[192.168.1.200:37536] Tx thread finished</span><br><span class="line">INFO:edgetpuvision.streaming.server:Number of active clients: 2</span><br><span class="line">INFO:edgetpuvision.streaming.server:[192.168.1.200:37536] Stopping...</span><br><span class="line">INFO:edgetpuvision.streaming.server:[192.168.1.200:37536] Stopped.</span><br><span class="line">INFO:edgetpuvision.streaming.server:Number of active clients: 1</span><br><span class="line">INFO:edgetpuvision.streaming.server:New web connection from 192.168.1.200:37540</span><br><span class="line">INFO:edgetpuvision.streaming.server:Number of active clients: 2</span><br><span class="line">INFO:edgetpuvision.streaming.server:New web connection from 192.168.1.200:37542</span><br><span class="line">INFO:edgetpuvision.streaming.server:Number of active clients: 3</span><br><span class="line">INFO:edgetpuvision.streaming.server:[192.168.1.200:37538] Rx thread finished</span><br><span class="line">INFO:edgetpuvision.streaming.server:[192.168.1.200:37540] Rx thread finished</span><br><span class="line">INFO:edgetpuvision.streaming.server:New web connection from 192.168.1.200:37544</span><br><span class="line">INFO:edgetpuvision.streaming.server:[192.168.1.200:37538] Tx thread finished</span><br><span class="line">INFO:edgetpuvision.streaming.server:[192.168.1.200:37542] Rx thread finished</span><br><span class="line">INFO:edgetpuvision.streaming.server:[192.168.1.200:37542] Tx thread finished</span><br><span class="line">INFO:edgetpuvision.streaming.server:Number of active clients: 4</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-3-2-Classification"><a href="#2-3-2-Classification" class="headerlink" title="2.3.2 Classification"></a>2.3.2 Classification</h3><p>Refer to <a target="_blank" rel="noopener" href="https://coral.ai/docs/accelerator/get-started/#2-install-the-tensorflow-lite-library">Install the TensorFlow Lite library</a>.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mendel@green-snail:~/.local$ pip3 install https://dl.google.com/coral/python/tflite_runtime-2.1.0.post1-cp37-cp37m-linux_aarch64.whl</span><br><span class="line">Collecting tflite-runtime==2.1.0.post1 from https://dl.google.com/coral/python/tflite_runtime-2.1.0.post1-cp37-cp37m-linux_aarch64.whl</span><br><span class="line">  Downloading https://dl.google.com/coral/python/tflite_runtime-2.1.0.post1-cp37-cp37m-linux_aarch64.whl (1.9MB)</span><br><span class="line">    100% |████████████████████████████████| 1.9MB 203kB/s </span><br><span class="line">Requirement already satisfied: numpy&gt;=1.12.1 in /usr/lib/python3/dist-packages (from tflite-runtime==2.1.0.post1) (1.16.2)</span><br><span class="line">Installing collected packages: tflite-runtime</span><br><span class="line">Successfully installed tflite-runtime-2.1.0.post1</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mendel@green-snail:~/Downloads/tflite/python/examples/classification$ python3 classify_image.py   --model models/mobilenet_v2_1.0_224_inat_bird_quant_edgetpu.tflite   --labels models/inat_bird_labels.txt   --input images/parrot.jpg</span><br><span class="line">----INFERENCE TIME----</span><br><span class="line">Note: The first inference on Edge TPU is slow because it includes loading the model into Edge TPU memory.</span><br><span class="line">13.5ms</span><br><span class="line">3.5ms</span><br><span class="line">2.7ms</span><br><span class="line">3.0ms</span><br><span class="line">3.0ms</span><br><span class="line">-------RESULTS--------</span><br><span class="line">Ara macao (Scarlet Macaw): 0.77734</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-3-3-Camera"><a href="#2-3-3-Camera" class="headerlink" title="2.3.3 Camera"></a>2.3.3 Camera</h3><h4 id="2-3-3-1-Google-Coral-camera"><a href="#2-3-3-1-Google-Coral-camera" class="headerlink" title="2.3.3.1 Google Coral camera"></a>2.3.3.1 Google Coral camera</h4><p>The <a target="_blank" rel="noopener" href="https://coral.ai/products/camera/">Google Coral camera</a> can be detected as a video device:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">mendel@mocha-shrimp:~$ v4l2-ctl --list-formats-ext --device /dev/video0</span><br><span class="line">ioctl: VIDIOC_ENUM_FMT</span><br><span class="line">	Type: Video Capture</span><br><span class="line"></span><br><span class="line">	[0]: &#x27;YUYV&#x27; (YUYV 4:2:2)</span><br><span class="line">		Size: Discrete 640x480</span><br><span class="line">			Interval: Discrete 0.033s (30.000 fps)</span><br><span class="line">		Size: Discrete 720x480</span><br><span class="line">			Interval: Discrete 0.033s (30.000 fps)</span><br><span class="line">		Size: Discrete 1280x720</span><br><span class="line">			Interval: Discrete 0.033s (30.000 fps)</span><br><span class="line">		Size: Discrete 1920x1080</span><br><span class="line">			Interval: Discrete 0.067s (15.000 fps)</span><br><span class="line">			Interval: Discrete 0.033s (30.000 fps)</span><br><span class="line">		Size: Discrete 2592x1944</span><br><span class="line">			Interval: Discrete 0.067s (15.000 fps)</span><br><span class="line">		Size: Discrete 0x0</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-3-3-2-Face-Detection-Using-Google-TPU"><a href="#2-3-3-2-Face-Detection-Using-Google-TPU" class="headerlink" title="2.3.3.2 Face Detection Using Google TPU"></a>2.3.3.2 Face Detection Using Google TPU</h4><p>My youtube real-time face detection video clearly shows Google TPU is seriously powerful.</p>
-<iframe width="1253" height="705" src="https://www.youtube.com/embed/crrlbhonMq0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-
-<p>On console, it displays:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">mendel@deft-orange:~$ edgetpu_detect_server \</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> --model <span class="variable">$&#123;DEMO_FILES&#125;</span>/mobilenet_ssd_v2_face_quant_postprocess_edgetpu.tflite</span></span><br><span class="line"></span><br><span class="line">(edgetpu_detect_server:4081): Gtk-WARNING **: 10:40:45.436: Locale not supported by C library.</span><br><span class="line">	Using the fallback &#x27;C&#x27; locale.</span><br><span class="line">INFO:edgetpuvision.streaming.server:Listening on ports tcp: 4665, web: 4664, annexb: 4666</span><br><span class="line">INFO:edgetpuvision.streaming.server:New web connection from 192.168.1.200:33950</span><br><span class="line">INFO:edgetpuvision.streaming.server:[192.168.1.200:33950] Rx thread finished</span><br><span class="line">INFO:edgetpuvision.streaming.server:[192.168.1.200:33950] Tx thread finished</span><br><span class="line">INFO:edgetpuvision.streaming.server:Number of active clients: 1</span><br><span class="line">INFO:edgetpuvision.streaming.server:[192.168.1.200:33950] Stopping...</span><br><span class="line">INFO:edgetpuvision.streaming.server:[192.168.1.200:33950] Stopped.</span><br><span class="line">INFO:edgetpuvision.streaming.server:Number of active clients: 0</span><br><span class="line">INFO:edgetpuvision.streaming.server:New web connection from 192.168.1.200:33952</span><br><span class="line">INFO:edgetpuvision.streaming.server:Number of active clients: 1</span><br><span class="line">INFO:edgetpuvision.streaming.server:[192.168.1.200:33952] Rx thread finished</span><br><span class="line">INFO:edgetpuvision.streaming.server:[192.168.1.200:33952] Tx thread finished</span><br><span class="line">INFO:edgetpuvision.streaming.server:New web connection from 192.168.1.200:33954</span><br><span class="line">INFO:edgetpuvision.streaming.server:Number of active clients: 2</span><br><span class="line">INFO:edgetpuvision.streaming.server:[192.168.1.200:33952] Stopping...</span><br><span class="line">INFO:edgetpuvision.streaming.server:[192.168.1.200:33954] Rx thread finished</span><br><span class="line">INFO:edgetpuvision.streaming.server:[192.168.1.200:33952] Stopped.</span><br><span class="line">INFO:edgetpuvision.streaming.server:Number of active clients: 1</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="2-3-4-Bugs"><a href="#2-3-4-Bugs" class="headerlink" title="2.3.4 Bugs"></a>2.3.4 Bugs</h3><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mendel@green-snail:~$ edgetpu_demo --stream</span><br><span class="line">Press &#x27;q&#x27; to quit.</span><br><span class="line">Press &#x27;n&#x27; to switch between models.</span><br><span class="line">Unable to init server: Could not connect: Connection refused</span><br><span class="line"></span><br><span class="line">(edgetpu_detect_server:8391): Gtk-WARNING **: 20:18:07.433: Locale not supported by C library.</span><br><span class="line">    Using the fallback &#x27;C&#x27; locale.</span><br><span class="line">Unable to init server: Could not connect: Connection refused</span><br><span class="line">Unable to init server: Could not connect: Connection refused</span><br><span class="line"></span><br><span class="line">(edgetpu_detect_server:8391): Gtk-WARNING **: 20:18:07.473: cannot open display: </span><br></pre></td></tr></table></figure>
-
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mendel@green-snail:~/Downloads/edgetpu/test_data$ edgetpu_detect_server --model ./mobilenet_ssd_v2_face_quant_postprocess_edgetpu.tflite</span><br><span class="line">Unable to init server: Could not connect: Connection refused</span><br><span class="line"></span><br><span class="line">(edgetpu_detect_server:8382): Gtk-WARNING **: 20:16:43.553: Locale not supported by C library.</span><br><span class="line">    Using the fallback &#x27;C&#x27; locale.</span><br><span class="line">Unable to init server: Could not connect: Connection refused</span><br><span class="line">Unable to init server: Could not connect: Connection refused</span><br><span class="line">Unable to init server: Could not connect: Connection refused</span><br><span class="line"></span><br><span class="line">(edgetpu_detect_server:8382): Gtk-WARNING **: 20:16:44.967: cannot open display: :0</span><br></pre></td></tr></table></figure>
-
-
-<p><span style="color:red"><strong>To solve this problem, run the following command</strong></span>:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mendel@green-snail:~$ sudo systemctl restart weston</span><br></pre></td></tr></table></figure>
       
     </div>
 
