@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
-
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.0.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -16,11 +14,12 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="Haven’t successfully tested three packages (all related to PyTorch), PyTorch, FlowNet2-Pytorch and vid2vid. Looking forward to assistance… PyTorchThe BugAfter having successfully installed PyTorch cur">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Haven’t successfully tested three packages (all related to PyTorch), PyTorch, FlowNet2-Pytorch and vid2vid. Looking forward to assistance… PyTorchThe BugAfter having successfully installed PyTorch cur">
 <meta property="og:type" content="article">
 <meta property="og:title" content="3 Bugs - Pytorch, Flownet2-Pytorch and vid2vid">
 <meta property="og:url" content="http://longervision.ca/2019/01/06/Coding/Bugs/flownet2-pytorch-vid2vid/index.html">
@@ -47,6 +46,10 @@
 
 
 
+
+
+
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -56,8 +59,8 @@
   <div class="headband"></div>
 
   <main class="main">
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar" role="button">
     </div>
@@ -74,7 +77,7 @@
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
     </div>
   </div>
 </div>
@@ -85,15 +88,9 @@
 
 
 
-</div>
+</header>
         
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-
   <aside class="sidebar">
 
     <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
@@ -114,52 +111,40 @@
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Nobody</p>
   <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
 </div>
-<div class="site-state-wrap site-overview-item animated">
+<div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-count">114</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">98</span>
+        <span class="site-state-item-count">109</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
 
-
-
         </div>
       </div>
     </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
-
-
-    </header>
 
     
-  <div class="back-to-top" role="button" aria-label="Back to top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
+  </aside>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
 
+    </div>
 
     <div class="main-inner post posts-expand">
 
@@ -177,11 +162,16 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="3 Bugs - Pytorch, Flownet2-Pytorch and vid2vid | Longer Vision Technology">
+      <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -228,8 +218,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <p>Haven’t successfully tested three packages (all related to <a target="_blank" rel="noopener" href="https://github.com/pytorch/pytorch">PyTorch</a>), <a target="_blank" rel="noopener" href="https://github.com/pytorch/pytorch">PyTorch</a>, <a target="_blank" rel="noopener" href="https://github.com/NVIDIA/flownet2-pytorch">FlowNet2-Pytorch</a> and <a target="_blank" rel="noopener" href="https://github.com/NVIDIA/vid2vid">vid2vid</a>. Looking forward to assistance…</p>
+    <div class="post-body" itemprop="articleBody"><p>Haven’t successfully tested three packages (all related to <a target="_blank" rel="noopener" href="https://github.com/pytorch/pytorch">PyTorch</a>), <a target="_blank" rel="noopener" href="https://github.com/pytorch/pytorch">PyTorch</a>, <a target="_blank" rel="noopener" href="https://github.com/NVIDIA/flownet2-pytorch">FlowNet2-Pytorch</a> and <a target="_blank" rel="noopener" href="https://github.com/NVIDIA/vid2vid">vid2vid</a>. Looking forward to assistance…</p>
 <h1 id="PyTorch"><a href="#PyTorch" class="headerlink" title="PyTorch"></a>PyTorch</h1><h2 id="The-Bug"><a href="#The-Bug" class="headerlink" title="The Bug"></a>The Bug</h2><p>After having successfully installed <a target="_blank" rel="noopener" href="https://github.com/pytorch/pytorch">PyTorch</a> current version <strong>1.1</strong>, I still failed to <strong>import torch</strong>. Please refer to the following <strong>ERROR</strong>.</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python</span><br><span class="line">Python 3.6.7 (default, Oct 22 2018, 11:32:17) </span><br><span class="line">[GCC 8.2.0] on linux</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; import torch</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">  File &quot;~/.local/lib/python3.6/site-packages/torch/__init__.py&quot;, line 84, in &lt;module&gt;</span><br><span class="line">    from torch._C import *</span><br><span class="line">ImportError: ~/.local/lib/python3.6/site-packages/torch/lib/libcaffe2.so: undefined symbol: _ZTIN3c1010TensorImplE</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; import caffe2</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; caffe2.__version__</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">AttributeError: module &#x27;caffe2&#x27; has no attribute &#x27;__version__&#x27;</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; caffe2.__file__</span></span><br><span class="line">&#x27;~/.local/lib/python3.6/site-packages/caffe2/__init__.py&#x27;</span><br></pre></td></tr></table></figure>
 
@@ -237,14 +226,14 @@
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install https://download.pytorch.org/whl/cu100/torch-1.0.0-cp36-cp36m-linux_x86_64.whl</span><br></pre></td></tr></table></figure>
 
 <p>This is <strong>PyTorch v1.0</strong>, which seems <strong>NOT</strong> come with <strong>caffe2</strong>, and of course <strong>should NOT</strong> be compatible with the installed <strong>caffe2</strong> built with <strong>PyTorch v1.1</strong>. Can anybody help to solve this issue? Please also refer to <a target="_blank" rel="noopener" href="https://github.com/pytorch/pytorch/issues/15800">Github issue</a>.</p>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>Remove <strong>anything/everything</strong> related to your <strong>previously installed <a target="_blank" rel="noopener" href="https://github.com/pytorch/pytorch">PyTorch</a></strong>. In my case, file <strong>/usr/local/lib/libc10.s0</strong> is to be removed. In order to analyze which files are possibly related to the concerned package, we can use the command <strong>ldd</strong>.</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>Remove <strong>anything&#x2F;everything</strong> related to your <strong>previously installed <a target="_blank" rel="noopener" href="https://github.com/pytorch/pytorch">PyTorch</a></strong>. In my case, file <strong>&#x2F;usr&#x2F;local&#x2F;lib&#x2F;libc10.s0</strong> is to be removed. In order to analyze which files are possibly related to the concerned package, we can use the command <strong>ldd</strong>.</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">➜  lib ldd libcaffe2.so</span><br><span class="line">        linux-vdso.so.1 (0x00007ffcf3dc9000)</span><br><span class="line">        libc10.so =&gt; /usr/local/lib/libc10.so (0x00007fca41b88000)</span><br><span class="line">        libmpi.so.12 =&gt; /opt/intel/mpi/intel64/lib/libmpi.so.12 (0x00007f8acdad9000)</span><br><span class="line">        librt.so.1 =&gt; /lib/x86_64-linux-gnu/librt.so.1 (0x00007f8acd8d1000)</span><br><span class="line">        libpthread.so.0 =&gt; /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f8acd6b2000)</span><br><span class="line">        libdl.so.2 =&gt; /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f8acd4ae000)</span><br><span class="line">        libgcc_s.so.1 =&gt; /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f8acd296000)</span><br><span class="line">        libmkl_intel_lp64.so =&gt; /opt/intel/mkl/lib/intel64/libmkl_intel_lp64.so (0x00007f8acc765000)</span><br><span class="line">        libmkl_gnu_thread.so =&gt; /opt/intel/mkl/lib/intel64/libmkl_gnu_thread.so (0x00007f8acaf2c000)</span><br><span class="line">        libmkl_core.so =&gt; /opt/intel/mkl/lib/intel64/libmkl_core.so (0x00007f8ac6df3000)</span><br><span class="line">        libm.so.6 =&gt; /lib/x86_64-linux-gnu/libm.so.6 (0x00007f8ac6a55000)</span><br><span class="line">        libstdc++.so.6 =&gt; /usr/lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007f8ac66cc000)</span><br><span class="line">        libgomp.so.1 =&gt; /usr/lib/x86_64-linux-gnu/libgomp.so.1 (0x00007f8ac649d000)</span><br><span class="line">        libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007f8ac60ac000)</span><br><span class="line">        /lib64/ld-linux-x86-64.so.2 (0x00007f8ad250d000)</span><br><span class="line">        libnuma.so.1 =&gt; /usr/lib/x86_64-linux-gnu/libnuma.so.1 (0x00007f8ac5ea1000)</span><br><span class="line">        libfabric.so.1 =&gt; /usr/lib/x86_64-linux-gnu/libfabric.so.1 (0x00007f8ac5bf4000)</span><br><span class="line">        librdmacm.so.1 =&gt; /usr/lib/x86_64-linux-gnu/librdmacm.so.1 (0x00007f8ac59de000)</span><br><span class="line">        libibverbs.so.1 =&gt; /usr/lib/x86_64-linux-gnu/libibverbs.so.1 (0x00007f8ac57c8000)</span><br><span class="line">        libpsm_infinipath.so.1 =&gt; /usr/lib/x86_64-linux-gnu/libpsm_infinipath.so.1 (0x00007f8ac556f000)</span><br><span class="line">        libnl-route-3.so.200 =&gt; /usr/lib/x86_64-linux-gnu/libnl-route-3.so.200 (0x00007f8ac52fa000)</span><br><span class="line">        libnl-3.so.200 =&gt; /lib/x86_64-linux-gnu/libnl-3.so.200 (0x00007f8ac50da000)</span><br><span class="line">        libinfinipath.so.4 =&gt; /usr/lib/x86_64-linux-gnu/libinfinipath.so.4 (0x00007f8ac4ecb000)</span><br><span class="line">        libuuid.so.1 =&gt; /lib/x86_64-linux-gnu/libuuid.so.1 (0x00007f8ac4cc4000)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 <h1 id="FlowNet2-Pytorch"><a href="#FlowNet2-Pytorch" class="headerlink" title="FlowNet2-Pytorch"></a>FlowNet2-Pytorch</h1><h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p>It’s not hard to have <a target="_blank" rel="noopener" href="https://github.com/NVIDIA/flownet2-pytorch">FlowNet2-Pytorch</a> installed by one line of commands:</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  flownet2-pytorch git:(master) ✗ ./install.sh</span><br></pre></td></tr></table></figure>
 
-<p>After installation, there will be 3 packages installed under folder <strong>~/.local/lib/python3.6/site-packages</strong>:</p>
+<p>After installation, there will be 3 packages installed under folder <strong>~&#x2F;.local&#x2F;lib&#x2F;python3.6&#x2F;site-packages</strong>:</p>
 <ul>
 <li><strong>correlation-cuda</strong></li>
 <li><strong>resample2d-cuda</strong></li>
@@ -277,7 +266,7 @@
 <h1 id="vid2vid"><a href="#vid2vid" class="headerlink" title="vid2vid"></a>vid2vid</h1><h2 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h2><p>There are 4 scripts under folder scripts to run before testing <a target="_blank" rel="noopener" href="https://github.com/NVIDIA/vid2vid">vid2vid</a>.</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜  vid2vid git:(master) ✗ ll scripts/*.py</span><br><span class="line">-rwxrwxrwx 1 jiapei jiapei  322 Jan  5 22:04 scripts/download_datasets.py</span><br><span class="line">-rwxrwxrwx 1 jiapei jiapei  579 Jan  5 22:04 scripts/download_flownet2.py</span><br><span class="line">-rwxrwxrwx 1 jiapei jiapei 1.3K Jan  5 22:04 scripts/download_gdrive.py</span><br><span class="line">-rwxrwxrwx 1 jiapei jiapei  257 Jan  5 22:04 scripts/download_models_flownet2.py</span><br></pre></td></tr></table></figure>
 
-<p>However, <strong>ONLY 3</strong> of the scripts can be successfully run, but <strong>scripts/download_flownet2.py</strong> failed to run, as follows:</p>
+<p>However, <strong>ONLY 3</strong> of the scripts can be successfully run, but <strong>scripts&#x2F;download_flownet2.py</strong> failed to run, as follows:</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">➜  vid2vid git:(master) python scripts/download_flownet2.py </span><br><span class="line">Compiling correlation kernels by nvcc...</span><br><span class="line">rm: cannot remove &#x27;../_ext&#x27;: No such file or directory</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;build.py&quot;, line 3, in &lt;module&gt;</span><br><span class="line">    import torch.utils.ffi</span><br><span class="line">  File &quot;~/.local/lib/python3.6/site-packages/torch/utils/ffi/__init__.py&quot;, line 1, in &lt;module&gt;</span><br><span class="line">    raise ImportError(&quot;torch.utils.ffi is deprecated. Please use cpp extensions instead.&quot;)</span><br><span class="line">ImportError: torch.utils.ffi is deprecated. Please use cpp extensions instead.</span><br><span class="line">Compiling resample2d kernels by nvcc...</span><br><span class="line">rm: cannot remove &#x27;Resample2d_kernel.o&#x27;: No such file or directory</span><br><span class="line">rm: cannot remove &#x27;../_ext&#x27;: No such file or directory</span><br><span class="line">In file included from Resample2d_kernel.cu:1:0:</span><br><span class="line">~/.local/lib/python3.6/site-packages/torch/lib/include/THC/THC.h:4:10: fatal error: THC/THCGeneral.h: No such file or directory</span><br><span class="line"><span class="meta"> #</span><span class="bash">include &lt;THC/THCGeneral.h&gt;</span></span><br><span class="line">          ^~~~~~~~~~~~~~~~~~</span><br><span class="line">compilation terminated.</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;build.py&quot;, line 3, in &lt;module&gt;</span><br><span class="line">    import torch.utils.ffi</span><br><span class="line">  File &quot;~/.local/lib/python3.6/site-packages/torch/utils/ffi/__init__.py&quot;, line 1, in &lt;module&gt;</span><br><span class="line">    raise ImportError(&quot;torch.utils.ffi is deprecated. Please use cpp extensions instead.&quot;)</span><br><span class="line">ImportError: torch.utils.ffi is deprecated. Please use cpp extensions instead.</span><br><span class="line">Compiling channelnorm kernels by nvcc...</span><br><span class="line">rm: cannot remove &#x27;ChannelNorm_kernel.o&#x27;: No such file or directory</span><br><span class="line">rm: cannot remove &#x27;../_ext&#x27;: No such file or directory</span><br><span class="line">In file included from ChannelNorm_kernel.cu:1:0:</span><br><span class="line">~/.local/lib/python3.6/site-packages/torch/lib/include/THC/THC.h:4:10: fatal error: THC/THCGeneral.h: No such file or directory</span><br><span class="line"><span class="meta"> #</span><span class="bash">include &lt;THC/THCGeneral.h&gt;</span></span><br><span class="line">          ^~~~~~~~~~~~~~~~~~</span><br><span class="line">compilation terminated.</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;build.py&quot;, line 3, in &lt;module&gt;</span><br><span class="line">    import torch.utils.ffi</span><br><span class="line">  File &quot;~/.local/lib/python3.6/site-packages/torch/utils/ffi/__init__.py&quot;, line 1, in &lt;module&gt;</span><br><span class="line">    raise ImportError(&quot;torch.utils.ffi is deprecated. Please use cpp extensions instead.&quot;)</span><br><span class="line">ImportError: torch.utils.ffi is deprecated. Please use cpp extensions instead.</span><br></pre></td></tr></table></figure>
 
 
@@ -330,7 +319,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -343,10 +332,28 @@
   </footer>
 
   
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
+
 
 
 

@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
-
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.0.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -16,11 +14,12 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="Today is sunny. ^_^… Let’s write something about MicroPython PyBoard. In my test, I’m using a PyBv1.1, which embeddes a STM32F405RG microcontroller. Overview1. Contents In PyBoardAfter connecting PyBv">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Today is sunny. ^_^… Let’s write something about MicroPython PyBoard. In my test, I’m using a PyBv1.1, which embeddes a STM32F405RG microcontroller. Overview1. Contents In PyBoardAfter connecting PyBv">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MicroPython Pyboard">
 <meta property="og:url" content="http://longervision.ca/2019/07/13/SBCs/MCU/micropython-pyboard/index.html">
@@ -50,6 +49,10 @@
 
 
 
+
+
+
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -59,8 +62,8 @@
   <div class="headband"></div>
 
   <main class="main">
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar" role="button">
     </div>
@@ -77,7 +80,7 @@
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
     </div>
   </div>
 </div>
@@ -88,15 +91,9 @@
 
 
 
-</div>
+</header>
         
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-
   <aside class="sidebar">
 
     <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
@@ -117,52 +114,40 @@
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Nobody</p>
   <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
 </div>
-<div class="site-state-wrap site-overview-item animated">
+<div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-count">114</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">98</span>
+        <span class="site-state-item-count">109</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
 
-
-
         </div>
       </div>
     </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
-
-
-    </header>
 
     
-  <div class="back-to-top" role="button" aria-label="Back to top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
+  </aside>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
 
+    </div>
 
     <div class="main-inner post posts-expand">
 
@@ -180,11 +165,16 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="MicroPython Pyboard | Longer Vision Technology">
+      <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -231,14 +221,13 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <p>Today is sunny. ^_^… Let’s write something about <a target="_blank" rel="noopener" href="http://micropython.org/">MicroPython</a> <a target="_blank" rel="noopener" href="http://micropython.org/download#pyboard">PyBoard</a>. In my test, I’m using a <a target="_blank" rel="noopener" href="https://store.micropython.org/product/PYBv1.1">PyBv1.1</a>, which embeddes a <a target="_blank" rel="noopener" href="https://www.findchips.com/search/stm32f405rg?medium=tsa&sa360adenid=336050895058&gclid=Cj0KCQjw9pDpBRCkARIsAOzRziuOBSXZEIpfOnqW6rTfp27CFyOhilG2Vs4NOXvQPv9aRPwYnniDu1saAoTeEALw_wcB&gclsrc=aw.ds">STM32F405RG</a> microcontroller.</p>
+    <div class="post-body" itemprop="articleBody"><p>Today is sunny. ^_^… Let’s write something about <a target="_blank" rel="noopener" href="http://micropython.org/">MicroPython</a> <a target="_blank" rel="noopener" href="http://micropython.org/download#pyboard">PyBoard</a>. In my test, I’m using a <a target="_blank" rel="noopener" href="https://store.micropython.org/product/PYBv1.1">PyBv1.1</a>, which embeddes a <a target="_blank" rel="noopener" href="https://www.findchips.com/search/stm32f405rg?medium=tsa&sa360adenid=336050895058&gclid=Cj0KCQjw9pDpBRCkARIsAOzRziuOBSXZEIpfOnqW6rTfp27CFyOhilG2Vs4NOXvQPv9aRPwYnniDu1saAoTeEALw_wcB&gclsrc=aw.ds">STM32F405RG</a> microcontroller.</p>
 <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><h2 id="1-Contents-In-PyBoard"><a href="#1-Contents-In-PyBoard" class="headerlink" title="1. Contents In PyBoard"></a>1. Contents In PyBoard</h2><p>After connecting <a target="_blank" rel="noopener" href="https://store.micropython.org/product/PYBv1.1">PyBv1.1</a> via USB cable, you will possibly see a folder prompt on the screen as follows:</p>
 <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/pybv1.1.jpg" alt="Current Contents In PYBv1.1"></p>
 <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/pybv1.1_properties.jpg" alt="PYBv1.1 Properties"></p>
 <h2 id="2-Test-Out-picocom"><a href="#2-Test-Out-picocom" class="headerlink" title="2. Test Out picocom"></a>2. Test Out picocom</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ picocom /dev/ttyACM0</span><br><span class="line">picocom v3.1</span><br><span class="line"></span><br><span class="line">port is        : /dev/ttyACM0</span><br><span class="line">flowcontrol    : none</span><br><span class="line">baudrate is    : 9600</span><br><span class="line">parity is      : none</span><br><span class="line">databits are   : 8</span><br><span class="line">stopbits are   : 1</span><br><span class="line">escape is      : C-a</span><br><span class="line">local echo is  : no</span><br><span class="line">noinit is      : no</span><br><span class="line">noreset is     : no</span><br><span class="line">hangup is      : no</span><br><span class="line">nolock is      : no</span><br><span class="line">send_cmd is    : sz -vv</span><br><span class="line">receive_cmd is : rz -vv -E</span><br><span class="line">imap is        : </span><br><span class="line">omap is        : </span><br><span class="line">emap is        : crcrlf,delbs,</span><br><span class="line">logfile is     : none</span><br><span class="line">initstring     : none</span><br><span class="line">exit_after is  : not set</span><br><span class="line">exit is        : no</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">FATAL: cannot open /dev/ttyACM0: Permission denied</span><br></pre></td></tr></table></figure>
 
-<p>It looks we need to change the permission of <strong>/dev/ttyACM0</strong>.</p>
+<p>It looks we need to change the permission of <strong>&#x2F;dev&#x2F;ttyACM0</strong>.</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ll /dev/ttyACM0 </span><br><span class="line">crw-rw---- 1 root dialout 166, 0 Jul  9 13:54 /dev/ttyACM0</span><br><span class="line">➜  ~ sudo chmod 777 /dev/ttyACM0 </span><br></pre></td></tr></table></figure>
 
 <p>Reconnect…</p>
@@ -270,11 +259,11 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line">156,-10,-14,13</span><br><span class="line">157,-20,-28,26</span><br><span class="line">158,-30,-42,39</span><br><span class="line">159,-40,-56,52</span><br><span class="line">161,-40,-56,52</span><br><span class="line">162,-40,-56,52</span><br><span class="line">163,-40,-56,52</span><br><span class="line">164,-40,-56,52</span><br><span class="line">165,-40,-56,52</span><br><span class="line">166,-40,-56,52</span><br><span class="line">167,-40,-56,52</span><br><span class="line">169,-39,-56,53</span><br><span class="line">170,-38,-56,54</span><br><span class="line">171,-37,-56,55</span><br><span class="line">172,-36,-56,56</span><br><span class="line">173,-36,-56,56</span><br><span class="line">174,-36,-56,56</span><br><span class="line">176,-36,-56,56</span><br><span class="line">177,-36,-56,56</span><br><span class="line">178,-36,-56,56</span><br><span class="line">179,-36,-56,56</span><br><span class="line">180,-36,-56,56</span><br><span class="line">181,-36,-56,56</span><br><span class="line">183,-36,-56,56</span><br><span class="line">184,-36,-55,57</span><br><span class="line">185,-36,-54,58</span><br><span class="line">186,-36,-53,59</span><br><span class="line">187,-36,-52,60</span><br><span class="line">188,-36,-52,60</span><br><span class="line">189,-36,-52,60</span><br><span class="line">191,-36,-52,60</span><br><span class="line">192,-36,-52,60</span><br><span class="line">193,-36,-52,60</span><br><span class="line">194,-36,-52,60</span><br><span class="line">195,-36,-52,60</span><br><span class="line">322,-30,-58,58</span><br><span class="line">324,-24,-64,56</span><br><span class="line">325,-18,-70,54</span><br><span class="line">326,-12,-76,52</span><br><span class="line">327,-12,-76,52</span><br><span class="line">328,-12,-76,52</span><br><span class="line">329,-12,-76,52</span><br><span class="line">331,-12,-76,52</span><br><span class="line">332,-12,-76,52</span><br><span class="line">333,-12,-76,52</span><br><span class="line">334,-14,-73,55</span><br><span class="line">335,-16,-70,58</span><br><span class="line">336,-18,-67,61</span><br><span class="line">338,-20,-64,64</span><br><span class="line">339,-20,-64,64</span><br><span class="line">340,-20,-64,64</span><br><span class="line">341,-20,-64,64</span><br><span class="line">342,-20,-64,64</span><br><span class="line">343,-20,-64,64</span><br><span class="line">345,-20,-64,64</span><br><span class="line">346,-20,-64,64</span><br><span class="line">347,-20,-64,64</span><br><span class="line">348,-20,-64,64</span><br><span class="line">349,-18,-67,63</span><br><span class="line">350,-16,-70,62</span><br><span class="line">352,-14,-73,61</span><br><span class="line">353,-12,-76,60</span><br><span class="line">354,-12,-76,60</span><br><span class="line">355,-12,-76,60</span><br><span class="line">356,-12,-76,60</span><br><span class="line">357,-12,-76,60</span><br><span class="line">359,-12,-76,60</span><br><span class="line">360,-12,-76,60</span><br><span class="line">361,-12,-76,60</span><br><span class="line">488,-19,-68,58</span><br><span class="line">489,-26,-60,56</span><br><span class="line">490,-33,-52,54</span><br><span class="line">491,-40,-44,52</span><br><span class="line">492,-40,-44,52</span><br><span class="line">493,-40,-44,52</span><br><span class="line">495,-40,-44,52</span><br><span class="line">496,-40,-44,52</span><br><span class="line">497,-40,-44,52</span><br><span class="line">498,-41,-45,55</span><br><span class="line">499,-42,-46,58</span><br><span class="line">500,-43,-47,61</span><br><span class="line">502,-44,-48,64</span><br><span class="line">503,-44,-48,64</span><br><span class="line">504,-44,-48,64</span><br><span class="line">505,-44,-48,64</span><br><span class="line">506,-44,-48,64</span><br><span class="line">507,-44,-48,64</span><br><span class="line">509,-44,-48,64</span><br><span class="line">510,-44,-48,64</span><br><span class="line">511,-44,-48,64</span><br><span class="line">512,-44,-48,64</span><br><span class="line">513,-43,-47,65</span><br><span class="line">516,-30,-52,59</span><br><span class="line">517,-17,-57,53</span><br><span class="line">518,-2,-64,47</span><br><span class="line">519,12,-72,40</span><br><span class="line">520,14,-74,40</span><br><span class="line">521,16,-76,40</span><br><span class="line">523,16,-76,40</span><br><span class="line">524,16,-76,40</span><br></pre></td></tr></table></figure>
 
 
-<h1 id="Flash-Micropython-Onto-Pyboard"><a href="#Flash-Micropython-Onto-Pyboard" class="headerlink" title="Flash Micropython Onto Pyboard"></a>Flash Micropython Onto Pyboard</h1><h2 id="1-Checkout-Micropython-Source-Code"><a href="#1-Checkout-Micropython-Source-Code" class="headerlink" title="1. Checkout Micropython Source Code"></a>1. Checkout Micropython Source Code</h2><p>Let’s <strong>FIRST</strong> download the <strong>NEWEST</strong> <a target="_blank" rel="noopener" href="https://github.com/micropython/micropython/releases">micropython release</a>. In my case, the <strong>MOST</strong> up-to-date release is <a target="_blank" rel="noopener" href="https://github.com/micropython/micropython/archive/v1.11.tar.gz">1.11</a>. (<span style="color:red"><strong>Do **NOT</strong> use the git version**</span> from <a target="_blank" rel="noopener" href="https://github.com/micropython/micropython.git">https://github.com/micropython/micropython.git</a> ). </p>
-<h2 id="2-Build-Micropython-For-PYBV11"><a href="#2-Build-Micropython-For-PYBV11" class="headerlink" title="2. Build Micropython For PYBV11"></a>2. Build Micropython For PYBV11</h2><p><span style="color:red"><strong>We’ll strictly follow ports/stm32/README.md to build Micropython.</strong></span></p>
+<h1 id="Flash-Micropython-Onto-Pyboard"><a href="#Flash-Micropython-Onto-Pyboard" class="headerlink" title="Flash Micropython Onto Pyboard"></a>Flash Micropython Onto Pyboard</h1><h2 id="1-Checkout-Micropython-Source-Code"><a href="#1-Checkout-Micropython-Source-Code" class="headerlink" title="1. Checkout Micropython Source Code"></a>1. Checkout Micropython Source Code</h2><p>Let’s <strong>FIRST</strong> download the <strong>NEWEST</strong> <a target="_blank" rel="noopener" href="https://github.com/micropython/micropython/releases">micropython release</a>. In my case, the <strong>MOST</strong> up-to-date release is <a target="_blank" rel="noopener" href="https://github.com/micropython/micropython/archive/v1.11.tar.gz">1.11</a>. (<span style="color:red"><strong>Do <strong>NOT</strong> use the git version</strong></span> from <a target="_blank" rel="noopener" href="https://github.com/micropython/micropython.git">https://github.com/micropython/micropython.git</a> ). </p>
+<h2 id="2-Build-Micropython-For-PYBV11"><a href="#2-Build-Micropython-For-PYBV11" class="headerlink" title="2. Build Micropython For PYBV11"></a>2. Build Micropython For PYBV11</h2><p><span style="color:red"><strong>We’ll strictly follow ports&#x2F;stm32&#x2F;README.md to build Micropython.</strong></span></p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">➜  micropython-1.11 make -C mpy-cross</span><br><span class="line">make: Entering directory &#x27;....../micropython-1.11/mpy-cross&#x27;</span><br><span class="line">Use make V=1 or set BUILD_VERBOSE in your environment to increase build verbosity.</span><br><span class="line">GEN build/genhdr/mpversion.h</span><br><span class="line">CC main.c</span><br><span class="line">LINK mpy-cross</span><br><span class="line">   text    data     bss     dec     hex filename</span><br><span class="line"> 322105   24864     864  347833   54eb9 mpy-cross</span><br><span class="line">make: Leaving directory &#x27;....../micropython-1.11/mpy-cross&#x27;</span><br></pre></td></tr></table></figure>
 
-<p>Then we enter subfolder <span style="color:red"><strong>ports/stm32.</strong></span> for further building.</p>
+<p>Then we enter subfolder <span style="color:red"><strong>ports&#x2F;stm32.</strong></span> for further building.</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line">➜  micropython-1.11 cd ports/stm32 </span><br><span class="line">➜  stm32 make BOARD=PYBV11 deploy</span><br><span class="line">Use make V=1 or set BUILD_VERBOSE in your environment to increase build verbosity.</span><br><span class="line">mkdir -p build-PYBV11/genhdr</span><br><span class="line">GEN build-PYBV11/genhdr/pins.h</span><br><span class="line">GEN stmconst build-PYBV11/modstm_qstr.h</span><br><span class="line">GEN build-PYBV11/genhdr/mpversion.h</span><br><span class="line">GEN build-PYBV11/genhdr/moduledefs.h</span><br><span class="line">GEN build-PYBV11/genhdr/pybcdc.inf</span><br><span class="line">GEN build-PYBV11/genhdr/pybcdc_inf.h</span><br><span class="line">GEN build-PYBV11/genhdr/pllfreqtable.h</span><br><span class="line">GEN build-PYBV11/genhdr/qstr.i.last</span><br><span class="line">GEN build-PYBV11/genhdr/qstr.split</span><br><span class="line">GEN build-PYBV11/genhdr/qstrdefs.collected.h</span><br><span class="line">QSTR updated</span><br><span class="line">GEN build-PYBV11/genhdr/qstrdefs.generated.h</span><br><span class="line">mkdir -p build-PYBV11/boards/</span><br><span class="line">mkdir -p build-PYBV11/build-PYBV11/</span><br><span class="line">mkdir -p build-PYBV11/drivers/bus/</span><br><span class="line">mkdir -p build-PYBV11/drivers/dht/</span><br><span class="line">mkdir -p build-PYBV11/drivers/memory/</span><br><span class="line">mkdir -p build-PYBV11/extmod/</span><br><span class="line">mkdir -p build-PYBV11/lib/embed/</span><br><span class="line">mkdir -p build-PYBV11/lib/libc/</span><br><span class="line">mkdir -p build-PYBV11/lib/libm/</span><br><span class="line">mkdir -p build-PYBV11/lib/mp-readline/</span><br><span class="line">mkdir -p build-PYBV11/lib/netutils/</span><br><span class="line">mkdir -p build-PYBV11/lib/oofatfs/</span><br><span class="line">mkdir -p build-PYBV11/lib/stm32lib/STM32F4xx_HAL_Driver/Src/</span><br><span class="line">mkdir -p build-PYBV11/lib/timeutils/</span><br><span class="line">mkdir -p build-PYBV11/lib/utils/</span><br><span class="line">mkdir -p build-PYBV11/py/</span><br><span class="line">mkdir -p build-PYBV11/usbdev/class/src/</span><br><span class="line">mkdir -p build-PYBV11/usbdev/core/src/</span><br><span class="line">CC ../../py/mpstate.c</span><br><span class="line">CC ../../py/nlr.c</span><br><span class="line">CC ../../py/nlrx86.c</span><br><span class="line">CC ../../py/nlrx64.c</span><br><span class="line">CC ../../py/nlrthumb.c</span><br><span class="line">CC ../../py/nlrxtensa.c</span><br><span class="line">CC ../../py/nlrsetjmp.c</span><br><span class="line">CC ../../py/malloc.c</span><br><span class="line">CC ../../py/gc.c</span><br><span class="line">CC ../../py/pystack.c</span><br><span class="line">CC ../../py/qstr.c</span><br><span class="line">CC ../../py/vstr.c</span><br><span class="line">CC ../../py/mpprint.c</span><br><span class="line">CC ../../py/unicode.c</span><br><span class="line">...</span><br><span class="line">CC lcd.c</span><br><span class="line">CC accel.c</span><br><span class="line">CC servo.c</span><br><span class="line">CC dac.c</span><br><span class="line">CC adc.c</span><br><span class="line">AS boards/startup_stm32f4.s</span><br><span class="line">CC system_stm32.c</span><br><span class="line">AS resethandler.s</span><br><span class="line">AS ../../lib/utils/gchelper_m3.s</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc_ex.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rtc.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rtc_ex.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_mmc.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sdram.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dcmi.c</span><br><span class="line">CC ../../lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_can.c</span><br><span class="line">CC usbdev/core/src/usbd_core.c</span><br><span class="line">CC usbdev/core/src/usbd_ctlreq.c</span><br><span class="line">CC usbdev/core/src/usbd_ioreq.c</span><br><span class="line">CC usbdev/class/src/usbd_cdc_msc_hid.c</span><br><span class="line">CC usbdev/class/src/usbd_msc_bot.c</span><br><span class="line">CC usbdev/class/src/usbd_msc_scsi.c</span><br><span class="line">CC usbdev/class/src/usbd_msc_data.c</span><br><span class="line">CC build-PYBV11/pins_PYBV11.c</span><br><span class="line">LINK build-PYBV11/firmware.elf</span><br><span class="line">   text    data     bss     dec     hex filename</span><br><span class="line"> 332432      32   27876  360340   57f94 build-PYBV11/firmware.elf</span><br><span class="line">GEN build-PYBV11/firmware.dfu</span><br><span class="line">Writing build-PYBV11/firmware.dfu to the board</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;../../tools/pydfu.py&quot;, line 586, in &lt;module&gt;</span><br><span class="line">    main()</span><br><span class="line">  File &quot;../../tools/pydfu.py&quot;, line 566, in main</span><br><span class="line">    init()</span><br><span class="line">  File &quot;../../tools/pydfu.py&quot;, line 97, in init</span><br><span class="line">    raise ValueError(&#x27;No DFU device found&#x27;)</span><br><span class="line">ValueError: No DFU device found</span><br><span class="line">make: *** [Makefile:442: deploy] Error 1</span><br><span class="line">➜  stm32 </span><br></pre></td></tr></table></figure>
 
 
@@ -335,7 +324,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -348,10 +337,28 @@
   </footer>
 
   
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
+
 
 
 
