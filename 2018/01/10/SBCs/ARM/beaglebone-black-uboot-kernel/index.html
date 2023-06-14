@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
-
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.0.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -16,11 +14,12 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="Happy new year everybody. How time flies. It is already 2018. Longer Vision has been struggling on this tough road towards a successful enterprise. Algorithms ONLY are NOT enough for nowadays business">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Happy new year everybody. How time flies. It is already 2018. Longer Vision has been struggling on this tough road towards a successful enterprise. Algorithms ONLY are NOT enough for nowadays business">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Build U-Boot and Linux Kernel for Beaglebone and Beaglebone Black">
 <meta property="og:url" content="http://longervision.ca/2018/01/10/SBCs/ARM/beaglebone-black-uboot-kernel/index.html">
@@ -52,6 +51,10 @@
 
 
 
+
+
+
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -61,8 +64,8 @@
   <div class="headband"></div>
 
   <main class="main">
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar" role="button">
     </div>
@@ -79,7 +82,7 @@
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
     </div>
   </div>
 </div>
@@ -90,15 +93,9 @@
 
 
 
-</div>
+</header>
         
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-
   <aside class="sidebar">
 
     <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
@@ -114,57 +111,45 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PART-A-Cross-Compile-U-Boot-and-Linux-Kernel"><span class="nav-number">1.</span> <span class="nav-text">PART A: Cross Compile U-Boot and Linux Kernel</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Linaro-GCC"><span class="nav-number">1.1.</span> <span class="nav-text">1. Linaro GCC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-U-Boot"><span class="nav-number">1.2.</span> <span class="nav-text">2. U-Boot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Linux-Kernel"><span class="nav-number">1.3.</span> <span class="nav-text">3. Linux Kernel</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-version-sh"><span class="nav-number">1.3.1.</span> <span class="nav-text">1) version.sh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-system-sh"><span class="nav-number">1.3.2.</span> <span class="nav-text">2) system.sh</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Root-File-System"><span class="nav-number">1.4.</span> <span class="nav-text">4. Root File System</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PART-B-Install-the-Linux-OS-onto-SD-Card"><span class="nav-number">2.</span> <span class="nav-text">PART B: Install the Linux OS onto SD Card</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Setup-microSD-card"><span class="nav-number">2.1.</span> <span class="nav-text">5. Setup microSD card</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-TF-Card-Preparation"><span class="nav-number">2.1.1.</span> <span class="nav-text">1) TF Card Preparation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Bootloader-installation"><span class="nav-number">2.1.2.</span> <span class="nav-text">2) Bootloader installation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Partition-Preparation"><span class="nav-number">2.1.3.</span> <span class="nav-text">3) Partition Preparation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Backup-Bootloader"><span class="nav-number">2.1.4.</span> <span class="nav-text">4) Backup Bootloader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Dealing-with-old-Bootloader-in-eMMC-Optional"><span class="nav-number">2.1.5.</span> <span class="nav-text">5) Dealing with old Bootloader in eMMC (Optional)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Kernel-Installation"><span class="nav-number">2.2.</span> <span class="nav-text">6. Kernel Installation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Export-MACRO-kernel-version"><span class="nav-number">2.2.1.</span> <span class="nav-text">1) Export MACRO kernel_version</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Extract-Debian-Root-File-System-onto-TF-Card"><span class="nav-number">2.2.2.</span> <span class="nav-text">2) Extract Debian Root File System onto TF Card</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Set-uname-r-in-boot-uEnv-txt"><span class="nav-number">2.2.3.</span> <span class="nav-text">3) Set uname_r in &#x2F;boot&#x2F;uEnv.txt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Copy-Kernel-Image"><span class="nav-number">2.2.4.</span> <span class="nav-text">4) Copy Kernel Image</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Copy-Kernel-Device-Tree-Binaries"><span class="nav-number">2.2.5.</span> <span class="nav-text">5) Copy Kernel Device Tree Binaries</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Copy-Kernel-Modules"><span class="nav-number">2.2.6.</span> <span class="nav-text">6) Copy Kernel Modules</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-Set-File-Systems-Table-etc-fstab"><span class="nav-number">2.2.7.</span> <span class="nav-text">7) Set File Systems Table (&#x2F;etc&#x2F;fstab)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-Networking"><span class="nav-number">2.2.8.</span> <span class="nav-text">8) Networking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-Remove-TF-Card"><span class="nav-number">2.2.9.</span> <span class="nav-text">9) Remove TF Card</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PART-C-Configurations-after-Booting-from-the-SD-Card"><span class="nav-number">3.</span> <span class="nav-text">PART C: Configurations after Booting from the SD Card</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PART-A-Cross-Compile-U-Boot-and-Linux-Kernel"><span class="nav-number">1.</span> <span class="nav-text">PART A: Cross Compile U-Boot and Linux Kernel</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Linaro-GCC"><span class="nav-number">1.1.</span> <span class="nav-text">1. Linaro GCC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-U-Boot"><span class="nav-number">1.2.</span> <span class="nav-text">2. U-Boot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Linux-Kernel"><span class="nav-number">1.3.</span> <span class="nav-text">3. Linux Kernel</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-version-sh"><span class="nav-number">1.3.1.</span> <span class="nav-text">1) version.sh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-system-sh"><span class="nav-number">1.3.2.</span> <span class="nav-text">2) system.sh</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Root-File-System"><span class="nav-number">1.4.</span> <span class="nav-text">4. Root File System</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PART-B-Install-the-Linux-OS-onto-SD-Card"><span class="nav-number">2.</span> <span class="nav-text">PART B: Install the Linux OS onto SD Card</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Setup-microSD-card"><span class="nav-number">2.1.</span> <span class="nav-text">5. Setup microSD card</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-TF-Card-Preparation"><span class="nav-number">2.1.1.</span> <span class="nav-text">1) TF Card Preparation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Bootloader-installation"><span class="nav-number">2.1.2.</span> <span class="nav-text">2) Bootloader installation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Partition-Preparation"><span class="nav-number">2.1.3.</span> <span class="nav-text">3) Partition Preparation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Backup-Bootloader"><span class="nav-number">2.1.4.</span> <span class="nav-text">4) Backup Bootloader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Dealing-with-old-Bootloader-in-eMMC-Optional"><span class="nav-number">2.1.5.</span> <span class="nav-text">5) Dealing with old Bootloader in eMMC (Optional)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Kernel-Installation"><span class="nav-number">2.2.</span> <span class="nav-text">6. Kernel Installation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Export-MACRO-kernel-version"><span class="nav-number">2.2.1.</span> <span class="nav-text">1) Export MACRO kernel_version</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Extract-Debian-Root-File-System-onto-TF-Card"><span class="nav-number">2.2.2.</span> <span class="nav-text">2) Extract Debian Root File System onto TF Card</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Set-uname-r-in-x2F-boot-x2F-uEnv-txt"><span class="nav-number">2.2.3.</span> <span class="nav-text">3) Set uname_r in &#x2F;boot&#x2F;uEnv.txt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Copy-Kernel-Image"><span class="nav-number">2.2.4.</span> <span class="nav-text">4) Copy Kernel Image</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Copy-Kernel-Device-Tree-Binaries"><span class="nav-number">2.2.5.</span> <span class="nav-text">5) Copy Kernel Device Tree Binaries</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Copy-Kernel-Modules"><span class="nav-number">2.2.6.</span> <span class="nav-text">6) Copy Kernel Modules</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-Set-File-Systems-Table-x2F-etc-x2F-fstab"><span class="nav-number">2.2.7.</span> <span class="nav-text">7) Set File Systems Table (&#x2F;etc&#x2F;fstab)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-Networking"><span class="nav-number">2.2.8.</span> <span class="nav-text">8) Networking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-Remove-TF-Card"><span class="nav-number">2.2.9.</span> <span class="nav-text">9) Remove TF Card</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PART-C-Configurations-after-Booting-from-the-SD-Card"><span class="nav-number">3.</span> <span class="nav-text">PART C: Configurations after Booting from the SD Card</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Nobody</p>
   <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
 </div>
-<div class="site-state-wrap site-overview-item animated">
+<div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-count">114</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">98</span>
+        <span class="site-state-item-count">109</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
 
-
-
         </div>
       </div>
     </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
-
-
-    </header>
 
     
-  <div class="back-to-top" role="button" aria-label="Back to top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
+  </aside>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
 
+    </div>
 
     <div class="main-inner post posts-expand">
 
@@ -182,11 +167,16 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Build U-Boot and Linux Kernel for Beaglebone and Beaglebone Black | Longer Vision Technology">
+      <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -233,8 +223,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <p>Happy new year everybody. How time flies. It is already 2018. <a target="_blank" rel="noopener" href="http://www.longervision.com/">Longer Vision</a> has been struggling on this tough road towards a successful enterprise. Algorithms <strong>ONLY</strong> are <strong>NOT</strong> enough for nowadays business. <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Board_support_package">BSP (board support package)</a> and <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Integrated_circuit_design">IC design</a> are a must for a successful business nowadays. Thus, ever since 2018, <a target="_blank" rel="noopener" href="http://www.longervision.com/">Longer Vision</a> is going to balance <strong>both</strong> hardware <strong>and</strong> software, particularly, <a target="_blank" rel="noopener" href="http://www.arm.com/">ARM</a> based open source embedded development board and computer vision algorithms.</p>
+    <div class="post-body" itemprop="articleBody"><p>Happy new year everybody. How time flies. It is already 2018. <a target="_blank" rel="noopener" href="http://www.longervision.com/">Longer Vision</a> has been struggling on this tough road towards a successful enterprise. Algorithms <strong>ONLY</strong> are <strong>NOT</strong> enough for nowadays business. <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Board_support_package">BSP (board support package)</a> and <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Integrated_circuit_design">IC design</a> are a must for a successful business nowadays. Thus, ever since 2018, <a target="_blank" rel="noopener" href="http://www.longervision.com/">Longer Vision</a> is going to balance <strong>both</strong> hardware <strong>and</strong> software, particularly, <a target="_blank" rel="noopener" href="http://www.arm.com/">ARM</a> based open source embedded development board and computer vision algorithms.</p>
 <p>In this blog, we are going to talk about how to build and flash <a target="_blank" rel="noopener" href="http://www.denx.de/wiki/U-Boot/WebHome">U-Boot</a> and <a target="_blank" rel="noopener" href="https://www.kernel.org/">Linux Kernel</a> onto a <a target="_blank" rel="noopener" href="https://beagleboard.org/bone-original">Beaglebone</a> and <a target="_blank" rel="noopener" href="https://beagleboard.org/black">Beaglebone Black</a>, which adopts <a target="_blank" rel="noopener" href="http://www.ti.com/processors/sitara/arm-cortex-a8/am335x/overview.html">TI AM335x</a> as its CPU. The board looks like (cited from <a target="_blank" rel="noopener" href="https://beagleboard.org/black">Beaglebone Black</a> ):</p>
 <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/omap/beaglebone/black/images/BBB.jpg" alt="Beaglebone Black"></p>
 <h1 id="PART-A-Cross-Compile-U-Boot-and-Linux-Kernel"><a href="#PART-A-Cross-Compile-U-Boot-and-Linux-Kernel" class="headerlink" title="PART A: Cross Compile U-Boot and Linux Kernel"></a>PART A: Cross Compile U-Boot and Linux Kernel</h1><h2 id="1-Linaro-GCC"><a href="#1-Linaro-GCC" class="headerlink" title="1. Linaro GCC"></a>1. Linaro GCC</h2><p><a target="_blank" rel="noopener" href="https://www.linaro.org/">Linaro</a> is a popular platform providing high-quality code for both <a target="_blank" rel="noopener" href="https://www.kernel.org/">Linux kernel</a> and <a target="_blank" rel="noopener" href="https://developer.arm.com/open-source/gnu-toolchain/gnu-rm">GCC tool chain</a>. Linaro’s GCC toolchain of varoius versions can be directly found <a target="_blank" rel="noopener" href="https://releases.linaro.org/components/toolchain/binaries/">here</a>.</p>
@@ -256,7 +245,7 @@
 
 
 <h2 id="3-Linux-Kernel"><a href="#3-Linux-Kernel" class="headerlink" title="3. Linux Kernel"></a>3. Linux Kernel</h2><p>Due to Robert Nelson’s summary at <a target="_blank" rel="noopener" href="http://eewiki.net/display/linuxonarm/BeagleBone+Black">eewiki</a>, there are two ways to build <a target="_blank" rel="noopener" href="https://beagleboard.org/bone-original">Beaglebone</a> and <a target="_blank" rel="noopener" href="https://beagleboard.org/black">Beaglebone Black</a>: - <a target="_blank" rel="noopener" href="https://github.com/RobertCNelson/bb-kernel">Mainline</a> - <a target="_blank" rel="noopener" href="https://github.com/RobertCNelson/ti-linux-kernel-dev">TI BSP</a></p>
-<p>Their differences are: - bb-kernel: based on <a target="_blank" rel="noopener" href="https://github.com/RobertCNelson/bb-kernel">mainline</a>, no-smp, optimized for AM335x devices. - ti-linux-kernel-dev: based on <a target="_blank" rel="noopener" href="https://github.com/RobertCNelson/ti-linux-kernel-dev">TI’s git tree</a>, smp, optimized for AM335x/AM43xx/AM57x devices.</p>
+<p>Their differences are: - bb-kernel: based on <a target="_blank" rel="noopener" href="https://github.com/RobertCNelson/bb-kernel">mainline</a>, no-smp, optimized for AM335x devices. - ti-linux-kernel-dev: based on <a target="_blank" rel="noopener" href="https://github.com/RobertCNelson/ti-linux-kernel-dev">TI’s git tree</a>, smp, optimized for AM335x&#x2F;AM43xx&#x2F;AM57x devices.</p>
 <p>Here, we are going to use <a target="_blank" rel="noopener" href="https://github.com/RobertCNelson/bb-kernel">Mainline</a> to build our own Linux Kernel. We FIRST check out <a target="_blank" rel="noopener" href="https://github.com/RobertCNelson/bb-kernel">Robert Nelson’s bb-kernel</a>.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/RobertCNelson/bb-kernel</span><br><span class="line">$ <span class="built_in">cd</span> bb-kernel/</span><br><span class="line">$ git checkout origin/am33x-v4.14 -b am33x-v4.14</span><br></pre></td></tr></table></figure>
 
@@ -270,7 +259,7 @@
 <h3 id="2-system-sh"><a href="#2-system-sh" class="headerlink" title="2) system.sh"></a>2) system.sh</h3><p>A file named <strong>system.sh.sample</strong> has been provided for us to configure accordingly. We FIRST do a copy.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cp system.sh.sample system.sh</span><br></pre></td></tr></table></figure>
 
-<p>Then, we manually re-specifying two MACROs: <strong>CC</strong> and <strong>LINUX_GIT</strong>, respectively to two directories containing the above downloaded Linaro GCC compiler and the current Torvalds’ Linux Kernel. We also specify <strong>MMC</strong> for TF/SD Card as follows:</p>
+<p>Then, we manually re-specifying two MACROs: <strong>CC</strong> and <strong>LINUX_GIT</strong>, respectively to two directories containing the above downloaded Linaro GCC compiler and the current Torvalds’ Linux Kernel. We also specify <strong>MMC</strong> for TF&#x2F;SD Card as follows:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CC=.../gcc-linaro-6.4.1-2017.11-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-</span><br><span class="line">LINUX_GIT=.../linux-stable</span><br><span class="line">MMC=/dev/mmcblk0</span><br></pre></td></tr></table></figure>
 
 <p>After the above configurations, we start building the Linux Kernel using the following command line. This will probably take you one hour.</p>
@@ -292,7 +281,7 @@
 <p>We then define a MACRO <strong>DISK</strong> to specify the TF card device.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> DISK=/dev/mmcblk0</span><br></pre></td></tr></table></figure>
 
-<p>Afterwards, erase partition table/labels on TF card by:</p>
+<p>Afterwards, erase partition table&#x2F;labels on TF card by:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dd <span class="keyword">if</span>=/dev/zero of=<span class="variable">$&#123;DISK&#125;</span> bs=1M count=10</span><br></pre></td></tr></table></figure>
 
 <h3 id="2-Bootloader-installation"><a href="#2-Bootloader-installation" class="headerlink" title="2) Bootloader installation"></a>2) Bootloader installation</h3><p>Now, we install the built U-Boot onto the SD card:</p>
@@ -315,7 +304,7 @@
 
 <h3 id="4-Backup-Bootloader"><a href="#4-Backup-Bootloader" class="headerlink" title="4) Backup Bootloader"></a>4) Backup Bootloader</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo mkdir -p /media/rootfs/opt/backup/uboot/</span><br><span class="line">$ sudo cp -v ./u-boot/MLO /media/rootfs/opt/backup/uboot/</span><br><span class="line">$ sudo cp -v ./u-boot/u-boot.img /media/rootfs/opt/backup/uboot/</span><br></pre></td></tr></table></figure>
 
-<h3 id="5-Dealing-with-old-Bootloader-in-eMMC-Optional"><a href="#5-Dealing-with-old-Bootloader-in-eMMC-Optional" class="headerlink" title="5) Dealing with old Bootloader in eMMC (Optional)"></a>5) Dealing with old Bootloader in eMMC (Optional)</h3><p>If the old bootloader in eMMC is to be kept, please copy the following file <strong>uEnv.txt</strong> to /<strong>media/rootfs/</strong>.</p>
+<h3 id="5-Dealing-with-old-Bootloader-in-eMMC-Optional"><a href="#5-Dealing-with-old-Bootloader-in-eMMC-Optional" class="headerlink" title="5) Dealing with old Bootloader in eMMC (Optional)"></a>5) Dealing with old Bootloader in eMMC (Optional)</h3><p>If the old bootloader in eMMC is to be kept, please copy the following file <strong>uEnv.txt</strong> to &#x2F;<strong>media&#x2F;rootfs&#x2F;</strong>.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##This will work with: Angstrom&#x27;s 2013.06.20 u-boot.</span></span><br><span class="line"> </span><br><span class="line">loadaddr=0x82000000</span><br><span class="line">fdtaddr=0x88000000</span><br><span class="line">rdaddr=0x88080000</span><br><span class="line"> </span><br><span class="line">initrd_high=0xffffffff</span><br><span class="line">fdt_high=0xffffffff</span><br><span class="line"> </span><br><span class="line"><span class="comment">#for single partitions:</span></span><br><span class="line">mmcroot=/dev/mmcblk0p1</span><br><span class="line"> </span><br><span class="line">loadximage=load mmc 0:1 <span class="variable">$&#123;loadaddr&#125;</span> /boot/vmlinuz-<span class="variable">$&#123;uname_r&#125;</span></span><br><span class="line">loadxfdt=load mmc 0:1 <span class="variable">$&#123;fdtaddr&#125;</span> /boot/dtbs/<span class="variable">$&#123;uname_r&#125;</span>/<span class="variable">$&#123;fdtfile&#125;</span></span><br><span class="line">loadxrd=load mmc 0:1 <span class="variable">$&#123;rdaddr&#125;</span> /boot/initrd.img-<span class="variable">$&#123;uname_r&#125;</span>; setenv rdsize <span class="variable">$&#123;filesize&#125;</span></span><br><span class="line">loaduEnvtxt=load mmc 0:1 <span class="variable">$&#123;loadaddr&#125;</span> /boot/uEnv.txt ; env import -t <span class="variable">$&#123;loadaddr&#125;</span> <span class="variable">$&#123;filesize&#125;</span>;</span><br><span class="line">loadall=run loaduEnvtxt; run loadximage; run loadxfdt;</span><br><span class="line"> </span><br><span class="line">mmcargs=setenv bootargs console=tty0 console=<span class="variable">$&#123;console&#125;</span> <span class="variable">$&#123;optargs&#125;</span> <span class="variable">$&#123;cape_disable&#125;</span> <span class="variable">$&#123;cape_enable&#125;</span> root=<span class="variable">$&#123;mmcroot&#125;</span> rootfstype=<span class="variable">$&#123;mmcrootfstype&#125;</span> <span class="variable">$&#123;cmdline&#125;</span></span><br><span class="line"> </span><br><span class="line">uenvcmd=run loadall; run mmcargs; bootz <span class="variable">$&#123;loadaddr&#125;</span> - <span class="variable">$&#123;fdtaddr&#125;</span>;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp -v ./uEnv.txt /media/rootfs/</span><br></pre></td></tr></table></figure>
@@ -326,7 +315,7 @@
 
 <h3 id="2-Extract-Debian-Root-File-System-onto-TF-Card"><a href="#2-Extract-Debian-Root-File-System-onto-TF-Card" class="headerlink" title="2) Extract Debian Root File System onto TF Card"></a>2) Extract Debian Root File System onto TF Card</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo tar xfvp ./debian-9.3-minimal-armhf-2017-12-09/armhf-rootfs-debian-stretch.tar -C /media/rootfs/</span><br><span class="line">$ sync</span><br><span class="line">$ sudo chown root:root /media/rootfs/</span><br><span class="line">$ sudo chmod 755 /media/rootfs/</span><br></pre></td></tr></table></figure>
 
-<h3 id="3-Set-uname-r-in-boot-uEnv-txt"><a href="#3-Set-uname-r-in-boot-uEnv-txt" class="headerlink" title="3) Set uname_r in /boot/uEnv.txt"></a>3) Set uname_r in /boot/uEnv.txt</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh -c <span class="string">&quot;echo &#x27;uname_r=<span class="variable">$&#123;kernel_version&#125;</span>&#x27; &gt;&gt; /media/rootfs/boot/uEnv.txt&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-Set-uname-r-in-x2F-boot-x2F-uEnv-txt"><a href="#3-Set-uname-r-in-x2F-boot-x2F-uEnv-txt" class="headerlink" title="3) Set uname_r in &#x2F;boot&#x2F;uEnv.txt"></a>3) Set uname_r in &#x2F;boot&#x2F;uEnv.txt</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh -c <span class="string">&quot;echo &#x27;uname_r=<span class="variable">$&#123;kernel_version&#125;</span>&#x27; &gt;&gt; /media/rootfs/boot/uEnv.txt&quot;</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="4-Copy-Kernel-Image"><a href="#4-Copy-Kernel-Image" class="headerlink" title="4) Copy Kernel Image"></a>4) Copy Kernel Image</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo cp -v ./bb-kernel/deploy/<span class="variable">$&#123;kernel_version&#125;</span>.zImage /media/rootfs/boot/vmlinuz-<span class="variable">$&#123;kernel_version&#125;</span></span><br></pre></td></tr></table></figure>
 
@@ -334,7 +323,7 @@
 
 <h3 id="6-Copy-Kernel-Modules"><a href="#6-Copy-Kernel-Modules" class="headerlink" title="6) Copy Kernel Modules"></a>6) Copy Kernel Modules</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo tar xfv ./bb-kernel/deploy/<span class="variable">$&#123;kernel_version&#125;</span>-modules.tar.gz -C /media/rootfs/</span><br></pre></td></tr></table></figure>
 
-<h3 id="7-Set-File-Systems-Table-etc-fstab"><a href="#7-Set-File-Systems-Table-etc-fstab" class="headerlink" title="7) Set File Systems Table (/etc/fstab)"></a>7) Set File Systems Table (/etc/fstab)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh -c <span class="string">&quot;echo &#x27;/dev/mmcblk0p1  /  auto  errors=remount-ro  0  1&#x27; &gt;&gt; /media/rootfs/etc/fstab&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="7-Set-File-Systems-Table-x2F-etc-x2F-fstab"><a href="#7-Set-File-Systems-Table-x2F-etc-x2F-fstab" class="headerlink" title="7) Set File Systems Table (&#x2F;etc&#x2F;fstab)"></a>7) Set File Systems Table (&#x2F;etc&#x2F;fstab)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh -c <span class="string">&quot;echo &#x27;/dev/mmcblk0p1  /  auto  errors=remount-ro  0  1&#x27; &gt;&gt; /media/rootfs/etc/fstab&quot;</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="8-Networking"><a href="#8-Networking" class="headerlink" title="8) Networking"></a>8) Networking</h3><p>To enable the Internet for the FIRST booting, we need to do the network configuration:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nano /media/rootfs/etc/network/interfaces</span><br></pre></td></tr></table></figure>
@@ -396,7 +385,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -409,10 +398,28 @@
   </footer>
 
   
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
+
 
 
 

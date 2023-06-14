@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
-
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.0.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -16,11 +14,12 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="This blog is just to solve some bugs while using MySQL as a server. Assuming you’ve already installed mysql-server, mysql-server-5.7, and mysql-server-core-5.7. 1. Errors1.1 Failed to start mysql.serv">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="This blog is just to solve some bugs while using MySQL as a server. Assuming you’ve already installed mysql-server, mysql-server-5.7, and mysql-server-core-5.7. 1. Errors1.1 Failed to start mysql.serv">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Fundamental Usage of MySQL">
 <meta property="og:url" content="http://longervision.ca/2018/11/29/Tools/fundamental-usage-of-mysql/index.html">
@@ -47,6 +46,10 @@
 
 
 
+
+
+
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -56,8 +59,8 @@
   <div class="headband"></div>
 
   <main class="main">
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar" role="button">
     </div>
@@ -74,7 +77,7 @@
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
     </div>
   </div>
 </div>
@@ -85,15 +88,9 @@
 
 
 
-</div>
+</header>
         
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-
   <aside class="sidebar">
 
     <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
@@ -109,57 +106,45 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Errors"><span class="nav-number">1.</span> <span class="nav-text">1. Errors</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-Failed-to-start-mysql-service-Unit-mysql-service-not-found"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Failed to start mysql.service: Unit mysql.service not found.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-ERROR-1045-28000-Access-denied-for-user-%E2%80%98root%E2%80%99-%E2%80%99localhost%E2%80%99-using-password-YES"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 ERROR 1045 (28000): Access denied for user ‘root’@’localhost’ (using password: YES)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-ERROR-2002-HY000-Can%E2%80%99t-connect-to-local-MySQL-server-through-socket-%E2%80%98-var-run-mysqld-mysqld-sock%E2%80%99"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘&#x2F;var&#x2F;run&#x2F;mysqld&#x2F;mysqld.sock’</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-ERROR-1698-28000-Access-denied-for-user-%E2%80%98root%E2%80%99-%E2%80%99localhost%E2%80%99"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 ERROR 1698 (28000): Access denied for user ‘root’@’localhost’</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-ERROR-InnoDB-Unable-to-lock-ibdata1-Additional"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 [ERROR] InnoDB: Unable to lock .&#x2F;ibdata1 (Additional)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Fundamental-Commands-in-MySQL"><span class="nav-number">2.</span> <span class="nav-text">2. Fundamental Commands in MySQL</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Errors"><span class="nav-number">1.</span> <span class="nav-text">1. Errors</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-Failed-to-start-mysql-service-Unit-mysql-service-not-found"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Failed to start mysql.service: Unit mysql.service not found.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-ERROR-1045-28000-Access-denied-for-user-%E2%80%98root%E2%80%98-%E2%80%99localhost%E2%80%99-using-password-YES"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 ERROR 1045 (28000): Access denied for user ‘root‘@’localhost’ (using password: YES)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-ERROR-2002-HY000-Can%E2%80%99t-connect-to-local-MySQL-server-through-socket-%E2%80%98-x2F-var-x2F-run-x2F-mysqld-x2F-mysqld-sock%E2%80%99"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘&#x2F;var&#x2F;run&#x2F;mysqld&#x2F;mysqld.sock’</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-ERROR-1698-28000-Access-denied-for-user-%E2%80%98root%E2%80%98-%E2%80%99localhost%E2%80%99"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 ERROR 1698 (28000): Access denied for user ‘root‘@’localhost’</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-ERROR-InnoDB-Unable-to-lock-x2F-ibdata1-Additional"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 [ERROR] InnoDB: Unable to lock .&#x2F;ibdata1 (Additional)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Fundamental-Commands-in-MySQL"><span class="nav-number">2.</span> <span class="nav-text">2. Fundamental Commands in MySQL</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Nobody</p>
   <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
 </div>
-<div class="site-state-wrap site-overview-item animated">
+<div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-count">114</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">98</span>
+        <span class="site-state-item-count">109</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
 
-
-
         </div>
       </div>
     </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
-
-
-    </header>
 
     
-  <div class="back-to-top" role="button" aria-label="Back to top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
+  </aside>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
 
+    </div>
 
     <div class="main-inner post posts-expand">
 
@@ -177,11 +162,16 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Fundamental Usage of MySQL | Longer Vision Technology">
+      <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -224,34 +214,33 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <p>This blog is just to solve some bugs while using <a target="_blank" rel="noopener" href="https://www.mysql.com/">MySQL</a> as a server. Assuming you’ve already installed <strong>mysql-server</strong>, <strong>mysql-server-5.7</strong>, and <strong>mysql-server-core-5.7</strong>.</p>
+    <div class="post-body" itemprop="articleBody"><p>This blog is just to solve some bugs while using <a target="_blank" rel="noopener" href="https://www.mysql.com/">MySQL</a> as a server. Assuming you’ve already installed <strong>mysql-server</strong>, <strong>mysql-server-5.7</strong>, and <strong>mysql-server-core-5.7</strong>.</p>
 <h1 id="1-Errors"><a href="#1-Errors" class="headerlink" title="1. Errors"></a>1. Errors</h1><h2 id="1-1-Failed-to-start-mysql-service-Unit-mysql-service-not-found"><a href="#1-1-Failed-to-start-mysql-service-Unit-mysql-service-not-found" class="headerlink" title="1.1 Failed to start mysql.service: Unit mysql.service not found."></a>1.1 Failed to start mysql.service: Unit mysql.service not found.</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ sudo service mysqld start</span><br><span class="line">[sudo] password <span class="keyword">for</span> jiapei:</span><br><span class="line">Failed to start mysqld.service: Unit mysqld.service not found.</span><br><span class="line">➜  ~ /etc/init.d/mysql stop</span><br><span class="line">[ ok ] Stopping mysql (via systemctl): mysql.service.</span><br><span class="line">➜  ~ /etc/init.d/mysql start</span><br><span class="line">[ ok ] Starting mysql (via systemctl): mysql.service.</span><br></pre></td></tr></table></figure>
 
 <p><strong>Conclusion</strong>: use <code>/etc/init.d/mysql start</code> instead of <code>service mysqld start</code>.</p>
-<h2 id="1-2-ERROR-1045-28000-Access-denied-for-user-‘root’-’localhost’-using-password-YES"><a href="#1-2-ERROR-1045-28000-Access-denied-for-user-‘root’-’localhost’-using-password-YES" class="headerlink" title="1.2 ERROR 1045 (28000): Access denied for user ‘root’@’localhost’ (using password: YES)"></a>1.2 ERROR 1045 (28000): Access denied for user ‘root’@’localhost’ (using password: YES)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ mysql -u root -p</span><br><span class="line">Enter password: </span><br><span class="line">ERROR 1698 (28000): Access denied <span class="keyword">for</span> user <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span></span><br></pre></td></tr></table></figure>
+<h2 id="1-2-ERROR-1045-28000-Access-denied-for-user-‘root‘-’localhost’-using-password-YES"><a href="#1-2-ERROR-1045-28000-Access-denied-for-user-‘root‘-’localhost’-using-password-YES" class="headerlink" title="1.2 ERROR 1045 (28000): Access denied for user ‘root‘@’localhost’ (using password: YES)"></a>1.2 ERROR 1045 (28000): Access denied for user ‘root‘@’localhost’ (using password: YES)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ mysql -u root -p</span><br><span class="line">Enter password: </span><br><span class="line">ERROR 1698 (28000): Access denied <span class="keyword">for</span> user <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <p>We <strong>FIRST</strong> list all existing MySQL processes and kill them all.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ps aux | grep mysql</span><br><span class="line">...</span><br><span class="line">➜  ~ sudo <span class="built_in">kill</span> PID</span><br></pre></td></tr></table></figure>
 
 <p>Util now, there should be <strong>NO</strong> MySQL process running.</p>
-<h2 id="1-3-ERROR-2002-HY000-Can’t-connect-to-local-MySQL-server-through-socket-‘-var-run-mysqld-mysqld-sock’"><a href="#1-3-ERROR-2002-HY000-Can’t-connect-to-local-MySQL-server-through-socket-‘-var-run-mysqld-mysqld-sock’" class="headerlink" title="1.3 ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘/var/run/mysqld/mysqld.sock’"></a>1.3 ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘/var/run/mysqld/mysqld.sock’</h2><p>Since there is <strong>NO</strong> MySQL process running, of course we cannot connect to MySQL server.</p>
+<h2 id="1-3-ERROR-2002-HY000-Can’t-connect-to-local-MySQL-server-through-socket-‘-x2F-var-x2F-run-x2F-mysqld-x2F-mysqld-sock’"><a href="#1-3-ERROR-2002-HY000-Can’t-connect-to-local-MySQL-server-through-socket-‘-x2F-var-x2F-run-x2F-mysqld-x2F-mysqld-sock’" class="headerlink" title="1.3 ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘&#x2F;var&#x2F;run&#x2F;mysqld&#x2F;mysqld.sock’"></a>1.3 ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘&#x2F;var&#x2F;run&#x2F;mysqld&#x2F;mysqld.sock’</h2><p>Since there is <strong>NO</strong> MySQL process running, of course we cannot connect to MySQL server.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ mysql -u root -p</span><br><span class="line">Enter password: </span><br><span class="line">ERROR 2002 (HY000): Can<span class="string">&#x27;t connect to local MySQL server through socket &#x27;</span>/var/run/mysqld/mysqld.sock<span class="string">&#x27; (2)</span></span><br><span class="line"><span class="string">➜  ~ /etc/init.d/mysql start</span></span><br><span class="line"><span class="string">[....] Starting mysql (via systemctl): mysql.serviceJob for mysql.service failed because the control process exited with error code.</span></span><br><span class="line"><span class="string">See &quot;systemctl status mysql.service&quot; and &quot;journalctl -xe&quot; for details.</span></span><br><span class="line"><span class="string"> failed!</span></span><br></pre></td></tr></table></figure>
 
 <p>Then, we will have to have these 3 packages reinstalled: <strong>mysql-server</strong>, <strong>mysql-server-5.7</strong>, and <strong>mysql-server-core-5.7</strong>.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ sudo apt remove mysql-server mysql-server-5.7 mysql-server-core-5.7</span><br><span class="line">...</span><br><span class="line">➜  ~ sudo apt install mysql-server mysql-server-5.7 mysql-server-core-5.7</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 
-<p><strong>/var/run/mysqld/mysqld.sock</strong> is <strong>NOW</strong> back, and <strong>MySQL</strong> seems to run automatically.</p>
+<p><strong>&#x2F;var&#x2F;run&#x2F;mysqld&#x2F;mysqld.sock</strong> is <strong>NOW</strong> back, and <strong>MySQL</strong> seems to run automatically.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ls -ls /var/run/mysqld/mysqld.sock</span><br><span class="line">0 srwxrwxrwx 1 mysql mysql 0 Nov 30 03:08 /var/run/mysqld/mysqld.sock</span><br><span class="line">➜  ~ ps aux | grep mysql</span><br><span class="line">mysql    13785  0.1  0.3 1323300 172680 ?      Sl   03:08   0:00 /usr/sbin/mysqld --daemonize --pid-file=/run/mysqld/mysqld.pid</span><br><span class="line">jiapei   14453  0.0  0.0  21556  2560 pts/0    R+   03:16   0:00 grep --color=auto --exclude-dir=.bzr --exclude-dir=CVS --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn mysql</span><br></pre></td></tr></table></figure>
 
 <p>Then, use <strong>chown</strong> and <strong>chmod</strong> to set up the owners and permissions suitably as follows.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">➜  run <span class="built_in">pwd</span></span><br><span class="line">/var/run</span><br><span class="line">➜  run sudo chown mysql:mysql -R mysql</span><br><span class="line">➜  run sudo chmod 755 -R mysql</span><br><span class="line">➜  run ls -lsd mysql</span><br><span class="line">0 drwxr-xr-x 2 mysql mysql 100 Nov 30 02:38 mysqld</span><br><span class="line">➜  run <span class="built_in">cd</span> ../lib</span><br><span class="line">➜  lib <span class="built_in">pwd</span></span><br><span class="line">/var/lib</span><br><span class="line">➜  lib sudo chown mysql:mysql -R mysql</span><br><span class="line">➜  lib sudo chmod 755 -R mysql</span><br><span class="line">➜  lib ls -lsd mysql</span><br><span class="line">4 drwxr-xr-x 6 mysql mysql 4096 Nov 30 02:38 mysql</span><br></pre></td></tr></table></figure>
 
 
-<h2 id="1-4-ERROR-1698-28000-Access-denied-for-user-‘root’-’localhost’"><a href="#1-4-ERROR-1698-28000-Access-denied-for-user-‘root’-’localhost’" class="headerlink" title="1.4 ERROR 1698 (28000): Access denied for user ‘root’@’localhost’"></a>1.4 ERROR 1698 (28000): Access denied for user ‘root’@’localhost’</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ mysql -u root -p</span><br><span class="line">Enter password: </span><br><span class="line">ERROR 1698 (28000): Access denied <span class="keyword">for</span> user <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span></span><br><span class="line">➜  ~ sudo mysql -u root</span><br><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection id is 3</span><br><span class="line">Server version: 5.7.24-0ubuntu0.18.04.1 (Ubuntu)</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type <span class="string">&#x27;help;&#x27;</span> or <span class="string">&#x27;\h&#x27;</span> <span class="keyword">for</span> <span class="built_in">help</span>. Type <span class="string">&#x27;\c&#x27;</span> to clear the current input statement.</span><br><span class="line"></span><br><span class="line">mysql&gt; USE lvrsql;</span><br><span class="line">Reading table information <span class="keyword">for</span> completion of table and column names</span><br><span class="line">You can turn off this feature to get a quicker startup with -A</span><br><span class="line"></span><br><span class="line">Database changed</span><br><span class="line">mysql&gt; CREATE USER <span class="string">&#x27;YOUR_SYSTEM_USER&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED BY <span class="string">&#x27;YOUR_PASSWORD&#x27;</span>;</span><br><span class="line">mysql&gt; GRANT ALL PRIVILEGES ON *.* TO <span class="string">&#x27;YOUR_SYSTEM_USER&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>;</span><br><span class="line">mysql&gt; FLUSH PRIVILEGES;</span><br><span class="line">mysql&gt; <span class="built_in">exit</span>;</span><br><span class="line"></span><br><span class="line">➜  ~ service mysql restart</span><br><span class="line">➜  ~ </span><br></pre></td></tr></table></figure>
+<h2 id="1-4-ERROR-1698-28000-Access-denied-for-user-‘root‘-’localhost’"><a href="#1-4-ERROR-1698-28000-Access-denied-for-user-‘root‘-’localhost’" class="headerlink" title="1.4 ERROR 1698 (28000): Access denied for user ‘root‘@’localhost’"></a>1.4 ERROR 1698 (28000): Access denied for user ‘root‘@’localhost’</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ mysql -u root -p</span><br><span class="line">Enter password: </span><br><span class="line">ERROR 1698 (28000): Access denied <span class="keyword">for</span> user <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span></span><br><span class="line">➜  ~ sudo mysql -u root</span><br><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection id is 3</span><br><span class="line">Server version: 5.7.24-0ubuntu0.18.04.1 (Ubuntu)</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type <span class="string">&#x27;help;&#x27;</span> or <span class="string">&#x27;\h&#x27;</span> <span class="keyword">for</span> <span class="built_in">help</span>. Type <span class="string">&#x27;\c&#x27;</span> to clear the current input statement.</span><br><span class="line"></span><br><span class="line">mysql&gt; USE lvrsql;</span><br><span class="line">Reading table information <span class="keyword">for</span> completion of table and column names</span><br><span class="line">You can turn off this feature to get a quicker startup with -A</span><br><span class="line"></span><br><span class="line">Database changed</span><br><span class="line">mysql&gt; CREATE USER <span class="string">&#x27;YOUR_SYSTEM_USER&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED BY <span class="string">&#x27;YOUR_PASSWORD&#x27;</span>;</span><br><span class="line">mysql&gt; GRANT ALL PRIVILEGES ON *.* TO <span class="string">&#x27;YOUR_SYSTEM_USER&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>;</span><br><span class="line">mysql&gt; FLUSH PRIVILEGES;</span><br><span class="line">mysql&gt; <span class="built_in">exit</span>;</span><br><span class="line"></span><br><span class="line">➜  ~ service mysql restart</span><br><span class="line">➜  ~ </span><br></pre></td></tr></table></figure>
 
 
-<h2 id="1-5-ERROR-InnoDB-Unable-to-lock-ibdata1-Additional"><a href="#1-5-ERROR-InnoDB-Unable-to-lock-ibdata1-Additional" class="headerlink" title="1.5 [ERROR] InnoDB: Unable to lock ./ibdata1 (Additional)"></a>1.5 [ERROR] InnoDB: Unable to lock ./ibdata1 (Additional)</h2><p>If you meet the above <strong>ERROR</strong> message, what you can do is to restart <strong>MySQL</strong> by:</p>
+<h2 id="1-5-ERROR-InnoDB-Unable-to-lock-x2F-ibdata1-Additional"><a href="#1-5-ERROR-InnoDB-Unable-to-lock-x2F-ibdata1-Additional" class="headerlink" title="1.5 [ERROR] InnoDB: Unable to lock .&#x2F;ibdata1 (Additional)"></a>1.5 [ERROR] InnoDB: Unable to lock .&#x2F;ibdata1 (Additional)</h2><p>If you meet the above <strong>ERROR</strong> message, what you can do is to restart <strong>MySQL</strong> by:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ /etc/init.d/mysql restart</span><br><span class="line">[ ok ] Restarting mysql (via systemctl): mysql.service.</span><br><span class="line">➜  ~ </span><br></pre></td></tr></table></figure>
 
 
@@ -299,7 +288,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -312,10 +301,28 @@
   </footer>
 
   
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
+
 
 
 

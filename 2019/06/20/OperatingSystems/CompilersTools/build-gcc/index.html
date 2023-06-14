@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
-
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.0.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -16,11 +14,12 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="Today, let’s try to build the MOST RECENT GCC 9.1. We strictly follow the TERRIFIC blog How to Build a GCC Cross-Compiler with trivial modifications for my x86_64 desktop instead of aarch64 cross comp">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Today, let’s try to build the MOST RECENT GCC 9.1. We strictly follow the TERRIFIC blog How to Build a GCC Cross-Compiler with trivial modifications for my x86_64 desktop instead of aarch64 cross comp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Build GCC">
 <meta property="og:url" content="http://longervision.ca/2019/06/20/OperatingSystems/CompilersTools/build-gcc/index.html">
@@ -47,6 +46,10 @@
 
 
 
+
+
+
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -56,8 +59,8 @@
   <div class="headband"></div>
 
   <main class="main">
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar" role="button">
     </div>
@@ -74,7 +77,7 @@
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
     </div>
   </div>
 </div>
@@ -85,15 +88,9 @@
 
 
 
-</div>
+</header>
         
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-
   <aside class="sidebar">
 
     <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
@@ -109,57 +106,45 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Preparations"><span class="nav-number">1.</span> <span class="nav-text">Preparations</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Packages-Required-on-HOST"><span class="nav-number">1.1.</span> <span class="nav-text">Packages Required on HOST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Get-ALL-Packages-for-Building-GCC"><span class="nav-number">1.2.</span> <span class="nav-text">Get ALL Packages for Building GCC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prepare-Symbolic-Links"><span class="nav-number">1.3.</span> <span class="nav-text">Prepare Symbolic Links</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prepare-Build-Target-Folder"><span class="nav-number">1.4.</span> <span class="nav-text">Prepare Build Target Folder</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Start-Building"><span class="nav-number">2.</span> <span class="nav-text">Start Building</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Binutils"><span class="nav-number">2.1.</span> <span class="nav-text">Binutils</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-Kernel-Headers"><span class="nav-number">2.2.</span> <span class="nav-text">Linux Kernel Headers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-C-Compilers"><span class="nav-number">2.3.</span> <span class="nav-text">C&#x2F;C++ Compilers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GLibc"><span class="nav-number">2.4.</span> <span class="nav-text">GLibc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Compiler-Support-Library"><span class="nav-number">2.5.</span> <span class="nav-text">Compiler Support Library</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-Standard-C-Library"><span class="nav-number">2.6.</span> <span class="nav-text">Build Standard C Library</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-Standard-C-Library-1"><span class="nav-number">2.7.</span> <span class="nav-text">Build Standard C++ Library</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Finishing-and-Test"><span class="nav-number">3.</span> <span class="nav-text">Finishing and Test</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Check-GCC-Version"><span class="nav-number">3.1.</span> <span class="nav-text">Check GCC Version</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Run-Hello-World"><span class="nav-number">3.2.</span> <span class="nav-text">Run Hello World</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Preparations"><span class="nav-number">1.</span> <span class="nav-text">Preparations</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Packages-Required-on-HOST"><span class="nav-number">1.1.</span> <span class="nav-text">Packages Required on HOST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Get-ALL-Packages-for-Building-GCC"><span class="nav-number">1.2.</span> <span class="nav-text">Get ALL Packages for Building GCC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prepare-Symbolic-Links"><span class="nav-number">1.3.</span> <span class="nav-text">Prepare Symbolic Links</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prepare-Build-Target-Folder"><span class="nav-number">1.4.</span> <span class="nav-text">Prepare Build Target Folder</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Start-Building"><span class="nav-number">2.</span> <span class="nav-text">Start Building</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Binutils"><span class="nav-number">2.1.</span> <span class="nav-text">Binutils</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-Kernel-Headers"><span class="nav-number">2.2.</span> <span class="nav-text">Linux Kernel Headers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-x2F-C-Compilers"><span class="nav-number">2.3.</span> <span class="nav-text">C&#x2F;C++ Compilers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GLibc"><span class="nav-number">2.4.</span> <span class="nav-text">GLibc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Compiler-Support-Library"><span class="nav-number">2.5.</span> <span class="nav-text">Compiler Support Library</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-Standard-C-Library"><span class="nav-number">2.6.</span> <span class="nav-text">Build Standard C Library</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-Standard-C-Library-1"><span class="nav-number">2.7.</span> <span class="nav-text">Build Standard C++ Library</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Finishing-and-Test"><span class="nav-number">3.</span> <span class="nav-text">Finishing and Test</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Check-GCC-Version"><span class="nav-number">3.1.</span> <span class="nav-text">Check GCC Version</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Run-Hello-World"><span class="nav-number">3.2.</span> <span class="nav-text">Run Hello World</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Nobody</p>
   <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
 </div>
-<div class="site-state-wrap site-overview-item animated">
+<div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-count">114</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">98</span>
+        <span class="site-state-item-count">109</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
 
-
-
         </div>
       </div>
     </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
-
-
-    </header>
 
     
-  <div class="back-to-top" role="button" aria-label="Back to top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
+  </aside>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
 
+    </div>
 
     <div class="main-inner post posts-expand">
 
@@ -177,11 +162,16 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Build GCC | Longer Vision Technology">
+      <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -228,8 +218,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <p>Today, let’s try to build the <strong>MOST RECENT</strong> <a target="_blank" rel="noopener" href="https://gcc.gnu.org/gcc-9/">GCC 9.1</a>. We strictly follow the <strong>TERRIFIC</strong> blog <a target="_blank" rel="noopener" href="https://preshing.com/20141119/how-to-build-a-gcc-cross-compiler/">How to Build a GCC Cross-Compiler</a> with trivial modifications for my <strong>x86_64</strong> desktop instead of <strong>aarch64</strong> cross compile.</p>
+    <div class="post-body" itemprop="articleBody"><p>Today, let’s try to build the <strong>MOST RECENT</strong> <a target="_blank" rel="noopener" href="https://gcc.gnu.org/gcc-9/">GCC 9.1</a>. We strictly follow the <strong>TERRIFIC</strong> blog <a target="_blank" rel="noopener" href="https://preshing.com/20141119/how-to-build-a-gcc-cross-compiler/">How to Build a GCC Cross-Compiler</a> with trivial modifications for my <strong>x86_64</strong> desktop instead of <strong>aarch64</strong> cross compile.</p>
 <h1 id="Preparations"><a href="#Preparations" class="headerlink" title="Preparations"></a>Preparations</h1><h2 id="Packages-Required-on-HOST"><a href="#Packages-Required-on-HOST" class="headerlink" title="Packages Required on HOST"></a>Packages Required on HOST</h2><p>Some packages are required to install on the host computer, including:</p>
 <ul>
 <li>g++</li>
@@ -266,7 +255,7 @@
 
 <h2 id="Linux-Kernel-Headers"><a href="#Linux-Kernel-Headers" class="headerlink" title="Linux Kernel Headers"></a>Linux Kernel Headers</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc cd linux-5.1.12</span><br><span class="line">➜  linux-5.1.12 make ARCH=x86 INSTALL_HDR_PATH=/opt/native/linux headers_install</span><br><span class="line">➜  linux-5.1.12 cd ..</span><br></pre></td></tr></table></figure>
 
-<h2 id="C-C-Compilers"><a href="#C-C-Compilers" class="headerlink" title="C/C++ Compilers"></a>C/C++ Compilers</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc mkdir -p build-gcc</span><br><span class="line">➜  gcc cd build-gcc</span><br><span class="line">➜  build-gcc ../gcc-9.1.0/configure --prefix=/opt/native --target=x86_64-linux-gnu --enable-languages=c,c++,fortran,go --disable-multilib --enable-vtable-verify</span><br><span class="line">➜  build-gcc make -j4 all-gcc</span><br><span class="line">➜  build-gcc make install-gcc</span><br><span class="line">➜  build-gcc cd ..</span><br></pre></td></tr></table></figure>
+<h2 id="C-x2F-C-Compilers"><a href="#C-x2F-C-Compilers" class="headerlink" title="C&#x2F;C++ Compilers"></a>C&#x2F;C++ Compilers</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc mkdir -p build-gcc</span><br><span class="line">➜  gcc cd build-gcc</span><br><span class="line">➜  build-gcc ../gcc-9.1.0/configure --prefix=/opt/native --target=x86_64-linux-gnu --enable-languages=c,c++,fortran,go --disable-multilib --enable-vtable-verify</span><br><span class="line">➜  build-gcc make -j4 all-gcc</span><br><span class="line">➜  build-gcc make install-gcc</span><br><span class="line">➜  build-gcc cd ..</span><br></pre></td></tr></table></figure>
 
 <h2 id="GLibc"><a href="#GLibc" class="headerlink" title="GLibc"></a>GLibc</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc mkdir -p build-glibc</span><br><span class="line">➜  gcc cd build-glibc</span><br><span class="line">➜  build-glibc ../glibc-2.29/configure --prefix=/opt/native/linux --build=$MACHTYPE --host=x86_64-linux-gnu --target=x86_64-linux-gnu --with-headers=/opt/native/linux/include --disable-multilib --with-selinux=no --enable-vtable-verify libc_cv_forced_unwind=yes</span><br><span class="line">➜  build-glibc make install-bootstrap-headers=yes install-headers</span><br><span class="line">➜  build-glibc make -j4 csu/subdir_lib</span><br><span class="line">➜  build-glibc mkdir /opt/native/linux/lib</span><br><span class="line">➜  build-glibc install csu/crt1.o csu/crti.o csu/crtn.o /opt/native/linux/lib</span><br><span class="line">➜  build-glibc /opt/native/bin/x86_64-linux-gnu-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o /opt/native/linux/lib/libc.so</span><br><span class="line">➜  build-glibc touch /opt/native/linux/include/gnu/stubs.h</span><br><span class="line">➜  build-glibc cd ..</span><br></pre></td></tr></table></figure>
 
@@ -325,7 +314,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -338,10 +327,28 @@
   </footer>
 
   
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
+
 
 
 

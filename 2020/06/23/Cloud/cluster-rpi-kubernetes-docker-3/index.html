@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
-
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.0.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -16,11 +14,12 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="In this blog, we’re going to explore Kubernetes. However, there is a VERY FIRST question to be answered: what is the relationship between Kubernetes and Docker? Let’s start our journey of today: 1 Kub">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="In this blog, we’re going to explore Kubernetes. However, there is a VERY FIRST question to be answered: what is the relationship between Kubernetes and Docker? Let’s start our journey of today: 1 Kub">
 <meta property="og:type" content="article">
 <meta property="og:title" content="A Cluster of Raspberry Pis (3) - k3s">
 <meta property="og:url" content="http://longervision.ca/2020/06/23/Cloud/cluster-rpi-kubernetes-docker-3/index.html">
@@ -47,6 +46,10 @@
 
 
 
+
+
+
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -56,8 +59,8 @@
   <div class="headband"></div>
 
   <main class="main">
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar" role="button">
     </div>
@@ -74,7 +77,7 @@
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
     </div>
   </div>
 </div>
@@ -85,15 +88,9 @@
 
 
 
-</div>
+</header>
         
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-
   <aside class="sidebar">
 
     <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
@@ -114,52 +111,40 @@
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Nobody</p>
   <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
 </div>
-<div class="site-state-wrap site-overview-item animated">
+<div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-count">114</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">98</span>
+        <span class="site-state-item-count">109</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
 
-
-
         </div>
       </div>
     </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
-
-
-    </header>
 
     
-  <div class="back-to-top" role="button" aria-label="Back to top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
+  </aside>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
 
+    </div>
 
     <div class="main-inner post posts-expand">
 
@@ -177,11 +162,16 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="A Cluster of Raspberry Pis (3) - k3s | Longer Vision Technology">
+      <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -224,8 +214,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <p>In this blog, we’re going to explore <a target="_blank" rel="noopener" href="https://kubernetes.io/">Kubernetes</a>. However, there is a <strong>VERY FIRST</strong> question to be answered: what is the relationship between <a target="_blank" rel="noopener" href="https://kubernetes.io/">Kubernetes</a> and <a target="_blank" rel="noopener" href="https://www.docker.com/">Docker</a>? Let’s start our journey of today:</p>
+    <div class="post-body" itemprop="articleBody"><p>In this blog, we’re going to explore <a target="_blank" rel="noopener" href="https://kubernetes.io/">Kubernetes</a>. However, there is a <strong>VERY FIRST</strong> question to be answered: what is the relationship between <a target="_blank" rel="noopener" href="https://kubernetes.io/">Kubernetes</a> and <a target="_blank" rel="noopener" href="https://www.docker.com/">Docker</a>? Let’s start our journey of today:</p>
 <h1 id="1-Kubernetes"><a href="#1-Kubernetes" class="headerlink" title="1 Kubernetes"></a>1 <a target="_blank" rel="noopener" href="https://kubernetes.io/">Kubernetes</a></h1><p><code>Kubernetes (commonly stylized as k8s) is an open-source container-orchestration system for automating application deployment, scaling, and management.</code> (cited from <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Kubernetes">Wikipedia</a>)</p>
 <p>On <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/">Raspberry Pi</a>, a lightweight variant of <a target="_blank" rel="noopener" href="https://kubernetes.io/">Kubernetes</a> is normally preferred. A variety of choices are available:</p>
 <ul>
@@ -264,10 +253,10 @@
 <td align="left"><a target="_blank" rel="noopener" href="https://www.docker.com/">Docker</a>, <a target="_blank" rel="noopener" href="https://containerd.io/">containerd</a></td>
 </tr>
 <tr>
-<td align="left">startup time: initial/following</td>
-<td align="left">5:19 / 3:15</td>
-<td align="left">2:48 / 1:06</td>
-<td align="left">0:15 / 0:15</td>
+<td align="left">startup time: initial&#x2F;following</td>
+<td align="left">5:19 &#x2F; 3:15</td>
+<td align="left">2:48 &#x2F; 1:06</td>
+<td align="left">0:15 &#x2F; 0:15</td>
 </tr>
 <tr>
 <td align="left">memory requirements</td>
@@ -323,7 +312,7 @@
 
 
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">pi@pi0X:~ $ curl -sfL http://get.k3s.io | K3S_URL=https://192.168.1.253:6443 \</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> K3S_TOKEN=K10cedbc6396ab68f6bee0d2df3eb005f0ff9ea17275aed2763b6bf07a06e83ce47::server:9a0d84f3bd8044b341c95f967badd5d3 sh -</span></span><br><span class="line">[INFO]  Finding release for channel stable</span><br><span class="line">[INFO]  Using v1.18.3+k3s1 as release</span><br><span class="line">[INFO]  Downloading hash https://github.com/rancher/k3s/releases/download/v1.18.3+k3s1/sha256sum-arm.txt</span><br><span class="line">[INFO]  Skipping binary downloaded, installed k3s matches hash</span><br><span class="line">[INFO]  Skipping /usr/local/bin/kubectl symlink to k3s, command exists in PATH at /usr/bin/kubectl</span><br><span class="line">[INFO]  Skipping /usr/local/bin/crictl symlink to k3s, command exists in PATH at /usr/bin/crictl</span><br><span class="line">[INFO]  Skipping /usr/local/bin/ctr symlink to k3s, command exists in PATH at /usr/bin/ctr</span><br><span class="line">[INFO]  Creating killall script /usr/local/bin/k3s-killall.sh</span><br><span class="line">[INFO]  Creating uninstall script /usr/local/bin/k3s-agent-uninstall.sh</span><br><span class="line">[INFO]  env: Creating environment file /etc/systemd/system/k3s-agent.service.env</span><br><span class="line">[INFO]  systemd: Creating service file /etc/systemd/system/k3s-agent.service</span><br><span class="line">[INFO]  systemd: Enabling k3s-agent unit</span><br><span class="line">Created symlink /etc/systemd/system/multi-user.target.wants/k3s-agent.service → /etc/systemd/system/k3s-agent.service.</span><br><span class="line">[INFO]  systemd: Starting k3s-agent</span><br></pre></td></tr></table></figure>
-<p>, where <strong>X=2, or 3, or 4</strong>.</p>
+<p>, where <strong>X&#x3D;2, or 3, or 4</strong>.</p>
 <h2 id="3-3-Take-a-Look-on-pi01"><a href="#3-3-Take-a-Look-on-pi01" class="headerlink" title="3.3 Take a Look on pi01"></a>3.3 Take a Look on pi01</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ sudo kubectl get nodes</span><br><span class="line">NAME   STATUS   ROLES    AGE     VERSION</span><br><span class="line">pi02   Ready    &lt;none&gt;   5m7s    v1.18.3+k3s1</span><br><span class="line">pi03   Ready    &lt;none&gt;   4m18s   v1.18.3+k3s1</span><br><span class="line">pi01   Ready    master   20m     v1.18.3+k3s1</span><br><span class="line">pi04   Ready    &lt;none&gt;   11s     v1.18.3+k3s1</span><br></pre></td></tr></table></figure>
 
 
@@ -332,7 +321,7 @@
 
 <p>We can even specify the role name by the following command:</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> ✔  kubectl label nodes pi0X kubernetes.io/role=worker</span><br><span class="line">node/pi0X labeled</span><br></pre></td></tr></table></figure>
-<p>, where <strong>X=2, or 3, or 4</strong>.</p>
+<p>, where <strong>X&#x3D;2, or 3, or 4</strong>.</p>
 <p>Let’s take a look at all nodes again:</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"> 64  ✔  kubectl get nodes</span><br><span class="line">NAME   STATUS   ROLES    AGE    VERSION</span><br><span class="line">pi04   Ready    worker   2d7h   v1.18.3+k3s1</span><br><span class="line">pi03   Ready    worker   2d7h   v1.18.3+k3s1</span><br><span class="line">pi01   Ready    master   2d7h   v1.18.3+k3s1</span><br><span class="line">pi02   Ready    worker   2d7h   v1.18.3+k3s1</span><br><span class="line"> 66  ✘  kubectl get pods --all-namespaces</span><br><span class="line">  ~ </span><br><span class="line">NAMESPACE              NAME                                         READY   STATUS             RESTARTS   AGE</span><br><span class="line">kube-system            helm-install-traefik-m49zm                   0/1     Completed          0          2d7h</span><br><span class="line">kube-system            svclb-traefik-djtgw                          2/2     Running            2          2d7h</span><br><span class="line">kube-system            svclb-traefik-cn76f                          2/2     Running            2          2d7h</span><br><span class="line">kube-system            local-path-provisioner-6d59f47c7-5gz67       1/1     Running            1          2d7h</span><br><span class="line">kube-system            svclb-traefik-7bwtl                          2/2     Running            2          2d7h</span><br><span class="line">kube-system            coredns-8655855d6-wg68z                      1/1     Running            1          2d7h</span><br><span class="line">kube-system            traefik-758cd5fc85-vn7xg                     1/1     Running            1          2d7h</span><br><span class="line">kube-system            metrics-server-7566d596c8-v2vgp              1/1     Running            1          2d7h</span><br><span class="line">kube-system            svclb-traefik-r9x5v                          2/2     Running            4          2d7h</span><br><span class="line">kubernetes-dashboard   dashboard-metrics-scraper-6b4884c9d5-ct6lh   1/1     Running            0          43h</span><br><span class="line">kubernetes-dashboard   kubernetes-dashboard-7b544877d5-s4spx        0/1     CrashLoopBackOff   489        43h</span><br><span class="line"> 67  ✔  kubectl get pods</span><br><span class="line">  ~ </span><br><span class="line">No resources found in default namespace.</span><br></pre></td></tr></table></figure>
 
@@ -393,7 +382,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -406,10 +395,28 @@
   </footer>
 
   
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
+
 
 
 

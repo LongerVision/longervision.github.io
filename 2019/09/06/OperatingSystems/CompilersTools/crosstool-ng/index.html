@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
-
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.0.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -16,11 +14,12 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="Today, we’re going to build our own toolchain using crosstool-NG. There are so many cases that we want to build a particular toolchain for a specific embedded system development board. One MOST import">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Today, we’re going to build our own toolchain using crosstool-NG. There are so many cases that we want to build a particular toolchain for a specific embedded system development board. One MOST import">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Build Toolchain Using Crosstool-NG">
 <meta property="og:url" content="http://longervision.ca/2019/09/06/OperatingSystems/CompilersTools/crosstool-ng/index.html">
@@ -49,6 +48,10 @@
 
 
 
+
+
+
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -58,8 +61,8 @@
   <div class="headband"></div>
 
   <main class="main">
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar" role="button">
     </div>
@@ -76,7 +79,7 @@
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
     </div>
   </div>
 </div>
@@ -87,15 +90,9 @@
 
 
 
-</div>
+</header>
         
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-
   <aside class="sidebar">
 
     <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
@@ -111,57 +108,45 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Installation"><span class="nav-number">1.</span> <span class="nav-text">1. Installation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Configuration"><span class="nav-number">2.</span> <span class="nav-text">2. Configuration</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Build"><span class="nav-number">3.</span> <span class="nav-text">3. Build</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Compile-Build-a-Package-with-Generated-Toolchain"><span class="nav-number">4.</span> <span class="nav-text">4. Compile&#x2F;Build a Package with Generated Toolchain</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-CMakeLists-txt-Modification"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 CMakeLists.txt Modification</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-1-CMake-Toolchains-Cross-Compiling-for-Linux"><span class="nav-number">4.1.1.</span> <span class="nav-text">4.1.1 CMake Toolchains - Cross Compiling for Linux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-2-Ignore-hdf5"><span class="nav-number">4.1.2.</span> <span class="nav-text">4.1.2 Ignore hdf5</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-Cross-Compile"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 Cross Compile</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-Additional-Issues"><span class="nav-number">5.</span> <span class="nav-text">5. Additional Issues</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Installation"><span class="nav-number">1.</span> <span class="nav-text">1. Installation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Configuration"><span class="nav-number">2.</span> <span class="nav-text">2. Configuration</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Build"><span class="nav-number">3.</span> <span class="nav-text">3. Build</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Compile-x2F-Build-a-Package-with-Generated-Toolchain"><span class="nav-number">4.</span> <span class="nav-text">4. Compile&#x2F;Build a Package with Generated Toolchain</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-CMakeLists-txt-Modification"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 CMakeLists.txt Modification</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-1-CMake-Toolchains-Cross-Compiling-for-Linux"><span class="nav-number">4.1.1.</span> <span class="nav-text">4.1.1 CMake Toolchains - Cross Compiling for Linux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-2-Ignore-hdf5"><span class="nav-number">4.1.2.</span> <span class="nav-text">4.1.2 Ignore hdf5</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-Cross-Compile"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 Cross Compile</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-Additional-Issues"><span class="nav-number">5.</span> <span class="nav-text">5. Additional Issues</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Nobody</p>
   <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
 </div>
-<div class="site-state-wrap site-overview-item animated">
+<div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-count">114</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">98</span>
+        <span class="site-state-item-count">109</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
 
-
-
         </div>
       </div>
     </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
-
-
-    </header>
 
     
-  <div class="back-to-top" role="button" aria-label="Back to top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
+  </aside>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
 
+    </div>
 
     <div class="main-inner post posts-expand">
 
@@ -179,11 +164,16 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Build Toolchain Using Crosstool-NG | Longer Vision Technology">
+      <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -230,14 +220,13 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <p>Today, we’re going to build our own toolchain using <a target="_blank" rel="noopener" href="https://crosstool-ng.github.io/">crosstool-NG</a>. There are so many cases that we want to build a particular <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Toolchain">toolchain</a> for a specific embedded system development board. One <span style="color:red"><strong>MOST important</strong></span> reason for that is probably because the specific development board has limited resource to build upon, therefore, the time-consumption to build some software on the development board is <span style="color:red"><strong>VERY inefficient</strong></span>. In the other way around, <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cross_compiler">cross compiling</a> on the host PC is <span style="color:red"><strong>MORE efficient</strong></span> with respective to the time-consumption.</p>
+    <div class="post-body" itemprop="articleBody"><p>Today, we’re going to build our own toolchain using <a target="_blank" rel="noopener" href="https://crosstool-ng.github.io/">crosstool-NG</a>. There are so many cases that we want to build a particular <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Toolchain">toolchain</a> for a specific embedded system development board. One <span style="color:red"><strong>MOST important</strong></span> reason for that is probably because the specific development board has limited resource to build upon, therefore, the time-consumption to build some software on the development board is <span style="color:red"><strong>VERY inefficient</strong></span>. In the other way around, <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cross_compiler">cross compiling</a> on the host PC is <span style="color:red"><strong>MORE efficient</strong></span> with respective to the time-consumption.</p>
 <p>In this blog, for simplicity, we take <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry Pi 3B</a> as our demo development board, for which we are building the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cross_compiler">cross compiler</a>. Some references can be found at:</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://crosstool-ng.github.io/docs/">crosstool-ng Official Documentation</a></li>
 <li><a target="_blank" rel="noopener" href="https://elinux.org/RPi_Linaro_GCC_Compilation">elinux: RPi Linaro GCC Compilation</a></li>
 </ul>
-<h1 id="1-Installation"><a href="#1-Installation" class="headerlink" title="1. Installation"></a>1. Installation</h1><p>How to install <a target="_blank" rel="noopener" href="https://crosstool-ng.github.io/">crosstool-NG</a> are thoroughly summarized at its <a target="_blank" rel="noopener" href="https://crosstool-ng.github.io/docs/install/">official website</a>. In my case, I had it installed under folder <strong>/opt/compilers/crosstool-ng</strong>. Let’s take a look:</p>
+<h1 id="1-Installation"><a href="#1-Installation" class="headerlink" title="1. Installation"></a>1. Installation</h1><p>How to install <a target="_blank" rel="noopener" href="https://crosstool-ng.github.io/">crosstool-NG</a> are thoroughly summarized at its <a target="_blank" rel="noopener" href="https://crosstool-ng.github.io/docs/install/">official website</a>. In my case, I had it installed under folder <strong>&#x2F;opt&#x2F;compilers&#x2F;crosstool-ng</strong>. Let’s take a look:</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">longervision-GT72-6QE%</span><span class="bash"> <span class="built_in">pwd</span></span></span><br><span class="line">/opt/compilers/crosstool-ng</span><br><span class="line"><span class="meta">longervision-GT72-6QE%</span><span class="bash"> ls</span></span><br><span class="line">bin  libexec  share</span><br><span class="line"><span class="meta">longervision-GT72-6QE%</span><span class="bash"> ls bin</span></span><br><span class="line">ct-ng</span><br></pre></td></tr></table></figure>
 
 <p>And make sure <code>/opt/compilers/crosstool-ng/bin</code> is under environment variable <strong>PATH</strong>.</p>
@@ -271,30 +260,28 @@
 </li>
 <li><strong>Operating System</strong><ul>
 <li><strong>Target OS</strong>: linux</li>
-<li><strong>Version of Linux</strong>: 4.20.8. Currently, I flashed <a target="_blank" rel="noopener" href="https://downloads.raspberrypi.org/raspbian_full_latest">Raspbian Buster with desktop and recommended software, 2019-07-10</a> onto my <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry Pi 3B</a>, it comes with kernel of version <strong>4.19.66</strong>, which is <strong>NOT</strong> in the list. That’s why I decided to select <strong>4.20.8</strong> and try my luck.<div style="font-size:5rem;width:100%;text-align:center;">
-<span class="github-emoji" alias="stuck_out_tongue_closed_eyes" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f61d.png?v8">&#x1f61d;</span>
-</div>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ uname -a</span><br><span class="line">    Linux raspberrypi 4.19.66-v7+ #1253 SMP Thu Aug 15 11:49:46 BST 2019 armv7l GNU/Linux</span><br></pre></td></tr></table></figure></li>
+<li><strong>Version of Linux</strong>: 4.20.8. Currently, I flashed <a target="_blank" rel="noopener" href="https://downloads.raspberrypi.org/raspbian_full_latest">Raspbian Buster with desktop and recommended software, 2019-07-10</a> onto my <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry Pi 3B</a>, it comes with kernel of version <strong>4.19.66</strong>, which is <strong>NOT</strong> in the list. That’s why I decided to select <strong>4.20.8</strong> and try my luck.  <div style="font-size:5rem;width:100%;text-align:center;">
+  <span class="github-emoji" alias="stuck_out_tongue_closed_eyes" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f61d.png?v8">&#x1f61d;</span>
+  </div>
+  <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ uname -a</span><br><span class="line">    Linux raspberrypi 4.19.66-v7+ #1253 SMP Thu Aug 15 11:49:46 BST 2019 armv7l GNU/Linux</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><strong>Binary utilities</strong>:<ul>
 <li><strong>Binary format</strong>: ELF</li>
-<li><strong>Version of binutils</strong>: 2.31.1<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ apt show binutils</span><br><span class="line">Package: binutils</span><br><span class="line">Version: 2.31.1-16+rpi1</span><br><span class="line">Priority: optional</span><br><span class="line">Section: devel</span><br><span class="line">Maintainer: Matthias Klose &lt;doko@debian.org&gt;</span><br><span class="line">Installed-Size: 95.2 kB</span><br><span class="line">Provides: binutils-gold, elf-binutils</span><br><span class="line">Depends: binutils-common (= 2.31.1-16+rpi1), libbinutils (= 2.31.1-16+rpi1), binutils-arm-linux-gnueabihf (= 2.31.1-16+rpi1)</span><br><span class="line">Suggests: binutils-doc (&gt;= 2.31.1-16+rpi1)</span><br><span class="line">Conflicts: binutils-multiarch (&lt;&lt; 2.27-8), modutils (&lt;&lt; 2.4.19-1)</span><br><span class="line">Homepage: https://www.gnu.org/software/binutils/</span><br><span class="line">Download-Size: 56.9 kB</span><br><span class="line">APT-Manual-Installed: no</span><br><span class="line">APT-Sources: http://raspbian.raspberrypi.org/raspbian buster/main armhf Packages</span><br><span class="line">Description: GNU assembler, linker and binary utilities</span><br><span class="line">The programs in this package are used to assemble, link and manipulate</span><br><span class="line">binary and object files.  They may be used in conjunction with a compiler</span><br><span class="line">and various libraries to build programs.</span><br></pre></td></tr></table></figure></li>
+<li><strong>Version of binutils</strong>: 2.31.1  <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ apt show binutils</span><br><span class="line">Package: binutils</span><br><span class="line">Version: 2.31.1-16+rpi1</span><br><span class="line">Priority: optional</span><br><span class="line">Section: devel</span><br><span class="line">Maintainer: Matthias Klose &lt;doko@debian.org&gt;</span><br><span class="line">Installed-Size: 95.2 kB</span><br><span class="line">Provides: binutils-gold, elf-binutils</span><br><span class="line">Depends: binutils-common (= 2.31.1-16+rpi1), libbinutils (= 2.31.1-16+rpi1), binutils-arm-linux-gnueabihf (= 2.31.1-16+rpi1)</span><br><span class="line">Suggests: binutils-doc (&gt;= 2.31.1-16+rpi1)</span><br><span class="line">Conflicts: binutils-multiarch (&lt;&lt; 2.27-8), modutils (&lt;&lt; 2.4.19-1)</span><br><span class="line">Homepage: https://www.gnu.org/software/binutils/</span><br><span class="line">Download-Size: 56.9 kB</span><br><span class="line">APT-Manual-Installed: no</span><br><span class="line">APT-Sources: http://raspbian.raspberrypi.org/raspbian buster/main armhf Packages</span><br><span class="line">Description: GNU assembler, linker and binary utilities</span><br><span class="line">The programs in this package are used to assemble, link and manipulate</span><br><span class="line">binary and object files.  They may be used in conjunction with a compiler</span><br><span class="line">and various libraries to build programs.</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><strong>C-library</strong>:<ul>
 <li><strong>C library</strong>: glibc</li>
-<li><strong>Version of glibc</strong>: 2.28<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ apt show libc-bin</span><br><span class="line">Package: libc-bin</span><br><span class="line">Version: 2.28-10+rpi1</span><br><span class="line">Priority: required</span><br><span class="line">Essential: yes</span><br><span class="line">Section: libs</span><br><span class="line">Source: glibc</span><br><span class="line">Maintainer: GNU Libc Maintainers &lt;debian-glibc@lists.debian.org&gt;</span><br><span class="line">Installed-Size: 3,015 kB</span><br><span class="line">Depends: libc6 (&gt;&gt; 2.28), libc6 (&lt;&lt; 2.29)</span><br><span class="line">Recommends: manpages</span><br><span class="line">Homepage: https://www.gnu.org/software/libc/libc.html</span><br><span class="line">Download-Size: 657 kB</span><br><span class="line">APT-Manual-Installed: yes</span><br><span class="line">APT-Sources: http://raspbian.raspberrypi.org/raspbian buster/main armhf Packages</span><br><span class="line">Description: GNU C Library: Binaries</span><br><span class="line">This package contains utility programs related to the GNU C Library.</span><br><span class="line">.</span><br><span class="line">* catchsegv: catch segmentation faults in programs</span><br><span class="line">* getconf: query system configuration variables</span><br><span class="line">* getent: get entries from administrative databases</span><br><span class="line">* iconv, iconvconfig: convert between character encodings</span><br><span class="line">* ldd, ldconfig: print/configure shared library dependencies</span><br><span class="line">* locale, localedef: show/generate locale definitions</span><br><span class="line">* tzselect, zdump, zic: select/dump/compile time zones</span><br></pre></td></tr></table></figure></li>
+<li><strong>Version of glibc</strong>: 2.28  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ apt show libc-bin</span><br><span class="line">Package: libc-bin</span><br><span class="line">Version: 2.28-10+rpi1</span><br><span class="line">Priority: required</span><br><span class="line">Essential: yes</span><br><span class="line">Section: libs</span><br><span class="line">Source: glibc</span><br><span class="line">Maintainer: GNU Libc Maintainers &lt;debian-glibc@lists.debian.org&gt;</span><br><span class="line">Installed-Size: 3,015 kB</span><br><span class="line">Depends: libc6 (&gt;&gt; 2.28), libc6 (&lt;&lt; 2.29)</span><br><span class="line">Recommends: manpages</span><br><span class="line">Homepage: https://www.gnu.org/software/libc/libc.html</span><br><span class="line">Download-Size: 657 kB</span><br><span class="line">APT-Manual-Installed: yes</span><br><span class="line">APT-Sources: http://raspbian.raspberrypi.org/raspbian buster/main armhf Packages</span><br><span class="line">Description: GNU C Library: Binaries</span><br><span class="line">This package contains utility programs related to the GNU C Library.</span><br><span class="line">.</span><br><span class="line">* catchsegv: catch segmentation faults in programs</span><br><span class="line">* getconf: query system configuration variables</span><br><span class="line">* getent: get entries from administrative databases</span><br><span class="line">* iconv, iconvconfig: convert between character encodings</span><br><span class="line">* ldd, ldconfig: print/configure shared library dependencies</span><br><span class="line">* locale, localedef: show/generate locale definitions</span><br><span class="line">* tzselect, zdump, zic: select/dump/compile time zones</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><strong>C compiler</strong>:<ul>
 <li><strong>Show gcc versions from</strong>: GNU</li>
 <li><strong>Version of gcc</strong>: 8.3.0</li>
-<li><strong>gcc extra config</strong>: –with-float=hard</li>
+<li><strong>gcc extra config</strong>: –with-float&#x3D;hard</li>
 <li><strong>Link libstdc++ statically into the gcc binary</strong>: tick</li>
-<li><strong>C++</strong>: tick<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ apt show gcc</span><br><span class="line">Package: gcc</span><br><span class="line">Version: 4:8.3.0-1+rpi2</span><br><span class="line">Priority: optional</span><br><span class="line">Section: devel</span><br><span class="line">Source: gcc-defaults (1.181+rpi2)</span><br><span class="line">Maintainer: Debian GCC Maintainers &lt;debian-gcc@lists.debian.org&gt;</span><br><span class="line">Installed-Size: 46.1 kB</span><br><span class="line">Provides: c-compiler, gcc-arm-linux-gnueabihf (= 4:8.3.0-1+rpi2)</span><br><span class="line">Depends: cpp (= 4:8.3.0-1+rpi2), gcc-8 (&gt;= 8.3.0-1~)</span><br><span class="line">Recommends: libc6-dev | libc-dev</span><br><span class="line">Suggests: gcc-multilib, make, manpages-dev, autoconf, automake, libtool, flex, bison, gdb, gcc-doc</span><br><span class="line">Conflicts: gcc-doc (&lt;&lt; 1:2.95.3)</span><br><span class="line">Download-Size: 5,200 B</span><br><span class="line">APT-Manual-Installed: no</span><br><span class="line">APT-Sources: http://raspbian.raspberrypi.org/raspbian buster/main armhf Packages</span><br><span class="line">Description: GNU C compiler</span><br><span class="line">This is the GNU C compiler, a fairly portable optimizing compiler for C.</span><br><span class="line">.</span><br><span class="line">This is a dependency package providing the default GNU C compiler.</span><br></pre></td></tr></table></figure>
-
-</li>
+<li><strong>C++</strong>: tick  <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ apt show gcc</span><br><span class="line">Package: gcc</span><br><span class="line">Version: 4:8.3.0-1+rpi2</span><br><span class="line">Priority: optional</span><br><span class="line">Section: devel</span><br><span class="line">Source: gcc-defaults (1.181+rpi2)</span><br><span class="line">Maintainer: Debian GCC Maintainers &lt;debian-gcc@lists.debian.org&gt;</span><br><span class="line">Installed-Size: 46.1 kB</span><br><span class="line">Provides: c-compiler, gcc-arm-linux-gnueabihf (= 4:8.3.0-1+rpi2)</span><br><span class="line">Depends: cpp (= 4:8.3.0-1+rpi2), gcc-8 (&gt;= 8.3.0-1~)</span><br><span class="line">Recommends: libc6-dev | libc-dev</span><br><span class="line">Suggests: gcc-multilib, make, manpages-dev, autoconf, automake, libtool, flex, bison, gdb, gcc-doc</span><br><span class="line">Conflicts: gcc-doc (&lt;&lt; 1:2.95.3)</span><br><span class="line">Download-Size: 5,200 B</span><br><span class="line">APT-Manual-Installed: no</span><br><span class="line">APT-Sources: http://raspbian.raspberrypi.org/raspbian buster/main armhf Packages</span><br><span class="line">Description: GNU C compiler</span><br><span class="line">This is the GNU C compiler, a fairly portable optimizing compiler for C.</span><br><span class="line">.</span><br><span class="line">This is a dependency package providing the default GNU C compiler.</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 </ul>
@@ -322,12 +309,12 @@
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">longervision-GT72-6QE%</span><span class="bash"> arm-rpi-linux-gnueabihf-gcc --version</span></span><br><span class="line">zsh: command not found: arm-rpi-linux-gnueabihf-gcc</span><br><span class="line"><span class="meta">longervision-GT72-6QE%</span><span class="bash"> ./arm-rpi-linux-gnueabihf-gcc --version</span></span><br><span class="line">arm-rpi-linux-gnueabihf-gcc (crosstool-NG 1.24.0.6-afaf7b9) 8.3.0</span><br><span class="line">Copyright (C) 2018 Free Software Foundation, Inc.</span><br><span class="line">This is free software; see the source for copying conditions.  There is NO</span><br><span class="line">warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">longervision-GT72-6QE%</span><span class="bash"> ./arm-rpi-linux-gnueabihf-g++ --version</span></span><br><span class="line">arm-rpi-linux-gnueabihf-g++ (crosstool-NG 1.24.0.6-afaf7b9) 8.3.0</span><br><span class="line">Copyright (C) 2018 Free Software Foundation, Inc.</span><br><span class="line">This is free software; see the source for copying conditions.  There is NO</span><br><span class="line">warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span><br></pre></td></tr></table></figure>
 
 <p><strong><span style="color:red">Additional issue: It seems current <a target="_blank" rel="noopener" href="https://crosstool-ng.github.io/">crosstool-NG</a> does NOT officially support <a target="_blank" rel="noopener" href="https://www.python.org/">Python</a>. Please refer to <a target="_blank" rel="noopener" href="https://github.com/crosstool-ng/crosstool-ng/issues/1235">my issue at crosstool-NG</a>.</span></strong></p>
-<h1 id="4-Compile-Build-a-Package-with-Generated-Toolchain"><a href="#4-Compile-Build-a-Package-with-Generated-Toolchain" class="headerlink" title="4. Compile/Build a Package with Generated Toolchain"></a>4. Compile/Build a Package with Generated Toolchain</h1><p>For most of the packages nowadays, they are</p>
+<h1 id="4-Compile-x2F-Build-a-Package-with-Generated-Toolchain"><a href="#4-Compile-x2F-Build-a-Package-with-Generated-Toolchain" class="headerlink" title="4. Compile&#x2F;Build a Package with Generated Toolchain"></a>4. Compile&#x2F;Build a Package with Generated Toolchain</h1><p>For most of the packages nowadays, they are</p>
 <ul>
 <li>either supported by <a target="_blank" rel="noopener" href="https://www.gnu.org/software/make/">make</a>: <code>./configure -&gt; make -&gt; make install</code></li>
 <li>or supported by <a target="_blank" rel="noopener" href="https://cmake.org/">CMake</a>: <code>mkdir build -&gt; cd build -&gt; ccmake ../ -&gt; make -&gt; make install</code></li>
 </ul>
-<p>How to use our generated toolchain to compile/build our target packages?</p>
+<p>How to use our generated toolchain to compile&#x2F;build our target packages?</p>
 <ul>
 <li>For the <strong>FIRST</strong> option, you can follow the <a target="_blank" rel="noopener" href="https://crosstool-ng.github.io/docs/toolchain-usage/">crosstool-NG Using the toolchain</a>.</li>
 <li>For the <strong>SECOND</strong> option, you are welcome to follow <a target="_blank" rel="noopener" href="https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html">CMake Toolchains</a>.</li>
@@ -376,15 +363,15 @@
 
 <p>You can now:</p>
 <ul>
-<li><code>make install</code> to install the built/generated libraries installed under <strong>CMAKE_INSTALL_PREFIX</strong></li>
-<li>copy and paste the built/generated libraries onto <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry Pi 3B</a> and use it directly.</li>
+<li><code>make install</code> to install the built&#x2F;generated libraries installed under <strong>CMAKE_INSTALL_PREFIX</strong></li>
+<li>copy and paste the built&#x2F;generated libraries onto <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry Pi 3B</a> and use it directly.</li>
 </ul>
 <p><strong>BTW</strong>: do <strong>NOT</strong> forget to install the header files.</p>
-<h1 id="5-Additional-Issues"><a href="#5-Additional-Issues" class="headerlink" title="5. Additional Issues"></a>5. Additional Issues</h1><p><strong>Multilib/multiarch</strong> seems to be problematic nowadays. Please pay attention to <strong>Multilib/multiarch</strong>. Some related issues are enumuated as the end of this blog.</p>
+<h1 id="5-Additional-Issues"><a href="#5-Additional-Issues" class="headerlink" title="5. Additional Issues"></a>5. Additional Issues</h1><p><strong>Multilib&#x2F;multiarch</strong> seems to be problematic nowadays. Please pay attention to <strong>Multilib&#x2F;multiarch</strong>. Some related issues are enumuated as the end of this blog.</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://crosstool-ng.github.io/docs/caveats-features/">Multilib caveats from Official Notes on specific toolchain features</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/crosstool-ng/crosstool-ng/issues/1239">fatal error: gnu/stubs-hard.h: No such file or directory from crosstool-NG</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/pwaring/gcc-cross-compiler/issues/11">fatal error: gnu/stubs-hard.h: No such file or directory from gcc-cross-compiler</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/crosstool-ng/crosstool-ng/issues/1239">fatal error: gnu&#x2F;stubs-hard.h: No such file or directory from crosstool-NG</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/pwaring/gcc-cross-compiler/issues/11">fatal error: gnu&#x2F;stubs-hard.h: No such file or directory from gcc-cross-compiler</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/riscv/riscv-tools/issues/186">Build error: “features.h: No such file or directory” from risc-v tools</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/crosstool-ng/crosstool-ng/issues/945">crosstool-NG risc-v linux multilib issue</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/raspberrypi/tools/issues/50">raspberrypi toolchain issue</a></li>
@@ -437,7 +424,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -450,10 +437,28 @@
   </footer>
 
   
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
+
 
 
 

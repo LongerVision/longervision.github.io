@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
-
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.0.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -16,11 +14,12 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="1. Container VS. Virtual MachineBriefly refer to: What’s the Diff: VMs vs Containers and Bare Metal Servers, Virtual Servers, and Containerization. 2. Docker VS. VMWareBriefly refer to: Docker vs VMWa">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="1. Container VS. Virtual MachineBriefly refer to: What’s the Diff: VMs vs Containers and Bare Metal Servers, Virtual Servers, and Containerization. 2. Docker VS. VMWareBriefly refer to: Docker vs VMWa">
 <meta property="og:type" content="article">
 <meta property="og:title" content="A Cluster of Raspberry Pis (2) - docker &amp; docker swarm">
 <meta property="og:url" content="http://longervision.ca/2020/06/22/Cloud/cluster-rpi-kubernetes-docker-2/index.html">
@@ -49,6 +48,10 @@
 
 
 
+
+
+
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -58,8 +61,8 @@
   <div class="headband"></div>
 
   <main class="main">
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar" role="button">
     </div>
@@ -76,7 +79,7 @@
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
     </div>
   </div>
 </div>
@@ -87,15 +90,9 @@
 
 
 
-</div>
+</header>
         
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-
   <aside class="sidebar">
 
     <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
@@ -111,57 +108,45 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Container-VS-Virtual-Machine"><span class="nav-number">1.</span> <span class="nav-text">1. Container VS. Virtual Machine</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Docker-VS-VMWare"><span class="nav-number">2.</span> <span class="nav-text">2. Docker VS. VMWare</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Install-Docker-on-Raspberry-Pi"><span class="nav-number">3.</span> <span class="nav-text">3. Install Docker on Raspberry Pi</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Modify-boot-config-txt"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Modify &#x2F;boot&#x2F;config.txt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-Docker-Installation"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 Docker Installation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-Installation"><span class="nav-number">3.2.1.</span> <span class="nav-text">3.2.1 Installation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-Uninstall"><span class="nav-number">3.2.2.</span> <span class="nav-text">3.2.2 Uninstall</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-3-Enable-Start-Docker"><span class="nav-number">3.2.3.</span> <span class="nav-text">3.2.3 Enable&#x2F;Start Docker</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-Test-ARM-Image-Pulled-from-Docker-Hub"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 Test ARM Image Pulled from Docker Hub</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-1-Docker-Pull-Docker-Run-Docker-Exec"><span class="nav-number">3.3.1.</span> <span class="nav-text">3.3.1 Docker Pull, Docker Run, Docker Exec</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#pi01-Docker-Hub-arm64v8-is-NOT-stable-yet"><span class="nav-number">3.3.1.1.</span> <span class="nav-text">pi01 ~ Docker Hub arm64v8 is NOT stable yet.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pi0X-Docker-Hub-arm32v6-is-tested"><span class="nav-number">3.3.1.2.</span> <span class="nav-text">pi0X ~ Docker Hub arm32v6 is tested.</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-2-Docker-Login-amp-Docker-Commit"><span class="nav-number">3.3.2.</span> <span class="nav-text">3.3.2 Docker Login &amp; Docker Commit</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-Docker-Info"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 Docker Info</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Docker-Swarm"><span class="nav-number">4.</span> <span class="nav-text">4. Docker Swarm</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-Docker-Swarm-Initialization-on-Master"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 Docker Swarm Initialization on Master</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-Docker-Swarm-Initialization-on-Worker"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 Docker Swarm Initialization on Worker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-List-Docker-Nodes-In-Leader"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 List Docker Nodes In Leader</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-Swarmmode-Test"><span class="nav-number">4.4.</span> <span class="nav-text">4.4 Swarmmode Test</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-1-Scenario-1-Replicate-Service"><span class="nav-number">4.4.1.</span> <span class="nav-text">4.4.1 Scenario 1 - Replicate Service</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-1-1-On-Master"><span class="nav-number">4.4.1.1.</span> <span class="nav-text">4.4.1.1 On Master</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-1-2-On-Worker"><span class="nav-number">4.4.1.2.</span> <span class="nav-text">4.4.1.2 On Worker</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-2-Scenario-2-Replicate-Webservice"><span class="nav-number">4.4.2.</span> <span class="nav-text">4.4.2 Scenario 2 - Replicate Webservice</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-2-1-On-Master-and-Worker-pi02"><span class="nav-number">4.4.2.1.</span> <span class="nav-text">4.4.2.1 On Master and Worker pi02</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-2-2-On-Worker-pi03-and-Worker-pi04"><span class="nav-number">4.4.2.2.</span> <span class="nav-text">4.4.2.2 On Worker pi03 and Worker pi04</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-2-3-Test-The-Webservice"><span class="nav-number">4.4.2.3.</span> <span class="nav-text">4.4.2.3 Test The Webservice</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-3-Scenario-3-Inter-Container-Communication"><span class="nav-number">4.4.3.</span> <span class="nav-text">4.4.3 Scenario 3 - Inter-Container Communication</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-Docker-Swarm-Visualizer"><span class="nav-number">4.5.</span> <span class="nav-text">4.5 Docker Swarm Visualizer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-1-On-Leader"><span class="nav-number">4.5.1.</span> <span class="nav-text">4.5.1 On Leader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-2-On-Remote-Laptop"><span class="nav-number">4.5.2.</span> <span class="nav-text">4.5.2 On Remote Laptop</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Container-VS-Virtual-Machine"><span class="nav-number">1.</span> <span class="nav-text">1. Container VS. Virtual Machine</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Docker-VS-VMWare"><span class="nav-number">2.</span> <span class="nav-text">2. Docker VS. VMWare</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Install-Docker-on-Raspberry-Pi"><span class="nav-number">3.</span> <span class="nav-text">3. Install Docker on Raspberry Pi</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Modify-x2F-boot-x2F-config-txt"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Modify &#x2F;boot&#x2F;config.txt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-Docker-Installation"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 Docker Installation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-Installation"><span class="nav-number">3.2.1.</span> <span class="nav-text">3.2.1 Installation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-Uninstall"><span class="nav-number">3.2.2.</span> <span class="nav-text">3.2.2 Uninstall</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-3-Enable-x2F-Start-Docker"><span class="nav-number">3.2.3.</span> <span class="nav-text">3.2.3 Enable&#x2F;Start Docker</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-Test-ARM-Image-Pulled-from-Docker-Hub"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 Test ARM Image Pulled from Docker Hub</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-1-Docker-Pull-Docker-Run-Docker-Exec"><span class="nav-number">3.3.1.</span> <span class="nav-text">3.3.1 Docker Pull, Docker Run, Docker Exec</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#pi01-Docker-Hub-arm64v8-is-NOT-stable-yet"><span class="nav-number">3.3.1.1.</span> <span class="nav-text">pi01 ~ Docker Hub arm64v8 is NOT stable yet.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pi0X-Docker-Hub-arm32v6-is-tested"><span class="nav-number">3.3.1.2.</span> <span class="nav-text">pi0X ~ Docker Hub arm32v6 is tested.</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-2-Docker-Login-amp-Docker-Commit"><span class="nav-number">3.3.2.</span> <span class="nav-text">3.3.2 Docker Login &amp; Docker Commit</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-Docker-Info"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 Docker Info</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Docker-Swarm"><span class="nav-number">4.</span> <span class="nav-text">4. Docker Swarm</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-Docker-Swarm-Initialization-on-Master"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 Docker Swarm Initialization on Master</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-Docker-Swarm-Initialization-on-Worker"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 Docker Swarm Initialization on Worker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-List-Docker-Nodes-In-Leader"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 List Docker Nodes In Leader</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-Swarmmode-Test"><span class="nav-number">4.4.</span> <span class="nav-text">4.4 Swarmmode Test</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-1-Scenario-1-Replicate-Service"><span class="nav-number">4.4.1.</span> <span class="nav-text">4.4.1 Scenario 1 - Replicate Service</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-1-1-On-Master"><span class="nav-number">4.4.1.1.</span> <span class="nav-text">4.4.1.1 On Master</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-1-2-On-Worker"><span class="nav-number">4.4.1.2.</span> <span class="nav-text">4.4.1.2 On Worker</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-2-Scenario-2-Replicate-Webservice"><span class="nav-number">4.4.2.</span> <span class="nav-text">4.4.2 Scenario 2 - Replicate Webservice</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-2-1-On-Master-and-Worker-pi02"><span class="nav-number">4.4.2.1.</span> <span class="nav-text">4.4.2.1 On Master and Worker pi02</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-2-2-On-Worker-pi03-and-Worker-pi04"><span class="nav-number">4.4.2.2.</span> <span class="nav-text">4.4.2.2 On Worker pi03 and Worker pi04</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-2-3-Test-The-Webservice"><span class="nav-number">4.4.2.3.</span> <span class="nav-text">4.4.2.3 Test The Webservice</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-3-Scenario-3-Inter-Container-Communication"><span class="nav-number">4.4.3.</span> <span class="nav-text">4.4.3 Scenario 3 - Inter-Container Communication</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-Docker-Swarm-Visualizer"><span class="nav-number">4.5.</span> <span class="nav-text">4.5 Docker Swarm Visualizer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-1-On-Leader"><span class="nav-number">4.5.1.</span> <span class="nav-text">4.5.1 On Leader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-2-On-Remote-Laptop"><span class="nav-number">4.5.2.</span> <span class="nav-text">4.5.2 On Remote Laptop</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Nobody</p>
   <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
 </div>
-<div class="site-state-wrap site-overview-item animated">
+<div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-count">114</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">98</span>
+        <span class="site-state-item-count">109</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
 
-
-
         </div>
       </div>
     </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
-
-
-    </header>
 
     
-  <div class="back-to-top" role="button" aria-label="Back to top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
+  </aside>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
 
+    </div>
 
     <div class="main-inner post posts-expand">
 
@@ -179,11 +164,16 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="A Cluster of Raspberry Pis (2) - docker & docker swarm | Longer Vision Technology">
+      <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -226,8 +216,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <h1 id="1-Container-VS-Virtual-Machine"><a href="#1-Container-VS-Virtual-Machine" class="headerlink" title="1. Container VS. Virtual Machine"></a>1. Container VS. Virtual Machine</h1><p>Briefly refer to: <a target="_blank" rel="noopener" href="https://www.backblaze.com/blog/vm-vs-containers/">What’s the Diff: VMs vs Containers</a> and <a target="_blank" rel="noopener" href="https://www.trustradius.com/buyer-blog/bare-metal-servers-virtual-servers-and-containerization">Bare Metal Servers, Virtual Servers, and Containerization</a>.</p>
+    <div class="post-body" itemprop="articleBody"><h1 id="1-Container-VS-Virtual-Machine"><a href="#1-Container-VS-Virtual-Machine" class="headerlink" title="1. Container VS. Virtual Machine"></a>1. Container VS. Virtual Machine</h1><p>Briefly refer to: <a target="_blank" rel="noopener" href="https://www.backblaze.com/blog/vm-vs-containers/">What’s the Diff: VMs vs Containers</a> and <a target="_blank" rel="noopener" href="https://www.trustradius.com/buyer-blog/bare-metal-servers-virtual-servers-and-containerization">Bare Metal Servers, Virtual Servers, and Containerization</a>.</p>
 <h1 id="2-Docker-VS-VMWare"><a href="#2-Docker-VS-VMWare" class="headerlink" title="2. Docker VS. VMWare"></a>2. <a target="_blank" rel="noopener" href="https://www.docker.com/">Docker</a> VS. <a target="_blank" rel="noopener" href="https://www.vmware.com/">VMWare</a></h1><p>Briefly refer to: <a target="_blank" rel="noopener" href="https://www.upguard.com/articles/docker-vs.-vmware-how-do-they-stack-up">Docker vs VMWare: How Do They Stack Up?</a>.</p>
 <p>For me, I used to use <a target="_blank" rel="noopener" href="https://www.virtualbox.org/">Virtual Box</a> (a virtual machine) a lot, but now start using <a target="_blank" rel="noopener" href="https://www.docker.com/">Docker</a> (the leading container).</p>
 <h1 id="3-Install-Docker-on-Raspberry-Pi"><a href="#3-Install-Docker-on-Raspberry-Pi" class="headerlink" title="3. Install Docker on Raspberry Pi"></a>3. Install <a target="_blank" rel="noopener" href="https://www.docker.com/">Docker</a> on <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/">Raspberry Pi</a></h1><p>I heavily refer to Alex Ellis’ blogs:</p>
@@ -237,7 +226,7 @@
 <li><a target="_blank" rel="noopener" href="https://blog.alexellis.io/5-things-docker-rpi/">5 things about Docker on Raspberry Pi</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.alexellis.io/live-deep-dive-pi-swarm/">Live Deep Dive - Docker Swarm Mode on the Pi</a></li>
 </ul>
-<h2 id="3-1-Modify-boot-config-txt"><a href="#3-1-Modify-boot-config-txt" class="headerlink" title="3.1 Modify /boot/config.txt"></a>3.1 Modify /boot/config.txt</h2><table style="text-align:center;">
+<h2 id="3-1-Modify-x2F-boot-x2F-config-txt"><a href="#3-1-Modify-x2F-boot-x2F-config-txt" class="headerlink" title="3.1 Modify &#x2F;boot&#x2F;config.txt"></a>3.1 Modify &#x2F;boot&#x2F;config.txt</h2><table style="text-align:center;">
   <tr>
     <td>Hostname</td>
     <td>/boot/config.txt</td>
@@ -287,7 +276,7 @@
 <li><code>sudo ip link delete docker0</code></li>
 </ul>
 <p>Beside have <a target="_blank" rel="noopener" href="https://www.docker.com/">Docker</a> uninstalled, you may have to manually remove the <strong>IP</strong> link to <strong>docker0</strong>.</p>
-<h3 id="3-2-3-Enable-Start-Docker"><a href="#3-2-3-Enable-Start-Docker" class="headerlink" title="3.2.3 Enable/Start Docker"></a>3.2.3 Enable/Start <a target="_blank" rel="noopener" href="https://www.docker.com/">Docker</a></h3><p>Then, let’s enable and start <strong>docker</strong> service, and add user <strong>pi</strong> into group <strong>docker</strong> to be able to run <strong>docker</strong> as user <strong>root</strong>.</p>
+<h3 id="3-2-3-Enable-x2F-Start-Docker"><a href="#3-2-3-Enable-x2F-Start-Docker" class="headerlink" title="3.2.3 Enable&#x2F;Start Docker"></a>3.2.3 Enable&#x2F;Start <a target="_blank" rel="noopener" href="https://www.docker.com/">Docker</a></h3><p>Then, let’s enable and start <strong>docker</strong> service, and add user <strong>pi</strong> into group <strong>docker</strong> to be able to run <strong>docker</strong> as user <strong>root</strong>.</p>
 <ul>
 <li><code>sudo systemctl enable docker</code></li>
 <li><code>sudo systemctl start docker</code></li>
@@ -299,34 +288,34 @@
 <p>Afterwards, reboot all <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/">Raspberry Pi</a>.</p>
 <p>Now, let’s check the installed <a target="_blank" rel="noopener" href="https://www.docker.com/">Docker</a> version:</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">pi@pi0X:~ $ docker version</span><br><span class="line">Client: Docker Engine - Community</span><br><span class="line"> Version:           19.03.11</span><br><span class="line"> API version:       1.40</span><br><span class="line"> Go version:        go1.13.10</span><br><span class="line"> Git commit:        42e35e6</span><br><span class="line"> Built:             Mon Jun  1 09:20:15 2020</span><br><span class="line"> OS/Arch:           linux/arm</span><br><span class="line"> Experimental:      false</span><br><span class="line"></span><br><span class="line">Server: Docker Engine - Community</span><br><span class="line"> Engine:</span><br><span class="line">  Version:          19.03.11</span><br><span class="line">  API version:      1.40 (minimum version 1.12)</span><br><span class="line">  Go version:       go1.13.10</span><br><span class="line">  Git commit:       42e35e6</span><br><span class="line">  Built:            Mon Jun  1 09:14:09 2020</span><br><span class="line">  OS/Arch:          linux/arm</span><br><span class="line">  Experimental:     false</span><br><span class="line"> containerd:</span><br><span class="line">  Version:          1.2.13</span><br><span class="line">  GitCommit:        7ad184331fa3e55e52b890ea95e65ba581ae3429</span><br><span class="line"> runc:</span><br><span class="line">  Version:          1.0.0-rc10</span><br><span class="line">  GitCommit:        dc9208a3303feef5b3839f4323d9beb36df0a9dd</span><br><span class="line"> docker-init:</span><br><span class="line">  Version:          0.18.0</span><br><span class="line">  GitCommit:        fec3683</span><br></pre></td></tr></table></figure>
-<p>, where <strong>X=1, or 2, or 3, or 4</strong>.</p>
-<h2 id="3-3-Test-ARM-Image-Pulled-from-Docker-Hub"><a href="#3-3-Test-ARM-Image-Pulled-from-Docker-Hub" class="headerlink" title="3.3 Test ARM Image Pulled from Docker Hub"></a>3.3 Test ARM Image Pulled from <a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker Hub</a></h2><h3 id="3-3-1-Docker-Pull-Docker-Run-Docker-Exec"><a href="#3-3-1-Docker-Pull-Docker-Run-Docker-Exec" class="headerlink" title="3.3.1 Docker Pull, Docker Run, Docker Exec"></a>3.3.1 Docker Pull, Docker Run, Docker Exec</h3><p>Due to respective architectures of these 4 <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/">Raspberry Pi</a>s, I tried to use <a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker Hub</a> image <a target="_blank" rel="noopener" href="https://hub.docker.com/r/arm64v8/alpine/">arm64v8/alpine</a> for <strong>pi01</strong>, and <a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker Hub</a> image <a target="_blank" rel="noopener" href="https://hub.docker.com/r/arm32v6/alpine/">arm32v6/alpine</a> for <strong>pi02</strong>, <strong>pi03</strong> and <strong>pi04</strong>. However, it finally turns out that <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/forums/viewtopic.php?t=250730">Pi4 64-bit raspbian kernel</a> is <strong>NOT</strong> quite stable yet.</p>
+<p>, where <strong>X&#x3D;1, or 2, or 3, or 4</strong>.</p>
+<h2 id="3-3-Test-ARM-Image-Pulled-from-Docker-Hub"><a href="#3-3-Test-ARM-Image-Pulled-from-Docker-Hub" class="headerlink" title="3.3 Test ARM Image Pulled from Docker Hub"></a>3.3 Test ARM Image Pulled from <a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker Hub</a></h2><h3 id="3-3-1-Docker-Pull-Docker-Run-Docker-Exec"><a href="#3-3-1-Docker-Pull-Docker-Run-Docker-Exec" class="headerlink" title="3.3.1 Docker Pull, Docker Run, Docker Exec"></a>3.3.1 Docker Pull, Docker Run, Docker Exec</h3><p>Due to respective architectures of these 4 <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/">Raspberry Pi</a>s, I tried to use <a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker Hub</a> image <a target="_blank" rel="noopener" href="https://hub.docker.com/r/arm64v8/alpine/">arm64v8&#x2F;alpine</a> for <strong>pi01</strong>, and <a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker Hub</a> image <a target="_blank" rel="noopener" href="https://hub.docker.com/r/arm32v6/alpine/">arm32v6&#x2F;alpine</a> for <strong>pi02</strong>, <strong>pi03</strong> and <strong>pi04</strong>. However, it finally turns out that <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/forums/viewtopic.php?t=250730">Pi4 64-bit raspbian kernel</a> is <strong>NOT</strong> quite stable yet.</p>
 <h4 id="pi01-Docker-Hub-arm64v8-is-NOT-stable-yet"><a href="#pi01-Docker-Hub-arm64v8-is-NOT-stable-yet" class="headerlink" title="pi01 ~ Docker Hub arm64v8 is NOT stable yet."></a>pi01 ~ <a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker Hub</a> <a target="_blank" rel="noopener" href="https://hub.docker.com/u/arm64v8/">arm64v8</a> is NOT stable yet.</h4><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ docker pull arm64v8/alpine</span><br><span class="line">Using default tag: latest</span><br><span class="line">latest: Pulling from arm64v8/alpine</span><br><span class="line">b538f80385f9: Pull complete </span><br><span class="line">Digest: sha256:3b3f647d2d99cac772ed64c4791e5d9b750dd5fe0b25db653ec4976f7b72837c</span><br><span class="line">Status: Downloaded newer image for arm64v8/alpine:latest</span><br><span class="line">docker.io/arm64v8/alpine:latest</span><br><span class="line">pi@pi01:~ $ docker images</span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">arm64v8/alpine      latest              62ee0e9f8440        11 days ago         5.32MB</span><br><span class="line">pi@pi01:~ $ docker run -it -d arm64v8/alpine</span><br><span class="line">4deed42b3a29231bde40176c5c385d9f04bbf5188383b2ede4a09383360d69bb</span><br><span class="line">pi@pi01:~ $ docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                           PORTS               NAMES</span><br><span class="line">4deed42b3a29        arm64v8/alpine      &quot;/bin/sh&quot;           49 seconds ago      Restarting (159) 8 seconds ago                       inspiring_mendeleev</span><br><span class="line">pi@pi01:~ $ docker ps -a</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line">4deed42b3a29        arm64v8/alpine      &quot;/bin/sh&quot;           51 seconds ago      Up 2 seconds                            inspiring_mendeleev</span><br><span class="line">pi@pi02:~ $ </span><br></pre></td></tr></table></figure>
 
 <p>It looks <a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker Hub</a> images from repository <a target="_blank" rel="noopener" href="https://hub.docker.com/u/arm64v8/">arm64v8</a> are <strong>NOT</strong> able to stably work on my <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-4-model-b/?variant=raspberry-pi-4-model-b-8gb">Raspberry Pi 4 Model B Rev 1.4 8GB</a> with <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/forums/viewtopic.php?t=250730">Pi4 64-bit raspbian kernel</a>. To <strong>further</strong> demonstrate this, I also tested some other images from repository <a target="_blank" rel="noopener" href="https://hub.docker.com/u/arm64v8/">arm64v8</a> and even deprecated <a target="_blank" rel="noopener" href="https://hub.docker.com/u/aarch64/">aarch64</a>, as follows:</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ docker images</span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">alpine              latest              3ddac682c5b6        12 days ago         4.77MB</span><br><span class="line">arm64v8/alpine      latest              62ee0e9f8440        12 days ago         5.32MB</span><br><span class="line">arm64v8/ubuntu      latest              dbc66a3d7b82        6 weeks ago         66.7MB</span><br><span class="line">aarch64/ubuntu      latest              5227400055a2        3 years ago         122MB</span><br><span class="line">pi@pi01:~ $ docker ps -a</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES</span><br><span class="line">e06eaba12e82        alpine              &quot;/bin/sh&quot;           2 hours ago         Up 2 hours                                     relaxed_cerf</span><br><span class="line">ba8d858d36f0        aarch64/ubuntu      &quot;/bin/bash&quot;         2 hours ago         Exited (159) 2 hours ago                       nifty_sutherland</span><br><span class="line">08346701599a        arm64v8/ubuntu      &quot;/bin/bash&quot;         2 hours ago         Exited (159) 2 hours ago                       jolly_fermi</span><br><span class="line">ccda6c95f81d        arm64v8/alpine      &quot;/bin/sh&quot;           4 hours ago         Exited (159) 4 hours ago                       nifty_gates</span><br></pre></td></tr></table></figure>
 
-<p>None of the three images <a target="_blank" rel="noopener" href="https://hub.docker.com/r/arm64v8/alpine/">arm64v8/alpine</a>, <a target="_blank" rel="noopener" href="https://hub.docker.com/r/arm64v8/ubuntu/">arm64v8/ubuntu</a>, <a target="_blank" rel="noopener" href="https://hub.docker.com/r/aarch64/ubuntu/">aarch64/ubuntu</a> can <strong>UP</strong> for 3 seconds.</p>
+<p>None of the three images <a target="_blank" rel="noopener" href="https://hub.docker.com/r/arm64v8/alpine/">arm64v8&#x2F;alpine</a>, <a target="_blank" rel="noopener" href="https://hub.docker.com/r/arm64v8/ubuntu/">arm64v8&#x2F;ubuntu</a>, <a target="_blank" rel="noopener" href="https://hub.docker.com/r/aarch64/ubuntu/">aarch64&#x2F;ubuntu</a> can <strong>UP</strong> for 3 seconds.</p>
 <div style="font-size:5rem;width:100%;text-align:center;">
     <span class="github-emoji" alias="sweat" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f613.png?v8">&#x1f613;</span>
     <span class="github-emoji" alias="pensive" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f614.png?v8">&#x1f614;</span>
 </div> 
 
-<p>Well, I can pull <strong>alpine</strong> and keep it <strong>UP</strong> instead of <a target="_blank" rel="noopener" href="https://hub.docker.com/r/arm64v8/alpine/">arm64v8/alpine</a> though.</p>
+<p>Well, I can pull <strong>alpine</strong> and keep it <strong>UP</strong> instead of <a target="_blank" rel="noopener" href="https://hub.docker.com/r/arm64v8/alpine/">arm64v8&#x2F;alpine</a> though.</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ docker pull alpine</span><br><span class="line">Using default tag: latest</span><br><span class="line">latest: Pulling from library/alpine</span><br><span class="line">b4b72e716706: Pull complete </span><br><span class="line">Digest: sha256:185518070891758909c9f839cf4ca393ee977ac378609f700f60a771a2dfe321</span><br><span class="line">Status: Downloaded newer image for alpine:latest</span><br><span class="line">docker.io/library/alpine:latest</span><br><span class="line">pi@pi01:~ $ docker run -it -d alpine</span><br><span class="line">e06eaba12e82d9266aa3dacd8eb0484e385f810e08806f0bec282bc3b5122a85</span><br><span class="line">pi@pi01:~ $ docker ps </span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line">e06eaba12e82        alpine              &quot;/bin/sh&quot;           10 seconds ago      Up 2 seconds                            relaxed_cerf</span><br><span class="line">pi@pi01:~ $ docker ps -a</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                        PORTS               NAMES</span><br><span class="line">e06eaba12e82        alpine              &quot;/bin/sh&quot;           12 seconds ago      Up 5 seconds                                      relaxed_cerf</span><br><span class="line">ba8d858d36f0        aarch64/ubuntu      &quot;/bin/bash&quot;         3 minutes ago       Exited (159) 2 minutes ago                        nifty_sutherland</span><br><span class="line">08346701599a        arm64v8/ubuntu      &quot;/bin/bash&quot;         28 minutes ago      Exited (159) 28 minutes ago                       jolly_fermi</span><br><span class="line">ccda6c95f81d        arm64v8/alpine      &quot;/bin/sh&quot;           2 hours ago         Exited (159) 2 hours ago                          nifty_gates</span><br><span class="line">pi@pi01:~ $ docker exec -it e06eaba12e82 /bin/sh</span><br><span class="line">/ # cat /etc/os-release</span><br><span class="line">NAME=&quot;Alpine Linux&quot;</span><br><span class="line">ID=alpine</span><br><span class="line">VERSION_ID=3.12.0</span><br><span class="line">PRETTY_NAME=&quot;Alpine Linux v3.12&quot;</span><br><span class="line">HOME_URL=&quot;https://alpinelinux.org/&quot;</span><br><span class="line">BUG_REPORT_URL=&quot;https://bugs.alpinelinux.org/&quot;</span><br><span class="line">/ # uname -a</span><br><span class="line">Linux e06eaba12e82 5.4.44-v8+ #1320 SMP PREEMPT Wed Jun 3 16:20:05 BST 2020 aarch64 Linux</span><br><span class="line">/ # exit</span><br><span class="line">pi@pi01:~ $ </span><br></pre></td></tr></table></figure>
 
 
-<p>However, due to a bunch of the other instabilities, I <strong>downgrade</strong> the system from <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/forums/viewtopic.php?t=250730">Pi4 64-bit raspbian kernel</a> to <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/downloads/raspberry-pi-os/">Raspberry Pi OS (32-bit) with desktop 2020-05-27</a>. <span style="color:red">And it’s interesting that image from <strong>arm32v6/alpine</strong> is exactly the same as image directly from <strong>alpine</strong>, namely image ID <strong>3ddac682c5b6</strong></span>.</p>
+<p>However, due to a bunch of the other instabilities, I <strong>downgrade</strong> the system from <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/forums/viewtopic.php?t=250730">Pi4 64-bit raspbian kernel</a> to <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/downloads/raspberry-pi-os/">Raspberry Pi OS (32-bit) with desktop 2020-05-27</a>. <span style="color:red">And it’s interesting that image from <strong>arm32v6&#x2F;alpine</strong> is exactly the same as image directly from <strong>alpine</strong>, namely image ID <strong>3ddac682c5b6</strong></span>.</p>
 <p>By the way, please refer to my posts:</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/alpinelinux/docker-alpine/issues/92">https://github.com/alpinelinux/docker-alpine/issues/92</a>,</li>
-<li><a target="_blank" rel="noopener" href="https://www.raspberrypi.org/forums/viewtopic.php?f=29&t=250730&p=1677106#p1677005">https://www.raspberrypi.org/forums/viewtopic.php?f=29&amp;t=250730&amp;p=1677106#p1677005</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.raspberrypi.org/forums/viewtopic.php?f=29&t=250730&p=1677106#p1677106">https://www.raspberrypi.org/forums/viewtopic.php?f=29&amp;t=250730&amp;p=1677106#p1677106</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.raspberrypi.org/forums/viewtopic.php?f=29&t=250730&p=1677106#p1677005">https://www.raspberrypi.org/forums/viewtopic.php?f=29&t=250730&p=1677106#p1677005</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.raspberrypi.org/forums/viewtopic.php?f=29&t=250730&p=1677106#p1677106">https://www.raspberrypi.org/forums/viewtopic.php?f=29&t=250730&p=1677106#p1677106</a></li>
 </ul>
 <h4 id="pi0X-Docker-Hub-arm32v6-is-tested"><a href="#pi0X-Docker-Hub-arm32v6-is-tested" class="headerlink" title="pi0X ~ Docker Hub arm32v6 is tested."></a>pi0X ~ <a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker Hub</a> <a target="_blank" rel="noopener" href="https://hub.docker.com/u/arm32v6/">arm32v6</a> is tested.</h4><p>Let’s take <strong>pi02</strong> as an example.</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">pi@pi02:~ $ docker pull arm32v6/alpine</span><br><span class="line">Using default tag: latest</span><br><span class="line">latest: Pulling from arm32v6/alpine</span><br><span class="line">Digest: sha256:71465c7d45a086a2181ce33bb47f7eaef5c233eace65704da0c5e5454a79cee5</span><br><span class="line">Status: Image is up to date for arm32v6/alpine:latest</span><br><span class="line">docker.io/arm32v6/alpine:latest</span><br><span class="line">pi@pi02:~ $ docker images</span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">arm32v6/alpine      latest              3ddac682c5b6        3 weeks ago         4.77MB</span><br><span class="line">pi@pi02:~ $ docker run -it -d arm32v6/alpine</span><br><span class="line">66b813b4c07426294e01f3c7b2ff03f6608f6be10f8f7bf9fde581f605e6a5bc</span><br><span class="line">pi@pi02:~ $ docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line">66b813b4c074        arm32v6/alpine      &quot;/bin/sh&quot;           10 seconds ago      Up 5 seconds                            intelligent_gates</span><br><span class="line">pi@pi02:~ $ docker ps -a</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line">66b813b4c074        arm32v6/alpine      &quot;/bin/sh&quot;           12 seconds ago      Up 8 seconds                            intelligent_gates</span><br><span class="line">pi@pi02:~ $ docker exec -it 66b813b4c074 /bin/sh</span><br><span class="line">/ # cat /etc/os-release</span><br><span class="line">NAME=&quot;Alpine Linux&quot;</span><br><span class="line">ID=alpine</span><br><span class="line">VERSION_ID=3.12.0</span><br><span class="line">PRETTY_NAME=&quot;Alpine Linux v3.12&quot;</span><br><span class="line">HOME_URL=&quot;https://alpinelinux.org/&quot;</span><br><span class="line">BUG_REPORT_URL=&quot;https://bugs.alpinelinux.org/&quot;</span><br><span class="line">/ # uname -a</span><br><span class="line">Linux 66b813b4c074 4.19.118-v7l+ #1311 SMP Mon Apr 27 14:26:42 BST 2020 armv7l Linux</span><br><span class="line">/ # exit</span><br><span class="line">pi@pi02:~ $ </span><br></pre></td></tr></table></figure>
-<p>, where <strong>X=1, or 2, or 3, or 4</strong>.</p>
-<p>Now, we can see <strong>docker0</strong> is <strong>UP</strong>. And a wired connection is running as the additional interface <strong>vethc6e4f97</strong>, which is actually <strong><span style="color: red">just eth0 running in docker image <a target="_blank" rel="noopener" href="https://hub.docker.com/r/arm32v6/alpine/">arm32v6/alpine</a></span></strong>.</p>
+<p>, where <strong>X&#x3D;1, or 2, or 3, or 4</strong>.</p>
+<p>Now, we can see <strong>docker0</strong> is <strong>UP</strong>. And a wired connection is running as the additional interface <strong>vethc6e4f97</strong>, which is actually <strong><span style="color: red">just eth0 running in docker image <a target="_blank" rel="noopener" href="https://hub.docker.com/r/arm32v6/alpine/">arm32v6&#x2F;alpine</a></span></strong>.</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">pi@pi02:~ $ ip -c address</span><br><span class="line">...</span><br><span class="line">4: docker0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP group default </span><br><span class="line">    link/ether 02:42:0e:a2:30:0d brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::42:eff:fea2:300d/64 scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">6: vethc6e4f97@if5: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue master docker0 state UP group default </span><br><span class="line">    link/ether 3e:cf:32:5f:92:e8 brd ff:ff:ff:ff:ff:ff link-netnsid 0</span><br><span class="line">    inet 169.254.108.166/16 brd 169.254.255.255 scope global noprefixroute vethc6e4f97</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::f8c1:6d4c:aa67:11af/64 scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
 
 
@@ -350,7 +339,7 @@
 
 <h2 id="4-2-Docker-Swarm-Initialization-on-Worker"><a href="#4-2-Docker-Swarm-Initialization-on-Worker" class="headerlink" title="4.2 Docker Swarm Initialization on Worker"></a>4.2 <a target="_blank" rel="noopener" href="https://docs.docker.com/engine/swarm/">Docker Swarm</a> Initialization on Worker</h2><p>On each <strong>worker</strong>, just run the following command to join <a target="_blank" rel="noopener" href="https://docs.docker.com/engine/swarm/">docker swarm</a> created by <strong>master</strong>.</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pi@pi0X:~ $ docker swarm join --token SWMTKN-1-5ivkmmwk8kfw92gs0emkmgzg78d4cwitqmi827ghikpajzvrjt-6i326au3t4ka3g1wa74n4rhe4 192.168.1.253:2377</span><br><span class="line">This node joined a swarm as a worker.</span><br></pre></td></tr></table></figure>
-<p>, where <strong>X=2, or 3, or 4</strong>.</p>
+<p>, where <strong>X&#x3D;2, or 3, or 4</strong>.</p>
 <h2 id="4-3-List-Docker-Nodes-In-Leader"><a href="#4-3-List-Docker-Nodes-In-Leader" class="headerlink" title="4.3 List Docker Nodes In Leader"></a>4.3 List Docker Nodes In Leader</h2><p>Come back to <strong>pi01</strong>, namely, <a target="_blank" rel="noopener" href="https://docs.docker.com/engine/swarm/">docker swarm</a> <strong>master</strong>, also the <strong>leader</strong>, and list all nodes:</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pi@pi01:~ $ docker node ls</span><br><span class="line">ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION</span><br><span class="line">q7w8gwf9z6keb86rltvqx0f7z *   pi01                Ready               Active              Leader              19.03.11</span><br><span class="line">sdiwqlawhfjobfsymmp38xivn     pi02                Ready               Active                                  19.03.11</span><br><span class="line">97h11ixu7nvce4p64td2o5one     pi03                Ready               Active                                  19.03.11</span><br><span class="line">tzrqp2fcj4yht20j84r83s5ps     pi04                Ready               Active                                  19.03.11</span><br></pre></td></tr></table></figure>
 
@@ -435,10 +424,7 @@
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pi@pi03:~ $ docker ps</span><br><span class="line">CONTAINER ID        IMAGE                            COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line">5fd9a0b8dd08        alexellis2/redis-arm:v6          &quot;redis-server&quot;      2 hours ago         Up 2 hours          6379/tcp            redis.1.z1tqve759bh6hdw2udnk6hh7t</span><br><span class="line">5670e6944779        alexellis2/arm-pingcurl:latest   &quot;ping google.com&quot;   3 hours ago         Up 3 hours                              ping1.2.9lemwgls6hp6wnpyg14aeyeva</span><br><span class="line">f3d1670dfc7a        arm32v6/alpine                   &quot;/bin/sh&quot;           12 days ago         Up 11 hours                             infallible_cerf</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>pi04</strong></p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pi@pi04:~ $ docker ps</span><br><span class="line">CONTAINER ID        IMAGE                                 COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line">aca52fdaf2d4        alexellis2/arm_redis_counter:latest   &quot;node ./app.js&quot;     2 hours ago         Up 2 hours          3000/tcp            counter.1.ip6z9yacmjbzjaeax45tuh2oa</span><br><span class="line">2520e1ea0ea8        alexellis2/arm-pingcurl:latest        &quot;ping google.com&quot;   3 hours ago         Up 3 hours                              ping1.3.b2y2muif9h2xa847rlibcv5nz</span><br><span class="line">746386fce983        arm32v6/alpine                        &quot;/bin/sh&quot;           12 days ago         Up 11 hours                             serene_chebyshev</span><br></pre></td></tr></table></figure>
-
-
-</li>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pi@pi04:~ $ docker ps</span><br><span class="line">CONTAINER ID        IMAGE                                 COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line">aca52fdaf2d4        alexellis2/arm_redis_counter:latest   &quot;node ./app.js&quot;     2 hours ago         Up 2 hours          3000/tcp            counter.1.ip6z9yacmjbzjaeax45tuh2oa</span><br><span class="line">2520e1ea0ea8        alexellis2/arm-pingcurl:latest        &quot;ping google.com&quot;   3 hours ago         Up 3 hours                              ping1.3.b2y2muif9h2xa847rlibcv5nz</span><br><span class="line">746386fce983        arm32v6/alpine                        &quot;/bin/sh&quot;           12 days ago         Up 11 hours                             serene_chebyshev</span><br></pre></td></tr></table></figure></li>
 </ul>
 <p>Clearly, </p>
 <ul>
@@ -503,7 +489,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -516,10 +502,28 @@
   </footer>
 
   
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
+
 
 
 
