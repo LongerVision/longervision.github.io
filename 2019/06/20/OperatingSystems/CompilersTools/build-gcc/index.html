@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="English">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.0.0">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="Today, let’s try to build the MOST RECENT GCC 9.1. We strictly follow the TERRIFIC blog How to Build a GCC Cross-Compiler with trivial modifications for my x86_64 desktop instead of aarch64 cross comp">
 <meta property="og:type" content="article">
@@ -25,7 +25,7 @@
 <meta property="og:url" content="http://longervision.ca/2019/06/20/OperatingSystems/CompilersTools/build-gcc/index.html">
 <meta property="og:site_name" content="Longer Vision Technology">
 <meta property="og:description" content="Today, let’s try to build the MOST RECENT GCC 9.1. We strictly follow the TERRIFIC blog How to Build a GCC Cross-Compiler with trivial modifications for my x86_64 desktop instead of aarch64 cross comp">
-<meta property="og:locale">
+<meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-06-20T07:00:00.000Z">
 <meta property="article:modified_time" content="2021-06-06T04:18:22.418Z">
 <meta property="article:author" content="Nobody">
@@ -37,7 +37,7 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"English","comments":true,"permalink":"http://longervision.ca/2019/06/20/OperatingSystems/CompilersTools/build-gcc/","path":"2019/06/20/OperatingSystems/CompilersTools/build-gcc/","title":"Build GCC"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://longervision.ca/2019/06/20/OperatingSystems/CompilersTools/build-gcc/","path":"2019/06/20/OperatingSystems/CompilersTools/build-gcc/","title":"Build GCC"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Build GCC | Longer Vision Technology</title>
@@ -106,7 +106,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Preparations"><span class="nav-number">1.</span> <span class="nav-text">Preparations</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Packages-Required-on-HOST"><span class="nav-number">1.1.</span> <span class="nav-text">Packages Required on HOST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Get-ALL-Packages-for-Building-GCC"><span class="nav-number">1.2.</span> <span class="nav-text">Get ALL Packages for Building GCC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prepare-Symbolic-Links"><span class="nav-number">1.3.</span> <span class="nav-text">Prepare Symbolic Links</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prepare-Build-Target-Folder"><span class="nav-number">1.4.</span> <span class="nav-text">Prepare Build Target Folder</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Start-Building"><span class="nav-number">2.</span> <span class="nav-text">Start Building</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Binutils"><span class="nav-number">2.1.</span> <span class="nav-text">Binutils</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-Kernel-Headers"><span class="nav-number">2.2.</span> <span class="nav-text">Linux Kernel Headers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-x2F-C-Compilers"><span class="nav-number">2.3.</span> <span class="nav-text">C&#x2F;C++ Compilers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GLibc"><span class="nav-number">2.4.</span> <span class="nav-text">GLibc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Compiler-Support-Library"><span class="nav-number">2.5.</span> <span class="nav-text">Compiler Support Library</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-Standard-C-Library"><span class="nav-number">2.6.</span> <span class="nav-text">Build Standard C Library</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-Standard-C-Library-1"><span class="nav-number">2.7.</span> <span class="nav-text">Build Standard C++ Library</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Finishing-and-Test"><span class="nav-number">3.</span> <span class="nav-text">Finishing and Test</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Check-GCC-Version"><span class="nav-number">3.1.</span> <span class="nav-text">Check GCC Version</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Run-Hello-World"><span class="nav-number">3.2.</span> <span class="nav-text">Run Hello World</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Preparations"><span class="nav-number">1.</span> <span class="nav-text">Preparations</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Packages-Required-on-HOST"><span class="nav-number">1.1.</span> <span class="nav-text">Packages Required on HOST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Get-ALL-Packages-for-Building-GCC"><span class="nav-number">1.2.</span> <span class="nav-text">Get ALL Packages for Building GCC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prepare-Symbolic-Links"><span class="nav-number">1.3.</span> <span class="nav-text">Prepare Symbolic Links</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prepare-Build-Target-Folder"><span class="nav-number">1.4.</span> <span class="nav-text">Prepare Build Target Folder</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Start-Building"><span class="nav-number">2.</span> <span class="nav-text">Start Building</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Binutils"><span class="nav-number">2.1.</span> <span class="nav-text">Binutils</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-Kernel-Headers"><span class="nav-number">2.2.</span> <span class="nav-text">Linux Kernel Headers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-C-Compilers"><span class="nav-number">2.3.</span> <span class="nav-text">C&#x2F;C++ Compilers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GLibc"><span class="nav-number">2.4.</span> <span class="nav-text">GLibc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Compiler-Support-Library"><span class="nav-number">2.5.</span> <span class="nav-text">Compiler Support Library</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-Standard-C-Library"><span class="nav-number">2.6.</span> <span class="nav-text">Build Standard C Library</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-Standard-C-Library-1"><span class="nav-number">2.7.</span> <span class="nav-text">Build Standard C++ Library</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Finishing-and-Test"><span class="nav-number">3.</span> <span class="nav-text">Finishing and Test</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Check-GCC-Version"><span class="nav-number">3.1.</span> <span class="nav-text">Check GCC Version</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Run-Hello-World"><span class="nav-number">3.2.</span> <span class="nav-text">Run Hello World</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -156,7 +156,7 @@
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="English">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/06/20/OperatingSystems/CompilersTools/build-gcc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -255,7 +255,7 @@
 
 <h2 id="Linux-Kernel-Headers"><a href="#Linux-Kernel-Headers" class="headerlink" title="Linux Kernel Headers"></a>Linux Kernel Headers</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc cd linux-5.1.12</span><br><span class="line">➜  linux-5.1.12 make ARCH=x86 INSTALL_HDR_PATH=/opt/native/linux headers_install</span><br><span class="line">➜  linux-5.1.12 cd ..</span><br></pre></td></tr></table></figure>
 
-<h2 id="C-x2F-C-Compilers"><a href="#C-x2F-C-Compilers" class="headerlink" title="C&#x2F;C++ Compilers"></a>C&#x2F;C++ Compilers</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc mkdir -p build-gcc</span><br><span class="line">➜  gcc cd build-gcc</span><br><span class="line">➜  build-gcc ../gcc-9.1.0/configure --prefix=/opt/native --target=x86_64-linux-gnu --enable-languages=c,c++,fortran,go --disable-multilib --enable-vtable-verify</span><br><span class="line">➜  build-gcc make -j4 all-gcc</span><br><span class="line">➜  build-gcc make install-gcc</span><br><span class="line">➜  build-gcc cd ..</span><br></pre></td></tr></table></figure>
+<h2 id="C-C-Compilers"><a href="#C-C-Compilers" class="headerlink" title="C&#x2F;C++ Compilers"></a>C&#x2F;C++ Compilers</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc mkdir -p build-gcc</span><br><span class="line">➜  gcc cd build-gcc</span><br><span class="line">➜  build-gcc ../gcc-9.1.0/configure --prefix=/opt/native --target=x86_64-linux-gnu --enable-languages=c,c++,fortran,go --disable-multilib --enable-vtable-verify</span><br><span class="line">➜  build-gcc make -j4 all-gcc</span><br><span class="line">➜  build-gcc make install-gcc</span><br><span class="line">➜  build-gcc cd ..</span><br></pre></td></tr></table></figure>
 
 <h2 id="GLibc"><a href="#GLibc" class="headerlink" title="GLibc"></a>GLibc</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc mkdir -p build-glibc</span><br><span class="line">➜  gcc cd build-glibc</span><br><span class="line">➜  build-glibc ../glibc-2.29/configure --prefix=/opt/native/linux --build=$MACHTYPE --host=x86_64-linux-gnu --target=x86_64-linux-gnu --with-headers=/opt/native/linux/include --disable-multilib --with-selinux=no --enable-vtable-verify libc_cv_forced_unwind=yes</span><br><span class="line">➜  build-glibc make install-bootstrap-headers=yes install-headers</span><br><span class="line">➜  build-glibc make -j4 csu/subdir_lib</span><br><span class="line">➜  build-glibc mkdir /opt/native/linux/lib</span><br><span class="line">➜  build-glibc install csu/crt1.o csu/crti.o csu/crtn.o /opt/native/linux/lib</span><br><span class="line">➜  build-glibc /opt/native/bin/x86_64-linux-gnu-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o /opt/native/linux/lib/libc.so</span><br><span class="line">➜  build-glibc touch /opt/native/linux/include/gnu/stubs.h</span><br><span class="line">➜  build-glibc cd ..</span><br></pre></td></tr></table></figure>
 
@@ -268,7 +268,7 @@
 
 <h1 id="Finishing-and-Test"><a href="#Finishing-and-Test" class="headerlink" title="Finishing and Test"></a>Finishing and Test</h1><h2 id="Check-GCC-Version"><a href="#Check-GCC-Version" class="headerlink" title="Check GCC Version"></a>Check GCC Version</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  build-gcc x86_64-linux-gnu-c++ -v</span><br><span class="line">Using built-in specs.</span><br><span class="line">COLLECT_GCC=x86_64-linux-gnu-c++</span><br><span class="line">COLLECT_LTO_WRAPPER=/opt/native/libexec/gcc/x86_64-linux-gnu/9.1.0/lto-wrapper</span><br><span class="line">Target: x86_64-linux-gnu</span><br><span class="line">Configured with: ../gcc-9.1.0/configure --prefix=/opt/native --target=x86_64-linux-gnu --enable-languages=c,c++,python,fortran,go --disable-multilib --enable-vtable-verify</span><br><span class="line">Thread model: posix</span><br><span class="line">gcc version 9.1.0 (GCC) </span><br></pre></td></tr></table></figure>
 
-<h2 id="Run-Hello-World"><a href="#Run-Hello-World" class="headerlink" title="Run Hello World"></a>Run Hello World</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">➜  GCC cat test.cpp </span><br><span class="line"><span class="meta">#</span><span class="bash">include &lt;iostream&gt;</span></span><br><span class="line"></span><br><span class="line">int main(int argc, char** argv)</span><br><span class="line">&#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;Hello World!&quot; &lt;&lt; std::endl;</span><br><span class="line">    return EXIT_SUCCESS;</span><br><span class="line">&#125;</span><br><span class="line">➜  GCC x86_64-linux-gnu-c++ -std=c++17 test.cpp</span><br><span class="line">➜  GCC x86_64-linux-gnu-c++ -std=c++17 test.cpp -o test</span><br><span class="line">➜  GCC ls</span><br><span class="line">a.out  test  test.cpp</span><br><span class="line">➜  GCC ./test</span><br><span class="line">Hello World!</span><br><span class="line">➜  GCC </span><br></pre></td></tr></table></figure>
+<h2 id="Run-Hello-World"><a href="#Run-Hello-World" class="headerlink" title="Run Hello World"></a>Run Hello World</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">➜  GCC cat test.cpp </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">include &lt;iostream&gt;</span></span><br><span class="line"></span><br><span class="line">int main(int argc, char** argv)</span><br><span class="line">&#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;Hello World!&quot; &lt;&lt; std::endl;</span><br><span class="line">    return EXIT_SUCCESS;</span><br><span class="line">&#125;</span><br><span class="line">➜  GCC x86_64-linux-gnu-c++ -std=c++17 test.cpp</span><br><span class="line">➜  GCC x86_64-linux-gnu-c++ -std=c++17 test.cpp -o test</span><br><span class="line">➜  GCC ls</span><br><span class="line">a.out  test  test.cpp</span><br><span class="line">➜  GCC ./test</span><br><span class="line">Hello World!</span><br><span class="line">➜  GCC </span><br></pre></td></tr></table></figure>
 
 
     </div>
@@ -287,12 +287,12 @@
           <div class="post-nav">
             <div class="post-nav-item">
                 <a href="/2019/06/05/SBCs/ARM/orange-pi-3-official/" rel="prev" title="Install Ubuntu Desktop from Official Orange Pi Website onto Orange Pi 3">
-                  <i class="fa fa-chevron-left"></i> Install Ubuntu Desktop from Official Orange Pi Website onto Orange Pi 3
+                  <i class="fa fa-angle-left"></i> Install Ubuntu Desktop from Official Orange Pi Website onto Orange Pi 3
                 </a>
             </div>
             <div class="post-nav-item">
                 <a href="/2019/06/21/SBCs/ARM/huawei-HiSilicon-build-GCC-for-Hikey970/" rel="next" title="Build GCC For HiSilicon Hikey 970">
-                  Build GCC For HiSilicon Hikey 970 <i class="fa fa-chevron-right"></i>
+                  Build GCC For HiSilicon Hikey 970 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -311,15 +311,14 @@
   <footer class="footer">
     <div class="footer-inner">
 
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Nobody</span>
-</div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Nobody</span>
+  </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
