@@ -118,7 +118,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">117</span>
+          <span class="site-state-item-count">118</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -129,7 +129,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">113</span>
+        <span class="site-state-item-count">114</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -146,6 +146,176 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2020/04/06/AI/DeepLearning/detectron2-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Longer Vision Technology">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/04/06/AI/DeepLearning/detectron2-1/" class="post-title-link" itemprop="url">Detectron2 - 1</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-04-06 00:00:00" itemprop="dateCreated datePublished" datetime="2020-04-06T00:00:00-07:00">2020-04-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-09-14 15:09:34" itemprop="dateModified" datetime="2023-09-14T15:09:34-07:00">2023-09-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>This is also an updated version of my previous blog <strong>detectron2</strong> published on October 13, 2019. I lost the previous source for this blog, but, let’s re-write it.</p>
+<p>The autumn in both Vancouver and Seattle is gorgeous…</p>
+<table>
+<thead>
+<tr>
+<th align="center">Overview Seattle on Space Needle</th>
+<th align="center">Around Space Needle</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2019/Seattle/overviewseattle.jpg" alt="Overview Seattle on Space Needle"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2019/Seattle/aroundspaceneedle.jpg" alt="Around Space Needle"></td>
+</tr>
+<tr>
+<td align="center">Space Needle</td>
+<td align="center">So Heavy</td>
+</tr>
+<tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2019/Seattle/spaceneedle.jpg" alt="Space Needle"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2019/Seattle/soheavy.jpg" alt="So Heavy"></td>
+</tr>
+<tr>
+<td align="center">Ferris Wheel</td>
+<td align="center">Pier 55</td>
+</tr>
+<tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2019/Seattle/Ferriswheel.jpg" alt="Ferris Wheel"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2019/Seattle/pier55.jpg" alt="Pier 55"></td>
+</tr>
+<tr>
+<td align="center">Vancouver Maple</td>
+<td align="center">UBC Poisonous Mushroom</td>
+</tr>
+<tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2019/Thanksgiving/maple.jpg" alt="Vancouver Maple"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2019/Thanksgiving/poisonousmushroom.jpg" alt="UBC Poisonous Mushroom"></td>
+</tr>
+</tbody></table>
+<p>Alright, let’s rapidly test <a target="_blank" rel="noopener" href="https://github.com/facebookresearch/detectron2">Detectron2</a>.</p>
+<p>Installation is detailedly summarized in <a target="_blank" rel="noopener" href="https://github.com/facebookresearch/detectron2/blob/master/INSTALL.md">INSTALL.md</a>.</p>
+<p>We can simply follow <a target="_blank" rel="noopener" href="https://github.com/facebookresearch/detectron2/blob/master/GETTING_STARTED.md">GETTING_STARTED.md</a> for some simple demonstrations. <span style="color:red">Make sure you’ve downloaded the demo pictures from <a target="_blank" rel="noopener" href="https://github.com/facebookresearch/Detectron/tree/master/demo">Detectron1 demo</a> and save under Detectron2’s folder demo.</span></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">➜  detectron2 git:(master) python demo/demo.py --config-file configs/COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml \</span><br><span class="line">  --input ./demo/17790319373_bd19b24cfc_k.jpg \ </span><br><span class="line">  --output ./result.jpg \</span><br><span class="line">  --opts MODEL.WEIGHTS detectron2://COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x/137849600/model_final_f10217.pkl</span><br><span class="line">[04/05 18:17:22 detectron2]: Arguments: Namespace(confidence_threshold=0.5, config_file=<span class="string">&#x27;configs/COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml&#x27;</span>, input=[<span class="string">&#x27;./demo/17790319373_bd19b24cfc_k.jpg&#x27;</span>], opts=[<span class="string">&#x27;MODEL.WEIGHTS&#x27;</span>, <span class="string">&#x27;detectron2://COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x/137849600/model_final_f10217.pkl&#x27;</span>], output=<span class="string">&#x27;./result.jpg&#x27;</span>, video_input=None, webcam=False)</span><br><span class="line">[04/05 18:17:24 fvcore.common.checkpoint]: Loading checkpoint from detectron2://COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x/137849600/model_final_f10217.pkl</span><br><span class="line">[04/05 18:17:24 fvcore.common.file_io]: URL https://dl.fbaipublicfiles.com/detectron2/COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x/137849600/model_final_f10217.pkl cached <span class="keyword">in</span> /home/longervision/.torch/fvcore_cache/detectron2/COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x/137849600/model_final_f10217.pkl</span><br><span class="line">[04/05 18:17:24 fvcore.common.checkpoint]: Reading a file from <span class="string">&#x27;Detectron2 Model Zoo&#x27;</span></span><br><span class="line">  0%|                                                                                                                                                                                    | 0/1 [00:00&lt;?, ?it/s][04/05 18:17:25 detectron2]: ./demo/17790319373_bd19b24cfc_k.jpg: detected 13 instances <span class="keyword">in</span> 0.86s</span><br><span class="line">100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00&lt;00:00,  1.05it/s]</span><br><span class="line">➜  detectron2 git:(master)</span><br></pre></td></tr></table></figure>
+
+<p>Let’s take a look at the result:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/ObjectDetection/Detectron2/17790319373_bd19b24cfc_k.jpg" alt="Segmentation Result of 17790319373_bd19b24cfc_k"></p>
+<p>And of course, my pictures taken in Seattle and Vancouver:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Overview Seattle on Space Needle</th>
+<th align="center">Around Space Needle</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/ObjectDetection/Detectron2/overviewseattle.jpg" alt="Overview Seattle on Space Needle"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/ObjectDetection/Detectron2/aroundspaceneedle.jpg" alt="Around Space Needle"></td>
+</tr>
+<tr>
+<td align="center">Overview Seattle on Space Needle</td>
+<td align="center">Around Space Needle</td>
+</tr>
+<tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/ObjectDetection/Detectron2/spaceneedle.jpg" alt="Space Needle"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/ObjectDetection/Detectron2/soheavy.jpg" alt="So Heavy"></td>
+</tr>
+<tr>
+<td align="center">Overview Seattle on Space Needle</td>
+<td align="center">Around Space Needle</td>
+</tr>
+<tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/ObjectDetection/Detectron2/Ferriswheel.jpg" alt="Ferris Wheel"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/ObjectDetection/Detectron2/pier55.jpg" alt="Pier 55"></td>
+</tr>
+<tr>
+<td align="center">Overview Seattle on Space Needle</td>
+<td align="center">Around Space Needle</td>
+</tr>
+<tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/ObjectDetection/Detectron2/maple.jpg" alt="Vancouver Maple"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/ObjectDetection/Detectron2/poisonousmushroom.jpg" alt="UBC Poisonous Mushroom"></td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1466,122 +1636,6 @@
 <p>人生的意义在什么？“且行且珍惜”！珍惜身边拥有的一切吧！想起去年某台姐对我说：“看到你一家三口团聚，就感觉很幸福”。是啊…台姐本人从小姥姥带大、10岁出头一个人给姥姥送葬；而周伯伯白发人送黑发人，这…人，真的不能太“不知足”！我思想还没成熟呢！这么大了，怎么长的？太幼稚！！种地，有什么不好？？</p>
 <p>不知不觉，温哥华当地时间2019年8月15日凌晨3点20分。愿你在天堂没有痛苦…</p>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/08/07/SBCs/RISC-V/Widora-AIRV-K210-AI-Kendryte/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Longer Vision Technology">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/08/07/SBCs/RISC-V/Widora-AIRV-K210-AI-Kendryte/" class="post-title-link" itemprop="url">Widora AIRV/K210 Board with ESP8266/ESP8285 Espressif Wifi and Kendryte K210 AI</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2019-08-07 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-07T00:00:00-07:00">2019-08-07</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-09-14 15:09:34" itemprop="dateModified" datetime="2023-09-14T15:09:34-07:00">2023-09-14</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Single-Board-Computers/Risc-V/" itemprop="url" rel="index"><span itemprop="name">Risc-V</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Having been keeping an eye on <a target="_blank" rel="noopener" href="https://www.widora.io/">Widora</a> and <a target="_blank" rel="noopener" href="https://www.espressif.com/">Espressif</a> for quite a bit. I finally decided to test out <a target="_blank" rel="noopener" href="https://www.widora.io/">Widora</a>‘s development board <a target="_blank" rel="noopener" href="https://dev.widora.io/zh/airv">AIRV</a>.</p>
-<h1 id="1-Background-Knowledge"><a href="#1-Background-Knowledge" class="headerlink" title="1. Background Knowledge"></a>1. Background Knowledge</h1><h2 id="1-1-Espressif"><a href="#1-1-Espressif" class="headerlink" title="1.1 Espressif"></a>1.1 Espressif</h2><p><a target="_blank" rel="noopener" href="https://www.espressif.com/">Espressif</a> is based in Shanghai, China, focusing on Wifi&#x2F;Bluetooth chips, now have two main Wifi modules:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.espressif.com/en/products/hardware/esp32/overview">ESP32</a>: Wifi with Bluetooth</li>
-<li><a target="_blank" rel="noopener" href="https://www.espressif.com/en/products/hardware/esp8266ex/overview">ESP8266&#x2F;ESP8285</a>: Wifi <strong>ONLY</strong></li>
-</ul>
-<h2 id="1-2-Widora"><a href="#1-2-Widora" class="headerlink" title="1.2 Widora"></a>1.2 Widora</h2><p><a target="_blank" rel="noopener" href="https://www.widora.io/">Widora</a> is headquartered in Beijing, China, providing development boards using <a target="_blank" rel="noopener" href="https://www.espressif.com/">Espressif</a> Wifi&#x2F;Bluetooth chips.</p>
-<h2 id="1-3-Kendryte"><a href="#1-3-Kendryte" class="headerlink" title="1.3 Kendryte"></a>1.3 Kendryte</h2><p><strong>NEVER</strong> heard of <a target="_blank" rel="noopener" href="https://kendryte.com/">Kendryte</a> before. It seems <a target="_blank" rel="noopener" href="https://kendryte.com/">Kendryte</a> develops some AI based on <a target="_blank" rel="noopener" href="https://riscv.org/">Risc-V</a> chip architecture? That seems to be a good concept…</p>
-<h2 id="1-4-HiFive"><a href="#1-4-HiFive" class="headerlink" title="1.4 HiFive"></a>1.4 HiFive</h2><p>As for <a target="_blank" rel="noopener" href="https://riscv.org/">Risc-V</a>, <a target="_blank" rel="noopener" href="https://www.sifive.com/boards/hifive-unleashed">HiFive</a> developed by <a target="_blank" rel="noopener" href="https://www.sifive.com/">SiFive</a> has to be mentioned in any case.</p>
-<p>For me, a <strong>NOBODY</strong> has <strong>NOT</strong> had any chance or capability to deal with chips… So… shame… Anyway, let’s test it out… ^_^</p>
-<h1 id="2-Test-on-Widora-AIRV-Face-Detection"><a href="#2-Test-on-Widora-AIRV-Face-Detection" class="headerlink" title="2. Test on Widora AIRV Face Detection"></a>2. Test on Widora AIRV Face Detection</h1><p>By using a <span style="color:red"><strong>RUBBISH</strong></span> USB cable, you should already be able to run the face detection sample code existing inside the board.</p>
-<table>
-<thead>
-<tr>
-<th align="center">Normal</th>
-<th align="center">Occlusion</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/chips/RISC-V/Widora/Widora_AIRV_01.jpg" alt="Widora AIRV Face Detection"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/chips/RISC-V/Widora/Widora_AIRV_02.jpg" alt="Widora AIRV Face Detection with Occlusion"></td>
-</tr>
-</tbody></table>
-<p>However, you really need to use a <span style="color:red"><strong>QUALIFIED</strong></span> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/USB_hardware#Micro_connectors">Micro-B USB</a> to <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/USB">USB Type A</a> cable, in order to list the device out by <strong>lsusb</strong>.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ lsusb</span><br><span class="line">Bus 001 Device 010: ID 10c4:ea60 Cygnal Integrated Products, Inc. CP2102/CP2109 UART Bridge Controller [CP210x family]</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="3-PlatformIO-IDE-for-VSCode"><a href="#3-PlatformIO-IDE-for-VSCode" class="headerlink" title="3. PlatformIO IDE for VSCode"></a>3. PlatformIO IDE for VSCode</h1><p><a target="_blank" rel="noopener" href="https://platformio.org/platformio-ide">PlatformIO IDE</a></p>
-<h1 id="4-Reflash-Widora-AIRV"><a href="#4-Reflash-Widora-AIRV" class="headerlink" title="4. Reflash Widora AIRV"></a>4. Reflash Widora AIRV</h1>
       
     </div>
 
