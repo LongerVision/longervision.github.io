@@ -149,6 +149,135 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/12/07/SBCs/FPGA/iCEstick/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/12/07/SBCs/FPGA/iCEstick/" class="post-title-link" itemprop="url">iCEstick Evaluation Kit</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-12-07 15:38:38 / Modified: 16:57:07" itemprop="dateCreated datePublished" datetime="2023-12-07T15:38:38-08:00">2023-12-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/MCU/FPGA/" itemprop="url" rel="index"><span itemprop="name">FPGA</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/MCU/FPGA/Lattice/" itemprop="url" rel="index"><span itemprop="name">Lattice</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/MCU/FPGA/Lattice/iCE40/" itemprop="url" rel="index"><span itemprop="name">iCE40</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/MCU/FPGA/Lattice/iCE40/apio/" itemprop="url" rel="index"><span itemprop="name">apio</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a href="/2023/12/04/SBCs/FPGA/quickfeather#bricked">My <strong>FIRST</strong> <strong>FPGA board</strong> went bricked</a>. So, today, I’ll have to try another one: <a target="_blank" rel="noopener" href="https://www.latticesemi.com/icestick">iCEstick</a>. This is really a good journey in my opinion.</p>
+<h1 id="1-introduction"><a class="markdownIt-Anchor" href="#1-introduction"></a> 1. Introduction</h1>
+<h2 id="11-lsusb"><a class="markdownIt-Anchor" href="#11-lsusb"></a> 1.1 lsusb</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">Bus 011 Device 002: ID 0403:6010 Future Technology Devices International, Ltd FT2232C/D/H Dual UART/FIFO IC</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<h2 id="12-why-two-devices"><a class="markdownIt-Anchor" href="#12-why-two-devices"></a> 1.2 Why TWO Devices?</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ll /dev/ttyUSB*                                                         </span><br><span class="line">crw-rw----+ 1 root plugdev 188, 0 Dec  7 15:17 /dev/ttyUSB0</span><br><span class="line">crw-rw----+ 1 root plugdev 188, 1 Dec  7 15:17 /dev/ttyUSB1</span><br><span class="line">➜  ~ </span><br></pre></td></tr></table></figure>
+<h2 id="13-spec"><a class="markdownIt-Anchor" href="#13-spec"></a> 1.3 Spec</h2>
+<ul>
+<li>Official website: <a target="_blank" rel="noopener" href="https://www.latticesemi.com/icestick">iCEstick</a></li>
+</ul>
+<h2 id="14-github-source-code"><a class="markdownIt-Anchor" href="#14-github-source-code"></a> 1.4 Github Source Code</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/FPGAwars/apio/tree/develop/test-examples/Icestick">iCEstick test examples</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/FPGAwars/apio-examples/tree/master/icestick">apio examples iCEstick</a></li>
+</ul>
+<h1 id="2-flash-the-firmware"><a class="markdownIt-Anchor" href="#2-flash-the-firmware"></a> 2. Flash the Firmware</h1>
+<h2 id="21-preparation"><a class="markdownIt-Anchor" href="#21-preparation"></a> 2.1 Preparation</h2>
+<h3 id="211-ensure-python-and-apio-are-both-installed"><a class="markdownIt-Anchor" href="#211-ensure-python-and-apio-are-both-installed"></a> 2.1.1 Ensure Python and APIO Are Both Installed</h3>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio.png" alt="Python apio version" /></p>
+<h3 id="212-apio-install-all-and-lsftdi"><a class="markdownIt-Anchor" href="#212-apio-install-all-and-lsftdi"></a> 2.1.2 APIO Install ALL and lsftdi</h3>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_install.png" alt="APIO Install ALL and lsftdi" /></p>
+<h2 id="22-apio-examples-for-icestick"><a class="markdownIt-Anchor" href="#22-apio-examples-for-icestick"></a> 2.2 APIO Examples for iCEstick</h2>
+<h3 id="221-list-all-apio-examples"><a class="markdownIt-Anchor" href="#221-list-all-apio-examples"></a> 2.2.1 List ALL APIO Examples</h3>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_examples.png" alt="List ALL APIO Examples" /></p>
+<h3 id="222-install-apio-example-leds"><a class="markdownIt-Anchor" href="#222-install-apio-example-leds"></a> 2.2.2 Install APIO Example LEDs</h3>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_examples_icestick.png" alt="Install APIO Example LEDs" /></p>
+<h2 id="23-find-corresponding-boards-name"><a class="markdownIt-Anchor" href="#23-find-corresponding-boards-name"></a> 2.3 Find Corresponding Board’s Name</h2>
+<h3 id="231-list-all-apio-supported-boards"><a class="markdownIt-Anchor" href="#231-list-all-apio-supported-boards"></a> 2.3.1 List ALL APIO Supported Boards</h3>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_boards.png" alt="List ALL APIO Supported Boards" /></p>
+<h3 id="232-find-the-name-of-your-fpga-board"><a class="markdownIt-Anchor" href="#232-find-the-name-of-your-fpga-board"></a> 2.3.2 Find the Name of Your FPGA Board</h3>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_boards_iCE40.png" alt="Find the Name of Your FPGA Board" /></p>
+<h2 id="23-init-verify-sim-build-and-upload"><a class="markdownIt-Anchor" href="#23-init-verify-sim-build-and-upload"></a> 2.3 Init, Verify, Sim, Build and Upload</h2>
+<h3 id="231-init-and-verify"><a class="markdownIt-Anchor" href="#231-init-and-verify"></a> 2.3.1 Init and Verify</h3>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_init_verify.png" alt="Init and Verify" /></p>
+<h3 id="232-simulation-with-gtkwave"><a class="markdownIt-Anchor" href="#232-simulation-with-gtkwave"></a> 2.3.2 Simulation with <a target="_blank" rel="noopener" href="https://gtkwave.sourceforge.net">GTKWave</a></h3>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_sim_gtkwave.png" alt="Simulation with GTKWave" /></p>
+<h3 id="233-build"><a class="markdownIt-Anchor" href="#233-build"></a> 2.3.3 Build</h3>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_build.png" alt="Build" /></p>
+<h3 id="234-upload"><a class="markdownIt-Anchor" href="#234-upload"></a> 2.3.4 Upload</h3>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_upload.png" alt="Upload" /></p>
+<h1 id="3-demonstration"><a class="markdownIt-Anchor" href="#3-demonstration"></a> 3. Demonstration</h1>
+<iframe width="1280" height="720" src="https://www.youtube.com/embed/oepF3CaFrhM" title="iCEstick LEDs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/12/05/SBCs/RISC-V/MaixDuino-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -172,10 +301,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-12-05 13:57:11 / Modified: 15:00:33" itemprop="dateCreated datePublished" datetime="2023-12-05T13:57:11-08:00">2023-12-05</time>
+              <time title="Created: 2023-12-05 13:57:11" itemprop="dateCreated datePublished" datetime="2023-12-05T13:57:11-08:00">2023-12-05</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-12-07 15:51:04" itemprop="dateModified" datetime="2023-12-07T15:51:04-08:00">2023-12-07</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -205,7 +340,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>My previous blog [MaixDuino 1] briefly introduced the fundamental functionalities of <a target="_blank" rel="noopener" href="https://maixduino.sipeed.com/en/">MaixDuino</a>. Today, two more functionalities are to be investigated.</p>
+          <p>My previous blog <a href="/2023/12/04/SBCs/RISC-V/MaixDuino-1/">MaixDuino 1</a> briefly introduced the fundamental functionalities of <a target="_blank" rel="noopener" href="https://maixduino.sipeed.com/en/">MaixDuino</a>. Today, two more functionalities are to be investigated.</p>
 <h1 id="binocular">1. Binocular</h1>
 <p><a target="_blank" rel="noopener" href="https://sipeed.com/">Sipeed</a> provides its official <a target="_blank" rel="noopener" href="https://github.com/sipeed/Maixduino/blob/master/libraries/Sipeed_GC0328/examples/sipeed_gc0328_binocular.ino">sipeed_gc0328_binocular.ino</a>.</p>
 <h2 id="verifycompile">1.1 Verify/Compile</h2>
@@ -394,10 +529,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-12-04 02:26:25 / Modified: 02:26:33" itemprop="dateCreated datePublished" datetime="2023-12-04T02:26:25-08:00">2023-12-04</time>
+              <time title="Created: 2023-12-04 02:26:25" itemprop="dateCreated datePublished" datetime="2023-12-04T02:26:25-08:00">2023-12-04</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-12-07 16:35:04" itemprop="dateModified" datetime="2023-12-07T16:35:04-08:00">2023-12-07</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -435,43 +576,48 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><a target="_blank" rel="noopener" href="https://www.crowdsupply.com/quicklogic/quickfeather">QuickFeather</a> is a development board adopting <a target="_blank" rel="noopener" href="https://www.quicklogic.com/">QuickLogic</a>'s <a target="_blank" rel="noopener" href="https://www.quicklogic.com/products/soc/eos-s3-microcontroller/">EOS S3</a> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/System_on_a_chip">SOC</a>.</p>
-<h1 id="introduction">1. Introduction</h1>
-<h2 id="lsusb">1.1 lsusb</h2>
+          <p><a target="_blank" rel="noopener" href="https://www.crowdsupply.com/quicklogic/quickfeather">QuickFeather</a> is a development board adopting <a target="_blank" rel="noopener" href="https://www.quicklogic.com/">QuickLogic</a>’s <a target="_blank" rel="noopener" href="https://www.quicklogic.com/products/soc/eos-s3-microcontroller/">EOS S3</a> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/System_on_a_chip">SOC</a>.</p>
+<h1 id="1-introduction"><a class="markdownIt-Anchor" href="#1-introduction"></a> 1. Introduction</h1>
+<h2 id="11-lsusb"><a class="markdownIt-Anchor" href="#11-lsusb"></a> 1.1 lsusb</h2>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">Bus 011 Device 016: ID 1d50:6140 OpenMoko, Inc.</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-<h2 id="openmoko">1.2 Openmoko</h2>
+<h2 id="12-openmoko"><a class="markdownIt-Anchor" href="#12-openmoko"></a> 1.2 Openmoko</h2>
 <p>So <strong>cool</strong>. For <strong>Openmoko</strong>, please refer to:</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Openmoko">Openmoko</a></li>
 <li><a target="_blank" rel="noopener" href="https://wiki.openmoko.org/wiki/Main_Page">Openmoko Wiki</a></li>
 </ul>
-<h2 id="spec">1.3 Spec</h2>
+<h2 id="13-spec"><a class="markdownIt-Anchor" href="#13-spec"></a> 1.3 Spec</h2>
 <ul>
-<li>All details can be found at <a target="_blank" rel="noopener" href="https://www.quicklogic.com/">QuickLogic</a>'s <a target="_blank" rel="noopener" href="https://www.quicklogic.com/products/soc/eos-s3-microcontroller/">EOS S3</a> page.</li>
+<li>All details can be found at <a target="_blank" rel="noopener" href="https://www.quicklogic.com/">QuickLogic</a>’s <a target="_blank" rel="noopener" href="https://www.quicklogic.com/products/soc/eos-s3-microcontroller/">EOS S3</a> page.</li>
 <li>In fact, the content on the <a target="_blank" rel="noopener" href="https://www.crowdsupply.com/quicklogic/quickfeather">QuickFeather</a> crowdsupply website is also comprehensive and includes all necessary information.</li>
 </ul>
-<h2 id="github-source-code">1.4 Github Source Code</h2>
+<h2 id="14-github-source-code"><a class="markdownIt-Anchor" href="#14-github-source-code"></a> 1.4 Github Source Code</h2>
 <ul>
 <li>Hardware: <a target="_blank" rel="noopener" href="https://github.com/QuickLogic-Corp/quick-feather-dev-board">quick-feather-dev-board</a></li>
 <li>Application: <a target="_blank" rel="noopener" href="https://github.com/QuickLogic-Corp/TinyFPGA-Programmer-Application">TinyFPGA-Programmer-Application</a></li>
 </ul>
-<h1 id="flash-the-firmware">2. Flash the Firmware</h1>
-<h2 id="preparation">3.1 Preparation</h2>
-<p>Please <strong>strictly follow</strong>: - the videos on <a target="_blank" rel="noopener" href="https://www.quicklogic.com/">QuickLogic</a>'s official website <a target="_blank" rel="noopener" href="https://www.quicklogic.com/products/eos-s3/quickfeather-development-kit/">QuickFeather Development Kit</a> - the installation steps on <a target="_blank" rel="noopener" href="https://github.com/QuickLogic-Corp/TinyFPGA-Programmer-Application">TinyFPGA-Programmer-Application</a></p>
-<h3 id="highlight-1---qfprog">3.1.1 Highlight 1 - qfprog</h3>
+<h1 id="2-flash-the-firmware"><a class="markdownIt-Anchor" href="#2-flash-the-firmware"></a> 2. Flash the Firmware</h1>
+<h2 id="21-preparation"><a class="markdownIt-Anchor" href="#21-preparation"></a> 2.1 Preparation</h2>
+<p>Please <strong>strictly follow</strong>:</p>
+<ul>
+<li>the videos on <a target="_blank" rel="noopener" href="https://www.quicklogic.com/">QuickLogic</a>’s official website <a target="_blank" rel="noopener" href="https://www.quicklogic.com/products/eos-s3/quickfeather-development-kit/">QuickFeather Development Kit</a></li>
+<li>the installation steps on <a target="_blank" rel="noopener" href="https://github.com/QuickLogic-Corp/TinyFPGA-Programmer-Application">TinyFPGA-Programmer-Application</a></li>
+</ul>
+<h3 id="211-highlight-1-qfprog"><a class="markdownIt-Anchor" href="#211-highlight-1-qfprog"></a> 2.1.1 Highlight 1 - qfprog</h3>
 <p><span style="color:red">In my <code>.bashrc</code> and <code>.zshrc</code>, the following line is added.</span></p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias qfprog=&quot;python3 /opt/TinyFPGA-Programmer-Application/tinyfpga-programmer-gui.py&quot;</span><br></pre></td></tr></table></figure>
-<h3 id="highlight-2---tinyfpgaa-and-tinyfpgab">3.1.1 Highlight 2 - <a target="_blank" rel="noopener" href="https://github.com/QuickLogic-Corp/TinyFPGA-A-Programmer">tinyfpgaa</a> and <a target="_blank" rel="noopener" href="https://github.com/QuickLogic-Corp/TinyFPGA-B-Series">tinyfpgab</a></h3>
+<h3 id="212-highlight-2-tinyfpgaa-and-tinyfpgab"><a class="markdownIt-Anchor" href="#212-highlight-2-tinyfpgaa-and-tinyfpgab"></a> 2.1.2 Highlight 2 - <a target="_blank" rel="noopener" href="https://github.com/QuickLogic-Corp/TinyFPGA-A-Programmer">tinyfpgaa</a> and <a target="_blank" rel="noopener" href="https://github.com/QuickLogic-Corp/TinyFPGA-B-Series">tinyfpgab</a></h3>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip show tinyfpgab</span><br><span class="line">Name: tinyfpgab</span><br><span class="line">Version: 1.1.0</span><br><span class="line">Summary: Programmer for the TinyFPGA B2 boards (http://tinyfpga.com)</span><br><span class="line">Home-page: https://github.com/tinyfpga/TinyFPGA-B-Series/tree/master/programmer</span><br><span class="line">Author: Luke Valenty</span><br><span class="line">Author-email: lvalenty@gmail.com</span><br><span class="line">License: </span><br><span class="line">Location: ~/.local/lib/python3.10/site-packages</span><br><span class="line">Requires: pyserial</span><br><span class="line">Required-by: </span><br><span class="line">➜  ~ pip show tinyfpgaa</span><br><span class="line">Name: tinyfpgaa</span><br><span class="line">Version: 0.9.0</span><br><span class="line">Summary: A small example package</span><br><span class="line">Home-page: https://github.com/tinyfpga/TinyFPGA-A-Programmer</span><br><span class="line">Author: William D. Jones</span><br><span class="line">Author-email: thor0505@comcast.net</span><br><span class="line">License: </span><br><span class="line">Location: ~/.local/lib/python3.10/site-packages/tinyfpgaa-0.9.0-py3.10.egg</span><br><span class="line">Requires: </span><br><span class="line">Required-by: </span><br></pre></td></tr></table></figure>
 <ul>
 <li>For <a target="_blank" rel="noopener" href="https://github.com/QuickLogic-Corp/TinyFPGA-B-Series">tinyfpgab</a>: <code>pip install -U --user tinyfpgab</code></li>
 <li>For <a target="_blank" rel="noopener" href="https://github.com/QuickLogic-Corp/TinyFPGA-A-Programmer">tinyfpgaa</a>: <strong>Build from source</strong></li>
 </ul>
-<h2 id="now-lets-flash">3.2 Now Let's Flash</h2>
-<h3 id="flash-bootloader">3.2.1 Flash Bootloader</h3>
+<h2 id="22-now-lets-flash"><a class="markdownIt-Anchor" href="#22-now-lets-flash"></a> 2.2 Now Let’s Flash</h2>
+<h3 id="221-flash-bootloader"><a class="markdownIt-Anchor" href="#221-flash-bootloader"></a> 2.2.1 Flash Bootloader</h3>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">➜  qorc-sdk git:(master) ✗ qfprog --port=/dev/ttyACM0 --bl ./qf_apps/quickfeather-initial-binaries/qf_bootloader.bin</span><br><span class="line">CLI mode</span><br><span class="line">ports =  [&#x27;/dev/ttyACM0 (QuickFeather)&#x27;] 1</span><br><span class="line">Using port  /dev/ttyACM0 (QuickFeather)</span><br><span class="line">Programming bootloader with  ./qf_apps/quickfeather-initial-binaries/qf_bootloader.bin</span><br><span class="line">Erasing designated flash pages</span><br><span class="line">Erase  32.0 KiB ( 0x52 ) at  0x0</span><br><span class="line">Erase  4.0 KiB ( 0x20 ) at  0x8000</span><br><span class="line">Erase  4.0 KiB ( 0x20 ) at  0x9000</span><br><span class="line">Writing  binary</span><br><span class="line">Write  40340  bytes</span><br><span class="line">[XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX]</span><br><span class="line">Verifying  binary</span><br><span class="line">FastREAD 0x0B ( 40340 )</span><br><span class="line">[XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX]</span><br><span class="line">Success: read_back == data</span><br><span class="line">Writing metadata</span><br><span class="line">Erasing designated flash pages</span><br><span class="line">Erase  4.0 KiB ( 0x20 ) at  0x1f000</span><br><span class="line">Writing  metadata</span><br><span class="line">Write  8  bytes</span><br><span class="line">[X]                                               ]</span><br><span class="line">Verifying  metadata</span><br><span class="line">FastREAD 0x0B ( 8 )</span><br><span class="line">[X]                                               ]</span><br><span class="line">Success: read_back == data</span><br></pre></td></tr></table></figure>
-<h3 id="flash-bootfpga">3.2.2 Flash BootFPGA</h3>
+<h3 id="222-flash-bootfpga"><a class="markdownIt-Anchor" href="#222-flash-bootfpga"></a> 2.2.2 Flash BootFPGA</h3>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">➜  qorc-sdk git:(master) ✗ qfprog --port=/dev/ttyACM0 --bootfpga ./qf_apps/quickfeather-initial-binaries/qf_bootfpga.bin</span><br><span class="line">CLI mode</span><br><span class="line">ports =  [&#x27;/dev/ttyACM0 (QuickFeather)&#x27;] 1</span><br><span class="line">Using port  /dev/ttyACM0 (QuickFeather)</span><br><span class="line">Programming FPGA image used during programming  ./qf_apps/quickfeather-initial-binaries/qf_bootfpga.bin</span><br><span class="line">Erasing designated flash pages</span><br><span class="line">Erase  64.0 KiB ( 0xd8 ) at  0x20000</span><br><span class="line">Erase  4.0 KiB ( 0x20 ) at  0x30000</span><br><span class="line">Erase  4.0 KiB ( 0x20 ) at  0x31000</span><br><span class="line">Erase  4.0 KiB ( 0x20 ) at  0x32000</span><br><span class="line">Writing  binary</span><br><span class="line">Write  75960  bytes</span><br><span class="line">[XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX]</span><br><span class="line">Verifying  binary</span><br><span class="line">FastREAD 0x0B ( 75960 )</span><br><span class="line">[XXXXXXXXXXXXXXXXXXXXXXXXXXXXTraceback (most recent call last):</span><br><span class="line">  File &quot;/opt/TinyFPGA-Programmer-Application/tinyfpga-programmer-gui.py&quot;, line 206, in program</span><br><span class="line">    fpga.program_bitstream(addr, bitstream, &quot;binary&quot;)</span><br><span class="line">  File &quot;/opt/TinyFPGA-Programmer-Application/q-series/python/tinyfpgaq.py&quot;, line 311, in program_bitstream</span><br><span class="line">    if self.program(addr, bitstream, what):</span><br><span class="line">  File &quot;/opt/TinyFPGA-Programmer-Application/q-series/python/tinyfpgaq.py&quot;, line 237, in program</span><br><span class="line">    read_back = self.read(addr, len(data))</span><br><span class="line">  File &quot;/opt/TinyFPGA-Programmer-Application/q-series/python/tinyfpgaq.py&quot;, line 72, in read</span><br><span class="line">    data += self.cmd(0x0b, addr, b&#x27;\x00&#x27;, read_len=read_length)</span><br><span class="line">  File &quot;/opt/TinyFPGA-Programmer-Application/q-series/python/tinyfpgaq.py&quot;, line 45, in cmd</span><br><span class="line">    response = self.ser.read(read_len)</span><br><span class="line">  File &quot;~/.local/lib/python3.10/site-packages/serial/serialposix.py&quot;, line 595, in read</span><br><span class="line">    raise SerialException(</span><br><span class="line">serial.serialutil.SerialException: device reports readiness to read but returned no data (device disconnected or multiple access on port?)</span><br><span class="line">Writing metadata</span><br><span class="line">Erasing designated flash pages</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;~/.local/lib/python3.10/site-packages/serial/serialposix.py&quot;, line 621, in write</span><br><span class="line">    n = os.write(self.fd, d)</span><br><span class="line">OSError: [Errno 5] Input/output error</span><br><span class="line"></span><br><span class="line">During handling of the above exception, another exception occurred:</span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;/opt/TinyFPGA-Programmer-Application/tinyfpga-programmer-gui.py&quot;, line 218, in program</span><br><span class="line">    fpga.program_bitstream(meta_addr, meta_bitstream, &quot;metadata&quot;)</span><br><span class="line">  File &quot;/opt/TinyFPGA-Programmer-Application/q-series/python/tinyfpgaq.py&quot;, line 311, in program_bitstream</span><br><span class="line">    if self.program(addr, bitstream, what):</span><br><span class="line">  File &quot;/opt/TinyFPGA-Programmer-Application/q-series/python/tinyfpgaq.py&quot;, line 229, in program</span><br><span class="line">    self.quick_erase(addr, len(data))</span><br><span class="line">  File &quot;/opt/TinyFPGA-Programmer-Application/q-series/python/tinyfpgaq.py&quot;, line 179, in quick_erase</span><br><span class="line">    self._erase(start_addr, 0x1000)</span><br><span class="line">  File &quot;/opt/TinyFPGA-Programmer-Application/q-series/python/tinyfpgaq.py&quot;, line 108, in _erase</span><br><span class="line">    self.write_enable()</span><br><span class="line">  File &quot;/opt/TinyFPGA-Programmer-Application/q-series/python/tinyfpgaq.py&quot;, line 86, in write_enable</span><br><span class="line">    self.cmd(0x06)</span><br><span class="line">  File &quot;/opt/TinyFPGA-Programmer-Application/q-series/python/tinyfpgaq.py&quot;, line 43, in cmd</span><br><span class="line">    self.ser.write(bytearray(cmd_write_string))</span><br><span class="line">  File &quot;~/.local/lib/python3.10/site-packages/serial/serialposix.py&quot;, line 655, in write</span><br><span class="line">    raise SerialException(&#x27;write failed: &#123;&#125;&#x27;.format(e))</span><br><span class="line">serial.serialutil.SerialException: write failed: [Errno 5] Input/output error</span><br></pre></td></tr></table></figure>
+<h3 id="223-bricked"><a class="markdownIt-Anchor" href="#223-bricked"></a> 2.2.3 Bricked</h3>
 <p><strong>Unfortunately</strong>, my <a target="_blank" rel="noopener" href="https://www.crowdsupply.com/quicklogic/quickfeather">QuickFeather</a> is <strong>bricked</strong>. Whenever <strong>reset</strong> or even entering <strong>user</strong> mode, the <strong>LED</strong> on <a target="_blank" rel="noopener" href="https://www.crowdsupply.com/quicklogic/quickfeather">QuickFeather</a> turns to <span style="color:red">red</span> in the end.</p>
 
       
@@ -1117,118 +1263,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2022/09/01/ComputerVision/OpenCV/free-opencv-courses/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/09/01/ComputerVision/OpenCV/free-opencv-courses/" class="post-title-link" itemprop="url">Free OpenCV Courses</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-09-01 00:00:00" itemprop="dateCreated datePublished" datetime="2022-09-01T00:00:00-07:00">2022-09-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-21 23:06:29" itemprop="dateModified" datetime="2023-11-21T23:06:29-08:00">2023-11-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer-Vision/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="preparation">0. Preparation</h2>
-<iframe width="900" height="506" src="https://www.youtube.com/embed/D_QbHCzWGFg?list=PLjw8kHF8SeFr-SyXfslTjxoQG37VJAtT4" title="贾老师照本宣科OpenCV 系列一： Free OpenCV Course ~ 00 - Preparation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-</iframe>
-<h2 id="getting-started-with-images">1. Getting Started with Images</h2>
-<iframe width="900" height="506" src="https://www.youtube.com/embed/B4qD8gLvNys?list=PLjw8kHF8SeFr-SyXfslTjxoQG37VJAtT4" title="贾老师照本宣科OpenCV 系列一： Free OpenCV Course ~ 01 - Getting Started with Images" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-</iframe>
-<h2 id="basic-image-manipulation">2. Basic Image Manipulation</h2>
-<iframe width="900" height="506" src="https://www.youtube.com/embed/rLvzQcNXFQ4?list=PLjw8kHF8SeFr-SyXfslTjxoQG37VJAtT4" title="贾老师照本宣科OpenCV 系列一： Free OpenCV Course ~ 02 - Basic Image Manipulation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-</iframe>
-<h2 id="image-annotation">3. Image Annotation</h2>
-<iframe width="900" height="506" src="https://www.youtube.com/embed/p7F9BhHhrGU?list=PLjw8kHF8SeFr-SyXfslTjxoQG37VJAtT4" title="贾老师照本宣科OpenCV 系列一： Free OpenCV Course ~ 03 - Image Annotation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-</iframe>
-<h2 id="image-enhancement">4. Image Enhancement</h2>
-<iframe width="900" height="506" src="https://www.youtube.com/embed/Xo6LuPyd10c?list=PLjw8kHF8SeFr-SyXfslTjxoQG37VJAtT4" title="贾老师照本宣科OpenCV 系列一： Free OpenCV Course ~ 04 - Basic Image Enhancement" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-</iframe>
-<h2 id="accessing-camera">5. Accessing Camera</h2>
-<iframe width="900" height="506" src="https://www.youtube.com/embed/WIGG2bwYIqg?list=PLjw8kHF8SeFr-SyXfslTjxoQG37VJAtT4" title="贾老师照本宣科OpenCV 系列一： Free OpenCV Course ~ 05 - Accesssing Camera" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-</iframe>
-<h2 id="video-writing">6. Video Writing</h2>
-<iframe width="900" height="506" src="https://www.youtube.com/embed/UMXsJUQkqfw?list=PLjw8kHF8SeFr-SyXfslTjxoQG37VJAtT4" title="贾老师照本宣科OpenCV 系列一： Free OpenCV Course ~ 06 - Video Writing" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-</iframe>
-<h2 id="image-filtering-edge-detection">7. Image Filtering Edge Detection</h2>
-<iframe width="900" height="506" src="https://www.youtube.com/embed/WoHdFaJ5z-s?list=PLjw8kHF8SeFr-SyXfslTjxoQG37VJAtT4" title="贾老师照本宣科OpenCV 系列一： Free OpenCV Course ~ 07 - Preparation Image Filtering Edge Detection" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-</iframe>
-<h2 id="image-features-and-alignment">8. Image Features and Alignment</h2>
-<iframe width="900" height="506" src="https://www.youtube.com/embed/tkEosU51tRk?list=PLjw8kHF8SeFr-SyXfslTjxoQG37VJAtT4" title="贾老师照本宣科OpenCV 系列一： Free OpenCV Course ~ 08 - Image Features and Alignment" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-</iframe>
-<h2 id="panorama">9. Panorama</h2>
-<iframe width="900" height="506" src="https://www.youtube.com/embed/3YDlzQZxk94?list=PLjw8kHF8SeFr-SyXfslTjxoQG37VJAtT4" title="贾老师照本宣科OpenCV 系列一： Free OpenCV Course ~ 09 - Panorama" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-</iframe>
-<h2 id="hdr">10. HDR</h2>
-<h2 id="object-tracking">11. Object Tracking</h2>
-<h2 id="face-detection">12. Face Detection</h2>
-<h2 id="object-detection">13. Object Detection</h2>
-<h2 id="openpose">14. Openpose</h2>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1298,18 +1332,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">123</span>
+          <span class="site-state-item-count">124</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">119</span>
+        <span class="site-state-item-count">120</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

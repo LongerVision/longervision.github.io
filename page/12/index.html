@@ -149,6 +149,165 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/04/01/AI/DeepLearning/CNN-by-PyTorch-via-Anaconda/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/04/01/AI/DeepLearning/CNN-by-PyTorch-via-Anaconda/" class="post-title-link" itemprop="url">CNN by PyTorch via Anaconda</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-01 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-01T00:00:00-07:00">2018-04-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-11-21 23:06:29" itemprop="dateModified" datetime="2023-11-21T23:06:29-08:00">2023-11-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Finally, I’ve got some time to write something about <a target="_blank" rel="noopener" href="http://pytorch.org/">PyTorch</a>, a popular deep learning tool. We suppose you have had fundamental understanding of <a target="_blank" rel="noopener" href="https://anaconda.org/">Anaconda Python</a>, created Anaconda virtual environment (in my case, it’s named condaenv), and had <a target="_blank" rel="noopener" href="http://pytorch.org/">PyTorch</a> installed successfully under this Anaconda virtual environment <strong>condaenv</strong>.</p>
+<p>Since I’m using <a target="_blank" rel="noopener" href="https://code.visualstudio.com/">Visual Studio Code</a> to test my Python code (of course, you can use whichever coding tool you like), I suppose you’ve already had your own coding tool configured. Now, you are ready to go!</p>
+<p>In my case, I’m giving a tutorial, instead of coding by myself. Therefore, <a target="_blank" rel="noopener" href="http://jupyter.org/">Jupyter Notebook</a> is selected as my presentation tool. So, I’ll demonstrate everything both in .py files, as well as .ipynb files. All codes can be found at <a target="_blank" rel="noopener" href="https://github.com/LongerVision/PyTorch_Examples">Longer Vision PyTorch_Examples</a>. However, <strong>ONLY</strong> <a target="_blank" rel="noopener" href="http://jupyter.org/">Jupyter Notebook</a> presentation is given in my blogs. Therefore, I suppose you’ve already successfully installed <a target="_blank" rel="noopener" href="http://jupyter.org/">Jupyter Notebook</a>, as well as any other required packages under your Anaconda virtual environment <strong>condaenv</strong>.</p>
+<p>Now, let’s pop up <a target="_blank" rel="noopener" href="http://jupyter.org/">Jupyter Notebook</a> server.</p>
+<figure>
+<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/PyTorch/00_AnacondaVirtualEnv4Python.jpg" alt="" /><figcaption>Anaconda Python Virtual Environment</figcaption>
+</figure>
+<p>Clearly, Anaconda comes with the <strong>NEWEST</strong> version. So far, it is <strong>Python 3.6.4</strong>.</p>
+<h1 id="part-a-hello-pytorch">PART A: Hello PyTorch</h1>
+<p>Our very <strong>FIRST</strong> test code is of only 6 lines including an empty line:</p>
+<iframe src="https://nbviewer.org/github/LongerVision/Resource/blob/master/AI/DeepLearning/CNN-by-PyTorch-via-Anaconda/00_HelloPyTorch.ipynb" width="800" height="400">
+</iframe>
+<p>After popping up <a target="_blank" rel="noopener" href="http://jupyter.org/">Jupyter Notebook</a> server, and click <strong>Run</strong>, you will see this view:</p>
+<figure>
+<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/PyTorch/00_HelloPyTorch.jpg" alt="" /><figcaption>Jupyter Notebook Hello PyTorch</figcaption>
+</figure>
+<p>Clearly, the current <strong>torch</strong> is of version <strong>0.3.1</strong>, and <strong>torchvision</strong> is of version <strong>0.2.0</strong>.</p>
+<h1 id="part-b-convolutional-neural-network-in-pytorch">PART B: Convolutional Neural Network in PyTorch</h1>
+<h2 id="general-concepts">1. General Concepts</h2>
+<h3 id="online-resource">1) Online Resource</h3>
+<p>We are <strong>NOT</strong> going to discuss the background details of Convolutional Neural Network. A lot online frameworks/courses are available for you to catch up:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://cs231n.stanford.edu/">CS231n</a></li>
+<li><a target="_blank" rel="noopener" href="https://caffe2.ai/">Caffe2</a></li>
+<li><a target="_blank" rel="noopener" href="https://mxnet.apache.org/">MXNet</a></li>
+<li><a target="_blank" rel="noopener" href="https://cs.stanford.edu/people/karpathy/convnetjs/?spm=5176.100239.blogcont43089.256.HCgoHQ">ConvNetJS</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tensorflow.org/">TensorFlow</a></li>
+<li><a target="_blank" rel="noopener" href="https://openai.com/">OpenAI</a></li>
+<li>…</li>
+</ul>
+<p>Several fabulous blogs are strongly recommended, including:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://brohrer.github.io/how_convolutional_neural_networks_work.html">How do Convolutional Neural Networks work?</a></li>
+<li><a target="_blank" rel="noopener" href="http://karpathy.github.io/">Andrej Karpathy blog</a></li>
+<li><a target="_blank" rel="noopener" href="http://colah.github.io/">colah’s blog</a></li>
+<li><a target="_blank" rel="noopener" href="http://eric-yuan.me/">Eric Yuan’s Blog</a></li>
+<li>…</li>
+</ul>
+<h3 id="architecture">2) Architecture</h3>
+<p>One picture for all (cited from <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Convolutional_neural_network">Convolutional Neural Network</a> )</p>
+<figure>
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/63/Typical_cnn.png" alt="" /><figcaption>Typical Convolutional Neural Network Architecture</figcaption>
+</figure>
+<h3 id="back-propagation-bp">3) Back Propagation (BP)</h3>
+<p>The <strong>ONLY</strong> concept in <strong>CNN</strong> we want to emphasize here is <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Backpropagation">Back Propagation</a>, which has been widely used in traditional neural networks, which takes the solution similar to the final <strong>Fully Connected Layer</strong> of CNN. You are welcome to get some more details from <a target="_blank" rel="noopener" href="https://brilliant.org/wiki/backpropagation/">https://brilliant.org/wiki/backpropagation/</a>.</p>
+<h4 id="pre-defined-variables">Pre-defined Variables</h4>
+<h5 id="training-database">Training Database</h5>
+<ul>
+<li><span class="math inline">\(X={(\vec{x_1},\vec{y_1}),(\vec{x_2},\vec{y_2}),…,(\vec{x_N},\vec{y_N})}\)</span>: the training dataset <span class="math inline">\(X\)</span> is composed of <span class="math inline">\(N\)</span> pairs of training samples, where <span class="math inline">\((\vec{x_i},\vec{y_i}),1 \le i \le N\)</span></li>
+<li><span class="math inline">\((\vec{x_i},\vec{y_i}),1 \le i \le N\)</span>: the <span class="math inline">\(i\)</span>th training sample pair</li>
+<li><span class="math inline">\(\vec{x_i}\)</span>: the <span class="math inline">\(i\)</span>th input vector (can be an original image, can also be a vector of extracted features, etc.)</li>
+<li><span class="math inline">\(\vec{y_i}\)</span>: the <span class="math inline">\(i\)</span>th desired output vector (can be a <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/One-hot">one-hot</a> vector, can also be a scalar, which is a 1-element vector)</li>
+<li><span class="math inline">\(\hat{\vec{y_i} }\)</span>: the <span class="math inline">\(i\)</span>th output vector from the nerual network by using the <span class="math inline">\(i\)</span>th input vector <span class="math inline">\(\vec{x_i}\)</span></li>
+<li><span class="math inline">\(N\)</span>: size of dataset, namely, how many training samples</li>
+<li><span class="math inline">\(w_{ij}^k\)</span>: in the neural network’s architecture, at level <span class="math inline">\(k\)</span>, the weight of the node connecting the <span class="math inline">\(i\)</span>th input and the <span class="math inline">\(j\)</span>th output</li>
+<li><span class="math inline">\(\theta\)</span>: a generalized denotion for any parameter inside the neural networks, which can be looked on as any element from a set of <span class="math inline">\(w_{ij}^k\)</span>.</li>
+</ul>
+<h5 id="evaluation-function">Evaluation Function</h5>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Mean_squared_error">Mean squared error (MSE)</a>: <span class="math display">\[E(X, \theta) = \frac{1}{2N} \sum_{i=1}^N \left(||\hat{\vec{y_i} } - \vec{y_i}||\right)^2\]</span></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cross_entropy">Cross entropy</a>: <span class="math display">\[E(X, prob) = - \frac{1}{N} \sum_{i=1}^N log_2\left({prob(\vec{y_i})}\right)\]</span></li>
+</ul>
+<p>Particularly, for binary classification, <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Logistic_regression">logistic regression</a> is often adopted. A <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Logistic_function">logistic function</a> is defined as:</p>
+<p><span class="math display">\[f(x)=\frac{1}{(1+e^{-x})}\]</span></p>
+<p>In such a case, the loss function can easily be deducted as:</p>
+<p><span class="math display">\[E(X,W) = - \frac{1}{N} \sum_{i=1}^N [y_i log({\hat{y_i} })+(1-y_i)log(1-\hat{y_i})]\]</span></p>
+<p>where</p>
+<p><span class="math display">\[y_i=0/1\]</span></p>
+<p><span class="math display">\[\hat{y_i} \equiv g(\vec{w} \cdot \vec{x_i}) = \frac{1}{(1+e^{-\vec{w} \cdot \vec{x_i} })}\]</span></p>
+<p>Some PyTorch explaination can be found at <a target="_blank" rel="noopener" href="http://pytorch.org/docs/master/nn.html#crossentropyloss">torch.nn.CrossEntropyLoss</a>.</p>
+<h4 id="bp-deduction-conclusions">BP Deduction Conclusions</h4>
+<p>Only <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Mean_squared_error">MSE</a> is considered here (Please refer to <a target="_blank" rel="noopener" href="https://brilliant.org/wiki/backpropagation/">https://brilliant.org/wiki/backpropagation/</a>):</p>
+<p><span class="math display">\[
+\frac {\partial {E(X,\theta)} } {\partial w_{ij}^k} = \frac {1}{N} \sum_{d=1}^N \frac {\partial}{\partial w_{ij}^k} \Big( {\frac{1}{2} (\vec{y_d}-y_d)^2 } \Big) = \frac{1}{N} \sum_{d=1}^N {\frac{\partial E_d}{\partial w_{ij}^k} }
+\]</span></p>
+<p>The updating weights is also determined as:</p>
+<p><span class="math display">\[
+\Delta w_{ij}^k = - \alpha \frac {\partial {E(X,\theta)} } {\partial w_{ij}^k}
+\]</span></p>
+<h2 id="pytorch-implementation-of-canonical-cnn">2. PyTorch Implementation of Canonical CNN</h2>
+<iframe src="https://nbviewer.org/github/LongerVision/Resource/blob/master/AI/DeepLearning/CNN-by-PyTorch-via-Anaconda/01_PyTorch_CNN_MNIST.ipynb" width="800" height="600">
+</iframe>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/03/02/IoT/setup-repeater-bridge-using-a-dd-wrt-router/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1521,116 +1680,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2017/03/12/ComputerVision/OpenCV/opencv-external-posture-estimation-ArUco-board/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/03/12/ComputerVision/OpenCV/opencv-external-posture-estimation-ArUco-board/" class="post-title-link" itemprop="url">Camera Posture Estimation Using An ArUco Board</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-03-12 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-12T00:00:00-08:00">2017-03-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-21 23:06:29" itemprop="dateModified" datetime="2023-11-21T23:06:29-08:00">2023-11-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer-Vision/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="preparation">Preparation</h1>
-<p>Today, let’s test on an aruco board, instead of a <a target="_blank" rel="noopener" href="https://longervision.github.io/2017/03/10/opencv-external-posture-estimation-ArUco-single-marker/">single marker</a> or a <a target="_blank" rel="noopener" href="https://longervision.github.io/2017/03/11/opencv-external-posture-estimation-ArUco-diamond/">diamond marker</a>. Again, you need to make sure your camera has already been calibrated. In the coding section, it’s assumed that you can successfully load the camera calibration parameters.</p>
-<h1 id="coding">Coding</h1>
-<p>The code can be found at <a target="_blank" rel="noopener" href="https://github.com/LongerVision/OpenCV_Examples/blob/master/03_external_camera_posture_estimation/ArUco_single_marker.py">OpenCV Examples</a>.</p>
-<h2 id="first-of-all">First of all</h2>
-<p>We need to ensure <strong>cv2.so</strong> is under our system path. <strong>cv2.so</strong> is specifically for OpenCV Python.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import sys</span><br><span class="line">sys.path.append(<span class="string">&#x27;/usr/local/python/3.5&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p>Then, we import some packages to be used.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">from</span> cv2 <span class="keyword">import</span> aruco</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
-<h2 id="secondly">Secondly</h2>
-<p>Again, we need to load all camera calibration parameters, including: <strong>cameraMatrix</strong>, <strong>distCoeffs</strong>, etc. :</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">calibrationFile = <span class="string">&quot;calibrationFileName.xml&quot;</span></span><br><span class="line">calibrationParams = cv2.FileStorage(calibrationFile, cv2.FILE_STORAGE_READ)</span><br><span class="line">camera_matrix = calibrationParams.getNode(<span class="string">&quot;cameraMatrix&quot;</span>).mat()</span><br><span class="line">dist_coeffs = calibrationParams.getNode(<span class="string">&quot;distCoeffs&quot;</span>).mat()</span><br></pre></td></tr></table></figure>
-<p>If you are using a calibrated fisheye camera like us, two extra parameters are to be loaded from the calibration file.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">r = calibrationParams.getNode(<span class="string">&quot;R&quot;</span>).mat()</span><br><span class="line">new_camera_matrix = calibrationParams.getNode(<span class="string">&quot;newCameraMatrix&quot;</span>).mat()</span><br></pre></td></tr></table></figure>
-<p>Afterwards, two mapping matrices are pre-calculated by calling function <a target="_blank" rel="noopener" href="http://docs.opencv.org/master/da/d54/group__imgproc__transform.html#ga7dfb72c9cf9780a347fbe3d1c47e5d5a">cv2.fisheye.initUndistortRectifyMap()</a> as (supposing the images to be processed are of 1080P):</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">image_size = (<span class="number">1920</span>, <span class="number">1080</span>)</span><br><span class="line">map1, map2 = cv2.fisheye.initUndistortRectifyMap(camera_matrix, dist_coeffs, r, new_camera_matrix, image_size, cv2.CV_16SC2)</span><br></pre></td></tr></table></figure>
-<h2 id="thirdly">Thirdly</h2>
-<p>In our test, the dictionary <strong>aruco.DICT_6X6_1000</strong> is adopted as the unit pattern to construct a grid board. The board is of size <strong>5X7</strong>, which looks like:</p>
-<figure>
-<img src="https://raw.githubusercontent.com/LongerVision/OpenCV_Examples/master/markers/board_aruco_57.png" alt="" /><figcaption>aruco.DICT_6X6_1000.board57</figcaption>
-</figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aruco_dict = aruco.Dictionary_get( aruco.DICT_6X6_1000 )</span><br></pre></td></tr></table></figure>
-<p>After having this aruco board marker printed, the edge lengths of this particular aruco marker and the distance between two neighbour markers are to be measured and stored in two variables <strong>markerLength</strong> and <strong>markerSeparation</strong>, which are used to create the <strong>5X7</strong> grid board.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">markerLength = <span class="number">40</span>   <span class="comment"># Here, our measurement unit is centimetre.</span></span><br><span class="line">markerSeparation = <span class="number">8</span>   <span class="comment"># Here, our measurement unit is centimetre.</span></span><br><span class="line">board = aruco.GridBoard_create(<span class="number">5</span>, <span class="number">7</span>, markerLength, markerSeparation, aruco_dict)</span><br></pre></td></tr></table></figure>
-<p>Meanwhile, create aruco detector with default parameters.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arucoParams = aruco.DetectorParameters_create()</span><br></pre></td></tr></table></figure>
-<h2 id="finally">Finally</h2>
-<p>Now, let’s test on a video stream, a .mp4 file. We first load the video file and initialize a video capture handle.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">videoFile = <span class="string">&quot;aruco\_board\_57.mp4&quot;</span></span><br><span class="line">cap = cv2.VideoCapture(videoFile)</span><br></pre></td></tr></table></figure>
-<p>Then, we calculate the camera posture frame by frame:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="literal">True</span>):</span><br><span class="line">    ret, frame = cap.read() <span class="comment"># Capture frame-by-frame</span></span><br><span class="line">    <span class="keyword">if</span> ret == <span class="literal">True</span>:</span><br><span class="line">        frame_remapped = cv2.remap(frame, map1, map2, cv2.INTER_LINEAR, cv2.BORDER_CONSTANT)     <span class="comment"># for fisheye remapping</span></span><br><span class="line">        frame_remapped_gray = cv2.cvtColor(frame_remapped, cv2.COLOR_BGR2GRAY)</span><br><span class="line"></span><br><span class="line">        corners, ids, rejectedImgPoints = aruco.detectMarkers(frame_remapped_gray, aruco_dict, parameters=arucoParams)  <span class="comment"># First, detect markers</span></span><br><span class="line">        aruco.refineDetectedMarkers(frame_remapped_gray, board, corners, ids, rejectedImgPoints)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> ids != <span class="literal">None</span>: <span class="comment"># if there is at least one marker detected</span></span><br><span class="line">            im_with_aruco_board = aruco.drawDetectedMarkers(frame_remapped, corners, ids, (<span class="number">0</span>,<span class="number">255</span>,<span class="number">0</span>))</span><br><span class="line">            retval, rvec, tvec = aruco.estimatePoseBoard(corners, ids, board, camera_matrix, dist_coeffs)  <span class="comment"># posture estimation from a diamond</span></span><br><span class="line">            <span class="keyword">if</span> retval != <span class="number">0</span>:</span><br><span class="line">                im_with_aruco_board = aruco.drawAxis(im_with_aruco_board, camera_matrix, dist_coeffs, rvec, tvec, <span class="number">100</span>)  <span class="comment"># axis length 100 can be changed according to your requirement</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            im_with_aruco_board = frame_remapped</span><br><span class="line"></span><br><span class="line">        cv2.imshow(<span class="string">&quot;arucoboard&quot;</span>, im_with_aruco_board)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> cv2.waitKey(<span class="number">2</span>) &amp; <span class="number">0xFF</span> == <span class="built_in">ord</span>(<span class="string">&#x27;q&#x27;</span>):</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
-<p>The drawn axis is just the world coordinators and orientations estimated from the images taken by the testing camera. At the end of the code, we release the video capture handle and destroy all opening windows.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cap.release()   <span class="comment"># When everything done, release the capture</span></span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1700,18 +1749,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">123</span>
+          <span class="site-state-item-count">124</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">119</span>
+        <span class="site-state-item-count">120</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
