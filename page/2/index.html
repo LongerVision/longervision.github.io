@@ -149,6 +149,96 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/10/20/Coding/HowTo/llvm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/10/20/Coding/HowTo/llvm/" class="post-title-link" itemprop="url">Build LLVM From Source</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-10-20 00:00:00" itemprop="dateCreated datePublished" datetime="2023-10-20T00:00:00-07:00">2023-10-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-11-21 23:06:29" itemprop="dateModified" datetime="2023-11-21T23:06:29-08:00">2023-11-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Coding/HowTo/" itemprop="url" rel="index"><span itemprop="name">HowTo</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Quickly had <a href="" title="https://llvm.org/">LLVM</a> <a target="_blank" rel="noopener" href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-17.0.3">17.0.3</a> built from source again. Just follow the <a target="_blank" rel="noopener" href="https://llvm.org/docs/GettingStarted.html#getting-the-source-code-and-building-llvm">official website</a>:</p>
+<h2 id="git-clone">1. Git clone</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/llvm/llvm-project.git</span><br></pre></td></tr></table></figure>
+<h2 id="cmake-configure">2. CMake Configure</h2>
+<p>There is a very serious <strong>pitfall</strong> here, please refer to <a target="_blank" rel="noopener" href="https://llvm.org/docs/CMake.html">LLVM CMake documentation</a></p>
+<p>For LLVM-related variable <strong>LLVM_ENABLE_PROJECTS</strong>, if you want to build <strong>ALL</strong> projects by specifying <code>-DLLVM_ENABLE_PROJECTS=all</code>, all the following projects <code>clang;clang-tools-extra;cross-project-tests;libc;libclc;lld;lldb;openmp;polly;pstl</code> are to be built. Particularly, <strong>libc</strong> is also to be built, which will bring me the following error:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">....../llvm-project/libc/src/string/strcpy.cpp:17:28: error: ‘char*__llvm_libc_18_0_0_git::strcpy(char*, const char*)’ aliased to external symbol ‘strcpy’</span><br><span class="line">   17 | LLVM_LIBC_FUNCTION(char*, strcpy,</span><br></pre></td></tr></table></figure>
+<p>Therefore, it's better to avoid building <strong>libc</strong>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cmake -S llvm-project/llvm -B llvm-project/build \</span><br><span class="line">        -DCMAKE_BUILD_TYPE=Release \</span><br><span class="line">        -DLLVM_ENABLE_PROJECTS=<span class="string">&quot;clang;lld;lldb&quot;</span> \</span><br><span class="line">        -DCMAKE_CXX_COMPILER=clang++ \</span><br><span class="line">        -DCMAKE_C_COMPILER=clang \</span><br><span class="line">        -DBUILD_SHARED_LIBS=Onhexo</span><br></pre></td></tr></table></figure>
+<h2 id="build">3. Build</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake --build llvm-project/build -j16</span><br></pre></td></tr></table></figure>
+<h2 id="installation">4. Installation</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cmake --install llvm-project/build --prefix /usr/local </span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2022/09/01/ComputerVision/OpenCV/free-opencv-courses/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -997,85 +1087,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2022/04/28/Coding/HowTo/qtengine/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/28/Coding/HowTo/qtengine/" class="post-title-link" itemprop="url">How to build QtWebEngine?</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-04-28 00:00:00" itemprop="dateCreated datePublished" datetime="2022-04-28T00:00:00-07:00">2022-04-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-21 23:06:29" itemprop="dateModified" datetime="2023-11-21T23:06:29-08:00">2023-11-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Coding/HowTo/" itemprop="url" rel="index"><span itemprop="name">HowTo</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>NEVER</strong> successfully built out QtWebEngine before. Today, I'd love to have a try. From this tutorial <a target="_blank" rel="noopener" href="https://www.tal.org/tutorials/building-qtwebengine">Building QtWebEngine</a>, it looks possible.</p>
-<p><a target="_blank" rel="noopener" href="https://doc.qt.io/qt-6/linux-building.html">Qt for Linux/X11 - Building from Source</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1145,18 +1156,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">124</span>
+          <span class="site-state-item-count">125</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">45</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">120</span>
+        <span class="site-state-item-count">121</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

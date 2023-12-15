@@ -149,6 +149,116 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/09/15/Tools/uPyCraft_PyQt5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/15/Tools/uPyCraft_PyQt5/" class="post-title-link" itemprop="url">uPyCraft_PyQt5</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-09-15 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-15T00:00:00-07:00">2018-09-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-11-21 23:06:29" itemprop="dateModified" datetime="2023-11-21T23:06:29-08:00">2023-11-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>I've been looking for an IDE for debugging various microcontroller boards, such as <a target="_blank" rel="noopener" href="https://openmv.io/">OpenMV</a> and <a target="_blank" rel="noopener" href="http://micropython.org/">PyBoard</a>, etc. There are some fundamental requirements:</p>
+<ul>
+<li>Open source</li>
+<li>Python debugger, <a target="_blank" rel="noopener" href="http://micropython.org/">MicroPython</a> support</li>
+<li>Any GUI is fine, but <a target="_blank" rel="noopener" href="https://www.qt.io/">Qt</a> preferred</li>
+</ul>
+<p>Therefore, after a careful search, I found <a target="_blank" rel="noopener" href="https://dfrobot.gitbooks.io/upycraft/">uPyCraft</a>, which seems to be designed by a Chinese team? Because I found the <a target="_blank" rel="noopener" href="http://docs.dfrobot.com.cn/upycraft/">Chinese version of uPyCraft documentation</a> as well.</p>
+<p>However, it seems Linux support for uPyCraft is <strong>NOT</strong> very good. My working environment:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID: Ubuntu</span><br><span class="line">Description:    Ubuntu 18.04.1 LTS</span><br><span class="line">Release:        18.04</span><br><span class="line">Codename:       bionic</span><br><span class="line">$ <span class="built_in">uname</span> -a</span><br><span class="line">Linux jiapei-GT72-6QE 4.18.7-041807-generic <span class="comment">#201809090930 SMP Sun Sep 9 09:33:16 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux</span></span><br><span class="line">$ python --version</span><br><span class="line">Python 3.6.5</span><br><span class="line">$ qmake --version</span><br><span class="line">QMake version 3.1</span><br><span class="line">Using Qt version 5.11.1 <span class="keyword">in</span> /opt/Qt/Current/gcc_64/lib</span><br></pre></td></tr></table></figure>
+<h1 id="part-a-test-built-upycraft">PART A: Test Built uPyCraft</h1>
+<h2 id="try-the-executable">1. Try the Executable</h2>
+<p>In fact, there is one executable <a target="_blank" rel="noopener" href="https://gitee.com/dfrobot/upycraft/raw/master/uPyCraft_linux_V1.0">Linux version for uPyCraft</a>. However, to run it after downloading, I obtained the following ERROR messages:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ./uPyCraft_linux_V1.0 </span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;uPyCraft.py&quot;</span>, line 2, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">  File <span class="string">&quot;/usr/local/lib/python3.5/dist-packages/PyInstaller/loader/pyimod03_importers.py&quot;</span>, line 714, <span class="keyword">in</span> load_module</span><br><span class="line">ImportError: /tmp/_MEIoq8Xi8/libz.so.1: version `ZLIB_1.2.9<span class="string">&#x27; not found (required by /usr/lib/x86_64-linux-gnu/libpng16.so.16)</span></span><br><span class="line"><span class="string">[324] Failed to execute script uPyCraft</span></span><br></pre></td></tr></table></figure>
+<h2 id="try-source-code">2. Try source code</h2>
+<p>We can also clone <a target="_blank" rel="noopener" href="https://github.com/DFRobot/uPyCraft_src">uPyCraft source code</a> and build it from scratch. However, clearly, current <a target="_blank" rel="noopener" href="https://github.com/DFRobot/uPyCraft_src">uPyCraft</a> relies on <a target="_blank" rel="noopener" href="https://www.riverbankcomputing.com/software/pyqt/download">PyQt4</a> instead of <a target="_blank" rel="noopener" href="http://pyqt.sourceforge.net/Docs/PyQt5/">PyQt5</a>.</p>
+<p>Therefore, I've got to modify <a target="_blank" rel="noopener" href="https://github.com/DFRobot/uPyCraft_src">uPyCraft</a> a bit to have this <a target="_blank" rel="noopener" href="https://github.com/jiapei100/uPyCraft_PyQt5">uPyCraft_PyQt5</a>.</p>
+<h1 id="part-b-build-upycraft-with-pyqt5">PART B: Build uPyCraft with PyQt5</h1>
+<p>Before testing <a target="_blank" rel="noopener" href="https://github.com/jiapei100/uPyCraft_PyQt5">uPyCraft_PyQt5</a>, you need to make sure * <a target="_blank" rel="noopener" href="https://www.python.org/">python3</a> * <a target="_blank" rel="noopener" href="https://www.qt.io/download">Qt5</a> have been installed.</p>
+<p><span style="color:red">**What's more important: Please uninstall enum34 but keep the original enum.</span> Please refer to <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/43124775/why-python-3-6-1-throws-attributeerror-module-enum-has-no-attribute-intflag">Stack Overflow</a> for more details.</p>
+<h2 id="check-out-and-build-my-modified-code-of-upycraft_pyqt5">1. Check out and build my modified code of uPyCraft_PyQt5</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> git@github.com:jiapei100/uPyCraft_PyQt5.git</span><br><span class="line">$ <span class="built_in">cd</span> uPyCraft_PyQt5</span><br><span class="line">$ pyinstaller -F uPyCraft.py</span><br><span class="line">47 INFO: PyInstaller: 3.4</span><br><span class="line">47 INFO: Python: 3.6.5</span><br><span class="line">47 INFO: Platform: Linux-4.18.7-041807-generic-x86_64-with-Ubuntu-18.04-bionic</span><br><span class="line">48 INFO: wrote ....../uPyCraft_PyQt5/uPyCraft.spec</span><br><span class="line">50 INFO: UPX is not available.</span><br><span class="line">51 INFO: Extending PYTHONPATH with paths</span><br><span class="line">[<span class="string">&#x27;....../uPyCraft_PyQt5&#x27;</span>,</span><br><span class="line"> <span class="string">&#x27;....../uPyCraft_PyQt5&#x27;</span>]</span><br><span class="line">52 INFO: checking Analysis</span><br><span class="line">54 INFO: Building because inputs changed</span><br><span class="line">54 INFO: Initializing module dependency graph...</span><br><span class="line">57 INFO: Initializing module graph hooks...</span><br><span class="line">59 INFO: Analyzing base_library.zip ...</span><br><span class="line">2747 INFO: running Analysis Analysis-00.toc</span><br><span class="line">2776 INFO: Caching module hooks...</span><br><span class="line">2779 INFO: Analyzing ....../uPyCraft_PyQt5/uPyCraft.py</span><br><span class="line">3619 INFO: Loading module hooks...</span><br><span class="line">3619 INFO: Loading module hook <span class="string">&quot;hook-PyQt5.QtGui.py&quot;</span>...</span><br><span class="line">3749 INFO: Loading module hook <span class="string">&quot;hook-pydoc.py&quot;</span>...</span><br><span class="line">3750 INFO: Loading module hook <span class="string">&quot;hook-PyQt5.QtWidgets.py&quot;</span>...</span><br><span class="line">3832 INFO: Loading module hook <span class="string">&quot;hook-xml.py&quot;</span>...</span><br><span class="line">3914 INFO: Loading module hook <span class="string">&quot;hook-PyQt5.QtCore.py&quot;</span>...</span><br><span class="line">3933 INFO: Loading module hook <span class="string">&quot;hook-PyQt5.QtPrintSupport.py&quot;</span>...</span><br><span class="line">4057 INFO: Loading module hook <span class="string">&quot;hook-encodings.py&quot;</span>...</span><br><span class="line">4126 INFO: Loading module hook <span class="string">&quot;hook-PyQt5.py&quot;</span>...</span><br><span class="line">4170 WARNING: Hidden import <span class="string">&quot;sip&quot;</span> not found!</span><br><span class="line">4179 INFO: Looking <span class="keyword">for</span> ctypes DLLs</span><br><span class="line">4274 WARNING: library setupapi required via ctypes not found</span><br><span class="line">4299 WARNING: library Advapi32 required via ctypes not found</span><br><span class="line">4367 INFO: Analyzing run-time hooks ...</span><br><span class="line">4370 INFO: Including run-time hook <span class="string">&#x27;pyi_rth_qt5.py&#x27;</span></span><br><span class="line">4376 INFO: Looking <span class="keyword">for</span> dynamic libraries</span><br><span class="line">8225 INFO: Looking <span class="keyword">for</span> eggs</span><br><span class="line">8225 INFO: Python library not <span class="keyword">in</span> binary dependencies. Doing additional searching...</span><br><span class="line">8292 INFO: Using Python library /usr/lib/x86_64-linux-gnu/libpython3.6m.so.1.0</span><br><span class="line">8301 INFO: Warnings written to ....../uPyCraft_PyQt5/build/uPyCraft/warn-uPyCraft.txt</span><br><span class="line">8339 INFO: Graph cross-reference written to ....../uPyCraft_PyQt5/build/uPyCraft/xref-uPyCraft.html</span><br><span class="line">8352 INFO: checking PYZ</span><br><span class="line">8354 INFO: Building because name changed</span><br><span class="line">8354 INFO: Building PYZ (ZlibArchive) ....../uPyCraft_PyQt5/build/uPyCraft/PYZ-00.pyz</span><br><span class="line">8762 INFO: Building PYZ (ZlibArchive) ....../uPyCraft_PyQt5/build/uPyCraft/PYZ-00.pyz completed successfully.</span><br><span class="line">8765 INFO: checking PKG</span><br><span class="line">8767 INFO: Building because name changed</span><br><span class="line">8767 INFO: Building PKG (CArchive) PKG-00.pkg</span><br><span class="line">33163 INFO: Building PKG (CArchive) PKG-00.pkg completed successfully.</span><br><span class="line">33168 INFO: Bootloader ~/.local/lib/python3.6/site-packages/PyInstaller/bootloader/Linux-64bit/run</span><br><span class="line">33168 INFO: checking EXE</span><br><span class="line">33170 INFO: Building because name changed</span><br><span class="line">33170 INFO: Building EXE from EXE-00.toc</span><br><span class="line">33175 INFO: Appending archive to ELF section <span class="keyword">in</span> EXE ....../uPyCraft_PyQt5/dist/uPyCraft</span><br><span class="line">33753 INFO: Building EXE from EXE-00.toc completed successfully.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="run-and-test-upycraft_pyqt5">2. Run and test uPyCraft_PyQt5</h2>
+<p>To run <strong>uPyCraft_PyQt5</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> dist</span><br><span class="line">$ ./uPyCraft</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/uPyCraft/uPyCraft.jpg" alt="" /><figcaption>uPyCraft</figcaption>
+</figure>
+<p>So far, 6 boards are particularly supported:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://arduino-esp8266.readthedocs.io/en/latest/boards.html">ESP8266</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.espressif.com/en/products/hardware/development-boards">ESP32</a></li>
+<li><a target="_blank" rel="noopener" href="http://micropython.org/">PyBoard</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/TPYBoard">TPYBoardV202</a></li>
+<li><a target="_blank" rel="noopener" href="http://tpyboard.com/">TPYBoardV102</a></li>
+<li><a target="_blank" rel="noopener" href="https://microbit.org/">micro:bit</a></li>
+</ul>
+<p>For the sake of our requirements, <a target="_blank" rel="noopener" href="https://openmv.io/">openmv</a> is going to be supported in particular.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/09/04/SBCs/ARM/banana-pi-pro-armbian/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1347,98 +1457,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/06/19/IoT/motion-configuration/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/06/19/IoT/motion-configuration/" class="post-title-link" itemprop="url">Video Surveillance With Motion</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-06-19 00:00:00" itemprop="dateCreated datePublished" datetime="2018-06-19T00:00:00-07:00">2018-06-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-21 23:06:29" itemprop="dateModified" datetime="2023-11-21T23:06:29-08:00">2023-11-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/IOT/" itemprop="url" rel="index"><span itemprop="name">IOT</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>To DIY a home security camera is comparatively simple by using a low-cost embedded board with Linux installed. There are <strong>ONLY 3 steps </strong> in total.</p>
-<h1 id="step1-install-motion-from-repository">STEP1: Install MOTION from Repository</h1>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install motion</span><br></pre></td></tr></table></figure>
-<h1 id="step-2-start_motion_daemonyes">STEP 2: start_motion_daemon=yes</h1>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim /etc/default/motion</span><br></pre></td></tr></table></figure>
-<p>Change <strong>start_motion_daemon</strong> from <strong>no</strong> to <strong>yes</strong>.</p>
-<h1 id="step-3-stream_localhost-off">STEP 3: stream_localhost off</h1>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim /etc/motion/motion.conf</span><br></pre></td></tr></table></figure>
-<p>Change <strong>stream_localhost on</strong> to <strong>stream_localhost off</strong>.</p>
-<h1 id="step-4-restart-motion-service">STEP 4: Restart Motion Service</h1>
-<p>Run the following command:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /etc/init.d/motion restart</span><br></pre></td></tr></table></figure>
-<h1 id="step-5-run-motion">STEP 5: Run Motion</h1>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo motion</span><br></pre></td></tr></table></figure>
-<h1 id="step-6-video-surveillance-remotely">STEP 6: Video Surveillance Remotely</h1>
-<p>Open up Chrome and type in the <strong>IP address:8081</strong> to show the captured video at 1FPS. In my case, <strong>192.168.0.86:8081</strong>, and the video effect is as:</p>
-<figure>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/motion/motion_video.jpg" alt="" /><figcaption>Motion Video Surveillance</figcaption>
-</figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1508,18 +1526,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">124</span>
+          <span class="site-state-item-count">125</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">45</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">120</span>
+        <span class="site-state-item-count">121</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
