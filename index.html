@@ -174,7 +174,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2023-12-15 05:30:33 / Modified: 05:33:27" itemprop="dateCreated datePublished" datetime="2023-12-15T05:30:33-08:00">2023-12-15</time>
+              <time title="Created: 2023-12-15 05:30:33 / Modified: 20:26:51" itemprop="dateCreated datePublished" datetime="2023-12-15T05:30:33-08:00">2023-12-15</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -217,7 +217,7 @@
 <h1 id="introduction">1. Introduction</h1>
 <p>This <a target="_blank" rel="noopener" href="https://www.microchip.com/en-us/product/mpfs025t">MPFS025T</a> is actually a <a target="_blank" rel="noopener" href="https://www.microchip.com/en-us/products/fpgas-and-plds/fpgas/polarfire-fpgas">PolarFire Family FPGA SoC</a>, fabriced with both FPGA and RISC-V CPU. I'm saving my word in this part. Let's just do it.</p>
 <h1 id="official-ubuntu">2. Official Ubuntu</h1>
-<p>On <a target="_blank" rel="noopener" href="https://www.beagleboard.org/boards/beaglev-fire">BeagleV-Fire Board</a>'s official page <a target="_blank" rel="noopener" href="https://www.beagleboard.org/distros">BeagleV-Fire Distro</a>, about 25 days ago, there is <a target="_blank" rel="noopener" href="https://www.beagleboard.org/boards/beaglev-fire">BeagleV-Fire Board</a>'s <strong>FIRST</strong> distro: <a target="_blank" rel="noopener" href="https://www.beagleboard.org/distros/beaglev-fire-ubuntu-2023-11-21">BeagleV-Fire Distro Ubuntu 2023-11-21</a>.</p>
+<p>Approximately 25 days ago, the official page for the <a target="_blank" rel="noopener" href="https://www.beagleboard.org/boards/beaglev-fire">BeagleV-Fire Board</a> announced its first-ever distribution, the <a target="_blank" rel="noopener" href="https://www.beagleboard.org/distros/beaglev-fire-ubuntu-2023-11-21">BeagleV-Fire Distro Ubuntu 2023-11-21</a>.</p>
 <h1 id="flash-beaglev-fire-board">3. Flash <a target="_blank" rel="noopener" href="https://www.beagleboard.org/boards/beaglev-fire">BeagleV-Fire Board</a></h1>
 <p>In this section, we're going to strictly follow <a target="_blank" rel="noopener" href="https://git.beagleboard.org/beaglev-fire/BeagleV-Fire-ubuntu/-/blob/main/readme.md">BeagleV-Fire Ubuntu readme.md</a>, with trivial modifiations.</p>
 <h2 id="update-all-packages-to-2023.09-in-01_git_sync.sh">3.1 Update ALL Packages to 2023.09 in <a target="_blank" rel="noopener" href="https://git.beagleboard.org/beaglev-fire/BeagleV-Fire-ubuntu/-/blob/main/01_git_sync.sh">01_git_sync.sh</a></h2>
@@ -254,9 +254,93 @@
 <h2 id="ubuntu-or-debian">4.1 Ubuntu or Debian???</h2>
 <p>In the above subsection <a href="#336-06_generate_debian_console_rootsh">3.2.6</a>, I clearly used <strong>debian rootfs</strong>. However, my <a target="_blank" rel="noopener" href="https://www.beagleboard.org/boards/beaglev-fire">BeagleV-Fire Board</a> seems to be messed up?????????</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ssh beagle@192.168.1.17</span><br><span class="line">Ubuntu 23.04</span><br><span class="line"></span><br><span class="line">BeagleBoard.org Ubuntu 23.04 Console Image 2023-10-19</span><br><span class="line">Support: https://bbb.io/debian</span><br><span class="line">default username:password is [beagle:temppwd]</span><br><span class="line"></span><br><span class="line">beagle@192.168.1.17&#x27;s password: </span><br><span class="line">Last login: Fri Dec 15 12:12:31 2023 from 192.168.1.1</span><br><span class="line">beagle@BeagleV:~$ uname -a</span><br><span class="line">Linux BeagleV 6.1.33-linux4microchip+fpga-2023.06-20231019+ #1 SMP Thu Oct 19 16:01:29 UTC 2023 riscv64 riscv64 riscv64 GNU/Linux</span><br><span class="line">beagle@BeagleV:~$ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID:	Ubuntu</span><br><span class="line">Description:	Ubuntu 23.04</span><br><span class="line">Release:	23.04</span><br><span class="line">Codename:	lunar</span><br></pre></td></tr></table></figure>
-<h2 id="furthermore">4.2 Furthermore</h2>
+<h2 id="after-update-and-upgrade">4.2 After Update and Upgrade</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ neofetch</span><br><span class="line">            .-/+oossssoo+/-.               beagle@BeagleV </span><br><span class="line">        `:+ssssssssssssssssss+:`           -------------- </span><br><span class="line">      -+ssssssssssssssssssyyssss+-         OS: Ubuntu 23.04 riscv64 </span><br><span class="line">    .ossssssssssssssssssdMMMNysssso.       Host: BeagleBoard BeagleV-Fire </span><br><span class="line">   /ssssssssssshdmmNNmmyNMMMMhssssss/      Kernel: 6.1.33-linux4microchip+fpga-2023.06-20231019+ </span><br><span class="line">  +ssssssssshmydMMMMMMMNddddyssssssss+     Uptime: 4 hours, 58 mins </span><br><span class="line"> /sssssssshNMMMyhhyyyyhmNMMMNhssssssss/    Packages: 898 (dpkg) </span><br><span class="line">.ssssssssdMMMNhsssssssssshNMMMdssssssss.   Shell: zsh 5.9 </span><br><span class="line">+sssshhhyNMMNyssssssssssssyNMMMysssssss+   Terminal: /dev/pts/0 </span><br><span class="line">ossyNMMMNyMMhsssssssssssssshmmmhssssssso   CPU: (4) </span><br><span class="line">ossyNMMMNyMMhsssssssssssssshmmmhssssssso   Memory: 137MiB / 1541MiB </span><br><span class="line">+sssshhhyNMMNyssssssssssssyNMMMysssssss+</span><br><span class="line">.ssssssssdMMMNhsssssssssshNMMMdssssssss.                           </span><br><span class="line"> /sssssssshNMMMyhhyyyyhdNMMMNhssssssss/                            </span><br><span class="line">  +sssssssssdmydMMMMMMMMddddyssssssss+</span><br><span class="line">   /ssssssssssshdmNNNNmyNMMMMhssssss/</span><br><span class="line">    .ossssssssssssssssssdMMMNysssso.</span><br><span class="line">      -+sssssssssssssssssyyyssss+-</span><br><span class="line">        `:+ssssssssssssssssss+:`</span><br><span class="line">            .-/+oossssoo+/-.</span><br><span class="line"></span><br><span class="line">➜  ~ </span><br></pre></td></tr></table></figure>
+<h2 id="furthermore">4.3 Furthermore</h2>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">beagle@BeagleV:~$ cat /proc/cpuinfo</span><br><span class="line">processor	: 0</span><br><span class="line">hart		: 1</span><br><span class="line">isa		: rv64imafdc</span><br><span class="line">mmu		: sv39</span><br><span class="line">uarch		: sifive,u54-mc</span><br><span class="line">mvendorid	: 0x1cf</span><br><span class="line">marchid		: 0x1</span><br><span class="line">mimpid		: 0x0</span><br><span class="line"></span><br><span class="line">processor	: 1</span><br><span class="line">hart		: 2</span><br><span class="line">isa		: rv64imafdc</span><br><span class="line">mmu		: sv39</span><br><span class="line">uarch		: sifive,u54-mc</span><br><span class="line">mvendorid	: 0x1cf</span><br><span class="line">marchid		: 0x1</span><br><span class="line">mimpid		: 0x0</span><br><span class="line"></span><br><span class="line">processor	: 2</span><br><span class="line">hart		: 3</span><br><span class="line">isa		: rv64imafdc</span><br><span class="line">mmu		: sv39</span><br><span class="line">uarch		: sifive,u54-mc</span><br><span class="line">mvendorid	: 0x1cf</span><br><span class="line">marchid		: 0x1</span><br><span class="line">mimpid		: 0x0</span><br><span class="line"></span><br><span class="line">processor	: 3</span><br><span class="line">hart		: 4</span><br><span class="line">isa		: rv64imafdc</span><br><span class="line">mmu		: sv39</span><br><span class="line">uarch		: sifive,u54-mc</span><br><span class="line">mvendorid	: 0x1cf</span><br><span class="line">marchid		: 0x1</span><br><span class="line">mimpid		: 0x0</span><br><span class="line"></span><br><span class="line">beagle@BeagleV:~$ cat /proc/meminfo</span><br><span class="line">MemTotal:        1578744 kB</span><br><span class="line">MemFree:         1246916 kB</span><br><span class="line">MemAvailable:    1433180 kB</span><br><span class="line">Buffers:           12136 kB</span><br><span class="line">Cached:           181060 kB</span><br><span class="line">SwapCached:            0 kB</span><br><span class="line">Active:            46052 kB</span><br><span class="line">Inactive:         210292 kB</span><br><span class="line">Active(anon):       1460 kB</span><br><span class="line">Inactive(anon):    63260 kB</span><br><span class="line">Active(file):      44592 kB</span><br><span class="line">Inactive(file):   147032 kB</span><br><span class="line">Unevictable:           0 kB</span><br><span class="line">Mlocked:               0 kB</span><br><span class="line">SwapTotal:             0 kB</span><br><span class="line">SwapFree:              0 kB</span><br><span class="line">Zswap:                 0 kB</span><br><span class="line">Zswapped:              0 kB</span><br><span class="line">Dirty:                20 kB</span><br><span class="line">Writeback:             0 kB</span><br><span class="line">AnonPages:         63172 kB</span><br><span class="line">Mapped:            99268 kB</span><br><span class="line">Shmem:              1572 kB</span><br><span class="line">KReclaimable:      21992 kB</span><br><span class="line">Slab:              50108 kB</span><br><span class="line">SReclaimable:      21992 kB</span><br><span class="line">SUnreclaim:        28116 kB</span><br><span class="line">KernelStack:        2160 kB</span><br><span class="line">PageTables:         1892 kB</span><br><span class="line">SecPageTables:         0 kB</span><br><span class="line">NFS_Unstable:          0 kB</span><br><span class="line">Bounce:                0 kB</span><br><span class="line">WritebackTmp:          0 kB</span><br><span class="line">CommitLimit:      789372 kB</span><br><span class="line">Committed_AS:     424384 kB</span><br><span class="line">VmallocTotal:   67108864 kB</span><br><span class="line">VmallocUsed:        7684 kB</span><br><span class="line">VmallocChunk:          0 kB</span><br><span class="line">Percpu:             1152 kB</span><br><span class="line">HugePages_Total:       0</span><br><span class="line">HugePages_Free:        0</span><br><span class="line">HugePages_Rsvd:        0</span><br><span class="line">HugePages_Surp:        0</span><br><span class="line">Hugepagesize:       2048 kB</span><br><span class="line">Hugetlb:               0 kB</span><br></pre></td></tr></table></figure>
 <p>Clearly, this <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Single-board_computer">Single-board computer</a> is using <a target="_blank" rel="noopener" href="https://www.sifive.com/risc-v-core-ip">SiFive Cores</a>. That is <strong>ALL</strong> for today. Temoparily. See you next time.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/12/13/SBCs/RISC-V/VisionFive2-03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/12/13/SBCs/RISC-V/VisionFive2-03/" class="post-title-link" itemprop="url">VisionFive2 - 03</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-12-13 00:00:00" itemprop="dateCreated datePublished" datetime="2023-12-13T00:00:00-08:00">2023-12-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-12-15 20:27:19" itemprop="dateModified" datetime="2023-12-15T20:27:19-08:00">2023-12-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/Risc-V/" itemprop="url" rel="index"><span itemprop="name">Risc-V</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="https://www.kickstarter.com/projects/starfive/visionfive-2">VisionFive2</a> has been talked twice recently: - <a href="/2023/11/14/SBCs/RISC-V/VisionFive2-01/">VisionFive2 - 01</a> - <a href="/2023/12/08/SBCs/RISC-V/VisionFive2-02/">VisionFive2 - 02</a></p>
+<p>Today, we're going to follow <a target="_blank" rel="noopener" href="https://docs.u-boot.org/en/latest/board/starfive/visionfive2.html">U-Boot VisionFive2</a> and demonstrate the <strong>MOST up-to-date</strong> <a target="_blank" rel="noopener" href="https://github.com/u-boot/u-boot">U-Boot</a>, <a target="_blank" rel="noopener" href="https://www.kernel.org">Linux kernel</a>, and <a target="_blank" rel="noopener" href="https://github.com/riscv-software-src/opensbi">OpenSBI</a>.</p>
+<p>Let's just ignore the <strong>Building</strong> step on <a target="_blank" rel="noopener" href="https://docs.u-boot.org/en/latest/board/starfive/visionfive2.html">U-Boot VisionFive2</a>.</p>
+<h1 id="flashing">1. Flashing</h1>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">➜  u-boot git:(master) ✗ sudo sgdisk --clear -g \</span><br><span class="line">  --set-alignment=2 \</span><br><span class="line">  --new=1:4096:8191 --change-name=1:spl --typecode=1:2E54B353-1271-4842-806F-E436D6AF6985\</span><br><span class="line">  --new=2:8192:16383 --change-name=2:uboot --typecode=2:BC13C2FF-59E6-4262-A352-B275FD6F7172  \</span><br><span class="line">  --new=3:16384:1654784 --change-name=3:system --typecode=3:EBD0A0A2-B9E5-4433-87C0-68B6B72699C7 \</span><br><span class="line">  /dev/sdb</span><br><span class="line"></span><br><span class="line">***************************************************************</span><br><span class="line">Found invalid GPT and valid MBR; converting MBR to GPT format</span><br><span class="line">in memory. </span><br><span class="line">***************************************************************</span><br><span class="line"></span><br><span class="line">Setting name!</span><br><span class="line">partNum is 0</span><br><span class="line">Setting name!</span><br><span class="line">partNum is 1</span><br><span class="line">Setting name!</span><br><span class="line">partNum is 2</span><br><span class="line">The operation has completed successfully.</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1230,144 +1314,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/11/11/SBCs/MCU/arduino-uno-r4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/11/11/SBCs/MCU/arduino-uno-r4/" class="post-title-link" itemprop="url">Arduino Uno R4</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-11-11 19:25:30" itemprop="dateCreated datePublished" datetime="2023-11-11T19:25:30-08:00">2023-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-02 01:30:07" itemprop="dateModified" datetime="2023-12-02T01:30:07-08:00">2023-12-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Continue, the <a target="_blank" rel="noopener" href="https://store-usa.arduino.cc/pages/uno-r4">Arduino UNO R4</a>.</p>
-<h1 id="introduction">1. Introduction</h1>
-<h2 id="lsusb">1.1 lsusb</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">Bus 011 Device 058: ID 2341:1002 Arduino SA UNO WiFi R4 CMSIS-DAP</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-<h2 id="spec">1.2 Spec</h2>
-<p>What I purchased is an <a target="_blank" rel="noopener" href="https://store-usa.arduino.cc/products/uno-r4-wifi?selectedStore=us">Arduino UNO R4 WiFi</a>. Detailed specification about it can be found on <a target="_blank" rel="noopener" href="https://docs.arduino.cc/hardware/uno-r4-wifi">Arduino UNO R4 Wifi Doc</a>.</p>
-<h2 id="github-source-code">1.3 Github Source Code</h2>
-<p>Typically, there's no need to rebuild your project from the ground up. However, when needed, <a target="_blank" rel="noopener" href="https://github.com/arduino/uno-r4-wifi-usb-bridge">Arduino UNO R4 Wifi USB Bridge</a> offers open-source resource that you can utilize as a foundation for further development.</p>
-<h1 id="demonstrate-arduino-examples">2. Demonstrate Arduino Examples</h1>
-<h2 id="environment-configuration">2.1 Environment Configuration</h2>
-<ul>
-<li><strong>Install Arduino Environment</strong> When I tried to run the <a target="_blank" rel="noopener" href="https://github.com/arduino/arduino-examples/blob/main/examples/01.Basics/Blink/Blink.ino">basic example blink</a>, I was asked to install the package <strong>renesas_uno@1.0.5</strong>, as shown in the Output console of <a target="_blank" rel="noopener" href="https://www.arduino.cc/en/software">Arduino IDE</a>: <img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Renesas_1.0.5_Output.png" alt="Arduino UNO R4 Wifi Output" /></li>
-</ul>
-<h2 id="flash-a-sketch">2.2 Flash a Sketch</h2>
-<ul>
-<li><strong>Sketch Verify/Compile</strong></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Sketch uses 51488 bytes (19%) of program storage space. Maximum is 262144 bytes.</span><br><span class="line">Global variables use 6744 bytes (20%) of dynamic memory, leaving 26024 bytes for local variables. Maximum is 32768 bytes.</span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>Upload</strong></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Sketch uses 51488 bytes (19%) of program storage space. Maximum is 262144 bytes.</span><br><span class="line">Global variables use 6744 bytes (20%) of dynamic memory, leaving 26024 bytes for local variables. Maximum is 32768 bytes.</span><br><span class="line">Erase flash</span><br><span class="line"></span><br><span class="line">Done in 0.001 seconds</span><br><span class="line">Write 51496 bytes to flash (13 pages)</span><br><span class="line"></span><br><span class="line">[                              ] 0% (0/13 pages)</span><br><span class="line">[==                            ] 7% (1/13 pages)</span><br><span class="line">[====                          ] 15% (2/13 pages)</span><br><span class="line">[======                        ] 23% (3/13 pages)</span><br><span class="line">[=========                     ] 30% (4/13 pages)</span><br><span class="line">[===========                   ] 38% (5/13 pages)</span><br><span class="line">[=============                 ] 46% (6/13 pages)</span><br><span class="line">[================              ] 53% (7/13 pages)</span><br><span class="line">[==================            ] 61% (8/13 pages)</span><br><span class="line">[====================          ] 69% (9/13 pages)</span><br><span class="line">[=======================       ] 76% (10/13 pages)</span><br><span class="line">[=========================     ] 84% (11/13 pages)</span><br><span class="line">[===========================   ] 92% (12/13 pages)</span><br><span class="line">[==============================] 100% (13/13 pages)</span><br><span class="line">Done in 3.480 seconds</span><br></pre></td></tr></table></figure>
-<p>Now, one LED starts blinking successfully.</p>
-<h1 id="arduino-uno-r4-wifi-examples">3. Arduino UNO R4 WiFi Examples</h1>
-<h2 id="wi-fi-web-server">3.1 Wi-Fi Web Server</h2>
-<p>First, let me test the example <strong>Wi-Fi® Web Server</strong> on Arduino official tutorial <a target="_blank" rel="noopener" href="https://docs.arduino.cc/tutorials/uno-r4-wifi/wifi-examples">UNO R4 WiFi Network Examples</a>. The code can be found on <a target="_blank" rel="noopener" href="https://github.com/arduino/ArduinoCore-renesas/blob/main/libraries/WiFiS3/examples/WiFiWebServer/WiFiWebServer.ino">Github Arduino WiFiWebServer</a>. And the following is printed in the Output console of <a target="_blank" rel="noopener" href="https://www.arduino.cc/en/software">Arduino IDE</a>.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Please upgrade the firmware</span><br><span class="line">Attempting to connect to SSID: TELUSXXXX</span><br><span class="line">SSID: TELUSXXXX</span><br><span class="line">IP Address: 192.168.1.YY</span><br><span class="line">signal strength (RSSI):-52 dBm</span><br></pre></td></tr></table></figure>
-<h2 id="upgrade-firmware-of-uno-r4-wifi">3.2 Upgrade Firmware of UNO R4 Wifi</h2>
-<p>It's confusing that I received the error message <strong>Please upgrade the firmware</strong>, right after I installed/upgraded <strong>renesas_uno@1.0.5</strong> from within <a target="_blank" rel="noopener" href="https://www.arduino.cc/en/software">Arduino IDE</a>.</p>
-<p>In the end, I noticed there are 2 main chips on <a target="_blank" rel="noopener" href="https://store-usa.arduino.cc/products/uno-r4-wifi?selectedStore=us">Arduino UNO R4 WiFi</a>, and <strong>renesas</strong>'s firmware is installed/upgraded, but <strong>ESP32</strong>'s firmware hasn't yet. Therefore, I proceeded with upgrading <strong>ESP32</strong>'s firmware by following <a target="_blank" rel="noopener" href="https://docs.arduino.cc/tutorials/uno-r4-wifi/esp32-upload">Arduino UNO R4 WiFi Upload to ESP32</a>.</p>
-<p>Different from <a href="#1-1-lsusb">1.1</a>, by shorting the <strong>download pin</strong> and <strong>GND</strong>, now we have a different <strong>lsusb</strong> result:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">Bus 011 Device 007: ID 303a:1001 Espressif USB JTAG/serial debug unit</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-<p>Again, I was asked to install the <strong>esp32</strong> package(s), as shown:</p>
-<figure>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_esp32_installation.png" alt="" /><figcaption>esp32 installation</figcaption>
-</figure>
-<p>Click <strong>YES</strong> and continue the installation:</p>
-<figure>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_esp32_package_upgrades.png" alt="" /><figcaption>esp32 packages to upgrade</figcaption>
-</figure>
-<figure>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_esp32_package.png" alt="" /><figcaption>install esp32 package</figcaption>
-</figure>
-<figure>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_esp32_boards_package.png" alt="" /><figcaption>install esp32 boards package</figcaption>
-</figure>
-<h2 id="wi-fi-web-client">3.3 Wi-Fi Web Client</h2>
-<p>Now, let me test the example Wi-Fi® Web Client on Arduino official tutorial <a target="_blank" rel="noopener" href="https://docs.arduino.cc/tutorials/uno-r4-wifi/wifi-examples">UNO R4 WiFi Network Examples</a>. The code can be found on <a target="_blank" rel="noopener" href="https://github.com/arduino/ArduinoCore-renesas/blob/main/libraries/WiFiS3/examples/WiFiWebClient/WiFiWebClient.ino">Github Arduino WiFiWebClient</a>. And a bunch of communication info with <a href="www.google.com">www.google.com</a> are printed on the Output console of <a target="_blank" rel="noopener" href="https://www.arduino.cc/en/software">Arduino IDE</a>.</p>
-<figure>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Wifi_Web_Client_Upload.png" alt="" /><figcaption>Arduino Wifi Web Client Upload</figcaption>
-</figure>
-<figure>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Wifi_Web_Client_Running.png" alt="" /><figcaption>Arduino Wifi Web Client Running</figcaption>
-</figure>
-<h1 id="arduino-uno-r4-wifi---chatgpt">4. Arduino UNO R4 WiFi - ChatGPT</h1>
-<p>Finally, let's extend a bit. Let's finish our demonstration of the day by chatting with <a target="_blank" rel="noopener" href="https://openai.com/">OpenAI</a>'s <a target="_blank" rel="noopener" href="https://chat.openai.com/">ChatGPT</a> on this <a target="_blank" rel="noopener" href="https://store-usa.arduino.cc/products/uno-r4-wifi?selectedStore=us">Arduino UNO R4 WiFi</a>.</p>
-<p>My source code is provided at <a target="_blank" rel="noopener" href="https://github.com/LongerVisionRobot/Examples_Arduino/blob/master/arduino_uno_r4_wifi/chatgpt_arduino_uno_r4_wifi/chatgpt_arduino_uno_r4_wifi.ino">Longer Vision Robot Arduino Examples</a>.</p>
-<p>And its demonstration can be seen by this screenshot.</p>
-<figure>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_UNO_R4_Wifi_ChatGPT.png" alt="" /><figcaption>Arduino UNO R4 WiFi ChatGPT</figcaption>
-</figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1437,7 +1383,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">126</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1448,7 +1394,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">121</span>
+        <span class="site-state-item-count">122</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
