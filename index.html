@@ -149,7 +149,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/12/19/SBCs/RISC-V/BeagleV-Fire-1/">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2024/02/09/SBCs/RISC-V/MilkV-Duo-256M-01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -163,7 +163,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/12/19/SBCs/RISC-V/BeagleV-Fire-1/" class="post-title-link" itemprop="url">BeagleV-Fire 1</a>
+            <a href="/2024/02/09/SBCs/RISC-V/MilkV-Duo-256M-01/" class="post-title-link" itemprop="url">Milk-V Duo 256M - 01</a>
         </h2>
 
         <div class="post-meta">
@@ -174,7 +174,362 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2023-12-19 13:29:33 / Modified: 13:56:26" itemprop="dateCreated datePublished" datetime="2023-12-19T13:29:33-08:00">2023-12-19</time>
+              <time title="Created: 2024-02-08 21:44:28 / Modified: 07:32:01" itemprop="dateCreated datePublished" datetime="2024-02-08T21:44:28-08:00">2024-02-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/MCU/Risc-V/" itemprop="url" rel="index"><span itemprop="name">Risc-V</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Finally, I got <a target="_blank" rel="noopener" href="https://github.com/milkv-duo/duo-buildroot-sdk">duo-buildroot-sdk</a> built today. So, yes, happy Chinese new year of Dragon, 2024. Let's have some fun of <a target="_blank" rel="noopener" href="https://milkv.io/duo">Milk-V Duo 256M</a>.</p>
+<h1 id="introduction">1. Introduction</h1>
+<p>From <a target="_blank" rel="noopener" href="https://milkv.io/duo">Milk-V Duo 256M</a>'s official website, the following picture clearly shows it has</p>
+<ul>
+<li>one RISC-V <a target="_blank" rel="noopener" href="https://www.t-head.cn/product/C906">T-HEAD C906</a> chip <span class="citation" data-cites="1GHz">@1GHz</span>, for Linux</li>
+<li>one RISC-V <a target="_blank" rel="noopener" href="https://www.t-head.cn/product/C906">T-HEAD C906</a> chip <span class="citation" data-cites="700MHz">@700MHz</span>, for FreeRTOS</li>
+<li>one <a target="_blank" rel="noopener" href="https://developer.arm.com/Processors/Cortex-A53">Arm Cortex-A53</a> chip <span class="citation" data-cites="1GHz">@1GHz</span>, for both Linux &amp; Android</li>
+<li>one <a target="_blank" rel="noopener" href="https://www.microchip.com/en-us/products/microcontrollers-and-microprocessors/8-bit-mcus/8051-mcus">8051 MCU</a></li>
+<li>one <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Tensor_Processing_Unit">TPU</a></li>
+</ul>
+<figure>
+<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/RISC-V/MilkV-Duo-256M.png" alt="" /><figcaption>MilkV Duo 256M Core chips</figcaption>
+</figure>
+<p>The detailed specifications are also highlighted in the table on the official website of <a target="_blank" rel="noopener" href="https://milkv.io/duo">Milk-V Duo 256M</a>.</p>
+<h1 id="build-duo-buildroot-sdk">2. Build <a target="_blank" rel="noopener" href="https://github.com/milkv-duo/duo-buildroot-sdk">duo-buildroot-sdk</a></h1>
+<h2 id="failed-to-build-duo-buildroot-sdk-using-ubuntu-22.04">2.1 Failed to build <a target="_blank" rel="noopener" href="https://github.com/milkv-duo/duo-buildroot-sdk">duo-buildroot-sdk</a> using <a target="_blank" rel="noopener" href="https://releases.ubuntu.com/jammy/">Ubuntu 22.04</a></h2>
+<p>Even if I strictly followed the manual on <a target="_blank" rel="noopener" href="https://github.com/milkv-duo/duo-buildroot-sdk">duo-buildroot-sdk</a>'s official documentation <a target="_blank" rel="noopener" href="https://github.com/milkv-duo/duo-buildroot-sdk?tab=readme-ov-file#1-compiled-using-ubuntu-2204">Compiled using Ubuntu 22.04</a>, I still failed to build an image out for flashing, with the following error messages inside the log file <strong>build/br.log</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">2024-02-08T13:34:11 tic: symbol lookup error: tic: undefined symbol: _nc_disable_period</span><br><span class="line">2024-02-08T13:34:11 ? tic could not build ....../duo-buildroot-sdk-Duo-V1.0.8/buildroot-2021.05/output/milkv-duo256m_musl_riscv64/per-package/ncurses/host/riscv64-buildroot-linux-musl/sysroot/usr/share/terminfo</span><br><span class="line">2024-02-08T13:34:11 make[4]: *** [Makefile:92: install.data] Error 1</span><br><span class="line">2024-02-08T13:34:12 make[3]: *** [Makefile:122: install] Error 2</span><br><span class="line">2024-02-08T13:34:12 make[2]: *** [package/pkg-generic.mk:289: ....../duo-buildroot-sdk-Duo-V1.0.8/buildroot-2021.05/output/milkv-duo256m_musl_riscv64/build/ncurses-6.1/.stamp_staging_installed] Error 2</span><br><span class="line">2024-02-08T13:34:12 make[2]: *** Waiting <span class="keyword">for</span> unfinished <span class="built_in">jobs</span>....</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<p><span style="color:blue">A possible solution is found at: </span><a target="_blank" rel="noopener" href="https://lore.kernel.org/buildroot/bug-15685-163-ecW1EgIyRW@https.bugs.busybox.net%2F/T/">https://lore.kernel.org/buildroot/bug-15685-163-ecW1EgIyRW@https.bugs.busybox.net%2F/T/</a>.</p>
+<h2 id="successfully-build-duo-buildroot-sdk-using-docker">2.2 Successfully build <a target="_blank" rel="noopener" href="https://github.com/milkv-duo/duo-buildroot-sdk">duo-buildroot-sdk</a> using Docker</h2>
+<p>By strictly following the manual on <a target="_blank" rel="noopener" href="https://github.com/milkv-duo/duo-buildroot-sdk">duo-buildroot-sdk</a>'s official documentation <a target="_blank" rel="noopener" href="https://github.com/milkv-duo/duo-buildroot-sdk?tab=readme-ov-file#2-compiled-using-docker">Compiled using Docker</a>, I now am able to build an image out as:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">mkfs.fat: Warning: lowercase labels might not work properly on some systems</span><br><span class="line">INFO: vfat(boot.vfat): adding file <span class="string">&#x27;fip.bin&#x27;</span> as <span class="string">&#x27;fip.bin&#x27;</span> ...</span><br><span class="line">INFO: vfat(boot.vfat): cmd: <span class="string">&quot;MTOOLS_SKIP_CHECK=1 mcopy -sp -i &#x27;~/install/soc_cv1812cp_milkv_duo256m_sd/boot.vfat&#x27; &#x27;~/install/soc_cv1812cp_milkv_duo256m_sd/fip.bin&#x27; &#x27;::&#x27;&quot;</span> (stderr):</span><br><span class="line">INFO: vfat(boot.vfat): adding file <span class="string">&#x27;rawimages/boot.sd&#x27;</span> as <span class="string">&#x27;rawimages/boot.sd&#x27;</span> ...</span><br><span class="line">INFO: vfat(boot.vfat): cmd: <span class="string">&quot;MTOOLS_SKIP_CHECK=1 mcopy -sp -i &#x27;~/install/soc_cv1812cp_milkv_duo256m_sd/boot.vfat&#x27; &#x27;~/install/soc_cv1812cp_milkv_duo256m_sd/rawimages/boot.sd&#x27; &#x27;::&#x27;&quot;</span> (stderr):</span><br><span class="line">INFO: ext4(rootfs.ext4): cmd: <span class="string">&quot;genext2fs -d &#x27;~/install/soc_cv1812cp_milkv_duo256m_sd/tmp/root&#x27; --size-in-blocks=786432 -i 16384 &#x27;~/install/soc_cv1812cp_milkv_duo256m_sd/rootfs.ext4&#x27; &quot;</span> (stderr):</span><br><span class="line">copying from directory ~/install/soc_cv1812cp_milkv_duo256m_sd/tmp/root</span><br><span class="line">INFO: ext4(rootfs.ext4): cmd: <span class="string">&quot;tune2fs -O &#x27;extents,uninit_bg,dir_index,has_journal&#x27; &#x27;~/install/soc_cv1812cp_milkv_duo256m_sd/rootfs.ext4&#x27;&quot;</span> (stderr):</span><br><span class="line">INFO: ext4(rootfs.ext4): cmd: <span class="string">&quot;tune2fs -L &#x27;rootfs&#x27; &#x27;~/install/soc_cv1812cp_milkv_duo256m_sd/rootfs.ext4&#x27;&quot;</span> (stderr):</span><br><span class="line">INFO: ext4(rootfs.ext4): cmd: <span class="string">&quot;e2fsck -pvfD &#x27;~/install/soc_cv1812cp_milkv_duo256m_sd/rootfs.ext4&#x27;&quot;</span> (stderr):</span><br><span class="line">INFO: hdimage(milkv-duo256m.img): adding partition <span class="string">&#x27;boot&#x27;</span> (<span class="keyword">in</span> MBR) from <span class="string">&#x27;boot.vfat&#x27;</span> ...</span><br><span class="line">INFO: hdimage(milkv-duo256m.img): adding partition <span class="string">&#x27;rootfs&#x27;</span> (<span class="keyword">in</span> MBR) from <span class="string">&#x27;rootfs.ext4&#x27;</span> ...</span><br><span class="line">INFO: hdimage(milkv-duo256m.img): writing MBR</span><br><span class="line">gnimage <span class="keyword">for</span> milkv-duo256m success!</span><br><span class="line">~/build</span><br><span class="line">~</span><br><span class="line">Create SD image successful: out/milkv-duo256m-20240208-1949.img</span><br></pre></td></tr></table></figure>
+<p>And, the last couple of lines in the log file <strong>build/br.log</strong> are:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">2024-02-08T19:48:15 </span><br><span class="line">2024-02-08T19:48:15 Allocating group tables:  0/25     <span class="keyword">done</span></span><br><span class="line">2024-02-08T19:48:15 Writing inode tables:  0/25     <span class="keyword">done</span></span><br><span class="line">2024-02-08T19:48:15 Creating journal (4096 blocks): <span class="keyword">done</span></span><br><span class="line">2024-02-08T19:48:15 Copying files into the device: PATH=<span class="string">&quot;~/buildroot-2021.05/output/milkv-duo256m_musl_riscv64/host/bin:~/buildroot-2021.05/output/milkv-duo256m_musl_riscv64/host/sbin:~/host-tools/gcc/riscv64-linux-musl-x86_64/bin:~/host-tools/gcc/riscv64-linux-x86_64/bin:~/host-tools/gcc/riscv64-elf-x86_64/bin:~/host-tools/gcc/gcc-linaro-6.3.1-2017.05-x86_64_aarch64-elf/bin:~/host-tools/gcc/gcc-linaro-6.3.1-2017.05-x86_64_arm-linux-gnueabihf/bin:~/host-tools/gcc/gcc-linaro-6.3.1-2017.05-x86_64_aarch64-linux-gnu/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:~/host-tools/gcc/arm-cvitek-linux-uclibcgnueabihf/bin&quot;</span> xz -9 -C crc32 -c -T 9 ~/buildroot-2021.05/output/milkv-duo256m_musl_riscv64/images/rootfs.tar &gt; ~/buildroot-2021.05/output/milkv-duo256m_musl_riscv64/images/rootfs.tar.xz</span><br><span class="line">2024-02-08T19:48:16 <span class="keyword">done</span></span><br><span class="line">2024-02-08T19:48:16 Writing superblocks and filesystem accounting information:  0/25     <span class="keyword">done</span></span><br><span class="line">2024-02-08T19:48:16 </span><br><span class="line">2024-02-08T19:48:16 <span class="built_in">ln</span> -sf rootfs.ext2 ~/buildroot-2021.05/output/milkv-duo256m_musl_riscv64/images/rootfs.ext4</span><br><span class="line">2024-02-08T19:49:28 make[1]: Leaving directory <span class="string">&#x27;~/buildroot-2021.05&#x27;</span></span><br></pre></td></tr></table></figure>
+<h1 id="boot-after-flashing">3. Boot after Flashing</h1>
+<p>After flashing the generated <strong>out/milkv-duo256m-20240208-1949.img</strong> into the SD card, we can now boot up <a target="_blank" rel="noopener" href="https://milkv.io/duo">Milk-V Duo 256M</a> by connecting it with my laptop <strong>via a USB cable</strong>.</p>
+<h2 id="lsusb">3.1 lsusb</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">Bus 001 Device 009: ID 3346:1009 Cvitek RNDIS</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<h2 id="ssh-into-milk-v-duo-256m">3.2 SSH into <a target="_blank" rel="noopener" href="https://milkv.io/duo">Milk-V Duo 256M</a></h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ssh root@192.168.42.1</span><br><span class="line">The authenticity of host <span class="string">&#x27;192.168.42.1 (192.168.42.1)&#x27;</span> can<span class="string">&#x27;t be established.</span></span><br><span class="line"><span class="string">ED25519 key fingerprint is SHA256:NyuhOwhRh9sfzW+C2D5OIaTIbGCuVI1v1jrJv4DaM+U.</span></span><br><span class="line"><span class="string">This key is not known by any other names</span></span><br><span class="line"><span class="string">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span></span><br><span class="line"><span class="string">Warning: Permanently added &#x27;</span>192.168.42.1<span class="string">&#x27; (ED25519) to the list of known hosts.</span></span><br><span class="line"><span class="string">root@192.168.42.1&#x27;</span>s password: </span><br><span class="line">[root@milkv-duo]~<span class="comment"># ls</span></span><br><span class="line">[root@milkv-duo]~<span class="comment"># pwd</span></span><br><span class="line">/root</span><br><span class="line">[root@milkv-duo]~<span class="comment"># uname -a</span></span><br><span class="line">Linux milkv-duo 5.10.4-tag- <span class="comment">#1 PREEMPT Thu Feb 8 19:28:21 CST 2024 riscv64 GNU/Linux</span></span><br><span class="line">[root@milkv-duo]~<span class="comment"># lsb_release -a</span></span><br><span class="line">-sh: lsb_release: not found</span><br><span class="line">[root@milkv-duo]~<span class="comment"># neofetch</span></span><br><span class="line">-sh: neofetch: not found</span><br><span class="line">[root@milkv-duo]~<span class="comment"># ll /</span></span><br><span class="line">total 33</span><br><span class="line">drwxr-xr-x   18 root     root          1024 Feb  8  2024 ./</span><br><span class="line">drwxr-xr-x   18 root     root          1024 Feb  8  2024 ../</span><br><span class="line">drwxr-xr-x    2 root     root          3072 Feb  8  2024 bin/</span><br><span class="line">drwxr-xr-x    7 root     root          1540 Jan  1 00:00 dev/</span><br><span class="line">drwxr-xr-x    8 root     root          1024 Jan  1 00:00 etc/</span><br><span class="line">drwxr-xr-x    3 root     root          1024 Jan 30  2024 lib/</span><br><span class="line">lrwxrwxrwx    1 root     root             3 Feb  8  2024 lib64 -&gt; lib/</span><br><span class="line">lrwxrwxrwx    1 root     root            11 Feb  8  2024 linuxrc -&gt; bin/busybox*</span><br><span class="line">drwx------    2 root     root         16384 Feb  8  2024 lost+found/</span><br><span class="line">drwxr-xr-x    2 root     root          1024 Jan 30  2024 media/</span><br><span class="line">drwxr-xr-x    6 root     root          1024 Jan 30  2024 mnt/</span><br><span class="line">drwxr-xr-x    2 root     root          1024 Jan 30  2024 opt/</span><br><span class="line">dr-xr-xr-x  122 root     root             0 Jan  1 00:00 proc/</span><br><span class="line">drwx------    2 root     root          1024 Jan  1 00:03 root/</span><br><span class="line">drwxr-xr-x    4 root     root           200 Jan  1 00:00 run/</span><br><span class="line">drwxr-xr-x    2 root     root          3072 Feb  8  2024 sbin/</span><br><span class="line">dr-xr-xr-x   11 root     root             0 Jan  1 00:00 sys/</span><br><span class="line">drwxrwxrwt    3 root     root           160 Jan  1 00:00 tmp/</span><br><span class="line">drwxr-xr-x    8 root     root          1024 Feb  8  2024 usr/</span><br><span class="line">drwxr-xr-x    5 root     root          1024 Feb  8  2024 var/</span><br><span class="line">[root@milkv-duo]~<span class="comment"># cat /proc/cpuinfo</span></span><br><span class="line">processor	: 0</span><br><span class="line">hart		: 0</span><br><span class="line">isa		: rv64imafdvcsu</span><br><span class="line">mmu		: sv39</span><br><span class="line"></span><br><span class="line">[root@milkv-duo]~<span class="comment"># cat /proc/meminfo</span></span><br><span class="line">MemTotal:         170288 kB</span><br><span class="line">MemFree:          147812 kB</span><br><span class="line">MemAvailable:     148580 kB</span><br><span class="line">Buffers:             872 kB</span><br><span class="line">Cached:             3024 kB</span><br><span class="line">SwapCached:            0 kB</span><br><span class="line">Active:             2520 kB</span><br><span class="line">Inactive:           2808 kB</span><br><span class="line">Active(anon):         72 kB</span><br><span class="line">Inactive(anon):     1440 kB</span><br><span class="line">Active(file):       2448 kB</span><br><span class="line">Inactive(file):     1368 kB</span><br><span class="line">Unevictable:           0 kB</span><br><span class="line">Mlocked:               0 kB</span><br><span class="line">SwapTotal:             0 kB</span><br><span class="line">SwapFree:              0 kB</span><br><span class="line">Dirty:                44 kB</span><br><span class="line">Writeback:             0 kB</span><br><span class="line">AnonPages:          1444 kB</span><br><span class="line">Mapped:             2532 kB</span><br><span class="line">Shmem:                80 kB</span><br><span class="line">KReclaimable:       2664 kB</span><br><span class="line">Slab:               7220 kB</span><br><span class="line">SReclaimable:       2664 kB</span><br><span class="line">SUnreclaim:         4556 kB</span><br><span class="line">KernelStack:        1024 kB</span><br><span class="line">PageTables:          404 kB</span><br><span class="line">NFS_Unstable:          0 kB</span><br><span class="line">Bounce:                0 kB</span><br><span class="line">WritebackTmp:          0 kB</span><br><span class="line">CommitLimit:       85144 kB</span><br><span class="line">Committed_AS:       5004 kB</span><br><span class="line">VmallocTotal:   67108863 kB</span><br><span class="line">VmallocUsed:        4408 kB</span><br><span class="line">VmallocChunk:          0 kB</span><br><span class="line">Percpu:               32 kB</span><br><span class="line">CmaTotal:              0 kB</span><br><span class="line">CmaFree:               0 kB</span><br><span class="line">[root@milkv-duo]~<span class="comment"># </span></span><br></pre></td></tr></table></figure>
+<p>I'll have to stop here for now. And let's try out <a target="_blank" rel="noopener" href="https://milkv.io/duo">Milk-V Duo 256M</a>'s wired connection some time later. Oh, the <strong>last</strong> step of today:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@milkv-duo]/<span class="comment"># ip address</span></span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN qlen 1000</span><br><span class="line">    <span class="built_in">link</span>/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP qlen 1000</span><br><span class="line">    <span class="built_in">link</span>/ether 76:56:d2:e2:b2:61 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 169.254.160.248/16 brd 169.254.255.255 scope global noprefixroute eth0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">3: usb0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000</span><br><span class="line">    <span class="built_in">link</span>/ether 6e:2f:0f:35:64:c7 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.42.1/24 brd 192.168.42.255 scope global usb0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">[root@milkv-duo]/<span class="comment"># </span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2024/02/04/SBCs/MCU/esp32-s3-eye/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/02/04/SBCs/MCU/esp32-s3-eye/" class="post-title-link" itemprop="url">ESP32 S3 EYE</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-02-03 16:29:13 / Modified: 00:48:42" itemprop="dateCreated datePublished" datetime="2024-02-03T16:29:13-08:00">2024-02-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Finally, in China, I setup my old laptop.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ neofetch</span><br><span class="line">            .-/+oossssoo+/-.               lvision@lvision-GT72-6QE </span><br><span class="line">        `:+ssssssssssssssssss+:`           ------------------------ </span><br><span class="line">      -+ssssssssssssssssssyyssss+-         OS: Ubuntu 22.04.3 LTS x86_64 </span><br><span class="line">    .ossssssssssssssssssdMMMNysssso.       Host: GT72 6QE REV:1.0 </span><br><span class="line">   /ssssssssssshdmmNNmmyNMMMMhssssss/      Kernel: 6.5.0-15-generic </span><br><span class="line">  +ssssssssshmydMMMMMMMNddddyssssssss+     Uptime: 26 mins </span><br><span class="line"> /sssssssshNMMMyhhyyyyhmNMMMNhssssssss/    Packages: 3057 (dpkg), 13 (snap) </span><br><span class="line">.ssssssssdMMMNhsssssssssshNMMMdssssssss.   Shell: zsh 5.8.1 </span><br><span class="line">+sssshhhyNMMNyssssssssssssyNMMMysssssss+   Resolution: 1920x1080 </span><br><span class="line">ossyNMMMNyMMhsssssssssssssshmmmhssssssso   DE: GNOME 42.9 </span><br><span class="line">ossyNMMMNyMMhsssssssssssssshmmmhssssssso   WM: Mutter </span><br><span class="line">+sssshhhyNMMNyssssssssssssyNMMMysssssss+   WM Theme: Adwaita </span><br><span class="line">.ssssssssdMMMNhsssssssssshNMMMdssssssss.   Theme: Yaru [GTK2/3] </span><br><span class="line"> /sssssssshNMMMyhhyyyyhdNMMMNhssssssss/    Icons: Yaru [GTK2/3] </span><br><span class="line">  +sssssssssdmydMMMMMMMMddddyssssssss+     Terminal: gnome-terminal </span><br><span class="line">   /ssssssssssshdmNNNNmyNMMMMhssssss/      CPU: Intel i7-6700HQ (8) @ 3.500GHz </span><br><span class="line">    .ossssssssssssssssssdMMMNysssso.       GPU: NVIDIA GeForce GTX 980M </span><br><span class="line">      -+sssssssssssssssssyyyssss+-         Memory: 3075MiB / 64254MiB </span><br><span class="line">        `:+ssssssssssssssssss+:`</span><br><span class="line">            .-/+oossssoo+/-.                                       </span><br><span class="line">                                                                   </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">➜  ~ </span><br></pre></td></tr></table></figure>
+<h1 id="introduction">1. Introduction</h1>
+<p><a target="_blank" rel="noopener" href="https://www.espressif.com/en/products/socs/esp32-s3">ESP32-S3</a> <code>is a dual-core XTensa LX7 MCU, capable of running at 240 MHz. Apart from its 512 KB of internal SRAM, it also comes with integrated 2.4 GHz, 802.11 b/g/n Wi-Fi and Bluetooth 5 (LE) connectivity that provides long-range support.</code> (Cite from <a target="_blank" rel="noopener" href="https://www.espressif.com">Espressif</a>'s official online doc <a target="_blank" rel="noopener" href="https://www.espressif.com/en/products/socs/esp32-s3">ESP32-S3</a>).</p>
+<h2 id="lsusb">1.1 lsusb</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Bus 001 Device 007: ID 303a:1001 Espressif USB JTAG/serial debug unit</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2024/01/24/Coding/HowTo/qt5-assimp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/01/24/Coding/HowTo/qt5-assimp/" class="post-title-link" itemprop="url">How to build Qt5 with assimp?</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-01-24 00:00:00 / Modified: 04:11:06" itemprop="dateCreated datePublished" datetime="2024-01-24T00:00:00-08:00">2024-01-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Coding/HowTo/" itemprop="url" rel="index"><span itemprop="name">HowTo</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="symptom">1. Symptom</h2>
+<p>When I tried to build <a target="_blank" rel="noopener" href="https://download.qt.io/official_releases/qt/5.15/">qt 5.15</a>, I <strong>always</strong> obtain the following <strong>ERROR</strong> message:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Project ERROR: Library &#x27;assimp&#x27; is not defined.</span><br><span class="line">make[4]: *** [Makefile:85: sub-assimp-install_subtargets] Error 3</span><br><span class="line">make[4]: Leaving directory &#x27;/opt/qt/qt-everywhere-src-5.15.12/qtquick3d/src/plugins/assetimporters&#x27;</span><br><span class="line">make[3]: *** [Makefile:59: sub-assetimporters-install_subtargets] Error 2</span><br><span class="line">make[3]: Leaving directory &#x27;/opt/qt/qt-everywhere-src-5.15.12/qtquick3d/src/plugins&#x27;</span><br><span class="line">make[2]: *** [Makefile:206: sub-plugins-install_subtargets-ordered] Error 2</span><br><span class="line">make[2]: Leaving directory &#x27;/opt/qt/qt-everywhere-src-5.15.12/qtquick3d/src&#x27;</span><br><span class="line">make[1]: *** [Makefile:62: sub-src-install_subtargets] Error 2</span><br><span class="line">make[1]: Leaving directory &#x27;/opt/qt/qt-everywhere-src-5.15.12/qtquick3d&#x27;</span><br><span class="line">make: *** [Makefile:378: module-qtquick3d-install_subtargets] Error 2</span><br></pre></td></tr></table></figure>
+<h2 id="reason">2. Reason</h2>
+<p>Why? Please refer to <a target="_blank" rel="noopener" href="https://blog.csdn.net/Taozi825232603/article/details/132220891">QT5.15在Ubuntu22.04上编译流程</a>.</p>
+<h2 id="solution">3. Solution</h2>
+<ul>
+<li>Modify <strong>line 13</strong> of <code>/opt/qt/qt-everywhere-src-5.15.12/qtquick3d/src/plugins/assetimporters/assimp/assimp.pro</code> from <code>QMAKE_USE_PRIVATE += assimp</code> to <code>QMAKE_USE_PRIVATE += quick3d-assimp</code>.</li>
+<li>Don't use <strong>assimp-5.2.2</strong> from Ubuntu default repo, but build and install <a target="_blank" rel="noopener" href="https://github.com/assimp/assimp.git">assimp</a> (5.2.3 or above) from source.</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2024/01/21/SBCs/RISC-V/LuckFox-Pico-Max/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/01/21/SBCs/RISC-V/LuckFox-Pico-Max/" class="post-title-link" itemprop="url">LuckFox Pico Max</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-01-20 10:14:18" itemprop="dateCreated datePublished" datetime="2024-01-20T10:14:18-08:00">2024-01-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-01-28 00:25:14" itemprop="dateModified" datetime="2024-01-28T00:25:14-08:00">2024-01-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/Risc-V/" itemprop="url" rel="index"><span itemprop="name">Risc-V</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/Risc-V/RV1106/" itemprop="url" rel="index"><span itemprop="name">RV1106</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Today, let's test the computing capability of <a target="_blank" rel="noopener" href="https://www.luckfox.com/Luckfox-Pico-Max">LuckFox Pico Max</a>.</p>
+<h1 id="introduction">1. Introduction</h1>
+<p><a target="_blank" rel="noopener" href="https://www.luckfox.com/Luckfox-Pico-Max">LuckFox Pico Max</a> adopts <a target="_blank" rel="noopener" href="https://www.rock-chips.com/uploads/pdf/2022.8.26/192/RV1106%20Brief%20Datasheet.pdf">Rockchip RV1106</a> as its core processing unit.</p>
+<h2 id="lsusb">1.1 lsusb</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Bus 001 Device 011: ID 2207:0019 Fuzhou Rockchip Electronics Company rk3xxx</span><br></pre></td></tr></table></figure>
+<p><strong><span style="color:red">A little weird: Why <code>rk3xxx</code> but not <code>rv1106</code> ???</span></strong></p>
+<h2 id="ssh">1.2 SSH</h2>
+<p>In favor of my personal favorite, I prefer <code>ssh</code> into <a target="_blank" rel="noopener" href="https://www.luckfox.com/Luckfox-Pico-Max">LuckFox Pico Max</a> over Intranet and talk a look.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ssh root@192.168.1.66</span><br><span class="line"><span class="comment"># pwd</span></span><br><span class="line">/root</span><br><span class="line"><span class="comment"># cd /</span></span><br><span class="line"><span class="comment"># ls -la</span></span><br><span class="line">total 0</span><br><span class="line">drwxr-xr-x   20 1002     1002          1584 Nov 14  2023 .</span><br><span class="line">drwxr-xr-x   20 1002     1002          1584 Nov 14  2023 ..</span><br><span class="line">drwxrwxr-x    2 1002     1002          5704 Nov 16  2023 bin</span><br><span class="line">lrwxrwxrwx    1 1002     1002             8 Sep  1 09:04 data -&gt; userdata</span><br><span class="line">drwxr-xr-x   12 root     root          2020 Jan  1 12:00 dev</span><br><span class="line">drwxrwxr-x   11 1002     1002          2184 Jan  1 12:00 etc</span><br><span class="line">drwxrwxr-x    3 1002     1002          2168 Nov 16  2023 lib</span><br><span class="line">lrwxrwxrwx    1 1002     1002             3 Nov 14  2023 lib32 -&gt; lib</span><br><span class="line">lrwxrwxrwx    1 1002     1002             3 Nov 30  2021 lib64 -&gt; lib</span><br><span class="line">lrwxrwxrwx    1 1002     1002            11 Nov 14  2023 linuxrc -&gt; bin/busybox</span><br><span class="line">drwxr-xr-x    2 1002     1002           160 Oct 16  2023 media</span><br><span class="line">drwxr-xr-x    3 1002     1002           224 Oct 16  2023 mnt</span><br><span class="line">drwxrwxr-x    3 1002     1002           296 Jan  1 13:10 oem</span><br><span class="line">drwxr-xr-x    2 1002     1002           160 Oct 16  2023 opt</span><br><span class="line">dr-xr-xr-x  126 root     root             0 Jan  1 12:00 proc</span><br><span class="line">drwxrwxr-x    6 1002     1002           664 Nov 16  2023 rockchip_test</span><br><span class="line">drwx------    2 1002     1002           160 Oct 16  2023 root</span><br><span class="line">drwxr-xr-x    6 root     root           220 Jan  1 12:00 run</span><br><span class="line">drwxrwxr-x    2 1002     1002          5120 Nov 16  2023 sbin</span><br><span class="line">dr-xr-xr-x   13 root     root             0 Jan  1 12:00 sys</span><br><span class="line">drwxrwxrwt    3 root     root           100 Jan  1 13:06 tmp</span><br><span class="line">drwxrwxr-x    2 1002     1002           312 Jan  1 12:00 userdata</span><br><span class="line">drwxrwxr-x    7 1002     1002           608 Nov 14  2023 usr</span><br><span class="line">drwxr-xr-x    5 1002     1002           736 Nov 16  2023 var</span><br><span class="line"><span class="comment"># uname -a</span></span><br><span class="line">Linux luckfox 5.10.110 <span class="comment">#1 Tue Nov 14 18:06:04 CST 2023 armv7l GNU/Linux</span></span><br><span class="line"><span class="comment"># df -h</span></span><br><span class="line">Filesystem                Size      Used Available Use% Mounted on</span><br><span class="line">ubi0:rootfs             181.3M     60.0M    121.3M  33% /</span><br><span class="line">devtmpfs                 90.9M         0     90.9M   0% /dev</span><br><span class="line">tmpfs                    91.0M         0     91.0M   0% /dev/shm</span><br><span class="line">tmpfs                    91.0M     64.0K     90.9M   0% /tmp</span><br><span class="line">tmpfs                    91.0M    488.0K     90.5M   1% /run</span><br><span class="line">/dev/ubi4_0              20.2M     17.1M      3.0M  85% /oem</span><br><span class="line">/dev/ubi5_0               2.2M     28.0K      2.2M   1% /userdata</span><br><span class="line"><span class="comment"># cat /proc/cpuinfo</span></span><br><span class="line">processor	: 0</span><br><span class="line">model name	: ARMv7 Processor rev 5 (v7l)</span><br><span class="line">BogoMIPS	: 61.13</span><br><span class="line">Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xc07</span><br><span class="line">CPU revision	: 5</span><br><span class="line"></span><br><span class="line">Hardware	: Generic DT based system</span><br><span class="line">Revision	: 0000</span><br><span class="line">Serial		: eb8d68468b29abe9</span><br><span class="line"><span class="comment"># cat /proc/meminfo</span></span><br><span class="line">MemTotal:         186388 kB</span><br><span class="line">MemFree:          156648 kB</span><br><span class="line">MemAvailable:     164500 kB</span><br><span class="line">Buffers:               0 kB</span><br><span class="line">Cached:            11224 kB</span><br><span class="line">SwapCached:            0 kB</span><br><span class="line">Active:             6112 kB</span><br><span class="line">Inactive:          10000 kB</span><br><span class="line">Active(anon):        200 kB</span><br><span class="line">Inactive(anon):     5248 kB</span><br><span class="line">Active(file):       5912 kB</span><br><span class="line">Inactive(file):     4752 kB</span><br><span class="line">Unevictable:           0 kB</span><br><span class="line">Mlocked:               0 kB</span><br><span class="line">SwapTotal:             0 kB</span><br><span class="line">SwapFree:              0 kB</span><br><span class="line">Dirty:                 4 kB</span><br><span class="line">Writeback:             0 kB</span><br><span class="line">AnonPages:          4908 kB</span><br><span class="line">Mapped:             7520 kB</span><br><span class="line">Shmem:               560 kB</span><br><span class="line">KReclaimable:       3840 kB</span><br><span class="line">Slab:               8156 kB</span><br><span class="line">SReclaimable:       3840 kB</span><br><span class="line">SUnreclaim:         4316 kB</span><br><span class="line">KernelStack:         576 kB</span><br><span class="line">PageTables:          428 kB</span><br><span class="line">NFS_Unstable:          0 kB</span><br><span class="line">Bounce:                0 kB</span><br><span class="line">WritebackTmp:          0 kB</span><br><span class="line">CommitLimit:       93192 kB</span><br><span class="line">Committed_AS:      19308 kB</span><br><span class="line">VmallocTotal:    1032192 kB</span><br><span class="line">VmallocUsed:        3580 kB</span><br><span class="line">VmallocChunk:          0 kB</span><br><span class="line">Percpu:               32 kB</span><br><span class="line">CmaTotal:          67584 kB</span><br><span class="line">CmaAllocated:         12 kB</span><br><span class="line">CmaReleased:       67572 kB</span><br><span class="line">CmaFree:               0 kB</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/12/20/SBCs/RISC-V/BeagleV-Fire-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/12/20/SBCs/RISC-V/BeagleV-Fire-1/" class="post-title-link" itemprop="url">BeagleV-Fire 1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-12-19 13:29:33 / Modified: 18:27:53" itemprop="dateCreated datePublished" datetime="2023-12-19T13:29:33-08:00">2023-12-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -277,6 +632,7 @@
 <p>Now, plug in Wired connection,</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ssh debian@192.168.1.17                                         </span><br><span class="line">The authenticity of host &#x27;192.168.1.17 (192.168.1.17)&#x27; can&#x27;t be established.</span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">BeagleBoard.org Debian Sid Console Image 2023-12-19</span><br><span class="line">Support: https://bbb.io/debian</span><br><span class="line">default username:password is [debian:temppwd]</span><br><span class="line"></span><br><span class="line">debian@192.168.1.17&#x27;s password: </span><br><span class="line"></span><br><span class="line">The programs included with the Debian GNU/Linux system are free software;</span><br><span class="line">the exact distribution terms for each program are described in the</span><br><span class="line">individual files in /usr/share/doc/*/copyright.</span><br><span class="line"></span><br><span class="line">Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent</span><br><span class="line">permitted by applicable law.</span><br><span class="line">Last login: Tue Dec 19 08:27:24 2023</span><br><span class="line">debian@BeagleV:~$ sudo apt update</span><br><span class="line">[sudo] password for debian: </span><br><span class="line">Get:1 http://deb.debian.org/debian sid InRelease [198 kB]</span><br><span class="line">Get:3 http://repos.rcn-ee.com/debian-riscv64 sid InRelease [3083 B]                                                                    </span><br><span class="line">Get:2 https://debian.beagle.cc/riscv64 sid InRelease [3083 B]                                        </span><br><span class="line">Get:4 http://deb.debian.org/debian sid/main riscv64 Packages [9076 kB]</span><br><span class="line">Get:5 http://repos.rcn-ee.com/debian-riscv64 sid/main riscv64 Packages [13.0 kB]</span><br><span class="line">Get:6 https://debian.beagle.cc/riscv64 sid/main riscv64 Packages [13.0 kB]</span><br><span class="line">Get:7 http://deb.debian.org/debian sid/main riscv64 Components [4198 kB]</span><br><span class="line">Get:8 http://deb.debian.org/debian sid/main riscv64 Contents (deb) [10.3 MB]</span><br><span class="line">Get:9 http://deb.debian.org/debian sid/main all Contents (deb) [37.8 MB]</span><br><span class="line">Fetched 61.6 MB in 3min 0s (341 kB/s)</span><br><span class="line">Reading package lists... Done</span><br><span class="line">Building dependency tree... Done</span><br><span class="line">Reading state information... Done</span><br><span class="line">6 packages can be upgraded. Run &#x27;apt list --upgradable&#x27; to see them.</span><br><span class="line">debian@BeagleV:~$ apt list --upgradable</span><br><span class="line">Listing... Done</span><br><span class="line">appstream/unstable 1.0.1-2 riscv64 [upgradable from: 1.0.1-1]</span><br><span class="line">libappstream5/unstable 1.0.1-2 riscv64 [upgradable from: 1.0.1-1]</span><br><span class="line">libjs-sphinxdoc/unstable 7.2.6-3 all [upgradable from: 7.2.6-2]</span><br><span class="line">openssh-client/unstable 1:9.6p1-1 riscv64 [upgradable from: 1:9.5p1-2]</span><br><span class="line">openssh-server/unstable 1:9.6p1-1 riscv64 [upgradable from: 1:9.5p1-2]</span><br><span class="line">openssh-sftp-server/unstable 1:9.6p1-1 riscv64 [upgradable from: 1:9.5p1-2]</span><br><span class="line">debian@BeagleV:~$ sudo apt upgrade</span><br><span class="line">Reading package lists... Done</span><br><span class="line">Building dependency tree... Done</span><br><span class="line">Reading state information... Done</span><br><span class="line">Calculating upgrade... Done</span><br><span class="line">The following packages will be upgraded:</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">debian@BeagleV:~$ neofetch</span><br><span class="line">       _,met$$$$$gg.          debian@BeagleV </span><br><span class="line">    ,g$$$$$$$$$$$$$$$P.       -------------- </span><br><span class="line">  ,g$$P&quot;     &quot;&quot;&quot;Y$$.&quot;.        OS: Debian GNU/Linux trixie/sid riscv64 </span><br><span class="line"> ,$$P&#x27;              `$$$.     Host: BeagleBoard BeagleV-Fire </span><br><span class="line">&#x27;,$$P       ,ggs.     `$$b:   Kernel: 6.1.43-linux4microchip+fpga-2023.09-20231219+ </span><br><span class="line">`d$$&#x27;     ,$P&quot;&#x27;   .    $$$    Uptime: 12 mins </span><br><span class="line"><span class="meta prompt_"> $</span><span class="language-bash"><span class="variable">$P</span>      d$<span class="string">&#x27;     ,    $$P    Packages: 587 (dpkg)</span></span> </span><br><span class="line"><span class="meta prompt_"> $</span><span class="language-bash"><span class="string">$:      $$.   -    ,d$$&#x27;</span>    Shell: bash 5.2.21</span> </span><br><span class="line"><span class="meta prompt_"> $</span><span class="language-bash">$;      Y<span class="variable">$b</span>._   _,d<span class="variable">$P</span><span class="string">&#x27;      Terminal: /dev/pts/0</span></span> </span><br><span class="line"><span class="meta prompt_"> Y$</span><span class="language-bash"><span class="string">$.    `.`&quot;Y$$$$P&quot;&#x27;</span>         CPU: (4)</span> </span><br><span class="line"> `$$b      &quot;-.__              Memory: 88MiB / 1541MiB </span><br><span class="line">  `Y$$</span><br><span class="line">   `Y$$.                                              </span><br><span class="line">     `$$b.                                            </span><br><span class="line">       `Y$$b.</span><br><span class="line">          `&quot;Y$b._</span><br><span class="line">              `&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
+<p><strong><span style="color:red">Bingo!!! Debian!!! </span></strong></p>
 
       
     </div>
@@ -296,7 +652,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/12/18/OperatingSystems/LinuxKenerl/riscv/">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/12/19/OperatingSystems/LinuxKenerl/riscv/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -310,7 +666,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/12/18/OperatingSystems/LinuxKenerl/riscv/" class="post-title-link" itemprop="url">RISC-V</a>
+            <a href="/2023/12/19/OperatingSystems/LinuxKenerl/riscv/" class="post-title-link" itemprop="url">RISC-V</a>
         </h2>
 
         <div class="post-meta">
@@ -698,7 +1054,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/12/07/SBCs/FPGA/iCEstick/">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/12/08/SBCs/FPGA/iCEstick/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -712,7 +1068,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/12/07/SBCs/FPGA/iCEstick/" class="post-title-link" itemprop="url">iCEstick Evaluation Kit</a>
+            <a href="/2023/12/08/SBCs/FPGA/iCEstick/" class="post-title-link" itemprop="url">iCEstick Evaluation Kit</a>
         </h2>
 
         <div class="post-meta">
@@ -721,10 +1077,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-12-07 15:38:38 / Modified: 16:57:07" itemprop="dateCreated datePublished" datetime="2023-12-07T15:38:38-08:00">2023-12-07</time>
+              <time title="Created: 2023-12-07 15:38:38" itemprop="dateCreated datePublished" datetime="2023-12-07T15:38:38-08:00">2023-12-07</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-01-19 21:19:56" itemprop="dateModified" datetime="2024-01-19T21:19:56-08:00">2024-01-19</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -769,9 +1131,9 @@
           <p><a href="/2023/12/04/SBCs/FPGA/quickfeather#bricked">My <strong>FIRST</strong> <strong>FPGA board</strong> went bricked</a>. So, today, I'll have to try another one: <a target="_blank" rel="noopener" href="https://www.latticesemi.com/icestick">iCEstick</a>. This is really a good journey in my opinion.</p>
 <h1 id="introduction">1. Introduction</h1>
 <h2 id="lsusb">1.1 lsusb</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">Bus 011 Device 002: ID 0403:6010 Future Technology Devices International, Ltd FT2232C/D/H Dual UART/FIFO IC</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">Bus 011 Device 002: ID 0403:6010 Future Technology Devices International, Ltd FT2232C/D/H Dual UART/FIFO IC</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
 <h2 id="why-two-devices">1.2 Why TWO Devices?</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ll /dev/ttyUSB*                                                         </span><br><span class="line">crw-rw----+ 1 root plugdev 188, 0 Dec  7 15:17 /dev/ttyUSB0</span><br><span class="line">crw-rw----+ 1 root plugdev 188, 1 Dec  7 15:17 /dev/ttyUSB1</span><br><span class="line">➜  ~ </span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ll /dev/ttyUSB*                                                         </span><br><span class="line">crw-rw----+ 1 root plugdev 188, 0 Dec  7 15:17 /dev/ttyUSB0</span><br><span class="line">crw-rw----+ 1 root plugdev 188, 1 Dec  7 15:17 /dev/ttyUSB1</span><br><span class="line">➜  ~ </span><br></pre></td></tr></table></figure>
 <h2 id="spec">1.3 Spec</h2>
 <ul>
 <li>Official website: <a target="_blank" rel="noopener" href="https://www.latticesemi.com/icestick">iCEstick</a></li>
@@ -848,7 +1210,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/12/05/SBCs/RISC-V/MaixDuino-2/">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/12/06/SBCs/RISC-V/MaixDuino-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -862,7 +1224,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/12/05/SBCs/RISC-V/MaixDuino-2/" class="post-title-link" itemprop="url">MaixDuino 2 - Binocular</a>
+            <a href="/2023/12/06/SBCs/RISC-V/MaixDuino-2/" class="post-title-link" itemprop="url">MaixDuino 2 - Binocular</a>
         </h2>
 
         <div class="post-meta">
@@ -936,472 +1298,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/12/04/SBCs/RISC-V/MaixDuino-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/04/SBCs/RISC-V/MaixDuino-1/" class="post-title-link" itemprop="url">MaixDuino 1 - SiPeed Risc-V 64bit Arduino Compatible Open Source Board</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-12-04 14:20:30" itemprop="dateCreated datePublished" datetime="2023-12-04T14:20:30-08:00">2023-12-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-05 14:54:57" itemprop="dateModified" datetime="2023-12-05T14:54:57-08:00">2023-12-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Long time no see everybody. Today let's talk about <a target="_blank" rel="noopener" href="https://maixduino.sipeed.com/en/">MaixDuino</a>.</p>
-<h1 id="introduction">1. Introduction</h1>
-<h2 id="lsusb">1.1 lsusb</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">Bus 011 Device 055: ID 0403:6010 Future Technology Devices International, Ltd FT2232C/D/H Dual UART/FIFO IC</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-<h2 id="wiki">1.2 Wiki</h2>
-<p>Detailed specification about <a target="_blank" rel="noopener" href="https://maixduino.sipeed.com/en/">MaixDuino</a> can be found on <a target="_blank" rel="noopener" href="https://wiki.sipeed.com/hardware/en/maix/maixpy_develop_kit_board/maix_duino.html">MaixDuino Wiki</a>.</p>
-<h2 id="github-source-code">1.3 Github Source Code</h2>
-<p>Typically, there's no need to rebuild your project from the ground up. Instead, simply enter the <a target="_blank" rel="noopener" href="https://dl.sipeed.com/MAIX/Maixduino/package_Maixduino_k210_index.json">Maixduino package URL</a> in the <strong>Additional Boards Manager URLs</strong> section.</p>
-<p>However, when needed, <a target="_blank" rel="noopener" href="https://github.com/sipeed/Maixduino">Maixduino Github repository</a> offers open-source resource that you can utilize as a foundation for further development.</p>
-<h1 id="flash">2. Flash</h1>
-<h2 id="environment-configuration">2.1 Environment Configuration</h2>
-<ul>
-<li><p><a target="_blank" rel="noopener" href="https://maixduino.sipeed.com/en/get_started/install.html">Install Arduino Environment</a> You will see similar info from the Output console of Arduino IDE: <img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_MaixDuino_Output.png" alt="MaixDuino Arduino Output" /></p></li>
-<li><p>Due to <a target="_blank" rel="noopener" href="https://maixduino.sipeed.com/en/">MaixDuino</a>'s official website, <a target="_blank" rel="noopener" href="https://code.visualstudio.com/">VSCode</a>'s plugin <a target="_blank" rel="noopener" href="https://docs.platformio.org/en/latest/">PlatformIO</a> can also be adopted</p></li>
-</ul>
-<h2 id="flash-a-customized-sketch">2.2 Flash a Customized Sketch</h2>
-<ul>
-<li><p>The <a target="_blank" rel="noopener" href="https://courses.cs.washington.edu/courses/cse475/19au/labs/lab1.html">W cse475</a> course from the <a target="_blank" rel="noopener" href="https://www.washington.edu/">University of Washington</a> provides comprehensive course content, serving as an excellent tutorial for those interested in following along.</p></li>
-<li><p><span style="color:red">Highlight: MUST add the following two lines and use</span> <strong>Burn Baudo Rate "500 kbps"</strong></p></li>
-</ul>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bitm.menu.burn_baudrate.500000=500 kbps</span><br><span class="line">bitm.menu.burn_baudrate.500000.build.burn_baudrate=500000</span><br></pre></td></tr></table></figure>
-<h3 id="basic-blink">2.2.1 Basic Blink</h3>
-<h4 id="verifycompile">2.2.1.1 Verify/Compile</h4>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/wiring_analog.c: In function &#x27;analogRead&#x27;:</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/wiring_analog.c:104:1: warning: control reaches end of non-void function [-Wreturn-type]</span><br><span class="line"> &#125;</span><br><span class="line"> ^</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c: In function &#x27;vAddNewTaskToCurrentReadyList&#x27;:</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c:1111:26: warning: assignment to &#x27;UBaseType_t&#x27; &#123;aka &#x27;long unsigned int&#x27;&#125; from &#x27;UBaseType_t *&#x27; &#123;aka &#x27;long unsigned int *&#x27;&#125; makes integer from pointer without a cast [-Wint-conversion]</span><br><span class="line">    pxNewTCB-&gt;uxTCBNumber = uxTaskNumber;</span><br><span class="line">                          ^</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c: In function &#x27;uxTaskGetSystemState&#x27;:</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c:2483:20: warning: comparison between pointer and integer</span><br><span class="line">    if( uxArraySize &gt;= uxCurrentNumberOfTasks )</span><br><span class="line">                    ^~</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c:2490:80: warning: passing argument 2 of &#x27;prvListTasksWithinSingleList&#x27; from incompatible pointer type [-Wincompatible-pointer-types]</span><br><span class="line">      uxTask += prvListTasksWithinSingleList( &amp;( pxTaskStatusArray[ uxTask ] ), &amp;( pxReadyTasksLists[ uxQueue ] ), eReady );</span><br><span class="line">                                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c:505:92: note: expected &#x27;List_t *&#x27; &#123;aka &#x27;struct xLIST *&#x27;&#125; but argument is of type &#x27;List_t (*)[5]&#x27; &#123;aka &#x27;struct xLIST (*)[5]&#x27;&#125;</span><br><span class="line">  static UBaseType_t prvListTasksWithinSingleList( TaskStatus_t *pxTaskStatusArray, List_t *pxList, eTaskState eState ) PRIVILEGED_FUNCTION;</span><br><span class="line">                                                                                    ~~~~~~~~^~~~~~</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c:2503:80: warning: passing argument 2 of &#x27;prvListTasksWithinSingleList&#x27; from incompatible pointer type [-Wincompatible-pointer-types]</span><br><span class="line">      uxTask += prvListTasksWithinSingleList( &amp;( pxTaskStatusArray[ uxTask ] ), &amp;xTasksWaitingTermination, eDeleted );</span><br><span class="line">                                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c:505:92: note: expected &#x27;List_t *&#x27; &#123;aka &#x27;struct xLIST *&#x27;&#125; but argument is of type &#x27;List_t (*)[2]&#x27; &#123;aka &#x27;struct xLIST (*)[2]&#x27;&#125;</span><br><span class="line">  static UBaseType_t prvListTasksWithinSingleList( TaskStatus_t *pxTaskStatusArray, List_t *pxList, eTaskState eState ) PRIVILEGED_FUNCTION;</span><br><span class="line">                                                                                    ~~~~~~~~^~~~~~</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c:2511:80: warning: passing argument 2 of &#x27;prvListTasksWithinSingleList&#x27; from incompatible pointer type [-Wincompatible-pointer-types]</span><br><span class="line">      uxTask += prvListTasksWithinSingleList( &amp;( pxTaskStatusArray[ uxTask ] ), &amp;xSuspendedTaskList, eSuspended );</span><br><span class="line">                                                                                ^~~~~~~~~~~~~~~~~~~</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c:505:92: note: expected &#x27;List_t *&#x27; &#123;aka &#x27;struct xLIST *&#x27;&#125; but argument is of type &#x27;List_t (*)[2]&#x27; &#123;aka &#x27;struct xLIST (*)[2]&#x27;&#125;</span><br><span class="line">  static UBaseType_t prvListTasksWithinSingleList( TaskStatus_t *pxTaskStatusArray, List_t *pxList, eTaskState eState ) PRIVILEGED_FUNCTION;</span><br><span class="line">                                                                                    ~~~~~~~~^~~~~~</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c: In function &#x27;vTaskGetInfo&#x27;:</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c:3626:14: warning: comparison of distinct pointer types lacks a cast</span><br><span class="line">    if( pxTCB == pxCurrentTCB )</span><br><span class="line">              ^~</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c: In function &#x27;vTaskList&#x27;:</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c:4292:15: warning: assignment to &#x27;UBaseType_t&#x27; &#123;aka &#x27;volatile long unsigned int&#x27;&#125; from &#x27;volatile UBaseType_t *&#x27; &#123;aka &#x27;volatile long unsigned int *&#x27;&#125; makes integer from pointer without a cast [-Wint-conversion]</span><br><span class="line">   uxArraySize = uxCurrentNumberOfTasks;</span><br><span class="line">               ^</span><br><span class="line">Sketch uses 95791 bytes (1%) of program storage space. Maximum is 8388608 bytes.</span><br></pre></td></tr></table></figure>
-<ul>
-<li><span style="color:red">A lot of warnings but successfully built.</span></li>
-</ul>
-<h4 id="upload-using-programmer-k-flash">2.2.1.2 Upload Using Programmer (k-flash)</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br></pre></td><td class="code"><pre><span class="line"> Sketch uses 95791 bytes (1%) of program storage space. Maximum is 8388608 bytes.</span><br><span class="line">[INFO] ANSI colors not used </span><br><span class="line">[INFO] COM Port Selected Manually:  /dev/ttyUSB0 </span><br><span class="line">[INFO] Default baudrate is 115200 , later it may be changed to the value you set. </span><br><span class="line">[INFO] Trying to Enter the ISP Mode... </span><br><span class="line">*</span><br><span class="line">[INFO] Greeting Message Detected, Start Downloading ISP </span><br><span class="line"></span><br><span class="line">Downloading ISP: |---------------------------------------------| 1.5% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |=--------------------------------------------| 3.1% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |==-------------------------------------------| 4.6% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |==-------------------------------------------| 6.2% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |===------------------------------------------| 7.7% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |====-----------------------------------------| 9.2% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |====-----------------------------------------| 10.8% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |=====----------------------------------------| 12.3% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |======---------------------------------------| 13.8% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |======---------------------------------------| 15.4% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |=======--------------------------------------| 16.9% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |========-------------------------------------| 18.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=========------------------------------------| 20.0% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=========------------------------------------| 21.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==========-----------------------------------| 23.1% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===========----------------------------------| 24.6% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===========----------------------------------| 26.2% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |============---------------------------------| 27.7% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=============--------------------------------| 29.2% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=============--------------------------------| 30.8% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==============-------------------------------| 32.3% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===============------------------------------| 33.8% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===============------------------------------| 35.4% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |================-----------------------------| 36.9% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=================----------------------------| 38.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==================---------------------------| 40.0% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==================---------------------------| 41.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===================--------------------------| 43.1% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |====================-------------------------| 44.6% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |====================-------------------------| 46.2% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=====================------------------------| 47.7% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |======================-----------------------| 49.2% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |======================-----------------------| 50.8% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=======================----------------------| 52.3% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |========================---------------------| 53.8% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |========================---------------------| 55.4% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=========================--------------------| 56.9% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==========================-------------------| 58.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===========================------------------| 60.0% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===========================------------------| 61.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |============================-----------------| 63.1% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=============================----------------| 64.6% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=============================----------------| 66.2% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==============================---------------| 67.7% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===============================--------------| 69.2% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===============================--------------| 70.8% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |================================-------------| 72.3% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=================================------------| 73.8% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=================================------------| 75.4% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==================================-----------| 76.9% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===================================----------| 78.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |====================================---------| 80.0% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |====================================---------| 81.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=====================================--------| 83.1% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |======================================-------| 84.6% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |======================================-------| 86.2% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=======================================------| 87.7% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |========================================-----| 89.2% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |========================================-----| 90.8% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=========================================----| 92.3% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==========================================---| 93.8% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==========================================---| 95.4% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===========================================--| 96.9% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |============================================-| 98.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=============================================| 100.0% 10kiB/s</span><br><span class="line">[INFO] Booting From 0x80000000 </span><br><span class="line">[INFO] Wait For 0.1 second for ISP to Boot </span><br><span class="line">[INFO] Boot to Flashmode Successfully </span><br><span class="line">[INFO] Selected Baudrate:  500000 </span><br><span class="line">[INFO] Baudrate changed, greeting with ISP again ...  </span><br><span class="line">[INFO] Boot to Flashmode Successfully </span><br><span class="line">[INFO] Selected Flash:  On-Board </span><br><span class="line">[INFO] Initialization flash Successfully </span><br><span class="line"></span><br><span class="line">Programming BIN: |======================-----------------------| 50.0% 28kiB/s</span><br><span class="line"></span><br><span class="line">Programming BIN: |=============================================| 100.0% 28kiB/s</span><br><span class="line">[INFO] Rebooting... </span><br></pre></td></tr></table></figure>
-<h4 id="demonstration">2.2.1.3 Demonstration</h4>
-<p>Too simple. Ignore...</p>
-<h3 id="basic-graphics">2.2.2 Basic Graphics</h3>
-<h4 id="verifycompile-1">2.2.2.1 Verify/Compile</h4>
-<ul>
-<li><strong>Compilation error</strong>:</li>
-</ul>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/libraries/Adafruit_BusIO/Adafruit_I2CDevice.cpp: In member function &#x27;void Adafruit_I2CDevice::end()&#x27;:</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/libraries/Adafruit_BusIO/Adafruit_I2CDevice.cpp:52:10: error: &#x27;class TwoWire&#x27; has no member named &#x27;end&#x27;; did you mean &#x27;read&#x27;?</span><br><span class="line"><span class="meta prompt_">   _wire-&gt;</span><span class="language-bash">end();</span></span><br><span class="line">          ^~~</span><br><span class="line">          read</span><br><span class="line"></span><br><span class="line">exit status 1</span><br><span class="line"></span><br><span class="line">Compilation error: exit status 1</span><br></pre></td></tr></table></figure>
-<ul>
-<li><span style="color:red">Solution: comment out this line:</span> <code>_wire-&gt;end();</code></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/wiring_analog.c: In function &#x27;analogRead&#x27;:</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/wiring_analog.c:104:1: warning: control reaches end of non-void function [-Wreturn-type]</span><br><span class="line"> &#125;</span><br><span class="line"> ^</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c: In function &#x27;vAddNewTaskToCurrentReadyList&#x27;:</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c:1111:26: warning: assignment to &#x27;UBaseType_t&#x27; &#123;aka &#x27;long unsigned int&#x27;&#125; from &#x27;UBaseType_t *&#x27; &#123;aka &#x27;long unsigned int *&#x27;&#125; makes integer from pointer without a cast [-Wint-conversion]</span><br><span class="line">    pxNewTCB-&gt;uxTCBNumber = uxTaskNumber;</span><br><span class="line">                          ^</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c: In function &#x27;uxTaskGetSystemState&#x27;:</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c:2483:20: warning: comparison between pointer and integer</span><br><span class="line">    if( uxArraySize &gt;= uxCurrentNumberOfTasks )</span><br><span class="line">                    ^~</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c:2490:80: warning: passing argument 2 of &#x27;prvListTasksWithinSingleList&#x27; from incompatible pointer type [-Wincompatible-pointer-types]</span><br><span class="line">      uxTask += prvListTasksWithinSingleList( &amp;( pxTaskStatusArray[ uxTask ] ), &amp;( pxReadyTasksLists[ uxQueue ] ), eReady );</span><br><span class="line">                                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c:505:92: note: expected &#x27;List_t *&#x27; &#123;aka &#x27;struct xLIST *&#x27;&#125; but argument is of type &#x27;List_t (*)[5]&#x27; &#123;aka &#x27;struct xLIST (*)[5]&#x27;&#125;</span><br><span class="line">  static UBaseType_t prvListTasksWithinSingleList( TaskStatus_t *pxTaskStatusArray, List_t *pxList, eTaskState eState ) PRIVILEGED_FUNCTION;</span><br><span class="line">                                                                                    ~~~~~~~~^~~~~~</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c:2503:80: warning: passing argument 2 of &#x27;prvListTasksWithinSingleList&#x27; from incompatible pointer type [-Wincompatible-pointer-types]</span><br><span class="line">      uxTask += prvListTasksWithinSingleList( &amp;( pxTaskStatusArray[ uxTask ] ), &amp;xTasksWaitingTermination, eDeleted );</span><br><span class="line">                                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c:505:92: note: expected &#x27;List_t *&#x27; &#123;aka &#x27;struct xLIST *&#x27;&#125; but argument is of type &#x27;List_t (*)[2]&#x27; &#123;aka &#x27;struct xLIST (*)[2]&#x27;&#125;</span><br><span class="line">  static UBaseType_t prvListTasksWithinSingleList( TaskStatus_t *pxTaskStatusArray, List_t *pxList, eTaskState eState ) PRIVILEGED_FUNCTION;</span><br><span class="line">                                                                                    ~~~~~~~~^~~~~~</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c:2511:80: warning: passing argument 2 of &#x27;prvListTasksWithinSingleList&#x27; from incompatible pointer type [-Wincompatible-pointer-types]</span><br><span class="line">      uxTask += prvListTasksWithinSingleList( &amp;( pxTaskStatusArray[ uxTask ] ), &amp;xSuspendedTaskList, eSuspended );</span><br><span class="line">                                                                                ^~~~~~~~~~~~~~~~~~~</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c:505:92: note: expected &#x27;List_t *&#x27; &#123;aka &#x27;struct xLIST *&#x27;&#125; but argument is of type &#x27;List_t (*)[2]&#x27; &#123;aka &#x27;struct xLIST (*)[2]&#x27;&#125;</span><br><span class="line">  static UBaseType_t prvListTasksWithinSingleList( TaskStatus_t *pxTaskStatusArray, List_t *pxList, eTaskState eState ) PRIVILEGED_FUNCTION;</span><br><span class="line">                                                                                    ~~~~~~~~^~~~~~</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c: In function &#x27;vTaskGetInfo&#x27;:</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c:3626:14: warning: comparison of distinct pointer types lacks a cast</span><br><span class="line">    if( pxTCB == pxCurrentTCB )</span><br><span class="line">              ^~</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c: In function &#x27;vTaskList&#x27;:</span><br><span class="line">~/.arduino15/packages/Maixduino/hardware/k210/0.3.11/cores/arduino/kendryte-standalone-sdk/lib/freertos/tasks.c:4292:15: warning: assignment to &#x27;UBaseType_t&#x27; &#123;aka &#x27;volatile long unsigned int&#x27;&#125; from &#x27;volatile UBaseType_t *&#x27; &#123;aka &#x27;volatile long unsigned int *&#x27;&#125; makes integer from pointer without a cast [-Wint-conversion]</span><br><span class="line">   uxArraySize = uxCurrentNumberOfTasks;</span><br><span class="line">               ^</span><br><span class="line">Sketch uses 161412 bytes (1%) of program storage space. Maximum is 8388608 bytes.</span><br></pre></td></tr></table></figure>
-<h4 id="upload-using-programmer-k-flash-1">2.2.2.2 Upload Using Programmer (k-flash)</h4>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br></pre></td><td class="code"><pre><span class="line">Sketch uses 161412 bytes (1%) of program storage space. Maximum is 8388608 bytes.</span><br><span class="line">[INFO] ANSI colors not used </span><br><span class="line">[INFO] COM Port Selected Manually:  /dev/ttyUSB0 </span><br><span class="line">[INFO] Default baudrate is 115200 , later it may be changed to the value you set. </span><br><span class="line">[INFO] Trying to Enter the ISP Mode... </span><br><span class="line">*</span><br><span class="line">[INFO] Greeting Message Detected, Start Downloading ISP </span><br><span class="line"></span><br><span class="line">Downloading ISP: |---------------------------------------------| 1.5% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |=--------------------------------------------| 3.1% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |==-------------------------------------------| 4.6% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |==-------------------------------------------| 6.2% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |===------------------------------------------| 7.7% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |====-----------------------------------------| 9.2% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |====-----------------------------------------| 10.8% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |=====----------------------------------------| 12.3% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |======---------------------------------------| 13.8% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |======---------------------------------------| 15.4% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |=======--------------------------------------| 16.9% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |========-------------------------------------| 18.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=========------------------------------------| 20.0% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=========------------------------------------| 21.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==========-----------------------------------| 23.1% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===========----------------------------------| 24.6% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===========----------------------------------| 26.2% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |============---------------------------------| 27.7% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=============--------------------------------| 29.2% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=============--------------------------------| 30.8% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==============-------------------------------| 32.3% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===============------------------------------| 33.8% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===============------------------------------| 35.4% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |================-----------------------------| 36.9% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=================----------------------------| 38.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==================---------------------------| 40.0% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==================---------------------------| 41.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===================--------------------------| 43.1% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |====================-------------------------| 44.6% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |====================-------------------------| 46.2% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=====================------------------------| 47.7% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |======================-----------------------| 49.2% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |======================-----------------------| 50.8% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=======================----------------------| 52.3% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |========================---------------------| 53.8% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |========================---------------------| 55.4% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=========================--------------------| 56.9% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==========================-------------------| 58.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===========================------------------| 60.0% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===========================------------------| 61.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |============================-----------------| 63.1% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=============================----------------| 64.6% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=============================----------------| 66.2% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==============================---------------| 67.7% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===============================--------------| 69.2% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===============================--------------| 70.8% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |================================-------------| 72.3% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=================================------------| 73.8% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=================================------------| 75.4% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==================================-----------| 76.9% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===================================----------| 78.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |====================================---------| 80.0% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |====================================---------| 81.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=====================================--------| 83.1% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |======================================-------| 84.6% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |======================================-------| 86.2% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=======================================------| 87.7% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |========================================-----| 89.2% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |========================================-----| 90.8% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=========================================----| 92.3% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==========================================---| 93.8% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==========================================---| 95.4% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===========================================--| 96.9% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |============================================-| 98.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=============================================| 100.0% 10kiB/s</span><br><span class="line">[INFO] Booting From 0x80000000 </span><br><span class="line">[INFO] Wait For 0.1 second for ISP to Boot </span><br><span class="line">[INFO] Boot to Flashmode Successfully </span><br><span class="line">[INFO] Selected Baudrate:  500000 </span><br><span class="line">[INFO] Baudrate changed, greeting with ISP again ...  </span><br><span class="line">[INFO] Boot to Flashmode Successfully </span><br><span class="line">[INFO] Selected Flash:  On-Board </span><br><span class="line">[INFO] Initialization flash Successfully </span><br><span class="line"></span><br><span class="line">Programming BIN: |===============------------------------------| 33.3% 28kiB/s</span><br><span class="line"></span><br><span class="line">Programming BIN: |==============================---------------| 66.7% 28kiB/s</span><br><span class="line"></span><br><span class="line">Programming BIN: |=============================================| 100.0% 28kiB/s</span><br><span class="line">[INFO] Rebooting... </span><br></pre></td></tr></table></figure>
-<h4 id="demonstration-1">2.2.2.3 Demonstration</h4>
-<iframe width="680" height="1208" src="https://www.youtube.com/embed/1K2bFm26AOQ" title="MaixDuino K210 Basic Graphics" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-</iframe>
-<h3 id="display-images-from-the-camera-on-the-lcd">2.2.3 Display Images from the Camera on the LCD</h3>
-<h4 id="setup">2.2.3.0 Setup</h4>
-<ul>
-<li>Either: Directly open up <strong>File-&gt;Examples-&gt;Sipeed_OV2640-&gt;selfie</strong>, and <span style="color:red">in my case</span>, change all occurrences of <strong>Sipeed_OV2640</strong> to <strong>Sipeed_GC0328</strong>.</li>
-<li>Or: Use official <a target="_blank" rel="noopener" href="https://github.com/sipeed/Maixduino/blob/master/libraries/Sipeed_GC0328/examples/sipeed_gc0328.ino">sipeed_gc0328.ino</a></li>
-</ul>
-<h4 id="verifycompile-2">2.2.3.1 Verify/Compile</h4>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Sketch uses 322004 bytes (3%) of program storage space. Maximum is 8388608 bytes.</span><br></pre></td></tr></table></figure>
-<h4 id="upload-using-programmer-k-flash-2">2.2.3.2 Upload Using Programmer (k-flash)</h4>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br></pre></td><td class="code"><pre><span class="line">Sketch uses 322004 bytes (3%) of program storage space. Maximum is 8388608 bytes.</span><br><span class="line">[INFO] ANSI colors not used </span><br><span class="line">[INFO] COM Port Selected Manually:  /dev/ttyUSB0 </span><br><span class="line">[INFO] Default baudrate is 115200 , later it may be changed to the value you set. </span><br><span class="line">[INFO] Trying to Enter the ISP Mode... </span><br><span class="line">*</span><br><span class="line">[INFO] Greeting Message Detected, Start Downloading ISP </span><br><span class="line"></span><br><span class="line">Downloading ISP: |---------------------------------------------| 1.5% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |=--------------------------------------------| 3.1% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |==-------------------------------------------| 4.6% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |==-------------------------------------------| 6.2% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |===------------------------------------------| 7.7% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |====-----------------------------------------| 9.2% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |====-----------------------------------------| 10.8% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |=====----------------------------------------| 12.3% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |======---------------------------------------| 13.8% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |======---------------------------------------| 15.4% </span><br><span class="line"></span><br><span class="line">Downloading ISP: |=======--------------------------------------| 16.9% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |========-------------------------------------| 18.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=========------------------------------------| 20.0% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=========------------------------------------| 21.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==========-----------------------------------| 23.1% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===========----------------------------------| 24.6% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===========----------------------------------| 26.2% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |============---------------------------------| 27.7% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=============--------------------------------| 29.2% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=============--------------------------------| 30.8% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==============-------------------------------| 32.3% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===============------------------------------| 33.8% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===============------------------------------| 35.4% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |================-----------------------------| 36.9% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=================----------------------------| 38.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==================---------------------------| 40.0% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==================---------------------------| 41.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===================--------------------------| 43.1% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |====================-------------------------| 44.6% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |====================-------------------------| 46.2% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=====================------------------------| 47.7% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |======================-----------------------| 49.2% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |======================-----------------------| 50.8% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=======================----------------------| 52.3% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |========================---------------------| 53.8% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |========================---------------------| 55.4% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=========================--------------------| 56.9% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==========================-------------------| 58.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===========================------------------| 60.0% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===========================------------------| 61.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |============================-----------------| 63.1% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=============================----------------| 64.6% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=============================----------------| 66.2% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==============================---------------| 67.7% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===============================--------------| 69.2% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===============================--------------| 70.8% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |================================-------------| 72.3% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=================================------------| 73.8% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=================================------------| 75.4% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==================================-----------| 76.9% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===================================----------| 78.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |====================================---------| 80.0% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |====================================---------| 81.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=====================================--------| 83.1% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |======================================-------| 84.6% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |======================================-------| 86.2% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=======================================------| 87.7% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |========================================-----| 89.2% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |========================================-----| 90.8% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=========================================----| 92.3% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==========================================---| 93.8% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |==========================================---| 95.4% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |===========================================--| 96.9% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |============================================-| 98.5% 10kiB/s</span><br><span class="line"></span><br><span class="line">Downloading ISP: |=============================================| 100.0% 10kiB/s</span><br><span class="line">[INFO] Booting From 0x80000000 </span><br><span class="line">[INFO] Wait For 0.1 second for ISP to Boot </span><br><span class="line">[INFO] Boot to Flashmode Successfully </span><br><span class="line">[INFO] Selected Baudrate:  500000 </span><br><span class="line">[INFO] Baudrate changed, greeting with ISP again ...  </span><br><span class="line">[INFO] Boot to Flashmode Successfully </span><br><span class="line">[INFO] Selected Flash:  On-Board </span><br><span class="line">[INFO] Initialization flash Successfully </span><br><span class="line"></span><br><span class="line">Programming BIN: |===============------------------------------| 33.3% 27kiB/s</span><br><span class="line"></span><br><span class="line">Programming BIN: |==============================---------------| 66.7% 28kiB/s</span><br><span class="line"></span><br><span class="line">Programming BIN: |=============================================| 100.0% 28kiB/s</span><br><span class="line">[INFO] Rebooting... </span><br></pre></td></tr></table></figure>
-<h4 id="demonstration-2">2.2.3.3 Demonstration</h4>
-<iframe width="1280" height="1120" src="https://www.youtube.com/embed/TdnGUt9vmHg" title="MaixDuino K210 Camera LCD selfie" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-</iframe>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/12/04/SBCs/FPGA/quickfeather/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/04/SBCs/FPGA/quickfeather/" class="post-title-link" itemprop="url">QuickFeather 1.2</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-12-04 02:26:25" itemprop="dateCreated datePublished" datetime="2023-12-04T02:26:25-08:00">2023-12-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-07 16:35:04" itemprop="dateModified" datetime="2023-12-07T16:35:04-08:00">2023-12-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/MCU/FPGA/" itemprop="url" rel="index"><span itemprop="name">FPGA</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/MCU/FPGA/eFPGA/" itemprop="url" rel="index"><span itemprop="name">eFPGA</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/MCU/FPGA/eFPGA/f4pga/" itemprop="url" rel="index"><span itemprop="name">f4pga</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="https://www.crowdsupply.com/quicklogic/quickfeather">QuickFeather</a> is a development board adopting <a target="_blank" rel="noopener" href="https://www.quicklogic.com/">QuickLogic</a>'s <a target="_blank" rel="noopener" href="https://www.quicklogic.com/products/soc/eos-s3-microcontroller/">EOS S3</a> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/System_on_a_chip">SOC</a>.</p>
-<h1 id="introduction">1. Introduction</h1>
-<h2 id="lsusb">1.1 lsusb</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">Bus 011 Device 016: ID 1d50:6140 OpenMoko, Inc.</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-<h2 id="openmoko">1.2 Openmoko</h2>
-<p>So <strong>cool</strong>. For <strong>Openmoko</strong>, please refer to:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Openmoko">Openmoko</a></li>
-<li><a target="_blank" rel="noopener" href="https://wiki.openmoko.org/wiki/Main_Page">Openmoko Wiki</a></li>
-</ul>
-<h2 id="spec">1.3 Spec</h2>
-<ul>
-<li>All details can be found at <a target="_blank" rel="noopener" href="https://www.quicklogic.com/">QuickLogic</a>'s <a target="_blank" rel="noopener" href="https://www.quicklogic.com/products/soc/eos-s3-microcontroller/">EOS S3</a> page.</li>
-<li>In fact, the content on the <a target="_blank" rel="noopener" href="https://www.crowdsupply.com/quicklogic/quickfeather">QuickFeather</a> crowdsupply website is also comprehensive and includes all necessary information.</li>
-</ul>
-<h2 id="github-source-code">1.4 Github Source Code</h2>
-<ul>
-<li>Hardware: <a target="_blank" rel="noopener" href="https://github.com/QuickLogic-Corp/quick-feather-dev-board">quick-feather-dev-board</a></li>
-<li>Application: <a target="_blank" rel="noopener" href="https://github.com/QuickLogic-Corp/TinyFPGA-Programmer-Application">TinyFPGA-Programmer-Application</a></li>
-</ul>
-<h1 id="flash-the-firmware">2. Flash the Firmware</h1>
-<h2 id="preparation">2.1 Preparation</h2>
-<p>Please <strong>strictly follow</strong>: - the videos on <a target="_blank" rel="noopener" href="https://www.quicklogic.com/">QuickLogic</a>'s official website <a target="_blank" rel="noopener" href="https://www.quicklogic.com/products/eos-s3/quickfeather-development-kit/">QuickFeather Development Kit</a> - the installation steps on <a target="_blank" rel="noopener" href="https://github.com/QuickLogic-Corp/TinyFPGA-Programmer-Application">TinyFPGA-Programmer-Application</a></p>
-<h3 id="highlight-1---qfprog">2.1.1 Highlight 1 - qfprog</h3>
-<p><span style="color:red">In my <code>.bashrc</code> and <code>.zshrc</code>, the following line is added.</span></p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias qfprog=&quot;python3 /opt/TinyFPGA-Programmer-Application/tinyfpga-programmer-gui.py&quot;</span><br></pre></td></tr></table></figure>
-<h3 id="highlight-2---tinyfpgaa-and-tinyfpgab">2.1.2 Highlight 2 - <a target="_blank" rel="noopener" href="https://github.com/QuickLogic-Corp/TinyFPGA-A-Programmer">tinyfpgaa</a> and <a target="_blank" rel="noopener" href="https://github.com/QuickLogic-Corp/TinyFPGA-B-Series">tinyfpgab</a></h3>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip show tinyfpgab</span><br><span class="line">Name: tinyfpgab</span><br><span class="line">Version: 1.1.0</span><br><span class="line">Summary: Programmer for the TinyFPGA B2 boards (http://tinyfpga.com)</span><br><span class="line">Home-page: https://github.com/tinyfpga/TinyFPGA-B-Series/tree/master/programmer</span><br><span class="line">Author: Luke Valenty</span><br><span class="line">Author-email: lvalenty@gmail.com</span><br><span class="line">License: </span><br><span class="line">Location: ~/.local/lib/python3.10/site-packages</span><br><span class="line">Requires: pyserial</span><br><span class="line">Required-by: </span><br><span class="line">➜  ~ pip show tinyfpgaa</span><br><span class="line">Name: tinyfpgaa</span><br><span class="line">Version: 0.9.0</span><br><span class="line">Summary: A small example package</span><br><span class="line">Home-page: https://github.com/tinyfpga/TinyFPGA-A-Programmer</span><br><span class="line">Author: William D. Jones</span><br><span class="line">Author-email: thor0505@comcast.net</span><br><span class="line">License: </span><br><span class="line">Location: ~/.local/lib/python3.10/site-packages/tinyfpgaa-0.9.0-py3.10.egg</span><br><span class="line">Requires: </span><br><span class="line">Required-by: </span><br></pre></td></tr></table></figure>
-<ul>
-<li>For <a target="_blank" rel="noopener" href="https://github.com/QuickLogic-Corp/TinyFPGA-B-Series">tinyfpgab</a>: <code>pip install -U --user tinyfpgab</code></li>
-<li>For <a target="_blank" rel="noopener" href="https://github.com/QuickLogic-Corp/TinyFPGA-A-Programmer">tinyfpgaa</a>: <strong>Build from source</strong></li>
-</ul>
-<h2 id="now-lets-flash">2.2 Now Let's Flash</h2>
-<h3 id="flash-bootloader">2.2.1 Flash Bootloader</h3>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">➜  qorc-sdk git:(master) ✗ qfprog --port=/dev/ttyACM0 --bl ./qf_apps/quickfeather-initial-binaries/qf_bootloader.bin</span><br><span class="line">CLI mode</span><br><span class="line">ports =  [&#x27;/dev/ttyACM0 (QuickFeather)&#x27;] 1</span><br><span class="line">Using port  /dev/ttyACM0 (QuickFeather)</span><br><span class="line">Programming bootloader with  ./qf_apps/quickfeather-initial-binaries/qf_bootloader.bin</span><br><span class="line">Erasing designated flash pages</span><br><span class="line">Erase  32.0 KiB ( 0x52 ) at  0x0</span><br><span class="line">Erase  4.0 KiB ( 0x20 ) at  0x8000</span><br><span class="line">Erase  4.0 KiB ( 0x20 ) at  0x9000</span><br><span class="line">Writing  binary</span><br><span class="line">Write  40340  bytes</span><br><span class="line">[XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX]</span><br><span class="line">Verifying  binary</span><br><span class="line">FastREAD 0x0B ( 40340 )</span><br><span class="line">[XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX]</span><br><span class="line">Success: read_back == data</span><br><span class="line">Writing metadata</span><br><span class="line">Erasing designated flash pages</span><br><span class="line">Erase  4.0 KiB ( 0x20 ) at  0x1f000</span><br><span class="line">Writing  metadata</span><br><span class="line">Write  8  bytes</span><br><span class="line">[X]                                               ]</span><br><span class="line">Verifying  metadata</span><br><span class="line">FastREAD 0x0B ( 8 )</span><br><span class="line">[X]                                               ]</span><br><span class="line">Success: read_back == data</span><br></pre></td></tr></table></figure>
-<h3 id="flash-bootfpga">2.2.2 Flash BootFPGA</h3>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">➜  qorc-sdk git:(master) ✗ qfprog --port=/dev/ttyACM0 --bootfpga ./qf_apps/quickfeather-initial-binaries/qf_bootfpga.bin</span><br><span class="line">CLI mode</span><br><span class="line">ports =  [&#x27;/dev/ttyACM0 (QuickFeather)&#x27;] 1</span><br><span class="line">Using port  /dev/ttyACM0 (QuickFeather)</span><br><span class="line">Programming FPGA image used during programming  ./qf_apps/quickfeather-initial-binaries/qf_bootfpga.bin</span><br><span class="line">Erasing designated flash pages</span><br><span class="line">Erase  64.0 KiB ( 0xd8 ) at  0x20000</span><br><span class="line">Erase  4.0 KiB ( 0x20 ) at  0x30000</span><br><span class="line">Erase  4.0 KiB ( 0x20 ) at  0x31000</span><br><span class="line">Erase  4.0 KiB ( 0x20 ) at  0x32000</span><br><span class="line">Writing  binary</span><br><span class="line">Write  75960  bytes</span><br><span class="line">[XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX]</span><br><span class="line">Verifying  binary</span><br><span class="line">FastREAD 0x0B ( 75960 )</span><br><span class="line">[XXXXXXXXXXXXXXXXXXXXXXXXXXXXTraceback (most recent call last):</span><br><span class="line">  File &quot;/opt/TinyFPGA-Programmer-Application/tinyfpga-programmer-gui.py&quot;, line 206, in program</span><br><span class="line">    fpga.program_bitstream(addr, bitstream, &quot;binary&quot;)</span><br><span class="line">  File &quot;/opt/TinyFPGA-Programmer-Application/q-series/python/tinyfpgaq.py&quot;, line 311, in program_bitstream</span><br><span class="line">    if self.program(addr, bitstream, what):</span><br><span class="line">  File &quot;/opt/TinyFPGA-Programmer-Application/q-series/python/tinyfpgaq.py&quot;, line 237, in program</span><br><span class="line">    read_back = self.read(addr, len(data))</span><br><span class="line">  File &quot;/opt/TinyFPGA-Programmer-Application/q-series/python/tinyfpgaq.py&quot;, line 72, in read</span><br><span class="line">    data += self.cmd(0x0b, addr, b&#x27;\x00&#x27;, read_len=read_length)</span><br><span class="line">  File &quot;/opt/TinyFPGA-Programmer-Application/q-series/python/tinyfpgaq.py&quot;, line 45, in cmd</span><br><span class="line">    response = self.ser.read(read_len)</span><br><span class="line">  File &quot;~/.local/lib/python3.10/site-packages/serial/serialposix.py&quot;, line 595, in read</span><br><span class="line">    raise SerialException(</span><br><span class="line">serial.serialutil.SerialException: device reports readiness to read but returned no data (device disconnected or multiple access on port?)</span><br><span class="line">Writing metadata</span><br><span class="line">Erasing designated flash pages</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;~/.local/lib/python3.10/site-packages/serial/serialposix.py&quot;, line 621, in write</span><br><span class="line">    n = os.write(self.fd, d)</span><br><span class="line">OSError: [Errno 5] Input/output error</span><br><span class="line"></span><br><span class="line">During handling of the above exception, another exception occurred:</span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;/opt/TinyFPGA-Programmer-Application/tinyfpga-programmer-gui.py&quot;, line 218, in program</span><br><span class="line">    fpga.program_bitstream(meta_addr, meta_bitstream, &quot;metadata&quot;)</span><br><span class="line">  File &quot;/opt/TinyFPGA-Programmer-Application/q-series/python/tinyfpgaq.py&quot;, line 311, in program_bitstream</span><br><span class="line">    if self.program(addr, bitstream, what):</span><br><span class="line">  File &quot;/opt/TinyFPGA-Programmer-Application/q-series/python/tinyfpgaq.py&quot;, line 229, in program</span><br><span class="line">    self.quick_erase(addr, len(data))</span><br><span class="line">  File &quot;/opt/TinyFPGA-Programmer-Application/q-series/python/tinyfpgaq.py&quot;, line 179, in quick_erase</span><br><span class="line">    self._erase(start_addr, 0x1000)</span><br><span class="line">  File &quot;/opt/TinyFPGA-Programmer-Application/q-series/python/tinyfpgaq.py&quot;, line 108, in _erase</span><br><span class="line">    self.write_enable()</span><br><span class="line">  File &quot;/opt/TinyFPGA-Programmer-Application/q-series/python/tinyfpgaq.py&quot;, line 86, in write_enable</span><br><span class="line">    self.cmd(0x06)</span><br><span class="line">  File &quot;/opt/TinyFPGA-Programmer-Application/q-series/python/tinyfpgaq.py&quot;, line 43, in cmd</span><br><span class="line">    self.ser.write(bytearray(cmd_write_string))</span><br><span class="line">  File &quot;~/.local/lib/python3.10/site-packages/serial/serialposix.py&quot;, line 655, in write</span><br><span class="line">    raise SerialException(&#x27;write failed: &#123;&#125;&#x27;.format(e))</span><br><span class="line">serial.serialutil.SerialException: write failed: [Errno 5] Input/output error</span><br></pre></td></tr></table></figure>
-<h3 id="bricked">2.2.3 Bricked</h3>
-<p><strong>Unfortunately</strong>, my <a target="_blank" rel="noopener" href="https://www.crowdsupply.com/quicklogic/quickfeather">QuickFeather</a> is <strong>bricked</strong>. Whenever <strong>reset</strong> or even entering <strong>user</strong> mode, the <strong>LED</strong> on <a target="_blank" rel="noopener" href="https://www.crowdsupply.com/quicklogic/quickfeather">QuickFeather</a> turns to <span style="color:red">red</span> in the end.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/12/01/SBCs/MCU/raspberry-pi-pico-rp2040/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/01/SBCs/MCU/raspberry-pi-pico-rp2040/" class="post-title-link" itemprop="url">Raspberry Pi Pico RP2040</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-12-01 01:26:30" itemprop="dateCreated datePublished" datetime="2023-12-01T01:26:30-08:00">2023-12-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-02 03:31:06" itemprop="dateModified" datetime="2023-12-02T03:31:06-08:00">2023-12-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/raspberry-pi-pico/">Raspberry Pi Pico</a> is a <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Microcontroller">MCU</a>, which adopts <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a>'s chip <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/rp2040/">RP2040</a>.</p>
-<h1 id="introduction">1. Introduction</h1>
-<h2 id="lsusb">1.1 lsusb</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">Bus 011 Device 021: ID 2e8a:000a Raspberry Pi Pico</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-<h2 id="spec">1.2 Spec</h2>
-<ul>
-<li>All details can be found at <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/documentation/microcontrollers/">Raspberry Pi Documentation Microcontrollers</a>. Particularly:
-<ul>
-<li>the <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/documentation/microcontrollers/rp2040.html">Chip RP2040</a></li>
-<li>Two types of Picos <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html">Raspberry Pi Pico and Pico W</a></li>
-</ul></li>
-</ul>
-<h2 id="github-source-code">1.3 Github Source Code</h2>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/raspberrypi/pico-sdk">Raspberry Pi Pico SDK</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/raspberrypi/pico-examples">Raspberry Pi Pico SDK Examples</a></li>
-</ul>
-<h1 id="flash-the-firmware">2. Flash the Firmware</h1>
-<h2 id="micropython">2.1 Micropython</h2>
-<h3 id="how-to">2.1.1 How to?</h3>
-<p>The official way to flash a <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/raspberry-pi-pico/">Raspberry Pi Pico</a> is just to <strong>drag-and-drop</strong> the <strong>Micropython UF2 file</strong> onto it. Please follow:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a>'s official documentation <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/documentation/microcontrollers/micropython.html">Flash Raspberry Pi Pico Using MicroPython UF2</a>.</li>
-<li><a target="_blank" rel="noopener" href="https://micropython.org">MicroPython</a>'s official download page <a target="_blank" rel="noopener" href="https://micropython.org/download/RPI_PICO/">MicroPython Download RPI_PICO</a></li>
-</ul>
-<h3 id="demonstration">2.1.2 Demonstration</h3>
-<p>By connecting from my Ubuntu desktop using command</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ minicom -b 115200 -o -D /dev/ttyACM0</span><br></pre></td></tr></table></figure>
-<p>we can easily connect to <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/raspberry-pi-pico/">Raspberry Pi Pico</a>:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Welcome to minicom 2.8</span><br><span class="line"></span><br><span class="line">OPTIONS: I18n </span><br><span class="line">Port /dev/ttyACM0, 02:38:32</span><br><span class="line"></span><br><span class="line">Press CTRL-A Z for help on special keys</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; import os</span><br><span class="line">&gt;&gt;&gt; os.uname()</span><br><span class="line">(sysname=&#x27;rp2&#x27;, nodename=&#x27;rp2&#x27;, release=&#x27;1.21.0&#x27;, version=&#x27;v1.21.0 on 2023-10-06 (GNU 13.2.0 MinSizeRel)&#x27;, machine=&#x27;Raspberry Pi Pico with RP2040&#x27;)</span><br><span class="line">&gt;&gt;&gt; import sys</span><br><span class="line">&gt;&gt;&gt; sys.implementation</span><br><span class="line">(name=&#x27;micropython&#x27;, version=(1, 21, 0), _machine=&#x27;Raspberry Pi Pico with RP2040&#x27;, _mpy=4358)</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="arduino">2.2 Arduino</h2>
-<h3 id="using-arduino-ide">2.2.1 Using Arduino IDE</h3>
-<p>Since <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/raspberry-pi-pico/">Raspberry Pi Pico</a> is an <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Microcontroller">MCU</a>, it is of course able to be connected using the popular <a target="_blank" rel="noopener" href="https://www.arduino.cc/en/software">Arduino IDE</a>.</p>
-<p>I actually strictly follow this blog <a target="_blank" rel="noopener" href="https://randomnerdtutorials.com/programming-raspberry-pi-pico-w-arduino-ide">Programming Raspberry Pi Pico with Arduino IDE</a>.</p>
-<h3 id="flash-with-bootsel-pressed">2.2.2 Flash with BOOTSEL Pressed</h3>
-<p>In my test, no matter <a target="_blank" rel="noopener" href="https://micropython.org/download/RPI_PICO/">MicroPython Download RPI_PICO</a> is <strong>dragged-and-dropped</strong>, or a customized program is <strong>uploaded via Arduino IDE</strong> as in the following picture:</p>
-<figure>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/pico/Arduino_IDE_RaspberryPi_Pico.png" alt="" /><figcaption>Arduino IDE Raspberry Pi Pico</figcaption>
-</figure>
-<p><span style="color:red;bold">I ALWAYS hold the <strong>BOOTSEL</strong> button.</span></p>
-<h1 id="more-to-talk">3. More to Talk</h1>
-<h2 id="led-example-demo">3.1 LED Example Demo</h2>
-<iframe width="680" height="1208" src="https://www.youtube.com/embed/PdPgAnwjeyY" title frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-</iframe>
-<h2 id="please-try-out-raspberry-pi-pico-w-and-pico-wh-yourself">3.2 Please Try Out <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html#raspberry-pi-pico-w-and-pico-wh">Raspberry Pi Pico W and Pico WH</a> Yourself</h2>
-<p>Recommended tutorials: - <a target="_blank" rel="noopener" href="https://projects.raspberrypi.org/en/projects/get-started-pico-w">Getting started with your Raspberry Pi Pico W</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/11/15/Tools/window-manager/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/11/15/Tools/window-manager/" class="post-title-link" itemprop="url">Some Window Managers</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-11-15 00:00:00" itemprop="dateCreated datePublished" datetime="2023-11-15T00:00:00-08:00">2023-11-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-21 23:06:29" itemprop="dateModified" datetime="2023-11-21T23:06:29-08:00">2023-11-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="introduction">1. Introduction</h1>
-<p>The necessity and meaning of <strong>Window Manager</strong> is neglected here. Just go and take a look at: <a target="_blank" rel="noopener" href="https://itsfoss.com/best-window-managers/">Best Window Managers for Linux</a>.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1467,18 +1367,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-count">131</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">51</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">121</span>
+        <span class="site-state-item-count">125</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1505,7 +1405,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

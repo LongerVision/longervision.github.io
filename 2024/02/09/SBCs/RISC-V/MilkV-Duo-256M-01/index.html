@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Finally, I got duo-buildroot-sdk built today. So, yes, happy Chinese new year of Dragon, 2024. Let&#39;s have some fun of Milk-V Duo 256M. 1. Introduction From Milk-V Duo 256M&#39;s official website, the foll">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Milk-V Duo 256M - 01">
+<meta property="og:url" content="http://longervision.ca/2024/02/09/SBCs/RISC-V/MilkV-Duo-256M-01/index.html">
+<meta property="og:site_name" content="Longer Vision Technology">
+<meta property="og:description" content="Finally, I got duo-buildroot-sdk built today. So, yes, happy Chinese new year of Dragon, 2024. Let&#39;s have some fun of Milk-V Duo 256M. 1. Introduction From Milk-V Duo 256M&#39;s official website, the foll">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/RISC-V/MilkV-Duo-256M.png">
+<meta property="article:published_time" content="2024-02-09T05:44:28.000Z">
+<meta property="article:modified_time" content="2024-02-08T15:32:01.036Z">
+<meta property="article:author" content="Nobody">
+<meta property="article:tag" content="Risc-V, Milk-V, Duo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/RISC-V/MilkV-Duo-256M.png">
+
+<link rel="canonical" href="http://longervision.ca/2024/02/09/SBCs/RISC-V/MilkV-Duo-256M-01/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Milk-V Duo 256M - 01 | Longer Vision Technology</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Longer Vision Technology</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Github Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2024/02/09/SBCs/RISC-V/MilkV-Duo-256M-01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Milk-V Duo 256M - 01
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-02-08 21:44:28 / Modified: 07:32:01" itemprop="dateCreated datePublished" datetime="2024-02-08T21:44:28-08:00">2024-02-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/MCU/Risc-V/" itemprop="url" rel="index"><span itemprop="name">Risc-V</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Finally, I got <a target="_blank" rel="noopener" href="https://github.com/milkv-duo/duo-buildroot-sdk">duo-buildroot-sdk</a> built today. So, yes, happy Chinese new year of Dragon, 2024. Let's have some fun of <a target="_blank" rel="noopener" href="https://milkv.io/duo">Milk-V Duo 256M</a>.</p>
+<h1 id="introduction">1. Introduction</h1>
+<p>From <a target="_blank" rel="noopener" href="https://milkv.io/duo">Milk-V Duo 256M</a>'s official website, the following picture clearly shows it has</p>
+<ul>
+<li>one RISC-V <a target="_blank" rel="noopener" href="https://www.t-head.cn/product/C906">T-HEAD C906</a> chip <span class="citation" data-cites="1GHz">@1GHz</span>, for Linux</li>
+<li>one RISC-V <a target="_blank" rel="noopener" href="https://www.t-head.cn/product/C906">T-HEAD C906</a> chip <span class="citation" data-cites="700MHz">@700MHz</span>, for FreeRTOS</li>
+<li>one <a target="_blank" rel="noopener" href="https://developer.arm.com/Processors/Cortex-A53">Arm Cortex-A53</a> chip <span class="citation" data-cites="1GHz">@1GHz</span>, for both Linux &amp; Android</li>
+<li>one <a target="_blank" rel="noopener" href="https://www.microchip.com/en-us/products/microcontrollers-and-microprocessors/8-bit-mcus/8051-mcus">8051 MCU</a></li>
+<li>one <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Tensor_Processing_Unit">TPU</a></li>
+</ul>
+<figure>
+<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/RISC-V/MilkV-Duo-256M.png" alt="" /><figcaption>MilkV Duo 256M Core chips</figcaption>
+</figure>
+<p>The detailed specifications are also highlighted in the table on the official website of <a target="_blank" rel="noopener" href="https://milkv.io/duo">Milk-V Duo 256M</a>.</p>
+<h1 id="build-duo-buildroot-sdk">2. Build <a target="_blank" rel="noopener" href="https://github.com/milkv-duo/duo-buildroot-sdk">duo-buildroot-sdk</a></h1>
+<h2 id="failed-to-build-duo-buildroot-sdk-using-ubuntu-22.04">2.1 Failed to build <a target="_blank" rel="noopener" href="https://github.com/milkv-duo/duo-buildroot-sdk">duo-buildroot-sdk</a> using <a target="_blank" rel="noopener" href="https://releases.ubuntu.com/jammy/">Ubuntu 22.04</a></h2>
+<p>Even if I strictly followed the manual on <a target="_blank" rel="noopener" href="https://github.com/milkv-duo/duo-buildroot-sdk">duo-buildroot-sdk</a>'s official documentation <a target="_blank" rel="noopener" href="https://github.com/milkv-duo/duo-buildroot-sdk?tab=readme-ov-file#1-compiled-using-ubuntu-2204">Compiled using Ubuntu 22.04</a>, I still failed to build an image out for flashing, with the following error messages inside the log file <strong>build/br.log</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">2024-02-08T13:34:11 tic: symbol lookup error: tic: undefined symbol: _nc_disable_period</span><br><span class="line">2024-02-08T13:34:11 ? tic could not build ....../duo-buildroot-sdk-Duo-V1.0.8/buildroot-2021.05/output/milkv-duo256m_musl_riscv64/per-package/ncurses/host/riscv64-buildroot-linux-musl/sysroot/usr/share/terminfo</span><br><span class="line">2024-02-08T13:34:11 make[4]: *** [Makefile:92: install.data] Error 1</span><br><span class="line">2024-02-08T13:34:12 make[3]: *** [Makefile:122: install] Error 2</span><br><span class="line">2024-02-08T13:34:12 make[2]: *** [package/pkg-generic.mk:289: ....../duo-buildroot-sdk-Duo-V1.0.8/buildroot-2021.05/output/milkv-duo256m_musl_riscv64/build/ncurses-6.1/.stamp_staging_installed] Error 2</span><br><span class="line">2024-02-08T13:34:12 make[2]: *** Waiting <span class="keyword">for</span> unfinished <span class="built_in">jobs</span>....</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<p><span style="color:blue">A possible solution is found at: </span><a target="_blank" rel="noopener" href="https://lore.kernel.org/buildroot/bug-15685-163-ecW1EgIyRW@https.bugs.busybox.net%2F/T/">https://lore.kernel.org/buildroot/bug-15685-163-ecW1EgIyRW@https.bugs.busybox.net%2F/T/</a>.</p>
+<h2 id="successfully-build-duo-buildroot-sdk-using-docker">2.2 Successfully build <a target="_blank" rel="noopener" href="https://github.com/milkv-duo/duo-buildroot-sdk">duo-buildroot-sdk</a> using Docker</h2>
+<p>By strictly following the manual on <a target="_blank" rel="noopener" href="https://github.com/milkv-duo/duo-buildroot-sdk">duo-buildroot-sdk</a>'s official documentation <a target="_blank" rel="noopener" href="https://github.com/milkv-duo/duo-buildroot-sdk?tab=readme-ov-file#2-compiled-using-docker">Compiled using Docker</a>, I now am able to build an image out as:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">mkfs.fat: Warning: lowercase labels might not work properly on some systems</span><br><span class="line">INFO: vfat(boot.vfat): adding file <span class="string">&#x27;fip.bin&#x27;</span> as <span class="string">&#x27;fip.bin&#x27;</span> ...</span><br><span class="line">INFO: vfat(boot.vfat): cmd: <span class="string">&quot;MTOOLS_SKIP_CHECK=1 mcopy -sp -i &#x27;~/install/soc_cv1812cp_milkv_duo256m_sd/boot.vfat&#x27; &#x27;~/install/soc_cv1812cp_milkv_duo256m_sd/fip.bin&#x27; &#x27;::&#x27;&quot;</span> (stderr):</span><br><span class="line">INFO: vfat(boot.vfat): adding file <span class="string">&#x27;rawimages/boot.sd&#x27;</span> as <span class="string">&#x27;rawimages/boot.sd&#x27;</span> ...</span><br><span class="line">INFO: vfat(boot.vfat): cmd: <span class="string">&quot;MTOOLS_SKIP_CHECK=1 mcopy -sp -i &#x27;~/install/soc_cv1812cp_milkv_duo256m_sd/boot.vfat&#x27; &#x27;~/install/soc_cv1812cp_milkv_duo256m_sd/rawimages/boot.sd&#x27; &#x27;::&#x27;&quot;</span> (stderr):</span><br><span class="line">INFO: ext4(rootfs.ext4): cmd: <span class="string">&quot;genext2fs -d &#x27;~/install/soc_cv1812cp_milkv_duo256m_sd/tmp/root&#x27; --size-in-blocks=786432 -i 16384 &#x27;~/install/soc_cv1812cp_milkv_duo256m_sd/rootfs.ext4&#x27; &quot;</span> (stderr):</span><br><span class="line">copying from directory ~/install/soc_cv1812cp_milkv_duo256m_sd/tmp/root</span><br><span class="line">INFO: ext4(rootfs.ext4): cmd: <span class="string">&quot;tune2fs -O &#x27;extents,uninit_bg,dir_index,has_journal&#x27; &#x27;~/install/soc_cv1812cp_milkv_duo256m_sd/rootfs.ext4&#x27;&quot;</span> (stderr):</span><br><span class="line">INFO: ext4(rootfs.ext4): cmd: <span class="string">&quot;tune2fs -L &#x27;rootfs&#x27; &#x27;~/install/soc_cv1812cp_milkv_duo256m_sd/rootfs.ext4&#x27;&quot;</span> (stderr):</span><br><span class="line">INFO: ext4(rootfs.ext4): cmd: <span class="string">&quot;e2fsck -pvfD &#x27;~/install/soc_cv1812cp_milkv_duo256m_sd/rootfs.ext4&#x27;&quot;</span> (stderr):</span><br><span class="line">INFO: hdimage(milkv-duo256m.img): adding partition <span class="string">&#x27;boot&#x27;</span> (<span class="keyword">in</span> MBR) from <span class="string">&#x27;boot.vfat&#x27;</span> ...</span><br><span class="line">INFO: hdimage(milkv-duo256m.img): adding partition <span class="string">&#x27;rootfs&#x27;</span> (<span class="keyword">in</span> MBR) from <span class="string">&#x27;rootfs.ext4&#x27;</span> ...</span><br><span class="line">INFO: hdimage(milkv-duo256m.img): writing MBR</span><br><span class="line">gnimage <span class="keyword">for</span> milkv-duo256m success!</span><br><span class="line">~/build</span><br><span class="line">~</span><br><span class="line">Create SD image successful: out/milkv-duo256m-20240208-1949.img</span><br></pre></td></tr></table></figure>
+<p>And, the last couple of lines in the log file <strong>build/br.log</strong> are:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">2024-02-08T19:48:15 </span><br><span class="line">2024-02-08T19:48:15 Allocating group tables:  0/25     <span class="keyword">done</span></span><br><span class="line">2024-02-08T19:48:15 Writing inode tables:  0/25     <span class="keyword">done</span></span><br><span class="line">2024-02-08T19:48:15 Creating journal (4096 blocks): <span class="keyword">done</span></span><br><span class="line">2024-02-08T19:48:15 Copying files into the device: PATH=<span class="string">&quot;~/buildroot-2021.05/output/milkv-duo256m_musl_riscv64/host/bin:~/buildroot-2021.05/output/milkv-duo256m_musl_riscv64/host/sbin:~/host-tools/gcc/riscv64-linux-musl-x86_64/bin:~/host-tools/gcc/riscv64-linux-x86_64/bin:~/host-tools/gcc/riscv64-elf-x86_64/bin:~/host-tools/gcc/gcc-linaro-6.3.1-2017.05-x86_64_aarch64-elf/bin:~/host-tools/gcc/gcc-linaro-6.3.1-2017.05-x86_64_arm-linux-gnueabihf/bin:~/host-tools/gcc/gcc-linaro-6.3.1-2017.05-x86_64_aarch64-linux-gnu/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:~/host-tools/gcc/arm-cvitek-linux-uclibcgnueabihf/bin&quot;</span> xz -9 -C crc32 -c -T 9 ~/buildroot-2021.05/output/milkv-duo256m_musl_riscv64/images/rootfs.tar &gt; ~/buildroot-2021.05/output/milkv-duo256m_musl_riscv64/images/rootfs.tar.xz</span><br><span class="line">2024-02-08T19:48:16 <span class="keyword">done</span></span><br><span class="line">2024-02-08T19:48:16 Writing superblocks and filesystem accounting information:  0/25     <span class="keyword">done</span></span><br><span class="line">2024-02-08T19:48:16 </span><br><span class="line">2024-02-08T19:48:16 <span class="built_in">ln</span> -sf rootfs.ext2 ~/buildroot-2021.05/output/milkv-duo256m_musl_riscv64/images/rootfs.ext4</span><br><span class="line">2024-02-08T19:49:28 make[1]: Leaving directory <span class="string">&#x27;~/buildroot-2021.05&#x27;</span></span><br></pre></td></tr></table></figure>
+<h1 id="boot-after-flashing">3. Boot after Flashing</h1>
+<p>After flashing the generated <strong>out/milkv-duo256m-20240208-1949.img</strong> into the SD card, we can now boot up <a target="_blank" rel="noopener" href="https://milkv.io/duo">Milk-V Duo 256M</a> by connecting it with my laptop <strong>via a USB cable</strong>.</p>
+<h2 id="lsusb">3.1 lsusb</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">Bus 001 Device 009: ID 3346:1009 Cvitek RNDIS</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<h2 id="ssh-into-milk-v-duo-256m">3.2 SSH into <a target="_blank" rel="noopener" href="https://milkv.io/duo">Milk-V Duo 256M</a></h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ssh root@192.168.42.1</span><br><span class="line">The authenticity of host <span class="string">&#x27;192.168.42.1 (192.168.42.1)&#x27;</span> can<span class="string">&#x27;t be established.</span></span><br><span class="line"><span class="string">ED25519 key fingerprint is SHA256:NyuhOwhRh9sfzW+C2D5OIaTIbGCuVI1v1jrJv4DaM+U.</span></span><br><span class="line"><span class="string">This key is not known by any other names</span></span><br><span class="line"><span class="string">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span></span><br><span class="line"><span class="string">Warning: Permanently added &#x27;</span>192.168.42.1<span class="string">&#x27; (ED25519) to the list of known hosts.</span></span><br><span class="line"><span class="string">root@192.168.42.1&#x27;</span>s password: </span><br><span class="line">[root@milkv-duo]~<span class="comment"># ls</span></span><br><span class="line">[root@milkv-duo]~<span class="comment"># pwd</span></span><br><span class="line">/root</span><br><span class="line">[root@milkv-duo]~<span class="comment"># uname -a</span></span><br><span class="line">Linux milkv-duo 5.10.4-tag- <span class="comment">#1 PREEMPT Thu Feb 8 19:28:21 CST 2024 riscv64 GNU/Linux</span></span><br><span class="line">[root@milkv-duo]~<span class="comment"># lsb_release -a</span></span><br><span class="line">-sh: lsb_release: not found</span><br><span class="line">[root@milkv-duo]~<span class="comment"># neofetch</span></span><br><span class="line">-sh: neofetch: not found</span><br><span class="line">[root@milkv-duo]~<span class="comment"># ll /</span></span><br><span class="line">total 33</span><br><span class="line">drwxr-xr-x   18 root     root          1024 Feb  8  2024 ./</span><br><span class="line">drwxr-xr-x   18 root     root          1024 Feb  8  2024 ../</span><br><span class="line">drwxr-xr-x    2 root     root          3072 Feb  8  2024 bin/</span><br><span class="line">drwxr-xr-x    7 root     root          1540 Jan  1 00:00 dev/</span><br><span class="line">drwxr-xr-x    8 root     root          1024 Jan  1 00:00 etc/</span><br><span class="line">drwxr-xr-x    3 root     root          1024 Jan 30  2024 lib/</span><br><span class="line">lrwxrwxrwx    1 root     root             3 Feb  8  2024 lib64 -&gt; lib/</span><br><span class="line">lrwxrwxrwx    1 root     root            11 Feb  8  2024 linuxrc -&gt; bin/busybox*</span><br><span class="line">drwx------    2 root     root         16384 Feb  8  2024 lost+found/</span><br><span class="line">drwxr-xr-x    2 root     root          1024 Jan 30  2024 media/</span><br><span class="line">drwxr-xr-x    6 root     root          1024 Jan 30  2024 mnt/</span><br><span class="line">drwxr-xr-x    2 root     root          1024 Jan 30  2024 opt/</span><br><span class="line">dr-xr-xr-x  122 root     root             0 Jan  1 00:00 proc/</span><br><span class="line">drwx------    2 root     root          1024 Jan  1 00:03 root/</span><br><span class="line">drwxr-xr-x    4 root     root           200 Jan  1 00:00 run/</span><br><span class="line">drwxr-xr-x    2 root     root          3072 Feb  8  2024 sbin/</span><br><span class="line">dr-xr-xr-x   11 root     root             0 Jan  1 00:00 sys/</span><br><span class="line">drwxrwxrwt    3 root     root           160 Jan  1 00:00 tmp/</span><br><span class="line">drwxr-xr-x    8 root     root          1024 Feb  8  2024 usr/</span><br><span class="line">drwxr-xr-x    5 root     root          1024 Feb  8  2024 var/</span><br><span class="line">[root@milkv-duo]~<span class="comment"># cat /proc/cpuinfo</span></span><br><span class="line">processor	: 0</span><br><span class="line">hart		: 0</span><br><span class="line">isa		: rv64imafdvcsu</span><br><span class="line">mmu		: sv39</span><br><span class="line"></span><br><span class="line">[root@milkv-duo]~<span class="comment"># cat /proc/meminfo</span></span><br><span class="line">MemTotal:         170288 kB</span><br><span class="line">MemFree:          147812 kB</span><br><span class="line">MemAvailable:     148580 kB</span><br><span class="line">Buffers:             872 kB</span><br><span class="line">Cached:             3024 kB</span><br><span class="line">SwapCached:            0 kB</span><br><span class="line">Active:             2520 kB</span><br><span class="line">Inactive:           2808 kB</span><br><span class="line">Active(anon):         72 kB</span><br><span class="line">Inactive(anon):     1440 kB</span><br><span class="line">Active(file):       2448 kB</span><br><span class="line">Inactive(file):     1368 kB</span><br><span class="line">Unevictable:           0 kB</span><br><span class="line">Mlocked:               0 kB</span><br><span class="line">SwapTotal:             0 kB</span><br><span class="line">SwapFree:              0 kB</span><br><span class="line">Dirty:                44 kB</span><br><span class="line">Writeback:             0 kB</span><br><span class="line">AnonPages:          1444 kB</span><br><span class="line">Mapped:             2532 kB</span><br><span class="line">Shmem:                80 kB</span><br><span class="line">KReclaimable:       2664 kB</span><br><span class="line">Slab:               7220 kB</span><br><span class="line">SReclaimable:       2664 kB</span><br><span class="line">SUnreclaim:         4556 kB</span><br><span class="line">KernelStack:        1024 kB</span><br><span class="line">PageTables:          404 kB</span><br><span class="line">NFS_Unstable:          0 kB</span><br><span class="line">Bounce:                0 kB</span><br><span class="line">WritebackTmp:          0 kB</span><br><span class="line">CommitLimit:       85144 kB</span><br><span class="line">Committed_AS:       5004 kB</span><br><span class="line">VmallocTotal:   67108863 kB</span><br><span class="line">VmallocUsed:        4408 kB</span><br><span class="line">VmallocChunk:          0 kB</span><br><span class="line">Percpu:               32 kB</span><br><span class="line">CmaTotal:              0 kB</span><br><span class="line">CmaFree:               0 kB</span><br><span class="line">[root@milkv-duo]~<span class="comment"># </span></span><br></pre></td></tr></table></figure>
+<p>I'll have to stop here for now. And let's try out <a target="_blank" rel="noopener" href="https://milkv.io/duo">Milk-V Duo 256M</a>'s wired connection some time later. Oh, the <strong>last</strong> step of today:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@milkv-duo]/<span class="comment"># ip address</span></span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN qlen 1000</span><br><span class="line">    <span class="built_in">link</span>/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP qlen 1000</span><br><span class="line">    <span class="built_in">link</span>/ether 76:56:d2:e2:b2:61 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 169.254.160.248/16 brd 169.254.255.255 scope global noprefixroute eth0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">3: usb0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000</span><br><span class="line">    <span class="built_in">link</span>/ether 6e:2f:0f:35:64:c7 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.42.1/24 brd 192.168.42.255 scope global usb0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">[root@milkv-duo]/<span class="comment"># </span></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Risc-V-Milk-V-Duo/" rel="tag"># Risc-V, Milk-V, Duo</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/02/04/SBCs/MCU/esp32-s3-eye/" rel="prev" title="ESP32 S3 EYE">
+      <i class="fa fa-chevron-left"></i> ESP32 S3 EYE
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">1. Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#build-duo-buildroot-sdk"><span class="nav-number">2.</span> <span class="nav-text">2. Build duo-buildroot-sdk</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#failed-to-build-duo-buildroot-sdk-using-ubuntu-22.04"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Failed to build duo-buildroot-sdk using Ubuntu 22.04</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#successfully-build-duo-buildroot-sdk-using-docker"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 Successfully build duo-buildroot-sdk using Docker</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#boot-after-flashing"><span class="nav-number">3.</span> <span class="nav-text">3. Boot after Flashing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#lsusb"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 lsusb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ssh-into-milk-v-duo-256m"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 SSH into Milk-V Duo 256M</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Nobody</p>
+  <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">131</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nobody</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
