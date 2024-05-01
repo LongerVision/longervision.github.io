@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en,default">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 7.0.0">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,19 +13,18 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-  <meta name="description" content="Having been keeping an eye on Widora and Espressif for quite a bit. I finally decided to test out Widora&#39;s development board AIRV. 1. Background Knowledge 1.1 Espressif Espressif is based in Shanghai,">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Having been keeping an eye on Widora and Espressif for quite a bit. I finally decided to test out Widora‘s development board AIRV. 1. Background Knowledge1.1 EspressifEspressif is based in Shanghai, C">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Widora AIRV&#x2F;K210 Board with ESP8266&#x2F;ESP8285 Espressif Wifi and Kendryte K210 AI">
-<meta property="og:url" content="http://longervision.ca/2019/08/07/SBCs/RISC-V/Widora-AIRV-K210-AI-Kendryte/index.html">
+<meta property="og:url" content="http://longervision.github.io/2019/08/07/SBCs/RISC-V/Widora-AIRV-K210-AI-Kendryte/index.html">
 <meta property="og:site_name" content="Longer Vision Technology">
-<meta property="og:description" content="Having been keeping an eye on Widora and Espressif for quite a bit. I finally decided to test out Widora&#39;s development board AIRV. 1. Background Knowledge 1.1 Espressif Espressif is based in Shanghai,">
+<meta property="og:description" content="Having been keeping an eye on Widora and Espressif for quite a bit. I finally decided to test out Widora‘s development board AIRV. 1. Background Knowledge1.1 EspressifEspressif is based in Shanghai, C">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/chips/RISC-V/Widora/Widora_AIRV_01.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/chips/RISC-V/Widora/Widora_AIRV_02.jpg">
@@ -36,21 +35,18 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/chips/RISC-V/Widora/Widora_AIRV_01.jpg">
 
-<link rel="canonical" href="http://longervision.ca/2019/08/07/SBCs/RISC-V/Widora-AIRV-K210-AI-Kendryte/">
+
+<link rel="canonical" href="http://longervision.github.io/2019/08/07/SBCs/RISC-V/Widora-AIRV-K210-AI-Kendryte/">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'en'
-  };
-</script>
 
-  <title>Widora AIRV/K210 Board with ESP8266/ESP8285 Espressif Wifi and Kendryte K210 AI | Longer Vision Technology</title>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://longervision.github.io/2019/08/07/SBCs/RISC-V/Widora-AIRV-K210-AI-Kendryte/","path":"2019/08/07/SBCs/RISC-V/Widora-AIRV-K210-AI-Kendryte/","title":"Widora AIRV/K210 Board with ESP8266/ESP8285 Espressif Wifi and Kendryte K210 AI"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Widora AIRV/K210 Board with ESP8266/ESP8285 Espressif Wifi and Kendryte K210 AI | Longer Vision Technology</title>
   
+
+
 
 
 
@@ -58,56 +54,33 @@
 
 
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Longer Vision Technology</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
+      <p class="site-title">Longer Vision Technology</p>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">Github Blog</p>
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
     </div>
   </div>
 </div>
@@ -115,208 +88,16 @@
 
 
 
-<nav class="site-nav">
-  <ul id="menu" class="menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
-
-  </li>
-  </ul>
-</nav>
 
 
 
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/08/07/SBCs/RISC-V/Widora-AIRV-K210-AI-Kendryte/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Widora AIRV/K210 Board with ESP8266/ESP8285 Espressif Wifi and Kendryte K210 AI
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-08-07 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-07T00:00:00-07:00">2019-08-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-21 23:06:29" itemprop="dateModified" datetime="2023-11-21T23:06:29-08:00">2023-11-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/Risc-V/" itemprop="url" rel="index"><span itemprop="name">Risc-V</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <p>Having been keeping an eye on <a target="_blank" rel="noopener" href="https://www.widora.io/">Widora</a> and <a target="_blank" rel="noopener" href="https://www.espressif.com/">Espressif</a> for quite a bit. I finally decided to test out <a target="_blank" rel="noopener" href="https://www.widora.io/">Widora</a>'s development board <a target="_blank" rel="noopener" href="https://dev.widora.io/zh/airv">AIRV</a>.</p>
-<h1 id="background-knowledge">1. Background Knowledge</h1>
-<h2 id="espressif">1.1 Espressif</h2>
-<p><a target="_blank" rel="noopener" href="https://www.espressif.com/">Espressif</a> is based in Shanghai, China, focusing on Wifi/Bluetooth chips, now have two main Wifi modules: * <a target="_blank" rel="noopener" href="https://www.espressif.com/en/products/hardware/esp32/overview">ESP32</a>: Wifi with Bluetooth * <a target="_blank" rel="noopener" href="https://www.espressif.com/en/products/hardware/esp8266ex/overview">ESP8266/ESP8285</a>: Wifi <strong>ONLY</strong></p>
-<h2 id="widora">1.2 Widora</h2>
-<p><a target="_blank" rel="noopener" href="https://www.widora.io/">Widora</a> is headquartered in Beijing, China, providing development boards using <a target="_blank" rel="noopener" href="https://www.espressif.com/">Espressif</a> Wifi/Bluetooth chips.</p>
-<h2 id="kendryte">1.3 Kendryte</h2>
-<p><strong>NEVER</strong> heard of <a target="_blank" rel="noopener" href="https://kendryte.com/">Kendryte</a> before. It seems <a target="_blank" rel="noopener" href="https://kendryte.com/">Kendryte</a> develops some AI based on <a target="_blank" rel="noopener" href="https://riscv.org/">Risc-V</a> chip architecture? That seems to be a good concept...</p>
-<h2 id="hifive">1.4 HiFive</h2>
-<p>As for <a target="_blank" rel="noopener" href="https://riscv.org/">Risc-V</a>, <a target="_blank" rel="noopener" href="https://www.sifive.com/boards/hifive-unleashed">HiFive</a> developed by <a target="_blank" rel="noopener" href="https://www.sifive.com/">SiFive</a> has to be mentioned in any case.</p>
-<p>For me, a <strong>NOBODY</strong> has <strong>NOT</strong> had any chance or capability to deal with chips... So... shame... Anyway, let's test it out... ^_^</p>
-<h1 id="test-on-widora-airv-face-detection">2. Test on Widora AIRV Face Detection</h1>
-<p>By using a <span style="color:red"><strong>RUBBISH</strong></span> USB cable, you should already be able to run the face detection sample code existing inside the board.</p>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Normal</th>
-<th style="text-align: center;">Occlusion</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/chips/RISC-V/Widora/Widora_AIRV_01.jpg" alt="Widora AIRV Face Detection" /></td>
-<td style="text-align: center;"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/chips/RISC-V/Widora/Widora_AIRV_02.jpg" alt="Widora AIRV Face Detection with Occlusion" /></td>
-</tr>
-</tbody>
-</table>
-<p>However, you really need to use a <span style="color:red"><strong>QUALIFIED</strong></span> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/USB_hardware#Micro_connectors">Micro-B USB</a> to <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/USB">USB Type A</a> cable, in order to list the device out by <strong>lsusb</strong>.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ lsusb</span><br><span class="line">Bus 001 Device 010: ID 10c4:ea60 Cygnal Integrated Products, Inc. CP2102/CP2109 UART Bridge Controller [CP210x family]</span><br></pre></td></tr></table></figure>
-<h1 id="platformio-ide-for-vscode">3. PlatformIO IDE for VSCode</h1>
-<p><a target="_blank" rel="noopener" href="https://platformio.org/platformio-ide">PlatformIO IDE</a></p>
-<h1 id="reflash-widora-airv">4. Reflash Widora AIRV</h1>
-
-    </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/Risc-V-Kendryte-K210-AI-ESP8285/" rel="tag"># Risc-V, Kendryte K210 AI, ESP8285</a>
-          </div>
-
+</header>
         
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2019/08/02/SBCs/RISC-V/SiFive-HiFive1-rev-b/" rel="prev" title="SiFive HiFive1 Rev B">
-      <i class="fa fa-chevron-left"></i> SiFive HiFive1 Rev B
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2019/08/15/Personal/mourn-for-classmate/" rel="next" title="Mourn For Classmate">
-      Mourn For Classmate <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
   
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
   <aside class="sidebar">
-    <div class="sidebar-inner">
 
-      <ul class="sidebar-nav motion-element">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
         </li>
@@ -325,110 +106,226 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#background-knowledge"><span class="nav-number">1.</span> <span class="nav-text">1. Background Knowledge</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#espressif"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Espressif</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#widora"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Widora</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kendryte"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 Kendryte</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hifive"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 HiFive</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#test-on-widora-airv-face-detection"><span class="nav-number">2.</span> <span class="nav-text">2. Test on Widora AIRV Face Detection</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#platformio-ide-for-vscode"><span class="nav-number">3.</span> <span class="nav-text">3. PlatformIO IDE for VSCode</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#reflash-widora-airv"><span class="nav-number">4.</span> <span class="nav-text">4. Reflash Widora AIRV</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Background-Knowledge"><span class="nav-number">1.</span> <span class="nav-text">1. Background Knowledge</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-Espressif"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Espressif</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-Widora"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Widora</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-Kendryte"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 Kendryte</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-HiFive"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 HiFive</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Test-on-Widora-AIRV-Face-Detection"><span class="nav-number">2.</span> <span class="nav-text">2. Test on Widora AIRV Face Detection</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-PlatformIO-IDE-for-VSCode"><span class="nav-number">3.</span> <span class="nav-text">3. PlatformIO IDE for VSCode</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Reflash-Widora-AIRV"><span class="nav-number">4.</span> <span class="nav-text">4. Reflash Widora AIRV</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
 
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Nobody</p>
   <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
 </div>
-<div class="site-state-wrap motion-element">
+<div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
+        <a href="/archives/">
           <span class="site-state-item-count">127</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">49</span>
+          <a href="/categories/">
+        <span class="site-state-item-count">41</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
+          <a href="/tags/">
         <span class="site-state-item-count">121</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
 
-
-
+        </div>
       </div>
+    </div>
+
+    
+  </aside>
+
 
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+
+    <div class="main-inner post posts-expand">
 
 
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
   
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Nobody</span>
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2019/08/07/SBCs/RISC-V/Widora-AIRV-K210-AI-Kendryte/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Widora AIRV/K210 Board with ESP8266/ESP8285 Espressif Wifi and Kendryte K210 AI | Longer Vision Technology">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Widora AIRV/K210 Board with ESP8266/ESP8285 Espressif Wifi and Kendryte K210 AI
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-08-07 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-07T00:00:00-07:00">2019-08-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-11-21 23:06:29" itemprop="dateModified" datetime="2023-11-21T23:06:29-08:00">2023-11-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/Risc-V/" itemprop="url" rel="index"><span itemprop="name">Risc-V</span></a>
+        </span>
+    </span>
+
+  
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
-  </div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>Having been keeping an eye on <a target="_blank" rel="noopener" href="https://www.widora.io/">Widora</a> and <a target="_blank" rel="noopener" href="https://www.espressif.com/">Espressif</a> for quite a bit. I finally decided to test out <a target="_blank" rel="noopener" href="https://www.widora.io/">Widora</a>‘s development board <a target="_blank" rel="noopener" href="https://dev.widora.io/zh/airv">AIRV</a>.</p>
+<h1 id="1-Background-Knowledge"><a href="#1-Background-Knowledge" class="headerlink" title="1. Background Knowledge"></a>1. Background Knowledge</h1><h2 id="1-1-Espressif"><a href="#1-1-Espressif" class="headerlink" title="1.1 Espressif"></a>1.1 Espressif</h2><p><a target="_blank" rel="noopener" href="https://www.espressif.com/">Espressif</a> is based in Shanghai, China, focusing on Wifi&#x2F;Bluetooth chips, now have two main Wifi modules:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.espressif.com/en/products/hardware/esp32/overview">ESP32</a>: Wifi with Bluetooth</li>
+<li><a target="_blank" rel="noopener" href="https://www.espressif.com/en/products/hardware/esp8266ex/overview">ESP8266&#x2F;ESP8285</a>: Wifi <strong>ONLY</strong></li>
+</ul>
+<h2 id="1-2-Widora"><a href="#1-2-Widora" class="headerlink" title="1.2 Widora"></a>1.2 Widora</h2><p><a target="_blank" rel="noopener" href="https://www.widora.io/">Widora</a> is headquartered in Beijing, China, providing development boards using <a target="_blank" rel="noopener" href="https://www.espressif.com/">Espressif</a> Wifi&#x2F;Bluetooth chips.</p>
+<h2 id="1-3-Kendryte"><a href="#1-3-Kendryte" class="headerlink" title="1.3 Kendryte"></a>1.3 Kendryte</h2><p><strong>NEVER</strong> heard of <a target="_blank" rel="noopener" href="https://kendryte.com/">Kendryte</a> before. It seems <a target="_blank" rel="noopener" href="https://kendryte.com/">Kendryte</a> develops some AI based on <a target="_blank" rel="noopener" href="https://riscv.org/">Risc-V</a> chip architecture? That seems to be a good concept…</p>
+<h2 id="1-4-HiFive"><a href="#1-4-HiFive" class="headerlink" title="1.4 HiFive"></a>1.4 HiFive</h2><p>As for <a target="_blank" rel="noopener" href="https://riscv.org/">Risc-V</a>, <a target="_blank" rel="noopener" href="https://www.sifive.com/boards/hifive-unleashed">HiFive</a> developed by <a target="_blank" rel="noopener" href="https://www.sifive.com/">SiFive</a> has to be mentioned in any case.</p>
+<p>For me, a <strong>NOBODY</strong> has <strong>NOT</strong> had any chance or capability to deal with chips… So… shame… Anyway, let’s test it out… ^_^</p>
+<h1 id="2-Test-on-Widora-AIRV-Face-Detection"><a href="#2-Test-on-Widora-AIRV-Face-Detection" class="headerlink" title="2. Test on Widora AIRV Face Detection"></a>2. Test on Widora AIRV Face Detection</h1><p>By using a <span style="color:red"><strong>RUBBISH</strong></span> USB cable, you should already be able to run the face detection sample code existing inside the board.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Normal</th>
+<th align="center">Occlusion</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/chips/RISC-V/Widora/Widora_AIRV_01.jpg" alt="Widora AIRV Face Detection"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/chips/RISC-V/Widora/Widora_AIRV_02.jpg" alt="Widora AIRV Face Detection with Occlusion"></td>
+</tr>
+</tbody></table>
+<p>However, you really need to use a <span style="color:red"><strong>QUALIFIED</strong></span> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/USB_hardware#Micro_connectors">Micro-B USB</a> to <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/USB">USB Type A</a> cable, in order to list the device out by <strong>lsusb</strong>.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ lsusb</span><br><span class="line">Bus 001 Device 010: ID 10c4:ea60 Cygnal Integrated Products, Inc. CP2102/CP2109 UART Bridge Controller [CP210x family]</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="3-PlatformIO-IDE-for-VSCode"><a href="#3-PlatformIO-IDE-for-VSCode" class="headerlink" title="3. PlatformIO IDE for VSCode"></a>3. PlatformIO IDE for VSCode</h1><p><a target="_blank" rel="noopener" href="https://platformio.org/platformio-ide">PlatformIO IDE</a></p>
+<h1 id="4-Reflash-Widora-AIRV"><a href="#4-Reflash-Widora-AIRV" class="headerlink" title="4. Reflash Widora AIRV"></a>4. Reflash Widora AIRV</h1>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Risc-V-Kendryte-K210-AI-ESP8285/" rel="tag"># Risc-V, Kendryte K210 AI, ESP8285</a>
+          </div>
 
         
 
-
-
-
-
-
-
-
-      </div>
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/08/02/SBCs/RISC-V/SiFive-HiFive1-rev-b/" rel="prev" title="SiFive HiFive1 Rev B">
+                  <i class="fa fa-angle-left"></i> SiFive HiFive1 Rev B
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/08/15/Personal/mourn-for-classmate/" rel="next" title="Mourn For Classmate">
+                  Mourn For Classmate <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
     </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Nobody</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
+    </div>
+  </footer>
 
   
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
 
-
-
-
-
-
-
+  
 
 
 
@@ -437,7 +334,9 @@
 
   
 
-  
+
+
+
 
 </body>
 </html>

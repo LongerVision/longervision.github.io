@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en,default">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 7.0.0">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,19 +13,18 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-  <meta name="description" content="Today, we are going to talk about a fabulous project: stereo vision on a zynq-7010 board. 1. VCSBC nano Z-RH-2 1.1 Hardware We are using a VCSBC nano Z-RH-2 board for today’s experiment. The board ado">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Today, we are going to talk about a fabulous project: stereo vision on a zynq-7010 board. 1. VCSBC nano Z-RH-21.1 HardwareWe are using a VCSBC nano Z-RH-2 board for today’s experiment. The board adopt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Stereo Vision on VCSBC nano Z-RH-2 - PART I">
-<meta property="og:url" content="http://longervision.ca/2019/08/30/MachineVision/FPGA/vc-zynq-7010-stereo-1/index.html">
+<meta property="og:url" content="http://longervision.github.io/2019/08/30/MachineVision/FPGA/vc-zynq-7010-stereo-1/index.html">
 <meta property="og:site_name" content="Longer Vision Technology">
-<meta property="og:description" content="Today, we are going to talk about a fabulous project: stereo vision on a zynq-7010 board. 1. VCSBC nano Z-RH-2 1.1 Hardware We are using a VCSBC nano Z-RH-2 board for today’s experiment. The board ado">
+<meta property="og:description" content="Today, we are going to talk about a fabulous project: stereo vision on a zynq-7010 board. 1. VCSBC nano Z-RH-21.1 HardwareWe are using a VCSBC nano Z-RH-2 board for today’s experiment. The board adopt">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/vcsbc_nano_z-rh-2_zynq_7010_front.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/vcsbc_nano_z-rh-2_zynq_7010_back.jpg">
@@ -42,21 +41,18 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/vcsbc_nano_z-rh-2_zynq_7010_front.jpg">
 
-<link rel="canonical" href="http://longervision.ca/2019/08/30/MachineVision/FPGA/vc-zynq-7010-stereo-1/">
+
+<link rel="canonical" href="http://longervision.github.io/2019/08/30/MachineVision/FPGA/vc-zynq-7010-stereo-1/">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'en'
-  };
-</script>
 
-  <title>Stereo Vision on VCSBC nano Z-RH-2 - PART I | Longer Vision Technology</title>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://longervision.github.io/2019/08/30/MachineVision/FPGA/vc-zynq-7010-stereo-1/","path":"2019/08/30/MachineVision/FPGA/vc-zynq-7010-stereo-1/","title":"Stereo Vision on VCSBC nano Z-RH-2 - PART I"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Stereo Vision on VCSBC nano Z-RH-2 - PART I | Longer Vision Technology</title>
   
+
+
 
 
 
@@ -64,56 +60,33 @@
 
 
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Longer Vision Technology</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
+      <p class="site-title">Longer Vision Technology</p>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">Github Blog</p>
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
     </div>
   </div>
 </div>
@@ -121,273 +94,16 @@
 
 
 
-<nav class="site-nav">
-  <ul id="menu" class="menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
-
-  </li>
-  </ul>
-</nav>
 
 
 
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/08/30/MachineVision/FPGA/vc-zynq-7010-stereo-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Stereo Vision on VCSBC nano Z-RH-2 - PART I
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-08-30 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-30T00:00:00-07:00">2019-08-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-21 23:06:29" itemprop="dateModified" datetime="2023-11-21T23:06:29-08:00">2023-11-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Vision/" itemprop="url" rel="index"><span itemprop="name">Machine Vision</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Vision/FPGA/" itemprop="url" rel="index"><span itemprop="name">FPGA</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <p>Today, we are going to talk about a fabulous project: <strong><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Computer_stereo_vision">stereo vision</a> on a <a target="_blank" rel="noopener" href="https://www.xilinx.com/products/silicon-devices/soc/zynq-7000.html">zynq-7010</a> board</strong>.</p>
-<h1 id="vcsbc-nano-z-rh-2">1. VCSBC nano Z-RH-2</h1>
-<h2 id="hardware">1.1 Hardware</h2>
-<p>We are using a <a target="_blank" rel="noopener" href="https://www.vision-components.com/en/products/oem/3d-systems/arm-stereo-vision/">VCSBC nano Z-RH-2 board</a> for today’s experiment. The board adopted looks like the following:</p>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Front</th>
-<th style="text-align: center;">Back</th>
-<th style="text-align: center;">Connector</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/vcsbc_nano_z-rh-2_zynq_7010_front.jpg" alt="VCSBC nano Z-RH-2 Front" /></td>
-<td style="text-align: center;"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/vcsbc_nano_z-rh-2_zynq_7010_back.jpg" alt="VCSBC nano Z-RH-2 Back" /></td>
-<td style="text-align: center;"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/vcsbc_nano_z-rh-2_zynq_7010_connector.jpg" alt="VCSBC nano Z-RH-2 Connector" /></td>
-</tr>
-</tbody>
-</table>
-<p>More detailed specifications, please refer to <a target="_blank" rel="noopener" href="https://www.vision-components.com/en/products/oem/3d-systems/arm-stereo-vision/">Vision Components’s official website</a>.</p>
-<h2 id="software">1.2 Software</h2>
-<p>After you set up a static IP for this <a target="_blank" rel="noopener" href="https://www.vision-components.com/en/">Vision Components SBC</a>, it’s pretty straightforward to <strong>ssh</strong> into the system.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">ssh user@192.168.1.79</span></span><br><span class="line">user@192.168.1.79&#x27;s password: </span><br><span class="line"></span><br><span class="line">The programs included with the Debian GNU/Linux system are free software;</span><br><span class="line">the exact distribution terms for each program are described in the</span><br><span class="line">individual files in /usr/share/doc/*/copyright.</span><br><span class="line"></span><br><span class="line">Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent</span><br><span class="line">permitted by applicable law.</span><br><span class="line">Last login: Thu Aug 29 18:17:49 2019 from 192.168.1.200</span><br><span class="line">user@VC-Z:~$</span><br></pre></td></tr></table></figure>
-<p>Currently, <a target="_blank" rel="noopener" href="https://www.vision-components.com/en/">VC</a> provides <a target="_blank" rel="noopener" href="https://www.kernel.org/">Linux Kernel</a> 3.14.79.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user@VC-Z:~$ uname -a</span><br><span class="line">Linux VC-Z 3.14.79-vc-z #2 SMP PREEMPT Wed Apr 24 18:33:06 CEST 2019 armv7l GNU/Linux</span><br></pre></td></tr></table></figure>
-<p>And, let’s take a look at the dual <a target="_blank" rel="noopener" href="https://developer.arm.com/docs/ddi0406/latest">ARMv7</a> CPUs on <a target="_blank" rel="noopener" href="https://www.xilinx.com/products/silicon-devices/soc/zynq-7000.html">zynq-7010</a>.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">user@VC-Z:~$ cat /proc/cpuinfo</span><br><span class="line">processor	: 0</span><br><span class="line">model name	: ARMv7 Processor rev 0 (v7l)</span><br><span class="line">BogoMIPS	: 1725.23</span><br><span class="line">Features	: swp half thumb fastmult vfp edsp neon vfpv3 tls vfpd32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x3</span><br><span class="line">CPU part	: 0xc09</span><br><span class="line">CPU revision	: 0</span><br><span class="line"></span><br><span class="line">processor	: 1</span><br><span class="line">model name	: ARMv7 Processor rev 0 (v7l)</span><br><span class="line">BogoMIPS	: 1725.23</span><br><span class="line">Features	: swp half thumb fastmult vfp edsp neon vfpv3 tls vfpd32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x3</span><br><span class="line">CPU part	: 0xc09</span><br><span class="line">CPU revision	: 0</span><br><span class="line"></span><br><span class="line">Hardware	: Xilinx Zynq Platform</span><br><span class="line">Revision	: 0000</span><br><span class="line">Serial		: 0000000000000000</span><br></pre></td></tr></table></figure>
-<h1 id="stereo-vision">2. Stereo Vision</h1>
-<p>Sorry everybody. Today, I <strong>ONLY</strong> test <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Computer_stereo_vision">stereo vision</a> on ARM. I’ll try to figure out how to flash an open source IP of <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Computer_stereo_vision">stereo vision</a> onto <a target="_blank" rel="noopener" href="https://www.xilinx.com/products/silicon-devices/soc/zynq-7000.html">zynq-7010</a>, or write my own ASAP.</p>
-<p>Hmmmmmmmm… <span style="color:red"><strong>It’s better I keep my code in dark???</strong></span></p>
-<div style="font-size:5rem;width:100%;text-align:center;">
-<pre><code>&#123;% emoji stuck_out_tongue_closed_eyes %&#125;</code></pre>
-</div>
-<h2 id="classical-image-pairs">2.1 Classical Image Pairs</h2>
-<p>Let’s try out the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Computer_stereo_vision">stereo vision</a> on some <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Netpbm_format">.pgm</a> image pairs <strong>FIRST</strong>.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">user@VC-Z:~/longervision$ ./pgmpair ../images/aloe_left.pgm ../images/aloe_right.pgm </span><br><span class="line">width= 1282</span><br><span class="line">height= 1110</span><br><span class="line">fps: 0.119696</span><br><span class="line">process: 398651</span><br></pre></td></tr></table></figure>
-<p><span style="color:red"><strong>My GOD… It’s UNBELIEVABLY SLOW.</strong></span></p>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: center;">aloe_left</th>
-<th style="text-align: center;">aloe_right</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/aloe_left.jpg" alt="aloe_left" /></td>
-<td style="text-align: center;"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/aloe_right.jpg" alt="aloe_right" /></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">aloe_left Stereo</td>
-<td style="text-align: center;">aloe_right Stereo</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/aloe_left_disp.jpg" alt="aloe_left Stereo" /></td>
-<td style="text-align: center;"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/aloe_right_disp.jpg" alt="aloe_right Stereo" /></td>
-</tr>
-</tbody>
-</table>
-<h2 id="live-video-pairs">2.2 Live Video Pairs</h2>
-<p>The <strong>BEST</strong> demo code to test <strong>Vision Componenets Stereo Vision</strong> is <a target="_blank" rel="noopener" href="http://files.vision-components.com/Support/Eclipse_Example_Projects_VC_Z.zip">Eclipse_Example_Projects_VC_Z</a>.</p>
-<h3 id="imagecapturetest">2.2.1 imageCaptureTest</h3>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">./imageCaptureTest</span> </span><br><span class="line">0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> ----------------------------------------------------------------------- </span><br><span class="line">  VCCapt @0xbe87153c                                    Sensor Count: 2  </span><br><span class="line"> ----------------------------------------------------------------------- </span><br><span class="line">                                                                         </span><br><span class="line">                  Camera Type :  NANO Z RH Rev.0                         </span><br><span class="line">                Sensor 0 Type :  E2V_EV76C560ABT_1_0                     </span><br><span class="line">                Sensor 1 Type :  E2V_EV76C560ABT_1_0                     </span><br><span class="line">                                                                         </span><br><span class="line">   Trigger        Source      :  IMM                                     </span><br><span class="line">                                                                         </span><br><span class="line">     ___________________________________________________________________ </span><br><span class="line">     Sensor[ 0]:         Shutter:     12345 us,  Gain: 0.00              </span><br><span class="line">                                                                         </span><br><span class="line">                   x0, y0       :  (    0,    0)                         </span><br><span class="line">            binX,     binY      :  (    1,    1)                         </span><br><span class="line">        subsmplX, subsmplY, flip:  (    1,    1,0x00)                    </span><br><span class="line">    (img)          dx, dy, pitch:  ( 1280, 1024), 1280                   </span><br><span class="line">                                                                         </span><br><span class="line">    (img) st, ccmp1, ccmp2, type:  0xb6b03080, 0x00000000, 0x00000000, 0 </span><br><span class="line">                                                                         </span><br><span class="line">      Description                                                        </span><br><span class="line">       Sen dx, Sen dy, Sen pitch:   1280, 1024, 1280                     </span><br><span class="line">       Max dx, Max dy, Max pitch:   1280, 1024, 1280                     </span><br><span class="line">    Binning Max (dx, dy), Square:      2,    1,    1                     </span><br><span class="line">    Subsmpl Max (dx, dy), Square:      8,    8,    0                     </span><br><span class="line">       Init       st,ccmp1,ccmp2:  0xb6b03080, 0x00000000, 0x00000000    </span><br><span class="line">       Init  Shutter, Gain, Type:       10000,  0.00, GREY   (0)         </span><br><span class="line">                  FD, Port, Type:  4, 0, E2V_EV76C560ABT_1_0             </span><br><span class="line">                                                                         </span><br><span class="line">      Volatile Description                                               </span><br><span class="line">            requestCaptID, State:          0, IDLE                       </span><br><span class="line">          captId, TimestampTicks:          0,   6476832867277            </span><br><span class="line">                                                                         </span><br><span class="line">      Externals Description                                              </span><br><span class="line">            pos[0-3], angle[0-2]:  [ 0.00, 0.00, 0.00],[  0.0,  0.0]     </span><br><span class="line">                                                                         </span><br><span class="line">     ___________________________________________________________________ </span><br><span class="line">     Sensor[ 1]:         Shutter:     10000 us,  Gain: 0.00              </span><br><span class="line">                                                                         </span><br><span class="line">                   x0, y0       :  (    0,    0)                         </span><br><span class="line">            binX,     binY      :  (    1,    1)                         </span><br><span class="line">        subsmplX, subsmplY, flip:  (    1,    1,0x00)                    </span><br><span class="line">    (img)          dx, dy, pitch:  ( 1280, 1024), 1280                   </span><br><span class="line">                                                                         </span><br><span class="line">    (img) st, ccmp1, ccmp2, type:  0xb69c2080, 0x00000000, 0x00000000, 0 </span><br><span class="line">                                                                         </span><br><span class="line">      Description                                                        </span><br><span class="line">       Sen dx, Sen dy, Sen pitch:   1280, 1024, 1280                     </span><br><span class="line">       Max dx, Max dy, Max pitch:   1280, 1024, 1280                     </span><br><span class="line">    Binning Max (dx, dy), Square:      2,    1,    1                     </span><br><span class="line">    Subsmpl Max (dx, dy), Square:      8,    8,    0                     </span><br><span class="line">       Init       st,ccmp1,ccmp2:  0xb69c2080, 0x00000000, 0x00000000    </span><br><span class="line">       Init  Shutter, Gain, Type:       10000,  0.00, GREY   (0)         </span><br><span class="line">                  FD, Port, Type:  5, 1, E2V_EV76C560ABT_1_0             </span><br><span class="line">                                                                         </span><br><span class="line">      Volatile Description                                               </span><br><span class="line">            requestCaptID, State:          0, IDLE                       </span><br><span class="line">          captId, TimestampTicks:          0,   6476832867284            </span><br><span class="line">                                                                         </span><br><span class="line">      Externals Description                                              </span><br><span class="line">            pos[0-3], angle[0-2]:  [ 0.00, 0.00, 0.00],[  0.0,  0.0]     </span><br><span class="line">                                                                         </span><br><span class="line"> ----------------------------------------------------------------------- </span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-<h3 id="imagecaptfps">2.2.2 imageCaptFPS</h3>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">03:41:47[root@VC-Z] /home/user/vc/Eclipse_Example_Projects_VC_Z/imageCaptFPS</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">./imageCaptFPS</span> </span><br><span class="line">dy= 1024  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     780685us  for 1000 Cycles ==  34.745525fps.</span><br><span class="line">dy= 768  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     789899us  for 1000 Cycles ==  34.734402fps.</span><br><span class="line">dy= 640  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     790000us  for 1000 Cycles ==  34.734283fps.</span><br><span class="line">dy= 512  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     790012us  for 1000 Cycles ==  34.734268fps.</span><br><span class="line">dy= 384  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     790005us  for 1000 Cycles ==  34.734280fps.</span><br><span class="line">dy= 256  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     790000us  for 1000 Cycles ==  34.734283fps.</span><br><span class="line">dy= 192  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     790021us  for 1000 Cycles ==  34.734257fps.</span><br><span class="line">dy= 128  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     789984us  for 1000 Cycles ==  34.734303fps.</span><br><span class="line">dy= 64  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     789987us  for 1000 Cycles ==  34.734299fps.</span><br><span class="line">dy= 32  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     789997us  for 1000 Cycles ==  34.734287fps.</span><br><span class="line">dy= 16  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     790017us  for 1000 Cycles ==  34.734264fps.</span><br><span class="line">dy= 8  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     790002us  for 1000 Cycles ==  34.734280fps.</span><br><span class="line">dy= 4  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     789985us  for 1000 Cycles ==  34.734303fps.</span><br><span class="line">dy= 2  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     789997us  for 1000 Cycles ==  34.734287fps.</span><br><span class="line">dy= 1  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     789994us  for 1000 Cycles ==  34.734291fps.</span><br></pre></td></tr></table></figure>
-<p><span style="color:red"><strong>The above 2 examples are directly run on <a target="_blank" rel="noopener" href="https://www.vision-components.com/en/products/oem/3d-systems/arm-stereo-vision/">Vision Components’s board</a> without display, for the given cable is of <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/VGA_connector">VGA connector</a>, which is ALREADY outdated for many years</strong></span>. Therefore, in order to show the captured image pairs, in the next section, we’ll have to stream the captured data to a host computer, and display the real-time video pairs.</p>
-<h2 id="streamdisplay-from-host-computer">2.3 Stream/Display From Host Computer</h2>
-<p>Due to <strong>Vision Componenets’ Official documentation <a target="_blank" rel="noopener" href="https://www.vision-components.com/fileadmin/user_upload/DE/service-support/doku/doku_ARM-LINUX/VCLinux_Getting_Started.pdf">VCLinux_Getting_Started.pdf</a></strong>, images captured from camera can be displayed on a remote hosting PC.</p>
-<h3 id="eclipse_example_projects_vc_z-not-preferred">2.3.1 Eclipse_Example_Projects_VC_Z (Not Preferred)</h3>
-<p><a target="_blank" rel="noopener" href="http://files.vision-components.com/Support/Eclipse_Example_Projects_VC_Z.zip">Eclipse_Example_Projects_VC_Z.zip</a> provides some source code, which displays images captured from camera on the hosting PC’s Eclipse, by adding the camera as a <span style="color:red"><strong>Remote System to Eclipse</strong></span>. Anyway, by using this method, you need to prepare <strong>ALL</strong> the following software and packages in advance.</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.eclipse.org/">Eclipse</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.eclipse.org/cdt/downloads.php">CDT</a>: install by <strong>Check for Updates</strong> with <strong>p2 software repository: http://download.eclipse.org/tools/cdt/releases/9.8</strong></li>
-<li><a target="_blank" rel="noopener" href="https://marketplace.eclipse.org/content/direct-remote-c-debugging">Direct Remote C++ Debugging</a>: installed from <a target="_blank" rel="noopener" href="https://marketplace.eclipse.org/">Eclipse Marketplace</a></li>
-</ul>
-<h3 id="vcimgnetclient.py">2.3.2 <a target="_blank" rel="noopener" href="http://vcimgnetclient.py/">vcimgnetclient.py</a></h3>
-<p>Besides the above method, a much more straightforward method is to adopt python script <a target="_blank" rel="noopener" href="http://files.vision-components.com/Support/vcimgnet_PC_clients.zip">vcimgnetclient.py</a> provided by <a target="_blank" rel="noopener" href="https://www.vision-components.com/en/">Vision Components</a>. <span style="color:red"><strong>However</strong></span>, <a target="_blank" rel="noopener" href="http://files.vision-components.com/Support/vcimgnet_PC_clients.zip">vcimgnetclient.py</a> is <span style="color:red"><strong>ONLY python2</strong></span> compatible, and Vision Components has <strong>NO</strong> plan to provide a <span style="color:red"><strong>python3</strong></span> compatible version of <a target="_blank" rel="noopener" href="http://files.vision-components.com/Support/vcimgnet_PC_clients.zip">vcimgnetclient.py</a>.</p>
-<p>Therefore, the <strong>KEY</strong> to use the 2nd method is to make <a target="_blank" rel="noopener" href="http://files.vision-components.com/Support/vcimgnet_PC_clients.zip">vcimgnetclient.py</a> python3 compatible.</p>
-<h4 id="to3">2.3.2.1 2to3</h4>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">2to3 vcimgnetclient.py</span></span><br><span class="line">RefactoringTool: Skipping optional fixer: buffer</span><br><span class="line">RefactoringTool: Skipping optional fixer: idioms</span><br><span class="line">RefactoringTool: Skipping optional fixer: set_literal</span><br><span class="line">RefactoringTool: Skipping optional fixer: ws_comma</span><br><span class="line">RefactoringTool: Refactored vcimgnetclient.py</span><br><span class="line">--- vcimgnetclient.py	(original)</span><br><span class="line">+++ vcimgnetclient.py	(refactored)</span><br><span class="line">@@ -274,11 +274,11 @@</span><br><span class="line">             if(chk_rgb_true):</span><br><span class="line">                 dy /= 3</span><br><span class="line">                 #img_data_packed = bytearray(chain.from_iterable(izip(mv_img_data[2 * pitch * dy:], mv_img_data[1 * pitch * dy:], mv_img_data[0 * pitch * dy:])))</span><br><span class="line">-                img_data_packed = bytearray(chain.from_iterable(zip(mv_img_data[2 * pitch * dy:], mv_img_data[1 * pitch * dy:], mv_img_data[0 * pitch * dy:])))</span><br><span class="line">+                img_data_packed = bytearray(chain.from_iterable(list(zip(mv_img_data[2 * pitch * dy:], mv_img_data[1 * pitch * dy:], mv_img_data[0 * pitch * dy:]))))</span><br><span class="line">             else:</span><br><span class="line">                 dy /= 1</span><br><span class="line">                 #img_data_packed = bytearray(chain.from_iterable(izip(mv_img_data[0 * pitch * dy:], mv_img_data[0 * pitch * dy:], mv_img_data[0 * pitch * dy:])))</span><br><span class="line">-            img_data_packed = bytearray(chain.from_iterable(zip(mv_img_data[0 * pitch * dy:], mv_img_data[0 * pitch * dy:], mv_img_data[0 * pitch * dy:])))</span><br><span class="line">+            img_data_packed = bytearray(chain.from_iterable(list(zip(mv_img_data[0 * pitch * dy:], mv_img_data[0 * pitch * dy:], mv_img_data[0 * pitch * dy:]))))</span><br><span class="line">             cpb = Gdk.pixbuf_new_from_data(buffer(img_data_packed), Gdk.COLORSPACE_RGB, False, 8, dx, dy, 3*pitch)</span><br><span class="line">             cpb.save(path, &quot;png&quot;)</span><br><span class="line">             </span><br><span class="line">@@ -589,16 +589,16 @@</span><br><span class="line">                         dy /= 3</span><br><span class="line">                         mv_img_data = memoryview(img[&#x27;data&#x27;])</span><br><span class="line">                         #img_data_packed = bytearray(chain.from_iterable(izip(mv_img_data[2 * pitch * dy:], mv_img_data[1 * pitch * dy:], mv_img_data[0 * pitch * dy:])))</span><br><span class="line">-                        img_data_packed = bytearray(chain.from_iterable(zip(mv_img_data[2 * pitch * dy:], mv_img_data[1 * pitch * dy:], mv_img_data[0 * pitch * dy:])))</span><br><span class="line">+                        img_data_packed = bytearray(chain.from_iterable(list(zip(mv_img_data[2 * pitch * dy:], mv_img_data[1 * pitch * dy:], mv_img_data[0 * pitch * dy:]))))</span><br><span class="line">                         self.area.window.draw_rgb_image(gc, 0,0, dx,dy, Gdk.RGB_DITHER_NONE, buffer(img_data_packed),3*pitch,0,0)</span><br><span class="line">                     else:</span><br><span class="line">                         if(&#x27;flscol&#x27;==self.how_select):</span><br><span class="line">                             mv_img_data = memoryview(img[&#x27;data&#x27;]).tolist()</span><br><span class="line">-                            r_data = map(falsecolor_r,mv_img_data[0 * pitch * dy:])</span><br><span class="line">-                            g_data = map(falsecolor_g,mv_img_data[0 * pitch * dy:])</span><br><span class="line">-                            b_data = map(falsecolor_b,mv_img_data[0 * pitch * dy:])</span><br><span class="line">+                            r_data = list(map(falsecolor_r,mv_img_data[0 * pitch * dy:]))</span><br><span class="line">+                            g_data = list(map(falsecolor_g,mv_img_data[0 * pitch * dy:]))</span><br><span class="line">+                            b_data = list(map(falsecolor_b,mv_img_data[0 * pitch * dy:]))</span><br><span class="line">                             #img_data_packed = bytearray(chain.from_iterable(izip(r_data, g_data, b_data)))</span><br><span class="line">-                            img_data_packed = bytearray(chain.from_iterable(zip(r_data, g_data, b_data)))</span><br><span class="line">+                            img_data_packed = bytearray(chain.from_iterable(list(zip(r_data, g_data, b_data))))</span><br><span class="line">                             self.area.window.draw_rgb_image(gc, 0,0, dx,dy, Gdk.RGB_DITHER_NONE, buffer(img_data_packed),3*pitch,0,0)</span><br><span class="line">                         else: #grey</span><br><span class="line">                             self.area.window.draw_gray_image(gc, 0,0, </span><br><span class="line">RefactoringTool: Files that need to be modified:</span><br><span class="line">RefactoringTool: vcimgnetclient.py</span><br></pre></td></tr></table></figure>
-<h4 id="pygi-convert">2.3.2.2 pygi-convert</h4>
-<p>Please refer to <a target="_blank" rel="noopener" href="https://pygobject.readthedocs.io/en/latest/guide/porting.html">General Porting Tips</a></p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">./pygi-convert.sh vcimgnetclient.py</span></span><br><span class="line"><span class="meta prompt_">longervision-GT72-6QE%</span></span><br></pre></td></tr></table></figure>
-<h4 id="try-running">2.3.2.3 Try Running</h4>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">python vcimgnetclient.py</span> </span><br><span class="line">vcimgnetclient.py:330: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for &quot;type&quot; or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations</span><br><span class="line">  self.window =  Gtk.Window(Gtk.WindowType.TOPLEVEL)</span><br><span class="line">vcimgnetclient.py:628: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for &quot;label&quot; or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations</span><br><span class="line">  mfQuit =  Gtk.MenuItem(&quot;Quit&quot;)</span><br><span class="line">vcimgnetclient.py:629: PyGIDeprecationWarning: Using non GObject arguments for connect_object() is deprecated, use: connect_data(signal, callback, data, connect_flags=GObject.ConnectFlags.SWAPPED)</span><br><span class="line">  mfQuit.connect_object(&quot;activate&quot;, lambda a: Gtk.main_quit(), &quot;mfQuit&quot;)</span><br><span class="line">vcimgnetclient.py:637: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for &quot;label&quot; or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations</span><br><span class="line">  bmf = Gtk.MenuItem(&quot;File&quot;)</span><br><span class="line">vcimgnetclient.py:646: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for &quot;label&quot; or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations</span><br><span class="line">  mhAbout =  Gtk.MenuItem(&quot;About&quot;)</span><br><span class="line">vcimgnetclient.py:654: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for &quot;label&quot; or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations</span><br><span class="line">  bmh = Gtk.MenuItem(&quot;Help&quot;)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;vcimgnetclient.py&quot;, line 812, in &lt;module&gt;</span><br><span class="line">    Main()</span><br><span class="line">  File &quot;vcimgnetclient.py&quot;, line 719, in __init__</span><br><span class="line">    Frontend.__init__(self, self.img_access)</span><br><span class="line">  File &quot;vcimgnetclient.py&quot;, line 301, in __init__</span><br><span class="line">    self.winMain = self.WinMain(arg_img_access, self.dialog)</span><br><span class="line">  File &quot;vcimgnetclient.py&quot;, line 341, in __init__</span><br><span class="line">    vbox.pack_start(self.menu_bar, False, False)</span><br><span class="line">TypeError: Gtk.Box.pack_start() takes exactly 5 arguments (4 given)</span><br></pre></td></tr></table></figure>
-<h4 id="section">2.3.2.4</h4>
-<p>For <strong>ALL</strong> <code>vbox.pack_start</code>, add one parameter <strong>0</strong> at the end for each case. For instance: <code>vbox.pack_start(self.menu_bar, False, False)</code> to <code>vbox.pack_start(self.menu_bar, False, False, 0)</code></p>
-<p><span style="color:red"><strong>Oh my god … There are STILL SO MANY things to do, in order to make <a target="_blank" rel="noopener" href="http://files.vision-components.com/Support/vcimgnet_PC_clients.zip">vcimgnetclient.py</a> <a target="_blank" rel="noopener" href="https://www.python.org/downloads/">Python3</a> compatible.</strong></span> Therefore, I implement my own <strong>vcimgnetclient_qt.py</strong> based on <a target="_blank" rel="noopener" href="https://pypi.org/project/PyQt5/">PyQt5</a>.</p>
-<h3 id="longer-visions-vcimgnetclient_qt.py">2.3.3 <a target="_blank" rel="noopener" href="http://www.longervision.cn/">Longer Vision</a>’s vcimgnetclient_qt.py</h3>
-<h4 id="server">2.3.3.1 Server</h4>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">22:42:22[root@VC-Z] /home/user</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="built_in">whoami</span></span></span><br><span class="line">root</span><br><span class="line"></span><br><span class="line">22:42:24[root@VC-Z] /home/user</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">vcimgnetsrv &amp;</span></span><br><span class="line">[1] 896</span><br><span class="line"></span><br><span class="line">22:42:30[root@VC-Z] /home/user</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">ps -e | grep vcimgnetsrv</span></span><br><span class="line">  896 pts/0    00:00:00 vcimgnetsrv</span><br><span class="line"></span><br><span class="line">22:42:40[root@VC-Z] /home/user</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">vctp</span></span><br><span class="line">Acquisiton&amp;Copy Duration:          4s      39644us  for 100 Cycles ==  24.754656fps.</span><br><span class="line"></span><br><span class="line">Acquisiton&amp;Copy Duration:          4s      34709us  for 100 Cycles ==  24.784935fps.</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-<h4 id="client">2.3.3.2 Client</h4>
-<p>Sorry, I’m <strong>NOT</strong> going to show my code, but the performance can be demonstrated as follows:</p>
-<figure>
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/lvt_vc_pyqt5_grab.png" alt="" /><figcaption>LVT VC PyQt5 GUI</figcaption>
-</figure>
-
-    </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/FPGA-Vision-Components-Stereo/" rel="tag"># FPGA, Vision Components, Stereo</a>
-          </div>
-
+</header>
         
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2019/08/25/SBCs/ARM/lvt-h3-armbian/" rel="prev" title="Install Armbian Debian onto Longer Vision Technology H3 Board">
-      <i class="fa fa-chevron-left"></i> Install Armbian Debian onto Longer Vision Technology H3 Board
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2019/09/06/OperatingSystems/CompilersTools/crosstool-ng/" rel="next" title="Build Toolchain Using Crosstool-NG">
-      Build Toolchain Using Crosstool-NG <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
   
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
   <aside class="sidebar">
-    <div class="sidebar-inner">
 
-      <ul class="sidebar-nav motion-element">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
         </li>
@@ -396,110 +112,285 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vcsbc-nano-z-rh-2"><span class="nav-number">1.</span> <span class="nav-text">1. VCSBC nano Z-RH-2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#hardware"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Hardware</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#software"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Software</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#stereo-vision"><span class="nav-number">2.</span> <span class="nav-text">2. Stereo Vision</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#classical-image-pairs"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Classical Image Pairs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#live-video-pairs"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 Live Video Pairs</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#imagecapturetest"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.2.1 imageCaptureTest</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#imagecaptfps"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2.2 imageCaptFPS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#streamdisplay-from-host-computer"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 Stream&#x2F;Display From Host Computer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#eclipse_example_projects_vc_z-not-preferred"><span class="nav-number">2.3.1.</span> <span class="nav-text">2.3.1 Eclipse_Example_Projects_VC_Z (Not Preferred)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vcimgnetclient.py"><span class="nav-number">2.3.2.</span> <span class="nav-text">2.3.2 vcimgnetclient.py</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#to3"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">2.3.2.1 2to3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pygi-convert"><span class="nav-number">2.3.2.2.</span> <span class="nav-text">2.3.2.2 pygi-convert</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#try-running"><span class="nav-number">2.3.2.3.</span> <span class="nav-text">2.3.2.3 Try Running</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section"><span class="nav-number">2.3.2.4.</span> <span class="nav-text">2.3.2.4</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#longer-visions-vcimgnetclient_qt.py"><span class="nav-number">2.3.3.</span> <span class="nav-text">2.3.3 Longer Vision’s vcimgnetclient_qt.py</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#server"><span class="nav-number">2.3.3.1.</span> <span class="nav-text">2.3.3.1 Server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#client"><span class="nav-number">2.3.3.2.</span> <span class="nav-text">2.3.3.2 Client</span></a></li></ol></li></ol></li></ol></li></ol></div>
-      </div>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-VCSBC-nano-Z-RH-2"><span class="nav-number">1.</span> <span class="nav-text">1. VCSBC nano Z-RH-2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-Hardware"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Hardware</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-Software"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Software</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Stereo-Vision"><span class="nav-number">2.</span> <span class="nav-text">2. Stereo Vision</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Classical-Image-Pairs"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Classical Image Pairs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Live-Video-Pairs"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 Live Video Pairs</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-imageCaptureTest"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.2.1 imageCaptureTest</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-imageCaptFPS"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2.2 imageCaptFPS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-Stream-Display-From-Host-Computer"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 Stream&#x2F;Display From Host Computer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1-Eclipse-Example-Projects-VC-Z-Not-Preferred"><span class="nav-number">2.3.1.</span> <span class="nav-text">2.3.1 Eclipse_Example_Projects_VC_Z (Not Preferred)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2-vcimgnetclient-py"><span class="nav-number">2.3.2.</span> <span class="nav-text">2.3.2 vcimgnetclient.py</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-1-2to3"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">2.3.2.1 2to3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-2-pygi-convert"><span class="nav-number">2.3.2.2.</span> <span class="nav-text">2.3.2.2 pygi-convert</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-3-Try-Running"><span class="nav-number">2.3.2.3.</span> <span class="nav-text">2.3.2.3 Try Running</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-4"><span class="nav-number">2.3.2.4.</span> <span class="nav-text">2.3.2.4</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-3-Longer-Vision%E2%80%99s-vcimgnetclient-qt-py"><span class="nav-number">2.3.3.</span> <span class="nav-text">2.3.3 Longer Vision’s vcimgnetclient_qt.py</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-3-1-Server"><span class="nav-number">2.3.3.1.</span> <span class="nav-text">2.3.3.1 Server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-3-2-Client"><span class="nav-number">2.3.3.2.</span> <span class="nav-text">2.3.3.2 Client</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
 
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Nobody</p>
   <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
 </div>
-<div class="site-state-wrap motion-element">
+<div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
+        <a href="/archives/">
           <span class="site-state-item-count">127</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">49</span>
+          <a href="/categories/">
+        <span class="site-state-item-count">41</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
+          <a href="/tags/">
         <span class="site-state-item-count">121</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
 
-
-
+        </div>
       </div>
+    </div>
+
+    
+  </aside>
+
 
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+
+    <div class="main-inner post posts-expand">
 
 
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
   
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Nobody</span>
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2019/08/30/MachineVision/FPGA/vc-zynq-7010-stereo-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Stereo Vision on VCSBC nano Z-RH-2 - PART I | Longer Vision Technology">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Stereo Vision on VCSBC nano Z-RH-2 - PART I
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-08-30 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-30T00:00:00-07:00">2019-08-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-11-21 23:06:29" itemprop="dateModified" datetime="2023-11-21T23:06:29-08:00">2023-11-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Machine-Vision/" itemprop="url" rel="index"><span itemprop="name">Machine Vision</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Machine-Vision/FPGA/" itemprop="url" rel="index"><span itemprop="name">FPGA</span></a>
+        </span>
+    </span>
+
+  
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
-  </div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>Today, we are going to talk about a fabulous project: <strong><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Computer_stereo_vision">stereo vision</a> on a <a target="_blank" rel="noopener" href="https://www.xilinx.com/products/silicon-devices/soc/zynq-7000.html">zynq-7010</a> board</strong>.</p>
+<h1 id="1-VCSBC-nano-Z-RH-2"><a href="#1-VCSBC-nano-Z-RH-2" class="headerlink" title="1. VCSBC nano Z-RH-2"></a>1. VCSBC nano Z-RH-2</h1><h2 id="1-1-Hardware"><a href="#1-1-Hardware" class="headerlink" title="1.1 Hardware"></a>1.1 Hardware</h2><p>We are using a <a target="_blank" rel="noopener" href="https://www.vision-components.com/en/products/oem/3d-systems/arm-stereo-vision/">VCSBC nano Z-RH-2 board</a> for today’s experiment. The board adopted looks like the following:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Front</th>
+<th align="center">Back</th>
+<th align="center">Connector</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/vcsbc_nano_z-rh-2_zynq_7010_front.jpg" alt="VCSBC nano Z-RH-2 Front"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/vcsbc_nano_z-rh-2_zynq_7010_back.jpg" alt="VCSBC nano Z-RH-2 Back"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/vcsbc_nano_z-rh-2_zynq_7010_connector.jpg" alt="VCSBC nano Z-RH-2 Connector"></td>
+</tr>
+</tbody></table>
+<p>More detailed specifications, please refer to <a target="_blank" rel="noopener" href="https://www.vision-components.com/en/products/oem/3d-systems/arm-stereo-vision/">Vision Components’s official website</a>.</p>
+<h2 id="1-2-Software"><a href="#1-2-Software" class="headerlink" title="1.2 Software"></a>1.2 Software</h2><p>After you set up a static IP for this <a target="_blank" rel="noopener" href="https://www.vision-components.com/en/">Vision Components SBC</a>, it’s pretty straightforward to <strong>ssh</strong> into the system.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">ssh user@192.168.1.79</span></span><br><span class="line">user@192.168.1.79&#x27;s password: </span><br><span class="line"></span><br><span class="line">The programs included with the Debian GNU/Linux system are free software;</span><br><span class="line">the exact distribution terms for each program are described in the</span><br><span class="line">individual files in /usr/share/doc/*/copyright.</span><br><span class="line"></span><br><span class="line">Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent</span><br><span class="line">permitted by applicable law.</span><br><span class="line">Last login: Thu Aug 29 18:17:49 2019 from 192.168.1.200</span><br><span class="line">user@VC-Z:~$</span><br></pre></td></tr></table></figure>
+
+<p>Currently, <a target="_blank" rel="noopener" href="https://www.vision-components.com/en/">VC</a> provides <a target="_blank" rel="noopener" href="https://www.kernel.org/">Linux Kernel</a> 3.14.79.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user@VC-Z:~$ uname -a</span><br><span class="line">Linux VC-Z 3.14.79-vc-z #2 SMP PREEMPT Wed Apr 24 18:33:06 CEST 2019 armv7l GNU/Linux</span><br></pre></td></tr></table></figure>
+
+<p>And, let’s take a look at the dual <a target="_blank" rel="noopener" href="https://developer.arm.com/docs/ddi0406/latest">ARMv7</a> CPUs on <a target="_blank" rel="noopener" href="https://www.xilinx.com/products/silicon-devices/soc/zynq-7000.html">zynq-7010</a>.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">user@VC-Z:~$ cat /proc/cpuinfo</span><br><span class="line">processor	: 0</span><br><span class="line">model name	: ARMv7 Processor rev 0 (v7l)</span><br><span class="line">BogoMIPS	: 1725.23</span><br><span class="line">Features	: swp half thumb fastmult vfp edsp neon vfpv3 tls vfpd32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x3</span><br><span class="line">CPU part	: 0xc09</span><br><span class="line">CPU revision	: 0</span><br><span class="line"></span><br><span class="line">processor	: 1</span><br><span class="line">model name	: ARMv7 Processor rev 0 (v7l)</span><br><span class="line">BogoMIPS	: 1725.23</span><br><span class="line">Features	: swp half thumb fastmult vfp edsp neon vfpv3 tls vfpd32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x3</span><br><span class="line">CPU part	: 0xc09</span><br><span class="line">CPU revision	: 0</span><br><span class="line"></span><br><span class="line">Hardware	: Xilinx Zynq Platform</span><br><span class="line">Revision	: 0000</span><br><span class="line">Serial		: 0000000000000000</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="2-Stereo-Vision"><a href="#2-Stereo-Vision" class="headerlink" title="2. Stereo Vision"></a>2. Stereo Vision</h1><p>Sorry everybody. Today, I <strong>ONLY</strong> test <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Computer_stereo_vision">stereo vision</a> on ARM. I’ll try to figure out how to flash an open source IP of <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Computer_stereo_vision">stereo vision</a> onto <a target="_blank" rel="noopener" href="https://www.xilinx.com/products/silicon-devices/soc/zynq-7000.html">zynq-7010</a>, or write my own ASAP.</p>
+<p>Hmmmmmmmm… <span style="color:red"><strong>It’s better I keep my code in dark???</strong></span></p>
+<div style="font-size:5rem;width:100%;text-align:center;">
+    <span class="emoji" alias="stuck_out_tongue_closed_eyes" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f61d.png?v8">&#x1f61d;</span>
+</div>
+
+
+<h2 id="2-1-Classical-Image-Pairs"><a href="#2-1-Classical-Image-Pairs" class="headerlink" title="2.1 Classical Image Pairs"></a>2.1 Classical Image Pairs</h2><p>Let’s try out the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Computer_stereo_vision">stereo vision</a> on some <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Netpbm_format">.pgm</a> image pairs <strong>FIRST</strong>.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">user@VC-Z:~/longervision$ ./pgmpair ../images/aloe_left.pgm ../images/aloe_right.pgm </span><br><span class="line">width= 1282</span><br><span class="line">height= 1110</span><br><span class="line">fps: 0.119696</span><br><span class="line">process: 398651</span><br></pre></td></tr></table></figure>
+
+<p><span style="color:red"><strong>My GOD… It’s UNBELIEVABLY SLOW.</strong></span></p>
+<table>
+<thead>
+<tr>
+<th align="center">aloe_left</th>
+<th align="center">aloe_right</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/aloe_left.jpg" alt="aloe_left"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/aloe_right.jpg" alt="aloe_right"></td>
+</tr>
+<tr>
+<td align="center">aloe_left Stereo</td>
+<td align="center">aloe_right Stereo</td>
+</tr>
+<tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/aloe_left_disp.jpg" alt="aloe_left Stereo"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/aloe_right_disp.jpg" alt="aloe_right Stereo"></td>
+</tr>
+</tbody></table>
+<h2 id="2-2-Live-Video-Pairs"><a href="#2-2-Live-Video-Pairs" class="headerlink" title="2.2 Live Video Pairs"></a>2.2 Live Video Pairs</h2><p>The <strong>BEST</strong> demo code to test <strong>Vision Componenets Stereo Vision</strong> is <a target="_blank" rel="noopener" href="http://files.vision-components.com/Support/Eclipse_Example_Projects_VC_Z.zip">Eclipse_Example_Projects_VC_Z</a>.</p>
+<h3 id="2-2-1-imageCaptureTest"><a href="#2-2-1-imageCaptureTest" class="headerlink" title="2.2.1 imageCaptureTest"></a>2.2.1 imageCaptureTest</h3><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">./imageCaptureTest</span> </span><br><span class="line">0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> ----------------------------------------------------------------------- </span><br><span class="line">  VCCapt @0xbe87153c                                    Sensor Count: 2  </span><br><span class="line"> ----------------------------------------------------------------------- </span><br><span class="line">                                                                         </span><br><span class="line">                  Camera Type :  NANO Z RH Rev.0                         </span><br><span class="line">                Sensor 0 Type :  E2V_EV76C560ABT_1_0                     </span><br><span class="line">                Sensor 1 Type :  E2V_EV76C560ABT_1_0                     </span><br><span class="line">                                                                         </span><br><span class="line">   Trigger        Source      :  IMM                                     </span><br><span class="line">                                                                         </span><br><span class="line">     ___________________________________________________________________ </span><br><span class="line">     Sensor[ 0]:         Shutter:     12345 us,  Gain: 0.00              </span><br><span class="line">                                                                         </span><br><span class="line">                   x0, y0       :  (    0,    0)                         </span><br><span class="line">            binX,     binY      :  (    1,    1)                         </span><br><span class="line">        subsmplX, subsmplY, flip:  (    1,    1,0x00)                    </span><br><span class="line">    (img)          dx, dy, pitch:  ( 1280, 1024), 1280                   </span><br><span class="line">                                                                         </span><br><span class="line">    (img) st, ccmp1, ccmp2, type:  0xb6b03080, 0x00000000, 0x00000000, 0 </span><br><span class="line">                                                                         </span><br><span class="line">      Description                                                        </span><br><span class="line">       Sen dx, Sen dy, Sen pitch:   1280, 1024, 1280                     </span><br><span class="line">       Max dx, Max dy, Max pitch:   1280, 1024, 1280                     </span><br><span class="line">    Binning Max (dx, dy), Square:      2,    1,    1                     </span><br><span class="line">    Subsmpl Max (dx, dy), Square:      8,    8,    0                     </span><br><span class="line">       Init       st,ccmp1,ccmp2:  0xb6b03080, 0x00000000, 0x00000000    </span><br><span class="line">       Init  Shutter, Gain, Type:       10000,  0.00, GREY   (0)         </span><br><span class="line">                  FD, Port, Type:  4, 0, E2V_EV76C560ABT_1_0             </span><br><span class="line">                                                                         </span><br><span class="line">      Volatile Description                                               </span><br><span class="line">            requestCaptID, State:          0, IDLE                       </span><br><span class="line">          captId, TimestampTicks:          0,   6476832867277            </span><br><span class="line">                                                                         </span><br><span class="line">      Externals Description                                              </span><br><span class="line">            pos[0-3], angle[0-2]:  [ 0.00, 0.00, 0.00],[  0.0,  0.0]     </span><br><span class="line">                                                                         </span><br><span class="line">     ___________________________________________________________________ </span><br><span class="line">     Sensor[ 1]:         Shutter:     10000 us,  Gain: 0.00              </span><br><span class="line">                                                                         </span><br><span class="line">                   x0, y0       :  (    0,    0)                         </span><br><span class="line">            binX,     binY      :  (    1,    1)                         </span><br><span class="line">        subsmplX, subsmplY, flip:  (    1,    1,0x00)                    </span><br><span class="line">    (img)          dx, dy, pitch:  ( 1280, 1024), 1280                   </span><br><span class="line">                                                                         </span><br><span class="line">    (img) st, ccmp1, ccmp2, type:  0xb69c2080, 0x00000000, 0x00000000, 0 </span><br><span class="line">                                                                         </span><br><span class="line">      Description                                                        </span><br><span class="line">       Sen dx, Sen dy, Sen pitch:   1280, 1024, 1280                     </span><br><span class="line">       Max dx, Max dy, Max pitch:   1280, 1024, 1280                     </span><br><span class="line">    Binning Max (dx, dy), Square:      2,    1,    1                     </span><br><span class="line">    Subsmpl Max (dx, dy), Square:      8,    8,    0                     </span><br><span class="line">       Init       st,ccmp1,ccmp2:  0xb69c2080, 0x00000000, 0x00000000    </span><br><span class="line">       Init  Shutter, Gain, Type:       10000,  0.00, GREY   (0)         </span><br><span class="line">                  FD, Port, Type:  5, 1, E2V_EV76C560ABT_1_0             </span><br><span class="line">                                                                         </span><br><span class="line">      Volatile Description                                               </span><br><span class="line">            requestCaptID, State:          0, IDLE                       </span><br><span class="line">          captId, TimestampTicks:          0,   6476832867284            </span><br><span class="line">                                                                         </span><br><span class="line">      Externals Description                                              </span><br><span class="line">            pos[0-3], angle[0-2]:  [ 0.00, 0.00, 0.00],[  0.0,  0.0]     </span><br><span class="line">                                                                         </span><br><span class="line"> ----------------------------------------------------------------------- </span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-2-imageCaptFPS"><a href="#2-2-2-imageCaptFPS" class="headerlink" title="2.2.2 imageCaptFPS"></a>2.2.2 imageCaptFPS</h3><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">03:41:47[root@VC-Z] /home/user/vc/Eclipse_Example_Projects_VC_Z/imageCaptFPS</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">./imageCaptFPS</span> </span><br><span class="line">dy= 1024  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     780685us  for 1000 Cycles ==  34.745525fps.</span><br><span class="line">dy= 768  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     789899us  for 1000 Cycles ==  34.734402fps.</span><br><span class="line">dy= 640  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     790000us  for 1000 Cycles ==  34.734283fps.</span><br><span class="line">dy= 512  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     790012us  for 1000 Cycles ==  34.734268fps.</span><br><span class="line">dy= 384  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     790005us  for 1000 Cycles ==  34.734280fps.</span><br><span class="line">dy= 256  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     790000us  for 1000 Cycles ==  34.734283fps.</span><br><span class="line">dy= 192  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     790021us  for 1000 Cycles ==  34.734257fps.</span><br><span class="line">dy= 128  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     789984us  for 1000 Cycles ==  34.734303fps.</span><br><span class="line">dy= 64  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     789987us  for 1000 Cycles ==  34.734299fps.</span><br><span class="line">dy= 32  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     789997us  for 1000 Cycles ==  34.734287fps.</span><br><span class="line">dy= 16  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     790017us  for 1000 Cycles ==  34.734264fps.</span><br><span class="line">dy= 8  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     790002us  for 1000 Cycles ==  34.734280fps.</span><br><span class="line">dy= 4  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     789985us  for 1000 Cycles ==  34.734303fps.</span><br><span class="line">dy= 2  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     789997us  for 1000 Cycles ==  34.734287fps.</span><br><span class="line">dy= 1  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     789994us  for 1000 Cycles ==  34.734291fps.</span><br></pre></td></tr></table></figure>
+
+<p><span style="color:red"><strong>The above 2 examples are directly run on <a target="_blank" rel="noopener" href="https://www.vision-components.com/en/products/oem/3d-systems/arm-stereo-vision/">Vision Components’s board</a> without display, for the given cable is of <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/VGA_connector">VGA connector</a>, which is ALREADY outdated for many years</strong></span>. Therefore, in order to show the captured image pairs, in the next section, we’ll have to stream the captured data to a host computer, and display the real-time video pairs.</p>
+<h2 id="2-3-Stream-Display-From-Host-Computer"><a href="#2-3-Stream-Display-From-Host-Computer" class="headerlink" title="2.3 Stream&#x2F;Display From Host Computer"></a>2.3 Stream&#x2F;Display From Host Computer</h2><p>Due to <strong>Vision Componenets’ Official documentation <a target="_blank" rel="noopener" href="https://www.vision-components.com/fileadmin/user_upload/DE/service-support/doku/doku_ARM-LINUX/VCLinux_Getting_Started.pdf">VCLinux_Getting_Started.pdf</a></strong>, images captured from camera can be displayed on a remote hosting PC.</p>
+<h3 id="2-3-1-Eclipse-Example-Projects-VC-Z-Not-Preferred"><a href="#2-3-1-Eclipse-Example-Projects-VC-Z-Not-Preferred" class="headerlink" title="2.3.1 Eclipse_Example_Projects_VC_Z (Not Preferred)"></a>2.3.1 Eclipse_Example_Projects_VC_Z (Not Preferred)</h3><p><a target="_blank" rel="noopener" href="http://files.vision-components.com/Support/Eclipse_Example_Projects_VC_Z.zip">Eclipse_Example_Projects_VC_Z.zip</a> provides some source code, which displays images captured from camera on the hosting PC’s Eclipse, by adding the camera as a <span style="color:red"><strong>Remote System to Eclipse</strong></span>.<br>Anyway, by using this method, you need to prepare <strong>ALL</strong> the following software and packages in advance.</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.eclipse.org/">Eclipse</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.eclipse.org/cdt/downloads.php">CDT</a>: install by <strong>Check for Updates</strong> with <strong>p2 software repository: <a target="_blank" rel="noopener" href="http://download.eclipse.org/tools/cdt/releases/9.8">http://download.eclipse.org/tools/cdt/releases/9.8</a></strong></li>
+<li><a target="_blank" rel="noopener" href="https://marketplace.eclipse.org/content/direct-remote-c-debugging">Direct Remote C++ Debugging</a>: installed from <a target="_blank" rel="noopener" href="https://marketplace.eclipse.org/">Eclipse Marketplace</a></li>
+</ul>
+<h3 id="2-3-2-vcimgnetclient-py"><a href="#2-3-2-vcimgnetclient-py" class="headerlink" title="2.3.2 vcimgnetclient.py"></a>2.3.2 <a target="_blank" rel="noopener" href="http://vcimgnetclient.py/">vcimgnetclient.py</a></h3><p>Besides the above method, a much more straightforward method is to adopt python script <a target="_blank" rel="noopener" href="http://files.vision-components.com/Support/vcimgnet_PC_clients.zip">vcimgnetclient.py</a> provided by <a target="_blank" rel="noopener" href="https://www.vision-components.com/en/">Vision Components</a>. <span style="color:red"><strong>However</strong></span>, <a target="_blank" rel="noopener" href="http://files.vision-components.com/Support/vcimgnet_PC_clients.zip">vcimgnetclient.py</a> is <span style="color:red"><strong>ONLY python2</strong></span> compatible, and Vision Components has <strong>NO</strong> plan to provide a <span style="color:red"><strong>python3</strong></span> compatible version of <a target="_blank" rel="noopener" href="http://files.vision-components.com/Support/vcimgnet_PC_clients.zip">vcimgnetclient.py</a>.</p>
+<p>Therefore, the <strong>KEY</strong> to use the 2nd method is to make <a target="_blank" rel="noopener" href="http://files.vision-components.com/Support/vcimgnet_PC_clients.zip">vcimgnetclient.py</a> python3 compatible.</p>
+<h4 id="2-3-2-1-2to3"><a href="#2-3-2-1-2to3" class="headerlink" title="2.3.2.1 2to3"></a>2.3.2.1 2to3</h4><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">2to3 vcimgnetclient.py</span></span><br><span class="line">RefactoringTool: Skipping optional fixer: buffer</span><br><span class="line">RefactoringTool: Skipping optional fixer: idioms</span><br><span class="line">RefactoringTool: Skipping optional fixer: set_literal</span><br><span class="line">RefactoringTool: Skipping optional fixer: ws_comma</span><br><span class="line">RefactoringTool: Refactored vcimgnetclient.py</span><br><span class="line">--- vcimgnetclient.py	(original)</span><br><span class="line">+++ vcimgnetclient.py	(refactored)</span><br><span class="line">@@ -274,11 +274,11 @@</span><br><span class="line">             if(chk_rgb_true):</span><br><span class="line">                 dy /= 3</span><br><span class="line">                 #img_data_packed = bytearray(chain.from_iterable(izip(mv_img_data[2 * pitch * dy:], mv_img_data[1 * pitch * dy:], mv_img_data[0 * pitch * dy:])))</span><br><span class="line">-                img_data_packed = bytearray(chain.from_iterable(zip(mv_img_data[2 * pitch * dy:], mv_img_data[1 * pitch * dy:], mv_img_data[0 * pitch * dy:])))</span><br><span class="line">+                img_data_packed = bytearray(chain.from_iterable(list(zip(mv_img_data[2 * pitch * dy:], mv_img_data[1 * pitch * dy:], mv_img_data[0 * pitch * dy:]))))</span><br><span class="line">             else:</span><br><span class="line">                 dy /= 1</span><br><span class="line">                 #img_data_packed = bytearray(chain.from_iterable(izip(mv_img_data[0 * pitch * dy:], mv_img_data[0 * pitch * dy:], mv_img_data[0 * pitch * dy:])))</span><br><span class="line">-            img_data_packed = bytearray(chain.from_iterable(zip(mv_img_data[0 * pitch * dy:], mv_img_data[0 * pitch * dy:], mv_img_data[0 * pitch * dy:])))</span><br><span class="line">+            img_data_packed = bytearray(chain.from_iterable(list(zip(mv_img_data[0 * pitch * dy:], mv_img_data[0 * pitch * dy:], mv_img_data[0 * pitch * dy:]))))</span><br><span class="line">             cpb = Gdk.pixbuf_new_from_data(buffer(img_data_packed), Gdk.COLORSPACE_RGB, False, 8, dx, dy, 3*pitch)</span><br><span class="line">             cpb.save(path, &quot;png&quot;)</span><br><span class="line">             </span><br><span class="line">@@ -589,16 +589,16 @@</span><br><span class="line">                         dy /= 3</span><br><span class="line">                         mv_img_data = memoryview(img[&#x27;data&#x27;])</span><br><span class="line">                         #img_data_packed = bytearray(chain.from_iterable(izip(mv_img_data[2 * pitch * dy:], mv_img_data[1 * pitch * dy:], mv_img_data[0 * pitch * dy:])))</span><br><span class="line">-                        img_data_packed = bytearray(chain.from_iterable(zip(mv_img_data[2 * pitch * dy:], mv_img_data[1 * pitch * dy:], mv_img_data[0 * pitch * dy:])))</span><br><span class="line">+                        img_data_packed = bytearray(chain.from_iterable(list(zip(mv_img_data[2 * pitch * dy:], mv_img_data[1 * pitch * dy:], mv_img_data[0 * pitch * dy:]))))</span><br><span class="line">                         self.area.window.draw_rgb_image(gc, 0,0, dx,dy, Gdk.RGB_DITHER_NONE, buffer(img_data_packed),3*pitch,0,0)</span><br><span class="line">                     else:</span><br><span class="line">                         if(&#x27;flscol&#x27;==self.how_select):</span><br><span class="line">                             mv_img_data = memoryview(img[&#x27;data&#x27;]).tolist()</span><br><span class="line">-                            r_data = map(falsecolor_r,mv_img_data[0 * pitch * dy:])</span><br><span class="line">-                            g_data = map(falsecolor_g,mv_img_data[0 * pitch * dy:])</span><br><span class="line">-                            b_data = map(falsecolor_b,mv_img_data[0 * pitch * dy:])</span><br><span class="line">+                            r_data = list(map(falsecolor_r,mv_img_data[0 * pitch * dy:]))</span><br><span class="line">+                            g_data = list(map(falsecolor_g,mv_img_data[0 * pitch * dy:]))</span><br><span class="line">+                            b_data = list(map(falsecolor_b,mv_img_data[0 * pitch * dy:]))</span><br><span class="line">                             #img_data_packed = bytearray(chain.from_iterable(izip(r_data, g_data, b_data)))</span><br><span class="line">-                            img_data_packed = bytearray(chain.from_iterable(zip(r_data, g_data, b_data)))</span><br><span class="line">+                            img_data_packed = bytearray(chain.from_iterable(list(zip(r_data, g_data, b_data))))</span><br><span class="line">                             self.area.window.draw_rgb_image(gc, 0,0, dx,dy, Gdk.RGB_DITHER_NONE, buffer(img_data_packed),3*pitch,0,0)</span><br><span class="line">                         else: #grey</span><br><span class="line">                             self.area.window.draw_gray_image(gc, 0,0, </span><br><span class="line">RefactoringTool: Files that need to be modified:</span><br><span class="line">RefactoringTool: vcimgnetclient.py</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-3-2-2-pygi-convert"><a href="#2-3-2-2-pygi-convert" class="headerlink" title="2.3.2.2 pygi-convert"></a>2.3.2.2 pygi-convert</h4><p>Please refer to <a target="_blank" rel="noopener" href="https://pygobject.readthedocs.io/en/latest/guide/porting.html">General Porting Tips</a></p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">./pygi-convert.sh vcimgnetclient.py</span></span><br><span class="line"><span class="meta prompt_">longervision-GT72-6QE%</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-3-2-3-Try-Running"><a href="#2-3-2-3-Try-Running" class="headerlink" title="2.3.2.3 Try Running"></a>2.3.2.3 Try Running</h4><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">python vcimgnetclient.py</span> </span><br><span class="line">vcimgnetclient.py:330: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for &quot;type&quot; or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations</span><br><span class="line">  self.window =  Gtk.Window(Gtk.WindowType.TOPLEVEL)</span><br><span class="line">vcimgnetclient.py:628: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for &quot;label&quot; or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations</span><br><span class="line">  mfQuit =  Gtk.MenuItem(&quot;Quit&quot;)</span><br><span class="line">vcimgnetclient.py:629: PyGIDeprecationWarning: Using non GObject arguments for connect_object() is deprecated, use: connect_data(signal, callback, data, connect_flags=GObject.ConnectFlags.SWAPPED)</span><br><span class="line">  mfQuit.connect_object(&quot;activate&quot;, lambda a: Gtk.main_quit(), &quot;mfQuit&quot;)</span><br><span class="line">vcimgnetclient.py:637: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for &quot;label&quot; or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations</span><br><span class="line">  bmf = Gtk.MenuItem(&quot;File&quot;)</span><br><span class="line">vcimgnetclient.py:646: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for &quot;label&quot; or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations</span><br><span class="line">  mhAbout =  Gtk.MenuItem(&quot;About&quot;)</span><br><span class="line">vcimgnetclient.py:654: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for &quot;label&quot; or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations</span><br><span class="line">  bmh = Gtk.MenuItem(&quot;Help&quot;)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;vcimgnetclient.py&quot;, line 812, in &lt;module&gt;</span><br><span class="line">    Main()</span><br><span class="line">  File &quot;vcimgnetclient.py&quot;, line 719, in __init__</span><br><span class="line">    Frontend.__init__(self, self.img_access)</span><br><span class="line">  File &quot;vcimgnetclient.py&quot;, line 301, in __init__</span><br><span class="line">    self.winMain = self.WinMain(arg_img_access, self.dialog)</span><br><span class="line">  File &quot;vcimgnetclient.py&quot;, line 341, in __init__</span><br><span class="line">    vbox.pack_start(self.menu_bar, False, False)</span><br><span class="line">TypeError: Gtk.Box.pack_start() takes exactly 5 arguments (4 given)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-3-2-4"><a href="#2-3-2-4" class="headerlink" title="2.3.2.4"></a>2.3.2.4</h4><p>For <strong>ALL</strong> <code>vbox.pack_start</code>, add one parameter <strong>0</strong> at the end for each case. For instance:<br><code>vbox.pack_start(self.menu_bar, False, False)</code><br>to<br><code>vbox.pack_start(self.menu_bar, False, False, 0)</code></p>
+<p><span style="color:red"><strong>Oh my god … There are STILL SO MANY things to do, in order to make <a target="_blank" rel="noopener" href="http://files.vision-components.com/Support/vcimgnet_PC_clients.zip">vcimgnetclient.py</a> <a target="_blank" rel="noopener" href="https://www.python.org/downloads/">Python3</a> compatible.</strong></span> Therefore, I implement my own <strong>vcimgnetclient_qt.py</strong> based on <a target="_blank" rel="noopener" href="https://pypi.org/project/PyQt5/">PyQt5</a>.</p>
+<h3 id="2-3-3-Longer-Vision’s-vcimgnetclient-qt-py"><a href="#2-3-3-Longer-Vision’s-vcimgnetclient-qt-py" class="headerlink" title="2.3.3 Longer Vision’s vcimgnetclient_qt.py"></a>2.3.3 <a target="_blank" rel="noopener" href="http://www.longervision.cn/">Longer Vision</a>’s vcimgnetclient_qt.py</h3><h4 id="2-3-3-1-Server"><a href="#2-3-3-1-Server" class="headerlink" title="2.3.3.1 Server"></a>2.3.3.1 Server</h4><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">22:42:22[root@VC-Z] /home/user</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="built_in">whoami</span></span></span><br><span class="line">root</span><br><span class="line"></span><br><span class="line">22:42:24[root@VC-Z] /home/user</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">vcimgnetsrv &amp;</span></span><br><span class="line">[1] 896</span><br><span class="line"></span><br><span class="line">22:42:30[root@VC-Z] /home/user</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">ps -e | grep vcimgnetsrv</span></span><br><span class="line">  896 pts/0    00:00:00 vcimgnetsrv</span><br><span class="line"></span><br><span class="line">22:42:40[root@VC-Z] /home/user</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">vctp</span></span><br><span class="line">Acquisiton&amp;Copy Duration:          4s      39644us  for 100 Cycles ==  24.754656fps.</span><br><span class="line"></span><br><span class="line">Acquisiton&amp;Copy Duration:          4s      34709us  for 100 Cycles ==  24.784935fps.</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-3-3-2-Client"><a href="#2-3-3-2-Client" class="headerlink" title="2.3.3.2 Client"></a>2.3.3.2 Client</h4><p>Sorry, I’m <strong>NOT</strong> going to show my code, but the performance can be demonstrated as follows:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/lvt_vc_pyqt5_grab.png" alt="LVT VC PyQt5 GUI"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/FPGA-Vision-Components-Stereo/" rel="tag"># FPGA, Vision Components, Stereo</a>
+          </div>
 
         
 
-
-
-
-
-
-
-
-      </div>
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/08/25/SBCs/ARM/lvt-h3-armbian/" rel="prev" title="Install Armbian Debian onto Longer Vision Technology H3 Board">
+                  <i class="fa fa-angle-left"></i> Install Armbian Debian onto Longer Vision Technology H3 Board
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/09/06/OperatingSystems/CompilersTools/crosstool-ng/" rel="next" title="Build Toolchain Using Crosstool-NG">
+                  Build Toolchain Using Crosstool-NG <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
     </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Nobody</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
+    </div>
+  </footer>
 
   
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
 
-
-
-
-
-
-
+  
 
 
 
@@ -508,7 +399,9 @@
 
   
 
-  
+
+
+
 
 </body>
 </html>
