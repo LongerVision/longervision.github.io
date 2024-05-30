@@ -116,18 +116,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-count">131</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">122</span>
+        <span class="site-state-item-count">125</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -144,6 +144,305 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2022/03/04/AI/CanonicalMachineLearning/EDA-tSNE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Longer Vision Technology">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/03/04/AI/CanonicalMachineLearning/EDA-tSNE/" class="post-title-link" itemprop="url">Exploratory Data Analysis (EDA）and t-distributed Stochastic Neighbor Embedding (t-SNE)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-03-04 00:00:00" itemprop="dateCreated datePublished" datetime="2022-03-04T00:00:00-08:00">2022-03-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-04-30 23:49:36" itemprop="dateModified" datetime="2024-04-30T23:49:36-07:00">2024-04-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/CanonicalMachineLearning/" itemprop="url" rel="index"><span itemprop="name">CanonicalMachineLearning</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+<h1 id="1-Definition-of-EDA"><a href="#1-Definition-of-EDA" class="headerlink" title="1. Definition of EDA"></a>1. Definition of EDA</h1><p>Directly refer to <a target="_blank" rel="noopener" href="https://www.analyticsvidhya.com/blog/2021/04/rapid-fire-eda-process-using-python-for-ml-implementation/">Rapid-Fire EDA process using Python for ML Implementation</a>.</p>
+<p>Clearly, <a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html">PCA</a> is a part of <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Electronic_design_automation">EDA</a>.</p>
+<p>Here is another good tutorial for <a target="_blank" rel="noopener" href="https://www.analyticsvidhya.com/blog/2021/04/rapid-fire-eda-process-using-python-for-ml-implementation/">EDA</a>: <a target="_blank" rel="noopener" href="https://towardsdatascience.com/a-starter-pack-to-exploratory-data-analysis-with-python-pandas-seaborn-and-scikit-learn-a77889485baf">A Starter Pack to Exploratory Data Analysis with Python, pandas, seaborn, and scikit-learn</a>.</p>
+<h1 id="2-Visualization-with-t-SNE"><a href="#2-Visualization-with-t-SNE" class="headerlink" title="2. Visualization with t-SNE"></a>2. Visualization with <a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">t-SNE</a></h1><ul>
+<li>Definition: <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/T-distributed_stochastic_neighbor_embedding">t-SNE  on Wikipedia</a></li>
+<li>t-SNE in <a target="_blank" rel="noopener" href="https://scikit-learn.org/">scikit-learn</a>: <a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">sklearn.manifold.TSNE</a></li>
+<li>Tutorials:<ul>
+<li><a target="_blank" rel="noopener" href="https://towardsdatascience.com/visualising-high-dimensional-datasets-using-pca-and-t-sne-in-python-8ef87e7915b">Visualising high-dimensional datasets using PCA and t-SNE in Python</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.datacamp.com/community/tutorials/introduction-t-sne">Introduction to t-SNE</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="3-Try-Analyzing-and-Visualizing-MNIST"><a href="#3-Try-Analyzing-and-Visualizing-MNIST" class="headerlink" title="3. Try Analyzing and Visualizing MNIST"></a>3. Try Analyzing and Visualizing <a target="_blank" rel="noopener" href="http://yann.lecun.com/exdb/mnist/">MNIST</a></h1><p>Let’s just refer to the <a target="_blank" rel="noopener" href="https://towardsdatascience.com/visualising-high-dimensional-datasets-using-pca-and-t-sne-in-python-8ef87e7915b"><strong>FIRST</strong> tutorial</a> and try out how to analyze and visualize the famous dataset <a target="_blank" rel="noopener" href="http://yann.lecun.com/exdb/mnist/">MNIST</a>.</p>
+<p>Please refer to my <strong>copy-paste-modification</strong> <code>jupyter notebook</code> code at <a target="_blank" rel="noopener" href="https://github.com/LongerVision/Kaggle/blob/main/fundamentals/EDA-tSNE-1-MNIST.ipynb">https://github.com/LongerVision/Kaggle</a>.</p>
+<iframe src="https://nbviewer.org/github/LongerVision/Kaggle/blob/main/fundamentals/EDA-tSNE-1-MNIST.ipynb" width="800" height="600"></iframe>
+
+
+
+<h1 id="4-Try-Analyzing-and-Visualizing-Fashion-MNIST"><a href="#4-Try-Analyzing-and-Visualizing-Fashion-MNIST" class="headerlink" title="4. Try Analyzing and Visualizing Fashion-MNIST"></a>4. Try Analyzing and Visualizing <a target="_blank" rel="noopener" href="https://github.com/zalandoresearch/fashion-mnist">Fashion-MNIST</a></h1><p>Let’s then refer to the <a target="_blank" rel="noopener" href="https://www.datacamp.com/community/tutorials/introduction-t-sne"><strong>SECOND</strong> tutorial</a> and try out how to analyze and visualize <a target="_blank" rel="noopener" href="https://github.com/zalandoresearch/fashion-mnist">Fashion-MNIST</a>.</p>
+<p>Please refer to my <strong>copy-paste-modification</strong> <code>jupyter notebook</code> code at <a target="_blank" rel="noopener" href="https://github.com/LongerVision/Kaggle/blob/main/fundamentals/EDA-tSNE-2-MNIST.ipynb">https://github.com/LongerVision/Kaggle</a>.</p>
+<iframe src="https://nbviewer.org/github/LongerVision/Kaggle/blob/main/fundamentals/EDA-tSNE-2-MNIST.ipynb" width="800" height="600"></iframe>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2022/03/01/AI/Kaggle/birdclef-2022/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Longer Vision Technology">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/03/01/AI/Kaggle/birdclef-2022/" class="post-title-link" itemprop="url">BirdCLEF 2022</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-03-01 00:00:00" itemprop="dateCreated datePublished" datetime="2022-03-01T00:00:00-08:00">2022-03-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-11-21 23:06:29" itemprop="dateModified" datetime="2023-11-21T23:06:29-08:00">2023-11-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/Kaggle/" itemprop="url" rel="index"><span itemprop="name">Kaggle</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="1-EDA-Analysis"><a href="#1-EDA-Analysis" class="headerlink" title="1. EDA Analysis"></a>1. EDA Analysis</h1>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2022/02/13/AI/DeepLearning/Activation-Functions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Longer Vision Technology">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/02/13/AI/DeepLearning/Activation-Functions/" class="post-title-link" itemprop="url">Activation Functions</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-02-13 00:00:00" itemprop="dateCreated datePublished" datetime="2022-02-13T00:00:00-08:00">2022-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-11-21 23:06:29" itemprop="dateModified" datetime="2023-11-21T23:06:29-08:00">2023-11-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Happy new year everyone. Such a long time I haven’t taken a look at <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Activation_function">activation functions</a>. It might be a good time for me to review and check.</p>
+<h1 id="1-Resource"><a href="#1-Resource" class="headerlink" title="1. Resource"></a>1. Resource</h1><p>Let’s first take a look at <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Activation_function">activation functions</a> of year 2022.</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Activation_function">Wikipedia</a></li>
+<li><a target="_blank" rel="noopener" href="https://krutikabapat.github.io/Swish-Vs-Mish-Latest-Activation-Functions/">Swish Vs Mish: Latest Activation Functions</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.mdpi.com/2079-9292/11/4/540/pdf">Smish: A Novel Activation Function for Deep Learning Methods</a>, strongly recommend to read this article</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/nmaac/acon">ACON - Activate or Not: Learning Customized Activation, CVPR 2021.</a>, same thing can be found at <a target="_blank" rel="noopener" href="https://programmer.ink/think/summary-of-neural-network-activation-function-2022.01.html">Summary of neural network activation function. 2022.01</a>, strongly recommend to read this article</li>
+<li><a target="_blank" rel="noopener" href="https://www.analyticsvidhya.com/blog/2022/01/activation-functions-for-neural-networks-and-their-implementation-in-python/">Activation Functions for Neural Networks and their Implementation in Python</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.v7labs.com/blog/neural-networks-activation-functions">12 Types of Neural Network Activation Functions: How to Choose?</a></li>
+</ul>
+<p>I would strongly recommend you to read the 2 articles mentioned above, particularly: <a target="_blank" rel="noopener" href="https://www.mdpi.com/2079-9292/11/4/540/pdf">Smish</a>.</p>
+<h1 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h1>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1174,369 +1473,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2021/06/26/AI/DeepLearning/Pivotal-Tuning-Inversion-StyleGAN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Longer Vision Technology">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/06/26/AI/DeepLearning/Pivotal-Tuning-Inversion-StyleGAN/" class="post-title-link" itemprop="url">Pivotal Tuning Inversion (PTI)</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-06-26 00:00:00" itemprop="dateCreated datePublished" datetime="2021-06-26T00:00:00-07:00">2021-06-26</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-11-21 23:06:29" itemprop="dateModified" datetime="2023-11-21T23:06:29-08:00">2023-11-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Back to Canada for around 1 month. It’s the time for me to write something. Good to know that <a target="_blank" rel="noopener" href="https://github.com/danielroich/PTI">PTI</a> is released open source a couple of days ago. Let’s take a look at its performance today. Sorry that I seriously have <strong>NO</strong> time to investigate the details, having been busy in a robotic arm project. Therefore, a couple of resultant images are displayed as follows to demonstrate <a target="_blank" rel="noopener" href="https://github.com/danielroich/PTI">PTI</a>‘s performance.</p>
-<h2 id="Style-Change-on-Myself"><a href="#Style-Change-on-Myself" class="headerlink" title="Style Change on Myself"></a>Style Change on Myself</h2><table>
-<thead>
-<tr>
-<th align="center">When I was young</th>
-<th align="center">Aligned Image</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/01_personal_image.png" alt="When I was young"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/02_aligned_image.png" alt="Aligned Image"></td>
-</tr>
-<tr>
-<td align="center">Inversion before PTI</td>
-<td align="center">PTIed Image</td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/03_inversion_before_PTI.png" alt="Inversion before PTI"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/04_PTI.png" alt="PTIed Image"></td>
-</tr>
-<tr>
-<td align="center">Rotation Left before PTI</td>
-<td align="center">Rotation Left PTIed Image</td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/05_rotation_left_before_PTI.png" alt="Rotation Left before PTI"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/05_rotation_left_PTI.png" alt="Rotation Left PTIed Image"></td>
-</tr>
-<tr>
-<td align="center">Rotation Right before PTI</td>
-<td align="center">Rotation Right PTIed Image</td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/06_rotation_right_before_PTI.png" alt="Rotation Left before PTI"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/06_rotation_right_PTI.png" alt="Rotation Left PTIed Image"></td>
-</tr>
-<tr>
-<td align="center">No Smile before PTI</td>
-<td align="center">No Smile PTIed Image</td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/07_no_smile_before_PTI.png" alt="No Smile before PTI"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/07_no_smile_PTI.png" alt="No Smile PTIed Image"></td>
-</tr>
-<tr>
-<td align="center">Smile before PTI</td>
-<td align="center">Smile PTIed Image</td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/08_smile_before_PTI.png" alt="Smile before PTI"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/08_smile_PTI.png" alt="Smile PTIed Image"></td>
-</tr>
-<tr>
-<td align="center">Young before PTI</td>
-<td align="center">Young PTIed Image</td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/09_young_before_PTI.png" alt="Young before PTI"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/09_young_PTI.png" alt="Young PTIed Image"></td>
-</tr>
-<tr>
-<td align="center">Old before PTI</td>
-<td align="center">Old PTIed Image</td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/10_old_before_PTI.png" alt="Old before PTI"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/10_old_PTI.png" alt="Old PTIed Image"></td>
-</tr>
-</tbody></table>
-<h2 id="Style-Change-to-Another-Person"><a href="#Style-Change-to-Another-Person" class="headerlink" title="Style Change to Another Person"></a>Style Change to Another Person</h2><table>
-<thead>
-<tr>
-<th align="center">afro</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/11_afro.png" alt="Afro"></td>
-</tr>
-<tr>
-<td align="center">mohawk</td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/StyleGAN/PTI/12_mohawk.png" alt="Afro"></td>
-</tr>
-</tbody></table>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2020/10/04/Personal/music_Chinese_style/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Longer Vision Technology">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/10/04/Personal/music_Chinese_style/" class="post-title-link" itemprop="url">Music - Chinese Style</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2020-10-04 00:00:00" itemprop="dateCreated datePublished" datetime="2020-10-04T00:00:00-07:00">2020-10-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-11-21 23:06:29" itemprop="dateModified" datetime="2023-11-21T23:06:29-08:00">2023-11-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Personal/" itemprop="url" rel="index"><span itemprop="name">Personal</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Music day. This is <strong>THE</strong> traditional Chinese culture. Revolution culture HAS <strong>NEVER</strong> BEEN.</p>
-<iframe width="1280" height="720" src="https://youtu.be/nI-6Uv0U028" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-<!-- https://www.youtube.com/embed/2dIqUZRgFLw -->
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2020/10/02/AI/DeepLearning/ENet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Longer Vision Technology">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/10/02/AI/DeepLearning/ENet/" class="post-title-link" itemprop="url">ENet Real-Time Semantic Segmentation</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2020-10-02 00:00:00" itemprop="dateCreated datePublished" datetime="2020-10-02T00:00:00-07:00">2020-10-02</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-11-21 23:06:29" itemprop="dateModified" datetime="2023-11-21T23:06:29-08:00">2023-11-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1606.02147">ENet</a> was published in 2016… Hmmmm… It’s a shame that I just got to know it… Anyway, the performance seems to be <strong>REALLY GOOD</strong>…</p>
-<div style="font-size:5rem;width:100%;text-align:center;">
-    <span class="emoji" alias="+1" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f44d.png?v8">&#x1f44d;</span>
-</div>
-
-
-<p>In fact, this video is somewhat <strong>stolen</strong>. I would like to advertise for <strong>SOME</strong> publication. I’ll let you know a couple of months later.</p>
-<p>It’s sad to hear <a target="_blank" rel="noopener" href="https://www.whitehouse.gov/people/donald-j-trump/">Donald J. Trump</a> is detected as <strong>positive</strong> and now a <strong>patient</strong>, please refer to <a target="_blank" rel="noopener" href="https://www.cnn.com/2020/10/02/politics/president-donald-trump-coronavirus-positive-test/index.html">Trump’s positive Covid-19 test throws country into fresh upheaval</a>. I really would suggest <strong>everybody</strong>, particularly <strong>me</strong>, to be <strong>ALWAYS positive</strong> and <strong>patient</strong>. <a target="_blank" rel="noopener" href="https://www.kelowna.ca/">Kelowna</a>, I’m coming to you again.</p>
-<iframe width="1280" height="1024" src="https://www.youtube.com/embed/__hu4Jfw_Qo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
