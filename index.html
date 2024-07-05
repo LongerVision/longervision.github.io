@@ -116,7 +116,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -127,7 +127,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">126</span>
+        <span class="site-state-item-count">127</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -144,6 +144,126 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2024/07/05/MachineVision/RGBD/RealSense-LiDAR-D435/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Longer Vision Technology">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/07/05/MachineVision/RGBD/RealSense-LiDAR-D435/" class="post-title-link" itemprop="url">Intel RealSense LiDAR Camera D435</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2024-07-05 00:00:00 / Modified: 15:06:21" itemprop="dateCreated datePublished" datetime="2024-07-05T00:00:00-07:00">2024-07-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Machine-Vision/" itemprop="url" rel="index"><span itemprop="name">Machine Vision</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Machine-Vision/RGBD/" itemprop="url" rel="index"><span itemprop="name">RGBD</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Today, we’re playing <a target="_blank" rel="noopener" href="https://www.intelrealsense.com/depth-camera-d435/">Intel RealSense LiDAR Camera L515</a>.</p>
+<h1 id="0-my-working-environment"><a class="markdownIt-Anchor" href="#0-my-working-environment"></a> 0. My Working Environment</h1>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ lsb_release -a             </span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID:	Ubuntu</span><br><span class="line">Description:	Ubuntu 24.04 LTS</span><br><span class="line">Release:	24.04</span><br><span class="line">Codename:	noble</span><br><span class="line"></span><br><span class="line">$ uname -r                             </span><br><span class="line">6.8.0-36-generic</span><br></pre></td></tr></table></figure>
+<h1 id="1-azure-kinect-dk"><a class="markdownIt-Anchor" href="#1-azure-kinect-dk"></a> 1. [Azure Kinect DK]</h1>
+<h2 id="11-overview"><a class="markdownIt-Anchor" href="#11-overview"></a> 1.1 Overview</h2>
+<p><img src="https://www.intelrealsense.com/wp-content/uploads/2019/02/stereo_DT_d435_front-crop1a.png" alt="" /></p>
+<h2 id="12-hardware-specification"><a class="markdownIt-Anchor" href="#12-hardware-specification"></a> 1.2 Hardware Specification</h2>
+<p>Refer to <a target="_blank" rel="noopener" href="https://www.intelrealsense.com/download/21345/?tmstv=1697035582">Tech Specs pdf</a>.</p>
+<h1 id="2-lsusb-and-demonstration"><a class="markdownIt-Anchor" href="#2-lsusb-and-demonstration"></a> 2. <code>lsusb</code> and Demonstration</h1>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ lsusb | grep -i RealSense</span><br><span class="line">Bus 010 Device 012: ID 8086:0b07 Intel Corp. RealSense D435</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">realsense-viewer GUI</th>
+<th style="text-align:center">Firmware Upgrading from within realsense-viewer GUI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/IntelRealSenseD435/RealSense_Viewer.png" width="480"></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/IntelRealSenseD435/RealSense_Viewer.png" width="480"></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Viewing Depth Image in 2D</th>
+<th style="text-align:center">Viewing Depth Image in 3D</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/IntelRealSenseD435/D435_Depth_2D.png" width="480"></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/IntelRealSenseD435/D435_Depth_3D.png" width="480"></td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -189,7 +309,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-07-05 00:40:19" itemprop="dateModified" datetime="2024-07-05T00:40:19-07:00">2024-07-05</time>
+      <time title="Modified: 2024-07-05 15:06:28" itemprop="dateModified" datetime="2024-07-05T15:06:28-07:00">2024-07-05</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -216,44 +336,54 @@
     
     <div class="post-body" itemprop="articleBody">
           <p>I tried <a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/d/azure-kinect-dk/8pp5vxmd9nhq?activetab=pivot:overviewtab">Azure Kinect DK</a> 2 years ago, and rencently I’d love to some fun with it again.</p>
-<h1 id="0-My-Working-Environment"><a href="#0-My-Working-Environment" class="headerlink" title="0. My Working Environment"></a>0. My Working Environment</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ lsb_release -a             </span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID:	Ubuntu</span><br><span class="line">Description:	Ubuntu 24.04 LTS</span><br><span class="line">Release:	24.04</span><br><span class="line">Codename:	noble</span><br><span class="line"></span><br><span class="line">$ uname -r                             </span><br><span class="line">6.8.0-36-generic</span><br></pre></td></tr></table></figure>
-
-<h1 id="1-Azure-Kinect-DK"><a href="#1-Azure-Kinect-DK" class="headerlink" title="1. Azure Kinect DK"></a>1. <a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/d/azure-kinect-dk/8pp5vxmd9nhq?activetab=pivot:overviewtab">Azure Kinect DK</a></h1><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/MicrosoftAzureKinect/AzureKinectSensor.png"></p>
-<h1 id="2-lsusb-and-Test"><a href="#2-lsusb-and-Test" class="headerlink" title="2. lsusb and Test"></a>2. <code>lsusb</code> and Test</h1><blockquote>
-<p><strong>[<span style="color:red">Note: </span>]</strong><br><span style="color:red"><a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/d/azure-kinect-dk/8pp5vxmd9nhq?activetab=pivot:overviewtab">Azure Kinect DK</a> is quite picky at USB cables.</p>
+<h1 id="0-my-working-environment"><a class="markdownIt-Anchor" href="#0-my-working-environment"></a> 0. My Working Environment</h1>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ lsb_release -a             </span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID:	Ubuntu</span><br><span class="line">Description:	Ubuntu 24.04 LTS</span><br><span class="line">Release:	24.04</span><br><span class="line">Codename:	noble</span><br><span class="line"></span><br><span class="line">$ uname -r                             </span><br><span class="line">6.8.0-36-generic</span><br></pre></td></tr></table></figure>
+<h1 id="1-azure-kinect-dk"><a class="markdownIt-Anchor" href="#1-azure-kinect-dk"></a> 1. <a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/d/azure-kinect-dk/8pp5vxmd9nhq?activetab=pivot:overviewtab">Azure Kinect DK</a></h1>
+<h2 id="11-overview"><a class="markdownIt-Anchor" href="#11-overview"></a> 1.1 Overview</h2>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/MicrosoftAzureKinect/AzureKinectSensor.png" alt="" /></p>
+<h2 id="12-hardware-specification"><a class="markdownIt-Anchor" href="#12-hardware-specification"></a> 1.2 Hardware Specification</h2>
+<p>Refer to <a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/azure/kinect-dk/hardware-specification">Azure Kinect DK hardware specifications</a>.</p>
+<h1 id="2-lsusb-and-demonstration"><a class="markdownIt-Anchor" href="#2-lsusb-and-demonstration"></a> 2. <code>lsusb</code> and Demonstration</h1>
+<blockquote>
+<p><strong>[<span style="color:red">Note: </span>]</strong><br />
+<span style="color:red"><a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/d/azure-kinect-dk/8pp5vxmd9nhq?activetab=pivot:overviewtab">Azure Kinect DK</a> is quite picky at USB cables.</p>
 </blockquote>
-<h2 id="2-1-Nothing-Detected"><a href="#2-1-Nothing-Detected" class="headerlink" title="2.1 Nothing Detected"></a>2.1 Nothing Detected</h2><p>For some USB cables, <code>lsusb</code> shows nothing related to <a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/d/azure-kinect-dk/8pp5vxmd9nhq?activetab=pivot:overviewtab">Azure Kinect DK</a>.</p>
+<h2 id="21-nothing-detected"><a class="markdownIt-Anchor" href="#21-nothing-detected"></a> 2.1 Nothing Detected</h2>
+<p>For some USB cables, <code>lsusb</code> shows nothing related to <a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/d/azure-kinect-dk/8pp5vxmd9nhq?activetab=pivot:overviewtab">Azure Kinect DK</a>.</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ lsusb | grep Azure</span><br></pre></td></tr></table></figure>
-
 <p>Please also refer to: <a target="_blank" rel="noopener" href="https://github.com/microsoft/Azure-Kinect-Sensor-SDK/issues/1646">cannot connect via Thunderbolt 3</a>.</p>
-<h2 id="2-2-Detected"><a href="#2-2-Detected" class="headerlink" title="2.2 Detected"></a>2.2 Detected</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ AzureKinectFirmwareTool -q</span><br><span class="line"> == Azure Kinect DK Firmware Tool == </span><br><span class="line">Device Serial Number: 000593414512</span><br><span class="line">Current Firmware Versions:</span><br><span class="line">  RGB camera firmware:      1.6.110</span><br><span class="line">  Depth camera firmware:    1.6.80</span><br><span class="line">  Depth config file:        6109.7</span><br><span class="line">  Audio firmware:           1.6.14</span><br><span class="line">  Build Config:             Production</span><br><span class="line">  Certificate Type:         Microsoft</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-2-1-k4aviewer-No-Available-Devices"><a href="#2-2-1-k4aviewer-No-Available-Devices" class="headerlink" title="2.2.1 k4aviewer No Available Devices"></a>2.2.1 <a target="_blank" rel="noopener" href="https://github.com/microsoft/Azure-Kinect-Sensor-SDK/tree/develop/tools/k4aviewer">k4aviewer</a> <code>No Available Devices</code></h2><p>For other USB cables, <code>lsusb</code> detects <a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/d/azure-kinect-dk/8pp5vxmd9nhq?activetab=pivot:overviewtab">Azure Kinect DK</a>, but failed to run <a target="_blank" rel="noopener" href="https://github.com/microsoft/Azure-Kinect-Sensor-SDK/tree/develop/tools/k4aviewer">k4aviewer</a>.</p>
+<h2 id="22-detected"><a class="markdownIt-Anchor" href="#22-detected"></a> 2.2 Detected</h2>
+<p>For other USB cables, both <code>lsusb</code> and <strong>AzureKinectFirmwareTool</strong> are able to detect <a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/d/azure-kinect-dk/8pp5vxmd9nhq?activetab=pivot:overviewtab">Azure Kinect DK</a>.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ AzureKinectFirmwareTool -q</span><br><span class="line"> == Azure Kinect DK Firmware Tool == </span><br><span class="line">Device Serial Number: 000593414512</span><br><span class="line">Current Firmware Versions:</span><br><span class="line">  RGB camera firmware:      1.6.110</span><br><span class="line">  Depth camera firmware:    1.6.80</span><br><span class="line">  Depth config file:        6109.7</span><br><span class="line">  Audio firmware:           1.6.14</span><br><span class="line">  Build Config:             Production</span><br><span class="line">  Certificate Type:         Microsoft</span><br></pre></td></tr></table></figure>
+<h2 id="221-k4aviewer-no-available-devices"><a class="markdownIt-Anchor" href="#221-k4aviewer-no-available-devices"></a> 2.2.1 <a target="_blank" rel="noopener" href="https://github.com/microsoft/Azure-Kinect-Sensor-SDK/tree/develop/tools/k4aviewer">k4aviewer</a> <code>No Available Devices</code></h2>
+<p>However, when we run <a target="_blank" rel="noopener" href="https://github.com/microsoft/Azure-Kinect-Sensor-SDK/tree/develop/tools/k4aviewer">k4aviewer</a>, it still shows <strong>No Available Devices</strong>.</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ lsusb | grep Azure</span><br><span class="line">Bus 009 Device 007: ID 045e:097b Microsoft Corp. Generic Hub [Azure Kinect]</span><br><span class="line">Bus 009 Device 008: ID 045e:097d Microsoft Corp. Azure Kinect 4K Camera</span><br><span class="line">Bus 009 Device 009: ID 045e:097c Microsoft Corp. Azure Kinect Depth Camera</span><br><span class="line">Bus 009 Device 010: ID 045e:097e Microsoft Corp. Azure Kinect Microphone Array</span><br></pre></td></tr></table></figure>
-
 <table>
 <thead>
 <tr>
-<th align="center">No Available Devices</th>
-<th align="center">No Available Devices, Errors</th>
+<th style="text-align:center">No Available Devices</th>
+<th style="text-align:center">No Available Devices, Errors</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/MicrosoftAzureKinect/k4aviewer_01.png" width="480"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/MicrosoftAzureKinect/k4aviewer_02.png" width="480"></td>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/MicrosoftAzureKinect/k4aviewer_01.png" width="480"></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/MicrosoftAzureKinect/k4aviewer_02.png" width="480"></td>
 </tr>
-</tbody></table>
-<h2 id="2-2-2-Detect-Okay-And-Run-Successfully"><a href="#2-2-2-Detect-Okay-And-Run-Successfully" class="headerlink" title="2.2.2 Detect Okay And Run Successfully"></a>2.2.2 Detect Okay And Run Successfully</h2><p>Fortunately, I got one cable working perperly, but <code>lsusb</code> failed to detect <a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/d/azure-kinect-dk/8pp5vxmd9nhq?activetab=pivot:overviewtab">Azure Kinect DK</a>‘s Microphone Array.</p>
+</tbody>
+</table>
+<h2 id="222-detect-okay-and-run-successfully"><a class="markdownIt-Anchor" href="#222-detect-okay-and-run-successfully"></a> 2.2.2 Detect Okay And Run Successfully</h2>
+<p>Fortunately, I got one cable working partially perperly, but <code>lsusb</code> failed to detect <a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/d/azure-kinect-dk/8pp5vxmd9nhq?activetab=pivot:overviewtab">Azure Kinect DK</a>’s Microphone Array.</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ lsusb | grep -i Azure </span><br><span class="line">Bus 010 Device 002: ID 045e:097a Microsoft Corp. Generic Superspeed Hub [Azure Kinect]</span><br><span class="line">Bus 010 Device 003: ID 045e:097c Microsoft Corp. Azure Kinect Depth Camera</span><br><span class="line">Bus 010 Device 004: ID 045e:097d Microsoft Corp. Azure Kinect 4K Camera</span><br></pre></td></tr></table></figure>
-
-
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/MicrosoftAzureKinect/k4aviewer_03.png"></p>
-<h2 id="2-3-I-Believe"><a href="#2-3-I-Believe" class="headerlink" title="2.3 I Believe"></a>2.3 <a target="_blank" rel="noopener" href="https://youtu.be/W-LHqZc-UR8">I Believe</a></h2><p><a target="_blank" rel="noopener" href="https://youtu.be/W-LHqZc-UR8">I Believe</a> there is such a USB cable that can show ALL of the following:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/MicrosoftAzureKinect/k4aviewer_03.png" alt="" /></p>
+<h2 id="23-i-believe"><a class="markdownIt-Anchor" href="#23-i-believe"></a> 2.3 <a target="_blank" rel="noopener" href="https://youtu.be/W-LHqZc-UR8">I Believe</a></h2>
+<p><a target="_blank" rel="noopener" href="https://youtu.be/W-LHqZc-UR8">I Believe</a> there is such a USB cable that can show ALL of the following:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ lsusb | grep Azure</span><br><span class="line">Bus XXX Device YYY:   ID 045e:097a Microsoft Corp. Generic Superspeed Hub [Azure Kinect]</span><br><span class="line">Bus XXX Device YYY+1: ID 045e:097b Microsoft Corp. Generic Hub [Azure Kinect]</span><br><span class="line">Bus XXX Device YYY+2: ID 045e:097d Microsoft Corp. Azure Kinect 4K Camera</span><br><span class="line">Bus XXX Device YYY+3: ID 045e:097c Microsoft Corp. Azure Kinect Depth Camera</span><br><span class="line">Bus XXX Device YYY+4: ID 045e:097e Microsoft Corp. Azure Kinect Microphone Array</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="3-libdepthengine-so"><a href="#3-libdepthengine-so" class="headerlink" title="3. libdepthengine.so"></a>3. libdepthengine.so</h1><p>Currently, <a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/d/azure-kinect-dk/8pp5vxmd9nhq?activetab=pivot:overviewtab">Azure Kinect DK</a> is supported by <a target="_blank" rel="noopener" href="https://releases.ubuntu.com/18.04/">Ubuntu 18.04</a> <strong>ONLY</strong>. However, the <a target="_blank" rel="noopener" href="https://packages.microsoft.com/ubuntu/18.04/prod/pool/main/libk/libk4a1.4/">libdepthengine.so.2.0</a> is working fine under my <a target="_blank" rel="noopener" href="https://releases.ubuntu.com/noble/">Ubuntu 24.04</a>, which can be extracted directly from the package <a target="_blank" rel="noopener" href="https://packages.microsoft.com/ubuntu/18.04/prod/pool/main/libk/libk4a1.4/libk4a1.4_1.4.2_amd64.deb">libk4a1.4_1.4.2_amd64.deb</a>. Save <a target="_blank" rel="noopener" href="https://packages.microsoft.com/ubuntu/18.04/prod/pool/main/libk/libk4a1.4/">libdepthengine.so.2.0</a> under any <code>$PATH</code>, and create a symbolic link if you want to.</p>
-<h1 id="4-Build-Azure-Kinect-Sensor-SDK-Longer-Vision-From-Source"><a href="#4-Build-Azure-Kinect-Sensor-SDK-Longer-Vision-From-Source" class="headerlink" title="4. Build Azure-Kinect-Sensor-SDK Longer Vision From Source"></a>4. Build <a target="_blank" rel="noopener" href="https://github.com/LongerVisionUSA/Azure-Kinect-Sensor-SDK">Azure-Kinect-Sensor-SDK Longer Vision</a> From Source</h1><p>Don’t use the original <a target="_blank" rel="noopener" href="https://github.com/microsoft/Azure-Kinect-Sensor-SDK">Azure-Kinect-Sensor-SDK</a>. Use <a target="_blank" rel="noopener" href="https://github.com/LongerVisionUSA/Azure-Kinect-Sensor-SDK">Azure-Kinect-Sensor-SDK Longer Vision</a> instead.</p>
+<p>Unfortunately, I don’t have one at hand for now.</p>
+<h1 id="3-libdepthengineso"><a class="markdownIt-Anchor" href="#3-libdepthengineso"></a> 3. <a target="_blank" rel="noopener" href="http://libdepthengine.so">libdepthengine.so</a></h1>
+<p>Currently, <a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/d/azure-kinect-dk/8pp5vxmd9nhq?activetab=pivot:overviewtab">Azure Kinect DK</a> is supported by <a target="_blank" rel="noopener" href="https://releases.ubuntu.com/18.04/">Ubuntu 18.04</a> <strong>ONLY</strong>. However, the <a target="_blank" rel="noopener" href="https://packages.microsoft.com/ubuntu/18.04/prod/pool/main/libk/libk4a1.4/">libdepthengine.so.2.0</a> is working fine under my <a target="_blank" rel="noopener" href="https://releases.ubuntu.com/noble/">Ubuntu 24.04</a>, which can be extracted directly from the package <a target="_blank" rel="noopener" href="https://packages.microsoft.com/ubuntu/18.04/prod/pool/main/libk/libk4a1.4/libk4a1.4_1.4.2_amd64.deb">libk4a1.4_1.4.2_amd64.deb</a>. Save <a target="_blank" rel="noopener" href="https://packages.microsoft.com/ubuntu/18.04/prod/pool/main/libk/libk4a1.4/">libdepthengine.so.2.0</a> under any <code>$PATH</code>, and create a symbolic link if you want to.</p>
+<h1 id="4-build-azure-kinect-sensor-sdk-longer-vision-from-source"><a class="markdownIt-Anchor" href="#4-build-azure-kinect-sensor-sdk-longer-vision-from-source"></a> 4. Build <a target="_blank" rel="noopener" href="https://github.com/LongerVisionUSA/Azure-Kinect-Sensor-SDK">Azure-Kinect-Sensor-SDK Longer Vision</a> From Source</h1>
+<p>Don’t use the original <a target="_blank" rel="noopener" href="https://github.com/microsoft/Azure-Kinect-Sensor-SDK">Azure-Kinect-Sensor-SDK</a>. Use <a target="_blank" rel="noopener" href="https://github.com/LongerVisionUSA/Azure-Kinect-Sensor-SDK">Azure-Kinect-Sensor-SDK Longer Vision</a> instead.</p>
 
       
     </div>
@@ -1348,141 +1478,6 @@
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">debian@BeagleV:~$ neofetch</span><br><span class="line">       _,met$$$$$gg.          debian@BeagleV </span><br><span class="line">    ,g$$$$$$$$$$$$$$$P.       -------------- </span><br><span class="line">  ,g$$P&quot;     &quot;&quot;&quot;Y$$.&quot;.        OS: Debian GNU/Linux trixie/sid riscv64 </span><br><span class="line"> ,$$P&#x27;              `$$$.     Host: BeagleBoard BeagleV-Fire </span><br><span class="line">&#x27;,$$P       ,ggs.     `$$b:   Kernel: 6.1.43-linux4microchip+fpga-2023.09-20231219+ </span><br><span class="line">`d$$&#x27;     ,$P&quot;&#x27;   .    $$$    Uptime: 12 mins </span><br><span class="line"><span class="meta prompt_"> $</span><span class="language-bash"><span class="variable">$P</span>      d$<span class="string">&#x27;     ,    $$P    Packages: 587 (dpkg)</span></span> </span><br><span class="line"><span class="meta prompt_"> $</span><span class="language-bash"><span class="string">$:      $$.   -    ,d$$&#x27;</span>    Shell: bash 5.2.21</span> </span><br><span class="line"><span class="meta prompt_"> $</span><span class="language-bash">$;      Y<span class="variable">$b</span>._   _,d<span class="variable">$P</span><span class="string">&#x27;      Terminal: /dev/pts/0</span></span> </span><br><span class="line"><span class="meta prompt_"> Y$</span><span class="language-bash"><span class="string">$.    `.`&quot;Y$$$$P&quot;&#x27;</span>         CPU: (4)</span> </span><br><span class="line"> `$$b      &quot;-.__              Memory: 88MiB / 1541MiB </span><br><span class="line">  `Y$$</span><br><span class="line">   `Y$$.                                              </span><br><span class="line">     `$$b.                                            </span><br><span class="line">       `Y$$b.</span><br><span class="line">          `&quot;Y$b._</span><br><span class="line">              `&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
 
 <p><strong><span style="color:red">Bingo!!! Debian!!! </span></strong></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2023/12/18/OperatingSystems/LinuxKenerl/riscv/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Longer Vision Technology">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/12/18/OperatingSystems/LinuxKenerl/riscv/" class="post-title-link" itemprop="url">RISC-V</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2023-12-18 22:43:00" itemprop="dateCreated datePublished" datetime="2023-12-18T22:43:00-08:00">2023-12-18</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-05-30 00:39:57" itemprop="dateModified" datetime="2024-05-30T00:39:57-07:00">2024-05-30</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Operating-System/" itemprop="url" rel="index"><span itemprop="name">Operating System</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Operating-System/Linux-Kernel/" itemprop="url" rel="index"><span itemprop="name">Linux  Kernel</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Today, I would disclose <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/RISC-V">RISC-V</a>. Let’s save my word and dive into it directly. As of today, December 18, 2023, <strong>MOST</strong> of <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/RISC-V">RISC-V</a> chips are designed and manufactured by Chinese companies.</p>
-<h1 id="0-Related-Companies"><a href="#0-Related-Companies" class="headerlink" title="0. Related Companies"></a>0. Related Companies</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://www.andestech.com/">Andes Tech</a> - headquarter in Taiwan</li>
-<li><a target="_blank" rel="noopener" href="https://www.sifive.com/">SiFive</a> - headquarter in Santa Clara, USA</li>
-<li><a target="_blank" rel="noopener" href="https://www.starfivetech.com/">StarFive</a> - headquarter in Shanghai, China</li>
-<li><a target="_blank" rel="noopener" href="https://www.canaan.io/">Canaan</a> - headquarter in Beijing, China</li>
-<li><a target="_blank" rel="noopener" href="https://www.microchip.com/">Microchip</a> - headquarter in Arizona, USA</li>
-<li><a target="_blank" rel="noopener" href="https://www.allwinnertech.com/">All Winner Tech</a> - headquarter in Zhuhai, China</li>
-<li><a target="_blank" rel="noopener" href="https://www.t-head.cn/">T-Head</a> - headquarter in Hangzhou, China. An <a target="_blank" rel="noopener" href="https://www.alibaba.com/">Alibaba</a> company</li>
-</ul>
-<h1 id="1-U-Boot"><a href="#1-U-Boot" class="headerlink" title="1. U-Boot"></a>1. <a target="_blank" rel="noopener" href="https://github.com/u-boot/u-boot">U-Boot</a></h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">➜  u-boot git:(master) ✗ ls arch</span><br><span class="line">arc  arm  Kconfig  Kconfig.nxp  m68k  microblaze  mips  nios2  powerpc  riscv  sandbox  sh  u-boot-elf.lds  x86  xtensa</span><br><span class="line">➜  u-boot git:(master) ✗ cd arch/riscv </span><br><span class="line">➜  riscv git:(master) ✗ ls cpu</span><br><span class="line">andesv5     cpu.c  cpu.su  fu740    jh7110    mtrap.o  start.o  u-boot.lds</span><br><span class="line">built-in.o  cpu.o  fu540   generic  Makefile  mtrap.S  start.S  u-boot-spl.lds</span><br><span class="line">➜  riscv git:(master) ✗ ls dts</span><br><span class="line">ae350_32.dts                         hifive-unmatched-a00.dts                  mpfs-icicle-kit.dts</span><br><span class="line">ae350_64.dts                         hifive-unmatched-a00-u-boot.dtsi          mpfs-icicle-kit-fabric.dtsi</span><br><span class="line">ae350-u-boot.dtsi                    jh7110.dtsi                               mpfs-icicle-kit-u-boot.dtsi</span><br><span class="line">binman.dtsi                          jh7110-starfive-visionfive-2.dtb          openpiton-riscv64.dts</span><br><span class="line">fu540-c000.dtsi                      jh7110-starfive-visionfive-2.dts          qemu-virt32.dts</span><br><span class="line">fu540-c000-u-boot.dtsi               jh7110-starfive-visionfive-2.dtsi         qemu-virt64.dts</span><br><span class="line">fu540-hifive-unleashed-a00-ddr.dtsi  jh7110-starfive-visionfive-2-u-boot.dtsi  sunxi-d1s-t113.dtsi</span><br><span class="line">fu740-c000.dtsi                      jh7110-u-boot.dtsi                        sunxi-d1-t113.dtsi</span><br><span class="line">fu740-c000-u-boot.dtsi               k210.dtsi                                 th1520.dtsi</span><br><span class="line">fu740-hifive-unmatched-a00-ddr.dtsi  k210-maix-bit.dts                         th1520-lichee-module-4a.dtsi</span><br><span class="line">hifive-unleashed-a00.dts             Makefile                                  th1520-lichee-pi-4a.dts</span><br><span class="line">hifive-unleashed-a00-u-boot.dtsi     mpfs.dtsi</span><br><span class="line">➜  riscv git:(master) ✗ </span><br></pre></td></tr></table></figure>
-
-<h2 id="1-1-CPU"><a href="#1-1-CPU" class="headerlink" title="1.1 CPU"></a>1.1 CPU</h2><p>Let’s simple analyze all 5 folders under subfolder <strong>cpu</strong>.</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.andestech.com/en/2022/07/20/andes-technology-risc-v-processors-reveal-outstanding-performance-and-efficiency-in-mlperf-tiny/">andesv5</a> - designed by <a target="_blank" rel="noopener" href="https://www.andestech.com/">Andes Tech</a></li>
-<li><a target="_blank" rel="noopener" href="https://static.dev.sifive.com/FU540-C000-v1.0.pdf">fu540</a> - designed by <a target="_blank" rel="noopener" href="https://www.sifive.com/">SiFive</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.sifive.com/boards/hifive-unmatched">fu740</a> - designed by <a target="_blank" rel="noopener" href="https://www.sifive.com/">SiFive</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.starfivetech.com/en/site/soc">jh7110</a> - designed by <a target="_blank" rel="noopener" href="https://www.starfivetech.com/">StarFive</a></li>
-<li>generic</li>
-</ul>
-<h2 id="1-2-DTS"><a href="#1-2-DTS" class="headerlink" title="1.2 DTS"></a>1.2 DTS</h2><p>Let’s further analyze all device trees under subfolder <strong>dts</strong>.</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.andestech.com/en/products-solutions/andeshape-platforms/ae350-axi-based-platform-pre-integrated-with-n25f-nx25f-a25-ax25/">ae350</a> - designed by <a target="_blank" rel="noopener" href="https://www.andestech.com/">Andes Tech</a></li>
-<li><a target="_blank" rel="noopener" href="https://static.dev.sifive.com/FU540-C000-v1.0.pdf">fu540</a> - designed by <a target="_blank" rel="noopener" href="https://www.sifive.com/">SiFive</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.sifive.com/boards/hifive-unmatched">fu740</a> - designed by <a target="_blank" rel="noopener" href="https://www.sifive.com/">SiFive</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.sifive.com/boards/hifive1-rev-b">hifive</a> - designed by <a target="_blank" rel="noopener" href="https://www.sifive.com/">SiFive</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.starfivetech.com/en/site/soc">jh7110</a> - designed by <a target="_blank" rel="noopener" href="https://www.starfivetech.com/">StarFive</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.canaan.io/product/kendryteai">k210</a> - designed by <a target="_blank" rel="noopener" href="https://www.canaan.io/">Canaan</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.microchip.com/en-us/products/fpgas-and-plds/system-on-chip-fpgas/polarfire-soc-fpgas">mpfs</a> - designed by <a target="_blank" rel="noopener" href="https://www.microchip.com/">Microchip</a></li>
-<li><a target="_blank" rel="noopener" href="https://parallel.princeton.edu/openpiton/">openpiton</a> - designed by <a target="_blank" rel="noopener" href="https://parallel.princeton.edu/openpiton/">Princeton OpenPiton</a></li>
-<li><a target="_blank" rel="noopener" href="https://linux-sunxi.org/D1">sunxi</a> - designed by <a target="_blank" rel="noopener" href="https://www.allwinnertech.com/">All Winner Tech</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cnx-software.com/2022/10/04/alibaba-t-head-th1520-risc-v-processor-to-power-the-roma-laptop/">th1520</a> - designed by <a target="_blank" rel="noopener" href="https://www.t-head.cn/">T-Head</a>, it’s just <a target="_blank" rel="noopener" href="https://www.t-head.cn/product/c910?lang=en">Xuantie C910</a></li>
-</ul>
-<h1 id="2-Linux-Kernel"><a href="#2-Linux-Kernel" class="headerlink" title="2. Linux Kernel"></a>2. <a target="_blank" rel="noopener" href="https://www.kernel.org/">Linux Kernel</a></h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">➜  linux ls arch</span><br><span class="line">alpha  arm    csky     ia64     loongarch  microblaze  nios2     parisc   riscv  sh     um   xtensa</span><br><span class="line">arc    arm64  hexagon  Kconfig  m68k       mips        openrisc  powerpc  s390   sparc  x86</span><br><span class="line">➜  linux cd arch/riscv </span><br><span class="line">➜  riscv ls configs</span><br><span class="line">32-bit.config  defconfig             nommu_k210_sdcard_defconfig  rv32_defconfig</span><br><span class="line">64-bit.config  nommu_k210_defconfig  nommu_virt_defconfig</span><br><span class="line">➜  riscv ls boot/dts </span><br><span class="line">allwinner  canaan  Makefile  microchip  renesas  sifive  starfive  thead</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-1-DTS"><a href="#2-1-DTS" class="headerlink" title="2.1 DTS"></a>2.1 DTS</h2><p>Again, let’s analyze all 5 folders under subfolder <strong>dts</strong>.</p>
-<ul>
-<li>allwinner - <a target="_blank" rel="noopener" href="https://www.allwinnertech.com/">All Winner Tech</a></li>
-<li>canaan - <a target="_blank" rel="noopener" href="https://www.canaan.io/">Canaan</a></li>
-<li>microchip - <a target="_blank" rel="noopener" href="https://www.microchip.com/">Microchip</a></li>
-<li>renesas - <a target="_blank" rel="noopener" href="https://www.renesas.com/">Renesas</a></li>
-<li>sifive - <a target="_blank" rel="noopener" href="https://www.sifive.com/">SiFive</a></li>
-<li>starfive - <a target="_blank" rel="noopener" href="https://www.starfivetech.com/">StarFive</a></li>
-<li>thead - <a target="_blank" rel="noopener" href="https://www.t-head.cn/">T-Head</a></li>
-</ul>
-<p>By the way: recent <a target="_blank" rel="noopener" href="https://store-usa.arduino.cc/pages/uno-r4?selectedStore=us">Arduino UNO R4</a> uses a <a target="_blank" rel="noopener" href="https://www.renesas.com/us/en/products/microcontrollers-microprocessors/ra-cortex-m-mcus/ra4m1-32-bit-microcontrollers-48mhz-arm-cortex-m4-and-lcd-controller-and-cap-touch-hmi">Renesas RA4M1</a>, a <strong>32-bit Arm® Cortex®-M4</strong> MCU.</p>
-<p><strong><span style="color:red">Conclusion: MOST of recent RISC-V chips are supported, designed, and manufactured by China.</span></strong></p>
 
       
     </div>
