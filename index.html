@@ -116,7 +116,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">134</span>
+          <span class="site-state-item-count">135</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -127,7 +127,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">128</span>
+        <span class="site-state-item-count">129</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -144,6 +144,98 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2024/07/08/MachineVision/RGBD/Kinect-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Longer Vision Technology">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/07/08/MachineVision/RGBD/Kinect-2/" class="post-title-link" itemprop="url">Kinect 2</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2024-07-08 00:00:00 / Modified: 17:33:25" itemprop="dateCreated datePublished" datetime="2024-07-08T00:00:00-07:00">2024-07-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Machine-Vision/" itemprop="url" rel="index"><span itemprop="name">Machine Vision</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Machine-Vision/RGBD/" itemprop="url" rel="index"><span itemprop="name">RGBD</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Today, I wanna try out the old <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Kinect">Kinect</a> 2 on my old <a target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-xavier-series/">Jetson AGX Xavier</a>.</p>
+<h1 id="0-My-Working-Environment"><a href="#0-My-Working-Environment" class="headerlink" title="0. My Working Environment"></a>0. My Working Environment</h1><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/jetson_agx_xavier_32g.png"></p>
+<p>For how I set up my old <a target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-xavier-series/">Jetson AGX Xavier</a>, please refer to my previous blog <a href="../../../../../../2024/07/06/SBCs/ARM/NVidia-Jetson-Xavier-AGX/">NVidia Jetson Xavier AGX</a></p>
+<h1 id="1-Kinect-2"><a href="#1-Kinect-2" class="headerlink" title="1. Kinect 2"></a>1. Kinect 2</h1><h2 id="1-1-Overview"><a href="#1-1-Overview" class="headerlink" title="1.1 Overview"></a>1.1 Overview</h2><p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Xbox-One-Kinect.jpg/2560px-Xbox-One-Kinect.jpg"></p>
+<h2 id="1-2-Hardware-Specification"><a href="#1-2-Hardware-Specification" class="headerlink" title="1.2 Hardware Specification"></a>1.2 Hardware Specification</h2><p>Refer to [Azure Kinect DK hardware specifications].</p>
+<h1 id="2-lsusb-and-add-udev-rules"><a href="#2-lsusb-and-add-udev-rules" class="headerlink" title="2. lsusb and add udev rules"></a>2. <code>lsusb</code> and <code>add udev rules</code></h1><h2 id="2-1-lsusb"><a href="#2-1-lsusb" class="headerlink" title="2.1 lsusb"></a>2.1 <code>lsusb</code></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">lvision@ubuntu:~$ lsusb</span><br><span class="line">Bus 002 Device 003: ID 045e:02c4 Microsoft Corp. </span><br><span class="line">Bus 002 Device 002: ID 045e:02d9 Microsoft Corp. NuiSensor Adaptor      </span><br><span class="line">Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub</span><br><span class="line">Bus 001 Device 002: ID 045e:02d9 Microsoft Corp. NuiSensor Adaptor      </span><br><span class="line">Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-Add-udev-rules"><a href="#2-2-Add-udev-rules" class="headerlink" title="2.2 Add udev rules"></a>2.2 Add <code>udev rules</code></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ cat /etc/udev/rules.d/90-kinect2.rules </span><br><span class="line"># Xbox NUI Camera</span><br><span class="line">SUBSYSTEM==&quot;usb&quot;, ATTR&#123;idVendor&#125;==&quot;045e&quot;, ATTR&#123;idProduct&#125;==&quot;02c4&quot;, MODE=&quot;0666&quot;</span><br><span class="line"># Xbox NUI Sensor Adaptor</span><br><span class="line">SUBSYSTEM==&quot;usb&quot;, ATTR&#123;idVendor&#125;==&quot;045e&quot;, ATTR&#123;idProduct&#125;==&quot;02d9&quot;, MODE=&quot;0666&quot;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="3-libfreenect2-and-freenect2-python"><a href="#3-libfreenect2-and-freenect2-python" class="headerlink" title="3. libfreenect2 and freenect2-python"></a>3. <a target="_blank" rel="noopener" href="https://github.com/OpenKinect/libfreenect2">libfreenect2</a> and <a target="_blank" rel="noopener" href="https://github.com/rjw57/freenect2-python">freenect2-python</a></h1>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -189,7 +281,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-07-08 09:52:51" itemprop="dateModified" datetime="2024-07-08T09:52:51-07:00">2024-07-08</time>
+      <time title="Modified: 2024-07-08 10:52:27" itemprop="dateModified" datetime="2024-07-08T10:52:27-07:00">2024-07-08</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -447,7 +539,32 @@
 <li>The answer is at <a target="_blank" rel="noopener" href="https://forums.developer.nvidia.com/t/black-screen/189348/">NVidia Forum Issue 189348 - Black Screen</a>:  <span style="color:red"><strong>Do you know that you are talking about AGX Xavier but not NX? Only NX and Nano have and support sdcard image. Other platforms do not.</strong></span></li>
 <li>It’s also clearly clarified in the table on NVidia’s official page: <a target="_blank" rel="noopener" href="https://developer.nvidia.com/sdk-manager">NVidia SDK Manager</a>.</li>
 </ul>
-<h3 id="2-4-3-Finally-Negotiated-to-Use-Ubuntu-20-04"><a href="#2-4-3-Finally-Negotiated-to-Use-Ubuntu-20-04" class="headerlink" title="2.4.3 Finally, Negotiated to Use Ubuntu 20.04"></a>2.4.3 Finally, Negotiated to Use <a target="_blank" rel="noopener" href="https://releases.ubuntu.com/focal/">Ubuntu 20.04</a></h3><h4 id="2-4-3-1-Installation-Using-NVidia-SDK-Manager-on-Ubuntu-20-04"><a href="#2-4-3-1-Installation-Using-NVidia-SDK-Manager-on-Ubuntu-20-04" class="headerlink" title="2.4.3.1 Installation Using NVidia SDK Manager on Ubuntu 20.04"></a>2.4.3.1 Installation Using <a target="_blank" rel="noopener" href="https://developer.nvidia.com/sdk-manager">NVidia SDK Manager</a> on <a target="_blank" rel="noopener" href="https://releases.ubuntu.com/focal/">Ubuntu 20.04</a></h4><h4 id="2-4-3-2-SSH-Into-Jetson-AGX-Xavier"><a href="#2-4-3-2-SSH-Into-Jetson-AGX-Xavier" class="headerlink" title="2.4.3.2 SSH Into Jetson AGX Xavier"></a>2.4.3.2 SSH Into <strong>Jetson AGX Xavier</strong></h4><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/jetson_agx_xavier_32g.png"></p>
+<h3 id="2-4-3-Finally-Negotiated-to-Use-Ubuntu-20-04"><a href="#2-4-3-Finally-Negotiated-to-Use-Ubuntu-20-04" class="headerlink" title="2.4.3 Finally, Negotiated to Use Ubuntu 20.04"></a>2.4.3 Finally, Negotiated to Use <a target="_blank" rel="noopener" href="https://releases.ubuntu.com/focal/">Ubuntu 20.04</a></h3><h4 id="2-4-3-1-Installation-Using-NVidia-SDK-Manager-on-Ubuntu-20-04"><a href="#2-4-3-1-Installation-Using-NVidia-SDK-Manager-on-Ubuntu-20-04" class="headerlink" title="2.4.3.1 Installation Using NVidia SDK Manager on Ubuntu 20.04"></a>2.4.3.1 Installation Using <a target="_blank" rel="noopener" href="https://developer.nvidia.com/sdk-manager">NVidia SDK Manager</a> on <a target="_blank" rel="noopener" href="https://releases.ubuntu.com/focal/">Ubuntu 20.04</a></h4><table>
+<thead>
+<tr>
+<th><a target="_blank" rel="noopener" href="https://developer.nvidia.com/sdk-manager">NVidia SDK Manager</a> Installation Step 1</th>
+<th><a target="_blank" rel="noopener" href="https://developer.nvidia.com/sdk-manager">NVidia SDK Manager</a> Installation Step 2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/NVidia_SDK_Manager_Step_01.png"></td>
+<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/NVidia_SDK_Manager_Step_02.png"></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th><a target="_blank" rel="noopener" href="https://developer.nvidia.com/sdk-manager">NVidia SDK Manager</a> Installation Step 3-1</th>
+<th><a target="_blank" rel="noopener" href="https://developer.nvidia.com/sdk-manager">NVidia SDK Manager</a> Installation Step 3-2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/NVidia_SDK_Manager_Step_03_1.png"></td>
+<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/NVidia_SDK_Manager_Step_03_2.png"></td>
+</tr>
+</tbody></table>
+<p><a target="_blank" rel="noopener" href="https://developer.nvidia.com/sdk-manager">NVidia SDK Manager</a> Installation Step 4<br><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/NVidia_SDK_Manager_Step_04.png"></p>
+<h4 id="2-4-3-2-SSH-Into-Jetson-AGX-Xavier"><a href="#2-4-3-2-SSH-Into-Jetson-AGX-Xavier" class="headerlink" title="2.4.3.2 SSH Into Jetson AGX Xavier"></a>2.4.3.2 <strong>SSH</strong> Into <strong>Jetson AGX Xavier</strong></h4><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/jetson_agx_xavier_32g.png"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">lvision@ubuntu:~$ cat /proc/cpuinfo</span><br><span class="line">processor	: 0</span><br><span class="line">model name	: ARMv8 Processor rev 0 (v8l)</span><br><span class="line">BogoMIPS	: 62.50</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm dcpop</span><br><span class="line">CPU implementer	: 0x4e</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0x004</span><br><span class="line">CPU revision	: 0</span><br><span class="line">MTS version	: 72064061</span><br><span class="line"></span><br><span class="line">processor	: 1</span><br><span class="line">model name	: ARMv8 Processor rev 0 (v8l)</span><br><span class="line">BogoMIPS	: 62.50</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm dcpop</span><br><span class="line">CPU implementer	: 0x4e</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0x004</span><br><span class="line">CPU revision	: 0</span><br><span class="line">MTS version	: 72064061</span><br><span class="line"></span><br><span class="line">processor	: 2</span><br><span class="line">model name	: ARMv8 Processor rev 0 (v8l)</span><br><span class="line">BogoMIPS	: 62.50</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm dcpop</span><br><span class="line">CPU implementer	: 0x4e</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0x004</span><br><span class="line">CPU revision	: 0</span><br><span class="line">MTS version	: 72064061</span><br><span class="line"></span><br><span class="line">processor	: 3</span><br><span class="line">model name	: ARMv8 Processor rev 0 (v8l)</span><br><span class="line">BogoMIPS	: 62.50</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm dcpop</span><br><span class="line">CPU implementer	: 0x4e</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0x004</span><br><span class="line">CPU revision	: 0</span><br><span class="line">MTS version	: 72064061</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">lvision@ubuntu:~$ cat /proc/meminfo</span><br><span class="line">MemTotal:       31734344 kB</span><br><span class="line">MemFree:        29595460 kB</span><br><span class="line">MemAvailable:   30582508 kB</span><br><span class="line">Buffers:           32896 kB</span><br><span class="line">Cached:          1265972 kB</span><br><span class="line">SwapCached:            0 kB</span><br><span class="line">Active:           410632 kB</span><br><span class="line">Inactive:        1243424 kB</span><br><span class="line">Active(anon):       2380 kB</span><br><span class="line">Inactive(anon):   395220 kB</span><br><span class="line">Active(file):     408252 kB</span><br><span class="line">Inactive(file):   848204 kB</span><br><span class="line">Unevictable:       21408 kB</span><br><span class="line">Mlocked:               0 kB</span><br><span class="line">SwapTotal:      15867168 kB</span><br><span class="line">SwapFree:       15867168 kB</span><br><span class="line">Dirty:                 0 kB</span><br><span class="line">Writeback:             0 kB</span><br><span class="line">AnonPages:        371788 kB</span><br><span class="line">Mapped:           232932 kB</span><br><span class="line">Shmem:             21004 kB</span><br><span class="line">KReclaimable:      72332 kB</span><br><span class="line">Slab:             156660 kB</span><br><span class="line">SReclaimable:      72332 kB</span><br><span class="line">SUnreclaim:        84328 kB</span><br><span class="line">KernelStack:        8128 kB</span><br><span class="line">PageTables:        11020 kB</span><br><span class="line">NFS_Unstable:          0 kB</span><br><span class="line">Bounce:                0 kB</span><br><span class="line">WritebackTmp:          0 kB</span><br><span class="line">CommitLimit:    31734340 kB</span><br><span class="line">Committed_AS:    2774872 kB</span><br><span class="line">VmallocTotal:   135290159040 kB</span><br><span class="line">VmallocUsed:       90948 kB</span><br><span class="line">VmallocChunk:          0 kB</span><br><span class="line">Percpu:             4384 kB</span><br><span class="line">HardwareCorrupted:     0 kB</span><br><span class="line">AnonHugePages:    137216 kB</span><br><span class="line">ShmemHugePages:        0 kB</span><br><span class="line">ShmemPmdMapped:        0 kB</span><br><span class="line">FileHugePages:         0 kB</span><br><span class="line">FilePmdMapped:         0 kB</span><br><span class="line">CmaTotal:          65536 kB</span><br><span class="line">CmaFree:           16172 kB</span><br><span class="line">HugePages_Total:       0</span><br><span class="line">HugePages_Free:        0</span><br><span class="line">HugePages_Rsvd:        0</span><br><span class="line">HugePages_Surp:        0</span><br><span class="line">Hugepagesize:       2048 kB</span><br><span class="line">Hugetlb:               0 kB</span><br></pre></td></tr></table></figure>
@@ -1507,185 +1624,6 @@
     
     <div class="post-body" itemprop="articleBody">
           
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2024/05/02/SBCs/RISC-V/LicheeRV-Nano/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Longer Vision Technology">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/05/02/SBCs/RISC-V/LicheeRV-Nano/" class="post-title-link" itemprop="url">LicheeRV Nano</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2024-05-02 07:09:40" itemprop="dateCreated datePublished" datetime="2024-05-02T07:09:40-07:00">2024-05-02</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-05-16 23:30:39" itemprop="dateModified" datetime="2024-05-16T23:30:39-07:00">2024-05-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Single-Board-Computers/Risc-V/" itemprop="url" rel="index"><span itemprop="name">Risc-V</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>I got a <a target="_blank" rel="noopener" href="https://www.alibaba.com/product-detail/Lichee-Nano-Development-Board-Multi-System_1600176273210.html">LicheeRV Nano</a> before I left China for Canada a couple of weeks ago. Nowadays China is amazing. Let’s take a look at my hometown Wuhan of year 2024.</p>
-<table>
-<thead>
-<tr>
-<th align="center">Sunset @ Yangtze River 2nd Bridge</th>
-<th align="center">Sunset @ Yangtze River TianXingZhou Bridge</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Wuhan/YangtzeRiver_2ndBridge_Sunset.jpg" width="480"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Wuhan/YangtzeRiver_TianXingZhouBridge_Sunset.jpg" width="480"></td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Wuhan/YangtzeRiver_Grove_Sunset.jpg" width="480"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Wuhan/YangtzeRiver_Embankment_Grassland_Constructions.jpg" width="480"></td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Wuhan/YuChiYuZui_01.jpg" width="480"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Wuhan/YuChiYuZui_02.jpg" width="480"></td>
-</tr>
-</tbody></table>
-<!-- | ![YangtzeRiver_2ndBridge_Sunset](https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Wuhan/YangtzeRiver_2ndBridge_Sunset.jpg) | ![YangtzeRiver_TianXingZhouBridge_Sunset](https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Wuhan/YangtzeRiver_TianXingZhouBridge_Sunset.jpg) | -->
-<!-- | ![YangtzeRiver_Grove_Sunset](https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Wuhan/YangtzeRiver_Grove_Sunset.jpg) | ![YangtzeRiver_Embankment_Grassland_Constructions](https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Wuhan/YangtzeRiver_Embankment_Grassland_Constructions.jpg) |
-| ![YuChiYuZui_01](https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Wuhan/YuChiYuZui_01.jpg) | ![YuChiYuZui_02](https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Wuhan/YuChiYuZui_01.jpg) | -->
-
-
-
-
-<p>Now, let’s start our today’s topic: <a target="_blank" rel="noopener" href="https://www.alibaba.com/product-detail/Lichee-Nano-Development-Board-Multi-System_1600176273210.html">LicheeRV Nano</a>.</p>
-<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h1><h2 id="1-1-First-Look"><a href="#1-1-First-Look" class="headerlink" title="1.1 First Look"></a>1.1 First Look</h2><table>
-<thead>
-<tr>
-<th align="center">LicheeRV Nano</th>
-<th align="center">LicheeRV Nano with N2425D</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/RISC-V/LicheeRV_Nano/LicheeRV_Nano_01.jpg" alt="LicheeRV_Nano_01"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/RISC-V/LicheeRV_Nano/LicheeRV_Nano_02.jpg" alt="LicheeRV_Nano_02"></td>
-</tr>
-</tbody></table>
-<h2 id="1-2-Official-Documentation"><a href="#1-2-Official-Documentation" class="headerlink" title="1.2 Official Documentation"></a>1.2 Official Documentation</h2><p>Actually, <strong>ALL</strong> you need can be found at:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://wiki.sipeed.com/hardware/en/lichee/RV_Nano/1_intro.html">LicheeRV Nano Official Documentation</a></li>
-</ul>
-<h2 id="1-3-LicheeRV-Nano-WE"><a href="#1-3-LicheeRV-Nano-WE" class="headerlink" title="1.3 LicheeRV-Nano-WE"></a>1.3 LicheeRV-Nano-WE</h2><p>According to the <a target="_blank" rel="noopener" href="https://wiki.sipeed.com/hardware/en/lichee/RV_Nano/1_intro.html#Version-Comparison">LicheeRV Nano Version Comparison</a>, there are 4 versions totally.</p>
-<ul>
-<li>LicheeRV-Nano-B</li>
-<li>LicheeRV-Nano-E</li>
-<li>LicheeRV-Nano-W</li>
-<li>LicheeRV-Nano-WE</li>
-</ul>
-<p>Clearly, the one I purchased is a <strong>LicheeRV-Nano-WE</strong>.</p>
-<h1 id="2-lsusb"><a href="#2-lsusb" class="headerlink" title="2. lsusb"></a>2. lsusb</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ lsusb</span><br><span class="line">......</span><br><span class="line">Bus 009 Device 010: ID 3346:1009 sipeed licheervnano</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="3-WiFi-Setup"><a href="#3-WiFi-Setup" class="headerlink" title="3. WiFi Setup"></a>3. WiFi Setup</h1><p>After <a target="_blank" rel="noopener" href="https://www.alibaba.com/product-detail/Lichee-Nano-Development-Board-Multi-System_1600176273210.html">LicheeRV Nano</a> is connected to your host computer via USB Type-C, enter the mounted <strong>rootfs</strong> and add the following new file:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜  rootfs sudo vim ./etc/network/wpa_supplicant.conf</span><br><span class="line">network=&#123;</span><br><span class="line">        ssid=&quot;XXXXX&quot;</span><br><span class="line">        psk=&quot;YYYYY&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Then, <strong>reboot</strong>. Now, you should be able to find out your <a target="_blank" rel="noopener" href="https://www.alibaba.com/product-detail/Lichee-Nano-Development-Board-Multi-System_1600176273210.html">LicheeRV Nano</a> by <code>sudo nmap -sn 192.168.1.254/24</code>.</p>
-<h1 id="4-LicheeRV-Nano-Overview"><a href="#4-LicheeRV-Nano-Overview" class="headerlink" title="4. LicheeRV Nano Overview"></a>4. <a target="_blank" rel="noopener" href="https://www.alibaba.com/product-detail/Lichee-Nano-Development-Board-Multi-System_1600176273210.html">LicheeRV Nano</a> Overview</h1><h2 id="4-1-SSH-Into-LicheeRV-Nano"><a href="#4-1-SSH-Into-LicheeRV-Nano" class="headerlink" title="4.1 SSH Into LicheeRV Nano"></a>4.1 SSH Into <a target="_blank" rel="noopener" href="https://www.alibaba.com/product-detail/Lichee-Nano-Development-Board-Multi-System_1600176273210.html">LicheeRV Nano</a></h2><p>Both the default username and password of <a target="_blank" rel="noopener" href="https://www.alibaba.com/product-detail/Lichee-Nano-Development-Board-Multi-System_1600176273210.html">LicheeRV Nano</a> are <strong>root</strong>.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ssh root@192.168.1.78</span><br><span class="line">root@192.168.1.78&#x27;s password:</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">uname</span> -a</span></span><br><span class="line">Linux licheervnano-8c93 5.10.4-tag- #1 PREEMPT Mon Apr 22 11:13:44 HKT 2024 riscv64 GNU/Linux</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">hostname</span></span><br><span class="line">licheervnano-8c93</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="4-2-CPU-and-Memory"><a href="#4-2-CPU-and-Memory" class="headerlink" title="4.2 CPU and Memory"></a>4.2 CPU and Memory</h2><p>Clearly, <a target="_blank" rel="noopener" href="https://www.alibaba.com/product-detail/Lichee-Nano-Development-Board-Multi-System_1600176273210.html">LicheeRV Nano</a> is armed with <strong>only 1 single Risc-V 64bit CPU</strong>, and about <strong>160M</strong> flash memory.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"># cat /proc/cpuinfo</span><br><span class="line">processor	: 0</span><br><span class="line">hart		: 0</span><br><span class="line">isa		: rv64imafdvcsu</span><br><span class="line">mmu		: sv39</span><br><span class="line"></span><br><span class="line"># cat /proc/meminfo</span><br><span class="line">MemTotal:         162672 kB</span><br><span class="line">MemFree:           98276 kB</span><br><span class="line">MemAvailable:     128976 kB</span><br><span class="line">Buffers:            3416 kB</span><br><span class="line">Cached:            28776 kB</span><br><span class="line">SwapCached:            0 kB</span><br><span class="line">Active:            11792 kB</span><br><span class="line">Inactive:          26892 kB</span><br><span class="line">Active(anon):        144 kB</span><br><span class="line">Inactive(anon):     6592 kB</span><br><span class="line">Active(file):      11648 kB</span><br><span class="line">Inactive(file):    20300 kB</span><br><span class="line">Unevictable:           0 kB</span><br><span class="line">Mlocked:               0 kB</span><br><span class="line">SwapTotal:             0 kB</span><br><span class="line">SwapFree:              0 kB</span><br><span class="line">Dirty:                 4 kB</span><br><span class="line">Writeback:             0 kB</span><br><span class="line">AnonPages:          6508 kB</span><br><span class="line">Mapped:            10092 kB</span><br><span class="line">Shmem:               248 kB</span><br><span class="line">KReclaimable:       5164 kB</span><br><span class="line">Slab:              13988 kB</span><br><span class="line">SReclaimable:       5164 kB</span><br><span class="line">SUnreclaim:         8824 kB</span><br><span class="line">KernelStack:        1248 kB</span><br><span class="line">PageTables:          524 kB</span><br><span class="line">NFS_Unstable:          0 kB</span><br><span class="line">Bounce:                0 kB</span><br><span class="line">WritebackTmp:          0 kB</span><br><span class="line">CommitLimit:       81336 kB</span><br><span class="line">Committed_AS:       9868 kB</span><br><span class="line">VmallocTotal:   67108863 kB</span><br><span class="line">VmallocUsed:        5468 kB</span><br><span class="line">VmallocChunk:          0 kB</span><br><span class="line">Percpu:               64 kB</span><br><span class="line">CmaTotal:              0 kB</span><br><span class="line">CmaFree:               0 kB</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="4-3-Python"><a href="#4-3-Python" class="headerlink" title="4.3 Python"></a>4.3 Python</h2><p>By default, <strong>Python 3.11.6</strong> has been installed on <a target="_blank" rel="noopener" href="https://www.alibaba.com/product-detail/Lichee-Nano-Development-Board-Multi-System_1600176273210.html">LicheeRV Nano</a> </p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">python --version</span></span><br><span class="line">Python 3.11.6</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="5-LicheeRV-Nano-Build"><a href="#5-LicheeRV-Nano-Build" class="headerlink" title="5. LicheeRV-Nano-Build"></a>5. <a target="_blank" rel="noopener" href="https://github.com/sipeed/LicheeRV-Nano-Build">LicheeRV-Nano-Build</a></h1><p>The default <a target="_blank" rel="noopener" href="https://github.com/sipeed/LicheeRV-Nano-Build/blob/main/README.md">LicheeRV-Nano-Build README.md</a> seems to be problematic. I did it in my way:</p>
-<h2 id="5-1-Clone-LicheeRV-Nano-Build"><a href="#5-1-Clone-LicheeRV-Nano-Build" class="headerlink" title="5.1 Clone LicheeRV-Nano-Build"></a>5.1 Clone <a target="_blank" rel="noopener" href="https://github.com/sipeed/LicheeRV-Nano-Build">LicheeRV-Nano-Build</a></h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  git clone https://github.com/sipeed/LicheeRV-Nano-Build --depth=1</span><br><span class="line">➜  cd LicheeRV-Nano-Build</span><br><span class="line">➜  LicheeRV-Nano-Build git:(main)</span><br></pre></td></tr></table></figure>
-
-<h2 id="5-2-Setup"><a href="#5-2-Setup" class="headerlink" title="5.2 Setup"></a>5.2 Setup</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">➜  LicheeRV-Nano-Build git:(main) ✗ source build/cvisetup.sh</span><br><span class="line">/proc/self/fd/19:7: cv1800b_board_sel: assignment to invalid subscript range</span><br><span class="line">  -------------------------------------------------------------------------------------------------------</span><br><span class="line">    Usage:</span><br><span class="line">    (1) menuconfig - Use menu to configure your board.</span><br><span class="line">        ex: $ menuconfig</span><br><span class="line"></span><br><span class="line">    (2) defconfig $CHIP_ARCH - List EVB boards($BOARD) by CHIP_ARCH.</span><br><span class="line">       ** sg200x ** -&gt; [&#x27;sg2000&#x27;, &#x27;sg2002&#x27;]</span><br><span class="line">       ** cv181x ** -&gt; [&#x27;cv1812cp&#x27;, &#x27;cv1812h&#x27;, &#x27;cv1813h&#x27;]</span><br><span class="line">       ** cv180x ** -&gt; [&#x27;cv1800b&#x27;]</span><br><span class="line">        ex: $ defconfig cv181x</span><br><span class="line"></span><br><span class="line">    (3) defconfig $BOARD - Choose EVB board settings.</span><br><span class="line">        ex: $ defconfig cv1813h_wevb_0007a_spinor</span><br><span class="line">        ex: $ defconfig cv1812cp_wevb_0006a_spinor</span><br><span class="line">  -------------------------------------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
-
-<h2 id="5-3-GUI-based-menuconfig"><a href="#5-3-GUI-based-menuconfig" class="headerlink" title="5.3 GUI-based menuconfig"></a>5.3 GUI-based <code>menuconfig</code></h2><p>I personally prefer the GUI-based configuration.</p>
-<h3 id="5-3-1-Copy-menuconfig-py"><a href="#5-3-1-Copy-menuconfig-py" class="headerlink" title="5.3.1 Copy menuconfig.py"></a>5.3.1 Copy <code>menuconfig.py</code></h3><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  LicheeRV-Nano-Build git:(main) ✗ cd build/scripts </span><br><span class="line">➜  scripts git:(main) ✗ cp menuconfig.py .py</span><br><span class="line">➜  scripts git:(main) ✗ </span><br></pre></td></tr></table></figure>
-
-<h3 id="5-3-2-Modify-build-boards-sg200x-sg2002-licheervnano-sd-sg2002-licheervnano-sd-defconfig"><a href="#5-3-2-Modify-build-boards-sg200x-sg2002-licheervnano-sd-sg2002-licheervnano-sd-defconfig" class="headerlink" title="5.3.2 Modify ./build/boards/sg200x/sg2002_licheervnano_sd/sg2002_licheervnano_sd_defconfig"></a>5.3.2 Modify <code>./build/boards/sg200x/sg2002_licheervnano_sd/sg2002_licheervnano_sd_defconfig</code></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">diff --git a/build/boards/sg200x/sg2002_licheervnano_sd/sg2002_licheervnano_sd_defconfig b/build/boards/sg200x/sg2002_licheervnano_sd/sg2002_licheervnano_sd_defconfig</span><br><span class="line">index 4138f665b..58a5ea02d 100644</span><br><span class="line">--- a/build/boards/sg200x/sg2002_licheervnano_sd/sg2002_licheervnano_sd_defconfig</span><br><span class="line">+++ b/build/boards/sg200x/sg2002_licheervnano_sd/sg2002_licheervnano_sd_defconfig</span><br><span class="line">@@ -2,12 +2,12 @@ CONFIG_CHIP_sg2002=y</span><br><span class="line"> CONFIG_BOARD_licheervnano_sd=y</span><br><span class="line"> CONFIG_DDR_CFG_ddr3_1866_x16=y</span><br><span class="line"> CONFIG_ARCH=&quot;riscv&quot;</span><br><span class="line">-CONFIG_CROSS_COMPILE=&quot;riscv64-unknown-linux-musl-&quot;</span><br><span class="line">+CONFIG_CROSS_COMPILE=&quot;riscv64-linux-gnu-&quot;</span><br><span class="line"> CONFIG_CC_OPTIMIZE_FOR_SIZE=y</span><br><span class="line"> CONFIG_KERNEL_ENTRY_HACK=y</span><br><span class="line"> CONFIG_KERNEL_ENTRY_HACK_ADDR=&quot;0x80200000&quot;</span><br><span class="line"> CONFIG_TOOLCHAIN_MUSL_RISCV64=y</span><br><span class="line">-CONFIG_FLASH_SIZE_SHRINK=y</span><br><span class="line">+# CONFIG_FLASH_SIZE_SHRINK=y</span><br><span class="line"> CONFIG_BOOT_IMAGE_SINGLE_DTB=y</span><br><span class="line"> # CONFIG_FLASH_SIZE_SHRINK is not set</span><br><span class="line"> CONFIG_CP_EXT_WIRELESS=y</span><br><span class="line">@@ -16,7 +16,7 @@ CONFIG_MIPI_PANEL_ZCT2133V1=y</span><br><span class="line"> CONFIG_SENSOR_GCORE_GC4653=y</span><br><span class="line"> CONFIG_SENSOR_OV_OS04A10=y</span><br><span class="line"> CONFIG_UBOOT_2021_10=y</span><br><span class="line">-CONFIG_KERNEL_SRC_5.10=y</span><br><span class="line">+CONFIG_KERNEL_SRC=&quot;linux_5.10&quot;</span><br><span class="line"> CONFIG_KERNEL_UNCOMPRESSED=y</span><br><span class="line"> # CONFIG_SKIP_RAMDISK is not set</span><br><span class="line"> CONFIG_SENSOR_TUNING_PARAM_cv181x_src_gcore_gc4653=y</span><br></pre></td></tr></table></figure>
-
-<p><strong><span style="color:red">By the way, even until now, I’ve got NO idea what the MIPI_PANEL should be?</span></strong>.</p>
-<h3 id="5-3-3-Run-menuconfig"><a href="#5-3-3-Run-menuconfig" class="headerlink" title="5.3.3 Run menuconfig"></a>5.3.3 Run <code>menuconfig</code></h3><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  LicheeRV-Nano-Build git:(main) ✗ menuconfig</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/RISC-V/LicheeRV_Nano/LicheeRV-Nano-Build_menuconfig.png" alt="LicheeRV-Nano menuconfig"></p>
-<h2 id="5-4-Build"><a href="#5-4-Build" class="headerlink" title="5.4 Build"></a>5.4 Build</h2><h3 id="5-4-1-Exports"><a href="#5-4-1-Exports" class="headerlink" title="5.4.1 Exports"></a>5.4.1 Exports</h3><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  LicheeRV-Nano-Build git:(main) ✗ export IMGTOOL_PATH=tools/common/image_tool                      </span><br><span class="line">➜  LicheeRV-Nano-Build git:(main) ✗ export COMMON_TOOLS_PATH=tools/common                                 </span><br><span class="line">➜  LicheeRV-Nano-Build git:(main) ✗ export FLASH_PARTITION_XML=boards/default/partition/partition_none.xml</span><br></pre></td></tr></table></figure>
-
-
-
-
-
       
     </div>
 
