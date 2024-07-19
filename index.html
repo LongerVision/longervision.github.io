@@ -189,7 +189,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-07-17 09:56:33" itemprop="dateModified" datetime="2024-07-17T09:56:33-07:00">2024-07-17</time>
+      <time title="Modified: 2024-07-18 23:13:53" itemprop="dateModified" datetime="2024-07-18T23:13:53-07:00">2024-07-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -275,7 +275,7 @@
 </tr>
 </thead>
 <tbody><tr>
-<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/Microsoft/KinectV2/libfreenect2_Protonect_CPU.png" alt="libfreenect2 Protonect  -GPU=0"></td>
+<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/Microsoft/KinectV2/libfreenect2_Protonect_CPU.png" alt="libfreenect2 Protonect -GPU=0"></td>
 </tr>
 </tbody></table>
 <table>
@@ -316,7 +316,83 @@
 
 
 <h1 id="5-For-Jetson-AGX-Xavier"><a href="#5-For-Jetson-AGX-Xavier" class="headerlink" title="5. For Jetson AGX Xavier"></a>5. For <a target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-xavier-series/">Jetson AGX Xavier</a></h1><p>Now, we’re done on my desktop. Let’s try <a target="_blank" rel="noopener" href="https://openkinect.org/wiki/Kinect_2">Kinect2</a> on <a target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-xavier-series/">Jetson AGX Xavier</a>.</p>
-
+<h2 id="5-1-Do-NOT-Enable-ENABLE-TEGRAJPEG"><a href="#5-1-Do-NOT-Enable-ENABLE-TEGRAJPEG" class="headerlink" title="5.1 Do NOT Enable ENABLE_TEGRAJPEG"></a>5.1 Do NOT Enable <code>ENABLE_TEGRAJPEG</code></h2><p><span style="color:red"><strong>Remember:</strong></span> for <a target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-xavier-series/">Jetson AGX Xavier</a>:</p>
+<ul>
+<li><strong>NEVER</strong> turn on <code>ENABLE_TEGRAJPEG</code></li>
+<li><a target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-xavier-series/">Jetson AGX Xavier</a> is working fine with <code>TurboJPEG</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>libfreenect2 Protonect Cuda</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/JetsonAGXXavier_Kinect2_No_TegraJPEG.png" alt="libfreenect2 Protonect Cuda"></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>libfreenect2 Protonect Cuda Speed</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/JetsonAGXXavier_Kinect2_No_TegraJPEG_Speed.png" alt="libfreenect2 Protonect Cuda - Speed"></td>
+</tr>
+</tbody></table>
+<p>From the above output, we can easily come up with the following table:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Attribute</strong></th>
+<th><strong>RGB</strong></th>
+<th><strong>Depth</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Resolution</strong></td>
+<td>1920x1080</td>
+<td>512x424</td>
+</tr>
+<tr>
+<td><strong>Number of Channels</strong></td>
+<td>3 (Red, Green, Blue)</td>
+<td>1 (Depth)</td>
+</tr>
+<tr>
+<td><strong>Bytes per Pixel</strong></td>
+<td>3 bytes</td>
+<td>2 bytes</td>
+</tr>
+<tr>
+<td><strong>Average Processing Time</strong></td>
+<td>~22.4048 ms</td>
+<td>~7.18678 ms</td>
+</tr>
+<tr>
+<td><strong>FPS</strong></td>
+<td>~44.6163 FPS</td>
+<td>~110.134 FPS</td>
+</tr>
+<tr>
+<td><strong>Data per Frame (Bytes)</strong></td>
+<td>1920 * 1080 * 3 &#x3D; 6,220,800 bytes</td>
+<td>512 * 424 * 2 &#x3D; 434,176 bytes</td>
+</tr>
+<tr>
+<td><strong>Data per Frame (MB)</strong></td>
+<td>~6.22 MB</td>
+<td>~0.414 MB</td>
+</tr>
+<tr>
+<td><strong>Data per Second (MB&#x2F;s)</strong></td>
+<td>6.22 MB * 44.6163 ≈ 277.57 MB&#x2F;s</td>
+<td>0.414 MB * 110.134 ≈ 45.60 MB&#x2F;s</td>
+</tr>
+</tbody></table>
+<p><strong>Total Data per Second</strong>:   277.57 MB + 45.60 MB ≈ 323.17 MB</p>
+<h2 id="5-2"><a href="#5-2" class="headerlink" title="5.2"></a>5.2</h2>
       
     </div>
 
