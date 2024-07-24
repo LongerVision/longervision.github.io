@@ -189,7 +189,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-07-23 10:44:31" itemprop="dateModified" datetime="2024-07-23T10:44:31-07:00">2024-07-23</time>
+      <time title="Modified: 2024-07-24 00:50:15" itemprop="dateModified" datetime="2024-07-24T00:50:15-07:00">2024-07-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -362,7 +362,7 @@
 <li>for <strong>RGB</strong>: Always <code>TurboJpegRgbPacketProcessor</code></li>
 </ul>
 <h2 id="4-5-pylibfreenect2-libfreenect2‘s-Python-Wrapper"><a href="#4-5-pylibfreenect2-libfreenect2‘s-Python-Wrapper" class="headerlink" title="4.5 pylibfreenect2 - libfreenect2‘s Python Wrapper"></a>4.5 <a target="_blank" rel="noopener" href="https://github.com/r9y9/pylibfreenect2">pylibfreenect2</a> - <a target="_blank" rel="noopener" href="https://github.com/OpenKinect/libfreenect2">libfreenect2</a>‘s Python Wrapper</h2><p>So far, in my personal point of view, <a target="_blank" rel="noopener" href="https://github.com/r9y9/pylibfreenect2">pylibfreenect2</a> is the <strong>BEST</strong> Python wrapper of <a target="_blank" rel="noopener" href="https://github.com/OpenKinect/libfreenect2">libfreenect2</a>. But, according to the <a target="_blank" rel="noopener" href="https://openkinect.github.io/libfreenect2/">official documentation of libfreenect2</a>, it’s clearly written:</p>
-<p><span style="color:red">**<br>Audio. Raw audio is accessible via Linux USB audio. There is no support for the calibrated directional audio.<br></span></p>
+<p><span style="color:red"><strong>Audio. Raw audio is accessible via Linux USB audio. There is no support for the calibrated directional audio.</strong><br></span></p>
 <h2 id="4-6-Kinect2‘s-Audio-pyalsaaudio"><a href="#4-6-Kinect2‘s-Audio-pyalsaaudio" class="headerlink" title="4.6 Kinect2‘s Audio pyalsaaudio"></a>4.6 <a target="_blank" rel="noopener" href="https://openkinect.org/wiki/Kinect_2">Kinect2</a>‘s Audio <a target="_blank" rel="noopener" href="https://pypi.org/project/pyalsaaudio/">pyalsaaudio</a></h2><h3 id="4-6-1-lsusb-Again"><a href="#4-6-1-lsusb-Again" class="headerlink" title="4.6.1 lsusb Again"></a>4.6.1 <code>lsusb</code> Again</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ lsusb | grep Microsoft </span><br><span class="line">Bus 002 Device 003: ID 045e:02c4 Microsoft Corp. </span><br><span class="line">Bus 002 Device 002: ID 045e:02d9 Microsoft Corp. NuiSensor Adaptor      </span><br><span class="line">Bus 001 Device 002: ID 045e:02d9 Microsoft Corp. NuiSensor Adaptor  </span><br></pre></td></tr></table></figure>
 
 <h3 id="4-6-2-arecord-l"><a href="#4-6-2-arecord-l" class="headerlink" title="4.6.2 arecord -l"></a>4.6.2 <code>arecord -l</code></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ arecord -l | grep NUI             </span><br><span class="line">card 1: Sensor [Xbox NUI Sensor], device 0: USB Audio [USB Audio]</span><br></pre></td></tr></table></figure>
@@ -465,6 +465,57 @@
 </tr>
 </tbody></table>
 <p><strong>Total Data per Second</strong>:   277.57 MB + 45.60 MB ≈ 323.17 MB</p>
+<h2 id="5-2-Integrate-pylibfreenect2-and-pyalsaaudio-with-GStreamer-for-3-Streams-from-Kinect2-depth-rgb-and-audio"><a href="#5-2-Integrate-pylibfreenect2-and-pyalsaaudio-with-GStreamer-for-3-Streams-from-Kinect2-depth-rgb-and-audio" class="headerlink" title="5.2 Integrate pylibfreenect2 and pyalsaaudio with GStreamer for 3 Streams from Kinect2: depth, rgb, and audio"></a>5.2 Integrate <a target="_blank" rel="noopener" href="https://github.com/r9y9/pylibfreenect2">pylibfreenect2</a> and <a target="_blank" rel="noopener" href="https://pypi.org/project/pyalsaaudio/">pyalsaaudio</a> with <a target="_blank" rel="noopener" href="https://gstreamer.freedesktop.org/bindings/python.html">GStreamer</a> for 3 Streams from <a target="_blank" rel="noopener" href="https://openkinect.org/wiki/Kinect_2">Kinect2</a>: <code>depth</code>, <code>rgb</code>, and <code>audio</code></h2><p>Sorry my friends. I’m <strong>NOT</strong> going to disclose my code, in Python. </p>
+<h3 id="5-2-1-Server-Side"><a href="#5-2-1-Server-Side" class="headerlink" title="5.2.1 Server Side"></a>5.2.1 Server Side</h3><table>
+<thead>
+<tr>
+<th>Kinect2 RTSP Server</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/Kinect2_RTSP_Server.png" alt="Kinect2 RTSP Server"></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Kinect2 RTSP Server Stream Responses</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/Kinect2_RTSP_Server_Stream_Responses.png" alt="Kinect2 RTSP Server Stream Responses"></td>
+</tr>
+</tbody></table>
+<h3 id="5-2-2-Client-Side"><a href="#5-2-2-Client-Side" class="headerlink" title="5.2.2 Client Side"></a>5.2.2 Client Side</h3><table>
+<thead>
+<tr>
+<th>RGB Stream</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/Kinect2_RTSP_Client_RGB.png" alt="RGB Stream"></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Depth Stream</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/Kinect2_RTSP_Client_depth.png" alt="Depth Stream"></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Audio Stream</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/Kinect2_RTSP_Client_audio.png" alt="Audio Stream"></td>
+</tr>
+</tbody></table>
 
       
     </div>
