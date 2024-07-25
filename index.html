@@ -116,7 +116,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">135</span>
+          <span class="site-state-item-count">136</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -127,7 +127,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">129</span>
+        <span class="site-state-item-count">130</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -144,6 +144,93 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2024/07/25/OperatingSystems/OSForRaspberryPi/OctoPrint/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Longer Vision Technology">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/07/25/OperatingSystems/OSForRaspberryPi/OctoPrint/" class="post-title-link" itemprop="url">OctoPrint on A Raspberry Pi</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2024-07-25 02:34:56 / Modified: 02:48:26" itemprop="dateCreated datePublished" datetime="2024-07-25T02:34:56-07:00">2024-07-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Operating-System/" itemprop="url" rel="index"><span itemprop="name">Operating System</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Operating-System/Raspberry-Pi/" itemprop="url" rel="index"><span itemprop="name">Raspberry Pi</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Finally, I got some time for <a target="_blank" rel="noopener" href="https://octoprint.org/">OctoPrint</a>, another specific operating system for <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a>, as <a target="_blank" rel="noopener" href="https://www.home-assistant.io/">Home Assistant</a> talked in my previous blog <a href="../../../../../2024/05/30/OperatingSystems/OSForRaspberryPi/home-assistant/">Home Assistant on A Raspberry Pi</a>.</p>
+<h1 id="1-Overview"><a href="#1-Overview" class="headerlink" title="1. Overview"></a>1. Overview</h1><h2 id="1-1-What-is-OctoPrint"><a href="#1-1-What-is-OctoPrint" class="headerlink" title="1.1 What is OctoPrint?"></a>1.1 What is <a target="_blank" rel="noopener" href="https://octoprint.org/">OctoPrint</a>?</h2><p>From its official website, clearly, <a target="_blank" rel="noopener" href="https://octoprint.org/">OctoPrint</a> is an operating system for <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/3D_printing">3D Printing</a>. Its capabilities can be extended to other manufacturing fields. Specifically, <a target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a> will work on a <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a>.</p>
+<h2 id="1-2-Flash-OctoPi-Onto-Raspberry-Pi"><a href="#1-2-Flash-OctoPi-Onto-Raspberry-Pi" class="headerlink" title="1.2 Flash OctoPi Onto Raspberry Pi"></a>1.2 Flash <a target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a> Onto <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dd if=./octopi-1.0.0-1.10.2-20240618101629.img of=/dev/sdb bs=1M status=progress conv=fsync </span><br><span class="line">[sudo] password for lvision: </span><br><span class="line">2357198848 bytes (2.4 GB, 2.2 GiB) copied, 2 s, 1.2 GB/s2906653696 bytes (2.9 GB, 2.7 GiB) copied, 2.4707 s, 1.2 GB/s</span><br><span class="line"></span><br><span class="line">2772+1 records in</span><br><span class="line">2772+1 records out</span><br><span class="line">2906653696 bytes (2.9 GB, 2.7 GiB) copied, 248.633 s, 11.7 MB/s</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="2-SSH-Into-OctoPi"><a href="#2-SSH-Into-OctoPi" class="headerlink" title="2. SSH Into OctoPi"></a>2. SSH Into <a target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a></h1>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1413,7 +1500,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/05/30/OperatingSystems/OSForRaspberryPi/home-assistant/" class="post-title-link" itemprop="url">Home Assistant</a>
+          <a href="/2024/05/30/OperatingSystems/OSForRaspberryPi/home-assistant/" class="post-title-link" itemprop="url">Home Assistant on A Raspberry Pi</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1431,7 +1518,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-06-06 06:48:25" itemprop="dateModified" datetime="2024-06-06T06:48:25-07:00">2024-06-06</time>
+      <time title="Modified: 2024-07-25 02:36:57" itemprop="dateModified" datetime="2024-07-25T02:36:57-07:00">2024-07-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1839,88 +1926,6 @@
           <p>I tried to build Intel <a target="_blank" rel="noopener" href="https://github.com/isl-org/Open3D">Open3D</a> from source, using <a target="_blank" rel="noopener" href="https://gcc.gnu.org/">GCC&#x2F;G++</a> <strong>ONLY</strong>. Of course, I used <strong>ALL</strong> 3rdparty libraries either from default Ubuntu repository, or manually installed the newest version, rather than using the <a target="_blank" rel="noopener" href="https://github.com/isl-org/Open3D/tree/master/3rdparty">3rdparty libraries coming with Open3D itself</a>.</p>
 <p>Today, May 9, 2024, I had this annoying <a target="_blank" rel="noopener" href="https://github.com/isl-org/Open3D">Open3D</a> successfully built again, with my <a target="_blank" rel="noopener" href="https://github.com/isl-org/Open3D/pull/6788">PR 6788</a>.</p>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2024/05/09/Coding/HowTo/qemu/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Longer Vision Technology">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/05/09/Coding/HowTo/qemu/" class="post-title-link" itemprop="url">How to build a Linux Distro for your QEMU?</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2024-05-09 00:00:00 / Modified: 16:04:51" itemprop="dateCreated datePublished" datetime="2024-05-09T00:00:00-07:00">2024-05-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Coding/HowTo/" itemprop="url" rel="index"><span itemprop="name">HowTo</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          
       
     </div>
 
