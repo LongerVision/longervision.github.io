@@ -116,7 +116,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -127,7 +127,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">130</span>
+        <span class="site-state-item-count">132</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -144,6 +144,270 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2024/07/27/OperatingSystems/OSForRaspberryPi/libreELEC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Longer Vision Technology">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/07/27/OperatingSystems/OSForRaspberryPi/libreELEC/" class="post-title-link" itemprop="url">libreELEC on A Raspberry Pi</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2024-07-27 01:11:11 / Modified: 02:54:22" itemprop="dateCreated datePublished" datetime="2024-07-27T01:11:11-07:00">2024-07-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Operating-System/" itemprop="url" rel="index"><span itemprop="name">Operating System</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Operating-System/Raspberry-Pi/" itemprop="url" rel="index"><span itemprop="name">Raspberry Pi</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Try a media center on a <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a>.</p>
+<h1 id="1-overview"><a class="markdownIt-Anchor" href="#1-overview"></a> 1. Overview</h1>
+<h2 id="11-what-is-libreelec-what-is-kodi"><a class="markdownIt-Anchor" href="#11-what-is-libreelec-what-is-kodi"></a> 1.1 What is <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a>? What is <a target="_blank" rel="noopener" href="https://kodi.tv/">Kodi</a>?</h2>
+<ul>
+<li>What is <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a>? Directly cited from <a target="_blank" rel="noopener" href="https://wiki.libreelec.tv/">LibreELEC Wiki</a>: <code>LibreELEC is a minimalist 'Just enough OS' Linux distribution for running Kodi.</code></li>
+<li>What is <a target="_blank" rel="noopener" href="https://kodi.tv/">Kodi</a>? Directly cited from <a target="_blank" rel="noopener" href="https://kodi.tv/about/">About Kodi</a>: <code>Kodi is an award-winning free and open source (GPL) software media player and entertainment hub that can be installed on Linux, OSX, Windows, iOS, tvOS and Android. It is designed around a &quot;10-foot user interface&quot; for use with televisions and remote controls.</code></li>
+</ul>
+<h2 id="12-flash-libreelec-onto-raspberry-pi"><a class="markdownIt-Anchor" href="#12-flash-libreelec-onto-raspberry-pi"></a> 1.2 Flash <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Onto <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a></h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dd if=./LibreELEC-RPi4.aarch64-12.0.0.img of=/dev/sdb bs=1M status=progress conv=fsync</span><br><span class="line">[sudo] password for lvision: </span><br><span class="line">549+0 records in</span><br><span class="line">549+0 records out</span><br><span class="line">575668224 bytes (576 MB, 549 MiB) copied, 68.3918 s, 8.4 MB/s</span><br></pre></td></tr></table></figure>
+<h1 id="2-ssh-into-libreelec"><a class="markdownIt-Anchor" href="#2-ssh-into-libreelec"></a> 2. SSH Into <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a></h1>
+<h2 id="21-overview"><a class="markdownIt-Anchor" href="#21-overview"></a> 2.1 Overview</h2>
+<p>You’ll be automatically led to the following two pages after direct reboot. The <strong>ONLY</strong> thing you need to do is to connect your <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a> (already installed with <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a>) with HDMI cable and connect to your <strong>Smart TV</strong>.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Welcome</th>
+<th style="text-align:center"><a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> <a target="_blank" rel="noopener" href="https://kodi.tv/">Kodi</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/01_Welcome.jpg" alt="libreELEC Welcome Page" /></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/02_Kodi.jpg" alt="libreELEC Kodi" /></td>
+</tr>
+</tbody>
+</table>
+<h2 id="22-enable-ssh-and-allow-http"><a class="markdownIt-Anchor" href="#22-enable-ssh-and-allow-http"></a> 2.2 Enable SSH and Allow HTTP</h2>
+<p>Same as <a target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a> discussed in my previous blog <a href="../../../../../../2024/07/25/OperatingSystems/OSForRaspberryPi/OctoPrint/">OctoPrint on A Raspberry Pi</a>, <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a>’s Wi-Fi is <strong>NOT</strong> started by default. Therefore, we’ll have to access <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> via Wired connection for the <strong>FIRST</strong> time.</p>
+<p>In fact, you’ll even have to enable <strong>SSH</strong> from within <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> smart TV configuration before you’re able to <strong>SSH</strong> into <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> on the <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a>. Better allow <strong>HTTP</strong> at the same time. As follows:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Enable SSH</th>
+<th style="text-align:center"><a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Allow HTTP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/03_EnableSSH.jpg" alt="libreELEC Enable SSH" /></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/04_AllowHTTP.jpg" alt="libreELEC Allow HTTP" /></td>
+</tr>
+</tbody>
+</table>
+<h2 id="23-ssh-into-libreelec-via-wired-connection"><a class="markdownIt-Anchor" href="#23-ssh-into-libreelec-via-wired-connection"></a> 2.3 SSH Into <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> via Wired Connection</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ ssh root@192.168.1.75</span><br><span class="line">root@192.168.1.75&#x27;s password: </span><br><span class="line">##############################################</span><br><span class="line">#                 LibreELEC                  #</span><br><span class="line">#            https://libreelec.tv            #</span><br><span class="line">##############################################</span><br><span class="line"></span><br><span class="line">LibreELEC (official): 12.0.0 (RPi4.aarch64)</span><br></pre></td></tr></table></figure>
+<p>Now, you’re able to <strong>SSH</strong> into <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> through <strong>Wired Connection</strong>.</p>
+<h2 id="24-view-libreelec-over-http"><a class="markdownIt-Anchor" href="#24-view-libreelec-over-http"></a> 2.4 View <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Over HTTP</h2>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/09_Web.png" alt="View LibreELEC via HTTP from Remote" /></p>
+<h2 id="25-configure-wi-fi"><a class="markdownIt-Anchor" href="#25-configure-wi-fi"></a> 2.5 Configure Wi-Fi</h2>
+<p>You’ll have to use the command <a target="_blank" rel="noopener" href="https://manpages.debian.org/testing/connman/connmanctl.1.en.html">connmanctl</a>.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><a target="_blank" rel="noopener" href="https://manpages.debian.org/testing/connman/connmanctl.1.en.html">connmanctl</a> How?</th>
+<th style="text-align:center"><a target="_blank" rel="noopener" href="https://manpages.debian.org/testing/connman/connmanctl.1.en.html">connmanctl</a> Outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/07_connmanctl.png" alt="connmanctl How" /></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/08_connmanctl_services_outcome.png" alt="connmanctl Outcome" /></td>
+</tr>
+</tbody>
+</table>
+<h3 id="251-passphrase-is-just-your-wifi-password"><a class="markdownIt-Anchor" href="#251-passphrase-is-just-your-wifi-password"></a> 2.5.1 Passphrase is Just Your Wifi Password!!</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">connmanctl&gt; connect wifi_&lt;my_network_service_id&gt;</span><br><span class="line">Agent RequestInput wifi_&lt;my_network_service_id&gt;</span><br><span class="line">  Passphrase = [ Type=psk, Requirement=mandatory ]</span><br><span class="line">Passphrase? </span><br></pre></td></tr></table></figure>
+<p>When you meet the above question (<strong>Passphrase?</strong>), please input your Wifi password.</p>
+<h3 id="252-important-commands"><a class="markdownIt-Anchor" href="#252-important-commands"></a> 2.5.2 Important Commands</h3>
+<p>You may use the following commands from time to time during Wifi configuration.</p>
+<ul>
+<li><code>systemctl status connman</code></li>
+<li><code>systemctl restart connman</code></li>
+<li><code>journalctl -u connman</code></li>
+<li><code>connmanctl state</code></li>
+<li><code>connmanctl services</code></li>
+<li>etc.</li>
+</ul>
+<h3 id="253-libreelec-configuration"><a class="markdownIt-Anchor" href="#253-libreelec-configuration"></a> 2.5.3 <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Configuration</h3>
+<p>And, you should be able to doublecheck your Wifi configuration via <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Configuration as:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Configuration</th>
+<th style="text-align:center">Connections Wifi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/05_LibreELEC_Configuration.jpg" alt="LibreELEC Configuration" /></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/06_Connections_WiFi.jpg" alt="Connections Wifi" /></td>
+</tr>
+</tbody>
+</table>
+<p>From now on, I can put my videos, pictures, etc. under respective folder of <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> as a real media center.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2024/07/27/AI/EdgeComputing/raspberry-pi-5-ncs2-openvino-2024/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Longer Vision Technology">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/07/27/AI/EdgeComputing/raspberry-pi-5-ncs2-openvino-2024/" class="post-title-link" itemprop="url">Raspberry Pi 5 + Intel NCS2 + OpenVINO In 2024</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-07-27 00:00:00" itemprop="dateCreated datePublished" datetime="2024-07-27T00:00:00-07:00">2024-07-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-07-26 21:49:32" itemprop="dateModified" datetime="2024-07-26T21:49:32-07:00">2024-07-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/EdgeComputing/" itemprop="url" rel="index"><span itemprop="name">EdgeComputing</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -189,7 +453,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-07-26 00:06:24" itemprop="dateModified" datetime="2024-07-26T00:06:24-07:00">2024-07-26</time>
+      <time title="Modified: 2024-07-27 00:45:44" itemprop="dateModified" datetime="2024-07-27T00:45:44-07:00">2024-07-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -216,12 +480,16 @@
     
     <div class="post-body" itemprop="articleBody">
           <p>Finally, I got some time for <a target="_blank" rel="noopener" href="https://octoprint.org/">OctoPrint</a>, another specific operating system for <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a>, as <a target="_blank" rel="noopener" href="https://www.home-assistant.io/">Home Assistant</a> talked in my previous blog <a href="../../../../../2024/05/30/OperatingSystems/OSForRaspberryPi/home-assistant/">Home Assistant on A Raspberry Pi</a>.</p>
-<h1 id="1-Overview"><a href="#1-Overview" class="headerlink" title="1. Overview"></a>1. Overview</h1><h2 id="1-1-What-is-OctoPrint"><a href="#1-1-What-is-OctoPrint" class="headerlink" title="1.1 What is OctoPrint?"></a>1.1 What is <a target="_blank" rel="noopener" href="https://octoprint.org/">OctoPrint</a>?</h2><p>From its official website, clearly, <a target="_blank" rel="noopener" href="https://octoprint.org/">OctoPrint</a> is an operating system for <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/3D_printing">3D Printing</a>. Its capabilities can be extended to other manufacturing fields. Specifically, <a target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a> will work on a <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a>.</p>
-<h2 id="1-2-Flash-OctoPi-Onto-Raspberry-Pi"><a href="#1-2-Flash-OctoPi-Onto-Raspberry-Pi" class="headerlink" title="1.2 Flash OctoPi Onto Raspberry Pi"></a>1.2 Flash <a target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a> Onto <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dd if=./octopi-1.0.0-1.10.2-20240618101629.img of=/dev/sdb bs=1M status=progress conv=fsync </span><br><span class="line">[sudo] password for lvision: </span><br><span class="line">2357198848 bytes (2.4 GB, 2.2 GiB) copied, 2 s, 1.2 GB/s2906653696 bytes (2.9 GB, 2.7 GiB) copied, 2.4707 s, 1.2 GB/s</span><br><span class="line"></span><br><span class="line">2772+1 records in</span><br><span class="line">2772+1 records out</span><br><span class="line">2906653696 bytes (2.9 GB, 2.7 GiB) copied, 248.633 s, 11.7 MB/s</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="2-SSH-Into-OctoPi"><a href="#2-SSH-Into-OctoPi" class="headerlink" title="2. SSH Into OctoPi"></a>2. SSH Into <a target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a></h1><h2 id="2-1-FIRST-Login"><a href="#2-1-FIRST-Login" class="headerlink" title="2.1 FIRST Login"></a>2.1 FIRST Login</h2><p>You got to login <a target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a> locally for the <strong>FIRST</strong> time, instead of remotely, for the <a target="_blank" rel="noopener" href="https://networkmanager.dev/">NetworkManager</a> service is <strong>NOT</strong> started by default. Namely, there is <strong>NO</strong> Wi-Fi by default. Well, you can <strong>ALWAYS</strong> use the wired connection of course. </p>
-<h3 id="2-1-1-Start-NetworkManager-Whenever-Reboot"><a href="#2-1-1-Start-NetworkManager-Whenever-Reboot" class="headerlink" title="2.1.1 Start NetworkManager Whenever Reboot"></a>2.1.1 Start <a target="_blank" rel="noopener" href="https://networkmanager.dev/">NetworkManager</a> Whenever Reboot</h3><p>Use the following commands:</p>
+<h1 id="1-overview"><a class="markdownIt-Anchor" href="#1-overview"></a> 1. Overview</h1>
+<h2 id="11-what-is-octoprint"><a class="markdownIt-Anchor" href="#11-what-is-octoprint"></a> 1.1 What is <a target="_blank" rel="noopener" href="https://octoprint.org/">OctoPrint</a>?</h2>
+<p>From its official website, clearly, <a target="_blank" rel="noopener" href="https://octoprint.org/">OctoPrint</a> is an operating system for <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/3D_printing">3D Printing</a>. Its capabilities can be extended to other manufacturing fields. Specifically, <a target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a> will work on a <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a>.</p>
+<h2 id="12-flash-octopi-onto-raspberry-pi"><a class="markdownIt-Anchor" href="#12-flash-octopi-onto-raspberry-pi"></a> 1.2 Flash <a target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a> Onto <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a></h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dd if=./octopi-1.0.0-1.10.2-20240618101629.img of=/dev/sdb bs=1M status=progress conv=fsync </span><br><span class="line">[sudo] password for lvision: </span><br><span class="line">2357198848 bytes (2.4 GB, 2.2 GiB) copied, 2 s, 1.2 GB/s2906653696 bytes (2.9 GB, 2.7 GiB) copied, 2.4707 s, 1.2 GB/s</span><br><span class="line"></span><br><span class="line">2772+1 records in</span><br><span class="line">2772+1 records out</span><br><span class="line">2906653696 bytes (2.9 GB, 2.7 GiB) copied, 248.633 s, 11.7 MB/s</span><br></pre></td></tr></table></figure>
+<h1 id="2-ssh-into-octopi"><a class="markdownIt-Anchor" href="#2-ssh-into-octopi"></a> 2. SSH Into <a target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a></h1>
+<h2 id="21-first-login"><a class="markdownIt-Anchor" href="#21-first-login"></a> 2.1 FIRST Login</h2>
+<p>You got to login <a target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a> locally for the <strong>FIRST</strong> time, instead of remotely, for the <a target="_blank" rel="noopener" href="https://networkmanager.dev/">NetworkManager</a> service is <strong>NOT</strong> started by default. Namely, there is <strong>NO</strong> Wi-Fi by default. Well, you can <strong>ALWAYS</strong> use the wired connection of course.</p>
+<h3 id="211-start-networkmanager-whenever-reboot"><a class="markdownIt-Anchor" href="#211-start-networkmanager-whenever-reboot"></a> 2.1.1 Start <a target="_blank" rel="noopener" href="https://networkmanager.dev/">NetworkManager</a> Whenever Reboot</h3>
+<p>Use the following commands:</p>
 <ul>
 <li><code>sudo systemctl status NetworkManager</code></li>
 <li><code>sudo systemctl enable NetworkManager</code></li>
@@ -230,40 +498,46 @@
 <li><code>sudo reboot</code>  reboot to ensure <code>NetworkManager</code> is started by default</li>
 <li><code>sudo systemctl status NetworkManager</code> check again</li>
 </ul>
-<h3 id="2-1-2-nmcli-to-Set-Up-Wi-Fi"><a href="#2-1-2-nmcli-to-Set-Up-Wi-Fi" class="headerlink" title="2.1.2 nmcli to Set Up Wi-Fi"></a>2.1.2 <a target="_blank" rel="noopener" href="https://networkmanager.dev/docs/api/latest/nmcli.html">nmcli</a> to Set Up Wi-Fi</h3><p>Use the following commands:</p>
+<h3 id="212-nmcli-to-set-up-wi-fi"><a class="markdownIt-Anchor" href="#212-nmcli-to-set-up-wi-fi"></a> 2.1.2 <a target="_blank" rel="noopener" href="https://networkmanager.dev/docs/api/latest/nmcli.html">nmcli</a> to Set Up Wi-Fi</h3>
+<p>Use the following commands:</p>
 <ul>
 <li><code>nmcli dev wifi list</code></li>
 <li><code>nmcli dev wifi connect NetworkName password WiFiPassword</code> (You don’t need to quote or double-quote <strong>NetworkName</strong> or <strong>WiFiPassword</strong>)</li>
 </ul>
 <p>Now, you’re good to go.</p>
-<h2 id="2-2-SSH-Into-OctoPi"><a href="#2-2-SSH-Into-OctoPi" class="headerlink" title="2.2 SSH Into OctoPi"></a>2.2 SSH Into <a target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">$ ssh lvision@192.168.1.76</span><br><span class="line">lvision@192.168.1.76&#x27;s password: </span><br><span class="line">Linux octopi 6.1.21-v7+ #1642 SMP Mon Apr  3 17:20:52 BST 2023 armv7l</span><br><span class="line"></span><br><span class="line">The programs included with the Debian GNU/Linux system are free software;</span><br><span class="line">the exact distribution terms for each program are described in the</span><br><span class="line">individual files in /usr/share/doc/*/copyright.</span><br><span class="line"></span><br><span class="line">Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent</span><br><span class="line">permitted by applicable law.</span><br><span class="line">Last login: Thu Jul 25 20:23:51 2024 from 192.168.1.1</span><br><span class="line">➜  ~ neofetch</span><br><span class="line">  `.::///+:/-.        --///+//-:``    lvision@octopi </span><br><span class="line"> `+oooooooooooo:   `+oooooooooooo:    -------------- </span><br><span class="line">  /oooo++//ooooo:  ooooo+//+ooooo.    OS: Raspbian GNU/Linux 11 (bullseye) armv7l </span><br><span class="line">  `+ooooooo:-:oo-  +o+::/ooooooo:     Host: Raspberry Pi 3 Model B Rev 1.2 </span><br><span class="line">   `:oooooooo+``    `.oooooooo+-      Kernel: 6.1.21-v7+ </span><br><span class="line">     `:++ooo/.        :+ooo+/.`       Uptime: 5 mins </span><br><span class="line">        ...`  `.----.` ``..           Packages: 816 (dpkg) </span><br><span class="line">     .::::-``:::::::::.`-:::-`        Shell: zsh 5.8 </span><br><span class="line">    -:::-`   .:::::::-`  `-:::-       Terminal: /dev/pts/0 </span><br><span class="line">   `::.  `.--.`  `` `.---.``.::`      CPU: BCM2835 (4) @ 1.200GHz </span><br><span class="line">       .::::::::`  -::::::::` `       Memory: 111MiB / 870MiB </span><br><span class="line"> .::` .:::::::::- `::::::::::``::.</span><br><span class="line">-:::` ::::::::::.  ::::::::::.`:::-                           </span><br><span class="line">::::  -::::::::.   `-::::::::  ::::                           </span><br><span class="line">-::-   .-:::-.``....``.-::-.   -::-</span><br><span class="line"> .. ``       .::::::::.     `..`..</span><br><span class="line">   -:::-`   -::::::::::`  .:::::`</span><br><span class="line">   :::::::` -::::::::::` :::::::.</span><br><span class="line">   .:::::::  -::::::::. ::::::::</span><br><span class="line">    `-:::::`   ..--.`   ::::::.</span><br><span class="line">      `...`  `...--..`  `...`</span><br><span class="line">            .::::::::::</span><br><span class="line">             `.-::::-`</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="3-OctoPrint-on-OctoPi"><a href="#3-OctoPrint-on-OctoPi" class="headerlink" title="3. OctoPrint on OctoPi"></a>3. <a target="_blank" rel="noopener" href="https://octoprint.org/">OctoPrint</a> on <a target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a></h1><table>
-<thead>
-<tr>
-<th align="center">octopi.local Setup Wizard</th>
-<th align="center"><a target="_blank" rel="noopener" href="https://octoprint.org/">OctoPrint</a> 3D Printer</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OctoPi/OctoPrint_octopi.local.png" alt="octopi.local Setup Wizard"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OctoPi/OctoPrint_3DPrinter.png" alt="OctoPrint 3D Printer"></td>
-</tr>
-</tbody></table>
+<h2 id="22-ssh-into-octopi-via-wi-fi-connection"><a class="markdownIt-Anchor" href="#22-ssh-into-octopi-via-wi-fi-connection"></a> 2.2 SSH Into <a target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a> Via Wi-Fi Connection</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">$ ssh lvision@192.168.1.76</span><br><span class="line">lvision@192.168.1.76&#x27;s password: </span><br><span class="line">Linux octopi 6.1.21-v7+ #1642 SMP Mon Apr  3 17:20:52 BST 2023 armv7l</span><br><span class="line"></span><br><span class="line">The programs included with the Debian GNU/Linux system are free software;</span><br><span class="line">the exact distribution terms for each program are described in the</span><br><span class="line">individual files in /usr/share/doc/*/copyright.</span><br><span class="line"></span><br><span class="line">Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent</span><br><span class="line">permitted by applicable law.</span><br><span class="line">Last login: Thu Jul 25 20:23:51 2024 from 192.168.1.1</span><br><span class="line">➜  ~ neofetch</span><br><span class="line">  `.::///+:/-.        --///+//-:``    lvision@octopi </span><br><span class="line"> `+oooooooooooo:   `+oooooooooooo:    -------------- </span><br><span class="line">  /oooo++//ooooo:  ooooo+//+ooooo.    OS: Raspbian GNU/Linux 11 (bullseye) armv7l </span><br><span class="line">  `+ooooooo:-:oo-  +o+::/ooooooo:     Host: Raspberry Pi 3 Model B Rev 1.2 </span><br><span class="line">   `:oooooooo+``    `.oooooooo+-      Kernel: 6.1.21-v7+ </span><br><span class="line">     `:++ooo/.        :+ooo+/.`       Uptime: 5 mins </span><br><span class="line">        ...`  `.----.` ``..           Packages: 816 (dpkg) </span><br><span class="line">     .::::-``:::::::::.`-:::-`        Shell: zsh 5.8 </span><br><span class="line">    -:::-`   .:::::::-`  `-:::-       Terminal: /dev/pts/0 </span><br><span class="line">   `::.  `.--.`  `` `.---.``.::`      CPU: BCM2835 (4) @ 1.200GHz </span><br><span class="line">       .::::::::`  -::::::::` `       Memory: 111MiB / 870MiB </span><br><span class="line"> .::` .:::::::::- `::::::::::``::.</span><br><span class="line">-:::` ::::::::::.  ::::::::::.`:::-                           </span><br><span class="line">::::  -::::::::.   `-::::::::  ::::                           </span><br><span class="line">-::-   .-:::-.``....``.-::-.   -::-</span><br><span class="line"> .. ``       .::::::::.     `..`..</span><br><span class="line">   -:::-`   -::::::::::`  .:::::`</span><br><span class="line">   :::::::` -::::::::::` :::::::.</span><br><span class="line">   .:::::::  -::::::::. ::::::::</span><br><span class="line">    `-:::::`   ..--.`   ::::::.</span><br><span class="line">      `...`  `...--..`  `...`</span><br><span class="line">            .::::::::::</span><br><span class="line">             `.-::::-`</span><br></pre></td></tr></table></figure>
+<h1 id="3-octoprint-on-octopi"><a class="markdownIt-Anchor" href="#3-octoprint-on-octopi"></a> 3. <a target="_blank" rel="noopener" href="https://octoprint.org/">OctoPrint</a> on <a target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a></h1>
 <table>
 <thead>
 <tr>
-<th align="center"><a target="_blank" rel="noopener" href="https://octoprint.org/">OctoPrint</a> Server Reload</th>
-<th align="center"><a target="_blank" rel="noopener" href="https://octoprint.org/">OctoPrint</a> Webcam</th>
+<th style="text-align:center">octopi.local Setup Wizard</th>
+<th style="text-align:center"><a target="_blank" rel="noopener" href="https://octoprint.org/">OctoPrint</a> 3D Printer</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OctoPi/OctoPrint_ServerReload.png" alt="OctoPrint Server Reload"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OctoPi/OctoPrint_Webcam.png" alt="OctoPrint Webcam"></td>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OctoPi/OctoPrint_octopi.local.png" alt="octopi.local Setup Wizard" /></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OctoPi/OctoPrint_3DPrinter.png" alt="OctoPrint 3D Printer" /></td>
 </tr>
-</tbody></table>
-<h1 id="4-LaserGRBL-and-LightBurn"><a href="#4-LaserGRBL-and-LightBurn" class="headerlink" title="4. LaserGRBL and LightBurn"></a>4. <a target="_blank" rel="noopener" href="https://lasergrbl.com/">LaserGRBL</a> and <a target="_blank" rel="noopener" href="https://lightburnsoftware.com/">LightBurn</a></h1>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><a target="_blank" rel="noopener" href="https://octoprint.org/">OctoPrint</a> Server Reload</th>
+<th style="text-align:center"><a target="_blank" rel="noopener" href="https://octoprint.org/">OctoPrint</a> Webcam</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OctoPi/OctoPrint_ServerReload.png" alt="OctoPrint Server Reload" /></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OctoPi/OctoPrint_Webcam.png" alt="OctoPrint Webcam" /></td>
+</tr>
+</tbody>
+</table>
+<h1 id="4-lasergrbl-and-lightburn"><a class="markdownIt-Anchor" href="#4-lasergrbl-and-lightburn"></a> 4. <a target="_blank" rel="noopener" href="https://lasergrbl.com/">LaserGRBL</a> and <a target="_blank" rel="noopener" href="https://lightburnsoftware.com/">LightBurn</a></h1>
+
       
     </div>
 
@@ -1744,248 +2018,6 @@
 <td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/ESPHome_4_ESP32Cam_Integrated.png" alt="16"></td>
 </tr>
 </tbody></table>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2024/05/16/SBCs/RISC-V/Luckfox-Pico-Max/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Longer Vision Technology">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/05/16/SBCs/RISC-V/Luckfox-Pico-Max/" class="post-title-link" itemprop="url">Luckfox Pico Max RV1106</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2024-05-16 22:14:01" itemprop="dateCreated datePublished" datetime="2024-05-16T22:14:01-07:00">2024-05-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-05-30 02:29:24" itemprop="dateModified" datetime="2024-05-30T02:29:24-07:00">2024-05-30</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Single-Board-Computers/Risc-V/" itemprop="url" rel="index"><span itemprop="name">Risc-V</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>China indeed is becoming better and better. Let me show you some pictures in <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Suzhou">SuZhou</a> before my flight back to <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Vancouver">Vancouver</a>.</p>
-<table>
-<thead>
-<tr>
-<th align="center">Temple @ Lingyanshan, Mudu, Suzhou</th>
-<th align="center">Stone Turtle @ Lingyanshan, Mudu, Suzhou</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/LingYanShanTemple.jpg" width="480"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/LingYanShanTurtle.jpg" width="480"></td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/ShanTangRoad.jpg" width="480"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/XiangXi_Bridge.jpg" width="480"></td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/XiangXi.jpg" width="480"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/XiangXi_UnknownBridge.jpg" width="480"></td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/DownTown_XuanGuanTemple.jpg" width="480"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/DownTown_PingJiangRoad_Starbucks.jpg" width="480"></td>
-</tr>
-<tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/DownTown_PingJiangRoad.jpg" width="480"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/DownTown_PingJiangRoad_SideRoad.jpg" width="480"></td>
-</tr>
-</tbody></table>
-<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h1><h2 id="1-1-First-Look"><a href="#1-1-First-Look" class="headerlink" title="1.1 First Look"></a>1.1 First Look</h2><table>
-<thead>
-<tr>
-<th align="center">Luckfox Pico Max Top View</th>
-<th align="center">Luckfox Pico Max Bottom View</th>
-<th align="center">Luckfox Pico Max Top View with Camera</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/RISC-V/Luckfox-Pico-Max/LuckfoxPicoMax_Top.jpg" alt="Luckfox Pico Max Top View"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/RISC-V/Luckfox-Pico-Max/LuckfoxPicoMax_Bottom.jpg" alt="Luckfox Pico Max Bottom View"></td>
-<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/RISC-V/Luckfox-Pico-Max/LuckfoxPicoMax_Top_Camera.jpg" alt="Luckfox Pico Max Top View with Camera"></td>
-</tr>
-</tbody></table>
-<h2 id="1-2-Official-Documentation"><a href="#1-2-Official-Documentation" class="headerlink" title="1.2 Official Documentation"></a>1.2 Official Documentation</h2><p>Actually, <strong>ALL</strong> you need can be found at:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://wiki.luckfox.com/Luckfox-Pico/Luckfox-Pico-quick-start">Luckfox Pico Getting Started Tutorial</a></li>
-</ul>
-<h2 id="1-3-Luckfox-Pico-Max"><a href="#1-3-Luckfox-Pico-Max" class="headerlink" title="1.3 Luckfox Pico Max"></a>1.3 Luckfox Pico Max</h2><p>According to the <a target="_blank" rel="noopener" href="https://wiki.luckfox.com/Luckfox-Pico/Luckfox-Pico-quick-start#product-parameters">Luckfox Pico Product Parameters</a>, two streams of the products can be categorized into 2 classes by their chips:</p>
-<ul>
-<li>RV1103: <ul>
-<li>Luckfox Pico</li>
-<li>Luckfox Pico Mini A</li>
-<li>Luckfox Pico Mini B</li>
-<li>Luckfox Pico Plus</li>
-</ul>
-</li>
-<li>RV1106: <ul>
-<li>Luckfox Pico Pro</li>
-<li>Luckfox Pico Max</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>[!NOTE]<br>Clearly, the one I purchased is a <strong>Luckfox Pico Max</strong>.</p>
-</blockquote>
-<h1 id="2-lsusb"><a href="#2-lsusb" class="headerlink" title="2. lsusb"></a>2. lsusb</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ lsusb</span><br><span class="line">......</span><br><span class="line">Bus 009 Device 007: ID 2207:0019 Fuzhou Rockchip Electronics Company rk3xxx</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2024/05/09/Coding/HowTo/open3d/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Longer Vision Technology">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/05/09/Coding/HowTo/open3d/" class="post-title-link" itemprop="url">Build Open3D From Source</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2024-05-09 00:00:00 / Modified: 16:01:10" itemprop="dateCreated datePublished" datetime="2024-05-09T00:00:00-07:00">2024-05-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Coding/HowTo/" itemprop="url" rel="index"><span itemprop="name">HowTo</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>I tried to build Intel <a target="_blank" rel="noopener" href="https://github.com/isl-org/Open3D">Open3D</a> from source, using <a target="_blank" rel="noopener" href="https://gcc.gnu.org/">GCC&#x2F;G++</a> <strong>ONLY</strong>. Of course, I used <strong>ALL</strong> 3rdparty libraries either from default Ubuntu repository, or manually installed the newest version, rather than using the <a target="_blank" rel="noopener" href="https://github.com/isl-org/Open3D/tree/master/3rdparty">3rdparty libraries coming with Open3D itself</a>.</p>
-<p>Today, May 9, 2024, I had this annoying <a target="_blank" rel="noopener" href="https://github.com/isl-org/Open3D">Open3D</a> successfully built again, with my <a target="_blank" rel="noopener" href="https://github.com/isl-org/Open3D/pull/6788">PR 6788</a>.</p>
 
       
     </div>
