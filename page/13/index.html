@@ -116,7 +116,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -127,7 +127,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">130</span>
+        <span class="site-state-item-count">132</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -144,6 +144,360 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2018/06/23/ComputerVision/Face/vosm-2018/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Longer Vision Technology">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/06/23/ComputerVision/Face/vosm-2018/" class="post-title-link" itemprop="url">Vision Open Statistic Models</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2018-06-23 00:00:00" itemprop="dateCreated datePublished" datetime="2018-06-23T00:00:00-07:00">2018-06-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-11-21 23:06:29" itemprop="dateModified" datetime="2023-11-21T23:06:29-08:00">2023-11-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Computer-Vision/Face/" itemprop="url" rel="index"><span itemprop="name">Face</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>It has been quite a while that my <a target="_blank" rel="noopener" href="https://github.com/jiapei100/VOSM">VOSM</a> has NOT been updated. My bad for sure. But today, I have it updated, and <a target="_blank" rel="noopener" href="https://github.com/jiapei100/VOSM/releases">VOSM-0.3.5</a> is released. Just refer to the following 3 pages on <strong>github</strong>:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/jiapei100/VOSM/blob/master/README.md">VOSM README.md</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jiapei100/VOSM/wiki/How-to-use-VOSM%3F">VOSM Wiki</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jiapei100/VOSM/releases">VOSM Release</a></li>
+</ul>
+<p>We’ll still explain a bit on <strong>How to use VOSM</strong> in the following:</p>
+<h1 id="1-Building"><a href="#1-Building" class="headerlink" title="1. Building"></a>1. Building</h1><h2 id="1-1-Building-Commands"><a href="#1-1-Building-Commands" class="headerlink" title="1.1 Building Commands"></a>1.1 Building Commands</h2><p>Currently, there are 7 types of models to be built. Namely, there are 7 choices for the parameter “-t”:</p>
+<ul>
+<li>SM</li>
+<li>TM</li>
+<li>AM</li>
+<li>IA</li>
+<li>FM</li>
+<li>SMLTC</li>
+<li>SMNDPROFILE</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ testsmbuilding -o &quot;./output&quot; -a &quot;./annotations/training/&quot; -i &quot;./images/training/&quot; -s &quot;../VOSM/shapeinfo/IMM/ShapeInfo.txt&quot; -d &quot;IMM&quot; -c 1 -t &quot;SM&quot; -l 4 -p 0.95</span><br><span class="line">$ testsmbuilding -o &quot;./output&quot; -a &quot;./annotations/training/&quot; -i &quot;./images/training/&quot; -s &quot;../VOSM/shapeinfo/IMM/ShapeInfo.txt&quot; -d &quot;IMM&quot; -c 1 -t &quot;TM&quot; -l 4 -p 0.95</span><br><span class="line">$ testsmbuilding -o &quot;./output&quot; -a &quot;./annotations/training/&quot; -i &quot;./images/training/&quot; -s &quot;../VOSM/shapeinfo/IMM/ShapeInfo.txt&quot; -d &quot;IMM&quot; -c 1 -t &quot;AM&quot; -l 4 -p 0.95</span><br><span class="line">$ testsmbuilding -o &quot;./output&quot; -a &quot;./annotations/training/&quot; -i &quot;./images/training/&quot; -s &quot;../VOSM/shapeinfo/IMM/ShapeInfo.txt&quot; -d &quot;IMM&quot; -c 1 -t &quot;IA&quot; -l 4 -p 0.95</span><br><span class="line">$ testsmbuilding -o &quot;./output&quot; -a &quot;./annotations/training/&quot; -i &quot;./images/training/&quot; -s &quot;../VOSM/shapeinfo/IMM/ShapeInfo.txt&quot; -d &quot;IMM&quot; -c 1 -t &quot;FM&quot; -l 4 -p 0.95</span><br><span class="line">$ testsmbuilding -o &quot;./output&quot; -a &quot;./annotations/training/&quot; -i &quot;./images/training/&quot; -s &quot;../VOSM/shapeinfo/IMM/ShapeInfo.txt&quot; -d &quot;IMM&quot; -c 1 -t &quot;SMLTC&quot; -l 4 -p 0.95</span><br><span class="line">$ testsmbuilding -o &quot;./output&quot; -a &quot;./annotations/training/&quot; -i &quot;./images/training/&quot; -s &quot;../VOSM/shapeinfo/IMM/ShapeInfo.txt&quot; -d &quot;IMM&quot; -c 1 -t &quot;SMNDPROFILE&quot; -l 4 -p 0.95</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="1-2-Output-Folders"><a href="#1-2-Output-Folders" class="headerlink" title="1.2 Output Folders"></a>1.2 Output Folders</h2><p>After these 7 commands, 9 folders will be generated:</p>
+<ul>
+<li>Point2DDistributionModel</li>
+<li>ShapeModel</li>
+<li>TextureModel</li>
+<li>AppearanceModel</li>
+<li>AAMICIA</li>
+<li>AFM</li>
+<li>AXM</li>
+<li>ASMLTCs</li>
+<li>ASMNDProfiles</li>
+</ul>
+<h2 id="1-3-Output-Images"><a href="#1-3-Output-Images" class="headerlink" title="1.3 Output Images"></a>1.3 Output Images</h2><p>Under folder <strong>TextureModel</strong>, 3 key images are generated:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Reference.jpg</th>
+<th align="center">edges.jpg</th>
+<th align="center">ellipses.jpg</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/TextureModel/Reference.jpg" alt="Reference.jpg"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/TextureModel/edges.jpg" alt="edges.jpg"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/TextureModel/ellipses.jpg" alt="ellipses"></td>
+</tr>
+</tbody></table>
+<p>Under folder <strong>AAMICIA</strong>, another 3 key images are generated:</p>
+<table>
+<thead>
+<tr>
+<th align="center">m_IplImageTempFace.jpg</th>
+<th align="center">m_IplImageTempFaceX.jpg</th>
+<th align="center">m_IplImageTempFaceY.jpg</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/AAMICIA/m_IplImageTempFace.jpg" alt="m_IplImageTempFace.jpg - same as Reference.jpg"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/AAMICIA/m_IplImageTempFaceX.jpg" alt="m_IplImageTempFaceX.jpg"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/AAMICIA/m_IplImageTempFaceY.jpg" alt="m_IplImageTempFaceY.jpg"></td>
+</tr>
+</tbody></table>
+<h1 id="2-Fitting"><a href="#2-Fitting" class="headerlink" title="2. Fitting"></a>2. Fitting</h1><h2 id="2-1-Fitting-Commands"><a href="#2-1-Fitting-Commands" class="headerlink" title="2.1 Fitting Commands"></a>2.1 Fitting Commands</h2><p>Current <a target="_blank" rel="noopener" href="https://github.com/jiapei100/VOSM/releases">VOSM</a> supports 5 fitting methods.</p>
+<ul>
+<li>ASM_PROFILEND</li>
+<li>ASM_LTC</li>
+<li>AAM_BASIC</li>
+<li>AAM_CMUICIA</li>
+<li>AAM_IAIA</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ testsmfitting -o &quot;./output/&quot; -t &quot;ASM_PROFILEND&quot; -i &quot;./images/testing/&quot; -a &quot;./annotations/testing/&quot; -d &quot;IMM&quot; -s true -r true</span><br><span class="line">$ testsmfitting -o &quot;./output/&quot; -t &quot;ASM_LTC&quot; -i &quot;./images/testing/&quot; -a &quot;./annotations/testing/&quot; -d &quot;IMM&quot; -s true -r true</span><br><span class="line">$ testsmfitting -o &quot;./output/&quot; -t &quot;AAM_BASIC&quot; -i &quot;./images/testing/&quot; -a &quot;./annotations/testing/&quot; -d &quot;IMM&quot; -s true -r true</span><br><span class="line">$ testsmfitting -o &quot;./output/&quot; -t &quot;AAM_CMUICIA&quot; -i &quot;./images/testing/&quot; -a &quot;./annotations/testing/&quot; -d &quot;IMM&quot; -s true -r true</span><br><span class="line">$ testsmfitting -o &quot;./output/&quot; -t &quot;AAM_IAIA&quot; -i &quot;./images/testing/&quot; -a &quot;./annotations/testing/&quot; -d &quot;IMM&quot; -s true -r true</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="2-2-Fitting-Results"><a href="#2-2-Fitting-Results" class="headerlink" title="2.2 Fitting Results"></a>2.2 Fitting Results</h2><p>Let’s just take <strong>ASM_PROFILEND</strong> as an example.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ testsmfitting -o &quot;./output/&quot; -t &quot;ASM_PROFILEND&quot; -i &quot;./images/testing/&quot; -a &quot;./annotations/testing/&quot; -d &quot;IMM&quot; -s true -r true</span><br></pre></td></tr></table></figure>
+
+<p>All fitted images are generated under current folder, some are well fitted:</p>
+<table>
+<thead>
+<tr>
+<th align="center">11-1m.jpg</th>
+<th align="center">33-4m.jpg</th>
+<th align="center">40-6m.jpg</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/WellFitted/11-1m.jpg" alt="11-1m.jpg"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/WellFitted/33-4m.jpg" alt="33-4m.jpg"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/WellFitted/40-6m.jpg" alt="40-6m"></td>
+</tr>
+</tbody></table>
+<p>others are <strong>NOT</strong> well fitted:</p>
+<table>
+<thead>
+<tr>
+<th align="center">12-3f.jpg</th>
+<th align="center">20-6m.jpg</th>
+<th align="center">23-4m.jpg</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/NOTWellFitted/12-3f.jpg" alt="12-3f.jpg"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/NOTWellFitted/20-6m.jpg" alt="20-6m.jpg"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/NOTWellFitted/23-4m.jpg" alt="23-4m"></td>
+</tr>
+</tbody></table>
+<h2 id="2-3-Process-of-Fitting"><a href="#2-3-Process-of-Fitting" class="headerlink" title="2.3 Process of Fitting"></a>2.3 Process of Fitting</h2><p>The fitting process can also be recorded for each image if the parameter “-r” is enabled by <code>-r true</code>. Let’s take a look at what’s in folder <strong>40-6m</strong>.</p>
+<table>
+<thead>
+<tr>
+<th align="center">00.jpg</th>
+<th align="center">01.jpg</th>
+<th align="center">02.jpg</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/00.jpg" alt="00.jpg"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/01.jpg" alt="01.jpg"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/02.jpg" alt="02.jpg"></td>
+</tr>
+<tr>
+<td align="center">03.jpg</td>
+<td align="center">04.jpg</td>
+<td align="center">05.jpg</td>
+</tr>
+<tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/03.jpg" alt="03.jpg"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/04.jpg" alt="04.jpg"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/05.jpg" alt="05.jpg"></td>
+</tr>
+<tr>
+<td align="center">06.jpg</td>
+<td align="center">07.jpg</td>
+<td align="center">08.jpg</td>
+</tr>
+<tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/06.jpg" alt="06.jpg"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/07.jpg" alt="07.jpg"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/08.jpg" alt="08.jpg"></td>
+</tr>
+<tr>
+<td align="center">09.jpg</td>
+<td align="center">10.jpg</td>
+<td align="center">11.jpg</td>
+</tr>
+<tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/09.jpg" alt="09.jpg"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/10.jpg" alt="10.jpg"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/11.jpg" alt="11.jpg"></td>
+</tr>
+<tr>
+<td align="center">09.jpg</td>
+<td align="center">10.jpg</td>
+<td align="center">11.jpg</td>
+</tr>
+<tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/12.jpg" alt="12.jpg"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/13.jpg" alt="13.jpg"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/14.jpg" alt="14.jpg"></td>
+</tr>
+<tr>
+<td align="center">15.jpg</td>
+<td align="center">16.jpg</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/15.jpg" alt="15.jpg"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/16.jpg" alt="16.jpg"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<p>Clearly, the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Pyramid_%28image_processing%29">technology of pyramids</a> is adopted during the fitting process.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2018/06/22/Tools/download-youtube-videos/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Longer Vision Technology">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/06/22/Tools/download-youtube-videos/" class="post-title-link" itemprop="url">Use VLC To Download Youtube Videos</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2018-06-22 00:00:00" itemprop="dateCreated datePublished" datetime="2018-06-22T00:00:00-07:00">2018-06-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-11-21 23:06:29" itemprop="dateModified" datetime="2023-11-21T23:06:29-08:00">2023-11-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>To download videos from <a target="_blank" rel="noopener" href="https://www.youtube.com/">Youtube</a> is sometimes <strong>required</strong>. Some Chrome plugins can be used to download Youtube videos, such as: <a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/youtube-downloader/glpiomfohibbgeedfmcnahlanpehojdd">Youtube Downloader</a>. Other methods can also be found on various resources, such as: <a target="_blank" rel="noopener" href="https://www.wikihow.com/Download-YouTube-Videos">WikiHow</a>.</p>
+<p>In this blog, I’m going to <strong>cite (copy and paste)</strong> from <a target="_blank" rel="noopener" href="https://www.wikihow.com/Download-YouTube-Videos">WikiHow</a> about <strong>How to download Youtube videos by using VLC</strong>.</p>
+<h1 id="STEP1-Copy-Youtube-URL"><a href="#STEP1-Copy-Youtube-URL" class="headerlink" title="STEP1: Copy Youtube URL"></a>STEP1: Copy Youtube URL</h1><p>Find the Youtube video that you would like to download, and copy the Youtube URL.</p>
+<h1 id="STEP-2-Broadcast-Youtube-Video-in-VLC"><a href="#STEP-2-Broadcast-Youtube-Video-in-VLC" class="headerlink" title="STEP 2: Broadcast Youtube Video in VLC"></a>STEP 2: Broadcast Youtube Video in VLC</h1><p>Paste the URL under <strong>VLC Media Player</strong>-&gt;<strong>Media</strong>-&gt;<strong>Open Network Stream</strong>-&gt;<strong>Network Tab</strong>-&gt;<strong>Please enter a network URL:</strong>, and <strong>Play</strong>:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Tools/youtube/Broadcasting.jpg" alt="Video Broadcasting"></p>
+<h1 id="STEP-3-Get-the-Real-Location-of-Youtube-Video"><a href="#STEP-3-Get-the-Real-Location-of-Youtube-Video" class="headerlink" title="STEP 3: Get the Real Location of Youtube Video"></a>STEP 3: Get the Real Location of Youtube Video</h1><p>Then, copy the URL under <strong>Tools</strong>-&gt;<strong>Codec Information</strong>-&gt;<strong>Codec</strong>-&gt;<strong>Location</strong>:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Tools/youtube/CurrentMediaInformation.jpg" alt="Current Media Information"></p>
+<h1 id="STEP-4-Save-Video-As"><a href="#STEP-4-Save-Video-As" class="headerlink" title="STEP 4: Save Video As"></a>STEP 4: Save Video As</h1><p>Finally, paste the URL in Chrome:</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Tools/youtube/SaveVideoAs.jpg" alt="Save Video As"></p>
+<p>and <strong>Save video as…</strong>.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1466,211 +1820,6 @@
 
 <h2 id="Additionally"><a href="#Additionally" class="headerlink" title="Additionally"></a>Additionally</h2><p>You may use the following piece of code to load the calibration parameters from file “calibration.yaml”.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;calibration.yaml&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    loadeddict = yaml.load(f)</span><br><span class="line">mtxloaded = loadeddict.get(<span class="string">&#x27;camera_matrix&#x27;</span>)</span><br><span class="line">distloaded = loadeddict.get(<span class="string">&#x27;dist_coeff&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2017/03/16/ComputerVision/OpenCV/opencv-internal-calibration-chessboard/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Longer Vision Technology">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/03/16/ComputerVision/OpenCV/opencv-internal-calibration-chessboard/" class="post-title-link" itemprop="url">Camera Calibration Using a Chessboard</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2017-03-16 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-16T00:00:00-07:00">2017-03-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-11-21 23:06:29" itemprop="dateModified" datetime="2023-11-21T23:06:29-08:00">2023-11-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Computer-Vision/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h1><p>Traditionally, a camera is calibrated using a chessboard. Existing documentations are already out there and have discussed camera calibration in detail, for example, <a target="_blank" rel="noopener" href="http://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_calib3d/py_calibration/py_calibration.html">OpenCV-Python Tutorials</a>.</p>
-<h1 id="Coding"><a href="#Coding" class="headerlink" title="Coding"></a>Coding</h1><p>Our code can be found at <a target="_blank" rel="noopener" href="https://github.com/LongerVision/OpenCV_Examples/blob/master/01_internal_camera_calibration/chessboard.py">OpenCV Examples</a>.</p>
-<h2 id="First-of-all"><a href="#First-of-all" class="headerlink" title="First of all"></a>First of all</h2><p>Unlike estimating camera postures which is dealing with the extrinsic parameters, camera calibration is to calculate the intrinsic parameters. In such a case, there is <strong>NO</strong> need for us to measure the cell size of the chessboard. Anyway, the adopted chessboard is just an ordinary chessboard as:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/OpenCV_Examples/master/markers/pattern_chessboard.png" alt="pattern_chessboard"></p>
-<h2 id="Secondly"><a href="#Secondly" class="headerlink" title="Secondly"></a>Secondly</h2><p>Required packages need to be imported.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> yaml</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Thirdly"><a href="#Thirdly" class="headerlink" title="Thirdly"></a>Thirdly</h2><p>Some initialization work need to be done, including: 1) define the termination criteria when refine the corner sub-pixel later on; 2) object points coordinators initialization.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># termination criteria</span></span><br><span class="line">criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, <span class="number">30</span>, <span class="number">0.001</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># prepare object points, like (0,0,0), (1,0,0), (2,0,0) ....,(6,5,0)</span></span><br><span class="line">objp = np.zeros((<span class="number">6</span>*<span class="number">7</span>,<span class="number">3</span>), np.float32)</span><br><span class="line">objp[:,:<span class="number">2</span>] = np.mgrid[<span class="number">0</span>:<span class="number">7</span>,<span class="number">0</span>:<span class="number">6</span>].T.reshape(-<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Arrays to store object points and image points from all the images.</span></span><br><span class="line">objpoints = [] <span class="comment"># 3d point in real world space</span></span><br><span class="line">imgpoints = [] <span class="comment"># 2d points in image plane.</span></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Fourthly"><a href="#Fourthly" class="headerlink" title="Fourthly"></a>Fourthly</h2><p>After localizing 10 frames (<strong>10</strong> can be changed to any positive integer as you wish) of a grid of 2D chessboard cell corners, camera matrix and distortion coefficients can be calculated by invoking the function <strong>calibrateCamera</strong>. Here, we are testing on a real-time camera stream.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">cap = cv2.VideoCapture(<span class="number">0</span>)</span><br><span class="line">found = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span>(found &lt; <span class="number">10</span>):  <span class="comment"># Here, 10 can be changed to whatever number you like to choose</span></span><br><span class="line">    ret, img = cap.read() <span class="comment"># Capture frame-by-frame</span></span><br><span class="line">    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Find the chess board corners</span></span><br><span class="line">    ret, corners = cv2.findChessboardCorners(gray, (<span class="number">7</span>,<span class="number">6</span>),<span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># If found, add object points, image points (after refining them)</span></span><br><span class="line">    <span class="keyword">if</span> ret == <span class="literal">True</span>:</span><br><span class="line">        objpoints.append(objp)   <span class="comment"># Certainly, every loop objp is the same, in 3D.</span></span><br><span class="line">        corners2 = cv2.cornerSubPix(gray,corners,(<span class="number">11</span>,<span class="number">11</span>),(-<span class="number">1</span>,-<span class="number">1</span>),criteria)</span><br><span class="line">        imgpoints.append(corners2)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Draw and display the corners</span></span><br><span class="line">        img = cv2.drawChessboardCorners(img, (<span class="number">7</span>,<span class="number">6</span>), corners2, ret)</span><br><span class="line">        found += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    cv2.imshow(<span class="string">&#x27;img&#x27;</span>, img)</span><br><span class="line">    cv2.waitKey(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># When everything done, release the capture</span></span><br><span class="line">cap.release()</span><br><span class="line">cv2.destroyAllWindows()</span><br><span class="line"></span><br><span class="line">ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-<span class="number">1</span>], <span class="literal">None</span>, <span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Finally"><a href="#Finally" class="headerlink" title="Finally"></a>Finally</h2><p>Write the calculated calibration parameters into a yaml file. Here, it is a bit tricky. Please bear in mind that you <strong>MUST</strong> call function <strong>tolist()</strong> to transform a numpy array to a list.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># It&#x27;s very important to transform the matrix to list.</span></span><br><span class="line"></span><br><span class="line">data = &#123;<span class="string">&#x27;camera_matrix&#x27;</span>: np.asarray(mtx).tolist(), <span class="string">&#x27;dist_coeff&#x27;</span>: np.asarray(dist).tolist()&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;calibration.yaml&quot;</span>, <span class="string">&quot;w&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    yaml.dump(data, f)</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Additionally"><a href="#Additionally" class="headerlink" title="Additionally"></a>Additionally</h2><p>You may use the following piece of code to load the calibration parameters from file “calibration.yaml”.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;calibration.yaml&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    loadeddict = yaml.load(f)</span><br><span class="line"></span><br><span class="line">mtxloaded = loadeddict.get(<span class="string">&#x27;camera_matrix&#x27;</span>)</span><br><span class="line">distloaded = loadeddict.get(<span class="string">&#x27;dist_coeff&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2017/03/15/ComputerVision/OpenCV/opencv-python-arruco-doc/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Longer Vision Technology">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/03/15/ComputerVision/OpenCV/opencv-python-arruco-doc/" class="post-title-link" itemprop="url">OpenCV Python ArUco Documentation</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2017-03-15 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-15T00:00:00-07:00">2017-03-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-11-21 23:06:29" itemprop="dateModified" datetime="2023-11-21T23:06:29-08:00">2023-11-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Computer-Vision/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h1><p>Open a bash terminal, and type in the following commands:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ python</span><br><span class="line">Python 3.5.2 (default, Nov 17 2016, 17:05:23)</span><br><span class="line">[GCC 5.4.0 20160609] on linux</span><br><span class="line">Type <span class="string">&quot;help&quot;</span>, <span class="string">&quot;copyright&quot;</span>, <span class="string">&quot;credits&quot;</span> or <span class="string">&quot;license&quot;</span> <span class="keyword">for</span> more information.</span><br><span class="line">&gt;&gt;&gt; import cv2</span><br><span class="line">&gt;&gt;&gt; <span class="built_in">help</span> (cv2.aruco)</span><br></pre></td></tr></table></figure>
-
-<p>Then, you will be able to see all the doc contents for <strong>cv2.aruco</strong>:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br></pre></td><td class="code"><pre><span class="line">Help on module cv2.aruco <span class="keyword">in</span> cv2:</span><br><span class="line"></span><br><span class="line">NAME</span><br><span class="line">    cv2.aruco</span><br><span class="line"></span><br><span class="line">FUNCTIONS</span><br><span class="line">    Board_create(...)</span><br><span class="line"></span><br><span class="line">        Board_create(objPoints, dictionary, ids) -&gt; retval</span><br><span class="line"></span><br><span class="line">    CharucoBoard_create(...)</span><br><span class="line"></span><br><span class="line">        CharucoBoard_create(squaresX, squaresY, squareLength, markerLength, dictionary) -&gt; retval</span><br><span class="line"></span><br><span class="line">    DetectorParameters_create(...)</span><br><span class="line"></span><br><span class="line">        DetectorParameters_create() -&gt; retval</span><br><span class="line"></span><br><span class="line">    Dictionary_create(...)</span><br><span class="line"></span><br><span class="line">        Dictionary_create(nMarkers, markerSize) -&gt; retval</span><br><span class="line"></span><br><span class="line">    Dictionary_create_from(...)</span><br><span class="line"></span><br><span class="line">        Dictionary_create_from(nMarkers, markerSize, baseDictionary) -&gt; retval</span><br><span class="line"></span><br><span class="line">    Dictionary_get(...)</span><br><span class="line"></span><br><span class="line">        Dictionary_get(<span class="built_in">dict</span>) -&gt; retval</span><br><span class="line"></span><br><span class="line">    GridBoard_create(...)</span><br><span class="line"></span><br><span class="line">        GridBoard_create(markersX, markersY, markerLength, markerSeparation, dictionary[, firstMarker]) -&gt; retval</span><br><span class="line"></span><br><span class="line">    calibrateCameraAruco(...)</span><br><span class="line"></span><br><span class="line">        calibrateCameraAruco(corners, ids, counter, board, imageSize, cameraMatrix, distCoeffs[, rvecs[, tvecs[, flags[, criteria]]]]) -&gt; retval, cameraMatrix, distCoeffs, rvecs, tvecs</span><br><span class="line"></span><br><span class="line">    calibrateCameraArucoExtended(...)</span><br><span class="line"></span><br><span class="line">        calibrateCameraArucoExtended(corners, ids, counter, board, imageSize, cameraMatrix, distCoeffs[, rvecs[, tvecs[, stdDeviationsIntrinsics[, stdDeviationsExtrinsics[, perViewErrors[, flags[, criteria]</span><br><span class="line"></span><br><span class="line">]]]]]]) -&gt; retval, cameraMatrix, distCoeffs, rvecs, tvecs, stdDeviationsIntrinsics, stdDeviationsExtrinsics, perViewErrors</span><br><span class="line"></span><br><span class="line">    calibrateCameraCharuco(...)</span><br><span class="line"></span><br><span class="line">        calibrateCameraCharuco(charucoCorners, charucoIds, board, imageSize, cameraMatrix, distCoeffs[, rvecs[, tvecs[, flags[, criteria]]]]) -&gt; retval, cameraMatrix, distCoeffs, rvecs, tvecs</span><br><span class="line"></span><br><span class="line">    calibrateCameraCharucoExtended(...)</span><br><span class="line"></span><br><span class="line">        calibrateCameraCharucoExtended(charucoCorners, charucoIds, board, imageSize, cameraMatrix, distCoeffs[, rvecs[, tvecs[, stdDeviationsIntrinsics[, stdDeviationsExtrinsics[, perViewErrors[, flags[, cr</span><br><span class="line"></span><br><span class="line">iteria]]]]]]]) -&gt; retval, cameraMatrix, distCoeffs, rvecs, tvecs, stdDeviationsIntrinsics, stdDeviationsExtrinsics, perViewErrors</span><br><span class="line"></span><br><span class="line">    custom_dictionary(...)</span><br><span class="line"></span><br><span class="line">        custom_dictionary(nMarkers, markerSize) -&gt; retval</span><br><span class="line"></span><br><span class="line">    custom_dictionary_from(...)</span><br><span class="line"></span><br><span class="line">        custom_dictionary_from(nMarkers, markerSize, baseDictionary) -&gt; retval</span><br><span class="line"></span><br><span class="line">    detectCharucoDiamond(...)</span><br><span class="line"></span><br><span class="line">        detectCharucoDiamond(image, markerCorners, markerIds, squareMarkerLengthRate[, diamondCorners[, diamondIds[, cameraMatrix[, distCoeffs]]]]) -&gt; diamondCorners, diamondIds</span><br><span class="line"></span><br><span class="line">    detectMarkers(...)</span><br><span class="line"></span><br><span class="line">        detectMarkers(image, dictionary[, corners[, ids[, parameters[, rejectedImgPoints]]]]) -&gt; corners, ids, rejectedImgPoints</span><br><span class="line"></span><br><span class="line">    drawAxis(...)</span><br><span class="line"></span><br><span class="line">        drawAxis(image, cameraMatrix, distCoeffs, rvec, tvec, length) -&gt; image</span><br><span class="line"></span><br><span class="line">    drawDetectedCornersCharuco(...)</span><br><span class="line"></span><br><span class="line">        drawDetectedCornersCharuco(image, charucoCorners[, charucoIds[, cornerColor]]) -&gt; image</span><br><span class="line"></span><br><span class="line">    drawDetectedDiamonds(...)</span><br><span class="line"></span><br><span class="line">        drawDetectedDiamonds(image, diamondCorners[, diamondIds[, borderColor]]) -&gt; image</span><br><span class="line"></span><br><span class="line">    drawDetectedMarkers(...)</span><br><span class="line"></span><br><span class="line">        drawDetectedMarkers(image, corners[, ids[, borderColor]]) -&gt; image</span><br><span class="line"></span><br><span class="line">    drawMarker(...)</span><br><span class="line"></span><br><span class="line">        drawMarker(dictionary, <span class="built_in">id</span>, sidePixels[, img[, borderBits]]) -&gt; img</span><br><span class="line"></span><br><span class="line">    drawPlanarBoard(...)</span><br><span class="line"></span><br><span class="line">        drawPlanarBoard(board, outSize[, img[, marginSize[, borderBits]]]) -&gt; img</span><br><span class="line"></span><br><span class="line">    estimatePoseBoard(...)</span><br><span class="line"></span><br><span class="line">        estimatePoseBoard(corners, ids, board, cameraMatrix, distCoeffs[, rvec[, tvec[, useExtrinsicGuess]]]) -&gt; retval, rvec, tvec</span><br><span class="line"></span><br><span class="line">    estimatePoseCharucoBoard(...)</span><br><span class="line"></span><br><span class="line">        estimatePoseCharucoBoard(charucoCorners, charucoIds, board, cameraMatrix, distCoeffs[, rvec[, tvec[, useExtrinsicGuess]]]) -&gt; retval, rvec, tvec</span><br><span class="line"></span><br><span class="line">    estimatePoseSingleMarkers(...)</span><br><span class="line"></span><br><span class="line">        estimatePoseSingleMarkers(corners, markerLength, cameraMatrix, distCoeffs[, rvecs[, tvecs]]) -&gt; rvecs, tvecs</span><br><span class="line"></span><br><span class="line">    getPredefinedDictionary(...)</span><br><span class="line"></span><br><span class="line">        getPredefinedDictionary(<span class="built_in">dict</span>) -&gt; retval</span><br><span class="line"></span><br><span class="line">    interpolateCornersCharuco(...)</span><br><span class="line"></span><br><span class="line">        interpolateCornersCharuco(markerCorners, markerIds, image, board[, charucoCorners[, charucoIds[, cameraMatrix[, distCoeffs[, minMarkers]]]]]) -&gt; retval, charucoCorners, charucoIds</span><br><span class="line"></span><br><span class="line">    refineDetectedMarkers(...)</span><br><span class="line"></span><br><span class="line">        refineDetectedMarkers(image, board, detectedCorners, detectedIds, rejectedCorners[, cameraMatrix[, distCoeffs[, minRepDistance[, errorCorrectionRate[, checkAllOrders[, recoveredIdxs[, parameters]]]]]]]) -&gt; detectedCorners, detectedIds, rejectedCorners, recoveredIdxs</span><br><span class="line"></span><br><span class="line">DATA</span><br><span class="line">    DICT_4X4_100 = <span class="number">1</span></span><br><span class="line">    DICT_4X4_1000 = <span class="number">3</span></span><br><span class="line">    DICT_4X4_250 = <span class="number">2</span></span><br><span class="line">    DICT_4X4_50 = <span class="number">0</span></span><br><span class="line">    DICT_5X5_100 = <span class="number">5</span></span><br><span class="line">    DICT_5X5_1000 = <span class="number">7</span></span><br><span class="line">    DICT_5X5_250 = <span class="number">6</span></span><br><span class="line">    DICT_5X5_50 = <span class="number">4</span></span><br><span class="line">    DICT_6X6_100 = <span class="number">9</span></span><br><span class="line">    DICT_6X6_1000 = <span class="number">11</span></span><br><span class="line">    DICT_6X6_250 = <span class="number">10</span></span><br><span class="line">    DICT_6X6_50 = <span class="number">8</span></span><br><span class="line">    DICT_7X7_100 = <span class="number">13</span></span><br><span class="line">    DICT_7X7_1000 = <span class="number">15</span></span><br><span class="line">    DICT_7X7_250 = <span class="number">14</span></span><br><span class="line">    DICT_7X7_50 = <span class="number">12</span></span><br><span class="line">    DICT_ARUCO_ORIGINAL = <span class="number">16</span></span><br><span class="line"></span><br><span class="line">FILE</span><br><span class="line">    (built-<span class="keyword">in</span>)</span><br></pre></td></tr></table></figure>
-
 
 
       
