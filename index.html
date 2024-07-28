@@ -116,7 +116,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">138</span>
+          <span class="site-state-item-count">139</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -127,7 +127,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">132</span>
+        <span class="site-state-item-count">133</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -153,7 +153,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2024/07/28/AI/EdgeComputing/raspberry-pi-5-ncs2-openvino-2024/">
+    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2024/07/27/AI/EdgeComputing/Intel-Movidius-NCS1-NCS2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -171,7 +171,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/07/28/AI/EdgeComputing/raspberry-pi-5-ncs2-openvino-2024/" class="post-title-link" itemprop="url">Raspberry Pi 5 + Intel NCS2 + OpenVINO In 2024</a>
+          <a href="/2024/07/27/AI/EdgeComputing/Intel-Movidius-NCS1-NCS2/" class="post-title-link" itemprop="url">Intel NCS2 vs. Intel NCS1</a>
         </h2>
 
         <div class="post-meta-container">
@@ -182,14 +182,14 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2024-07-28 02:56:30" itemprop="dateCreated datePublished" datetime="2024-07-28T02:56:30-07:00">2024-07-28</time>
+      <time title="Created: 2024-07-27 21:42:03" itemprop="dateCreated datePublished" datetime="2024-07-27T21:42:03-07:00">2024-07-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-07-27 03:00:44" itemprop="dateModified" datetime="2024-07-27T03:00:44-07:00">2024-07-27</time>
+      <time title="Modified: 2024-07-28 09:42:17" itemprop="dateModified" datetime="2024-07-28T09:42:17-07:00">2024-07-28</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -215,8 +215,19 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>As of year 2024, it is a good time to review <a target="_blank" rel="noopener" href="https://openvino.ai/">OpenVINO</a> on my <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/raspberry-pi-5/">Raspberry Pi 5</a> with an Intel <a target="_blank" rel="noopener" href="https://github.com/movidius/ncsdk">NCS2</a>.</p>
-
+          <p>As of year 2024, it looks <a target="_blank" rel="noopener" href="https://github.com/movidius/ncsdk">NCSDK</a> is <strong>NOT</strong> maintained. To clarify the relationships among <a target="_blank" rel="noopener" href="https://openvino.ai/">OpenVINO</a>, <a target="_blank" rel="noopener" href="https://github.com/movidius/ncsdk/tree/master">NCSDK master</a> and <a target="_blank" rel="noopener" href="https://github.com/movidius/ncsdk/tree/ncsdk2">NCSDK ncsdk2</a> is a kind of complicated.</p>
+<h1 id="1-OpenVINO-Runtime-NO-Longer-Supports-Movidius-VPU"><a href="#1-OpenVINO-Runtime-NO-Longer-Supports-Movidius-VPU" class="headerlink" title="1. OpenVINO Runtime NO Longer Supports Movidius VPU"></a>1. <a target="_blank" rel="noopener" href="https://openvino.ai/">OpenVINO</a> Runtime NO Longer Supports <a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/products/details/processors/movidius-vpu.html">Movidius VPU</a></h1><h2 id="1-1-OpenVINO-Toolkit-Release-Notes-2023-0"><a href="#1-1-OpenVINO-Toolkit-Release-Notes-2023-0" class="headerlink" title="1.1 OpenVINO Toolkit Release Notes 2023.0"></a>1.1 <a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/developer/articles/release-notes/openvino/2023-0.html">OpenVINO Toolkit Release Notes 2023.0</a></h2><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/EdgeComputing/IntelMovidius/OpenVINO_NOT_Support_NCS2.png" alt="OpenVINO Runtime no longer supports Intel NCS2 and Movidius Myriad"></p>
+<p>And it looks Long Term Support (LTS) version of <a target="_blank" rel="noopener" href="https://openvino.ai/">OpenVINO</a> ending in December 2024 now still supports for the devices listed above.</p>
+<p>Therefore, in order to get my old devices: 1 <a target="_blank" rel="noopener" href="https://github.com/movidius/ncsdk/tree/ncsdk2">NCS2</a> and 1 <a target="_blank" rel="noopener" href="https://github.com/movidius/ncsdk">NCS1</a> working in the year of 2024, I’ll have to resort to <a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/developer/articles/release-notes/openvino-lts/2023-3.html">Intel® Distribution of OpenVINO™ Toolkit Long-Term Support (LTS)</a>. </p>
+<h2 id="1-2-Intel®-Distribution-of-OpenVINO™-Toolkit-Long-Term-Support-LTS-2022-3"><a href="#1-2-Intel®-Distribution-of-OpenVINO™-Toolkit-Long-Term-Support-LTS-2022-3" class="headerlink" title="1.2 Intel® Distribution of OpenVINO™ Toolkit Long-Term Support (LTS) 2022.3"></a>1.2 <a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/developer/articles/release-notes/openvino-lts/2022-3.html">Intel® Distribution of OpenVINO™ Toolkit Long-Term Support (LTS) 2022.3</a></h2><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/EdgeComputing/IntelMovidius/OpenVINO_LTS_Supports_Movidius.png" alt="OpenVINO Runtime no longer supports Intel NCS2 and Movidius Myriad"></p>
+<h2 id="1-3-Intel®-Distribution-of-OpenVINO™-Toolkit-Long-Term-Support-LTS-2023-3"><a href="#1-3-Intel®-Distribution-of-OpenVINO™-Toolkit-Long-Term-Support-LTS-2023-3" class="headerlink" title="1.3 Intel® Distribution of OpenVINO™ Toolkit Long-Term Support (LTS) 2023.3"></a>1.3 <a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/developer/articles/release-notes/openvino-lts/2023-3.html">Intel® Distribution of OpenVINO™ Toolkit Long-Term Support (LTS) 2023.3</a></h2><p>Ever since <strong>LTS 2023.3</strong>, <a target="_blank" rel="noopener" href="https://openvino.ai/">OpenVINO</a> started emphasize <a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/developer/topic-technology/artificial-intelligence/training/generative-ai.html">GenAI</a>. On its release notes, nowhere is talking about <a target="_blank" rel="noopener" href="https://github.com/movidius/ncsdk/tree/ncsdk2">NCS2</a> or <a target="_blank" rel="noopener" href="https://github.com/movidius/ncsdk">NCS1</a> or anything related to <a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/products/details/processors/movidius-vpu.html">Movidius VPU</a>. According to  <a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/developer/articles/release-notes/openvino/2023-0.html">OpenVINO Toolkit Release Notes 2023.0</a> in the above, I think ever since 2023, <a target="_blank" rel="noopener" href="https://openvino.ai/">OpenVINO</a> turns its direction to <a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/developer/topic-technology/artificial-intelligence/training/generative-ai.html">GenAI</a>, and <strong>NEVER</strong> support for <a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/products/details/processors/movidius-vpu.html">Movidius VPU</a> any more. Therefore, most probably, including this Long-Term Support version, <a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/developer/articles/release-notes/openvino-lts/2023-3.html">Intel® Distribution of OpenVINO™ Toolkit Long-Term Support (LTS) 2023.3</a> does <strong>NOT</strong> have any support to <a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/products/details/processors/movidius-vpu.html">Movidius VPU</a> devices.</p>
+<h2 id="1-4-OpenVINO-2024-2-Intel®-Distribution-of-OpenVINO™-Toolkit-Official-Download"><a href="#1-4-OpenVINO-2024-2-Intel®-Distribution-of-OpenVINO™-Toolkit-Official-Download" class="headerlink" title="1.4 OpenVINO 2024.2 @ Intel® Distribution of OpenVINO™ Toolkit Official Download"></a>1.4 OpenVINO 2024.2 @ <a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/developer/tools/openvino-toolkit/download.html">Intel® Distribution of OpenVINO™ Toolkit Official Download</a></h2><p>Not to mention the <strong>MOST UP-TO-DATE</strong> version <strong>2024.2</strong>, which seems to be <strong>NOT</strong> a <strong>LTS</strong>. Of course, it does <strong>NOT</strong> support <a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/products/details/processors/movidius-vpu.html">Movidius VPU</a> devices.</p>
+<h2 id="1-5-Conclusion"><a href="#1-5-Conclusion" class="headerlink" title="1.5 Conclusion"></a>1.5 Conclusion</h2><p>Go for:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/movidius/ncsdk/tree/ncsdk2">NCS2</a>: <a target="_blank" rel="noopener" href="https://github.com/movidius/ncsdk/tree/ncsdk2">NCSDK ncsdk2</a> or <a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/developer/articles/release-notes/openvino-lts/2022-3.html">Intel® Distribution of OpenVINO™ Toolkit Long-Term Support (LTS) 2022.3</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/movidius/ncsdk">NCS1</a>: <a target="_blank" rel="noopener" href="https://github.com/movidius/ncsdk/tree/master">NCSDK master</a></li>
+</ul>
+<h1 id="2-NCSDK-Does-NOT-Support-Aarch64"><a href="#2-NCSDK-Does-NOT-Support-Aarch64" class="headerlink" title="2. NCSDK Does NOT Support Aarch64"></a>2. <a target="_blank" rel="noopener" href="https://github.com/movidius/ncsdk">NCSDK</a> Does NOT Support Aarch64</h1><h1 id="3-Intel®-Distribution-of-OpenVINO™-Toolkit-Long-Term-Support-LTS-2022-3"><a href="#3-Intel®-Distribution-of-OpenVINO™-Toolkit-Long-Term-Support-LTS-2022-3" class="headerlink" title="3. Intel® Distribution of OpenVINO™ Toolkit Long-Term Support (LTS) 2022.3"></a>3. <a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/developer/articles/release-notes/openvino-lts/2022-3.html">Intel® Distribution of OpenVINO™ Toolkit Long-Term Support (LTS) 2022.3</a></h1>
       
     </div>
 
