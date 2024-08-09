@@ -116,7 +116,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">139</span>
+          <span class="site-state-item-count">140</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -127,7 +127,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">133</span>
+        <span class="site-state-item-count">134</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -144,6 +144,130 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2024/08/08/SBCs/ARM/raspberry-pi-5-openmediavault-nas/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Longer Vision Technology">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/08/08/SBCs/ARM/raspberry-pi-5-openmediavault-nas/" class="post-title-link" itemprop="url">Raspberry Pi 5 + OpenMediaVault +NAS</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-08-08 23:56:30" itemprop="dateCreated datePublished" datetime="2024-08-08T23:56:30-07:00">2024-08-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-08-09 12:41:40" itemprop="dateModified" datetime="2024-08-09T12:41:40-07:00">2024-08-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/EdgeComputing/" itemprop="url" rel="index"><span itemprop="name">EdgeComputing</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="1-Commerial-NAS-vs-DIY-NAS"><a href="#1-Commerial-NAS-vs-DIY-NAS" class="headerlink" title="1. Commerial NAS vs. DIY NAS?"></a>1. Commerial NAS vs. DIY NAS?</h1><ul>
+<li>For me, the <strong>BIGGEST</strong> difference between <code>Commerial NAS</code> vs. <code>DIY NAS</code> is their prices 😂</li>
+<li>Without considering respective capabilities, <code>DIY</code> is <strong>ALWAYS</strong> of more freedom. And, freedom is so so so important as well</li>
+</ul>
+<h1 id="2-OpenMediaVault-on-Raspberry-Pi-5"><a href="#2-OpenMediaVault-on-Raspberry-Pi-5" class="headerlink" title="2. OpenMediaVault on Raspberry Pi 5"></a>2. <a target="_blank" rel="noopener" href="https://www.openmediavault.org/">OpenMediaVault</a> on <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/raspberry-pi-5/">Raspberry Pi 5</a></h1><h2 id="2-1-Use-Lite-Instead-Of-Desktop"><a href="#2-1-Use-Lite-Instead-Of-Desktop" class="headerlink" title="2.1 Use Lite Instead Of Desktop"></a>2.1 Use Lite Instead Of Desktop</h2><p>On <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a>‘s official webpage <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/software/operating-systems/">Raspbian Operating Systems</a>, find <code>Raspberry Pi OS Lite</code> in category <code>Raspberry Pi OS (64-bit)</code>. As of today, the most up-to-date release is <a target="_blank" rel="noopener" href="https://downloads.raspberrypi.com/raspios_lite_arm64/images/raspios_lite_arm64-2024-07-04/2024-07-04-raspios-bookworm-arm64-lite.img.xz">raspios_lite_arm64-2024-07-04</a>.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">➜  RaspberryPi sudo dd if=./2024-07-04-raspios-bookworm-arm64-lite.img of=/dev/sda bs=1M status=progress conv=fsync </span><br><span class="line">2031091712 bytes (2.0 GB, 1.9 GiB) copied, 2 s, 1.0 GB/s2835349504 bytes (2.8 GB, 2.6 GiB) copied, 2.88047 s, 984 MB/s</span><br><span class="line"></span><br><span class="line">2704+0 records in</span><br><span class="line">2704+0 records out</span><br><span class="line">2835349504 bytes (2.8 GB, 2.6 GiB) copied, 312.17 s, 9.1 MB/s</span><br></pre></td></tr></table></figure>
+
+<p><span style="color:red">Don’t forget to enable <code>SSH</code> after installation.</span></p>
+<h2 id="2-2-Install-OpenMediaVault-Upon-Raspberry-Pi-OS-Lite"><a href="#2-2-Install-OpenMediaVault-Upon-Raspberry-Pi-OS-Lite" class="headerlink" title="2.2 Install OpenMediaVault Upon Raspberry Pi OS Lite"></a>2.2 Install <a target="_blank" rel="noopener" href="https://www.openmediavault.org/">OpenMediaVault</a> Upon Raspberry Pi OS Lite</h2><p>Now, <strong>ssh</strong> into <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/raspberry-pi-5/">Raspberry Pi 5</a>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line">Follow [OpenMediaVault]&#x27;s official documentation [OpenMediaVault Installation on Debian], do the following:</span><br><span class="line"></span><br><span class="line">- `apt-get install --yes gnupg`</span><br><span class="line">- `wget --quiet --output-document=- https://packages.openmediavault.org/public/archive.key | sudo gpg --dearmor --yes --output &quot;/usr/share/keyrings/openmediavault-archive-keyring.gpg&quot;`</span><br><span class="line">- `nvim /etc/apt/sources.list.d/openmediavault.list` and add </span><br><span class="line">```txt</span><br><span class="line">deb [signed-by=/usr/share/keyrings/openmediavault-archive-keyring.gpg] https://packages.openmediavault.org/public sandworm main</span><br><span class="line"># deb [signed-by=/usr/share/keyrings/openmediavault-archive-keyring.gpg] https://downloads.sourceforge.net/project/openmediavault/packages sandworm main</span><br><span class="line">## Uncomment the following line to add software from the proposed repository.</span><br><span class="line"># deb [signed-by=/usr/share/keyrings/openmediavault-archive-keyring.gpg] https://packages.openmediavault.org/public sandworm-proposed main</span><br><span class="line"># deb [signed-by=/usr/share/keyrings/openmediavault-archive-keyring.gpg] https://downloads.sourceforge.net/project/openmediavault/packages sandworm-proposed main</span><br><span class="line">## This software is not part of OpenMediaVault, but is offered by third-party</span><br><span class="line">## developers as a service to OpenMediaVault users.</span><br><span class="line"># deb [signed-by=/usr/share/keyrings/openmediavault-archive-keyring.gpg] https://packages.openmediavault.org/public sandworm partner</span><br><span class="line"># deb [signed-by=/usr/share/keyrings/openmediavault-archive-keyring.gpg] https://downloads.sourceforge.net/project/openmediavault/packages sandworm partner</span><br></pre></td></tr></table></figure>
+
+<p>By the way, please refer to <a target="_blank" rel="noopener" href="https://sourceforge.net/projects/openmediavault/files/packages/dists/">OpenMediaVault SourceForge Distributions</a>, <strong>sandworm</strong> is the <strong>MOST RECENT</strong> distribution.</p>
+<ul>
+<li>Exports<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export LANG=C.UTF-8</span><br><span class="line">export DEBIAN_FRONTEND=noninteractive</span><br><span class="line">export APT_LISTCHANGES_FRONTEND=none</span><br></pre></td></tr></table></figure></li>
+<li><code>sudo apt-get --yes --auto-remove --show-upgraded \   --allow-downgrades --allow-change-held-packages \   --no-install-recommends \   --option DPkg::Options::=&quot;--force-confdef&quot; \   --option DPkg::Options::=&quot;--force-confold&quot; \   install openmediavault</code></li>
+<li><code>omv-confdbadm populate</code></li>
+</ul>
+<p><span style="color:red">Now, ALL done.</span></p>
+<h2 id="2-3-OpenMediaVault-Overview"><a href="#2-3-OpenMediaVault-Overview" class="headerlink" title="2.3 OpenMediaVault Overview"></a>2.3 <a target="_blank" rel="noopener" href="https://www.openmediavault.org/">OpenMediaVault</a> Overview</h2><table>
+<thead>
+<tr>
+<th align="center">OpenMediaVault Login Page</th>
+<th align="center">OpenMediaVault After Login</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OpenMediaVault/openmediavault_01.png" width="480"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OpenMediaVault/openmediavault_02.png" width="480"></td>
+</tr>
+</tbody></table>
+<ul>
+<li>username: <code>admin</code></li>
+<li>password: <code>openmediavault</code> all lower case</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OpenMediaVault/openmediavault_03.png" alt="OpenMediaVault Dashboard"></p>
+<h1 id="3-NAS-Configuration-on-My-Raspberry-Pi-5"><a href="#3-NAS-Configuration-on-My-Raspberry-Pi-5" class="headerlink" title="3. NAS Configuration on My Raspberry Pi 5"></a>3. <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Network-attached_storage">NAS</a> Configuration on My <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/raspberry-pi-5/">Raspberry Pi 5</a></h1><h2 id="3-1-Abbreviation"><a href="#3-1-Abbreviation" class="headerlink" title="3.1 Abbreviation"></a>3.1 Abbreviation</h2><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Network-attached_storage">NAS</a> is the abbreviation of <code>Network Attached Storage</code>.</p>
+<h2 id="3-2-Geekbord-X1005-with-a-M-2-to-Sata3-0-Extended-Card"><a href="#3-2-Geekbord-X1005-with-a-M-2-to-Sata3-0-Extended-Card" class="headerlink" title="3.2 Geekbord X1005 with a M.2 to Sata3.0 Extended Card"></a>3.2 <a target="_blank" rel="noopener" href="https://www.aliexpress.com/item/1005007204267297.html">Geekbord X1005</a> with a <a target="_blank" rel="noopener" href="https://www.aliexpress.com/item/1005006212086373.html">M.2 to Sata3.0 Extended Card</a></h2>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -189,7 +313,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-07-31 11:39:29" itemprop="dateModified" datetime="2024-07-31T11:39:29-07:00">2024-07-31</time>
+      <time title="Modified: 2024-08-09 00:50:00" itemprop="dateModified" datetime="2024-08-09T00:50:00-07:00">2024-08-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1871,100 +1995,6 @@
 <h3 id="6-2-qttools-src-qdoc-qdoc-src-qdoc-clangcodeparser-cpp"><a href="#6-2-qttools-src-qdoc-qdoc-src-qdoc-clangcodeparser-cpp" class="headerlink" title="6.2 ./qttools/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp:"></a>6.2 <code>./qttools/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp</code>:</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Retrieves the default value of the passed in type template parameter as a string.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * The default value of a type template parameter is always a type,</span></span><br><span class="line"><span class="comment"> * and its stringified representation will be return as the fully</span></span><br><span class="line"><span class="comment"> * qualified version of the type.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * If the parameter has no default value the empty string will be returned.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/*static std::string get_default_value_initializer_as_string(const clang::TemplateTypeParmDecl* parameter) &#123;</span></span><br><span class="line"><span class="comment">    return (parameter &amp;&amp; parameter-&gt;hasDefaultArgument()) ?</span></span><br><span class="line"><span class="comment">                get_fully_qualified_type_name(parameter-&gt;getDefaultArgument(), parameter-&gt;getASTContext()) :</span></span><br><span class="line"><span class="comment">                &quot;&quot;;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">&#125;*/</span></span><br><span class="line"><span class="function"><span class="type">static</span> std::string <span class="title">get_default_value_initializer_as_string</span><span class="params">(<span class="type">const</span> clang::TemplateTypeParmDecl* parameter)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (parameter &amp;&amp; parameter-&gt;<span class="built_in">hasDefaultArgument</span>()) &#123;</span><br><span class="line">        <span class="type">const</span> clang::TemplateArgumentLoc &amp;argLoc = parameter-&gt;<span class="built_in">getDefaultArgument</span>();</span><br><span class="line">        <span class="keyword">if</span> (argLoc.<span class="built_in">getArgument</span>().<span class="built_in">getKind</span>() == clang::TemplateArgument::Type) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">get_fully_qualified_type_name</span>(argLoc.<span class="built_in">getArgument</span>().<span class="built_in">getAsType</span>(), parameter-&gt;<span class="built_in">getASTContext</span>());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Retrieves the default value of the passed in non-type template parameter as a string.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * The default value of a non-type template parameter is an expression</span></span><br><span class="line"><span class="comment"> * and its stringified representation will be return as it was written</span></span><br><span class="line"><span class="comment"> * in the original code.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * If the parameter as no default value the empty string will be returned.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/*static std::string get_default_value_initializer_as_string(const clang::NonTypeTemplateParmDecl* parameter) &#123;</span></span><br><span class="line"><span class="comment">    return (parameter &amp;&amp; parameter-&gt;hasDefaultArgument()) ?</span></span><br><span class="line"><span class="comment">        get_expression_as_string(parameter-&gt;getDefaultArgument(), parameter-&gt;getASTContext()) : &quot;&quot;;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">&#125;*/</span></span><br><span class="line"><span class="function"><span class="type">static</span> std::string <span class="title">get_default_value_initializer_as_string</span><span class="params">(<span class="type">const</span> clang::NonTypeTemplateParmDecl* parameter)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (parameter &amp;&amp; parameter-&gt;<span class="built_in">hasDefaultArgument</span>()) &#123;</span><br><span class="line">        <span class="type">const</span> clang::TemplateArgumentLoc &amp;argLoc = parameter-&gt;<span class="built_in">getDefaultArgument</span>();</span><br><span class="line">        <span class="keyword">if</span> (argLoc.<span class="built_in">getArgument</span>().<span class="built_in">getKind</span>() == clang::TemplateArgument::Expression) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">get_expression_as_string</span>(argLoc.<span class="built_in">getArgument</span>().<span class="built_in">getAsExpr</span>(), parameter-&gt;<span class="built_in">getASTContext</span>());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>And modify <code>template_name.print(ss, parameter-&gt;getASTContext().getPrintingPolicy(), clang::TemplateName::Qualified::Fully);</code> to <code>template_name.print(ss, parameter-&gt;getASTContext().getPrintingPolicy(), clang::TemplateName::Qualified::AsWritten);</code>.</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.github.io/2024/06/19/Coding/HowTo/llvm/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Longer Vision Technology">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/06/19/Coding/HowTo/llvm/" class="post-title-link" itemprop="url">Build LLVM From Source</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2024-06-19 14:00:00 / Modified: 15:03:40" itemprop="dateCreated datePublished" datetime="2024-06-19T14:00:00-07:00">2024-06-19</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Coding/HowTo/" itemprop="url" rel="index"><span itemprop="name">HowTo</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <!-- # date: 2023-10-20 -->
-<p>Quickly had <a target="_blank" rel="noopener" href="https://github.com/llvm/llvm-project/">Github LLVM</a> built from source again. Just follow the <a target="_blank" rel="noopener" href="https://llvm.org/docs/GettingStarted.html#getting-the-source-code-and-building-llvm">LLVM official website</a>:</p>
-<h2 id="1-Git-clone"><a href="#1-Git-clone" class="headerlink" title="1. Git clone"></a>1. Git clone</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ➜ git clone https://github.com/llvm/llvm-project.git</span><br><span class="line">$ ➜ cd llvm-project</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="2-CMake-Configuration"><a href="#2-CMake-Configuration" class="headerlink" title="2. CMake Configuration"></a>2. CMake Configuration</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ➜ llvm-project git:(main) cmake -S llvm -B build -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DLLVM_ENABLE_PROJECTS=all -DBUILD_SHARED_LIBS=ON</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-Build"><a href="#3-Build" class="headerlink" title="3. Build"></a>3. Build</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ➜ llvm-project git:(main) cmake --build build -j32</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="4-Installation"><a href="#4-Installation" class="headerlink" title="4. Installation"></a>4. Installation</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ➜ llvm-project git:(main) sudo cmake --install build --prefix /usr/local</span><br></pre></td></tr></table></figure>
-
 
       
     </div>
