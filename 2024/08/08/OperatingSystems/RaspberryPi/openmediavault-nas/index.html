@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="1. Commercial NAS vs. DIY NAS?  For me, the BIGGEST difference between Commerial NAS vs. DIY NAS is their prices 😂 Without considering respective capabilities, DIY is ALWAYS of more freedom. And, fre">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Raspberry Pi 5 + OpenMediaVault +NAS">
+<meta property="og:url" content="http://longervision.ca/2024/08/08/OperatingSystems/RaspberryPi/openmediavault-nas/index.html">
+<meta property="og:site_name" content="Longer Vision Technology">
+<meta property="og:description" content="1. Commercial NAS vs. DIY NAS?  For me, the BIGGEST difference between Commerial NAS vs. DIY NAS is their prices 😂 Without considering respective capabilities, DIY is ALWAYS of more freedom. And, fre">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-08-08T17:14:18.000Z">
+<meta property="article:modified_time" content="2024-10-01T03:47:17.388Z">
+<meta property="article:author" content="Nobody">
+<meta property="article:tag" content="RaspberryPi, Raspberry Pi 5">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://longervision.ca/2024/08/08/OperatingSystems/RaspberryPi/openmediavault-nas/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://longervision.ca/2024/08/08/OperatingSystems/RaspberryPi/openmediavault-nas/","path":"2024/08/08/OperatingSystems/RaspberryPi/openmediavault-nas/","title":"Raspberry Pi 5 + OpenMediaVault +NAS"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Raspberry Pi 5 + OpenMediaVault +NAS | Longer Vision Technology</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Longer Vision Technology</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Github Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#commercial-nas-vs.-diy-nas"><span class="nav-number">1.</span> <span class="nav-text">1. Commercial NAS vs. DIY NAS?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#openmediavault-on-raspberry-pi-5"><span class="nav-number">2.</span> <span class="nav-text">2. OpenMediaVault on Raspberry Pi
+5</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#use-lite-instead-of-desktop"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Use Lite Instead Of
+Desktop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#install-openmediavault-upon-raspberry-pi-os-lite"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 Install OpenMediaVault Upon Raspberry
+Pi OS Lite</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#openmediavault-overview"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 OpenMediaVault Overview</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nas-configuration-on-my-raspberry-pi-5"><span class="nav-number">3.</span> <span class="nav-text">3. NAS
+Configuration on My Raspberry Pi
+5</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#abbreviation"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Abbreviation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#geekbord-x1005-with-a-m.2-to-sata3.0-extended-card"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 Geekbord
+X1005 with a M.2 to
+Sata3.0 Extended Card</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#enable-nfs"><span class="nav-number">3.2.1.</span> <span class="nav-text">3.2.1 Enable NFS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hailo-ai-accelerators-on-geekbord-x1005"><span class="nav-number">3.2.2.</span> <span class="nav-text">3.2.2 Hailo AI
+Accelerators On Geekbord
+X1005</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Nobody</p>
+  <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">135</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2024/08/08/OperatingSystems/RaspberryPi/openmediavault-nas/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Raspberry Pi 5 + OpenMediaVault +NAS | Longer Vision Technology">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Raspberry Pi 5 + OpenMediaVault +NAS
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-08-08 10:14:18" itemprop="dateCreated datePublished" datetime="2024-08-08T10:14:18-07:00">2024-08-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-09-30 20:47:17" itemprop="dateModified" datetime="2024-09-30T20:47:17-07:00">2024-09-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Operating-System/" itemprop="url" rel="index"><span itemprop="name">Operating System</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Operating-System/Raspberry-Pi/" itemprop="url" rel="index"><span itemprop="name">Raspberry Pi</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="commercial-nas-vs.-diy-nas">1. Commercial NAS vs. DIY NAS?</h1>
+<ul>
+<li>For me, the <strong>BIGGEST</strong> difference between
+<code>Commerial NAS</code> vs. <code>DIY NAS</code> is their prices
+😂</li>
+<li>Without considering respective capabilities, <code>DIY</code> is
+<strong>ALWAYS</strong> of more freedom. And, freedom is so so so
+important as well</li>
+</ul>
+<h1 id="openmediavault-on-raspberry-pi-5">2. <a
+target="_blank" rel="noopener" href="https://www.openmediavault.org/">OpenMediaVault</a> on <a
+target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/raspberry-pi-5/">Raspberry Pi
+5</a></h1>
+<h2 id="use-lite-instead-of-desktop">2.1 Use Lite Instead Of
+Desktop</h2>
+<p>On [Raspberry Pi]'s official webpage <a
+target="_blank" rel="noopener" href="https://www.raspberrypi.com/software/operating-systems/">Raspbian
+Operating Systems</a>, find <code>Raspberry Pi OS Lite</code> in
+category <code>Raspberry Pi OS (64-bit)</code>. As of today, the most
+up-to-date release is <a
+target="_blank" rel="noopener" href="https://downloads.raspberrypi.com/raspios_lite_arm64/images/raspios_lite_arm64-2024-07-04/2024-07-04-raspios-bookworm-arm64-lite.img.xz">raspios_lite_arm64-2024-07-04</a>.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">➜  RaspberryPi sudo dd if=./2024-07-04-raspios-bookworm-arm64-lite.img of=/dev/sda bs=1M status=progress conv=fsync </span><br><span class="line">2031091712 bytes (2.0 GB, 1.9 GiB) copied, 2 s, 1.0 GB/s2835349504 bytes (2.8 GB, 2.6 GiB) copied, 2.88047 s, 984 MB/s</span><br><span class="line"></span><br><span class="line">2704+0 records in</span><br><span class="line">2704+0 records out</span><br><span class="line">2835349504 bytes (2.8 GB, 2.6 GiB) copied, 312.17 s, 9.1 MB/s</span><br></pre></td></tr></table></figure>
+<p><strong><span style="color:red">Don’t forget to enable
+<code>SSH</code> after installation.</span></strong></p>
+<h2 id="install-openmediavault-upon-raspberry-pi-os-lite">2.2 Install <a
+target="_blank" rel="noopener" href="https://www.openmediavault.org/">OpenMediaVault</a> Upon Raspberry
+Pi OS Lite</h2>
+<p>Now, ssh into <a
+target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/raspberry-pi-5/">Raspberry Pi
+5</a>:</p>
+<p><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/Embedded/ti/raspberrypi/OpenMediaVault/openmediavault_neofetch.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/Embedded/ti/raspberrypi/OpenMediaVault/openmediavault_neofetch.png"
+alt="OpenMediaVault ssh" /></a></p>
+<p>Follow <a target="_blank" rel="noopener" href="https://www.openmediavault.org/">OpenMediaVault</a>'s
+official documentation <a
+target="_blank" rel="noopener" href="https://docs.openmediavault.org/en/stable/installation/on_debian.html">OpenMediaVault
+Installation on Debian</a>, do the following:</p>
+<ul>
+<li><code>apt-get install --yes gnupg</code></li>
+<li><code>wget --quiet --output-document=- https://packages.openmediavault.org/public/archive.key | sudo gpg --dearmor --yes --output "/usr/share/keyrings/openmediavault-archive-keyring.gpg"</code></li>
+<li><code>nvim /etc/apt/sources.list.d/openmediavault.list</code> and
+add <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">deb [signed-by=/usr/share/keyrings/openmediavault-archive-keyring.gpg] https://packages.openmediavault.org/public sandworm main</span><br><span class="line"># deb [signed-by=/usr/share/keyrings/openmediavault-archive-keyring.gpg] https://downloads.sourceforge.net/project/openmediavault/packages sandworm main</span><br><span class="line">## Uncomment the following line to add software from the proposed repository.</span><br><span class="line"># deb [signed-by=/usr/share/keyrings/openmediavault-archive-keyring.gpg] https://packages.openmediavault.org/public sandworm-proposed main</span><br><span class="line"># deb [signed-by=/usr/share/keyrings/openmediavault-archive-keyring.gpg] https://downloads.sourceforge.net/project/openmediavault/packages sandworm-proposed main</span><br><span class="line">## This software is not part of OpenMediaVault, but is offered by third-party</span><br><span class="line">## developers as a service to OpenMediaVault users.</span><br><span class="line"># deb [signed-by=/usr/share/keyrings/openmediavault-archive-keyring.gpg] https://packages.openmediavault.org/public sandworm partner</span><br><span class="line"># deb [signed-by=/usr/share/keyrings/openmediavault-archive-keyring.gpg] https://downloads.sourceforge.net/project/openmediavault/packages sandworm partner</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>By the way, please refer to <a
+target="_blank" rel="noopener" href="https://sourceforge.net/projects/openmediavault/files/packages/dists/">OpenMediaVault
+SourceForge Distributions</a>, <strong>sandworm</strong> is the
+<strong>MOST RECENT</strong> distribution.</p>
+<ul>
+<li>Exports <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export LANG=C.UTF-8</span><br><span class="line">export DEBIAN_FRONTEND=noninteractive</span><br><span class="line">export APT_LISTCHANGES_FRONTEND=none</span><br></pre></td></tr></table></figure></li>
+<li><code>sudo apt-get --yes --auto-remove --show-upgraded \ --allow-downgrades --allow-change-held-packages \ --no-install-recommends \ --option DPkg::Options::="--force-confdef" \ --option DPkg::Options::="--force-confold" \ install openmediavault</code></li>
+<li><code>omv-confdbadm populate</code></li>
+</ul>
+<p><strong><span style="color:red">Now, ALL done.</span></strong></p>
+<h2 id="openmediavault-overview">2.3 <a
+target="_blank" rel="noopener" href="https://www.openmediavault.org/">OpenMediaVault</a> Overview</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">OpenMediaVault Login Page</th>
+<th style="text-align: center;">OpenMediaVault After Login</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OpenMediaVault/openmediavault_01.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OpenMediaVault/openmediavault_01.png"
+alt="OpenMediaVault Login Page" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OpenMediaVault/openmediavault_02.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OpenMediaVault/openmediavault_02.png"
+alt="OpenMediaVault After Login" /></a></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>username: <code>admin</code></li>
+<li>password: <code>openmediavault</code>, all lower case</li>
+</ul>
+<p><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OpenMediaVault/openmediavault_03.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OpenMediaVault/openmediavault_03.png"
+alt="OpenMediaVault Dashboard" /></a></p>
+<h1 id="nas-configuration-on-my-raspberry-pi-5">3. <a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Network-attached_storage">NAS</a>
+Configuration on My <a
+target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/raspberry-pi-5/">Raspberry Pi
+5</a></h1>
+<h2 id="abbreviation">3.1 Abbreviation</h2>
+<p><a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Network-attached_storage">NAS</a> is
+the abbreviation of <code>Network Attached Storage</code>.</p>
+<h2 id="geekbord-x1005-with-a-m.2-to-sata3.0-extended-card">3.2 <a
+target="_blank" rel="noopener" href="https://www.aliexpress.com/item/1005007204267297.html">Geekbord
+X1005</a> with a <a
+target="_blank" rel="noopener" href="https://www.aliexpress.com/item/1005006212086373.html">M.2 to
+Sata3.0 Extended Card</a></h2>
+<h3 id="enable-nfs">3.2.1 Enable <a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Network_File_System">NFS</a></h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ sudo omv-salt deploy run nfs</span><br><span class="line">raspberrypi4b8g:</span><br><span class="line">----------</span><br><span class="line">          ID: remove_upgrade_debian12_conf</span><br><span class="line">    Function: file.absent</span><br><span class="line">        Name: /etc/nfs.conf.d/local.conf</span><br><span class="line">      Result: True</span><br><span class="line">     Comment: File /etc/nfs.conf.d/local.conf is not present</span><br><span class="line">     Started: 15:51:54.017518</span><br><span class="line">    Duration: 1.632 ms</span><br><span class="line">     Changes:   </span><br><span class="line">----------</span><br><span class="line">          ID: configure_nfs_conf</span><br><span class="line">    Function: file.managed</span><br><span class="line">        Name: /etc/nfs.conf.d/99-openmediavault.conf</span><br><span class="line">      Result: True</span><br><span class="line">     Comment: File /etc/nfs.conf.d/99-openmediavault.conf is in the correct state</span><br><span class="line">     Started: 15:51:54.019412</span><br><span class="line">    Duration: 407.334 ms</span><br><span class="line">     Changes:   </span><br><span class="line">----------</span><br><span class="line">          ID: configure_idmapd_conf</span><br><span class="line">    Function: file.managed</span><br><span class="line">        Name: /etc/idmapd.conf</span><br><span class="line">      Result: True</span><br><span class="line">     Comment: File /etc/idmapd.conf is in the correct state</span><br><span class="line">     Started: 15:51:54.427075</span><br><span class="line">    Duration: 345.438 ms</span><br><span class="line">     Changes:   </span><br><span class="line">----------</span><br><span class="line">          ID: divert_idmapd_conf</span><br><span class="line">    Function: omv_dpkg.divert_add</span><br><span class="line">        Name: /etc/idmapd.conf</span><br><span class="line">      Result: True</span><br><span class="line">     Comment: Leaving &#x27;local diversion of /etc/idmapd.conf to /etc/idmapd.conf.distrib&#x27;</span><br><span class="line">     Started: 15:51:54.773922</span><br><span class="line">    Duration: 46.812 ms</span><br><span class="line">     Changes:   </span><br><span class="line">----------</span><br><span class="line">          ID: configure_nfs_exports</span><br><span class="line">    Function: file.managed</span><br><span class="line">        Name: /etc/exports</span><br><span class="line">      Result: True</span><br><span class="line">     Comment: File /etc/exports is in the correct state</span><br><span class="line">     Started: 15:51:54.821087</span><br><span class="line">    Duration: 411.736 ms</span><br><span class="line">     Changes:   </span><br><span class="line">----------</span><br><span class="line">          ID: divert_nfs_exports</span><br><span class="line">    Function: omv_dpkg.divert_add</span><br><span class="line">        Name: /etc/exports</span><br><span class="line">      Result: True</span><br><span class="line">     Comment: Leaving &#x27;local diversion of /etc/exports to /etc/exports.distrib&#x27;</span><br><span class="line">     Started: 15:51:55.233143</span><br><span class="line">    Duration: 47.43 ms</span><br><span class="line">     Changes:   </span><br><span class="line">----------</span><br><span class="line">          ID: stop_nfs_blkmap_service</span><br><span class="line">    Function: service.dead</span><br><span class="line">        Name: nfs-blkmap</span><br><span class="line">      Result: True</span><br><span class="line">     Comment: The service nfs-blkmap is already dead</span><br><span class="line">     Started: 15:51:58.720879</span><br><span class="line">    Duration: 62.323 ms</span><br><span class="line">     Changes:   </span><br><span class="line">----------</span><br><span class="line">          ID: mask_nfs_blkmap_service</span><br><span class="line">    Function: service.masked</span><br><span class="line">        Name: nfs-blkmap</span><br><span class="line">      Result: True</span><br><span class="line">     Comment: Service nfs-blkmap is already masked</span><br><span class="line">     Started: 15:51:58.783606</span><br><span class="line">    Duration: 1.536 ms</span><br><span class="line">     Changes:   </span><br><span class="line">----------</span><br><span class="line">          ID: start_nfs_server_service</span><br><span class="line">    Function: service.running</span><br><span class="line">        Name: nfs-server</span><br><span class="line">      Result: True</span><br><span class="line">     Comment: The service nfs-server is already running</span><br><span class="line">     Started: 15:51:58.786135</span><br><span class="line">    Duration: 49.284 ms</span><br><span class="line">     Changes:   </span><br><span class="line">----------</span><br><span class="line">          ID: restart_nfs_utils_service</span><br><span class="line">    Function: service.running</span><br><span class="line">        Name: nfs-utils</span><br><span class="line">      Result: True</span><br><span class="line">     Comment: The service nfs-utils is already running</span><br><span class="line">     Started: 15:51:58.836046</span><br><span class="line">    Duration: 55.353 ms</span><br><span class="line">     Changes:   </span><br><span class="line"></span><br><span class="line">Summary for raspberrypi4b8g</span><br><span class="line">-------------</span><br><span class="line">Succeeded: 10</span><br><span class="line">Failed:     0</span><br><span class="line">-------------</span><br><span class="line">Total states run:     10</span><br><span class="line">Total run time:    1.429 s</span><br></pre></td></tr></table></figure>
+<p>and</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ sudo cat /proc/fs/nfsd/versions</span><br><span class="line">+2 +3 +4 +4.1 +4.2</span><br></pre></td></tr></table></figure>
+<h3 id="hailo-ai-accelerators-on-geekbord-x1005">3.2.2 <a
+target="_blank" rel="noopener" href="https://hailo.ai/products/ai-accelerators/">Hailo AI
+Accelerators</a> On <a
+target="_blank" rel="noopener" href="https://www.aliexpress.com/item/1005007204267297.html">Geekbord
+X1005</a></h3>
+<p>I’ll give it a go with <a
+target="_blank" rel="noopener" href="https://hailo.ai/products/ai-accelerators/">Hailo AI
+Accelerators</a> some time soon.</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/RaspberryPi-Raspberry-Pi-5/" rel="tag"># RaspberryPi, Raspberry Pi 5</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/08/02/AI/EdgeComputing/raspberry-pi-5-ncs2-openvino-2024/" rel="prev" title="Raspberry Pi 5 + Intel NCS2 + OpenVINO In 2024">
+                  <i class="fa fa-angle-left"></i> Raspberry Pi 5 + Intel NCS2 + OpenVINO In 2024
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/09/28/Coding/HowTo/qt6/" rel="next" title="How to build Qt6.7.3?">
+                  How to build Qt6.7.3? <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Nobody</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

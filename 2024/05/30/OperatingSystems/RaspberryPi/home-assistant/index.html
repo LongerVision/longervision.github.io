@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Again, amazing China. This time, Nanjing. What a city!!!!!        Ancient Qinhuai @ Qinhuai River, Nanjing Ancient Qinhuai @ Qinhuai River, Nanjing                                  Raspberry Pi has al">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Home Assistant on A Raspberry Pi">
+<meta property="og:url" content="http://longervision.ca/2024/05/30/OperatingSystems/RaspberryPi/home-assistant/index.html">
+<meta property="og:site_name" content="Longer Vision Technology">
+<meta property="og:description" content="Again, amazing China. This time, Nanjing. What a city!!!!!        Ancient Qinhuai @ Qinhuai River, Nanjing Ancient Qinhuai @ Qinhuai River, Nanjing                                  Raspberry Pi has al">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-05-30T17:14:18.000Z">
+<meta property="article:modified_time" content="2024-09-30T05:23:57.879Z">
+<meta property="article:author" content="Nobody">
+<meta property="article:tag" content="RaspberryPi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://longervision.ca/2024/05/30/OperatingSystems/RaspberryPi/home-assistant/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://longervision.ca/2024/05/30/OperatingSystems/RaspberryPi/home-assistant/","path":"2024/05/30/OperatingSystems/RaspberryPi/home-assistant/","title":"Home Assistant on A Raspberry Pi"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Home Assistant on A Raspberry Pi | Longer Vision Technology</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Longer Vision Technology</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Github Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#overview"><span class="nav-number">1.</span> <span class="nav-text">1. Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-home-assistant"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 What is Home Assistant?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#web-ui"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Web UI</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ssh-into-home-assistant-os"><span class="nav-number">2.</span> <span class="nav-text">2. ssh Into Home Assistant
+OS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#configuration"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Configuration</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#installation-of-home-assistant-add-on-terminal-ssh"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1
+Installation of Home
+Assistant Add-on Terminal &amp; SSH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#edit-in-yaml"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2 Edit in YAML</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ssh-into-home-assistant-os-from-remote-desktop"><span class="nav-number">2.2.</span> <span class="nav-text">2.2
+ssh Into Home Assistant
+OS From Remote Desktop</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#esphome-with-home-assistant"><span class="nav-number">3.</span> <span class="nav-text">3. ESPHome with Home Assistant</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#esp32-boards-management"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 ESP32 Boards Management</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#camerawebserver"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 CameraWebServer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#four-esp32-cameras"><span class="nav-number">3.2.1.</span> <span class="nav-text">3.2.1 Four ESP32 Cameras</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#verify-and-upload"><span class="nav-number">3.2.2.</span> <span class="nav-text">3.2.2 Verify and Upload</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#demonstration"><span class="nav-number">3.2.3.</span> <span class="nav-text">3.2.3 Demonstration</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rtsp-with-mjpeg"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 RTSP with MJPEG</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#integrate-esphome-into-home-assistant"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 Integrate ESPHome Into Home Assistant</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#demonstration-1"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 Demonstration</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Nobody</p>
+  <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">135</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2024/05/30/OperatingSystems/RaspberryPi/home-assistant/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Home Assistant on A Raspberry Pi | Longer Vision Technology">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Home Assistant on A Raspberry Pi
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-05-30 10:14:18" itemprop="dateCreated datePublished" datetime="2024-05-30T10:14:18-07:00">2024-05-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-09-29 22:23:57" itemprop="dateModified" datetime="2024-09-29T22:23:57-07:00">2024-09-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Operating-System/" itemprop="url" rel="index"><span itemprop="name">Operating System</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Operating-System/Raspberry-Pi/" itemprop="url" rel="index"><span itemprop="name">Raspberry Pi</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>Again, amazing China. This time, <a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Nanjing">Nanjing</a>. What a
+city!!!!!</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Ancient Qinhuai @ Qinhuai River,
+Nanjing</th>
+<th style="text-align: center;">Ancient Qinhuai @ Qinhuai River,
+Nanjing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/GuQinHuai_01.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/GuQinHuai_01.jpg"
+alt="GuQinHuai 01" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/GuQinHuai_02.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/GuQinHuai_02.jpg"
+alt="GuQinHuai 02" /></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/WanQingLou.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/WanQingLou.jpg"
+alt="WanQingLou" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/LiXiangJun.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/LiXiangJun.jpg"
+alt="LiXiangJun" /></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/Lights_01.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/Lights_01.jpg"
+alt="Lights 01" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/Lights_02.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/Lights_02.jpg"
+alt="Lights 02" /></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/Lights_BaiLuZhou.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/Lights_BaiLuZhou.jpg"
+alt="Lights BaiLuZhou" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/QinHuaiRenJia_01.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/QinHuaiRenJia_01.jpg"
+alt="QinHuaiRenJia 01" /></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/QinHuaiRenJia_02.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/QinHuaiRenJia_02.jpg"
+alt="QinHuaiRenJia 02" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/QinHuaiRenJia_03.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/QinHuaiRenJia_03.jpg"
+alt="QinHuaiRenJia 03" /></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/NanjingSouth_HighSpeedTrain_RailwayStation_Outside.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/NanjingSouth_HighSpeedTrain_RailwayStation_Outside.jpg"
+alt="NanjingSouth High Speed Train Railway Station Exterior" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/NanjingSouth_HighSpeedTrain_RailwayStation_Inside.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/NanjingSouth_HighSpeedTrain_RailwayStation_Inside.jpg"
+alt="NanjingSouth High Speed Train Railway Station Inside" /></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/NanjingOldStation_Renovated.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/NanjingOldStation_Renovated.jpg"
+alt="Nanjing Old Station Renovated" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/ChangYuNoodle.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Nanjing/ChangYuNoodle.jpg"
+alt="ChangYu Noodle" /></a></td>
+</tr>
+</tbody>
+</table>
+<p><a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a> has already
+well-established a comprehensive community support world wide. Among
+<strong>ALL</strong> the operating systems supporting Raspberry Pi, Home
+Assistant stands out, shining brightly as an open-source home automation
+operating system in the field of IoT.</p>
+<h1 id="overview">1. Overview</h1>
+<h2 id="what-is-home-assistant">1.1 What is <a
+target="_blank" rel="noopener" href="https://www.home-assistant.io/">Home Assistant</a>?</h2>
+<p><a target="_blank" rel="noopener" href="https://www.home-assistant.io/">Home Assistant</a> is the
+``open source home automation that puts local control and privacy first.
+Powered by a worldwide community of tinkerers and DIY enthusiasts.
+Perfect to run on a Raspberry Pi or a local server.'' (cited from first
+page of the official website of <a
+target="_blank" rel="noopener" href="https://www.home-assistant.io/">Home Assistant</a>.)</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/home-assistant/operating-system">Home
+Assistant OS</a> is a minimal operating system optimized for running <a
+target="_blank" rel="noopener" href="https://www.home-assistant.io/">Home Assistant</a>, and it does
+not use traditional package management systems like apt. Instead, it
+relies on <a
+target="_blank" rel="noopener" href="https://www.docker.com/resources/what-container/">Docker</a>
+containers to manage and run services, including <a
+target="_blank" rel="noopener" href="https://www.home-assistant.io/">Home Assistant</a> and its
+add-ons.</p>
+<h2 id="web-ui">1.2 Web UI</h2>
+<p>After simply flashed <a
+target="_blank" rel="noopener" href="https://github.com/home-assistant/operating-system/releases/tag/12.3">Home
+Assistant OS 12.3</a> onto a 16GB TF card and insert it into my old <a
+target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/raspberry-pi-3-model-b/">Raspberry
+Pi 3B V1.2</a>, we can now take a brief look at <a
+target="_blank" rel="noopener" href="https://www.home-assistant.io/">Home Assistant</a> web UI at
+http://homeassistant.local:8123/.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Home Assistant Overview</th>
+<th style="text-align: center;">Home Assistant Dashboard</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/OperatingSystems/ha/ha_overview.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/OperatingSystems/ha/ha_overview.png"
+alt="Home Assistant Overview" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/OperatingSystems/ha/ha_dashboard.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/OperatingSystems/ha/ha_dashboard.png"
+alt="Home Assistant Dashboard" /></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/OperatingSystems/ha/ha_terminalssh.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/OperatingSystems/ha/ha_terminalssh.png"
+alt="Home Assistant Terminal SSH" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/OperatingSystems/ha/ha_runterminalssh.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/OperatingSystems/ha/ha_runterminalssh.png"
+alt="Home Assistant Run Terminal SSH" /></a></td>
+</tr>
+</tbody>
+</table>
+<h1 id="ssh-into-home-assistant-os">2. <code>ssh</code> Into <a
+target="_blank" rel="noopener" href="https://github.com/home-assistant/operating-system">Home Assistant
+OS</a></h1>
+<h2 id="configuration">2.1 Configuration</h2>
+<h3 id="installation-of-home-assistant-add-on-terminal-ssh">2.1.1
+Installation of <a
+target="_blank" rel="noopener" href="https://github.com/home-assistant/addons/tree/master/ssh">Home
+Assistant Add-on Terminal &amp; SSH</a></h3>
+<p>Please have the add-on <a
+target="_blank" rel="noopener" href="https://github.com/home-assistant/addons/tree/master/ssh">Home
+Assistant Add-on Terminal &amp; SSH</a> installed from
+<code>Home Assistant -&gt; Settings -&gt; Add-ons</code>.</p>
+<h3 id="edit-in-yaml">2.1.2 Edit in YAML</h3>
+<p>Please do remember to add these 2 lines:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ssh:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">22</span></span><br></pre></td></tr></table></figure>
+<p>at the end of the <strong>YAML</strong> configuration:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">authorized_keys:</span> []</span><br><span class="line"><span class="attr">password:</span> []</span><br><span class="line"><span class="attr">apks:</span> []</span><br><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">tcp_forwarding:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">ssh:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">22</span></span><br></pre></td></tr></table></figure>
+<h2 id="ssh-into-home-assistant-os-from-remote-desktop">2.2
+<code>ssh</code> Into <a
+target="_blank" rel="noopener" href="https://github.com/home-assistant/operating-system">Home Assistant
+OS</a> From Remote Desktop</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ssh root@192.168.1.83</span><br><span class="line">The authenticity of host &#x27;192.168.1.83 (192.168.1.83)&#x27; can&#x27;t be established.</span><br><span class="line">ED25519 key fingerprint is SHA256:MZDkXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXJmxE.</span><br><span class="line">This key is not known by any other names.</span><br><span class="line">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span><br><span class="line">Warning: Permanently added &#x27;192.168.1.83&#x27; (ED25519) to the list of known hosts.</span><br><span class="line"></span><br><span class="line">       ▄██▄           _   _                                    </span><br><span class="line">     ▄██████▄        | | | | ___  _ __ ___   ___               </span><br><span class="line">   ▄████▀▀████▄      | |_| |/ _ \| &#x27;_ ` _ \ / _ \              </span><br><span class="line"> ▄█████    █████▄    |  _  | (_) | | | | | |  __/              </span><br><span class="line">▄██████▄  ▄██████▄   |_| |_|\___/|_| |_| |_|\___|          _   </span><br><span class="line">████████  ██▀  ▀██      / \   ___ ___(_)___| |_ __ _ _ __ | |_ </span><br><span class="line">███▀▀███  ██   ▄██     / _ \ / __/ __| / __| __/ _` | &#x27;_ \| __|</span><br><span class="line">██    ██  ▀ ▄█████    / ___ \\__ \__ \ \__ \ || (_| | | | | |_ </span><br><span class="line">███▄▄ ▀█  ▄███████   /_/   \_\___/___/_|___/\__\__,_|_| |_|\__|</span><br><span class="line">▀█████▄   ███████▀</span><br><span class="line"></span><br><span class="line">Welcome to the Home Assistant command line.</span><br><span class="line"></span><br><span class="line">System information</span><br><span class="line">  IPv4 addresses for enu1u1: 192.168.1.83/24</span><br><span class="line">  IPv6 addresses for enu1u1: 2001:569:5993:5900:1b4a:e1e6:140c:aac0/64, fe80::ab1f:8f98:b81:a479/64</span><br><span class="line">  IPv4 addresses for wlan0: </span><br><span class="line">  IPv4 addresses for wlu1u4: </span><br><span class="line"></span><br><span class="line">  OS Version:               Home Assistant OS 12.3</span><br><span class="line">  Home Assistant Core:      2024.5.5</span><br><span class="line"></span><br><span class="line">  Home Assistant URL:       http://homeassistant.local:8123</span><br><span class="line">  Observer URL:             http://homeassistant.local:4357</span><br><span class="line">[core-ssh ~]$</span><br></pre></td></tr></table></figure>
+<h1 id="esphome-with-home-assistant">3. <a
+target="_blank" rel="noopener" href="https://esphome.io/">ESPHome</a> with <a
+target="_blank" rel="noopener" href="https://www.home-assistant.io/">Home Assistant</a></h1>
+<p>One of my very old blogs <a
+target="_blank" rel="noopener" href="https://longervision.github.io/2019/08/22/MachineVision/MCU/exp32cam/">LVT
+ESP32-Cam</a> has talked about <a
+target="_blank" rel="noopener" href="https://github.com/espressif/esp32-camera">ESP32 Camera</a>.
+Today, I found that blog posted 4 years ago before <a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/COVID-19">COVID-19</a>, and I’m
+trying to integrate some of my [ESP32 Cameras] into <a
+target="_blank" rel="noopener" href="https://www.home-assistant.io/">Home Assistant</a>. Namely, use <a
+target="_blank" rel="noopener" href="https://www.home-assistant.io/">Home Assistant</a> running on the
+<a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a> to manage a
+couple of my <a target="_blank" rel="noopener" href="https://github.com/espressif/esp32-camera">ESP32
+Camera</a>s.</p>
+<h2 id="esp32-boards-management">3.1 ESP32 Boards Management</h2>
+<p>Please ensure the following 2 boards support have been installed
+successfully.</p>
+<p><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/Arduino-IDE-ESP32.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/Arduino-IDE-ESP32.png"
+alt="Arduino IDE Esp32" /></a></p>
+<h2 id="camerawebserver">3.2 CameraWebServer</h2>
+<p>Current <a
+target="_blank" rel="noopener" href="https://github.com/espressif/arduino-esp32/tree/master/libraries/ESP32/examples">ESP32
+Examples</a> provide an webcam server example: <a
+target="_blank" rel="noopener" href="https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP32/examples/Camera/CameraWebServer/CameraWebServer.ino">ESP32
+Example CameraWebServer</a>. Or, we can simply open up the example from
+within Arduino IDE:
+<code>File-&gt;Examples-&gt;ESP32-&gt;Camera-&gt;CameraWebServer</code>.</p>
+<h3 id="four-esp32-cameras">3.2.1 Four <a
+target="_blank" rel="noopener" href="https://github.com/espressif/esp32-camera">ESP32 Camera</a>s</h3>
+<ul>
+<li>2 <a target="_blank" rel="noopener" href="https://docs.ai-thinker.com/en/esp32-cam">Ai Thinker
+ESP32 Camera</a>s</li>
+<li>2 <a
+target="_blank" rel="noopener" href="https://www.diymore.cc/collections/esp32/products/esp32-cam-wifi-wireless-module-esp32-serial-to-wifi-esp32-cam-spi-flash-bluetooth-development-board-with-ov2640-camera-module">DIY
+More ESP32 Camera</a>s</li>
+</ul>
+<p>Both are compatible with the configuration
+<code>CAMERA_MODEL_AI_THINKER</code> in <a
+target="_blank" rel="noopener" href="https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP32/examples/Camera/CameraWebServer/CameraWebServer.ino">ESP32
+Example CameraWebServer</a>. Therefore, three places are to be correctly
+setup:</p>
+<ul>
+<li><code>#define CAMERA_MODEL_AI_THINKER // Has PSRAM</code></li>
+<li><code>const char *ssid = "XXXXXXXXX";</code></li>
+<li><code>const char *password = "YYYYYYYYY";</code></li>
+</ul>
+<h3 id="verify-and-upload">3.2.2 Verify and Upload</h3>
+<p><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/Arduino-IDE-ESP32-Verify.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/Arduino-IDE-ESP32-Verify.png"
+alt="Verify" /></a></p>
+<p><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/Arduino-IDE-ESP32-Upload.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/Arduino-IDE-ESP32-Upload.png"
+alt="Upload" /></a></p>
+<h3 id="demonstration">3.2.3 Demonstration</h3>
+<p><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/CameraWebServer.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/CameraWebServer.png"
+alt="CameraWebServer" /></a></p>
+<p>However, as you can see, the captured image is not quite stable. And,
+I did find the WiFi connection is easy to get disconnected.
+<strong><span style="color:red">What to do???</span></strong></p>
+<blockquote>
+<p><strong><span style="color:red">[!NOTE:] What to
+do???</span></strong> <strong><span style="color:red">Please continue
+reading.</span></strong></p>
+</blockquote>
+<h2 id="rtsp-with-mjpeg">3.3 RTSP with MJPEG</h2>
+<p>As of today, June 4, 2024, there is <strong>NO</strong> <a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Advanced_Video_Coding">H.264</a> or
+<a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/High_Efficiency_Video_Coding">H.265</a>
+streaming server support. Therefore, I’m going to follow the following 2
+blogs and build up <a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Real-Time_Streaming_Protocol">RTSP</a>
+server with <a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Motion_JPEG">MJPEG</a> video
+streams.</p>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://learn.circuit.rocks/esp32-cam-with-rtsp-video-streaming">ESP32-CAM
+with RTSP video streaming</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://randomnerdtutorials.com/esp32-cam-video-streaming-web-server-camera-home-assistant/">ESP32-CAM
+Video Streaming Web Server (works with Home Assistant)</a></li>
+</ul>
+<h2 id="integrate-esphome-into-home-assistant">3.4 Integrate <a
+target="_blank" rel="noopener" href="https://esphome.io/">ESPHome</a> Into <a
+target="_blank" rel="noopener" href="https://www.home-assistant.io/">Home Assistant</a></h2>
+<p><a
+target="_blank" rel="noopener" href="https://esphome.io/guides/getting_started_hassio.html">Getting
+Started with ESPHome and Home Assistant</a></p>
+<h2 id="demonstration-1">3.5 Demonstration</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">ESPHome</th>
+<th style="text-align: center;">ESPHome</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/ESPHome_Build_Failed.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/ESPHome_Build_Failed.png"
+alt="ESPHome Build Failed" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/esphome_compile.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/esphome_compile.png"
+alt="ESPHome Compile" /></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/ESPHome_Device_Discovered.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/ESPHome_Device_Discovered.png"
+alt="ESPHome Device Discovered" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/ESPHome_DeviceInfo.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/ESPHome_DeviceInfo.png"
+alt="ESPHome Device Info" /></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/ESPHome_Devices.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/ESPHome_Devices.png"
+alt="ESPHome Devices" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/esphome_flash.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/esphome_flash.png"
+alt="ESPHome Flash" /></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/ESPHome_Installation.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/ESPHome_Installation.png"
+alt="ESPHome Installation" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/ESPHome_Install_Connecting_Hang.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/ESPHome_Install_Connecting_Hang.png"
+alt="ESPHome Install Connecting Hang" /></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/ESPHome_Installed_3232_ConnectionRefused.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/ESPHome_Installed_3232_ConnectionRefused.png"
+alt="ESPHome Installed 3232 Connection Refused" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/ESPHome_Visit.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/ESPHome_Visit.png"
+alt="ESPHome Visit" /></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/HomeAssistant_Overview.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/HomeAssistant_Overview.png"
+alt="Home Assistant Overview" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/HomeAssistant_Media_Live.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/HomeAssistant_Media_Live.png"
+alt="Home Assistant Media Live" /></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/ESPHome_4_ESP32Cam_Configured.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/ESPHome_4_ESP32Cam_Configured.png"
+alt="ESPHome ESP32Cam Configured" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/ESPHome_4_ESP32Cam_Integrated.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/ESPHome/ESPHome_4_ESP32Cam_Integrated.png"
+alt="ESPHome ESP32Cam Integrated" /></a></td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/RaspberryPi/" rel="tag"># RaspberryPi</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/05/02/SBCs/RISC-V/LicheeRV-Nano/" rel="prev" title="LicheeRV Nano">
+                  <i class="fa fa-angle-left"></i> LicheeRV Nano
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/07/01/MachineVision/RGBD/Azure-Kinect-DK/" rel="next" title="Azure Kinect DK">
+                  Azure Kinect DK <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Nobody</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
