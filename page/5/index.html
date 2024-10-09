@@ -116,7 +116,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">147</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -127,7 +127,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">136</span>
+        <span class="site-state-item-count">137</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -144,6 +144,270 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2022/06/03/Coding/HowTo/postgreSQL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Longer Vision Technology">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/06/03/Coding/HowTo/postgreSQL/" class="post-title-link" itemprop="url">How to Run PostgreSQL Server and Database?</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-06-03 00:00:00" itemprop="dateCreated datePublished" datetime="2022-06-03T00:00:00-07:00">2022-06-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-09-28 17:33:45" itemprop="dateModified" datetime="2024-09-28T17:33:45-07:00">2024-09-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/HowTo/" itemprop="url" rel="index"><span itemprop="name">HowTo</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="online-tutorials">1. Online Tutorials</h1>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://ubuntu.com/server/docs/databases-postgresql">PostgreSQL on
+Ubuntu</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://simpleisbetterthancomplex.com/tutorial/2016/07/26/how-to-reset-migrations.html">Django
+- How to Reset Migrations</a></li>
+</ul>
+<h1 id="issues">2. Issues</h1>
+<h2
+id="psycopg2.operationalerror-could-not-connect-to-server-connection-refused">2.1
+<code>psycopg2.OperationalError: could not connect to server: Connection refused</code></h2>
+<p><strong>Relevant resource</strong>:</p>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://python.tutorialink.com/connection-refused-with-postgresql-using-psycopg2/">Connection
+refused with postgresql using psycopg2</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://stackoverflow.com/questions/18664074/getting-error-peer-authentication-failed-for-user-postgres-when-trying-to-ge">Getting
+error: Peer authentication failed for user "postgres", when trying to
+get pgsql working with rails</a></li>
+</ul>
+<p><strong>Solution</strong>:</p>
+<p>Just modify this file
+<code>/etc/postgresql/12/main/pg_hba.conf</code>:</p>
+<ul>
+<li><code>local   all             postgres                                peer</code>
+=&gt;
+<code>local   all             postgres                                trust</code></li>
+<li><code>local   all             all                                     peer</code>
+=&gt;
+<code>local   all             all                                     md5</code></li>
+</ul>
+<h2
+id="is-the-server-running-on-host-localhost-1-and-accepting-tcpip-connections-on-port-5432">2.2
+<code>Is the server running on host "localhost" (::1) and accepting TCP/IP connections on port 5432?</code></h2>
+<p><strong>Relevant resource</strong>:</p>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://stackoverflow.com/questions/13410686/postgres-could-not-connect-to-server">Postgres
+could not connect to server</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://stackoverflow.com/questions/37307346/is-the-server-running-on-host-localhost-1-and-accepting-tcp-ip-connections">Is
+the server running on host "localhost" (::1) and accepting TCP/IP
+connections on port 5432?</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://stackoverflow.com/questions/13573204/psql-could-not-connect-to-server-no-such-file-or-directory-mac-os-x">psql:
+could not connect to server: No such file or directory (Mac OS
+X)</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://www.manniwood.com/2015_11_14/how_to_change_the_default_unix_socket_location_from_tmp_for_postgresql.html">How
+to change the default unix socket location from /tmp for
+PostgreSQL</a></li>
+</ul>
+<p><strong>Solution</strong>:</p>
+<ul>
+<li>find the folder containing the file <code>postmaster.pid</code>, and
+remove it:
+<ul>
+<li><code>rm /var/lib/postgresql/12/main/postmaster.pid</code></li>
+</ul></li>
+<li>edit file <code>/etc/postgresql/12/main/postgresql.conf</code>, in
+which, set:
+<ul>
+<li><code>listen_addresses = '*'</code></li>
+<li><code>port = 5432</code></li>
+<li><code>unix_socket_directory = '/var/run/postgresql'</code></li>
+</ul></li>
+</ul>
+<h2 id="create-extension-in-postgresql">2.3 CREATE EXTENSION in
+PostgreSQL</h2>
+<p><strong>Relevant resource</strong>:</p>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://stackoverflow.com/questions/9025515/how-do-i-import-modules-or-install-extensions-in-postgresql-9-1">How
+do I import modules or install extensions in PostgreSQL 9.1+?</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://stackoverflow.com/questions/21799956/using-psql-how-do-i-list-extensions-installed-in-a-database">Using
+psql how do I list extensions installed in a database?</a></li>
+</ul>
+<p><strong>Solutions</strong>:</p>
+<ul>
+<li>Please make sure <code>postgresql-contrib</code> has been
+installed.</li>
+</ul>
+<h2 id="deal-with-ginindex">2.4 Deal With GinIndex</h2>
+<p><strong>Relevant resource</strong>:</p>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://stackoverflow.com/questions/43793987/how-to-create-gin-index-in-django-migration">How
+to create GIN index in Django migration</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://gis.stackexchange.com/questions/64324/what-is-gin-trgm-ops-of-postgresql">What
+is gin_trgm_ops of PostgreSQL?</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://github.com/PostgresApp/PostgresApp/issues/335">gin_trgm_ops
+does not exist for access method "gin"</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://stackoverflow.com/questions/44820345/creating-a-gin-index-with-trigram-gin-trgm-ops-in-django-model">Creating
+a Gin Index with Trigram (gin_trgm_ops) in Django model</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://www.highgo.ca/2019/10/01/a-guide-to-create-user-defined-extension-modules-to-postgres/">A
+Guide to Create User-Defined Extension Modules to Postgres</a></li>
+</ul>
+<p><strong>Solutions</strong>:</p>
+<ul>
+<li>Please make sure <code>btree_gin</code> and <code>pg_trgm</code>
+<strong>EXTENSION</strong>s have been <strong>CREATE</strong>ed for the
+user <strong>username</strong> in PostgreSQL <strong>database</strong>.
+Namely, you need to <code>\c database username</code>
+<strong>before</strong> <code>CREATE EXTENSION btree_gin</code> and
+<code>CREATE EXTENSION pg_trgm</code>.</li>
+</ul>
+<h2
+id="django.db.utils.programmingerror-syntax-error-at-or-near-function">2.5
+<code>django.db.utils.ProgrammingError: syntax error at or near "FUNCTION"</code></h2>
+<p><strong>Solutions</strong>:</p>
+<ul>
+<li>Use <strong>PROCEDURE</strong> instead of
+<strong>FUNCTION</strong>.</li>
+</ul>
+<h2
+id="django.db.migrations.exceptions.inconsistentmigrationhistory-migration-site.0001_initial-is-applied-before-its-dependency-account.0003_initial-on-database-default.">2.6
+<code>django.db.migrations.exceptions.InconsistentMigrationHistory: Migration site.0001_initial is applied before its dependency account.0003_initial on database 'default'.</code></h2>
+<p><strong>Relevant resource</strong>:</p>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://stackoverflow.com/questions/44651760/django-db-migrations-exceptions-inconsistentmigrationhistory">django.db.migrations.exceptions.InconsistentMigrationHistory</a></li>
+</ul>
+<p><strong>Solutions</strong>:</p>
+<ul>
+<li>Please make sure <code>\c database username</code> is run from
+within <code>psql</code>.</li>
+</ul>
+<h2 id="log-ssl-is-not-supported-by-this-build">2.7
+<code>LOG: SSL is not supported by this build</code></h2>
+<p><strong>Relevant resource</strong>:</p>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://stackoverflow.com/questions/32634763/how-to-check-if-postgresql-installation-supports-ssl">How
+to check if PostgreSQL installation supports SSL?</a></li>
+</ul>
+<p><strong>Solutions</strong>:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">⋊&gt; ~ sudo su - postgres</span><br><span class="line">postgres=# postgres -D /usr/local/pgsql/data</span><br></pre></td></tr></table></figure>
+<h1 id="process">3. Process</h1>
+<h3 id="step-1.-install-postgresql-and-postgresql-contrib">Step 1.
+Install <code>postgresql</code> and <code>postgresql-contrib</code></h3>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">⋊&gt; ~ apt list --installed | grep postgresql                                                                                                                                                                                                                                  22:46:41</span><br><span class="line"></span><br><span class="line">WARNING: apt does not have a stable CLI interface. Use with caution in scripts.</span><br><span class="line"></span><br><span class="line">postgresql-12/focal-updates,focal-security,now 12.11-0ubuntu0.20.04.1 amd64 [installed,automatic]</span><br><span class="line">postgresql-all/focal-updates,focal-security,now 12+214ubuntu0.1 all [installed]</span><br><span class="line">postgresql-client-12/focal-updates,focal-security,now 12.11-0ubuntu0.20.04.1 amd64 [installed,automatic]</span><br><span class="line">postgresql-client-common/focal-updates,focal-security,now 214ubuntu0.1 all [installed,automatic]</span><br><span class="line">postgresql-common/focal-updates,focal-security,now 214ubuntu0.1 all [installed,automatic]</span><br><span class="line">postgresql-contrib/focal-updates,focal-security,now 12+214ubuntu0.1 all [installed]</span><br><span class="line">postgresql-plperl-12/focal-updates,focal-security,now 12.11-0ubuntu0.20.04.1 amd64 [installed,automatic]</span><br><span class="line">postgresql-plpython3-12/focal-updates,focal-security,now 12.11-0ubuntu0.20.04.1 amd64 [installed,automatic]</span><br><span class="line">postgresql-pltcl-12/focal-updates,focal-security,now 12.11-0ubuntu0.20.04.1 amd64 [installed,automatic]</span><br><span class="line">postgresql-server-dev-12/focal-updates,focal-security,now 12.11-0ubuntu0.20.04.1 amd64 [installed,automatic]</span><br><span class="line">postgresql-server-dev-all/focal-updates,focal-security,now 214ubuntu0.1 all [installed,automatic]</span><br><span class="line">postgresql/focal-updates,focal-security,now 12+214ubuntu0.1 all [installed]</span><br></pre></td></tr></table></figure>
+<h3 id="step-2.-open-a-first-terminal">Step 2. Open a
+<strong>FIRST</strong> terminal:</h3>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">⋊&gt; ~ sudo su - postgres                                                                                                                                                                                                                                                      22:03:23</span><br><span class="line">postgres@localhost:/var/lib/postgresql$ pwd</span><br><span class="line">/var/lib/postgresql</span><br><span class="line">postgres@localhost:/var/lib/postgresql$ postgres -D /etc/postgresql/12/main</span><br><span class="line">2022-06-03 22:04:41.766 PDT [284525] LOG:  starting PostgreSQL 12.11 (Ubuntu 12.11-0ubuntu0.20.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0, 64-bit</span><br><span class="line">2022-06-03 22:04:41.766 PDT [284525] LOG:  listening on IPv4 address &quot;0.0.0.0&quot;, port 5432</span><br><span class="line">2022-06-03 22:04:41.767 PDT [284525] LOG:  listening on IPv6 address &quot;::&quot;, port 5432</span><br><span class="line">2022-06-03 22:04:41.769 PDT [284525] LOG:  listening on Unix socket &quot;/var/run/postgresql/.s.PGSQL.5432&quot;</span><br><span class="line">2022-06-03 22:04:41.787 PDT [284529] LOG:  database system was shut down at 2022-06-03 22:04:01 PDT</span><br><span class="line">2022-06-03 22:04:41.795 PDT [284525] LOG:  database system is ready to accept connections</span><br></pre></td></tr></table></figure>
+<h3 id="step-3.-open-a-second-terminal">Step 3. Open a
+<strong>SECOND</strong> terminal:</h3>
+<ul>
+<li>with user <strong>postgres</strong>, <code>psql</code> will do</li>
+<li>with other users, such as <strong>longervision</strong>, you've got
+to do <code>psql -U postgres</code></li>
+</ul>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">⋊&gt; ~ psql -U postgres                                                                                                                                                                                                                                                        22:06:18</span><br><span class="line">psql (12.11 (Ubuntu 12.11-0ubuntu0.20.04.1))</span><br><span class="line">Type &quot;help&quot; for help.</span><br><span class="line"></span><br><span class="line">postgres=# \c</span><br><span class="line">You are now connected to database &quot;postgres&quot; as user &quot;postgres&quot;.</span><br><span class="line">postgres=# \l</span><br><span class="line">                                     List of databases</span><br><span class="line">     Name     |  Owner   | Encoding |   Collate   |    Ctype    |     Access privileges     </span><br><span class="line">--------------+----------+----------+-------------+-------------+---------------------------</span><br><span class="line"> postgres     | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | </span><br><span class="line"> template0    | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres              +</span><br><span class="line">              |          |          |             |             | postgres=CTc/postgres</span><br><span class="line"> template1    | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres              +</span><br><span class="line">              |          |          |             |             | postgres=CTc/postgres</span><br><span class="line">(3 rows)</span><br><span class="line"></span><br><span class="line">postgres=# \du</span><br><span class="line">                                     List of roles</span><br><span class="line">  Role name   |                         Attributes                         | Member of </span><br><span class="line">--------------+------------------------------------------------------------+-----------</span><br><span class="line"> postgres     | Superuser, Create role, Create DB, Replication, Bypass RLS | &#123;&#125;</span><br><span class="line"></span><br><span class="line">postgres=# \dx</span><br><span class="line">                 List of installed extensions</span><br><span class="line">  Name   | Version |   Schema   |         Description          </span><br><span class="line">---------+---------+------------+------------------------------</span><br><span class="line"> plpgsql | 1.0     | pg_catalog | PL/pgSQL procedural language</span><br><span class="line">(1 row)</span><br><span class="line"></span><br><span class="line">postgres=# CREATE ROLE username WITH LOGIN PASSWORD &#x27;password&#x27;;</span><br><span class="line">CREATE ROLE</span><br><span class="line">postgres=# CREATE DATABASE database;</span><br><span class="line">CREATE DATABASE</span><br><span class="line">postgres=# ALTER USER username WITH SUPERUSER;</span><br><span class="line">ALTER ROLE</span><br><span class="line">postgres=# GRANT ALL PRIVILEGES ON DATABASE database TO username;</span><br><span class="line">GRANT</span><br><span class="line">postgres=# ALTER USER username CREATEDB;</span><br><span class="line">ALTER ROLE</span><br><span class="line">postgres=# \c database username </span><br><span class="line">Password for user username: </span><br><span class="line">You are now connected to database &quot;database&quot; as user &quot;username&quot;.</span><br><span class="line">database=# \dx</span><br><span class="line">                 List of installed extensions</span><br><span class="line">  Name   | Version |   Schema   |         Description          </span><br><span class="line">---------+---------+------------+------------------------------</span><br><span class="line"> plpgsql | 1.0     | pg_catalog | PL/pgSQL procedural language</span><br><span class="line">(1 row)</span><br><span class="line">database=# CREATE EXTENSION btree_gin;</span><br><span class="line">CREATE EXTENSION</span><br><span class="line">database=# CREATE EXTENSION &quot;uuid-ossp&quot;;</span><br><span class="line">CREATE EXTENSION</span><br><span class="line">database=# CREATE EXTENSION &quot;ltree&quot;;</span><br><span class="line">CREATE EXTENSION</span><br><span class="line">database=# CREATE EXTENSION &quot;pg_trgm&quot;;</span><br><span class="line">CREATE EXTENSION</span><br><span class="line">database=# CREATE EXTENSION &quot;hstore&quot;;</span><br><span class="line">CREATE EXTENSION</span><br><span class="line">database=# \dx</span><br><span class="line">                                     List of installed extensions</span><br><span class="line">   Name    | Version |   Schema   |                            Description                            </span><br><span class="line">-----------+---------+------------+-------------------------------------------------------------------</span><br><span class="line"> btree_gin | 1.3     | public     | support for indexing common datatypes in GIN</span><br><span class="line"> hstore    | 1.6     | public     | data type for storing sets of (key, value) pairs</span><br><span class="line"> ltree     | 1.1     | public     | data type for hierarchical tree-like structures</span><br><span class="line"> pg_trgm   | 1.4     | public     | text similarity measurement and index searching based on trigrams</span><br><span class="line"> plpgsql   | 1.0     | pg_catalog | PL/pgSQL procedural language</span><br><span class="line"> uuid-ossp | 1.1     | public     | generate universally unique identifiers (UUIDs)</span><br><span class="line">(6 rows)</span><br><span class="line">database=# \conninfo</span><br><span class="line">You are connected to database &quot;database&quot; as user &quot;username&quot; via socket in &quot;/var/run/postgresql&quot; at port &quot;5432&quot;.</span><br></pre></td></tr></table></figure>
+<h3 id="step-4.-saleor-reset-migrations-optional">Step 4. Saleor Reset
+Migrations (Optional)</h3>
+<p>Refer to <a
+target="_blank" rel="noopener" href="https://simpleisbetterthancomplex.com/tutorial/2016/07/26/how-to-reset-migrations.html">How
+to Reset Migrations</a></p>
+<h4 id="run-the-following-2-lines">Run the following 2 lines:</h4>
+<ul>
+<li><code>find . -path "*/migrations/*.py" -not -name "__init__.py" -delete</code></li>
+<li><code>find . -path "*/migrations/*.pyc"  -delete</code></li>
+</ul>
+<h4 id="modify-saleorsettings.py">Modify
+<code>saleor/settings.py</code></h4>
+<p>From <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DATABASE_CONNECTION_DEFAULT_NAME: dj_database_url.config(</span><br><span class="line">    default=<span class="string">&quot;postgres://saleor:saleor@localhost:5432/saleor&quot;</span>, conn_max_age=<span class="number">600</span></span><br><span class="line">),</span><br></pre></td></tr></table></figure> to <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DATABASE_CONNECTION_DEFAULT_NAME: dj_database_url.config(</span><br><span class="line">    default=<span class="string">&quot;postgres://username:password@localhost:5432/database&quot;</span>, conn_max_age=<span class="number">600</span></span><br><span class="line">),</span><br></pre></td></tr></table></figure> correspondingly.</p>
+<h4 id="start-migration">Start Migration</h4>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br></pre></td><td class="code"><pre><span class="line">⋊&gt; /v/w/v/saleor on main ⨯ python manage.py makemigrations                                                                                                                                                                                                                   22:32:00</span><br><span class="line">WARNING saleor.core.jwt_manager RSA_PRIVATE_KEY is missing. Using temporary key for local development with DEBUG mode. [PID:296644:MainThread]</span><br><span class="line">Migrations for &#x27;channel&#x27;:</span><br><span class="line">  saleor/channel/migrations/0001_initial.py</span><br><span class="line">    - Create model Channel</span><br><span class="line">Migrations for &#x27;page&#x27;:</span><br><span class="line">  saleor/page/migrations/0001_initial.py</span><br><span class="line">    - Create model Page</span><br><span class="line">    - Create model PageTranslation</span><br><span class="line">    - Create model PageType</span><br><span class="line">    - Create index pagetype_p_meta_idx on field(s) private_metadata of model pagetype</span><br><span class="line">    - Create index pagetype_meta_idx on field(s) metadata of model pagetype</span><br><span class="line">    - Create index page_pagety_name_7c1cb8_gin on field(s) name, slug of model pagetype</span><br><span class="line">    - Add field page to pagetranslation</span><br><span class="line">    - Add field page_type to page</span><br><span class="line">    - Alter unique_together for pagetranslation (1 constraint(s))</span><br><span class="line">    - Create index page_p_meta_idx on field(s) private_metadata of model page</span><br><span class="line">    - Create index page_meta_idx on field(s) metadata of model page</span><br><span class="line">    - Create index page_page_title_964714_gin on field(s) title, slug of model page</span><br><span class="line">Migrations for &#x27;plugins&#x27;:</span><br><span class="line">  saleor/plugins/migrations/0001_initial.py</span><br><span class="line">    - Create model PluginConfiguration</span><br><span class="line">    - Create model EmailTemplate</span><br><span class="line">Migrations for &#x27;account&#x27;:</span><br><span class="line">  saleor/account/migrations/0001_initial.py</span><br><span class="line">    - Create model User</span><br><span class="line">    - Create model Address</span><br><span class="line">    - Create model CustomerEvent</span><br><span class="line">    - Create model StaffNotificationRecipient</span><br><span class="line">    - Create model CustomerNote</span><br><span class="line">  saleor/account/migrations/0002_customerevent_app.py</span><br><span class="line">    - Add field app to customerevent</span><br><span class="line">  saleor/account/migrations/0003_initial.py</span><br><span class="line">    - Add field order to customerevent</span><br><span class="line">    - Add field user to customerevent</span><br><span class="line">    - Create index address_search_gin on field(s) first_name, last_name, city, country of model address</span><br><span class="line">    - Create index warehouse_address_search_gin on field(s) company_name, street_address_1, street_address_2, city, postal_code, phone of model address</span><br><span class="line">    - Add field addresses to user</span><br><span class="line">    - Add field default_billing_address to user</span><br><span class="line">    - Add field default_shipping_address to user</span><br><span class="line">    - Add field groups to user</span><br><span class="line">    - Add field user_permissions to user</span><br><span class="line">    - Create index user_p_meta_idx on field(s) private_metadata of model user</span><br><span class="line">    - Create index user_meta_idx on field(s) metadata of model user</span><br><span class="line">    - Create index order_user_search_gin on field(s) email, first_name, last_name of model user</span><br><span class="line">    - Create index user_search_gin on field(s) search_document of model user</span><br><span class="line">Migrations for &#x27;app&#x27;:</span><br><span class="line">  saleor/app/migrations/0001_initial.py</span><br><span class="line">    - Create model App</span><br><span class="line">    - Create model AppToken</span><br><span class="line">    - Create model AppInstallation</span><br><span class="line">    - Create model AppExtension</span><br><span class="line">    - Create index app_p_meta_idx on field(s) private_metadata of model app</span><br><span class="line">    - Create index app_meta_idx on field(s) metadata of model app</span><br><span class="line">Migrations for &#x27;csv&#x27;:</span><br><span class="line">  saleor/csv/migrations/0001_initial.py</span><br><span class="line">    - Create model ExportFile</span><br><span class="line">    - Create model ExportEvent</span><br><span class="line">Migrations for &#x27;webhook&#x27;:</span><br><span class="line">  saleor/webhook/migrations/0001_initial.py</span><br><span class="line">    - Create model Webhook</span><br><span class="line">    - Create model WebhookEvent</span><br><span class="line">Migrations for &#x27;core&#x27;:</span><br><span class="line">  saleor/core/migrations/0001_initial.py</span><br><span class="line">    - Create model EventDelivery</span><br><span class="line">    - Create model EventPayload</span><br><span class="line">    - Create model EventDeliveryAttempt</span><br><span class="line">    - Add field payload to eventdelivery</span><br><span class="line">    - Add field webhook to eventdelivery</span><br><span class="line">Migrations for &#x27;attribute&#x27;:</span><br><span class="line">  saleor/attribute/migrations/0001_initial.py</span><br><span class="line">    - Create model AssignedPageAttribute</span><br><span class="line">    - Create model AssignedPageAttributeValue</span><br><span class="line">    - Create model AssignedProductAttribute</span><br><span class="line">    - Create model AssignedProductAttributeValue</span><br><span class="line">    - Create model AssignedVariantAttribute</span><br><span class="line">    - Create model AssignedVariantAttributeValue</span><br><span class="line">    - Create model Attribute</span><br><span class="line">    - Create model AttributePage</span><br><span class="line">    - Create model AttributeProduct</span><br><span class="line">    - Create model AttributeTranslation</span><br><span class="line">    - Create model AttributeValue</span><br><span class="line">    - Create model AttributeValueTranslation</span><br><span class="line">    - Create model AttributeVariant</span><br><span class="line">  saleor/attribute/migrations/0002_initial.py</span><br><span class="line">    - Add field assigned_variants to attributevariant</span><br><span class="line">    - Add field attribute to attributevariant</span><br><span class="line">    - Add field product_type to attributevariant</span><br><span class="line">    - Add field attribute_value to attributevaluetranslation</span><br><span class="line">    - Add field attribute to attributevalue</span><br><span class="line">    - Add field reference_page to attributevalue</span><br><span class="line">    - Add field reference_product to attributevalue</span><br><span class="line">    - Add field attribute to attributetranslation</span><br><span class="line">    - Add field assigned_products to attributeproduct</span><br><span class="line">    - Add field attribute to attributeproduct</span><br><span class="line">    - Add field product_type to attributeproduct</span><br><span class="line">    - Add field assigned_pages to attributepage</span><br><span class="line">    - Add field attribute to attributepage</span><br><span class="line">    - Add field page_type to attributepage</span><br><span class="line">    - Add field page_types to attribute</span><br><span class="line">    - Add field product_types to attribute</span><br><span class="line">    - Add field product_variant_types to attribute</span><br><span class="line">    - Add field assignment to assignedvariantattributevalue</span><br><span class="line">    - Add field value to assignedvariantattributevalue</span><br><span class="line">    - Add field assignment to assignedvariantattribute</span><br><span class="line">    - Add field values to assignedvariantattribute</span><br><span class="line">    - Add field variant to assignedvariantattribute</span><br><span class="line">    - Add field assignment to assignedproductattributevalue</span><br><span class="line">    - Add field value to assignedproductattributevalue</span><br><span class="line">    - Add field assignment to assignedproductattribute</span><br><span class="line">    - Add field product to assignedproductattribute</span><br><span class="line">    - Add field values to assignedproductattribute</span><br><span class="line">    - Add field assignment to assignedpageattributevalue</span><br><span class="line">    - Add field value to assignedpageattributevalue</span><br><span class="line">    - Add field assignment to assignedpageattribute</span><br><span class="line">    - Add field page to assignedpageattribute</span><br><span class="line">    - Add field values to assignedpageattribute</span><br><span class="line">    - Alter unique_together for attributevariant (1 constraint(s))</span><br><span class="line">    - Alter unique_together for attributevaluetranslation (1 constraint(s))</span><br><span class="line">    - Create index attribute_search_gin on field(s) name, slug of model attributevalue</span><br><span class="line">    - Alter unique_together for attributevalue (1 constraint(s))</span><br><span class="line">    - Alter unique_together for attributetranslation (1 constraint(s))</span><br><span class="line">    - Alter unique_together for attributeproduct (1 constraint(s))</span><br><span class="line">    - Alter unique_together for attributepage (1 constraint(s))</span><br><span class="line">    - Create index attribute_p_meta_idx on field(s) private_metadata of model attribute</span><br><span class="line">    - Create index attribute_meta_idx on field(s) metadata of model attribute</span><br><span class="line">    - Alter unique_together for assignedvariantattributevalue (1 constraint(s))</span><br><span class="line">    - Alter unique_together for assignedvariantattribute (1 constraint(s))</span><br><span class="line">    - Alter unique_together for assignedproductattributevalue (1 constraint(s))</span><br><span class="line">    - Alter unique_together for assignedproductattribute (1 constraint(s))</span><br><span class="line">    - Alter unique_together for assignedpageattributevalue (1 constraint(s))</span><br><span class="line">    - Alter unique_together for assignedpageattribute (1 constraint(s))</span><br><span class="line">Migrations for &#x27;checkout&#x27;:</span><br><span class="line">  saleor/checkout/migrations/0001_initial.py</span><br><span class="line">    - Create model Checkout</span><br><span class="line">    - Create model CheckoutLine</span><br><span class="line">  saleor/checkout/migrations/0002_initial.py</span><br><span class="line">    - Add field variant to checkoutline</span><br><span class="line">    - Add field billing_address to checkout</span><br><span class="line">    - Add field channel to checkout</span><br><span class="line">    - Add field collection_point to checkout</span><br><span class="line">    - Add field gift_cards to checkout</span><br><span class="line">    - Add field shipping_address to checkout</span><br><span class="line">    - Add field shipping_method to checkout</span><br><span class="line">    - Add field user to checkout</span><br><span class="line">    - Create index checkout_p_meta_idx on field(s) private_metadata of model checkout</span><br><span class="line">    - Create index checkout_meta_idx on field(s) metadata of model checkout</span><br><span class="line">Migrations for &#x27;discount&#x27;:</span><br><span class="line">  saleor/discount/migrations/0001_initial.py</span><br><span class="line">    - Create model OrderDiscount</span><br><span class="line">    - Create model Sale</span><br><span class="line">    - Create model SaleChannelListing</span><br><span class="line">    - Create model SaleTranslation</span><br><span class="line">    - Create model Voucher</span><br><span class="line">    - Create model VoucherTranslation</span><br><span class="line">    - Create model VoucherCustomer</span><br><span class="line">    - Create model VoucherChannelListing</span><br><span class="line">  saleor/discount/migrations/0002_initial.py</span><br><span class="line">    - Add field categories to voucher</span><br><span class="line">    - Add field collections to voucher</span><br><span class="line">    - Add field products to voucher</span><br><span class="line">    - Add field variants to voucher</span><br><span class="line">    - Add field sale to saletranslation</span><br><span class="line">    - Add field channel to salechannellisting</span><br><span class="line">    - Add field sale to salechannellisting</span><br><span class="line">    - Add field categories to sale</span><br><span class="line">    - Add field collections to sale</span><br><span class="line">    - Add field products to sale</span><br><span class="line">    - Add field variants to sale</span><br><span class="line">    - Add field order to orderdiscount</span><br><span class="line">    - Alter unique_together for vouchertranslation (1 constraint(s))</span><br><span class="line">    - Alter unique_together for vouchercustomer (1 constraint(s))</span><br><span class="line">    - Alter unique_together for voucherchannellisting (1 constraint(s))</span><br><span class="line">    - Alter unique_together for saletranslation (1 constraint(s))</span><br><span class="line">    - Alter unique_together for salechannellisting (1 constraint(s))</span><br><span class="line">    - Create index discount_or_name_d16858_gin on field(s) name, translated_name of model orderdiscount</span><br><span class="line">Migrations for &#x27;giftcard&#x27;:</span><br><span class="line">  saleor/giftcard/migrations/0001_initial.py</span><br><span class="line">    - Create model GiftCard</span><br><span class="line">    - Create model GiftCardEvent</span><br><span class="line">    - Create model GiftCardTag</span><br><span class="line">    - Create index gift_card_tag_search_gin on field(s) name of model giftcardtag</span><br><span class="line">    - Add field app to giftcardevent</span><br><span class="line">    - Add field gift_card to giftcardevent</span><br><span class="line">  saleor/giftcard/migrations/0002_initial.py</span><br><span class="line">    - Add field order to giftcardevent</span><br><span class="line">    - Add field user to giftcardevent</span><br><span class="line">    - Add field app to giftcard</span><br><span class="line">    - Add field created_by to giftcard</span><br><span class="line">    - Add field fulfillment_line to giftcard</span><br><span class="line">    - Add field product to giftcard</span><br><span class="line">    - Add field tags to giftcard</span><br><span class="line">    - Add field used_by to giftcard</span><br><span class="line">Migrations for &#x27;invoice&#x27;:</span><br><span class="line">  saleor/invoice/migrations/0001_initial.py</span><br><span class="line">    - Create model Invoice</span><br><span class="line">    - Create model InvoiceEvent</span><br><span class="line">  saleor/invoice/migrations/0002_initial.py</span><br><span class="line">    - Add field order to invoiceevent</span><br><span class="line">    - Add field user to invoiceevent</span><br><span class="line">    - Add field order to invoice</span><br><span class="line">    - Create index invoice_p_meta_idx on field(s) private_metadata of model invoice</span><br><span class="line">    - Create index invoice_meta_idx on field(s) metadata of model invoice</span><br><span class="line">Migrations for &#x27;menu&#x27;:</span><br><span class="line">  saleor/menu/migrations/0001_initial.py</span><br><span class="line">    - Create model Menu</span><br><span class="line">    - Create model MenuItem</span><br><span class="line">    - Create model MenuItemTranslation</span><br><span class="line">  saleor/menu/migrations/0002_initial.py</span><br><span class="line">    - Add field category to menuitem</span><br><span class="line">    - Add field collection to menuitem</span><br><span class="line">    - Add field menu to menuitem</span><br><span class="line">    - Add field page to menuitem</span><br><span class="line">    - Add field parent to menuitem</span><br><span class="line">    - Create index menu_p_meta_idx on field(s) private_metadata of model menu</span><br><span class="line">    - Create index menu_meta_idx on field(s) metadata of model menu</span><br><span class="line">    - Alter unique_together for menuitemtranslation (1 constraint(s))</span><br><span class="line">    - Create index menuitem_p_meta_idx on field(s) private_metadata of model menuitem</span><br><span class="line">    - Create index menuitem_meta_idx on field(s) metadata of model menuitem</span><br><span class="line">Migrations for &#x27;order&#x27;:</span><br><span class="line">  saleor/order/migrations/0001_initial.py</span><br><span class="line">    - Create model Fulfillment</span><br><span class="line">    - Create model FulfillmentLine</span><br><span class="line">    - Create model Order</span><br><span class="line">    - Create model OrderEvent</span><br><span class="line">    - Create model OrderLine</span><br><span class="line">  saleor/order/migrations/0002_initial.py</span><br><span class="line">    - Add field variant to orderline</span><br><span class="line">    - Add field app to orderevent</span><br><span class="line">    - Add field order to orderevent</span><br><span class="line">    - Add field user to orderevent</span><br><span class="line">    - Add field billing_address to order</span><br><span class="line">    - Add field channel to order</span><br><span class="line">    - Add field collection_point to order</span><br><span class="line">    - Add field gift_cards to order</span><br><span class="line">    - Add field original to order</span><br><span class="line">    - Add field shipping_address to order</span><br><span class="line">    - Add field shipping_method to order</span><br><span class="line">    - Add field user to order</span><br><span class="line">    - Add field voucher to order</span><br><span class="line">    - Add field fulfillment to fulfillmentline</span><br><span class="line">    - Add field order_line to fulfillmentline</span><br><span class="line">    - Add field stock to fulfillmentline</span><br><span class="line">    - Add field order to fulfillment</span><br><span class="line">    - Create index order_p_meta_idx on field(s) private_metadata of model order</span><br><span class="line">    - Create index order_meta_idx on field(s) metadata of model order</span><br><span class="line">    - Create index order_search_gin on field(s) search_document of model order</span><br><span class="line">    - Create index order_email_search_gin on field(s) user_email of model order</span><br><span class="line">    - Create index fulfillment_p_meta_idx on field(s) private_metadata of model fulfillment</span><br><span class="line">    - Create index fulfillment_meta_idx on field(s) metadata of model fulfillment</span><br><span class="line">Migrations for &#x27;payment&#x27;:</span><br><span class="line">  saleor/payment/migrations/0001_initial.py</span><br><span class="line">    - Create model Payment</span><br><span class="line">    - Create model TransactionItem</span><br><span class="line">    - Create model TransactionEvent</span><br><span class="line">    - Create model Transaction</span><br><span class="line">    - Create index transactionitem_p_meta_idx on field(s) private_metadata of model transactionitem</span><br><span class="line">    - Create index transactionitem_meta_idx on field(s) metadata of model transactionitem</span><br><span class="line">    - Create index payment_tra_order_i_e783c4_gin on field(s) order_id, status of model transactionitem</span><br><span class="line">    - Create index payment_p_meta_idx on field(s) private_metadata of model payment</span><br><span class="line">    - Create index payment_meta_idx on field(s) metadata of model payment</span><br><span class="line">    - Create index payment_pay_order_i_f22aa2_gin on field(s) order_id, is_active, charge_status of model payment</span><br><span class="line">Migrations for &#x27;product&#x27;:</span><br><span class="line">  saleor/product/migrations/0001_initial.py</span><br><span class="line">    - Create model Category</span><br><span class="line">    - Create model CategoryTranslation</span><br><span class="line">    - Create model Collection</span><br><span class="line">    - Create model CollectionChannelListing</span><br><span class="line">    - Create model CollectionProduct</span><br><span class="line">    - Create model CollectionTranslation</span><br><span class="line">    - Create model DigitalContent</span><br><span class="line">    - Create model DigitalContentUrl</span><br><span class="line">    - Create model Product</span><br><span class="line">    - Create model ProductChannelListing</span><br><span class="line">    - Create model ProductMedia</span><br><span class="line">    - Create model ProductTranslation</span><br><span class="line">    - Create model ProductType</span><br><span class="line">    - Create model ProductVariant</span><br><span class="line">    - Create model VariantMedia</span><br><span class="line">    - Create model ProductVariantTranslation</span><br><span class="line">    - Create model ProductVariantChannelListing</span><br><span class="line">    - Add field media to productvariant</span><br><span class="line">    - Add field product to productvariant</span><br><span class="line">    - Create index producttype_p_meta_idx on field(s) private_metadata of model producttype</span><br><span class="line">    - Create index producttype_meta_idx on field(s) metadata of model producttype</span><br><span class="line">    - Create index product_type_search_gin on field(s) name, slug of model producttype</span><br><span class="line">    - Add field product to producttranslation</span><br><span class="line">    - Add field product to productmedia</span><br><span class="line">    - Add field channel to productchannellisting</span><br><span class="line">    - Add field product to productchannellisting</span><br><span class="line">    - Add field category to product</span><br><span class="line">    - Add field default_variant to product</span><br><span class="line">    - Add field product_type to product</span><br><span class="line">    - Add field content to digitalcontenturl</span><br><span class="line">    - Add field line to digitalcontenturl</span><br><span class="line">    - Add field product_variant to digitalcontent</span><br><span class="line">    - Add field collection to collectiontranslation</span><br><span class="line">    - Add field collection to collectionproduct</span><br><span class="line">    - Add field product to collectionproduct</span><br><span class="line">    - Add field channel to collectionchannellisting</span><br><span class="line">    - Add field collection to collectionchannellisting</span><br><span class="line">    - Add field products to collection</span><br><span class="line">    - Add field category to categorytranslation</span><br><span class="line">    - Add field parent to category</span><br><span class="line">    - Alter unique_together for variantmedia (1 constraint(s))</span><br><span class="line">    - Alter unique_together for productvarianttranslation (1 constraint(s))</span><br><span class="line">    - Alter unique_together for productvariantchannellisting (1 constraint(s))</span><br><span class="line">    - Create index productvariant_p_meta_idx on field(s) private_metadata of model productvariant</span><br><span class="line">    - Create index productvariant_meta_idx on field(s) metadata of model productvariant</span><br><span class="line">    - Alter unique_together for producttranslation (1 constraint(s))</span><br><span class="line">    - Create index product_pro_publish_a3c049_idx on field(s) published_at of model productchannellisting</span><br><span class="line">    - Create index product_pro_discoun_3145f3_btree on field(s) discounted_price_amount of model productchannellisting</span><br><span class="line">    - Alter unique_together for productchannellisting (1 constraint(s))</span><br><span class="line">    - Create index product_search_gin on field(s) search_document of model product</span><br><span class="line">    - Create index product_tsearch on field(s) search_vector of model product</span><br><span class="line">    - Create index product_p_meta_idx on field(s) private_metadata of model product</span><br><span class="line">    - Create index product_meta_idx on field(s) metadata of model product</span><br><span class="line">    - Create index digitalcontent_p_meta_idx on field(s) private_metadata of model digitalcontent</span><br><span class="line">    - Create index digitalcontent_meta_idx on field(s) metadata of model digitalcontent</span><br><span class="line">    - Alter unique_together for collectiontranslation (1 constraint(s))</span><br><span class="line">    - Alter unique_together for collectionproduct (1 constraint(s))</span><br><span class="line">    - Alter unique_together for collectionchannellisting (1 constraint(s))</span><br><span class="line">    - Create index collection_p_meta_idx on field(s) private_metadata of model collection</span><br><span class="line">    - Create index collection_meta_idx on field(s) metadata of model collection</span><br><span class="line">    - Create index collection_search_gin on field(s) name, slug of model collection</span><br><span class="line">    - Alter unique_together for categorytranslation (1 constraint(s))</span><br><span class="line">    - Create index category_p_meta_idx on field(s) private_metadata of model category</span><br><span class="line">    - Create index category_meta_idx on field(s) metadata of model category</span><br><span class="line">    - Create index category_search_name_slug_gin on field(s) name, slug, description_plaintext of model category</span><br><span class="line">Migrations for &#x27;shipping&#x27;:</span><br><span class="line">  saleor/shipping/migrations/0001_initial.py</span><br><span class="line">    - Create model ShippingMethod</span><br><span class="line">    - Create model ShippingZone</span><br><span class="line">    - Create model ShippingMethodTranslation</span><br><span class="line">    - Create model ShippingMethodPostalCodeRule</span><br><span class="line">    - Create model ShippingMethodChannelListing</span><br><span class="line">    - Add field shipping_zone to shippingmethod</span><br><span class="line">    - Create index shippingzone_p_meta_idx on field(s) private_metadata of model shippingzone</span><br><span class="line">    - Create index shippingzone_meta_idx on field(s) metadata of model shippingzone</span><br><span class="line">    - Alter unique_together for shippingmethodtranslation (1 constraint(s))</span><br><span class="line">    - Alter unique_together for shippingmethodpostalcoderule (1 constraint(s))</span><br><span class="line">    - Alter unique_together for shippingmethodchannellisting (1 constraint(s))</span><br><span class="line">    - Create index shippingmethod_p_meta_idx on field(s) private_metadata of model shippingmethod</span><br><span class="line">    - Create index shippingmethod_meta_idx on field(s) metadata of model shippingmethod</span><br><span class="line">Migrations for &#x27;warehouse&#x27;:</span><br><span class="line">  saleor/warehouse/migrations/0001_initial.py</span><br><span class="line">    - Create model Warehouse</span><br><span class="line">    - Create model Stock</span><br><span class="line">    - Create model Reservation</span><br><span class="line">    - Create model PreorderReservation</span><br><span class="line">    - Create model PreorderAllocation</span><br><span class="line">    - Create model Allocation</span><br><span class="line">    - Create index warehouse_p_meta_idx on field(s) private_metadata of model warehouse</span><br><span class="line">    - Create index warehouse_meta_idx on field(s) metadata of model warehouse</span><br><span class="line">    - Alter unique_together for stock (1 constraint(s))</span><br><span class="line">    - Create index warehouse_r_checkou_b66369_idx on field(s) checkout_line, reserved_until of model reservation</span><br><span class="line">    - Alter unique_together for reservation (1 constraint(s))</span><br><span class="line">    - Create index warehouse_p_checkou_3abf41_idx on field(s) checkout_line, reserved_until of model preorderreservation</span><br><span class="line">    - Alter unique_together for preorderreservation (1 constraint(s))</span><br><span class="line">    - Alter unique_together for preorderallocation (1 constraint(s))</span><br><span class="line">    - Alter unique_together for allocation (1 constraint(s))</span><br><span class="line">Migrations for &#x27;site&#x27;:</span><br><span class="line">  saleor/site/migrations/0001_initial.py</span><br><span class="line">    - Create model SiteSettings</span><br><span class="line">    - Create model SiteSettingsTranslation</span><br></pre></td></tr></table></figure>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">⋊&gt; /v/w/v/saleor on main ⨯ python manage.py migrate                                                                                                                                                                                                                          00:02:56</span><br><span class="line">WARNING saleor.core.jwt_manager RSA_PRIVATE_KEY is missing. Using temporary key for local development with DEBUG mode. [PID:462981:MainThread]</span><br><span class="line">Operations to perform:</span><br><span class="line">  Apply all migrations: account, app, attribute, auth, channel, checkout, contenttypes, core, csv, discount, django_celery_beat, django_prices_openexchangerates, django_prices_vatlayer, giftcard, invoice, menu, order, page, payment, plugins, product, shipping, site, sites, warehouse, webhook</span><br><span class="line">Running migrations:</span><br><span class="line">  Applying order.0001_initial... OK</span><br><span class="line">  Applying channel.0001_initial... OK</span><br><span class="line">  Applying product.0001_initial... OK</span><br><span class="line">  Applying shipping.0001_initial... OK</span><br><span class="line">  Applying checkout.0001_initial... OK</span><br><span class="line">  Applying contenttypes.0001_initial... OK</span><br><span class="line">  Applying contenttypes.0002_remove_content_type_name... OK</span><br><span class="line">  Applying auth.0001_initial... OK</span><br><span class="line">  Applying auth.0002_alter_permission_name_max_length... OK</span><br><span class="line">  Applying auth.0003_alter_user_email_max_length... OK</span><br><span class="line">  Applying auth.0004_alter_user_username_opts... OK</span><br><span class="line">  Applying auth.0005_alter_user_last_login_null... OK</span><br><span class="line">  Applying auth.0006_require_contenttypes_0002... OK</span><br><span class="line">  Applying auth.0007_alter_validators_add_error_messages... OK</span><br><span class="line">  Applying auth.0008_alter_user_username_max_length... OK</span><br><span class="line">  Applying auth.0009_alter_user_last_name_max_length... OK</span><br><span class="line">  Applying auth.0010_alter_group_name_max_length... OK</span><br><span class="line">  Applying auth.0011_update_proxy_permissions... OK</span><br><span class="line">  Applying auth.0012_alter_user_first_name_max_length... OK</span><br><span class="line">  Applying app.0001_initial... OK</span><br><span class="line">  Applying account.0001_initial... OK</span><br><span class="line">  Applying account.0002_customerevent_app... OK</span><br><span class="line">  Applying warehouse.0001_initial... OK</span><br><span class="line">  Applying giftcard.0001_initial... OK</span><br><span class="line">  Applying giftcard.0002_initial... OK</span><br><span class="line">  Applying discount.0001_initial... OK</span><br><span class="line">  Applying discount.0002_initial... OK</span><br><span class="line">  Applying order.0002_initial... OK</span><br><span class="line">  Applying account.0003_initial... OK</span><br><span class="line">  Applying page.0001_initial... OK</span><br><span class="line">  Applying attribute.0001_initial... OK</span><br><span class="line">  Applying attribute.0002_initial... OK</span><br><span class="line">  Applying checkout.0002_initial... OK</span><br><span class="line">  Applying webhook.0001_initial... OK</span><br><span class="line">  Applying core.0001_initial... OK</span><br><span class="line">  Applying csv.0001_initial... OK</span><br><span class="line">  Applying django_celery_beat.0001_initial... OK</span><br><span class="line">  Applying django_celery_beat.0002_auto_20161118_0346... OK</span><br><span class="line">  Applying django_celery_beat.0003_auto_20161209_0049... OK</span><br><span class="line">  Applying django_celery_beat.0004_auto_20170221_0000... OK</span><br><span class="line">  Applying django_celery_beat.0005_add_solarschedule_events_choices... OK</span><br><span class="line">  Applying django_celery_beat.0006_auto_20180322_0932... OK</span><br><span class="line">  Applying django_celery_beat.0007_auto_20180521_0826... OK</span><br><span class="line">  Applying django_celery_beat.0008_auto_20180914_1922... OK</span><br><span class="line">  Applying django_celery_beat.0006_auto_20180210_1226... OK</span><br><span class="line">  Applying django_celery_beat.0006_periodictask_priority... OK</span><br><span class="line">  Applying django_celery_beat.0009_periodictask_headers... OK</span><br><span class="line">  Applying django_celery_beat.0010_auto_20190429_0326... OK</span><br><span class="line">  Applying django_celery_beat.0011_auto_20190508_0153... OK</span><br><span class="line">  Applying django_celery_beat.0012_periodictask_expire_seconds... OK</span><br><span class="line">  Applying django_celery_beat.0013_auto_20200609_0727... OK</span><br><span class="line">  Applying django_celery_beat.0014_remove_clockedschedule_enabled... OK</span><br><span class="line">  Applying django_celery_beat.0015_edit_solarschedule_events_choices... OK</span><br><span class="line">  Applying django_prices_openexchangerates.0001_initial... OK</span><br><span class="line">  Applying django_prices_openexchangerates.0002_auto_20160329_0702... OK</span><br><span class="line">  Applying django_prices_openexchangerates.0003_auto_20161018_0707... OK</span><br><span class="line">  Applying django_prices_openexchangerates.0004_auto_20170316_0944... OK</span><br><span class="line">  Applying django_prices_openexchangerates.0005_auto_20190124_1008... OK</span><br><span class="line">  Applying django_prices_vatlayer.0001_initial... OK</span><br><span class="line">  Applying django_prices_vatlayer.0002_ratetypes... OK</span><br><span class="line">  Applying django_prices_vatlayer.0003_auto_20180316_1053... OK</span><br><span class="line">  Applying invoice.0001_initial... OK</span><br><span class="line">  Applying invoice.0002_initial... OK</span><br><span class="line">  Applying menu.0001_initial... OK</span><br><span class="line">  Applying menu.0002_initial... OK</span><br><span class="line">  Applying payment.0001_initial... OK</span><br><span class="line">  Applying plugins.0001_initial... OK</span><br><span class="line">  Applying sites.0001_initial... OK</span><br><span class="line">  Applying sites.0002_alter_domain_unique... OK</span><br><span class="line">  Applying site.0001_initial... OK</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1502,293 +1766,6 @@ streams are needed to be transferred via Wifi:</p>
 <li>the processed resultant video stream</li>
 </ul>
 <p>Let's leave this issue aside for now...</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2021/12/25/Robotics/Jetbot-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Longer Vision Technology">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/12/25/Robotics/Jetbot-1/" class="post-title-link" itemprop="url">The JetBot - 1</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-12-25 00:00:00" itemprop="dateCreated datePublished" datetime="2021-12-25T00:00:00-08:00">2021-12-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-10-05 00:46:58" itemprop="dateModified" datetime="2024-10-05T00:46:58-07:00">2024-10-05</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Robotics/" itemprop="url" rel="index"><span itemprop="name">Robotics</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Merry Christmas everyone. It is another Christmas, Year 2022 is
-coming. I'm back to life. Last week, my <a
-target="_blank" rel="noopener" href="https://jetbot.org/">JetBot</a> arrived. It took me a couple of
-hours to make it work, and round 1 week to demonstrate: some of the <a
-target="_blank" rel="noopener" href="https://github.com/NVIDIA-AI-IOT/jetbot/wiki/examples">JetBot
-Examples</a> are <strong>NOT</strong> working properly. Anyway, my son
-Fionn is half-year old. Let's celebrate it with <a
-target="_blank" rel="noopener" href="https://jetbot.org/">JetBot</a>, as well as the heavy Christmas
-snows.</p>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Christmas Snow</th>
-<th style="text-align: center;">My Son</th>
-<th style="text-align: center;">Snow</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2021/XMas/snows_01.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2021/XMas/snows_01.jpg"
-alt="Sunny Snow" /></a></td>
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2021/XMas/niuniu_01.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2021/XMas/niuniu_01.jpg"
-alt="Lazy Boy" /></a></td>
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2021/XMas/snows_04.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2021/XMas/snows_04.jpg"
-alt="Ski In the Snow" /></a></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2021/XMas/snows_02.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2021/XMas/snows_02.jpg"
-alt="Somebody Is In The Snow" /></a></td>
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2021/XMas/niuniu_02.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2021/XMas/niuniu_02.jpg"
-alt="Beautiful Boy" /></a></td>
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2021/XMas/snows_05.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2021/XMas/snows_05.jpg"
-alt="Sunny Sunny Sunny" /></a></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2021/XMas/snows_03.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2021/XMas/snows_03.jpg"
-alt="That&#39;s THE Christmas Tree" /></a></td>
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2021/XMas/niuniu_03.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2021/XMas/niuniu_03.jpg"
-alt="Chubby Boy" /></a></td>
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2021/XMas/snows_06.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2021/XMas/snows_06.jpg"
-alt="What a House" /></a></td>
-</tr>
-</tbody>
-</table>
-<p>I believe we can flash <a
-target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetpack">JetPack</a> first
-and have <a target="_blank" rel="noopener" href="https://jetbor.org">JetBot</a> configured afterwards.
-Let's leave this topic for the next blog <a
-href="../../../../2021/12/20/Robotics/Jetbot%20-%201/">The JeBot -
-2</a>. In this blog, we're going to follow the official <a
-target="_blank" rel="noopener" href="https://jetbot.org/master/software_setup/sd_card.html">JetBot
-Software Setup</a>.</p>
-<h1 id="setup-jetbot-hardware">1. Setup JetBot Hardware</h1>
-<p>Just refer to this youtube video:</p>
-<iframe width="1280" height="720" src="https://www.youtube.com/embed/tmdxMAgwuAM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-</iframe>
-<p>Since what I purchased is a <a
-target="_blank" rel="noopener" href="https://www.waveshare.com/JetBot-2GB-AI-Kit.htm">Waveshare JetBot
-2GB AI Kit</a>. therefore, my assembled <a
-target="_blank" rel="noopener" href="https://jetbot.org/">JetBot</a> looks like following:</p>
-<p><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Robots/JetBot/JetBot_Assembly.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Robots/JetBot/JetBot_Assembly.jpg"
-alt="My Assembled JetBot" /></a></p>
-<p>As you can see, there is <strong>NO</strong> antenna. Instead, a Wifi
-USB dongle is provided. Actully, there are a couple things to be
-emphasized for my <a
-target="_blank" rel="noopener" href="https://www.waveshare.com/JetBot-2GB-AI-Kit.htm">Waveshare JetBot
-2GB AI Kit</a>: - <strong>No</strong> antenna, <strong>ONLY</strong> a
-Wifi USB dongle - A <strong>64G</strong> TF Card is adopted. A
-comprehensive overview of SD card is summarized at <a
-target="_blank" rel="noopener" href="https://www.sdcard.org/developers/sd-standard-overview/">SD
-Standard Overview</a>.</p>
-<h1 id="setup-jetbot-software-using-sd-card">2. Setup <a
-target="_blank" rel="noopener" href="https://jetbot.org/">JetBot</a> Software Using SD Card</h1>
-<h2 id="sd-card-image-from-jetbot-official-website">2.1 SD Card Image
-from JetBot Official Website</h2>
-<p>We just download the JetBot official SD card image from <a
-target="_blank" rel="noopener" href="https://jetbot.org/master/software_setup/sd_card.html">Software
-Setup (SD Card Image)</a>, and flash it to my <strong>64G</strong> TF
-Card.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜  jetbot sudo dd bs=1M if=jetbot-043_nano-2gb-jp45.img of=/dev/mmcblk0 conv=fsync </span><br><span class="line">[sudo] password for lvision: </span><br><span class="line">24679+1 records in</span><br><span class="line">24679+1 records out</span><br><span class="line">25877824000 bytes (26 GB, 24 GiB) copied, 1002.99 s, 25.8 MB/s</span><br></pre></td></tr></table></figure>
-<p>After that, as usual, we upgrade the entire JetBot system by
-<code>sudo apt update</code> and <code>sudo apt upgrade</code>. After
-all these, our <a target="_blank" rel="noopener" href="https://jetbot.org/">JetBot</a> looks like:</p>
-<p><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Robots/JetBot/jetbot_os.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Robots/JetBot/jetbot_os.png"
-alt="JetBot Linux Kernel" /></a></p>
-<h2 id="change-from-using-python-2-to-python-3">2.2 Change from using
-Python 2 to Python 3</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python --version</span><br><span class="line">Python 3.6.9</span><br><span class="line">➜  ~ pip --version</span><br><span class="line">whereis WARNING: pip is being invoked by an old script wrapper. This will fail in a future version of pip.</span><br><span class="line">Please see https://github.com/pypa/pip/issues/5599 for advice on fixing the underlying issue.</span><br><span class="line">To avoid this problem you can invoke Python with &#x27;-m pip&#x27; instead of running pip directly.</span><br><span class="line">pip 21.3.1 from /home/jetbot/.local/lib/python3.6/site-packages/pip (python 3.6)</span><br><span class="line">➜  ~ whereis pip</span><br><span class="line">pip: /usr/bin/pip /home/jetbot/.local/bin/pip3.6 /home/jetbot/.local/bin/pip</span><br><span class="line">➜  ~ ll /usr/bin/pip</span><br><span class="line">lrwxrwxrwx 1 root root 27 Dec 22 12:46 /usr/bin/pip -&gt; /home/jetbot/.local/bin/pip</span><br><span class="line">➜  ~ python -m pip --version</span><br><span class="line">pip 21.3.1 from /home/jetbot/.local/lib/python3.6/site-packages/pip (python 3.6)</span><br><span class="line">➜  ~ </span><br></pre></td></tr></table></figure>
-<h2 id="jetson-stats">2.3 <a
-target="_blank" rel="noopener" href="https://github.com/rbonghi/jetson_stats">Jetson Stats</a></h2>
-<p>After twickling around how to run <code>pip</code> under
-<code>/home/jetbot/.local/bin</code> for user <code>root</code>, and
-have <a target="_blank" rel="noopener" href="https://github.com/rbonghi/jetson_stats">Jetson Stats</a>
-installed using this command
-<code>sudo -H pip install -U jetson-stats</code>, we got the following
-results:</p>
-<p><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Robots/JetBot/jtop.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Robots/JetBot/jtop.png"
-alt="Jtop" /></a> <a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Robots/JetBot/jetson_config.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Robots/JetBot/jetson_config.png"
-alt="Jetson_config" /></a> <a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Robots/JetBot/jetson_release.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Robots/JetBot/jetson_release.png"
-alt="Jetson_release" /></a></p>
-<h2 id="other-third-party-libraries">2.4 Other Third Party
-Libraries</h2>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/opencv/opencv">OpenCV</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://github.com/protocolbuffers/protobuf">protobuf</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/NVIDIA-AI-IOT/jetbot">NVIDIA
-JetBot</a></li>
-<li><a target="_blank" rel="noopener" href="https://cmake.org/">CMake</a></li>
-</ul>
-<p>Anyway, let's take a look at my installed results:</p>
-<p><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Robots/JetBot/OpenCV_Protobuf.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Robots/JetBot/OpenCV_Protobuf.png"
-alt="OpenCV and Protobuf" /></a></p>
-<p><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Robots/JetBot/python_jetbot.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Robots/JetBot/python_jetbot.png"
-alt="Python JetBot" /></a></p>
-<h2 id="key-points">2.5 Key Points</h2>
-<p>Do <strong>NOT</strong> forget to <strong>export</strong> a couple of
-<strong>environmental variables</strong> in both <code>.bashrc</code>
-and <code>/etc/environment</code> as:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export OPENBLAS_CORETYPE=&quot;AARCH64&quot;</span><br><span class="line">export LD_PRELOAD=&quot;/home/jetbot/.local/lib/python3.6/site-packages/torch/lib/libgomp-d22c30c5.so.1&quot;</span><br><span class="line">export LD_PRELOAD=&quot;/usr/lib/aarch64-linux-gnu/libgomp.so.1.0.0&quot;</span><br></pre></td></tr></table></figure>
-<p>It looks that by directly installing <strong>pytorch</strong> via
-<code>pip install torch -U --user</code>, a <strong>second
-libgomp</strong> will be installed. Both <strong>libgomp</strong>s
-brought me the error of <strong><span style="color:red">cannot allocate
-memory in static TLS block</span></strong>, please refer to:</p>
-<ul>
-<li><a
-target="_blank" rel="noopener" href="https://forums.developer.nvidia.com/t/what-is-cannot-allocate-memory-in-static-tls-block/169225">What
-is "cannot allocate memory in static TLS block"</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://github.com/theAIGuysCode/yolov4-deepsort/issues/43">ImportError:
-/usr/lib/aarch64-linux-gnu/libgomp.so.1: cannot allocate memory in
-static TLS block #43</a></li>
-</ul>
-<p><strong><span style="color:red">The solution to the above errors
-is:</span></strong> * <a
-target="_blank" rel="noopener" href="https://qengineering.eu/install-pytorch-on-jetson-nano.html">Install
-PyTorch on Jetson Nano</a></p>
-<h1 id="test-jetbot">3. Test <a
-target="_blank" rel="noopener" href="https://jetbot.org/">JetBot</a></h1>
-<p>Pretty much similar to:</p>
-<iframe width="1280" height="720" src="https://www.youtube.com/embed/tmdxMAgwuAM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-</iframe>
-<p><a target="_blank" rel="noopener" href="https://youtu.be/tmdxMAgwuAM">JetBot Basic Motion Demo</a>
-is really a very cool demo for you to start with <a
-target="_blank" rel="noopener" href="https://jetbot.org/">JetBot</a>. It wouldn't be hard for you to
-run a <a
-target="_blank" rel="noopener" href="https://jupyter-notebook.readthedocs.io/en/stable/public_server.html">Jupyter
-Notebook Server</a> remotely. Anyway, my testing results are given as
-follows: a <strong>headache</strong> video, as well as .pdf summary.</p>
-<div style="text-align: center; font-size: 3em;">
-<pre><code>😰</code></pre>
-</div>
-<iframe src="//www.slideshare.net/slideshow/embed_code/key/1W22hLyscpxqzk" width="668" height="714" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen>
-</iframe>
-<iframe width="1280" height="1124" src="https://www.youtube.com/embed/P6igZvjoqJ8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-</iframe>
-<h1 id="longer-vision-jetbot-os">4. Longer Vision <a
-target="_blank" rel="noopener" href="https://jetbot.org/">JetBot</a> OS</h1>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜  sudo dd bs=1M if=/dev/mmcblk0 of=jetbot.img conv=fsync</span><br><span class="line">[sudo] password for lvision: </span><br><span class="line">60350+0 records in</span><br><span class="line">60350+0 records out</span><br><span class="line">63281561600 bytes (63 GB, 59 GiB) copied, 726.538 s, 87.1 MB/s</span><br></pre></td></tr></table></figure>
-Finally, I attached my built JetBot OS at <a
-target="_blank" rel="noopener" href="https://www.longervision.us/iso/jetbot-nano2g-ubuntu18.04.6-cuda10.02-cudnn8.0.0-opencv4.5.4.img">https://www.longervision.us/iso/jetbot-nano2g-ubuntu18.04.6-cuda10.02-cudnn8.0.0-opencv4.5.4.img</a>.
-You are welcome to take a try.
-<div style="text-align: center; font-size: 3em;">
-<pre><code>😄</code></pre>
-</div>
 
       
     </div>

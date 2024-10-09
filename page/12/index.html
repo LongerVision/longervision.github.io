@@ -116,7 +116,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">147</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -127,7 +127,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">136</span>
+        <span class="site-state-item-count">137</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -144,6 +144,131 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/22/Finance/time-series-forecasting-with-Facebook-Prophet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Longer Vision Technology">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/01/22/Finance/time-series-forecasting-with-Facebook-Prophet/" class="post-title-link" itemprop="url">Time Series Forecasting with Facebook Prophet</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-01-22 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-22T00:00:00-08:00">2019-01-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-09-28 17:33:45" itemprop="dateModified" datetime="2024-09-28T17:33:45-07:00">2024-09-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Finance/" itemprop="url" rel="index"><span itemprop="name">Finance</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Today, we are going to test out <a
+target="_blank" rel="noopener" href="https://facebook.github.io/prophet/">Facebook Prophet</a> by
+following <a
+target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/a-guide-to-time-series-forecasting-with-prophet-in-python-3">this
+DigitalOcean Tutorial</a>.</p>
+<h1 id="preparation">Preparation</h1>
+<h2 id="required-python-packages">Required Python Packages</h2>
+<p>We <strong>FIRST</strong> make sure 2 Python packages - <a
+target="_blank" rel="noopener" href="https://facebook.github.io/prophet/">Prophet</a> and <a
+target="_blank" rel="noopener" href="https://pystan.readthedocs.io/en/latest/">PyStan</a> have been
+successfully installed.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip show prophet</span><br><span class="line">Name: prophet</span><br><span class="line">Version: 0.1.1</span><br><span class="line">Summary: Microframework for analyzing financial markets.</span><br><span class="line">Home-page: http://prophet.michaelsu.io/</span><br><span class="line">Author: Michael Su</span><br><span class="line">Author-email: mdasu1@gmail.com</span><br><span class="line">License: BSD</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: six, pytz, pandas</span><br><span class="line">Required-by: </span><br><span class="line">➜  ~ pip show pystan</span><br><span class="line">Name: pystan</span><br><span class="line">Version: 2.18.1.0</span><br><span class="line">Summary: Python interface to Stan, a package for Bayesian inference</span><br><span class="line">Home-page: https://github.com/stan-dev/pystan</span><br><span class="line">Author: None</span><br><span class="line">Author-email: None</span><br><span class="line">License: GPLv3</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: Cython, numpy</span><br><span class="line">Required-by: fbprophet</span><br></pre></td></tr></table></figure>
+<h2 id="download-the-time-series-data">Download the Time Series
+Data</h2>
+<p>We just need to download the CSV file to some directory:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  facebookprophet curl -O https://assets.digitalocean.com/articles/eng_python/prophet/AirPassengers.csv</span><br><span class="line"><span class="meta prompt_">  % </span><span class="language-bash">Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</span></span><br><span class="line">                                 Dload  Upload   Total   Spent    Left  Speed</span><br><span class="line">100  1748  100  1748    0     0   2281      0 --:--:-- --:--:-- --:--:--  2279</span><br></pre></td></tr></table></figure>
+<h1 id="test">Test</h1>
+<h2 id="the-code">The Code</h2>
+<p>Trivial modifications have been done upon the code on <a
+target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/a-guide-to-time-series-forecasting-with-prophet-in-python-3">this
+DigitalOcean Tutorial</a>, as follows:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> fbprophet <span class="keyword">import</span> Prophet</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.style.use(<span class="string">&#x27;fivethirtyeight&#x27;</span>)</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;AirPassengers.csv&#x27;</span>)</span><br><span class="line">df.head(<span class="number">5</span>)</span><br><span class="line">df.dtypes</span><br><span class="line"></span><br><span class="line">df[<span class="string">&#x27;Month&#x27;</span>] = pd.DatetimeIndex(df[<span class="string">&#x27;Month&#x27;</span>])</span><br><span class="line">df.dtypes</span><br><span class="line"></span><br><span class="line">df = df.rename(columns=&#123;<span class="string">&#x27;Month&#x27;</span>: <span class="string">&#x27;ds&#x27;</span>, <span class="string">&#x27;AirPassengers&#x27;</span>: <span class="string">&#x27;y&#x27;</span>&#125;)</span><br><span class="line">df.head(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">ax = df.set_index(<span class="string">&#x27;ds&#x27;</span>).plot(figsize=(<span class="number">12</span>, <span class="number">8</span>))</span><br><span class="line">ax.set_ylabel(<span class="string">&#x27;Monthly Number of Airline Passengers&#x27;</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">&#x27;Date&#x27;</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># set the uncertainty interval to 95% (the Prophet default is 80%)</span></span><br><span class="line">my_model = Prophet(interval_width=<span class="number">0.95</span>)</span><br><span class="line">my_model.fit(df)</span><br><span class="line">future_dates = my_model.make_future_dataframe(periods=<span class="number">36</span>, freq=<span class="string">&#x27;MS&#x27;</span>)</span><br><span class="line">future_dates.tail()</span><br><span class="line">forecast = my_model.predict(future_dates)</span><br><span class="line">forecast[[<span class="string">&#x27;ds&#x27;</span>, <span class="string">&#x27;yhat&#x27;</span>, <span class="string">&#x27;yhat_lower&#x27;</span>, <span class="string">&#x27;yhat_upper&#x27;</span>]].tail()</span><br><span class="line">fig1 = my_model.plot(forecast, uncertainty=<span class="literal">True</span>)</span><br><span class="line">fig1.show()</span><br><span class="line"></span><br><span class="line">my_model.plot_components(forecast).savefig(<span class="string">&#x27;prophet_forcast.png&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="outcome">Outcome</h2>
+<figure>
+<img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/prophet/01_originaldata.jpg"
+alt="Original Data" />
+<figcaption aria-hidden="true">Original Data</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/prophet/02_forcast.jpg"
+alt="Forcast" />
+<figcaption aria-hidden="true">Forcast</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/prophet/03_forcast_components.jpg"
+alt="Forcast Component" />
+<figcaption aria-hidden="true">Forcast Component</figcaption>
+</figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1776,321 +1901,6 @@ alt="Quantopian Example - Buy Apple" />
 <figcaption aria-hidden="true">Quantopian Example - Buy
 Apple</figcaption>
 </figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/11/03/AI/DeepLearning/Pose-AI-Happy-Halloween/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Longer Vision Technology">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/11/03/AI/DeepLearning/Pose-AI-Happy-Halloween/" class="post-title-link" itemprop="url">Pose AI - Happy Birthday to Me and Happy Halloween</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2018-11-03 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-03T00:00:00-07:00">2018-11-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-09-28 17:33:45" itemprop="dateModified" datetime="2024-09-28T17:33:45-07:00">2024-09-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>October 31, 2018 is <a
-target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Halloween">Halloween</a>... ^_^
-Happy <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Halloween">Halloween</a>
-everyone...</p>
-<figure>
-<img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2018/Halloween.jpg"
-alt="Happy Halloween" />
-<figcaption aria-hidden="true">Happy Halloween</figcaption>
-</figure>
-<p>And, <strong>Happy Birthday To Myself</strong>. Such an old
-<strong>NOBODY</strong>... <strong>DON'T ask my age.</strong> Anyway,
-enjoy life...</p>
-<figure>
-<img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2018/Birthday.jpg"
-alt="Happy Birthday" />
-<figcaption aria-hidden="true">Happy Birthday</figcaption>
-</figure>
-<p>Today, we are testing out some pose estimation open source, based on
-various open source AI frameworks, including: * <a
-target="_blank" rel="noopener" href="https://pytorch.org/">PyTorch</a> * <a
-target="_blank" rel="noopener" href="https://www.tensorflow.org/">Tensorflow</a> * <a
-target="_blank" rel="noopener" href="https://caffe2.ai/">Caffe2</a> * <a
-target="_blank" rel="noopener" href="http://caffe.berkeleyvision.org/">Caffe</a></p>
-<h1 id="openpose">1. <a
-target="_blank" rel="noopener" href="https://github.com/CMU-Perceptual-Computing-Lab/openpose">OpenPose</a></h1>
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Body Tracking</th>
-<th style="text-align: center;">Body Foot</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://www.facebook.com/jiapei100/videos/1147677908722943/"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/openpose/01_bodytracking.jpg"
-alt="Tracking Body ONLY" /></a></td>
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://www.facebook.com/jiapei100/videos/1147678282056239/"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/openpose/02_bodyfoot.jpg"
-alt="Body and Foot" /></a></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Body Hand</td>
-<td style="text-align: center;">Body Face</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://www.facebook.com/jiapei100/videos/1147679872056080/"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/openpose/03_bodyhand.jpg"
-alt="Body and Hand" /></a></td>
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://www.facebook.com/jiapei100/videos/1147679998722734/"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/openpose/04_bodyface.jpg"
-alt="Body and Face" /></a></td>
-</tr>
-</tbody>
-</table>
-<p>The related paper can be found at <a
-target="_blank" rel="noopener" href="https://github.com/ZheC/Realtime_Multi-Person_Pose_Estimation.git">Realtime
-Multi-Person 2D Pose Estimation using Part Affinity Fields</a>.</p>
-<h1 id="tf-pose-estimation">2. <a
-target="_blank" rel="noopener" href="https://github.com/ildoonet/tf-pose-estimation">tf-pose-estimation</a></h1>
-<p>Please refer to <a
-href="../../../../2018/07/12/DeepLearning/posture_recognition_by_a_single_2d_webcam">Posture
-Recognition by A Single 2D Webcam</a></p>
-<h1 id="pose-tensorflow">3. <a
-target="_blank" rel="noopener" href="https://github.com/eldar/pose-tensorflow">pose-tensorflow</a></h1>
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Single Person</th>
-<th style="text-align: center;">Multiple Persons</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/pose-tensorflow/01_singleperson.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/pose-tensorflow/01_singleperson.jpg"
-alt="Single Person" /></a></td>
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/pose-tensorflow/02_multiplepersons.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/pose-tensorflow/02_multiplepersons.jpg"
-alt="Multiple Persons" /></a></td>
-</tr>
-</tbody>
-</table>
-<h1 id="facebook-detectron">4. <a
-target="_blank" rel="noopener" href="https://github.com/facebookresearch/Detectron.git">Facebook
-Detectron</a></h1>
-<h1 id="facebook-detectandtrack">5. <a
-target="_blank" rel="noopener" href="https://github.com/facebookresearch/DetectAndTrack.git">Facebook
-DetectAndTrack</a></h1>
-<h1 id="facebook-densepose">6. <a
-target="_blank" rel="noopener" href="https://github.com/facebookresearch/DensePose.git">Facebook
-DensePose</a></h1>
-<h2 id="coco-visualize">6.1 COCO Visualize</h2>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Original Image</th>
-<th style="text-align: center;">Collected Points</th>
-<th style="text-align: center;">Subplots</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-COCO-Visualize/01_image.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-COCO-Visualize/01_image.jpg"
-alt="Original Image" /></a></td>
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-COCO-Visualize/02_collectedpoints.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-COCO-Visualize/02_collectedpoints.jpg"
-alt="Collected Points" /></a></td>
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-COCO-Visualize/03_subplots.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-COCO-Visualize/03_subplots.jpg"
-alt="Subplots" /></a></td>
-</tr>
-</tbody>
-</table>
-<h2 id="rcnn-texture-transfer">6.2 RCNN Texture Transfer</h2>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Texture</th>
-<th style="text-align: center;">Mesh</th>
-<th style="text-align: center;">Synth UV</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/01_texture.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/01_texture.jpg"
-alt="Texture" /></a></td>
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/02_mesh.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/02_mesh.jpg"
-alt="Mesh" /></a></td>
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/03_synthuv.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/03_synthuv.jpg"
-alt="Synth UV" /></a></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">IUV</td>
-<td style="text-align: center;">Texture Transfer</td>
-<td style="text-align: center;">Original Image</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/04_im_IUV.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/04_im_IUV.jpg"
-alt="IUV" /></a></td>
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/05_texturetransfer.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/05_texturetransfer.jpg"
-alt="Mesh" /></a></td>
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/06_im.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Texture-Transfer/06_im.jpg"
-alt="Original Image" /></a></td>
-</tr>
-</tbody>
-</table>
-<h2 id="rcnn-visualize">6.3 RCNN Visualize</h2>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">IUV</th>
-<th style="text-align: center;">Mesh</th>
-<th style="text-align: center;">Contour</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Visualize-Results/01_IUV.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Visualize-Results/01_IUV.jpg"
-alt="IUV" /></a></td>
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Visualize-Results/02_mesh.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Visualize-Results/02_mesh.jpg"
-alt="Mesh" /></a></td>
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Visualize-Results/03_contour.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/DensePose/DensePose-RCNN-Visualize-Results/03_contour.jpg"
-alt="Contour" /></a></td>
-</tr>
-</tbody>
-</table>
-<h1 id="facebook-maskrcnn-benchmark">7. <a
-target="_blank" rel="noopener" href="https://github.com/facebookresearch/maskrcnn-benchmark.git">Facebook
-maskrcnn-benchmark</a></h1>
-<p><a
-target="_blank" rel="noopener" href="https://www.facebook.com/jiapei100/videos/1148866891937378/"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/pose/facebook/maskrcnn-benchmark/maskrcnn-benchmark.jpg"
-alt="Test on maskrcnn-benchmark" /></a></p>
 
       
     </div>
