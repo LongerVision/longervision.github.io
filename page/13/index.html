@@ -116,7 +116,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -127,7 +127,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">137</span>
+        <span class="site-state-item-count">138</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -144,6 +144,452 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/11/07/Finance/finance-data/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Longer Vision Technology">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/11/07/Finance/finance-data/" class="post-title-link" itemprop="url">Retrieve Finance Data -- Google vs. Yahoo</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2018-11-07 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-07T00:00:00-08:00">2018-11-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-09-28 17:33:45" itemprop="dateModified" datetime="2024-09-28T17:33:45-07:00">2024-09-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Finance/" itemprop="url" rel="index"><span itemprop="name">Finance</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Yesterday, we briefly introduced <a
+target="_blank" rel="noopener" href="https://www.quantopian.com">Quantopian</a> and how to ingest <a
+target="_blank" rel="noopener" href="https://www.quandl.com/databases/WIKIP">Quandl WIKI Bundle
+data</a>. Today, we are going to briefly summarize the financial data
+source and how to retrieve <strong>Google</strong> and
+<strong>Yahoo</strong> finance data using <a
+target="_blank" rel="noopener" href="https://pandas-datareader.readthedocs.io/en/latest/">pandas_datareader</a>.</p>
+<h1 id="google-finance-data-and-yahoo-finance-data">1. Google Finance
+Data and Yahoo Finance Data</h1>
+<p>State-of-the-art finance data source are partly summarized at <a
+target="_blank" rel="noopener" href="http://www.financial-hacker.com/bye-yahoo-and-thank-you-for-the-fish/">Financial
+Hacker</a>. Our recommended solution is to retrieve stock data by using
+a <strong>SINGLE</strong> framework: <a
+target="_blank" rel="noopener" href="https://pandas-datareader.readthedocs.io/en/latest/">pandas_datareader</a>.
+<a target="_blank" rel="noopener" href="https://finance.yahoo.com/">Yahoo Finance Data</a> and <a
+target="_blank" rel="noopener" href="https://www.google.com/finance">Google Finance Data</a> can be
+easily retrieved by <a
+target="_blank" rel="noopener" href="https://www.learndatasci.com/tutorials/python-finance-part-yahoo-finance-api-pandas-matplotlib/">This
+Learn Data Science Tutorial</a>.</p>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 24%" />
+<col style="width: 24%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Source</th>
+<th style="text-align: left;">Request Link</th>
+<th style="text-align: left;">Stock Exchange Symbol (INDEX)</th>
+<th style="text-align: left;">Stock Symbol (DATA)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Google Finance</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.google.ca/finance?q=NYSE:DATA">https://www.google.ca/finance?q=INDEX:DATA</a></td>
+<td style="text-align: left;">INDEX, ex:<br>INDEXDJX: Dow
+Jones<br>NASDAQ<br>INDEXNASDAQ<br>NYSE: NYSE COMPOSITE (DJ)<br>INDEXSP:
+S&amp;P 500</td>
+<td style="text-align: left;">DATA, ex:<br>APPL</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Yahoo Finance</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://finance.yahoo.com/quote/DATA/?p=DATA">https://finance.yahoo.com/quote/DATA?p=DATA</a></td>
+<td style="text-align: left;">Totally, Yahoo provides the following
+indexes:<br>%5EGSPC: S&amp;P 500<br>%5EDJI: Dow 30<br>%5EIXIC: NASDAQ
+Composite<br>%5ERUT: Russell 2000<br>CL=F: Crude Oil Dec 18<br>GC=F:
+Gold Dec 18<br>SI=F: Silver Dec 18<br>%5ETNX: CBOE Interest Rate 10 Year
+T No<br>%5EVIX: CBOE Volatility Index<br>BTC-USD: Bitcoin
+USD<br>%5EFTSE: FTSE 100<br>%5EN225: Nikkei 225</td>
+<td style="text-align: left;">DATA ex:<br>APPL</td>
+</tr>
+</tbody>
+</table>
+<h1 id="use-pandas_datareader-to-retrieve-finance-data">2. Use <a
+target="_blank" rel="noopener" href="https://pandas-datareader.readthedocs.io/en/latest/">pandas_datareader</a>
+to Retrieve Finance Data</h1>
+<p>A comparatively old blog <a
+target="_blank" rel="noopener" href="https://www.learndatasci.com/tutorials/python-finance-part-yahoo-finance-api-pandas-matplotlib/">Python
+for Finance, Part I: Yahoo &amp; Google Finance API, pandas, and
+matplotlib</a> has already given a fabulous summary. However, with the
+development of Python, code for finance data loading needs to be
+modified a bit. For <strong>4</strong> different data resource:</p>
+<h1 id="google-finance">2.1 <a
+target="_blank" rel="noopener" href="https://www.google.com/finance">Google Finance</a></h1>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Define the instruments to download. We would like to see Apple, Microsoft and the S&amp;P500 index.</span></span><br><span class="line">tickers = [<span class="string">&#x27;AAPL&#x27;</span>, <span class="string">&#x27;MSFT&#x27;</span>, <span class="string">&#x27;^GSPC&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># We would like all available data from 01/01/2017 until 12/31/2017.</span></span><br><span class="line">start_date = <span class="string">&#x27;2017-01-01&#x27;</span></span><br><span class="line">end_date = <span class="string">&#x27;2017-12-31&#x27;</span></span><br><span class="line">df = data.DataReader(tickers, data_source=<span class="string">&#x27;google&#x27;</span>, start=start_date, end=end_date)</span><br></pre></td></tr></table></figure>
+<p><span style="color:red"> Exception has occurred:
+pandas_datareader.exceptions.ImmediateDeprecationError Google finance
+has been immediately deprecated due to large breaks in the API without
+the introduction of a stable replacement. Pull Requests to re-enable
+these data connectors are welcome. See
+https://github.com/pydata/pandas-datareader/issues File
+"....../test.py", line 16, in <module> df = data.DataReader(tickers,
+data_source='google', start=start_date, end=end_date) </span></p>
+<p>From <a
+target="_blank" rel="noopener" href="https://github.com/pydata/pandas-datareader/issues/487">pandas-datareader
+issues 487</a>, we can tell <a
+target="_blank" rel="noopener" href="https://www.google.com/finance">Google Finance API</a> is
+currently down. <span style="color:red"><strong>Therefore, let's ignore
+<a target="_blank" rel="noopener" href="https://www.google.com/finance">Google Finance</a> for
+now.</strong></span></p>
+<p>On the other hand, from the following <strong>3</strong> finance data
+resource, the following printed tables and generated pictures
+demonstrate that stock data can be successfully loaded.</p>
+<h1 id="yahoo-finance">2.2 <a target="_blank" rel="noopener" href="https://finance.yahoo.com/">Yahoo
+Finance</a></h1>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Define the instruments to download. We would like to see Apple, Microsoft and the S&amp;P500 index.</span></span><br><span class="line">tickers = [<span class="string">&#x27;AAPL&#x27;</span>, <span class="string">&#x27;MSFT&#x27;</span>, <span class="string">&#x27;^GSPC&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># We would like all available data from 01/01/2017 until 12/31/2017.</span></span><br><span class="line">start_date = <span class="string">&#x27;2017-01-01&#x27;</span></span><br><span class="line">end_date = <span class="string">&#x27;2017-12-31&#x27;</span></span><br><span class="line">df = data.DataReader(tickers, data_source=<span class="string">&#x27;yahoo&#x27;</span>, start=start_date, end=end_date)</span><br></pre></td></tr></table></figure>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">Attributes        High                                 Low             \</span><br><span class="line">Symbols           AAPL       MSFT        ^GSPC        AAPL       MSFT</span><br><span class="line">Date</span><br><span class="line">2017-01-03  116.330002  62.840000  2263.879883  114.760002  62.130001</span><br><span class="line">2017-01-04  116.510002  62.750000  2272.820068  115.750000  62.119999</span><br><span class="line">2017-01-05  116.860001  62.660000  2271.500000  115.809998  62.029999</span><br><span class="line">2017-01-06  118.160004  63.150002  2282.100098  116.470001  62.040001</span><br><span class="line">2017-01-09  119.430000  63.080002  2275.489990  117.940002  62.540001</span><br><span class="line">2017-01-10  119.379997  63.070000  2279.270020  118.300003  62.279999</span><br><span class="line">2017-01-11  119.930000  63.230000  2275.320068  118.599998  62.430000</span><br><span class="line">2017-01-12  119.300003  63.400002  2271.780029  118.209999  61.950001</span><br><span class="line">2017-01-13  119.620003  62.869999  2278.679932  118.809998  62.349998</span><br><span class="line"></span><br><span class="line">Attributes                     Open                               Close  \</span><br><span class="line">Symbols           ^GSPC        AAPL       MSFT        ^GSPC        AAPL</span><br><span class="line">Date</span><br><span class="line">2017-01-03  2245.129883  115.800003  62.790001  2251.570068  116.150002</span><br><span class="line">2017-01-04  2261.600098  115.849998  62.480000  2261.600098  116.019997</span><br><span class="line">2017-01-05  2260.449951  115.919998  62.189999  2268.179932  116.610001</span><br><span class="line">2017-01-06  2264.060059  116.779999  62.299999  2271.139893  117.910004</span><br><span class="line">2017-01-09  2268.899902  117.949997  62.759998  2273.590088  118.989998</span><br><span class="line">2017-01-10  2265.270020  118.769997  62.730000  2269.719971  119.110001</span><br><span class="line">2017-01-11  2260.830078  118.739998  62.610001  2268.600098  119.750000</span><br><span class="line">2017-01-12  2254.250000  118.900002  63.060001  2271.139893  119.250000</span><br><span class="line">2017-01-13  2271.510010  119.110001  62.619999  2272.739990  119.040001</span><br><span class="line"></span><br><span class="line">Attributes                              Volume                            \</span><br><span class="line">Symbols          MSFT        ^GSPC        AAPL        MSFT         ^GSPC</span><br><span class="line">Date</span><br><span class="line">2017-01-03  62.580002  2257.830078  28781900.0  20694100.0  3.770530e+09</span><br><span class="line">2017-01-04  62.299999  2270.750000  21118100.0  21340000.0  3.764890e+09</span><br><span class="line">2017-01-05  62.299999  2269.000000  22193600.0  24876000.0  3.761820e+09</span><br><span class="line">2017-01-06  62.840000  2276.979980  31751900.0  19922900.0  3.339890e+09</span><br><span class="line">2017-01-09  62.639999  2268.899902  33561900.0  20256600.0  3.217610e+09</span><br><span class="line">2017-01-10  62.619999  2268.899902  24462100.0  18593000.0  3.638790e+09</span><br><span class="line">2017-01-11  63.189999  2275.320068  27588600.0  21517300.0  3.620410e+09</span><br><span class="line">2017-01-12  62.610001  2270.439941  27086200.0  20968200.0  3.462130e+09</span><br><span class="line">2017-01-13  62.700001  2274.639893  26111900.0  19422300.0  3.081270e+09</span><br><span class="line"></span><br><span class="line">Attributes   Adj Close</span><br><span class="line">Symbols           AAPL       MSFT        ^GSPC</span><br><span class="line">Date</span><br><span class="line">2017-01-03  112.620964  60.431488  2257.830078</span><br><span class="line">2017-01-04  112.494911  60.161095  2270.750000</span><br><span class="line">2017-01-05  113.066986  60.161095  2269.000000</span><br><span class="line">2017-01-06  114.327484  60.682560  2276.979980</span><br><span class="line">2017-01-09  115.374664  60.489429  2268.899902</span><br><span class="line">2017-01-10  115.491020  60.470112  2268.899902</span><br><span class="line">2017-01-11  116.111588  61.020542  2275.320068</span><br><span class="line">2017-01-12  115.626762  60.460461  2270.439941</span><br><span class="line">2017-01-13  115.423149  60.547371  2274.639893</span><br></pre></td></tr></table></figure>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">AAPL Closing Price</th>
+<th style="text-align: center;">MSFT Closing Price</th>
+<th style="text-align: center;">S&amp;P 500 Closing Price</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pandas_datareader/yahoo/AAPL.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pandas_datareader/yahoo/AAPL.jpg"
+alt="AAPL Closing Price" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pandas_datareader/yahoo/MSFT.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pandas_datareader/yahoo/MSFT.jpg"
+alt="MSFT Closing Price" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pandas_datareader/yahoo/GSPC.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pandas_datareader/yahoo/GSPC.jpg"
+alt="S&amp;P 500 Closing Price" /></a></td>
+</tr>
+</tbody>
+</table>
+<h1 id="iex">2.3 <a target="_blank" rel="noopener" href="https://iextrading.com/">IEX</a></h1>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Define the instruments to download. We would like to see Apple, Microsoft and the S&amp;P500 index.</span></span><br><span class="line">tickers = [<span class="string">&#x27;AAPL&#x27;</span>, <span class="string">&#x27;MSFT&#x27;</span>, <span class="string">&#x27;SPY&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># We would like all available data from 01/01/2017 until 12/31/2017.</span></span><br><span class="line">start_date = <span class="string">&#x27;2017-01-01&#x27;</span></span><br><span class="line">end_date = <span class="string">&#x27;2017-12-31&#x27;</span></span><br><span class="line">df = data.DataReader(tickers, data_source=<span class="string">&quot;iex&quot;</span>, start=start_date, end=end_date)</span><br></pre></td></tr></table></figure>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">Attributes      open                         high                     \</span><br><span class="line">Symbols         AAPL     MSFT       SPY      AAPL     MSFT       SPY   </span><br><span class="line">date                                                                   </span><br><span class="line">2017-01-03  112.6732  60.6343  217.9106  113.1889  60.6825  218.6756   </span><br><span class="line">2017-01-04  112.7219  60.3349  218.4722  113.3641  60.5956  219.5664   </span><br><span class="line">2017-01-05  112.7900  60.0549  219.1016  113.7087  60.5087  219.4018   </span><br><span class="line">2017-01-06  113.6268  60.1611  219.3534  114.9695  60.9819  220.5347   </span><br><span class="line">2017-01-09  114.7652  60.6053  219.7213  116.2052  60.9143  219.8764   </span><br><span class="line">2017-01-10  115.5630  60.5763  219.3050  116.1566  60.9046  220.2442   </span><br><span class="line">2017-01-11  115.5338  60.4604  219.1888  116.6917  61.0591  219.9053   </span><br><span class="line">2017-01-12  115.6847  60.8950  219.3243  116.0787  61.2233  219.5664   </span><br><span class="line">2017-01-13  115.8939  60.4701  219.5470  116.3901  60.7067  220.1958   </span><br><span class="line"></span><br><span class="line">Attributes       low                        close                     \</span><br><span class="line">Symbols         AAPL     MSFT       SPY      AAPL     MSFT       SPY   </span><br><span class="line">date                                                                   </span><br><span class="line">2017-01-03  111.6613  59.9921  216.7909  113.0138  60.4315  218.1043   </span><br><span class="line">2017-01-04  112.6246  59.9873  218.4625  112.8873  60.1611  219.4018   </span><br><span class="line">2017-01-05  112.6830  59.9003  218.3366  113.4614  60.1611  219.2275   </span><br><span class="line">2017-01-06  113.3251  59.9100  218.7433  114.7263  60.6825  220.0118   </span><br><span class="line">2017-01-09  114.7554  60.3928  219.2433  115.7771  60.4894  219.2856   </span><br><span class="line">2017-01-10  115.1057  60.1418  218.8499  115.8939  60.4701  219.2856   </span><br><span class="line">2017-01-11  115.3976  60.2866  218.4432  116.5166  61.0205  219.9053   </span><br><span class="line">2017-01-12  115.0182  59.8231  217.8283  116.0301  60.4604  219.3534   </span><br><span class="line">2017-01-13  115.6020  60.2094  219.5083  115.8257  60.5473  219.8569   </span><br><span class="line"></span><br><span class="line">Attributes    volume                      </span><br><span class="line">Symbols         AAPL      MSFT       SPY  </span><br><span class="line">date                                      </span><br><span class="line">2017-01-03  28781865  20694101  91366522  </span><br><span class="line">2017-01-04  21118116  21339969  78744433  </span><br><span class="line">2017-01-05  22193587  24875968  78379012  </span><br><span class="line">2017-01-06  31751900  19922919  71559922  </span><br><span class="line">2017-01-09  33561948  20382730  46939676  </span><br><span class="line">2017-01-10  24462051  18593004  63771939  </span><br><span class="line">2017-01-11  27588593  21517335  74650016  </span><br><span class="line">2017-01-12  27086220  20968223  72113181  </span><br><span class="line">2017-01-13  26111948  19422310  62717865</span><br></pre></td></tr></table></figure>
+<p>As shown, for <a target="_blank" rel="noopener" href="https://iextrading.com/">IEX</a>, the
+retrieved data is in reversed order, and there is a <span
+style="color:red">hidden ERROR about the time</span> so far. Let's just
+ignore it at this stage.</p>
+<h1 id="quandl">2.4 <a target="_blank" rel="noopener" href="https://www.quandl.com/">Quandl</a></h1>
+<p><span style="color:red"><strong>Note</strong></span>: for <a
+target="_blank" rel="noopener" href="https://www.quandl.com/">Quandl</a>,</p>
+<ul>
+<li>you may have to load <strong>ONE</strong> data at a time</li>
+<li>you may have to subscribe and pay to obtain <a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/S%26P_500_Index">S&amp;P 500</a>
+data? Anyway, please refer to <a
+target="_blank" rel="noopener" href="https://www.quandl.com/data/MULTPL-multpl-com/usage/quickstart/python">Quandl
+MULTPL</a> and <a target="_blank" rel="noopener" href="http://www.multpl.com/">multpl.com</a></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># We would like all available data from 01/01/2017 until 12/31/2017.</span></span><br><span class="line">start_date = <span class="string">&#x27;2017-01-01&#x27;</span></span><br><span class="line">end_date = <span class="string">&#x27;2017-12-31&#x27;</span></span><br><span class="line">df = data.DataReader(<span class="string">&#x27;AAPL&#x27;</span>, data_source=<span class="string">&quot;quandl&quot;</span>, start=start_date, end=end_date, access_key=<span class="string">&quot;your-quandl-api-key&quot;</span>)</span><br><span class="line"><span class="comment"># df = data.DataReader(&#x27;MSFT&#x27;, data_source=&quot;quandl&quot;, start=start_date, end=end_date, access_key=&quot;your-quandl-api-key&quot;)</span></span><br></pre></td></tr></table></figure>
+<h3 id="aapl">AAPL</h3>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">              Open     High      Low   Close      Volume  ExDividend  \</span><br><span class="line">Date</span><br><span class="line">2017-12-29  170.52  170.590  169.220  169.23  25643711.0         0.0</span><br><span class="line">2017-12-28  171.00  171.850  170.480  171.08  15997739.0         0.0</span><br><span class="line">2017-12-27  170.10  170.780  169.710  170.60  21672062.0         0.0</span><br><span class="line">2017-12-26  170.80  171.470  169.679  170.57  32968167.0         0.0</span><br><span class="line">2017-12-22  174.68  175.424  174.500  175.01  16052615.0         0.0</span><br><span class="line">2017-12-21  174.17  176.020  174.100  175.01  20356826.0         0.0</span><br><span class="line">2017-12-20  174.87  175.420  173.250  174.35  23000392.0         0.0</span><br><span class="line">2017-12-19  175.03  175.390  174.090  174.54  27078872.0         0.0</span><br><span class="line">2017-12-18  174.88  177.200  174.860  176.42  28831533.0         0.0</span><br><span class="line"></span><br><span class="line">            SplitRatio  AdjOpen  AdjHigh   AdjLow  AdjClose   AdjVolume</span><br><span class="line">Date</span><br><span class="line">2017-12-29         1.0   170.52  170.590  169.220    169.23  25643711.0</span><br><span class="line">2017-12-28         1.0   171.00  171.850  170.480    171.08  15997739.0</span><br><span class="line">2017-12-27         1.0   170.10  170.780  169.710    170.60  21672062.0</span><br><span class="line">2017-12-26         1.0   170.80  171.470  169.679    170.57  32968167.0</span><br><span class="line">2017-12-22         1.0   174.68  175.424  174.500    175.01  16052615.0</span><br><span class="line">2017-12-21         1.0   174.17  176.020  174.100    175.01  20356826.0</span><br><span class="line">2017-12-20         1.0   174.87  175.420  173.250    174.35  23000392.0</span><br><span class="line">2017-12-19         1.0   175.03  175.390  174.090    174.54  27078872.0</span><br><span class="line">2017-12-18         1.0   174.88  177.200  174.860    176.42  28831533.0</span><br></pre></td></tr></table></figure>
+<h3 id="msft">MSFT</h3>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">             Open     High     Low  Close      Volume  ExDividend  SplitRatio  \</span><br><span class="line">Date                                                                            </span><br><span class="line">2017-12-29  85.63  86.0500  85.500  85.54  18162779.0         0.0         1.0   </span><br><span class="line">2017-12-28  85.90  85.9300  85.550  85.72   9872795.0         0.0         1.0   </span><br><span class="line">2017-12-27  85.65  85.9800  85.215  85.71  13000828.0         0.0         1.0   </span><br><span class="line">2017-12-26  85.31  85.5346  85.030  85.40   9737412.0         0.0         1.0   </span><br><span class="line">2017-12-22  85.40  85.6300  84.920  85.51  14033977.0         0.0         1.0   </span><br><span class="line">2017-12-21  86.05  86.1000  85.400  85.50  16638402.0         0.0         1.0   </span><br><span class="line">2017-12-20  86.20  86.3000  84.710  85.52  23425009.0         0.0         1.0   </span><br><span class="line">2017-12-19  86.35  86.3500  85.270  85.83  23241979.0         0.0         1.0   </span><br><span class="line">2017-12-18  87.12  87.4999  86.230  86.38  21551076.0         0.0         1.0   </span><br><span class="line"></span><br><span class="line">            AdjOpen  AdjHigh  AdjLow  AdjClose   AdjVolume  </span><br><span class="line">Date                                                        </span><br><span class="line">2017-12-29    85.63  86.0500  85.500     85.54  18162779.0  </span><br><span class="line">2017-12-28    85.90  85.9300  85.550     85.72   9872795.0  </span><br><span class="line">2017-12-27    85.65  85.9800  85.215     85.71  13000828.0  </span><br><span class="line">2017-12-26    85.31  85.5346  85.030     85.40   9737412.0  </span><br><span class="line">2017-12-22    85.40  85.6300  84.920     85.51  14033977.0  </span><br><span class="line">2017-12-21    86.05  86.1000  85.400     85.50  16638402.0  </span><br><span class="line">2017-12-20    86.20  86.3000  84.710     85.52  23425009.0  </span><br><span class="line">2017-12-19    86.35  86.3500  85.270     85.83  23241979.0  </span><br><span class="line">2017-12-18    87.12  87.4999  86.230     86.38  21551076.0</span><br></pre></td></tr></table></figure>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">AAPL Closing Price</th>
+<th style="text-align: center;">MSFT Closing Price</th>
+<th style="text-align: center;"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pandas_datareader/quandl/AAPL.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pandas_datareader/quandl/AAPL.jpg"
+alt="AAPL Closing Price" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pandas_datareader/quandl/MSFT.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/pandas_datareader/quandl/MSFT.jpg"
+alt="MSFT Closing Price" /></a></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<h1 id="additional-python-tools">3. Additional Python Tools</h1>
+<h2 id="fix-yahoo-finance">3.1 <a
+target="_blank" rel="noopener" href="https://github.com/jiapei100/fix-yahoo-finance">fix-yahoo-finance</a></h2>
+<p><a
+target="_blank" rel="noopener" href="https://github.com/jiapei100/fix-yahoo-finance">fix-yahoo-finance</a>.</p>
+<h2 id="googlefinance.client">3.2 <a
+target="_blank" rel="noopener" href="https://pypi.org/project/googlefinance.client/">googlefinance.client</a></h2>
+<p><a
+target="_blank" rel="noopener" href="https://pypi.org/project/googlefinance.client/">googlefinance.client</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/11/06/Finance/quantopian-introduction-ai-in-finance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Longer Vision Technology">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/11/06/Finance/quantopian-introduction-ai-in-finance/" class="post-title-link" itemprop="url">Quantopian Introduction - AI In Finance?</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2018-11-06 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-06T00:00:00-08:00">2018-11-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-09-28 17:33:45" itemprop="dateModified" datetime="2024-09-28T17:33:45-07:00">2024-09-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Finance/" itemprop="url" rel="index"><span itemprop="name">Finance</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Today, let's have some fun of AI in finance. We are going to use a
+tool named <a target="_blank" rel="noopener" href="https://www.quantopian.com">Quantopian</a>. As far
+as I know, functional programming language <a
+target="_blank" rel="noopener" href="https://haskell-lang.org/">Haskell</a> has been widely used in <a
+target="_blank" rel="noopener" href="https://www.investopedia.com/terms/q/quantitativeanalysis.asp">quantitative
+analysis</a>. That's possibly why a dependent package of <a
+target="_blank" rel="noopener" href="https://www.quantopian.com">Quantopian</a>, namely <a
+target="_blank" rel="noopener" href="https://pandoc.org/">pandoc</a>, requires <a
+target="_blank" rel="noopener" href="https://docs.haskellstack.org/en/stable/README/">The Haskell Tool
+Stack</a> for its installation. Therefore, <a
+target="_blank" rel="noopener" href="https://haskell-lang.org/">Haskell</a> and <a
+target="_blank" rel="noopener" href="https://pandoc.org/">pandoc</a> need to be installed before <a
+target="_blank" rel="noopener" href="https://www.quantopian.com">Quantopian</a> installation.</p>
+<h1 id="preparations">1. Preparations</h1>
+<h2 id="haskell-installation">1.1 <a
+target="_blank" rel="noopener" href="https://haskell-lang.org/">Haskell</a> Installation</h2>
+<p>Please refer to <a
+target="_blank" rel="noopener" href="https://docs.haskellstack.org/en/stable/install_and_upgrade/">https://docs.haskellstack.org/en/stable/install_and_upgrade/</a>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ curl -sSL https://get.haskellstack.org/ | sh</span><br></pre></td></tr></table></figure>
+<h2 id="pandoc-installation">1.2 <a
+target="_blank" rel="noopener" href="https://pandoc.org/">pandoc</a> Installation</h2>
+<p>Please refer to <a
+target="_blank" rel="noopener" href="https://pandoc.org/installing.html">https://pandoc.org/installing.html</a>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ git <span class="built_in">clone</span> https://github.com/jgm/pandoc</span><br><span class="line">➜  ~ <span class="built_in">cd</span> pandoc</span><br><span class="line">➜  ~ stack setup</span><br><span class="line">➜  ~ stack install</span><br></pre></td></tr></table></figure>
+<h2 id="zipline-installation-with-pip-errors">1.3 <a
+target="_blank" rel="noopener" href="http://www.zipline.io/">Zipline</a> Installation with pip
+(ERRORS)</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip install -U zipline --user</span><br><span class="line">Collecting zipline</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/be/59/8c5802a7897c1095fdc409fb557f04df8f75c37174e80d2ba58c8d8a6488/zipline-1.3.0.tar.gz</span><br><span class="line">Requirement already satisfied, skipping upgrade: pip&gt;=7.1.0 <span class="keyword">in</span> ~/.local/lib/python3.6/site-packages (from zipline) (18.1)</span><br><span class="line">Requirement already satisfied, skipping upgrade: setuptools&gt;18.0 <span class="keyword">in</span> ~/.local/lib/python3.6/site-packages (from zipline) (40.5.0)</span><br><span class="line">Collecting Logbook&gt;=0.12.5 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/74/fc/3e7557ed1ef1bd4e3ee189fc670416abfc7192b550e8d3c1d858a63f41ab/Logbook-1.4.1.tar.gz</span><br><span class="line">Requirement already satisfied, skipping upgrade: pytz&gt;=2016.4 <span class="keyword">in</span> ~/.local/lib/python3.6/site-packages (from zipline) (2018.7)</span><br><span class="line">Requirement already satisfied, skipping upgrade: numpy&gt;=1.11.1 <span class="keyword">in</span> ~/.local/lib/python3.6/site-packages (from zipline) (1.15.4)</span><br><span class="line">Requirement already satisfied, skipping upgrade: requests-file&gt;=1.4.1 <span class="keyword">in</span> ~/.local/lib/python3.6/site-packages (from zipline) (1.4.3)</span><br><span class="line">Requirement already satisfied, skipping upgrade: scipy&gt;=0.17.1 <span class="keyword">in</span> ~/.local/lib/python3.6/site-packages (from zipline) (1.1.0)</span><br><span class="line">Collecting pandas&lt;=0.22,&gt;=0.18.1 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/da/c6/0936bc5814b429fddb5d6252566fe73a3e40372e6ceaf87de3dec1326f28/pandas-0.22.0-cp36-cp36m-manylinux1_x86_64.whl</span><br><span class="line">Collecting pandas-datareader&gt;=0.2.1 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/cc/5c/ea5b6dcfd0f55c5fb1e37fb45335ec01cceca199b8a79339137f5ed269e0/pandas_datareader-0.7.0-py2.py3-none-any.whl</span><br><span class="line">Requirement already satisfied, skipping upgrade: patsy&gt;=0.4.0 <span class="keyword">in</span> ~/.local/lib/python3.6/site-packages (from zipline) (0.5.1)</span><br><span class="line">Collecting statsmodels&gt;=0.6.1 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/85/d1/69ee7e757f657e7f527cbf500ec2d295396e5bcec873cf4eb68962c41024/statsmodels-0.9.0-cp36-cp36m-manylinux1_x86_64.whl</span><br><span class="line">Requirement already satisfied, skipping upgrade: python-dateutil&gt;=2.4.2 <span class="keyword">in</span> ~/.local/lib/python3.6/site-packages (from zipline) (2.7.5)</span><br><span class="line">Requirement already satisfied, skipping upgrade: six&gt;=1.10.0 <span class="keyword">in</span> ~/.local/lib/python3.6/site-packages (from zipline) (1.11.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: requests&gt;=2.9.1 <span class="keyword">in</span> ~/.local/lib/python3.6/site-packages (from zipline) (2.20.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: Cython&gt;=0.25.2 <span class="keyword">in</span> ~/.local/lib/python3.6/site-packages (from zipline) (0.29)</span><br><span class="line">Collecting cyordereddict&gt;=0.2.2 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/d1/1a/364cbfd927be1b743c7f0a985a7f1f7e8a51469619f9fefe4ee9240ba210/cyordereddict-1.0.0.tar.gz</span><br><span class="line">Collecting bottleneck&gt;=1.0.0 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/05/ae/cedf5323f398ab4e4ff92d6c431a3e1c6a186f9b41ab3e8258dff786a290/Bottleneck-1.2.1.tar.gz</span><br><span class="line">Requirement already satisfied, skipping upgrade: contextlib2&gt;=0.4.0 <span class="keyword">in</span> ~/.local/lib/python3.6/site-packages/contextlib2-0.5.5-py3.6.egg (from zipline) (0.5.5)</span><br><span class="line">Requirement already satisfied, skipping upgrade: decorator&gt;=4.0.0 <span class="keyword">in</span> ~/.local/lib/python3.6/site-packages (from zipline) (4.3.0)</span><br><span class="line">Collecting networkx&lt;2.0,&gt;=1.9.1 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/d3/2c/e473e54afc9fae58dfa97066ef6709a7e35a1dd1c28c5a3842989322be00/networkx-1.11-py2.py3-none-any.whl</span><br><span class="line">Collecting numexpr&gt;=2.6.1 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/db/ea/efd9e16283637eb5b6c0042b6cc3521f1b9a5b47767ac463c88bbd37670c/numexpr-2.6.8-cp36-cp36m-manylinux1_x86_64.whl</span><br><span class="line">Collecting bcolz&lt;1,&gt;=0.12.1 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/6c/8b/1ffa01f872cac36173c5eb95b58c01040d8d25f1b242c48577f4104cd3ab/bcolz-0.12.1.tar.gz</span><br><span class="line">Requirement already satisfied, skipping upgrade: click&gt;=4.0.0 <span class="keyword">in</span> ~/.local/lib/python3.6/site-packages (from zipline) (7.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: toolz&gt;=0.8.2 <span class="keyword">in</span> ~/.local/lib/python3.6/site-packages (from zipline) (0.9.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: multipledispatch&gt;=0.4.8 <span class="keyword">in</span> ~/.local/lib/python3.6/site-packages (from zipline) (0.6.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: MarkupSafe&gt;=0.23 <span class="keyword">in</span> ~/.local/lib/python3.6/site-packages (from zipline) (1.1.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: Mako&gt;=1.0.1 <span class="keyword">in</span> /usr/lib/python3/dist-packages (from zipline) (1.0.7)</span><br><span class="line">Collecting sqlalchemy&gt;=1.0.8 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/1e/98/4dba86354d271344e25fa01dc38a0bf0e0ba6407ad2d5e8426496a95b568/SQLAlchemy-1.2.13.tar.gz</span><br><span class="line">Collecting alembic&gt;=0.7.7 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/c0/f3/e60af9a36ae3b8cafabc7e0834d8df6a2965b3feecf27b9b11352dc05dd4/alembic-1.0.2.tar.gz</span><br><span class="line">Collecting sortedcontainers&gt;=1.4.4 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/be/e3/a065de5fdd5849450a8a16a52a96c8db5f498f245e7eda06cc6725d04b80/sortedcontainers-2.0.5-py2.py3-none-any.whl</span><br><span class="line">Collecting intervaltree&gt;=2.1.0 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/ca/c1/450d109b70fa58ca9d77972b02f69222412f9175ccf99fdeaf167be9583c/intervaltree-2.1.0.tar.gz</span><br><span class="line">Collecting lru-dict&gt;=1.1.4 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/00/a5/32ed6e10246cd341ca8cc205acea5d208e4053f48a4dced2b1b31d45ba3f/lru-dict-1.1.6.tar.gz</span><br><span class="line">Collecting empyrical&gt;=0.5.0 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/7b/55/a01b05162b764830dbbac868462f44cd847a5b6523a01ca9f955721819da/empyrical-0.5.0.tar.gz</span><br><span class="line">Collecting tables&gt;=3.3.0 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/d7/1b/21f4c7f296b718575c17ef25e61c05742a283c45077b4c8d5a190b3e0b59/tables-3.4.4-cp36-cp36m-manylinux1_x86_64.whl</span><br><span class="line">Collecting trading-calendars&gt;=1.0.1 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/6e/e9/e9e2aeadacab58580ed9493e6c252f051cd8ee9d7efbe49d2f041371c45d/trading_calendars-1.5.1.tar.gz</span><br><span class="line">Requirement already satisfied, skipping upgrade: wrapt <span class="keyword">in</span> ~/.local/lib/python3.6/site-packages (from pandas-datareader&gt;=0.2.1-&gt;zipline) (1.10.11)</span><br><span class="line">Requirement already satisfied, skipping upgrade: lxml <span class="keyword">in</span> ~/.local/lib/python3.6/site-packages (from pandas-datareader&gt;=0.2.1-&gt;zipline) (4.2.5)</span><br><span class="line">Requirement already satisfied, skipping upgrade: certifi&gt;=2017.4.17 <span class="keyword">in</span> ~/.local/lib/python3.6/site-packages (from requests&gt;=2.9.1-&gt;zipline) (2018.10.15)</span><br><span class="line">Requirement already satisfied, skipping upgrade: idna&lt;2.8,&gt;=2.5 <span class="keyword">in</span> ~/.local/lib/python3.6/site-packages (from requests&gt;=2.9.1-&gt;zipline) (2.7)</span><br><span class="line">Requirement already satisfied, skipping upgrade: chardet&lt;3.1.0,&gt;=3.0.2 <span class="keyword">in</span> /usr/lib/python3/dist-packages (from requests&gt;=2.9.1-&gt;zipline) (3.0.4)</span><br><span class="line">Requirement already satisfied, skipping upgrade: urllib3&lt;1.25,&gt;=1.21.1 <span class="keyword">in</span> ~/.local/lib/python3.6/site-packages (from requests&gt;=2.9.1-&gt;zipline) (1.24.1)</span><br><span class="line">Collecting python-editor&gt;=0.3 (from alembic&gt;=0.7.7-&gt;zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/65/1e/adf6e000ea5dc909aa420352d6ba37f16434c8a3c2fa030445411a1ed545/python-editor-1.0.3.tar.gz</span><br><span class="line">Building wheels <span class="keyword">for</span> collected packages: zipline, Logbook, cyordereddict, bottleneck, bcolz, sqlalchemy, alembic, intervaltree, lru-dict, empyrical, trading-calendars, python-editor</span><br><span class="line">  Running setup.py bdist_wheel <span class="keyword">for</span> zipline ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: ~/.cache/pip/wheels/a4/d6/67/f303ab028b004bf8e00c05b5b04fba83d8ec238b6547becdb7</span><br><span class="line">  Running setup.py bdist_wheel <span class="keyword">for</span> Logbook ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: ~/.cache/pip/wheels/06/13/e9/88e9e8184d89671ffc754dc80f5eb01dabd72071bdb802c5d1</span><br><span class="line">  Running setup.py bdist_wheel <span class="keyword">for</span> cyordereddict ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: ~/.cache/pip/wheels/0b/9d/8b/5bf3e22c1edd59b50f11bb19dec9dfcfe5a479fc7ace02b61f</span><br><span class="line">  Running setup.py bdist_wheel <span class="keyword">for</span> bottleneck ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: ~/.cache/pip/wheels/f2/bf/ec/e0f39aa27001525ad455139ee57ec7d0776fe074dfd78c97e4</span><br><span class="line">  Running setup.py bdist_wheel <span class="keyword">for</span> bcolz ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: ~/.cache/pip/wheels/c5/cc/1b/2cf1f88959af5d7f4d449b7fc6c9452d0ecbd86fd61a9ee376</span><br><span class="line">  Running setup.py bdist_wheel <span class="keyword">for</span> sqlalchemy ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: ~/.cache/pip/wheels/ba/2e/47/b194b03e6aeaa658f521dfba094a42f1d37f4ee4018b9e607e</span><br><span class="line">  Running setup.py bdist_wheel <span class="keyword">for</span> alembic ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: ~/.cache/pip/wheels/95/f3/c2/22155963496514f044049f5c96e2757b9838da4a5cae34e76e</span><br><span class="line">  Running setup.py bdist_wheel <span class="keyword">for</span> intervaltree ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: ~/.cache/pip/wheels/6b/cf/b0/f7ef2d0f504d26f3e9e70c2369e5725591ccfaf67d528fcbc5</span><br><span class="line">  Running setup.py bdist_wheel <span class="keyword">for</span> lru-dict ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: ~/.cache/pip/wheels/b7/ef/06/fbdd555907a7d438fb33e4c8675f771ff1cf41917284c51ebf</span><br><span class="line">  Running setup.py bdist_wheel <span class="keyword">for</span> empyrical ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: ~/.cache/pip/wheels/83/14/73/34fb27552601518d28bd0813d75124be76d94ab29152c69112</span><br><span class="line">  Running setup.py bdist_wheel <span class="keyword">for</span> trading-calendars ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: ~/.cache/pip/wheels/13/0f/d5/517a7a51d9998c20483d777bf2e35e71ec17445509a9ac4cc1</span><br><span class="line">  Running setup.py bdist_wheel <span class="keyword">for</span> python-editor ... <span class="keyword">done</span></span><br><span class="line">  Stored <span class="keyword">in</span> directory: ~/.cache/pip/wheels/36/e0/98/ba386b125a00ea9dd52e2c16aa2ec0adbbd639b84bfe2e001d</span><br><span class="line">Successfully built zipline Logbook cyordereddict bottleneck bcolz sqlalchemy alembic intervaltree lru-dict empyrical trading-calendars python-editor</span><br><span class="line">pyro-ppl 0.2.1+fbaa779 has requirement networkx&gt;=2.0.0, but you<span class="string">&#x27;ll have networkx 1.11 which is incompatible.</span></span><br><span class="line"><span class="string">pyro-ppl 0.2.1+fbaa779 has requirement torch==0.4.0, but you&#x27;</span>ll have torch 1.0.0a0+6c8d47f <span class="built_in">which</span> is incompatible.</span><br><span class="line">Installing collected packages: Logbook, pandas, pandas-datareader, statsmodels, cyordereddict, bottleneck, networkx, numexpr, bcolz, sqlalchemy, python-editor, alembic, sortedcontainers, intervaltree, lru-dict, empyrical, tables, trading-calendars, zipline</span><br><span class="line">  Found existing installation: pandas 0.23.4</span><br><span class="line">    Uninstalling pandas-0.23.4:</span><br><span class="line">      Successfully uninstalled pandas-0.23.4</span><br><span class="line">  Found existing installation: networkx 2.2</span><br><span class="line">    Uninstalling networkx-2.2:</span><br><span class="line">      Successfully uninstalled networkx-2.2</span><br><span class="line">Successfully installed Logbook-1.4.1 alembic-1.0.2 bcolz-0.12.1 bottleneck-1.2.1 cyordereddict-1.0.0 empyrical-0.5.0 intervaltree-2.1.0 lru-dict-1.1.6 networkx-1.11 numexpr-2.6.8 pandas-0.22.0 pandas-datareader-0.7.0 python-editor-1.0.3 sortedcontainers-2.0.5 sqlalchemy-1.2.13 statsmodels-0.9.0 tables-3.4.4 trading-calendars-1.5.1 zipline-1.3.0</span><br><span class="line">➜  ~</span><br></pre></td></tr></table></figure>
+<p>You'll possibly meet these <strong>ERROR</strong> messages:</p>
+<ul>
+<li><span style="color:red"><strong>pyro-ppl 0.2.1+fbaa779 has
+requirement networkx&gt;=2.0.0, but you'll have networkx 1.11 which is
+incompatible.</strong></span></li>
+<li><span style="color:red"><strong>pyro-ppl 0.2.1+fbaa779 has
+requirement torch==0.4.0, but you'll have torch 1.0.0a0+6c8d47f which is
+incompatible.</strong></span></li>
+</ul>
+<p><span style="color:red"><strong>In such a case, <a
+target="_blank" rel="noopener" href="https://github.com/uber/pyro">pyro</a> is to be manually
+installed.</strong></span></p>
+<h2 id="manually-install-pyro">1.4 Manually Install <a
+target="_blank" rel="noopener" href="https://github.com/uber/pyro">pyro</a></h2>
+<p>Please refer to <a
+target="_blank" rel="noopener" href="https://github.com/uber/pyro">https://github.com/uber/pyro</a>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  uber git <span class="built_in">clone</span> https://github.com/uber/pyro.git</span><br><span class="line">➜  <span class="built_in">cd</span> pyro</span><br><span class="line">➜  pyro git:(dev) python setup.py build</span><br><span class="line">➜  pyro git:(dev) python setup.py install --user</span><br></pre></td></tr></table></figure>
+<h2 id="install-zipline-again">1.5 Install <a
+target="_blank" rel="noopener" href="http://www.zipline.io/">Zipline</a> Again</h2>
+<p>Please refer to <a
+target="_blank" rel="noopener" href="http://www.zipline.io/install.html">http://www.zipline.io/install.html</a>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip install -U zipline --user</span><br><span class="line">Collecting zipline</span><br><span class="line">Requirement already satisfied, skipping upgrade: numexpr&gt;=2.6.1 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (2.6.8)</span><br><span class="line">Requirement already satisfied, skipping upgrade: cyordereddict&gt;=0.2.2 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (1.0.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: tables&gt;=3.3.0 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (3.4.4)</span><br><span class="line">Requirement already satisfied, skipping upgrade: pytz&gt;=2016.4 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (2018.7)</span><br><span class="line">Requirement already satisfied, skipping upgrade: scipy&gt;=0.17.1 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (1.1.0)</span><br><span class="line">Collecting bcolz&lt;1,&gt;=0.12.1 (from zipline)</span><br><span class="line">Requirement already satisfied, skipping upgrade: patsy&gt;=0.4.0 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (0.5.1)</span><br><span class="line">Requirement already satisfied, skipping upgrade: empyrical&gt;=0.5.0 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (0.5.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: setuptools&gt;18.0 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (40.5.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: requests-file&gt;=1.4.1 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (1.4.3)</span><br><span class="line">Requirement already satisfied, skipping upgrade: requests&gt;=2.9.1 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (2.20.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: intervaltree&gt;=2.1.0 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (2.1.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: MarkupSafe&gt;=0.23 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (1.1.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: contextlib2&gt;=0.4.0 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages/contextlib2-0.5.5-py3.6.egg (from zipline) (0.5.5)</span><br><span class="line">Requirement already satisfied, skipping upgrade: sqlalchemy&gt;=1.0.8 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (1.2.13)</span><br><span class="line">Requirement already satisfied, skipping upgrade: toolz&gt;=0.8.2 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (0.9.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: six&gt;=1.10.0 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (1.11.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: pandas-datareader&gt;=0.2.1 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (0.7.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: numpy&gt;=1.11.1 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (1.15.4)</span><br><span class="line">Collecting pandas&lt;=0.22,&gt;=0.18.1 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/da/c6/0936bc5814b429fddb5d6252566fe73a3e40372e6ceaf87de3dec1326f28/pandas-0.22.0-cp36-cp36m-manylinux1_x86_64.whl</span><br><span class="line">Requirement already satisfied, skipping upgrade: click&gt;=4.0.0 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (7.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: Mako&gt;=1.0.1 <span class="keyword">in</span> /usr/lib/python3/dist-packages (from zipline) (1.0.7)</span><br><span class="line">Requirement already satisfied, skipping upgrade: statsmodels&gt;=0.6.1 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (0.9.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: bottleneck&gt;=1.0.0 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (1.2.1)</span><br><span class="line">Requirement already satisfied, skipping upgrade: Logbook&gt;=0.12.5 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (1.4.1)</span><br><span class="line">Collecting networkx&lt;2.0,&gt;=1.9.1 (from zipline)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/d3/2c/e473e54afc9fae58dfa97066ef6709a7e35a1dd1c28c5a3842989322be00/networkx-1.11-py2.py3-none-any.whl</span><br><span class="line">Requirement already satisfied, skipping upgrade: alembic&gt;=0.7.7 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (1.0.2)</span><br><span class="line">Requirement already satisfied, skipping upgrade: sortedcontainers&gt;=1.4.4 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (2.0.5)</span><br><span class="line">Requirement already satisfied, skipping upgrade: lru-dict&gt;=1.1.4 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (1.1.6)</span><br><span class="line">Requirement already satisfied, skipping upgrade: multipledispatch&gt;=0.4.8 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (0.6.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: pip&gt;=7.1.0 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (18.1)</span><br><span class="line">Requirement already satisfied, skipping upgrade: decorator&gt;=4.0.0 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (4.3.0)</span><br><span class="line">Requirement already satisfied, skipping upgrade: Cython&gt;=0.25.2 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (0.29)</span><br><span class="line">Requirement already satisfied, skipping upgrade: python-dateutil&gt;=2.4.2 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (2.7.5)</span><br><span class="line">Requirement already satisfied, skipping upgrade: trading-calendars&gt;=1.0.1 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from zipline) (1.5.1)</span><br><span class="line">Requirement already satisfied, skipping upgrade: certifi&gt;=2017.4.17 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from requests&gt;=2.9.1-&gt;zipline) (2018.10.15)</span><br><span class="line">Requirement already satisfied, skipping upgrade: urllib3&lt;1.25,&gt;=1.21.1 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from requests&gt;=2.9.1-&gt;zipline) (1.24.1)</span><br><span class="line">Requirement already satisfied, skipping upgrade: chardet&lt;3.1.0,&gt;=3.0.2 <span class="keyword">in</span> /usr/lib/python3/dist-packages (from requests&gt;=2.9.1-&gt;zipline) (3.0.4)</span><br><span class="line">Requirement already satisfied, skipping upgrade: idna&lt;2.8,&gt;=2.5 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from requests&gt;=2.9.1-&gt;zipline) (2.7)</span><br><span class="line">Requirement already satisfied, skipping upgrade: wrapt <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from pandas-datareader&gt;=0.2.1-&gt;zipline) (1.10.11)</span><br><span class="line">Requirement already satisfied, skipping upgrade: lxml <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from pandas-datareader&gt;=0.2.1-&gt;zipline) (4.2.5)</span><br><span class="line">Requirement already satisfied, skipping upgrade: python-editor&gt;=0.3 <span class="keyword">in</span> ./.local/lib/python3.6/site-packages (from alembic&gt;=0.7.7-&gt;zipline) (1.0.3)</span><br><span class="line">pyro-ppl 0.2.1+913618a has requirement networkx&gt;=2.0.0, but you<span class="string">&#x27;ll have networkx 1.11 which is incompatible.</span></span><br><span class="line"><span class="string">Installing collected packages: bcolz, pandas, networkx, zipline</span></span><br><span class="line"><span class="string">  Found existing installation: bcolz 1.2.1</span></span><br><span class="line"><span class="string">    Uninstalling bcolz-1.2.1:</span></span><br><span class="line"><span class="string">      Successfully uninstalled bcolz-1.2.1</span></span><br><span class="line"><span class="string">  Found existing installation: pandas 0.23.4</span></span><br><span class="line"><span class="string">    Uninstalling pandas-0.23.4:</span></span><br><span class="line"><span class="string">      Successfully uninstalled pandas-0.23.4</span></span><br><span class="line"><span class="string">  Found existing installation: networkx 2.2</span></span><br><span class="line"><span class="string">    Uninstalling networkx-2.2:</span></span><br><span class="line"><span class="string">      Successfully uninstalled networkx-2.2</span></span><br><span class="line"><span class="string">  Found existing installation: zipline 1.0.1+1816.gb7f454b7.dirty</span></span><br><span class="line"><span class="string">    Uninstalling zipline-1.0.1+1816.gb7f454b7.dirty:</span></span><br><span class="line"><span class="string">      Successfully uninstalled zipline-1.0.1+1816.gb7f454b7.dirty</span></span><br><span class="line"><span class="string">Successfully installed bcolz-0.12.1 networkx-1.11 pandas-0.22.0 zipline-1.3.0</span></span><br><span class="line"><span class="string">➜  ~ pip show networkx</span></span><br><span class="line"><span class="string">Name: networkx</span></span><br><span class="line"><span class="string">Version: 1.11</span></span><br><span class="line"><span class="string">Summary: Python package for creating and manipulating graphs and networks</span></span><br><span class="line"><span class="string">Home-page: http://networkx.github.io/</span></span><br><span class="line"><span class="string">Author: NetworkX Developers</span></span><br><span class="line"><span class="string">Author-email: networkx-discuss@googlegroups.com</span></span><br><span class="line"><span class="string">License: BSD</span></span><br><span class="line"><span class="string">Location: /home/jiapei/.local/lib/python3.6/site-packages</span></span><br><span class="line"><span class="string">Requires: decorator</span></span><br><span class="line"><span class="string">Required-by: zipline, scikit-image, pyro-ppl</span></span><br><span class="line"><span class="string">➜  ~ pip show pyro-ppl</span></span><br><span class="line"><span class="string">Name: pyro-ppl</span></span><br><span class="line"><span class="string">Version: 0.2.1+913618a</span></span><br><span class="line"><span class="string">Summary: A Python library for probabilistic modeling and inference</span></span><br><span class="line"><span class="string">Home-page: http://pyro.ai</span></span><br><span class="line"><span class="string">Author: Uber AI Labs</span></span><br><span class="line"><span class="string">Author-email: pyro@uber.com</span></span><br><span class="line"><span class="string">License: MIT License</span></span><br><span class="line"><span class="string">Location: /home/jiapei/.local/lib/python3.6/site-packages/pyro_ppl-0.2.1+913618a-py3.6.egg</span></span><br><span class="line"><span class="string">Requires: contextlib2, graphviz, networkx, numpy, opt-einsum, six, torch, tqdm</span></span><br><span class="line"><span class="string">Required-by:</span></span><br><span class="line"><span class="string">➜  ~</span></span><br></pre></td></tr></table></figure>
+<h2 id="python-package-compatibility">1.6 Python Package
+Compatibility</h2>
+<p>Let's take a look at the compatibility of python packages.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip list --outdated</span><br><span class="line">Package    Version   Latest Type </span><br><span class="line">---------- --------- ------ -----</span><br><span class="line">bcolz      0.12.1    1.2.1  sdist</span><br><span class="line">networkx   1.11      2.2    sdist</span><br><span class="line">pandas     0.22.0    0.23.4 wheel</span><br></pre></td></tr></table></figure>
+<p>Clearly, <strong>Zipline</strong> is <strong>NOT</strong> compatible
+with the above 3 <strong>LATEST</strong> python packages.</p>
+<h1 id="register-quandl-and-ingest-data">2. Register <a
+target="_blank" rel="noopener" href="https://www.quandl.com/">Quandl</a> and Ingest Data</h1>
+<p>As known, <a target="_blank" rel="noopener" href="https://www.quantopian.com">Quantopian</a> is a
+Python collections of various <a
+target="_blank" rel="noopener" href="https://www.investopedia.com/terms/q/quantitativeanalysis.asp">quantitative
+analysis</a> algorithms. However, where can we obtain the stock data for
+our testing? Either the real-time data, or the historical data will
+do.</p>
+<p>We can of course use the real-time <a
+target="_blank" rel="noopener" href="https://finance.yahoo.com/">Yahoo Finance Data</a>. But here, we
+are going to test on some historical data downloaded from <a
+target="_blank" rel="noopener" href="https://www.quandl.com/">Quandl</a>, which is
+<strong>JUST</strong> the data adopted in <a
+target="_blank" rel="noopener" href="http://www.zipline.io/beginner-tutorial.html">Quantopian's
+Beginner's Tutorial</a>.</p>
+<p>After you've successfully registered <a
+target="_blank" rel="noopener" href="https://www.quandl.com/">Quandl</a> and obtained an <strong>API
+key</strong>, the following command will help you to ingest <a
+target="_blank" rel="noopener" href="https://www.quandl.com/databases/WIKIP">Quandl WIKI Bundle
+data</a> easily, please refer to <a
+target="_blank" rel="noopener" href="http://www.zipline.io/bundles.html#ingesting-data">http://www.zipline.io/bundles.html#ingesting-data</a>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">➜  quantopian QUANDL_API_KEY=&lt;yourkey&gt; zipline ingest -b quandl</span><br><span class="line">[2018-11-07 05:18:37.895463] INFO: zipline.data.bundles.quandl: Downloading WIKI metadata.</span><br><span class="line">Downloading WIKI Prices table from Quandl  [<span class="comment">####################################]  100%          </span></span><br><span class="line">[2018-11-07 05:18:54.369791] INFO: zipline.data.bundles.quandl: Parsing raw data.</span><br><span class="line">[2018-11-07 05:19:24.118879] INFO: zipline.data.bundles.quandl: Generating asset metadata.</span><br><span class="line">Merging daily equity files:  [-----------------------------<span class="comment">#------]  1731~/.local/lib/python3.6/site-packages/zipline/data/us_equity_pricing.py:417: UserWarning: Ignoring 1 values because they are out of bounds for uint32:             open  high   low  close        volume  ex_dividend  split_ratio</span></span><br><span class="line">2011-04-11  1.79  1.84  1.55    1.7  6.674913e+09          0.0          1.0</span><br><span class="line">  winsorise_uint32(raw_data, invalid_data_behavior, <span class="string">&#x27;volume&#x27;</span>, *OHLC)</span><br><span class="line">Merging daily equity files:  [<span class="comment">####################################]      </span></span><br><span class="line">[2018-11-07 05:21:34.367628] INFO: zipline.data.bundles.quandl: Parsing <span class="built_in">split</span> data.</span><br><span class="line">[2018-11-07 05:21:34.572459] INFO: zipline.data.bundles.quandl: Parsing dividend data.</span><br><span class="line">~/.local/lib/python3.6/site-packages/zipline/data/us_equity_pricing.py:931: FutureWarning: Conversion of the second argument of issubdtype from `<span class="built_in">float</span>` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(<span class="built_in">float</span>).<span class="built_in">type</span>`.</span><br><span class="line">  <span class="keyword">if</span> not issubdtype(actual, expected):</span><br><span class="line">➜  quantopian </span><br></pre></td></tr></table></figure>
+<h1 id="first-try">3. First Try</h1>
+<p>Details can be easily found at <a
+target="_blank" rel="noopener" href="http://www.zipline.io/beginner-tutorial.html">http://www.zipline.io/beginner-tutorial.html</a>.
+Here, we <strong>ONLY</strong> test the example
+<strong>./zipline/examples/buyapple.py</strong>, which can also be found
+on <a
+target="_blank" rel="noopener" href="https://github.com/quantopian/zipline/blob/master/zipline/examples/buyapple.py">Github</a>.</p>
+<p>Following the <a
+target="_blank" rel="noopener" href="http://www.zipline.io/beginner-tutorial.html">Beginner's
+Tutorial</a>, by executing the following command,</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  examples git:(master) ✗ zipline run -f ./buyapple.py --start 2016-1-1 --end 2018-1-1 -o buyapple_out.pickle</span><br></pre></td></tr></table></figure>
+<p>we should be able to obtain the resultant figure as follows:</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/quantopian/example_buyapple.jpg"
+alt="Quantopian Example - Buy Apple" />
+<figcaption aria-hidden="true">Quantopian Example - Buy
+Apple</figcaption>
+</figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1639,578 +2085,6 @@ alt="14_vladimir_putin.mp4" /></a></td>
 </tr>
 </tbody>
 </table>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/07/02/AI/DeepLearning/ImageAI-Happy-Canada-Day/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Longer Vision Technology">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/07/02/AI/DeepLearning/ImageAI-Happy-Canada-Day/" class="post-title-link" itemprop="url">ImageAI - Happy Canada Day</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2018-07-02 00:00:00" itemprop="dateCreated datePublished" datetime="2018-07-02T00:00:00-07:00">2018-07-02</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-09-28 17:33:45" itemprop="dateModified" datetime="2024-09-28T17:33:45-07:00">2024-09-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Yesterday is <a
-target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Canada_Day">Canada Day</a>... ^_^
-Happy <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Canada_Day">Canada Day</a>
-everybody...</p>
-<figure>
-<img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/festivals/2018/CanadaDay.jpg"
-alt="Happy Canada Day" />
-<figcaption aria-hidden="true">Happy Canada Day</figcaption>
-</figure>
-<p>Just notice <a
-target="_blank" rel="noopener" href="https://towardsdatascience.com/object-detection-with-10-lines-of-code-d6cb4d86f606">this
-news about ImageAI</a> today. So, I just had it tested for fun. I
-seriously don't want to talk about <a
-target="_blank" rel="noopener" href="https://github.com/OlafenwaMoses/ImageAI">ImageAI</a> too much,
-you can follow the <a
-target="_blank" rel="noopener" href="https://github.com/OlafenwaMoses/ImageAI">author's github</a> and
-it shouldn't be that hard to have everything done in minutes.</p>
-<h1 id="preparation">1. Preparation</h1>
-<h2 id="prerequisite-dependencies">1.1 Prerequisite Dependencies</h2>
-<p>As described by on <a
-target="_blank" rel="noopener" href="https://github.com/OlafenwaMoses/ImageAI">ImageAI's Github</a>,
-multiple Python dependencies need to be installed:</p>
-<ul>
-<li>Tensorflow</li>
-<li>Numpy</li>
-<li>SciPy</li>
-<li>OpenCV</li>
-<li>Pillow</li>
-<li>Matplotlib</li>
-<li>h5py</li>
-<li>Keras</li>
-</ul>
-<p>All packages can be easily installed by command:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install PackageName</span><br></pre></td></tr></table></figure>
-<p>Afterwards, <a
-target="_blank" rel="noopener" href="https://github.com/OlafenwaMoses/ImageAI">ImageAI</a> can be
-installed by a single command:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install https://github.com/OlafenwaMoses/ImageAI/releases/download/2.0.1/imageai-2.0.1-py3-none-any.whl </span><br></pre></td></tr></table></figure>
-<h2 id="cnn-models">1.2 CNN Models</h2>
-<p>Two models are adopted as in the examples <strong>prediction</strong>
-and <strong>detection</strong>.</p>
-<ul>
-<li>resnet50_weights_tf_dim_ordering_tf_kernels.h5 - can be downloaded
-at <a
-target="_blank" rel="noopener" href="https://github.com/fchollet/deep-learning-models/releases">fchollet's
-deep-learning-models</a></li>
-<li>resnet50_coco_best_v2.1.0.h5 - can be downloaded at <a
-target="_blank" rel="noopener" href="https://github.com/fizyr/keras-retinanet/releases">fizyr's
-keras-retinanet</a></li>
-</ul>
-<h1 id="examples">2. Examples</h1>
-<h2 id="prediction">2.1 Prediction</h2>
-<p>Simple examples are given at <a
-target="_blank" rel="noopener" href="https://github.com/OlafenwaMoses/ImageAI/tree/master/imageai/Prediction">https://github.com/OlafenwaMoses/ImageAI/tree/master/imageai/Prediction</a>.</p>
-<p>I modified <a
-target="_blank" rel="noopener" href="https://github.com/OlafenwaMoses/ImageAI/tree/master/imageai/Prediction#firstpredictionpy">FirstPrediction.py</a>
-a bit as follows:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> imageai.Prediction <span class="keyword">import</span> ImagePrediction</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">prediction = ImagePrediction()</span><br><span class="line">prediction.setModelTypeAsResNet()</span><br><span class="line">prediction.setModelPath(<span class="string">&quot;/media/jiapei/Data/Programs/Python/ImageAI/resnet50_weights_tf_dim_ordering_tf_kernels.h5&quot;</span>)</span><br><span class="line">prediction.loadModel()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">predictions, probabilities = prediction.predictImage((<span class="string">&quot;./01.jpg&quot;</span>), result_count=<span class="number">5</span>)</span><br><span class="line"><span class="keyword">for</span> eachPrediction, eachProbability <span class="keyword">in</span> <span class="built_in">zip</span>(predictions, probabilities):</span><br><span class="line">    <span class="built_in">print</span>(eachPrediction + <span class="string">&quot; : &quot;</span> + np.format_float_positional(eachProbability, precision=<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
-<p>For the 1st image:</p>
-<figure>
-<img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/ImageAI/01.jpg"
-alt="ImageAI Test Image 1" />
-<figcaption aria-hidden="true">ImageAI Test Image 1</figcaption>
-</figure>
-<p>From bash, you will get:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ python FirstPrediction.py </span><br><span class="line">2018-07-02 18:12:09.275412: I tensorflow/core/platform/cpu_feature_guard.cc:140] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA</span><br><span class="line">convertible : 52.45954394340515</span><br><span class="line">sports_car : 37.61279881000519</span><br><span class="line">pickup : 3.1751133501529694</span><br><span class="line">car_wheel : 1.817503571510315</span><br><span class="line">minivan : 1.748703233897686</span><br></pre></td></tr></table></figure>
-<h2 id="detection">2.2 Detection</h2>
-<p>Simple examples are given at <a
-target="_blank" rel="noopener" href="https://github.com/OlafenwaMoses/ImageAI/tree/master/imageai/Detection">https://github.com/OlafenwaMoses/ImageAI/tree/master/imageai/Detection</a>.</p>
-<p>Trivial modification is also implemented upon <a
-target="_blank" rel="noopener" href="https://github.com/OlafenwaMoses/ImageAI/tree/master/imageai/Detection#firstobjectdetectionpy">FirstObjectDetection.py</a>.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> imageai.Detection <span class="keyword">import</span> ObjectDetection</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">detector = ObjectDetection()</span><br><span class="line">detector.setModelTypeAsRetinaNet()</span><br><span class="line">detector.setModelPath( os.path.join(<span class="string">&quot;/media/jiapei/Data/Programs/Python/ImageAI/resnet50_coco_best_v2.1.0.h5&quot;</span>))</span><br><span class="line">detector.loadModel()</span><br><span class="line"></span><br><span class="line">input_image=<span class="string">&quot;./03.jpg&quot;</span></span><br><span class="line">output_image=<span class="string">&quot;./imageai_output_03.jpg&quot;</span></span><br><span class="line">detections = detector.detectObjectsFromImage(input_image, output_image)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> eachObject <span class="keyword">in</span> detections:</span><br><span class="line">    <span class="built_in">print</span>(eachObject[<span class="string">&quot;name&quot;</span>] + <span class="string">&quot; : &quot;</span> + np.format_float_positional(eachObject[<span class="string">&quot;percentage_probability&quot;</span>], precision=<span class="number">3</span>))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="for-the-2nd-image">2.2.1 For the 2nd image:</h3>
-<figure>
-<img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/ImageAI/02.jpg"
-alt="ImageAI Test Image 2" />
-<figcaption aria-hidden="true">ImageAI Test Image 2</figcaption>
-</figure>
-<p>From bash, you will get</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">$ python FirstDetection.py </span><br><span class="line">Using TensorFlow backend.</span><br><span class="line">2018-07-02 18:23:09.634037: I tensorflow/core/platform/cpu_feature_guard.cc:140] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA</span><br><span class="line">2018-07-02 18:23:11.744790: W tensorflow/core/framework/allocator.cc:101] Allocation of 68300800 exceeds 10% of system memory.</span><br><span class="line">2018-07-02 18:23:11.958081: W tensorflow/core/framework/allocator.cc:101] Allocation of 68403200 exceeds 10% of system memory.</span><br><span class="line">2018-07-02 18:23:12.174739: W tensorflow/core/framework/allocator.cc:101] Allocation of 68403200 exceeds 10% of system memory.</span><br><span class="line">2018-07-02 18:23:12.433540: W tensorflow/core/framework/allocator.cc:101] Allocation of 68403200 exceeds 10% of system memory.</span><br><span class="line">2018-07-02 18:23:12.694631: W tensorflow/core/framework/allocator.cc:101] Allocation of 68403200 exceeds 10% of system memory.</span><br><span class="line">2018-07-02 18:23:16.267111: W tensorflow/core/framework/allocator.cc:101] Allocation of 64224000 exceeds 10% of system memory.</span><br><span class="line">2018-07-02 18:23:16.370939: W tensorflow/core/framework/allocator.cc:101] Allocation of 64224000 exceeds 10% of system memory.</span><br><span class="line">2018-07-02 18:23:16.403353: W tensorflow/core/framework/allocator.cc:101] Allocation of 67435200 exceeds 10% of system memory.</span><br><span class="line">person : 55.596935749053955</span><br><span class="line">person : 66.90954566001892</span><br><span class="line">person : 67.96322464942932</span><br><span class="line">person : 50.80411434173584</span><br><span class="line">bicycle : 64.87574577331543</span><br><span class="line">bicycle : 72.0929205417633</span><br><span class="line">person : 80.02063035964966</span><br><span class="line">person : 85.82872748374939</span><br><span class="line">truck : 59.56767797470093</span><br><span class="line">person : 66.69963002204895</span><br><span class="line">person : 79.37889695167542</span><br><span class="line">person : 64.81361389160156</span><br><span class="line">bus : 65.35580158233643</span><br><span class="line">bus : 97.16107249259949</span><br><span class="line">bus : 68.20474863052368</span><br><span class="line">truck : 67.65954494476318</span><br><span class="line">truck : 77.73774266242981</span><br><span class="line">bus : 69.96590495109558</span><br><span class="line">truck : 69.54039335250854</span><br><span class="line">car : 61.26518249511719</span><br><span class="line">car : 59.965676069259644</span><br></pre></td></tr></table></figure>
-<p>And, under the program folder, you will get an output image:</p>
-<figure>
-<img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/ImageAI/imageai_output_02.jpg"
-alt="ImageAI Output Image for Test Image 2" />
-<figcaption aria-hidden="true">ImageAI Output Image for Test Image
-2</figcaption>
-</figure>
-<h3 id="for-the-3rd-image">2.2.2 For the 3rd image:</h3>
-<figure>
-<img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/ImageAI/03.jpg"
-alt="ImageAI Test Image 3" />
-<figcaption aria-hidden="true">ImageAI Test Image 3</figcaption>
-</figure>
-<p>From bash, you will get</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">$ python FirstDetection.py </span><br><span class="line">Using TensorFlow backend.</span><br><span class="line">2018-07-02 18:25:24.919351: I tensorflow/core/platform/cpu_feature_guard.cc:140] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA</span><br><span class="line">person : 53.27633619308472</span><br><span class="line">person : 52.71329879760742</span><br><span class="line">person : 63.67729902267456</span><br><span class="line">person : 55.00321388244629</span><br><span class="line">person : 74.53054189682007</span><br><span class="line">person : 51.54905915260315</span><br><span class="line">motorcycle : 59.057921171188354</span><br><span class="line">bus : 93.79504919052124</span><br><span class="line">bus : 86.21828556060791</span><br><span class="line">bus : 77.143394947052</span><br><span class="line">person : 59.69809293746948</span><br><span class="line">car : 71.79147601127625</span><br><span class="line">car : 60.15858054161072</span><br><span class="line">person : 62.758803367614746</span><br><span class="line">person : 58.786213397979736</span><br><span class="line">person : 76.49624943733215</span><br><span class="line">car : 56.977421045303345</span><br><span class="line">person : 67.86248683929443</span><br><span class="line">person : 50.977784395217896</span><br><span class="line">person : 52.3215651512146</span><br><span class="line">motorcycle : 52.81376242637634</span><br><span class="line">person : 76.79281234741211</span><br><span class="line">motorcycle : 74.65972304344177</span><br><span class="line">person : 55.96961975097656</span><br><span class="line">person : 68.15704107284546</span><br><span class="line">motorcycle : 56.21282458305359</span><br><span class="line">bicycle : 71.78951501846313</span><br><span class="line">motorcycle : 69.68616843223572</span><br><span class="line">bicycle : 91.09067916870117</span><br><span class="line">motorcycle : 83.16765427589417</span><br><span class="line">motorcycle : 61.57424449920654</span><br></pre></td></tr></table></figure>
-<p>And, under the program folder, you will get an output image:</p>
-<figure>
-<img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/AI/ImageAI/imageai_output_03.jpg"
-alt="ImageAI Output Image for Test Image 3" />
-<figcaption aria-hidden="true">ImageAI Output Image for Test Image
-3</figcaption>
-</figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/06/23/ComputerVision/Face/vosm-2018/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Longer Vision Technology">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/06/23/ComputerVision/Face/vosm-2018/" class="post-title-link" itemprop="url">Vision Open Statistic Models</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2018-06-23 00:00:00" itemprop="dateCreated datePublished" datetime="2018-06-23T00:00:00-07:00">2018-06-23</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-09-28 17:33:45" itemprop="dateModified" datetime="2024-09-28T17:33:45-07:00">2024-09-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Computer-Vision/Face/" itemprop="url" rel="index"><span itemprop="name">Face</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>It has been quite a while that my <a
-target="_blank" rel="noopener" href="https://github.com/jiapei100/VOSM">VOSM</a> has NOT been updated.
-My bad for sure. But today, I have it updated, and <a
-target="_blank" rel="noopener" href="https://github.com/jiapei100/VOSM/releases">VOSM-0.3.5</a> is
-released. Just refer to the following 3 pages on
-<strong>github</strong>:</p>
-<ul>
-<li><a
-target="_blank" rel="noopener" href="https://github.com/jiapei100/VOSM/blob/master/README.md">VOSM
-README.md</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://github.com/jiapei100/VOSM/wiki/How-to-use-VOSM%3F">VOSM
-Wiki</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/jiapei100/VOSM/releases">VOSM
-Release</a></li>
-</ul>
-<p>We'll still explain a bit on <strong>How to use VOSM</strong> in the
-following:</p>
-<h1 id="building">1. Building</h1>
-<h2 id="building-commands">1.1 Building Commands</h2>
-<p>Currently, there are 7 types of models to be built. Namely, there are
-7 choices for the parameter "-t":</p>
-<ul>
-<li>SM</li>
-<li>TM</li>
-<li>AM</li>
-<li>IA</li>
-<li>FM</li>
-<li>SMLTC</li>
-<li>SMNDPROFILE</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ testsmbuilding -o &quot;./output&quot; -a &quot;./annotations/training/&quot; -i &quot;./images/training/&quot; -s &quot;../VOSM/shapeinfo/IMM/ShapeInfo.txt&quot; -d &quot;IMM&quot; -c 1 -t &quot;SM&quot; -l 4 -p 0.95</span><br><span class="line">$ testsmbuilding -o &quot;./output&quot; -a &quot;./annotations/training/&quot; -i &quot;./images/training/&quot; -s &quot;../VOSM/shapeinfo/IMM/ShapeInfo.txt&quot; -d &quot;IMM&quot; -c 1 -t &quot;TM&quot; -l 4 -p 0.95</span><br><span class="line">$ testsmbuilding -o &quot;./output&quot; -a &quot;./annotations/training/&quot; -i &quot;./images/training/&quot; -s &quot;../VOSM/shapeinfo/IMM/ShapeInfo.txt&quot; -d &quot;IMM&quot; -c 1 -t &quot;AM&quot; -l 4 -p 0.95</span><br><span class="line">$ testsmbuilding -o &quot;./output&quot; -a &quot;./annotations/training/&quot; -i &quot;./images/training/&quot; -s &quot;../VOSM/shapeinfo/IMM/ShapeInfo.txt&quot; -d &quot;IMM&quot; -c 1 -t &quot;IA&quot; -l 4 -p 0.95</span><br><span class="line">$ testsmbuilding -o &quot;./output&quot; -a &quot;./annotations/training/&quot; -i &quot;./images/training/&quot; -s &quot;../VOSM/shapeinfo/IMM/ShapeInfo.txt&quot; -d &quot;IMM&quot; -c 1 -t &quot;FM&quot; -l 4 -p 0.95</span><br><span class="line">$ testsmbuilding -o &quot;./output&quot; -a &quot;./annotations/training/&quot; -i &quot;./images/training/&quot; -s &quot;../VOSM/shapeinfo/IMM/ShapeInfo.txt&quot; -d &quot;IMM&quot; -c 1 -t &quot;SMLTC&quot; -l 4 -p 0.95</span><br><span class="line">$ testsmbuilding -o &quot;./output&quot; -a &quot;./annotations/training/&quot; -i &quot;./images/training/&quot; -s &quot;../VOSM/shapeinfo/IMM/ShapeInfo.txt&quot; -d &quot;IMM&quot; -c 1 -t &quot;SMNDPROFILE&quot; -l 4 -p 0.95</span><br></pre></td></tr></table></figure>
-<h2 id="output-folders">1.2 Output Folders</h2>
-<p>After these 7 commands, 9 folders will be generated:</p>
-<ul>
-<li>Point2DDistributionModel</li>
-<li>ShapeModel</li>
-<li>TextureModel</li>
-<li>AppearanceModel</li>
-<li>AAMICIA</li>
-<li>AFM</li>
-<li>AXM</li>
-<li>ASMLTCs</li>
-<li>ASMNDProfiles</li>
-</ul>
-<h2 id="output-images">1.3 Output Images</h2>
-<p>Under folder <strong>TextureModel</strong>, 3 key images are
-generated:</p>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Reference.jpg</th>
-<th style="text-align: center;">edges.jpg</th>
-<th style="text-align: center;">ellipses.jpg</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/TextureModel/Reference.jpg"
-alt="Reference.jpg" /></td>
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/TextureModel/edges.jpg"
-alt="edges.jpg" /></td>
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/TextureModel/ellipses.jpg"
-alt="ellipses" /></td>
-</tr>
-</tbody>
-</table>
-<p>Under folder <strong>AAMICIA</strong>, another 3 key images are
-generated:</p>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">m_IplImageTempFace.jpg</th>
-<th style="text-align: center;">m_IplImageTempFaceX.jpg</th>
-<th style="text-align: center;">m_IplImageTempFaceY.jpg</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/AAMICIA/m_IplImageTempFace.jpg"
-alt="m_IplImageTempFace.jpg - same as Reference.jpg" /></td>
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/AAMICIA/m_IplImageTempFaceX.jpg"
-alt="m_IplImageTempFaceX.jpg" /></td>
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/AAMICIA/m_IplImageTempFaceY.jpg"
-alt="m_IplImageTempFaceY.jpg" /></td>
-</tr>
-</tbody>
-</table>
-<h1 id="fitting">2. Fitting</h1>
-<h2 id="fitting-commands">2.1 Fitting Commands</h2>
-<p>Current <a target="_blank" rel="noopener" href="https://github.com/jiapei100/VOSM/releases">VOSM</a>
-supports 5 fitting methods.</p>
-<ul>
-<li>ASM_PROFILEND</li>
-<li>ASM_LTC</li>
-<li>AAM_BASIC</li>
-<li>AAM_CMUICIA</li>
-<li>AAM_IAIA</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ testsmfitting -o &quot;./output/&quot; -t &quot;ASM_PROFILEND&quot; -i &quot;./images/testing/&quot; -a &quot;./annotations/testing/&quot; -d &quot;IMM&quot; -s true -r true</span><br><span class="line">$ testsmfitting -o &quot;./output/&quot; -t &quot;ASM_LTC&quot; -i &quot;./images/testing/&quot; -a &quot;./annotations/testing/&quot; -d &quot;IMM&quot; -s true -r true</span><br><span class="line">$ testsmfitting -o &quot;./output/&quot; -t &quot;AAM_BASIC&quot; -i &quot;./images/testing/&quot; -a &quot;./annotations/testing/&quot; -d &quot;IMM&quot; -s true -r true</span><br><span class="line">$ testsmfitting -o &quot;./output/&quot; -t &quot;AAM_CMUICIA&quot; -i &quot;./images/testing/&quot; -a &quot;./annotations/testing/&quot; -d &quot;IMM&quot; -s true -r true</span><br><span class="line">$ testsmfitting -o &quot;./output/&quot; -t &quot;AAM_IAIA&quot; -i &quot;./images/testing/&quot; -a &quot;./annotations/testing/&quot; -d &quot;IMM&quot; -s true -r true</span><br></pre></td></tr></table></figure>
-<h2 id="fitting-results">2.2 Fitting Results</h2>
-<p>Let's just take <strong>ASM_PROFILEND</strong> as an example.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ testsmfitting -o &quot;./output/&quot; -t &quot;ASM_PROFILEND&quot; -i &quot;./images/testing/&quot; -a &quot;./annotations/testing/&quot; -d &quot;IMM&quot; -s true -r true</span><br></pre></td></tr></table></figure>
-<p>All fitted images are generated under current folder, some are well
-fitted:</p>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">11-1m.jpg</th>
-<th style="text-align: center;">33-4m.jpg</th>
-<th style="text-align: center;">40-6m.jpg</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/WellFitted/11-1m.jpg"
-alt="11-1m.jpg" /></td>
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/WellFitted/33-4m.jpg"
-alt="33-4m.jpg" /></td>
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/WellFitted/40-6m.jpg"
-alt="40-6m" /></td>
-</tr>
-</tbody>
-</table>
-<p>others are <strong>NOT</strong> well fitted:</p>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">12-3f.jpg</th>
-<th style="text-align: center;">20-6m.jpg</th>
-<th style="text-align: center;">23-4m.jpg</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/NOTWellFitted/12-3f.jpg"
-alt="12-3f.jpg" /></td>
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/NOTWellFitted/20-6m.jpg"
-alt="20-6m.jpg" /></td>
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/NOTWellFitted/23-4m.jpg"
-alt="23-4m" /></td>
-</tr>
-</tbody>
-</table>
-<h2 id="process-of-fitting">2.3 Process of Fitting</h2>
-<p>The fitting process can also be recorded for each image if the
-parameter "-r" is enabled by <code>-r true</code>. Let's take a look at
-what's in folder <strong>40-6m</strong>.</p>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">00.jpg</th>
-<th style="text-align: center;">01.jpg</th>
-<th style="text-align: center;">02.jpg</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/00.jpg"
-alt="00.jpg" /></td>
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/01.jpg"
-alt="01.jpg" /></td>
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/02.jpg"
-alt="02.jpg" /></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">03.jpg</td>
-<td style="text-align: center;">04.jpg</td>
-<td style="text-align: center;">05.jpg</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/03.jpg"
-alt="03.jpg" /></td>
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/04.jpg"
-alt="04.jpg" /></td>
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/05.jpg"
-alt="05.jpg" /></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">06.jpg</td>
-<td style="text-align: center;">07.jpg</td>
-<td style="text-align: center;">08.jpg</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/06.jpg"
-alt="06.jpg" /></td>
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/07.jpg"
-alt="07.jpg" /></td>
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/08.jpg"
-alt="08.jpg" /></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">09.jpg</td>
-<td style="text-align: center;">10.jpg</td>
-<td style="text-align: center;">11.jpg</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/09.jpg"
-alt="09.jpg" /></td>
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/10.jpg"
-alt="10.jpg" /></td>
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/11.jpg"
-alt="11.jpg" /></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">09.jpg</td>
-<td style="text-align: center;">10.jpg</td>
-<td style="text-align: center;">11.jpg</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/12.jpg"
-alt="12.jpg" /></td>
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/13.jpg"
-alt="13.jpg" /></td>
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/14.jpg"
-alt="14.jpg" /></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">15.jpg</td>
-<td style="text-align: center;">16.jpg</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/15.jpg"
-alt="15.jpg" /></td>
-<td style="text-align: center;"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/vision/vosm/IMM/FittingResults/40-6m/16.jpg"
-alt="16.jpg" /></td>
-<td style="text-align: center;"></td>
-</tr>
-</tbody>
-</table>
-<p>Clearly, the <a
-target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Pyramid_%28image_processing%29">technology
-of pyramids</a> is adopted during the fitting process.</p>
 
       
     </div>
