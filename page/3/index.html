@@ -116,7 +116,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -127,7 +127,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">137</span>
+        <span class="site-state-item-count">138</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -144,6 +144,373 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2024/01/24/Coding/HowTo/qt5-assimp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Longer Vision Technology">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/01/24/Coding/HowTo/qt5-assimp/" class="post-title-link" itemprop="url">How to build Qt5 with assimp?</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-01-24 00:00:00" itemprop="dateCreated datePublished" datetime="2024-01-24T00:00:00-08:00">2024-01-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-09-28 17:33:45" itemprop="dateModified" datetime="2024-09-28T17:33:45-07:00">2024-09-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/HowTo/" itemprop="url" rel="index"><span itemprop="name">HowTo</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="symptom">1. Symptom</h2>
+<p>When I tried to build <a
+target="_blank" rel="noopener" href="https://download.qt.io/official_releases/qt/5.15/">qt 5.15</a>, I
+<strong>always</strong> obtain the following <strong>ERROR</strong>
+message:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Project ERROR: Library &#x27;assimp&#x27; is not defined.</span><br><span class="line">make[4]: *** [Makefile:85: sub-assimp-install_subtargets] Error 3</span><br><span class="line">make[4]: Leaving directory &#x27;/opt/qt/qt-everywhere-src-5.15.12/qtquick3d/src/plugins/assetimporters&#x27;</span><br><span class="line">make[3]: *** [Makefile:59: sub-assetimporters-install_subtargets] Error 2</span><br><span class="line">make[3]: Leaving directory &#x27;/opt/qt/qt-everywhere-src-5.15.12/qtquick3d/src/plugins&#x27;</span><br><span class="line">make[2]: *** [Makefile:206: sub-plugins-install_subtargets-ordered] Error 2</span><br><span class="line">make[2]: Leaving directory &#x27;/opt/qt/qt-everywhere-src-5.15.12/qtquick3d/src&#x27;</span><br><span class="line">make[1]: *** [Makefile:62: sub-src-install_subtargets] Error 2</span><br><span class="line">make[1]: Leaving directory &#x27;/opt/qt/qt-everywhere-src-5.15.12/qtquick3d&#x27;</span><br><span class="line">make: *** [Makefile:378: module-qtquick3d-install_subtargets] Error 2</span><br></pre></td></tr></table></figure>
+<h2 id="reason">2. Reason</h2>
+<p>Why? Please refer to <a
+target="_blank" rel="noopener" href="https://blog.csdn.net/Taozi825232603/article/details/132220891">QT5.15在Ubuntu22.04上编译流程</a>.</p>
+<h2 id="solution">3. Solution</h2>
+<ul>
+<li>Modify <strong>line 13</strong> of
+<code>/opt/qt/qt-everywhere-src-5.15.12/qtquick3d/src/plugins/assetimporters/assimp/assimp.pro</code>
+from <code>QMAKE_USE_PRIVATE += assimp</code> to
+<code>QMAKE_USE_PRIVATE += quick3d-assimp</code>.</li>
+<li>Don't use <strong>assimp-5.2.2</strong> from Ubuntu default repo,
+but build and install <a
+target="_blank" rel="noopener" href="https://github.com/assimp/assimp.git">assimp</a> (5.2.3 or above)
+from source.</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2024/01/20/SBCs/RISC-V/LuckFox-Pico-Max/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Longer Vision Technology">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/01/20/SBCs/RISC-V/LuckFox-Pico-Max/" class="post-title-link" itemprop="url">LuckFox Pico Max RV1106</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-01-20 10:14:18" itemprop="dateCreated datePublished" datetime="2024-01-20T10:14:18-08:00">2024-01-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-09-29 21:47:18" itemprop="dateModified" datetime="2024-09-29T21:47:18-07:00">2024-09-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/Risc-V/" itemprop="url" rel="index"><span itemprop="name">Risc-V</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>China indeed is becoming better and better. Let me show you some
+pictures in <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Suzhou">SuZhou</a>
+before my flight back to <a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Vancouver">Vancouver</a>.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Temple @ Lingyanshan, MUdu, Suzhou</th>
+<th style="text-align: center;">Stone Turtle @ Lingyanshan, Mudu,
+Suzhou</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/LingYanShanTemple.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/LingYanShanTemple.jpg"
+alt="Linyanshan Temple" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/LingYanShanTurtle.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/LingYanShanTurtle.jpg"
+alt="Linyanshan Turtle" /></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/ShanTangRoad.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/ShanTangRoad.jpg"
+alt="ShanTang Road" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/XiangXi_Bridge.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/XiangXi_Bridge.jpg"
+alt="XiangXi Bridge" /></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/XiangXi.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/XiangXi.jpg"
+alt="XiangXi" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/XiangXi_UnknownBridge.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/XiangXi_UnknownBridge.jpg"
+alt="XiangXi Unknown Bridge" /></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/DownTown_XuanGuanTemple.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/DownTown_XuanGuanTemple.jpg"
+alt="XuanGuan Temple" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/DownTown_PingJiangRoad_Starbucks.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/DownTown_PingJiangRoad_Starbucks.jpg"
+alt="PingJiangRoad Starbucks" /></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/DownTown_PingJiangRoad.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/DownTown_PingJiangRoad.jpg"
+alt="PingJiang Road" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/DownTown_PingJiangRoad_SideRoad.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/sceneries/2024/China/Suzhou/DownTown_PingJiangRoad_SideRoad.jpg"
+alt="PingJiangRoad Side Road" /></a></td>
+</tr>
+</tbody>
+</table>
+<h1 id="my-working-environment">0. My Working Environment</h1>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ neofetch                                                              </span><br><span class="line">            .-/+oossssoo+/-.               lvision@lvision-MS-7C60 </span><br><span class="line">        `:+ssssssssssssssssss+:`           ----------------------- </span><br><span class="line">      -+ssssssssssssssssssyyssss+-         OS: Ubuntu 24.04 LTS x86_64 </span><br><span class="line">    .ossssssssssssssssssdMMMNysssso.       Host: MS-7C60 1.0 </span><br><span class="line">   /ssssssssssshdmmNNmmyNMMMMhssssss/      Kernel: 6.8.0-39-generic </span><br><span class="line">  +ssssssssshmydMMMMMMMNddddyssssssss+     Uptime: 18 hours, 3 mins </span><br><span class="line"> /sssssssshNMMMyhhyyyyhmNMMMNhssssssss/    Packages: 5669 (dpkg), 25 (brew), 18 (snap) </span><br><span class="line">.ssssssssdMMMNhsssssssssshNMMMdssssssss.   Shell: zsh 5.9 </span><br><span class="line">+sssshhhyNMMNyssssssssssssyNMMMysssssss+   Resolution: 2560x1440 </span><br><span class="line">ossyNMMMNyMMhsssssssssssssshmmmhssssssso   DE: GNOME 46.0 </span><br><span class="line">ossyNMMMNyMMhsssssssssssssshmmmhssssssso   WM: Mutter </span><br><span class="line">+sssshhhyNMMNyssssssssssssyNMMMysssssss+   WM Theme: Adwaita </span><br><span class="line">.ssssssssdMMMNhsssssssssshNMMMdssssssss.   Theme: Adwaita [GTK2/3] </span><br><span class="line"> /sssssssshNMMMyhhyyyyhdNMMMNhssssssss/    Icons: Adwaita [GTK2/3] </span><br><span class="line">  +sssssssssdmydMMMMMMMMddddyssssssss+     Terminal: gnome-terminal </span><br><span class="line">   /ssssssssssshdmNNNNmyNMMMMhssssss/      CPU: AMD Ryzen Threadripper 3960X (48) @ 3.800GHz </span><br><span class="line">    .ossssssssssssssssssdMMMNysssso.       GPU: NVIDIA GeForce RTX 3090 </span><br><span class="line">      -+sssssssssssssssssyyyssss+-         Memory: 9520MiB / 257591MiB </span><br><span class="line">        `:+ssssssssssssssssss+:`</span><br><span class="line">            .-/+oossssoo+/-.                                </span><br></pre></td></tr></table></figure>
+<h1 id="introduction">1. Introduction</h1>
+<h2 id="first-look">1.1 First Look</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Luckfox Pico Max Top View</th>
+<th style="text-align: center;">Luckfox Pico Max Bottom View</th>
+<th style="text-align: center;">Luckfox Pico Max Top View with
+Camera</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/RISC-V/Luckfox-Pico-Max/LuckfoxPicoMax_Top.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/RISC-V/Luckfox-Pico-Max/LuckfoxPicoMax_Top.jpg"
+alt="Luckfox Pico Max Top View" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/RISC-V/Luckfox-Pico-Max/LuckfoxPicoMax_Bottom.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/RISC-V/Luckfox-Pico-Max/LuckfoxPicoMax_Bottom.jpg"
+alt="Luckfox Pico Max Bottom View" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/RISC-V/Luckfox-Pico-Max/LuckfoxPicoMax_Top_Camera.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/RISC-V/Luckfox-Pico-Max/LuckfoxPicoMax_Top_Camera.jpg"
+alt="Luckfox Pico Max Top View with Camera" /></a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="official-documentation">1.2 Official Documentation</h2>
+<p>Actually, ALL you need can be found at:</p>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://wiki.luckfox.com/Luckfox-Pico/Luckfox-Pico-quick-start">Luckfox
+Pico Getting Started Tutorial</a></li>
+</ul>
+<h2 id="luckfox-pico-max">1.3 Luckfox Pico Max</h2>
+<p>According to the <a
+target="_blank" rel="noopener" href="https://wiki.luckfox.com/Luckfox-Pico/Luckfox-Pico-quick-start#product-parameters">Luckfox
+Pico Product Parameters</a>, two streams of the products can be
+categorized into 2 classes by their chips:</p>
+<ul>
+<li>RV1103:
+<ul>
+<li>Luckfox Pico</li>
+<li>Luckfox Pico Mini A</li>
+<li>Luckfox Pico Mini B</li>
+<li>Luckfox Pico Plus</li>
+</ul></li>
+<li>RV1106:
+<ul>
+<li>Luckfox Pico Pro</li>
+<li>Luckfox Pico Max</li>
+</ul></li>
+</ul>
+<blockquote>
+<p>[!NOTE]<br />
+From <a target="_blank" rel="noopener" href="https://www.taobao.com/">Taobao</a>, the one I purchased
+is a <strong>Luckfox Pico Max</strong>.</p>
+</blockquote>
+<h1 id="have-some-fun">2. Have Some Fun</h1>
+<h2 id="lsusb-for-direct-usb-plug-in">2.1 <code>lsusb</code> For Direct
+USB Plug-In</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ lsusb | grep -i Fuzhou</span><br><span class="line">Bus 009 Device 013: ID 2207:0019 Fuzhou Rockchip Electronics Company rk3xxx</span><br></pre></td></tr></table></figure>
+<p><strong><span style="color:red">A little weird: Why
+<code>rk3xxx</code> but not <code>rv1106</code> ???</span></strong></p>
+<h2 id="ssh-into-luckfox-pico">2.2 <code>ssh</code> Into <a
+target="_blank" rel="noopener" href="https://www.luckfox.com/Luckfox-Pico">Luckfox Pico</a></h2>
+<p>I personally prefer <code>ssh</code> into <a
+target="_blank" rel="noopener" href="https://www.luckfox.com/Luckfox-Pico">LuckFox Pico</a> over
+Intranet and talk a look.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ssh root@192.168.1.66</span><br><span class="line"># pwd</span><br><span class="line">/root</span><br><span class="line"># cd /</span><br><span class="line"># ls -la</span><br><span class="line">total 0</span><br><span class="line">drwxr-xr-x   20 1002     1002          1584 Nov 14  2023 .</span><br><span class="line">drwxr-xr-x   20 1002     1002          1584 Nov 14  2023 ..</span><br><span class="line">drwxrwxr-x    2 1002     1002          5704 Nov 16  2023 bin</span><br><span class="line">lrwxrwxrwx    1 1002     1002             8 Sep  1 09:04 data -&gt; userdata</span><br><span class="line">drwxr-xr-x   12 root     root          2020 Jan  1 12:00 dev</span><br><span class="line">drwxrwxr-x   11 1002     1002          2184 Jan  1 12:00 etc</span><br><span class="line">drwxrwxr-x    3 1002     1002          2168 Nov 16  2023 lib</span><br><span class="line">lrwxrwxrwx    1 1002     1002             3 Nov 14  2023 lib32 -&gt; lib</span><br><span class="line">lrwxrwxrwx    1 1002     1002             3 Nov 30  2021 lib64 -&gt; lib</span><br><span class="line">lrwxrwxrwx    1 1002     1002            11 Nov 14  2023 linuxrc -&gt; bin/busybox</span><br><span class="line">drwxr-xr-x    2 1002     1002           160 Oct 16  2023 media</span><br><span class="line">drwxr-xr-x    3 1002     1002           224 Oct 16  2023 mnt</span><br><span class="line">drwxrwxr-x    3 1002     1002           296 Jan  1 13:10 oem</span><br><span class="line">drwxr-xr-x    2 1002     1002           160 Oct 16  2023 opt</span><br><span class="line">dr-xr-xr-x  126 root     root             0 Jan  1 12:00 proc</span><br><span class="line">drwxrwxr-x    6 1002     1002           664 Nov 16  2023 rockchip_test</span><br><span class="line">drwx------    2 1002     1002           160 Oct 16  2023 root</span><br><span class="line">drwxr-xr-x    6 root     root           220 Jan  1 12:00 run</span><br><span class="line">drwxrwxr-x    2 1002     1002          5120 Nov 16  2023 sbin</span><br><span class="line">dr-xr-xr-x   13 root     root             0 Jan  1 12:00 sys</span><br><span class="line">drwxrwxrwt    3 root     root           100 Jan  1 13:06 tmp</span><br><span class="line">drwxrwxr-x    2 1002     1002           312 Jan  1 12:00 userdata</span><br><span class="line">drwxrwxr-x    7 1002     1002           608 Nov 14  2023 usr</span><br><span class="line">drwxr-xr-x    5 1002     1002           736 Nov 16  2023 var</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># uname -a</span><br><span class="line">Linux luckfox 5.10.110 #1 Tue Nov 14 18:06:04 CST 2023 armv7l GNU/Linux</span><br><span class="line"># python --version</span><br><span class="line">Python 3.11.6</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># df -h</span><br><span class="line">Filesystem                Size      Used Available Use% Mounted on</span><br><span class="line">ubi0:rootfs             181.3M     60.0M    121.3M  33% /</span><br><span class="line">devtmpfs                 90.9M         0     90.9M   0% /dev</span><br><span class="line">tmpfs                    91.0M         0     91.0M   0% /dev/shm</span><br><span class="line">tmpfs                    91.0M     64.0K     90.9M   0% /tmp</span><br><span class="line">tmpfs                    91.0M    488.0K     90.5M   1% /run</span><br><span class="line">/dev/ubi4_0              20.2M     17.1M      3.0M  85% /oem</span><br><span class="line">/dev/ubi5_0               2.2M     28.0K      2.2M   1% /userdata</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># cat /proc/cpuinfo</span><br><span class="line">processor	: 0</span><br><span class="line">model name	: ARMv7 Processor rev 5 (v7l)</span><br><span class="line">BogoMIPS	: 61.13</span><br><span class="line">Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xc07</span><br><span class="line">CPU revision	: 5</span><br><span class="line">Hardware	: Generic DT based system</span><br><span class="line">Revision	: 0000</span><br><span class="line">Serial		: eb8d68468b29abe9</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"># cat /proc/meminfo</span><br><span class="line">MemTotal:         186388 kB</span><br><span class="line">MemFree:          156648 kB</span><br><span class="line">MemAvailable:     164500 kB</span><br><span class="line">Buffers:               0 kB</span><br><span class="line">Cached:            11224 kB</span><br><span class="line">SwapCached:            0 kB</span><br><span class="line">Active:             6112 kB</span><br><span class="line">Inactive:          10000 kB</span><br><span class="line">Active(anon):        200 kB</span><br><span class="line">Inactive(anon):     5248 kB</span><br><span class="line">Active(file):       5912 kB</span><br><span class="line">Inactive(file):     4752 kB</span><br><span class="line">Unevictable:           0 kB</span><br><span class="line">Mlocked:               0 kB</span><br><span class="line">SwapTotal:             0 kB</span><br><span class="line">SwapFree:              0 kB</span><br><span class="line">Dirty:                 4 kB</span><br><span class="line">Writeback:             0 kB</span><br><span class="line">AnonPages:          4908 kB</span><br><span class="line">Mapped:             7520 kB</span><br><span class="line">Shmem:               560 kB</span><br><span class="line">KReclaimable:       3840 kB</span><br><span class="line">Slab:               8156 kB</span><br><span class="line">SReclaimable:       3840 kB</span><br><span class="line">SUnreclaim:         4316 kB</span><br><span class="line">KernelStack:         576 kB</span><br><span class="line">PageTables:          428 kB</span><br><span class="line">NFS_Unstable:          0 kB</span><br><span class="line">Bounce:                0 kB</span><br><span class="line">WritebackTmp:          0 kB</span><br><span class="line">CommitLimit:       93192 kB</span><br><span class="line">Committed_AS:      19308 kB</span><br><span class="line">VmallocTotal:    1032192 kB</span><br><span class="line">VmallocUsed:        3580 kB</span><br><span class="line">VmallocChunk:          0 kB</span><br><span class="line">Percpu:               32 kB</span><br><span class="line">CmaTotal:          67584 kB</span><br><span class="line">CmaAllocated:         12 kB</span><br><span class="line">CmaReleased:       67572 kB</span><br><span class="line">CmaFree:               0 kB</span><br></pre></td></tr></table></figure>
+<p><strong><span style="color:red">From what I can see after SSH into my
+<a target="_blank" rel="noopener" href="https://www.luckfox.com/Luckfox-Pico">Luckfox Pico</a>, the one
+I purchased is a <a
+target="_blank" rel="noopener" href="https://www.luckfox.com/EN-Luckfox-Pico-Pro">Luckfox Pico
+Pro</a>.</span></strong></p>
+<h1 id="reflash">3. Reflash</h1>
+<h2 id="hold-boot-before-usb-plug-in-after-usb-plug-in-release-boot">3.1
+Hold <code>Boot</code> Before USB Plug-In, After USB Plug-In Release
+<code>Boot</code></h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ lsusb | grep -i Fuzhou</span><br><span class="line">Bus 009 Device 015: ID 2207:110c Fuzhou Rockchip Electronics Company </span><br></pre></td></tr></table></figure>
+<h2 id="re-flash">3.2 Re-Flash</h2>
+<p>Please just strictly follow :</p>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://github.com/LuckfoxTECH/luckfox-pico/blob/main/README.md">Luckfox
+Pico SDK README</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://github.com/LuckfoxTECH/luckfox-pico?tab=readme-ov-file#one-click-automatic-compilation">One
+Click Automatic Compilation</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1553,272 +1920,6 @@ is <strong>bricked</strong>. Whenever <strong>reset</strong> or even
 entering <strong>user</strong> mode, the <strong>LED</strong> on <a
 target="_blank" rel="noopener" href="https://www.crowdsupply.com/quicklogic/quickfeather">QuickFeather</a>
 turns to <span style="color:red">red</span> in the end.</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/12/01/SBCs/MCU/raspberry-pi-pico-rp2040/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Longer Vision Technology">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/12/01/SBCs/MCU/raspberry-pi-pico-rp2040/" class="post-title-link" itemprop="url">Raspberry Pi Pico RP2040</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2023-12-01 01:26:30" itemprop="dateCreated datePublished" datetime="2023-12-01T01:26:30-08:00">2023-12-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-09-29 23:44:18" itemprop="dateModified" datetime="2024-09-29T23:44:18-07:00">2024-09-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Single-Board-Computers/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><a
-target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/raspberry-pi-pico/">Raspberry
-Pi Pico</a> is a <a
-target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Microcontroller">MCU</a>, which
-adopts <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a>'s chip <a
-target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/rp2040/">RP2040</a>.</p>
-<h1 id="introduction">1. Introduction</h1>
-<h2 id="lsusb">1.1 lsusb</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">Bus 011 Device 021: ID 2e8a:000a Raspberry Pi Pico</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-<h2 id="spec">1.2 Spec</h2>
-<ul>
-<li>All details can be found at <a
-target="_blank" rel="noopener" href="https://www.raspberrypi.com/documentation/microcontrollers/">Raspberry
-Pi Documentation Microcontrollers</a>. Particularly:
-<ul>
-<li>the <a
-target="_blank" rel="noopener" href="https://www.raspberrypi.com/documentation/microcontrollers/rp2040.html">Chip
-RP2040</a></li>
-<li>Two types of Picos <a
-target="_blank" rel="noopener" href="https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html">Raspberry
-Pi Pico and Pico W</a></li>
-</ul></li>
-</ul>
-<h2 id="github-source-code">1.3 Github Source Code</h2>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/raspberrypi/pico-sdk">Raspberry Pi Pico
-SDK</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/raspberrypi/pico-examples">Raspberry Pi
-Pico SDK Examples</a></li>
-</ul>
-<h1 id="flash-the-firmware">2. Flash the Firmware</h1>
-<h2 id="micropython">2.1 Micropython</h2>
-<h3 id="how-to">2.1.1 How to?</h3>
-<p>The official way to flash a <a
-target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/raspberry-pi-pico/">Raspberry
-Pi Pico</a> is just to <strong>drag-and-drop</strong> the
-<strong>Micropython UF2 file</strong> onto it. Please follow:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a>'s official
-documentation <a
-target="_blank" rel="noopener" href="https://www.raspberrypi.com/documentation/microcontrollers/micropython.html">Flash
-Raspberry Pi Pico Using MicroPython UF2</a>.</li>
-<li><a target="_blank" rel="noopener" href="https://micropython.org">MicroPython</a>'s official
-download page <a
-target="_blank" rel="noopener" href="https://micropython.org/download/RPI_PICO/">MicroPython Download
-RPI_PICO</a></li>
-</ul>
-<h3 id="demonstration">2.1.2 Demonstration</h3>
-<p>By connecting from my Ubuntu desktop using command</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ minicom -b 115200 -o -D /dev/ttyACM0</span><br></pre></td></tr></table></figure>
-<p>we can easily connect to <a
-target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/raspberry-pi-pico/">Raspberry
-Pi Pico</a>:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Welcome to minicom 2.8</span><br><span class="line"></span><br><span class="line">OPTIONS: I18n </span><br><span class="line">Port /dev/ttyACM0, 02:38:32</span><br><span class="line"></span><br><span class="line">Press CTRL-A Z for help on special keys</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; import os</span><br><span class="line">&gt;&gt;&gt; os.uname()</span><br><span class="line">(sysname=&#x27;rp2&#x27;, nodename=&#x27;rp2&#x27;, release=&#x27;1.21.0&#x27;, version=&#x27;v1.21.0 on 2023-10-06 (GNU 13.2.0 MinSizeRel)&#x27;, machine=&#x27;Raspberry Pi Pico with RP2040&#x27;)</span><br><span class="line">&gt;&gt;&gt; import sys</span><br><span class="line">&gt;&gt;&gt; sys.implementation</span><br><span class="line">(name=&#x27;micropython&#x27;, version=(1, 21, 0), _machine=&#x27;Raspberry Pi Pico with RP2040&#x27;, _mpy=4358)</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="arduino">2.2 Arduino</h2>
-<h3 id="using-arduino-ide">2.2.1 Using Arduino IDE</h3>
-<p>Since <a
-target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/raspberry-pi-pico/">Raspberry
-Pi Pico</a> is an <a
-target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Microcontroller">MCU</a>, it is of
-course able to be connected using the popular <a
-target="_blank" rel="noopener" href="https://www.arduino.cc/en/software">Arduino IDE</a>.</p>
-<p>I actually strictly follow this blog <a
-target="_blank" rel="noopener" href="https://randomnerdtutorials.com/programming-raspberry-pi-pico-w-arduino-ide">Programming
-Raspberry Pi Pico with Arduino IDE</a>.</p>
-<h3 id="flash-with-bootsel-pressed">2.2.2 Flash with BOOTSEL
-Pressed</h3>
-<p>In my test, no matter <a
-target="_blank" rel="noopener" href="https://micropython.org/download/RPI_PICO/">MicroPython Download
-RPI_PICO</a> is <strong>dragged-and-dropped</strong>, or a customized
-program is <strong>uploaded via Arduino IDE</strong> as in the following
-picture:</p>
-<p><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/pico/Arduino_IDE_RaspberryPi_Pico.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/pico/Arduino_IDE_RaspberryPi_Pico.png"
-alt="Arduino IDE Raspberry Pi Pico" /></a></p>
-<p><span style="color:red;bold">I ALWAYS hold the
-<strong>BOOTSEL</strong> button.</span></p>
-<h1 id="more-to-talk">3. More to Talk</h1>
-<h2 id="led-example-demo">3.1 LED Example Demo</h2>
-<iframe width="680" height="1208" src="https://www.youtube.com/embed/PdPgAnwjeyY" title frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-</iframe>
-<h2 id="please-try-out-raspberry-pi-pico-w-and-pico-wh-yourself">3.2
-Please Try Out <a
-target="_blank" rel="noopener" href="https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html#raspberry-pi-pico-w-and-pico-wh">Raspberry
-Pi Pico W and Pico WH</a> Yourself</h2>
-<p>Recommended tutorials: - <a
-target="_blank" rel="noopener" href="https://projects.raspberrypi.org/en/projects/get-started-pico-w">Getting
-started with your Raspberry Pi Pico W</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/11/15/Tools/window-manager/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Longer Vision Technology">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/11/15/Tools/window-manager/" class="post-title-link" itemprop="url">Some Window Managers</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2023-11-15 00:00:00" itemprop="dateCreated datePublished" datetime="2023-11-15T00:00:00-08:00">2023-11-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-05-01 01:48:54" itemprop="dateModified" datetime="2024-05-01T01:48:54-07:00">2024-05-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="introduction">1. Introduction</h1>
-<p>The necessity and meaning of <strong>Window Manager</strong> is
-neglected here. Just go and take a look at: <a
-target="_blank" rel="noopener" href="https://itsfoss.com/best-window-managers/">Best Window Managers
-for Linux</a>.</p>
 
       
     </div>
