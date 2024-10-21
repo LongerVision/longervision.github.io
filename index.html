@@ -127,7 +127,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">140</span>
+        <span class="site-state-item-count">139</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -363,7 +363,7 @@ alt="Boot" /></a></td>
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/10/15/SBCs/ARM/NVidia-Jetson-Orin-NX-8G-Dev-Kit/" class="post-title-link" itemprop="url">NVidia Jetson Orin NX 8G Dev Kit</a>
+          <a href="/2024/10/15/SBCs/ARM/NVidia-Jetson-Orin-NX-8G-Dev-Kit/" class="post-title-link" itemprop="url">NVidia Jetson Orin Orin 8G Dev Kit</a>
         </h2>
 
         <div class="post-meta-container">
@@ -381,7 +381,7 @@ alt="Boot" /></a></td>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-10-21 02:37:21" itemprop="dateModified" datetime="2024-10-21T02:37:21-07:00">2024-10-21</time>
+      <time title="Modified: 2024-10-21 13:49:36" itemprop="dateModified" datetime="2024-10-21T13:49:36-07:00">2024-10-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -411,7 +411,7 @@ alt="Boot" /></a></td>
 target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Thanksgiving_(Canada)">Canada's
 Thanksgiving</a>. Let me do something extra on <strong><a
 target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/">Jetson
-Orin</a> NX</strong>.</p>
+Orin</a> Orin</strong>.</p>
 <p><a
 target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/Embedded/Jetson/Orin/JetsonOrinNano.jpg"><img
 src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/Embedded/Jetson/Orin/JetsonOrinNano.jpg"
@@ -434,6 +434,12 @@ target="_blank" rel="noopener" href="https://ubuntu.com/download/desktop">Ubuntu
 <h2 id="install-jetson-software-with-sdk-manager">2.3 <a
 target="_blank" rel="noopener" href="https://docs.nvidia.com/sdk-manager/install-with-sdkm-jetson/index.html">Install
 Jetson Software with SDK Manager</a></h2>
+<p>To use <a target="_blank" rel="noopener" href="https://developer.nvidia.com/sdk-manager">SDK
+Manager</a>, we need a <a
+target="_blank" rel="noopener" href="https://releases.ubuntu.com/jammy/">Ubuntu 22.04.5 LTS</a> or <a
+target="_blank" rel="noopener" href="https://releases.ubuntu.com/focal/">Ubuntu 20.04.6 LTS</a>. In my
+case, I tried with <a target="_blank" rel="noopener" href="https://releases.ubuntu.com/focal/">Ubuntu
+20.04.6 LTS</a>.</p>
 <table>
 <colgroup>
 <col style="width: 50%" />
@@ -531,11 +537,21 @@ alt="Apply Binaries" /></a></p>
 as <strong><span style="color:red">nvme0n1p1
 ALREADY</span></strong>.</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜  Linux_for_Tegra lsblk</span><br><span class="line">NAME        MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINTS</span><br><span class="line">......</span><br><span class="line">nvme0n1     259:1    0   3.6T  0 disk  </span><br><span class="line">├─nvme0n1p1 259:2    0  59.6G  0 part  </span><br><span class="line">├─nvme0n1p2 259:3    0  59.6G  0 part  </span><br><span class="line">└─nvme0n1p3 259:4    0   3.5T  0 part</span><br></pre></td></tr></table></figure>
-<p>A whole bunch of command lines are to be used, in order to get:</p>
+<p>A whole bunch of command lines are to be used, in order to
+<strong><span style="color:red">let my OS not load
+nvme0n1</span></strong>:</p>
+<h3 id="umount">3.2.1 Umount</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo umount /dev/nvme0n1p1</span><br><span class="line">sudo umount /dev/nvme0n1p2</span><br><span class="line">sudo umount /dev/nvme0n1p3</span><br></pre></td></tr></table></figure>
+<h3 id="check-nvmes">3.2.2 Check <code>nvme</code>s</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  lspci | grep -i nvme</span><br><span class="line"></span><br><span class="line">01:00.0 Non-Volatile memory controller: Phison Electronics Corporation E16 PCIe4 NVMe Controller (rev 01)</span><br><span class="line">02:00.0 Non-Volatile memory controller: Phison Electronics Corporation E16 PCIe4 NVMe Controller (rev 01)</span><br></pre></td></tr></table></figure>
+<h3 id="find-the-correct-nvmes-pci">3.2.3 Find the Correct
+<code>nvme</code>'s PCI</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  sudo udevadm info --query=all --name=/dev/nvme0n1 | grep ID_PATH</span><br><span class="line"></span><br><span class="line">E: ID_PATH=pci-0000:01:00.0-nvme-1</span><br><span class="line">E: ID_PATH_TAG=pci-0000_01_00_0-nvme-1</span><br></pre></td></tr></table></figure>
+<h3 id="unbind-the-corresponding-nvme">3.2.4 Unbind the Corresponding
+<code>nvme</code></h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  Linux_for_Tegra echo &quot;0000:01:00.0&quot; | sudo tee /sys/bus/pci/drivers/nvme/unbind</span><br><span class="line"></span><br><span class="line">0000:01:00.0</span><br></pre></td></tr></table></figure>
-<p><strong><span style="color:red">Yes. You're right. Let my OS not load
-nvme0n1</span></strong>.</p>
 <h2 id="flash">3.3 Flash</h2>
+<p>Now, ALL ready. Let's flash.</p>
 <h3 id="package-preparations">3.3.1 Package Preparations</h3>
 <p>You may still have to install a couple of more packages on your host
 <a target="_blank" rel="noopener" href="https://ubuntu.com/download/desktop">Ubuntu 24.04.1
@@ -595,11 +611,19 @@ alt="ssh into Jetson Orin Nano and neofetch" /></a></p>
 target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/Embedded/Jetson/Orin/jtop.png"><img
 src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/Embedded/Jetson/Orin/jtop.png"
 alt="jtop" /></a></p>
+<h2 id="jetson_clocks">4.4 <code>jetson_clocks</code></h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ sudo jetson_clocks --show</span><br><span class="line">SOC family:tegra234  Machine:NVIDIA Jetson Orin NX Engineering Reference Developer Kit</span><br><span class="line">Online CPUs: 0-5</span><br><span class="line">cpu0:  Online=1 Governor=schedutil MinFreq=729600 MaxFreq=1510400 CurrentFreq=729600 IdleStates: WFI=1 c7=1 </span><br><span class="line">cpu1:  Online=1 Governor=schedutil MinFreq=729600 MaxFreq=1510400 CurrentFreq=1036800 IdleStates: WFI=1 c7=1 </span><br><span class="line">cpu2:  Online=1 Governor=schedutil MinFreq=729600 MaxFreq=1510400 CurrentFreq=1036800 IdleStates: WFI=1 c7=1 </span><br><span class="line">cpu3:  Online=1 Governor=schedutil MinFreq=729600 MaxFreq=1510400 CurrentFreq=729600 IdleStates: WFI=1 c7=1 </span><br><span class="line">cpu4:  Online=1 Governor=schedutil MinFreq=729600 MaxFreq=1510400 CurrentFreq=729600 IdleStates: WFI=1 c7=1 </span><br><span class="line">cpu5:  Online=1 Governor=schedutil MinFreq=729600 MaxFreq=1510400 CurrentFreq=729600 IdleStates: WFI=1 c7=1 </span><br><span class="line">GPU MinFreq=306000000 MaxFreq=624750000 CurrentFreq=306000000</span><br><span class="line">Active GPU TPCs: 4</span><br><span class="line">EMC MinFreq=204000000 MaxFreq=2133000000 CurrentFreq=2133000000 FreqOverride=0</span><br><span class="line">FAN Dynamic Speed Control=nvfancontrol hwmon0_pwm1=69</span><br><span class="line">NV Power Mode: 15W</span><br></pre></td></tr></table></figure>
 <h1 id="demonstration-of-yolov11-on-jetson-orin-nano">5. Demonstration
 of <a target="_blank" rel="noopener" href="https://docs.ultralytics.com/models/yolo11/">YOLOv11</a> on
 <a
 target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/">Jetson
 Orin</a> Nano</h1>
+<p>You can find <a
+target="_blank" rel="noopener" href="https://developer.download.nvidia.com/compute/redist/jp/v61/pytorch/torch-2.5.0a0+872d972e41.nv24.08.17622132-cp310-cp310-linux_aarch64.whl">PyTorch
+for JetPack 6.1</a> in <a
+target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/downloads">Jetson Download
+Center</a>. <strong><span
+style="color:red">However...</span></strong>.</p>
 <h2 id="current-issue">5.1 Current Issue</h2>
 <ul>
 <li><a
@@ -617,7 +641,78 @@ can reach so far is this <strong>.pdf</strong> file: <a
 target="_blank" rel="noopener" href="https://docs.nvidia.com/deeplearning/frameworks/pdf/Install-PyTorch-Jetson-Platform.pdf">Guide
 Of Installing PyTorch For Jetson Platform</a>.</li>
 </ul>
-<h2 id="yolov11-on-jetson-orin-nano">5.2 <a
+<h2 id="make-yolov11-on-jetson-orin-nano-work-with-gpu">5.2 Make <a
+target="_blank" rel="noopener" href="https://docs.ultralytics.com/models/yolo11/">YOLOv11</a> On <a
+target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/">Jetson
+Orin</a> Nano Work With GPU</h2>
+<p><strong><span style="color:red">Solution:</span></strong> -
+<code>pip install ultralytics</code> - Overwrite <code>torch</code>
+installed with <code>ultralytics</code> by <a
+target="_blank" rel="noopener" href="https://developer.download.nvidia.com/compute/redist/jp/v61/pytorch/torch-2.5.0a0+872d972e41.nv24.08.17622132-cp310-cp310-linux_aarch64.whl">PyTorch
+for JetPack 6.1</a> - Build <a
+target="_blank" rel="noopener" href="https://github.com/pytorch/vision">torchvision</a> from source</p>
+<p>To successfully build <a
+target="_blank" rel="noopener" href="https://github.com/pytorch/vision">torchvision</a> from source,
+you may need to allocate more <strong>swap</strong> memory:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo fallocate -l 4G /swapfile</span><br><span class="line">sudo chmod 600 /swapfile</span><br><span class="line">sudo mkswap /swapfile</span><br><span class="line">sudo swapon /swapfile</span><br></pre></td></tr></table></figure>
+<p>Otherwise, you may meet the following error:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c++: fatal error: Killed signal terminated program cc1plus</span><br><span class="line">compilation terminated.</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://chatgpt.com/">ChatGPT</a> explained it as:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The error you&#x27;re encountering while building torchvision seems to be caused by your system running out of resources, particularly memory. The message c++: fatal error: Killed signal terminated program cc1plus often indicates that the system killed the process due to memory exhaustion.</span><br></pre></td></tr></table></figure>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">ssh &amp; neofetch</th>
+<th style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://developer.download.nvidia.com/compute/redist/jp/v61/pytorch/torch-2.5.0a0+872d972e41.nv24.08.17622132-cp310-cp310-linux_aarch64.whl">PyTorch
+for JetPack 6.1</a> Cuda Enabled</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/Embedded/Jetson/Orin/ssh_neofetch.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/Embedded/Jetson/Orin/ssh_neofetch.png"
+alt="SSH &amp; Neofetch" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/Embedded/Jetson/Orin/pytorch_cuda_enabled.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/Embedded/Jetson/Orin/pytorch_cuda_enabled.png"
+alt="PyTorch Cuda" /></a></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://docs.ultralytics.com/models/yolo11/">YOLOv11</a>
+Initialization</th>
+<th style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://docs.ultralytics.com/models/yolo11/">YOLOv11</a> GPU</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/Embedded/Jetson/Orin/yolov11_init.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/Embedded/Jetson/Orin/yolov11_init.png"
+alt="YOLO v11 Initialization" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/Embedded/Jetson/Orin/yolov11_gpu.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/Embedded/Jetson/Orin/yolov11_gpu.png"
+alt="YOLO v11 GPU" /></a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="yolov11-on-jetson-orin-nano">5.3 <a
 target="_blank" rel="noopener" href="https://docs.ultralytics.com/models/yolo11/">YOLOv11</a> On <a
 target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/">Jetson
 Orin</a> Nano</h2>
@@ -706,14 +801,18 @@ didn't talk about which model to use. And today, let's try them out.</p>
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>Haven’t tried out my <a target="_blank" rel="noopener" href="https://www.luckfox.com/Luckfox-Pico/EN-Luckfox-Pico-Ultra">LuckFox Pico Ultra W</a> for over 1 month. Tonight, actually, today, is <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Thanksgiving_(Canada)">Canada’s Thanksgiving</a> of year 2024.</p>
-<h1 id="1-lsusb"><a class="markdownIt-Anchor" href="#1-lsusb"></a> 1. <code>lsusb</code></h1>
+          <p>Haven't tried out my <a
+target="_blank" rel="noopener" href="https://www.luckfox.com/Luckfox-Pico/EN-Luckfox-Pico-Ultra">LuckFox
+Pico Ultra W</a> for over 1 month. Tonight, actually, today, is <a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Thanksgiving_(Canada)">Canada's
+Thanksgiving</a> of year 2024.</p>
+<h1 id="lsusb">1. <code>lsusb</code></h1>
 <ul>
 <li>Step 1: hold the <code>boot</code> button</li>
 <li>Step 2: then connect the USB cable</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ lsusb | grep Fuzhou</span><br><span class="line">Bus 009 Device 014: ID 2207:110c Fuzhou Rockchip Electronics Company </span><br></pre></td></tr></table></figure>
-<h1 id="2-flash-firmware"><a class="markdownIt-Anchor" href="#2-flash-firmware"></a> 2. Flash firmware</h1>
+<h1 id="flash-firmware">2. Flash firmware</h1>
 
       
     </div>
@@ -796,58 +895,113 @@ didn't talk about which model to use. And today, let's try them out.</p>
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><a target="_blank" rel="noopener" href="https://docs.ultralytics.com/models/yolo11/">YOLOv11</a> was just out for a couple of days. People keep talking about its terrrific performance. Today, let me have some fun.</p>
-<h1 id="1-yolov11-server-app"><a class="markdownIt-Anchor" href="#1-yolov11-server-app"></a> 1. <a target="_blank" rel="noopener" href="https://docs.ultralytics.com/models/yolo11/">YOLOv11</a> Server App</h1>
-<p>A <a target="_blank" rel="noopener" href="https://flask.palletsprojects.com/en">Flask</a> implementation is obtained from <a target="_blank" rel="noopener" href="https://chatgpt.com/">ChatGPT</a>:</p>
-<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/lvt_yolo11_server_app.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/lvt_yolo11_server_app.png" alt="LVT YOLOv11 Server App" /></a></p>
-<h1 id="2-demonstration-from-client-requests"><a class="markdownIt-Anchor" href="#2-demonstration-from-client-requests"></a> 2. Demonstration From Client Requests</h1>
-<h2 id="21-commands"><a class="markdownIt-Anchor" href="#21-commands"></a> 2.1 Commands</h2>
-<p>Corresponding to the 5 tasks summarized on <a target="_blank" rel="noopener" href="https://docs.ultralytics.com/models/yolo11/">YOLOv11</a>, the results of client requests are demonstrated as:</p>
-<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/yolov_5endpoints.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/yolov_5endpoints.png" alt="LVT YOLOv11 5 EndPoints Requests" /></a></p>
-<h2 id="22-resultant-images-on-server"><a class="markdownIt-Anchor" href="#22-resultant-images-on-server"></a> 2.2 Resultant Images On Server</h2>
+          <p><a target="_blank" rel="noopener" href="https://docs.ultralytics.com/models/yolo11/">YOLOv11</a> was
+just out for a couple of days. People keep talking about its terrrific
+performance. Today, let me have some fun.</p>
+<h1 id="yolov11-server-app">1. <a
+target="_blank" rel="noopener" href="https://docs.ultralytics.com/models/yolo11/">YOLOv11</a> Server
+App</h1>
+<p>A <a target="_blank" rel="noopener" href="https://flask.palletsprojects.com/en">Flask</a>
+implementation is obtained from <a
+target="_blank" rel="noopener" href="https://chatgpt.com/">ChatGPT</a>:</p>
+<p><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/lvt_yolo11_server_app.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/lvt_yolo11_server_app.png"
+alt="LVT YOLOv11 Server App" /></a></p>
+<h1 id="demonstration-from-client-requests">2. Demonstration From Client
+Requests</h1>
+<h2 id="commands">2.1 Commands</h2>
+<p>Corresponding to the 5 tasks summarized on <a
+target="_blank" rel="noopener" href="https://docs.ultralytics.com/models/yolo11/">YOLOv11</a>, the
+results of client requests are demonstrated as:</p>
+<p><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/yolov_5endpoints.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/yolov_5endpoints.png"
+alt="LVT YOLOv11 5 EndPoints Requests" /></a></p>
+<h2 id="resultant-images-on-server">2.2 Resultant Images On Server</h2>
 <table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:center">Original Image</th>
-<th style="text-align:center"><a target="_blank" rel="noopener" href="https://docs.ultralytics.com/tasks/detect/">YOLO Detection</a></th>
+<tr class="header">
+<th style="text-align: center;">Original Image</th>
+<th style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://docs.ultralytics.com/tasks/detect/">YOLO
+Detection</a></th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/bus.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/bus.jpg" alt="Original Image" /></a></td>
-<td style="text-align:center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/detect_result_20241009_012854.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/detect_result_20241009_012854.jpg" alt="Detection Result" /></a></td>
+<tr class="odd">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/bus.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/bus.jpg"
+alt="Original Image" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/detect_result_20241009_012854.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/detect_result_20241009_012854.jpg"
+alt="Detection Result" /></a></td>
 </tr>
 </tbody>
 </table>
 <table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:center"><a target="_blank" rel="noopener" href="https://docs.ultralytics.com/tasks/segment/">YOLO Segmentation</a></th>
-<th style="text-align:center"><a target="_blank" rel="noopener" href="https://docs.ultralytics.com/tasks/pose/">YOLO Pose</a></th>
+<tr class="header">
+<th style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://docs.ultralytics.com/tasks/segment/">YOLO
+Segmentation</a></th>
+<th style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://docs.ultralytics.com/tasks/pose/">YOLO Pose</a></th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/segment_result_20241009_012835.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/segment_result_20241009_012835.jpg" alt="Segmentation Boundaries" /></a></td>
-<td style="text-align:center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/keypoints_result_20241009_012908.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/keypoints_result_20241009_012908.jpg" alt="Pose Keypoints" /></a></td>
+<tr class="odd">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/segment_result_20241009_012835.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/segment_result_20241009_012835.jpg"
+alt="Segmentation Boundaries" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/keypoints_result_20241009_012908.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/keypoints_result_20241009_012908.jpg"
+alt="Pose Keypoints" /></a></td>
 </tr>
 </tbody>
 </table>
 <table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:center"><a target="_blank" rel="noopener" href="https://docs.ultralytics.com/tasks/obb/">YOLO Oriented Detection</a></th>
-<th style="text-align:center"><a target="_blank" rel="noopener" href="https://docs.ultralytics.com/tasks/classify/">YOLO Classification</a></th>
+<tr class="header">
+<th style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://docs.ultralytics.com/tasks/obb/">YOLO Oriented
+Detection</a></th>
+<th style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://docs.ultralytics.com/tasks/classify/">YOLO
+Classification</a></th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/oriented_detect_result_20241009_012916.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/oriented_detect_result_20241009_012916.jpg" alt="Oriented Detection" /></a></td>
-<td style="text-align:center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/endpoint_classify.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/endpoint_classify.png" alt="Classfication Json" /></a></td>
+<tr class="odd">
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/oriented_detect_result_20241009_012916.jpg"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/oriented_detect_result_20241009_012916.jpg"
+alt="Oriented Detection" /></a></td>
+<td style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/endpoint_classify.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/master/AI/YOLO/endpoint_classify.png"
+alt="Classfication Json" /></a></td>
 </tr>
 </tbody>
 </table>
-<p><strong><span style="color:red">Let me try to provide such a service as public asap.</span></strong>.</p>
+<p><strong><span style="color:red">Let me try to provide such a service
+as public asap.</span></strong>.</p>
 
       
     </div>
