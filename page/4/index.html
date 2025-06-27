@@ -132,7 +132,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">152</span>
+          <span class="site-state-item-count">153</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -143,7 +143,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">142</span>
+        <span class="site-state-item-count">143</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -160,6 +160,183 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/12/07/SBCs/FPGA/iCEstick/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Longer Vision Technology">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/12/07/SBCs/FPGA/iCEstick/" class="post-title-link" itemprop="url">iCEstick Evaluation Kit</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-12-07 15:38:38" itemprop="dateCreated datePublished" datetime="2023-12-07T15:38:38-08:00">2023-12-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-09-29 22:09:54" itemprop="dateModified" datetime="2024-09-29T22:09:54-07:00">2024-09-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Single-Board-Computers/FPGA/" itemprop="url" rel="index"><span itemprop="name">FPGA</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><a href="/2023/12/04/SBCs/FPGA/quickfeather#bricked">My
+<strong>FIRST</strong> <strong>FPGA board</strong> went bricked</a>. So,
+today, I'll have to try another one: <a
+target="_blank" rel="noopener" href="https://www.latticesemi.com/icestick">iCEstick</a>. This is really
+a good journey in my opinion.</p>
+<h1 id="introduction">1. Introduction</h1>
+<h2 id="lsusb">1.1 lsusb</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">Bus 011 Device 002: ID 0403:6010 Future Technology Devices International, Ltd FT2232C/D/H Dual UART/FIFO IC</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<h2 id="why-two-devices">1.2 Why TWO Devices?</h2>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ll /dev/ttyUSB*                                                         </span><br><span class="line">crw-rw----+ 1 root plugdev 188, 0 Dec  7 15:17 /dev/ttyUSB0</span><br><span class="line">crw-rw----+ 1 root plugdev 188, 1 Dec  7 15:17 /dev/ttyUSB1</span><br><span class="line">➜  ~ </span><br></pre></td></tr></table></figure>
+<h2 id="spec">1.3 Spec</h2>
+<ul>
+<li>Official website: <a
+target="_blank" rel="noopener" href="https://www.latticesemi.com/icestick">iCEstick</a></li>
+</ul>
+<h2 id="github-source-code">1.4 Github Source Code</h2>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://github.com/FPGAwars/apio/tree/develop/test-examples/Icestick">iCEstick
+test examples</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://github.com/FPGAwars/apio-examples/tree/master/icestick">apio
+examples iCEstick</a></li>
+</ul>
+<h1 id="flash-the-firmware">2. Flash the Firmware</h1>
+<h2 id="preparation">2.1 Preparation</h2>
+<h3 id="ensure-python-and-apio-are-both-installed">2.1.1 Ensure Python
+and APIO Are Both Installed</h3>
+<p><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio.png"
+alt="Python apio version" /></a></p>
+<h3 id="apio-install-all-and-lsftdi">2.1.2 APIO Install ALL and
+lsftdi</h3>
+<p><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_install.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_install.png"
+alt="APIO Install ALL and lsftdi" /></a></p>
+<h2 id="apio-examples-for-icestick">2.2 APIO Examples for iCEstick</h2>
+<h3 id="list-all-apio-examples">2.2.1 List ALL APIO Examples</h3>
+<p><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_examples.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_examples.png"
+alt="List ALL APIO Examples" /></a></p>
+<h3 id="install-apio-example-leds">2.2.2 Install APIO Example LEDs</h3>
+<p><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_examples_icestick.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_examples_icestick.png"
+alt="Install APIO Example LEDs" /></a></p>
+<h2 id="find-corresponding-boards-name">2.3 Find Corresponding Board's
+Name</h2>
+<h3 id="list-all-apio-supported-boards">2.3.1 List ALL APIO Supported
+Boards</h3>
+<p><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_boards.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_boards.png"
+alt="List ALL APIO Supported Boards" /></a></p>
+<h3 id="find-the-name-of-your-fpga-board">2.3.2 Find the Name of Your
+FPGA Board</h3>
+<p><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_boards_iCE40.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_boards_iCE40.png"
+alt="Find the Name of Your FPGA Board" /></a></p>
+<h2 id="init-verify-sim-build-and-upload">2.3 Init, Verify, Sim, Build
+and Upload</h2>
+<h3 id="init-and-verify">2.3.1 Init and Verify</h3>
+<p><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_init_verify.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_init_verify.png"
+alt="Init and Verify" /></a></p>
+<h3 id="simulation-with-gtkwave">2.3.2 Simulation with <a
+target="_blank" rel="noopener" href="https://gtkwave.sourceforge.net">GTKWave</a></h3>
+<p><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_sim_gtkwave.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_sim_gtkwave.png"
+alt="Simulation with [GTKWave]" /></a></p>
+<h3 id="build">2.3.3 Build</h3>
+<p><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_build.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_build.png"
+alt="Build" /></a></p>
+<h3 id="upload">2.3.4 Upload</h3>
+<p><a
+target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_upload.png"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/fpga/iCEstick/apio_upload.png"
+alt="Upload" /></a></p>
+<h1 id="demonstration">3. Demonstration</h1>
+<iframe width="1280" height="720" src="https://www.youtube.com/embed/oepF3CaFrhM" title="iCEstick LEDs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+</iframe>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -205,7 +382,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-09-28 21:18:06" itemprop="dateModified" datetime="2024-09-28T21:18:06-07:00">2024-09-28</time>
+      <time title="Modified: 2025-06-20 18:59:04" itemprop="dateModified" datetime="2025-06-20T18:59:04-07:00">2025-06-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -234,8 +411,8 @@
           <p>My previous blog <a
 href="/2023/12/04/SBCs/RISC-V/MaixDuino-1/">MaixDuino 1</a> briefly
 introduced the fundamental functionalities of <a
-target="_blank" rel="noopener" href="https://maixduino.sipeed.com/en/">MaixDuino</a>. Today, two more
-functionalities are to be investigated.</p>
+target="_blank" rel="noopener" href="https://wiki.sipeed.com/soft/maixpy/en/develop_kit_board/maix_duino.html">MaixDuino</a>.
+Today, two more functionalities are to be investigated.</p>
 <h1 id="binocular">1. Binocular</h1>
 <p><a target="_blank" rel="noopener" href="https://sipeed.com/">Sipeed</a> provides its official <a
 target="_blank" rel="noopener" href="https://github.com/sipeed/Maixduino/blob/master/libraries/Sipeed_GC0328/examples/sipeed_gc0328_binocular.ino">sipeed_gc0328_binocular.ino</a>.</p>
@@ -310,7 +487,7 @@ target="_blank" rel="noopener" href="https://github.com/sipeed/Maixduino/blob/ma
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-09-29 21:53:55" itemprop="dateModified" datetime="2024-09-29T21:53:55-07:00">2024-09-29</time>
+      <time title="Modified: 2025-06-20 19:04:08" itemprop="dateModified" datetime="2025-06-20T19:04:08-07:00">2025-06-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -337,13 +514,15 @@ target="_blank" rel="noopener" href="https://github.com/sipeed/Maixduino/blob/ma
     
     <div class="post-body" itemprop="articleBody">
           <p>Long time no see everybody. Today let's talk about <a
-target="_blank" rel="noopener" href="https://maixduino.sipeed.com/en/">MaixDuino</a>.</p>
+target="_blank" rel="noopener" href="https://wiki.sipeed.com/soft/maixpy/en/develop_kit_board/maix_duino.html">MaixDuino
+board</a>.</p>
 <h1 id="introduction">1. Introduction</h1>
 <h2 id="lsusb">1.1 lsusb</h2>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">Bus 011 Device 055: ID 0403:6010 Future Technology Devices International, Ltd FT2232C/D/H Dual UART/FIFO IC</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
 <h2 id="wiki">1.2 Wiki</h2>
 <p>Detailed specification about <a
-target="_blank" rel="noopener" href="https://maixduino.sipeed.com/en/">MaixDuino</a> can be found on <a
+target="_blank" rel="noopener" href="https://wiki.sipeed.com/soft/maixpy/en/develop_kit_board/maix_duino.html">MaixDuino
+board</a> can be found on <a
 target="_blank" rel="noopener" href="https://wiki.sipeed.com/hardware/en/maix/maixpy_develop_kit_board/maix_duino.html">MaixDuino
 Wiki</a>.</p>
 <h2 id="github-source-code">1.3 Github Source Code</h2>
@@ -369,10 +548,12 @@ target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVis
 src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_MaixDuino_Output.png"
 alt="MaixDuino Arduino Output" /></a></p>
 <ul>
-<li>Due to <a target="_blank" rel="noopener" href="https://maixduino.sipeed.com/en/">MaixDuino</a>'s
-official website, <a target="_blank" rel="noopener" href="https://code.visualstudio.com/">VSCode</a>'s
-plugin <a target="_blank" rel="noopener" href="https://docs.platformio.org/en/latest/">PlatformIO</a>
-can also be adopted</li>
+<li>Due to <a
+target="_blank" rel="noopener" href="https://wiki.sipeed.com/soft/maixpy/en/develop_kit_board/maix_duino.html">MaixDuino
+board</a>'s official website, <a
+target="_blank" rel="noopener" href="https://code.visualstudio.com/">VSCode</a>'s plugin <a
+target="_blank" rel="noopener" href="https://docs.platformio.org/en/latest/">PlatformIO</a> can also be
+adopted</li>
 </ul>
 <h2 id="flash-a-customized-sketch">2.2 Flash a Customized Sketch</h2>
 <ul>
@@ -1477,106 +1658,6 @@ Alignment</h1>
 <h1 id="face-detection">13. Face Detection</h1>
 <h1 id="object-detection">14. Object Detection</h1>
 <h1 id="openpose">15. Openpose</h1>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2022/08/04/Coding/HowTo/open3d/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | Longer Vision Technology">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/08/04/Coding/HowTo/open3d/" class="post-title-link" itemprop="url">Build Open3D From Source</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-08-04 00:00:00" itemprop="dateCreated datePublished" datetime="2022-08-04T00:00:00-07:00">2022-08-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-09-28 21:46:47" itemprop="dateModified" datetime="2024-09-28T21:46:47-07:00">2024-09-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Coding/HowTo/" itemprop="url" rel="index"><span itemprop="name">HowTo</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>I tried to build Intel <a
-target="_blank" rel="noopener" href="https://github.com/isl-org/Open3D">Open3D</a> from source, using
-<a target="_blank" rel="noopener" href="https://gcc.gnu.org/">GCC/G++</a> <strong>ONLY</strong>. Of
-course, I used <strong>ALL</strong> 3rdparty libraries either from
-default Ubuntu repository, or manually installed the newest version,
-rather than using the <a
-target="_blank" rel="noopener" href="https://github.com/isl-org/Open3D/tree/master/3rdparty">3rdparty
-libraries coming with Open3D itself</a>.</p>
-<p>Today, May 9, 2024, I had this annoying <a
-target="_blank" rel="noopener" href="https://github.com/isl-org/Open3D">Open3D</a> successfully built
-again, with my <a target="_blank" rel="noopener" href="https://github.com/isl-org/Open3D/pull/6788">PR
-6788</a>.</p>
 
       
     </div>

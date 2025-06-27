@@ -132,7 +132,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">152</span>
+          <span class="site-state-item-count">153</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -143,7 +143,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">142</span>
+        <span class="site-state-item-count">143</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -160,6 +160,299 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/08/30/MachineVision/FPGA/vc-zynq-7010-stereo-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Longer Vision Technology">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/08/30/MachineVision/FPGA/vc-zynq-7010-stereo-1/" class="post-title-link" itemprop="url">Stereo Vision on VCSBC nano Z-RH-2 - PART I</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-08-30 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-30T00:00:00-07:00">2019-08-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-10-05 00:44:38" itemprop="dateModified" datetime="2024-10-05T00:44:38-07:00">2024-10-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Machine-Vision/" itemprop="url" rel="index"><span itemprop="name">Machine Vision</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Machine-Vision/FPGA/" itemprop="url" rel="index"><span itemprop="name">FPGA</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Today, we are going to talk about a fabulous project: <strong><a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Computer_stereo_vision">stereo
+vision</a> on a <a
+target="_blank" rel="noopener" href="https://www.xilinx.com/products/silicon-devices/soc/zynq-7000.html">zynq-7010</a>
+board</strong>.</p>
+<h1 id="vcsbc-nano-z-rh-2">1. VCSBC nano Z-RH-2</h1>
+<h2 id="hardware">1.1 Hardware</h2>
+<p>We are using a <a
+target="_blank" rel="noopener" href="https://www.vision-components.com/en/products/oem/3d-systems/arm-stereo-vision/">VCSBC
+nano Z-RH-2 board</a> for today’s experiment. The board adopted looks
+like the following:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Front</th>
+<th style="text-align: center;">Back</th>
+<th style="text-align: center;">Connector</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/vcsbc_nano_z-rh-2_zynq_7010_front.jpg"
+alt="VCSBC nano Z-RH-2 Front" /></td>
+<td style="text-align: center;"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/vcsbc_nano_z-rh-2_zynq_7010_back.jpg"
+alt="VCSBC nano Z-RH-2 Back" /></td>
+<td style="text-align: center;"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/vcsbc_nano_z-rh-2_zynq_7010_connector.jpg"
+alt="VCSBC nano Z-RH-2 Connector" /></td>
+</tr>
+</tbody>
+</table>
+<p>More detailed specifications, please refer to <a
+target="_blank" rel="noopener" href="https://www.vision-components.com/en/products/oem/3d-systems/arm-stereo-vision/">Vision
+Components’s official website</a>.</p>
+<h2 id="software">1.2 Software</h2>
+<p>After you set up a static IP for this <a
+target="_blank" rel="noopener" href="https://www.vision-components.com/en/">Vision Components SBC</a>,
+it’s pretty straightforward to <strong>ssh</strong> into the system.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">ssh user@192.168.1.79</span></span><br><span class="line">user@192.168.1.79&#x27;s password: </span><br><span class="line"></span><br><span class="line">The programs included with the Debian GNU/Linux system are free software;</span><br><span class="line">the exact distribution terms for each program are described in the</span><br><span class="line">individual files in /usr/share/doc/*/copyright.</span><br><span class="line"></span><br><span class="line">Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent</span><br><span class="line">permitted by applicable law.</span><br><span class="line">Last login: Thu Aug 29 18:17:49 2019 from 192.168.1.200</span><br><span class="line">user@VC-Z:~$</span><br></pre></td></tr></table></figure>
+<p>Currently, <a target="_blank" rel="noopener" href="https://www.vision-components.com/en/">VC</a>
+provides <a target="_blank" rel="noopener" href="https://www.kernel.org/">Linux Kernel</a> 3.14.79.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user@VC-Z:~$ uname -a</span><br><span class="line">Linux VC-Z 3.14.79-vc-z #2 SMP PREEMPT Wed Apr 24 18:33:06 CEST 2019 armv7l GNU/Linux</span><br></pre></td></tr></table></figure>
+<p>And, let’s take a look at the dual <a
+target="_blank" rel="noopener" href="https://developer.arm.com/docs/ddi0406/latest">ARMv7</a> CPUs on
+<a
+target="_blank" rel="noopener" href="https://www.xilinx.com/products/silicon-devices/soc/zynq-7000.html">zynq-7010</a>.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">user@VC-Z:~$ cat /proc/cpuinfo</span><br><span class="line">processor	: 0</span><br><span class="line">model name	: ARMv7 Processor rev 0 (v7l)</span><br><span class="line">BogoMIPS	: 1725.23</span><br><span class="line">Features	: swp half thumb fastmult vfp edsp neon vfpv3 tls vfpd32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x3</span><br><span class="line">CPU part	: 0xc09</span><br><span class="line">CPU revision	: 0</span><br><span class="line"></span><br><span class="line">processor	: 1</span><br><span class="line">model name	: ARMv7 Processor rev 0 (v7l)</span><br><span class="line">BogoMIPS	: 1725.23</span><br><span class="line">Features	: swp half thumb fastmult vfp edsp neon vfpv3 tls vfpd32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x3</span><br><span class="line">CPU part	: 0xc09</span><br><span class="line">CPU revision	: 0</span><br><span class="line"></span><br><span class="line">Hardware	: Xilinx Zynq Platform</span><br><span class="line">Revision	: 0000</span><br><span class="line">Serial		: 0000000000000000</span><br></pre></td></tr></table></figure>
+<h1 id="stereo-vision">2. Stereo Vision</h1>
+<p>Sorry everybody. Today, I <strong>ONLY</strong> test <a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Computer_stereo_vision">stereo
+vision</a> on ARM. I’ll try to figure out how to flash an open source IP
+of <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Computer_stereo_vision">stereo
+vision</a> onto <a
+target="_blank" rel="noopener" href="https://www.xilinx.com/products/silicon-devices/soc/zynq-7000.html">zynq-7010</a>,
+or write my own ASAP.</p>
+<p>Hmmmmmmmm… <span style="color:red"><strong>It’s better I keep my code
+in dark???</strong></span></p>
+<div style="text-align: center; font-size: 3em;">
+<pre><code>😝</code></pre>
+</div>
+<h2 id="classical-image-pairs">2.1 Classical Image Pairs</h2>
+<p>Let’s try out the <a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Computer_stereo_vision">stereo
+vision</a> on some <a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Netpbm_format">.pgm</a> image pairs
+<strong>FIRST</strong>.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">user@VC-Z:~/longervision$ ./pgmpair ../images/aloe_left.pgm ../images/aloe_right.pgm </span><br><span class="line">width= 1282</span><br><span class="line">height= 1110</span><br><span class="line">fps: 0.119696</span><br><span class="line">process: 398651</span><br></pre></td></tr></table></figure>
+<p><span style="color:red"><strong>My GOD… It’s UNBELIEVABLY
+SLOW.</strong></span></p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">aloe_left</th>
+<th style="text-align: center;">aloe_right</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/aloe_left.jpg"
+alt="aloe_left" /></td>
+<td style="text-align: center;"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/aloe_right.jpg"
+alt="aloe_right" /></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">aloe_left Stereo</td>
+<td style="text-align: center;">aloe_right Stereo</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/aloe_left_disp.jpg"
+alt="aloe_left Stereo" /></td>
+<td style="text-align: center;"><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/aloe_right_disp.jpg"
+alt="aloe_right Stereo" /></td>
+</tr>
+</tbody>
+</table>
+<h2 id="live-video-pairs">2.2 Live Video Pairs</h2>
+<p>The <strong>BEST</strong> demo code to test <strong>Vision
+Componenets Stereo Vision</strong> is <a
+target="_blank" rel="noopener" href="http://files.vision-components.com/Support/Eclipse_Example_Projects_VC_Z.zip">Eclipse_Example_Projects_VC_Z</a>.</p>
+<h3 id="imagecapturetest">2.2.1 imageCaptureTest</h3>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">./imageCaptureTest</span> </span><br><span class="line">0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> ----------------------------------------------------------------------- </span><br><span class="line">  VCCapt @0xbe87153c                                    Sensor Count: 2  </span><br><span class="line"> ----------------------------------------------------------------------- </span><br><span class="line">                                                                         </span><br><span class="line">                  Camera Type :  NANO Z RH Rev.0                         </span><br><span class="line">                Sensor 0 Type :  E2V_EV76C560ABT_1_0                     </span><br><span class="line">                Sensor 1 Type :  E2V_EV76C560ABT_1_0                     </span><br><span class="line">                                                                         </span><br><span class="line">   Trigger        Source      :  IMM                                     </span><br><span class="line">                                                                         </span><br><span class="line">     ___________________________________________________________________ </span><br><span class="line">     Sensor[ 0]:         Shutter:     12345 us,  Gain: 0.00              </span><br><span class="line">                                                                         </span><br><span class="line">                   x0, y0       :  (    0,    0)                         </span><br><span class="line">            binX,     binY      :  (    1,    1)                         </span><br><span class="line">        subsmplX, subsmplY, flip:  (    1,    1,0x00)                    </span><br><span class="line">    (img)          dx, dy, pitch:  ( 1280, 1024), 1280                   </span><br><span class="line">                                                                         </span><br><span class="line">    (img) st, ccmp1, ccmp2, type:  0xb6b03080, 0x00000000, 0x00000000, 0 </span><br><span class="line">                                                                         </span><br><span class="line">      Description                                                        </span><br><span class="line">       Sen dx, Sen dy, Sen pitch:   1280, 1024, 1280                     </span><br><span class="line">       Max dx, Max dy, Max pitch:   1280, 1024, 1280                     </span><br><span class="line">    Binning Max (dx, dy), Square:      2,    1,    1                     </span><br><span class="line">    Subsmpl Max (dx, dy), Square:      8,    8,    0                     </span><br><span class="line">       Init       st,ccmp1,ccmp2:  0xb6b03080, 0x00000000, 0x00000000    </span><br><span class="line">       Init  Shutter, Gain, Type:       10000,  0.00, GREY   (0)         </span><br><span class="line">                  FD, Port, Type:  4, 0, E2V_EV76C560ABT_1_0             </span><br><span class="line">                                                                         </span><br><span class="line">      Volatile Description                                               </span><br><span class="line">            requestCaptID, State:          0, IDLE                       </span><br><span class="line">          captId, TimestampTicks:          0,   6476832867277            </span><br><span class="line">                                                                         </span><br><span class="line">      Externals Description                                              </span><br><span class="line">            pos[0-3], angle[0-2]:  [ 0.00, 0.00, 0.00],[  0.0,  0.0]     </span><br><span class="line">                                                                         </span><br><span class="line">     ___________________________________________________________________ </span><br><span class="line">     Sensor[ 1]:         Shutter:     10000 us,  Gain: 0.00              </span><br><span class="line">                                                                         </span><br><span class="line">                   x0, y0       :  (    0,    0)                         </span><br><span class="line">            binX,     binY      :  (    1,    1)                         </span><br><span class="line">        subsmplX, subsmplY, flip:  (    1,    1,0x00)                    </span><br><span class="line">    (img)          dx, dy, pitch:  ( 1280, 1024), 1280                   </span><br><span class="line">                                                                         </span><br><span class="line">    (img) st, ccmp1, ccmp2, type:  0xb69c2080, 0x00000000, 0x00000000, 0 </span><br><span class="line">                                                                         </span><br><span class="line">      Description                                                        </span><br><span class="line">       Sen dx, Sen dy, Sen pitch:   1280, 1024, 1280                     </span><br><span class="line">       Max dx, Max dy, Max pitch:   1280, 1024, 1280                     </span><br><span class="line">    Binning Max (dx, dy), Square:      2,    1,    1                     </span><br><span class="line">    Subsmpl Max (dx, dy), Square:      8,    8,    0                     </span><br><span class="line">       Init       st,ccmp1,ccmp2:  0xb69c2080, 0x00000000, 0x00000000    </span><br><span class="line">       Init  Shutter, Gain, Type:       10000,  0.00, GREY   (0)         </span><br><span class="line">                  FD, Port, Type:  5, 1, E2V_EV76C560ABT_1_0             </span><br><span class="line">                                                                         </span><br><span class="line">      Volatile Description                                               </span><br><span class="line">            requestCaptID, State:          0, IDLE                       </span><br><span class="line">          captId, TimestampTicks:          0,   6476832867284            </span><br><span class="line">                                                                         </span><br><span class="line">      Externals Description                                              </span><br><span class="line">            pos[0-3], angle[0-2]:  [ 0.00, 0.00, 0.00],[  0.0,  0.0]     </span><br><span class="line">                                                                         </span><br><span class="line"> ----------------------------------------------------------------------- </span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<h3 id="imagecaptfps">2.2.2 imageCaptFPS</h3>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">03:41:47[root@VC-Z] /home/user/vc/Eclipse_Example_Projects_VC_Z/imageCaptFPS</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">./imageCaptFPS</span> </span><br><span class="line">dy= 1024  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     780685us  for 1000 Cycles ==  34.745525fps.</span><br><span class="line">dy= 768  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     789899us  for 1000 Cycles ==  34.734402fps.</span><br><span class="line">dy= 640  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     790000us  for 1000 Cycles ==  34.734283fps.</span><br><span class="line">dy= 512  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     790012us  for 1000 Cycles ==  34.734268fps.</span><br><span class="line">dy= 384  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     790005us  for 1000 Cycles ==  34.734280fps.</span><br><span class="line">dy= 256  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     790000us  for 1000 Cycles ==  34.734283fps.</span><br><span class="line">dy= 192  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     790021us  for 1000 Cycles ==  34.734257fps.</span><br><span class="line">dy= 128  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     789984us  for 1000 Cycles ==  34.734303fps.</span><br><span class="line">dy= 64  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     789987us  for 1000 Cycles ==  34.734299fps.</span><br><span class="line">dy= 32  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     789997us  for 1000 Cycles ==  34.734287fps.</span><br><span class="line">dy= 16  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     790017us  for 1000 Cycles ==  34.734264fps.</span><br><span class="line">dy= 8  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     790002us  for 1000 Cycles ==  34.734280fps.</span><br><span class="line">dy= 4  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     789985us  for 1000 Cycles ==  34.734303fps.</span><br><span class="line">dy= 2  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     789997us  for 1000 Cycles ==  34.734287fps.</span><br><span class="line">dy= 1  Clock=100000000  Acquisiton&amp;Copy Duration:         28s     789994us  for 1000 Cycles ==  34.734291fps.</span><br></pre></td></tr></table></figure>
+<p><span style="color:red"><strong>The above 2 examples are directly run
+on <a
+target="_blank" rel="noopener" href="https://www.vision-components.com/en/products/oem/3d-systems/arm-stereo-vision/">Vision
+Components’s board</a> without display, for the given cable is of <a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/VGA_connector">VGA connector</a>,
+which is ALREADY outdated for many years</strong></span>. Therefore, in
+order to show the captured image pairs, in the next section, we’ll have
+to stream the captured data to a host computer, and display the
+real-time video pairs.</p>
+<h2 id="streamdisplay-from-host-computer">2.3 Stream/Display From Host
+Computer</h2>
+<p>Due to <strong>Vision Componenets’ Official documentation <a
+target="_blank" rel="noopener" href="https://www.vision-components.com/fileadmin/user_upload/DE/service-support/doku/doku_ARM-LINUX/VCLinux_Getting_Started.pdf">VCLinux_Getting_Started.pdf</a></strong>,
+images captured from camera can be displayed on a remote hosting PC.</p>
+<h3 id="eclipse_example_projects_vc_z-not-preferred">2.3.1
+Eclipse_Example_Projects_VC_Z (Not Preferred)</h3>
+<p><a
+target="_blank" rel="noopener" href="http://files.vision-components.com/Support/Eclipse_Example_Projects_VC_Z.zip">Eclipse_Example_Projects_VC_Z.zip</a>
+provides some source code, which displays images captured from camera on
+the hosting PC’s Eclipse, by adding the camera as a <span
+style="color:red"><strong>Remote System to Eclipse</strong></span>.
+Anyway, by using this method, you need to prepare <strong>ALL</strong>
+the following software and packages in advance.</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.eclipse.org/">Eclipse</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.eclipse.org/cdt/downloads.php">CDT</a>: install
+by <strong>Check for Updates</strong> with <strong>p2 software
+repository:
+http://download.eclipse.org/tools/cdt/releases/9.8</strong></li>
+<li><a
+target="_blank" rel="noopener" href="https://marketplace.eclipse.org/content/direct-remote-c-debugging">Direct
+Remote C++ Debugging</a>: installed from <a
+target="_blank" rel="noopener" href="https://marketplace.eclipse.org/">Eclipse Marketplace</a></li>
+</ul>
+<h3 id="vcimgnetclient.py">2.3.2 <a
+target="_blank" rel="noopener" href="http://vcimgnetclient.py/">vcimgnetclient.py</a></h3>
+<p>Besides the above method, a much more straightforward method is to
+adopt python script <a
+target="_blank" rel="noopener" href="http://files.vision-components.com/Support/vcimgnet_PC_clients.zip">vcimgnetclient.py</a>
+provided by <a target="_blank" rel="noopener" href="https://www.vision-components.com/en/">Vision
+Components</a>. <span style="color:red"><strong>However</strong></span>,
+<a
+target="_blank" rel="noopener" href="http://files.vision-components.com/Support/vcimgnet_PC_clients.zip">vcimgnetclient.py</a>
+is <span style="color:red"><strong>ONLY python2</strong></span>
+compatible, and Vision Components has <strong>NO</strong> plan to
+provide a <span style="color:red"><strong>python3</strong></span>
+compatible version of <a
+target="_blank" rel="noopener" href="http://files.vision-components.com/Support/vcimgnet_PC_clients.zip">vcimgnetclient.py</a>.</p>
+<p>Therefore, the <strong>KEY</strong> to use the 2nd method is to make
+<a
+target="_blank" rel="noopener" href="http://files.vision-components.com/Support/vcimgnet_PC_clients.zip">vcimgnetclient.py</a>
+python3 compatible.</p>
+<h4 id="to3">2.3.2.1 2to3</h4>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">2to3 vcimgnetclient.py</span></span><br><span class="line">RefactoringTool: Skipping optional fixer: buffer</span><br><span class="line">RefactoringTool: Skipping optional fixer: idioms</span><br><span class="line">RefactoringTool: Skipping optional fixer: set_literal</span><br><span class="line">RefactoringTool: Skipping optional fixer: ws_comma</span><br><span class="line">RefactoringTool: Refactored vcimgnetclient.py</span><br><span class="line">--- vcimgnetclient.py	(original)</span><br><span class="line">+++ vcimgnetclient.py	(refactored)</span><br><span class="line">@@ -274,11 +274,11 @@</span><br><span class="line">             if(chk_rgb_true):</span><br><span class="line">                 dy /= 3</span><br><span class="line">                 #img_data_packed = bytearray(chain.from_iterable(izip(mv_img_data[2 * pitch * dy:], mv_img_data[1 * pitch * dy:], mv_img_data[0 * pitch * dy:])))</span><br><span class="line">-                img_data_packed = bytearray(chain.from_iterable(zip(mv_img_data[2 * pitch * dy:], mv_img_data[1 * pitch * dy:], mv_img_data[0 * pitch * dy:])))</span><br><span class="line">+                img_data_packed = bytearray(chain.from_iterable(list(zip(mv_img_data[2 * pitch * dy:], mv_img_data[1 * pitch * dy:], mv_img_data[0 * pitch * dy:]))))</span><br><span class="line">             else:</span><br><span class="line">                 dy /= 1</span><br><span class="line">                 #img_data_packed = bytearray(chain.from_iterable(izip(mv_img_data[0 * pitch * dy:], mv_img_data[0 * pitch * dy:], mv_img_data[0 * pitch * dy:])))</span><br><span class="line">-            img_data_packed = bytearray(chain.from_iterable(zip(mv_img_data[0 * pitch * dy:], mv_img_data[0 * pitch * dy:], mv_img_data[0 * pitch * dy:])))</span><br><span class="line">+            img_data_packed = bytearray(chain.from_iterable(list(zip(mv_img_data[0 * pitch * dy:], mv_img_data[0 * pitch * dy:], mv_img_data[0 * pitch * dy:]))))</span><br><span class="line">             cpb = Gdk.pixbuf_new_from_data(buffer(img_data_packed), Gdk.COLORSPACE_RGB, False, 8, dx, dy, 3*pitch)</span><br><span class="line">             cpb.save(path, &quot;png&quot;)</span><br><span class="line">             </span><br><span class="line">@@ -589,16 +589,16 @@</span><br><span class="line">                         dy /= 3</span><br><span class="line">                         mv_img_data = memoryview(img[&#x27;data&#x27;])</span><br><span class="line">                         #img_data_packed = bytearray(chain.from_iterable(izip(mv_img_data[2 * pitch * dy:], mv_img_data[1 * pitch * dy:], mv_img_data[0 * pitch * dy:])))</span><br><span class="line">-                        img_data_packed = bytearray(chain.from_iterable(zip(mv_img_data[2 * pitch * dy:], mv_img_data[1 * pitch * dy:], mv_img_data[0 * pitch * dy:])))</span><br><span class="line">+                        img_data_packed = bytearray(chain.from_iterable(list(zip(mv_img_data[2 * pitch * dy:], mv_img_data[1 * pitch * dy:], mv_img_data[0 * pitch * dy:]))))</span><br><span class="line">                         self.area.window.draw_rgb_image(gc, 0,0, dx,dy, Gdk.RGB_DITHER_NONE, buffer(img_data_packed),3*pitch,0,0)</span><br><span class="line">                     else:</span><br><span class="line">                         if(&#x27;flscol&#x27;==self.how_select):</span><br><span class="line">                             mv_img_data = memoryview(img[&#x27;data&#x27;]).tolist()</span><br><span class="line">-                            r_data = map(falsecolor_r,mv_img_data[0 * pitch * dy:])</span><br><span class="line">-                            g_data = map(falsecolor_g,mv_img_data[0 * pitch * dy:])</span><br><span class="line">-                            b_data = map(falsecolor_b,mv_img_data[0 * pitch * dy:])</span><br><span class="line">+                            r_data = list(map(falsecolor_r,mv_img_data[0 * pitch * dy:]))</span><br><span class="line">+                            g_data = list(map(falsecolor_g,mv_img_data[0 * pitch * dy:]))</span><br><span class="line">+                            b_data = list(map(falsecolor_b,mv_img_data[0 * pitch * dy:]))</span><br><span class="line">                             #img_data_packed = bytearray(chain.from_iterable(izip(r_data, g_data, b_data)))</span><br><span class="line">-                            img_data_packed = bytearray(chain.from_iterable(zip(r_data, g_data, b_data)))</span><br><span class="line">+                            img_data_packed = bytearray(chain.from_iterable(list(zip(r_data, g_data, b_data))))</span><br><span class="line">                             self.area.window.draw_rgb_image(gc, 0,0, dx,dy, Gdk.RGB_DITHER_NONE, buffer(img_data_packed),3*pitch,0,0)</span><br><span class="line">                         else: #grey</span><br><span class="line">                             self.area.window.draw_gray_image(gc, 0,0, </span><br><span class="line">RefactoringTool: Files that need to be modified:</span><br><span class="line">RefactoringTool: vcimgnetclient.py</span><br></pre></td></tr></table></figure>
+<h4 id="pygi-convert">2.3.2.2 pygi-convert</h4>
+<p>Please refer to <a
+target="_blank" rel="noopener" href="https://pygobject.readthedocs.io/en/latest/guide/porting.html">General
+Porting Tips</a></p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">./pygi-convert.sh vcimgnetclient.py</span></span><br><span class="line"><span class="meta prompt_">longervision-GT72-6QE%</span></span><br></pre></td></tr></table></figure>
+<h4 id="try-running">2.3.2.3 Try Running</h4>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">python vcimgnetclient.py</span> </span><br><span class="line">vcimgnetclient.py:330: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for &quot;type&quot; or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations</span><br><span class="line">  self.window =  Gtk.Window(Gtk.WindowType.TOPLEVEL)</span><br><span class="line">vcimgnetclient.py:628: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for &quot;label&quot; or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations</span><br><span class="line">  mfQuit =  Gtk.MenuItem(&quot;Quit&quot;)</span><br><span class="line">vcimgnetclient.py:629: PyGIDeprecationWarning: Using non GObject arguments for connect_object() is deprecated, use: connect_data(signal, callback, data, connect_flags=GObject.ConnectFlags.SWAPPED)</span><br><span class="line">  mfQuit.connect_object(&quot;activate&quot;, lambda a: Gtk.main_quit(), &quot;mfQuit&quot;)</span><br><span class="line">vcimgnetclient.py:637: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for &quot;label&quot; or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations</span><br><span class="line">  bmf = Gtk.MenuItem(&quot;File&quot;)</span><br><span class="line">vcimgnetclient.py:646: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for &quot;label&quot; or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations</span><br><span class="line">  mhAbout =  Gtk.MenuItem(&quot;About&quot;)</span><br><span class="line">vcimgnetclient.py:654: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for &quot;label&quot; or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations</span><br><span class="line">  bmh = Gtk.MenuItem(&quot;Help&quot;)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;vcimgnetclient.py&quot;, line 812, in &lt;module&gt;</span><br><span class="line">    Main()</span><br><span class="line">  File &quot;vcimgnetclient.py&quot;, line 719, in __init__</span><br><span class="line">    Frontend.__init__(self, self.img_access)</span><br><span class="line">  File &quot;vcimgnetclient.py&quot;, line 301, in __init__</span><br><span class="line">    self.winMain = self.WinMain(arg_img_access, self.dialog)</span><br><span class="line">  File &quot;vcimgnetclient.py&quot;, line 341, in __init__</span><br><span class="line">    vbox.pack_start(self.menu_bar, False, False)</span><br><span class="line">TypeError: Gtk.Box.pack_start() takes exactly 5 arguments (4 given)</span><br></pre></td></tr></table></figure>
+<h4 id="section">2.3.2.4</h4>
+<p>For <strong>ALL</strong> <code>vbox.pack_start</code>, add one
+parameter <strong>0</strong> at the end for each case. For instance:
+<code>vbox.pack_start(self.menu_bar, False, False)</code> to
+<code>vbox.pack_start(self.menu_bar, False, False, 0)</code></p>
+<p><span style="color:red"><strong>Oh my god … There are STILL SO MANY
+things to do, in order to make <a
+target="_blank" rel="noopener" href="http://files.vision-components.com/Support/vcimgnet_PC_clients.zip">vcimgnetclient.py</a>
+<a target="_blank" rel="noopener" href="https://www.python.org/downloads/">Python3</a>
+compatible.</strong></span> Therefore, I implement my own
+<strong>vcimgnetclient_qt.py</strong> based on <a
+target="_blank" rel="noopener" href="https://pypi.org/project/PyQt5/">PyQt5</a>.</p>
+<h3 id="longer-visions-vcimgnetclient_qt.py">2.3.3 <a
+target="_blank" rel="noopener" href="http://www.longervision.cn/">Longer Vision</a>’s
+vcimgnetclient_qt.py</h3>
+<h4 id="server">2.3.3.1 Server</h4>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">22:42:22[root@VC-Z] /home/user</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="built_in">whoami</span></span></span><br><span class="line">root</span><br><span class="line"></span><br><span class="line">22:42:24[root@VC-Z] /home/user</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">vcimgnetsrv &amp;</span></span><br><span class="line">[1] 896</span><br><span class="line"></span><br><span class="line">22:42:30[root@VC-Z] /home/user</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">ps -e | grep vcimgnetsrv</span></span><br><span class="line">  896 pts/0    00:00:00 vcimgnetsrv</span><br><span class="line"></span><br><span class="line">22:42:40[root@VC-Z] /home/user</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">vctp</span></span><br><span class="line">Acquisiton&amp;Copy Duration:          4s      39644us  for 100 Cycles ==  24.754656fps.</span><br><span class="line"></span><br><span class="line">Acquisiton&amp;Copy Duration:          4s      34709us  for 100 Cycles ==  24.784935fps.</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<h4 id="client">2.3.3.2 Client</h4>
+<p>Sorry, I’m <strong>NOT</strong> going to show my code, but the
+performance can be demonstrated as follows:</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/FPGA/lvt_vc_pyqt5_grab.png"
+alt="LVT VC PyQt5 GUI" />
+<figcaption aria-hidden="true">LVT VC PyQt5 GUI</figcaption>
+</figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1727,269 +2020,6 @@ target="_blank" rel="noopener" href="https://pixycam.com/">Pixy Cam</a>, and her
 <span style="color:red">**my conclusion: Please use <a
 target="_blank" rel="noopener" href="https://www.amazon.com/s?k=esp32+cam">esp32-cam</a> instead.
 </span></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/07/15/MachineVision/MCU/openmv/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | Longer Vision Technology">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/07/15/MachineVision/MCU/openmv/" class="post-title-link" itemprop="url">OpenMV</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2019-07-15 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-15T00:00:00-07:00">2019-07-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-09-28 17:33:45" itemprop="dateModified" datetime="2024-09-28T17:33:45-07:00">2024-09-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Machine-Vision/" itemprop="url" rel="index"><span itemprop="name">Machine Vision</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Machine-Vision/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>It's almost July 10, let me continue testing something else: <a
-target="_blank" rel="noopener" href="https://openmv.io/">OpenMV</a>. I used to have purchased 2 <a
-target="_blank" rel="noopener" href="https://openmv.io/">OpenMV</a> cameras, respectively: * <a
-target="_blank" rel="noopener" href="https://openmv.io/collections/cams/products/openmv-cam">OpenMV Cam
-M4 V2</a> with <a
-target="_blank" rel="noopener" href="https://www.st.com/en/microcontrollers-microprocessors/stm32f427vg.html">STM32F427VG</a>
-* <a
-target="_blank" rel="noopener" href="https://openmv.io/collections/cams/products/openmv-cam-m7">OpenMV
-Cam M7</a> with <a
-target="_blank" rel="noopener" href="https://www.st.com/en/microcontrollers-microprocessors/stm32f765vi.html">STM32F765VI</a></p>
-<p>No matter which version of <a target="_blank" rel="noopener" href="https://openmv.io/">OpenMV</a> is
-connected to the laptop via USB, command <strong>lsusb</strong> is able
-to list the device out as:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Bus 001 Device 020: ID 1209:abd1 InterBiometrics </span><br></pre></td></tr></table></figure>
-<h1 id="dilemma-of-openmv-ide">Dilemma of OpenMV-IDE</h1>
-<p><span style="color:red"><strong>Conclusion FIRST: NEVER build
-OpenMV-IDE from scratch using a different version of
-Qt!!!</strong></span></p>
-<p>To build <a
-target="_blank" rel="noopener" href="https://github.com/openmv/openmv-ide">OpenMV-IDE</a> is seriously
-<strong>headache</strong>.</p>
-<ul>
-<li>As you might have <strong>ALREADY</strong> noticed, <a
-target="_blank" rel="noopener" href="https://github.com/openmv/qt-creator/tree/b587ed9f6c93c6844782dc2e54c307878419c8e1">qt-creator
-in openmv-ide</a> is <strong>NOT</strong> the <strong>NEWEST</strong>
-version, which <strong>MIGHT NOT</strong> be compatible with your
-installed <a target="_blank" rel="noopener" href="https://www.qt.io/download">Qt</a>. Please also refer
-to my proposed github issue <a
-target="_blank" rel="noopener" href="https://github.com/openmv/openmv-ide/issues/48">make: *** No rule
-to make target 'installer'. Stop</a>.</li>
-<li>Therefore, it looks the <strong>simplest</strong> solution is to
-just download <strong>OpenMV IDE</strong> from <a
-target="_blank" rel="noopener" href="https://openmv.io/pages/download">https://openmv.io/pages/download</a>.
-However, to run the installed <strong>openmvide</strong> only brought me
-the following <strong>ERROR</strong> messages.</li>
-</ul>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜  openmv ./openmv-ide-linux-x86_64-2.2.0.run</span><br><span class="line">This application failed to start because it could not find or load the Qt platform plugin &quot;xcb&quot;</span><br><span class="line">in &quot;&quot;.</span><br><span class="line"></span><br><span class="line">Available platform plugins are: eglfs, linuxfb, minimal, minimalegl, offscreen, xcb.</span><br><span class="line"></span><br><span class="line">Reinstalling the application may fix this problem.</span><br></pre></td></tr></table></figure>
-<h1 id="test-openmv">Test OpenMV</h1>
-<p>In the following, we <strong>ONLY</strong> use <a
-target="_blank" rel="noopener" href="https://linux.die.net/man/8/picocom">picocom</a> to carry out the
-test.</p>
-<h2 id="openmv-cam-m4-v2-openmv2-with-stm32f427">1. OpenMV Cam M4 V2
-(OPENMV2 with STM32F427)</h2>
-<figure>
-<img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/OpenMV_Cam_M4_V2.jpg"
-alt="Current Contents In OpenMV Cam M4 V2" />
-<figcaption aria-hidden="true">Current Contents In OpenMV Cam M4
-V2</figcaption>
-</figure>
-<figure>
-<img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/OpenMV_Cam_M4_V2_properties.jpg"
-alt="OpenMV Cam M4 V2 Properties" />
-<figcaption aria-hidden="true">OpenMV Cam M4 V2 Properties</figcaption>
-</figure>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ picocom /dev/ttyACM0</span><br><span class="line">picocom v3.1</span><br><span class="line"></span><br><span class="line">port is        : /dev/ttyACM0</span><br><span class="line">flowcontrol    : none</span><br><span class="line">baudrate is    : 9600</span><br><span class="line">parity is      : none</span><br><span class="line">databits are   : 8</span><br><span class="line">stopbits are   : 1</span><br><span class="line">escape is      : C-a</span><br><span class="line">local echo is  : no</span><br><span class="line">noinit is      : no</span><br><span class="line">noreset is     : no</span><br><span class="line">hangup is      : no</span><br><span class="line">nolock is      : no</span><br><span class="line">send_cmd is    : sz -vv</span><br><span class="line">receive_cmd is : rz -vv -E</span><br><span class="line">imap is        : </span><br><span class="line">omap is        : </span><br><span class="line">emap is        : crcrlf,delbs,</span><br><span class="line">logfile is     : none</span><br><span class="line">initstring     : none</span><br><span class="line">exit_after is  : not set</span><br><span class="line">exit is        : no</span><br><span class="line"></span><br><span class="line">Type [C-a] [C-h] to see available commands</span><br><span class="line">Terminal ready</span><br><span class="line">MicroPython v1.9.3-4922-ge0f81c867 on 2018-04-23; OPENMV2 with STM32F427</span><br><span class="line">Type &quot;help()&quot; for more information.</span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt;</span> </span><br></pre></td></tr></table></figure>
-<p>Press <strong>Ctrl+A</strong> then <strong>Ctrl+x</strong>,
-<strong>picocom</strong> will terminate its execution.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt;</span> </span><br><span class="line">Terminating...</span><br><span class="line">Thanks for using picocom</span><br></pre></td></tr></table></figure>
-<h2 id="openmv-cam-m7-openmv3-with-stm32f765">2. OpenMV Cam M7 (OPENMV3
-with STM32F765)</h2>
-<figure>
-<img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/OpenMV_Cam_M7.jpg"
-alt="Current Contents In OpenMV Cam M7" />
-<figcaption aria-hidden="true">Current Contents In OpenMV Cam
-M7</figcaption>
-</figure>
-<figure>
-<img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/OpenMV_Cam_M7_properties.jpg"
-alt="OpenMV Cam M7 Properties" />
-<figcaption aria-hidden="true">OpenMV Cam M7 Properties</figcaption>
-</figure>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ picocom /dev/ttyACM0</span><br><span class="line">picocom v3.1</span><br><span class="line"></span><br><span class="line">port is        : /dev/ttyACM0</span><br><span class="line">flowcontrol    : none</span><br><span class="line">baudrate is    : 9600</span><br><span class="line">parity is      : none</span><br><span class="line">databits are   : 8</span><br><span class="line">stopbits are   : 1</span><br><span class="line">escape is      : C-a</span><br><span class="line">local echo is  : no</span><br><span class="line">noinit is      : no</span><br><span class="line">noreset is     : no</span><br><span class="line">hangup is      : no</span><br><span class="line">nolock is      : no</span><br><span class="line">send_cmd is    : sz -vv</span><br><span class="line">receive_cmd is : rz -vv -E</span><br><span class="line">imap is        : </span><br><span class="line">omap is        : </span><br><span class="line">emap is        : crcrlf,delbs,</span><br><span class="line">logfile is     : none</span><br><span class="line">initstring     : none</span><br><span class="line">exit_after is  : not set</span><br><span class="line">exit is        : no</span><br><span class="line"></span><br><span class="line">Type [C-a] [C-h] to see available commands</span><br><span class="line">Terminal ready</span><br><span class="line">MicroPython v1.9.4-4510-g23e8457de on 2018-06-29; OPENMV3 with STM32F765</span><br><span class="line">Type &quot;help()&quot; for more information.</span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt;</span> </span><br><span class="line">Terminating...</span><br><span class="line">Thanks for using picocom</span><br><span class="line">➜  ~ </span><br></pre></td></tr></table></figure>
-<h1 id="flash-openmv-firmware-onto-openmv-board">Flash OpenMV Firmware
-Onto OpenMV Board</h1>
-<h2 id="entering-dfu-mode">1. Entering DFU Mode</h2>
-<p>Similar to what's discussed in our <a
-href="../../../../../../2019/07/13/SBCs/MCU/micropython-pyboard/">previous
-blog</a>, we need to enter DFU mode before flashing. * Disconnect the
-power for OpenMV board <strong>FIRST</strong> * Connect <strong>BOOT
-pin</strong> and <strong>RST pin</strong> afterwards * Then, reconnect
-the USB cable for flashing.</p>
-<p>Before entering DFU mode: <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ lsusb</span><br><span class="line">...</span><br><span class="line">Bus 001 Device 027: ID 1209:abd1 InterBiometrics</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
-<p>After entering DFU mode: <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ lsusb</span><br><span class="line">...</span><br><span class="line">Bus 001 Device 028: ID 0483:df11 STMicroelectronics STM Device in DFU Mode</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
-<h2 id="flashing-openmvs-firmware">2. Flashing OpenMV's Firmware</h2>
-<p>Checkout the <strong>NEWEST</strong> <a
-target="_blank" rel="noopener" href="https://github.com/openmv/openmv">OpenMV</a>. Find the
-corrensponding version of OpenMV board, flash it by command
-<code>python pydfu.py -u &lt;firmware.dfu&gt;</code>.</p>
-<h3 id="openmv-cam-m4-v2-openmv2-with-stm32f427-1">1) OpenMV Cam M4 V2
-(OPENMV2 with STM32F427)</h3>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">➜  openmv git:(master) python ./tools/pydfu.py -u firmware/OPENMV2/firmware.dfu </span><br><span class="line">./tools/pydfu.py:80: DeprecationWarning: inspect.getargspec() is deprecated since Python 3.0, use inspect.signature() or inspect.getfullargspec()</span><br><span class="line">  if &#x27;length&#x27; in inspect.getargspec(usb.util.get_string).args:</span><br><span class="line">File: firmware/OPENMV2/firmware.dfu</span><br><span class="line">    b&#x27;DfuSe&#x27; v1, image size: 834757, targets: 1</span><br><span class="line">    b&#x27;Target&#x27; 0, alt setting: 0, name: &quot;ST...&quot;, size: 834472, elements: 1</span><br><span class="line">      0, address: 0x08010000, size: 834464</span><br><span class="line">    usb: 0483:df11, device: 0x0000, dfu: 0x011a, b&#x27;UFD&#x27;, 16, 0x9dfe8e73</span><br><span class="line">Writing memory...</span><br><span class="line">0x08010000  834464 [=========================] 100% </span><br><span class="line">Exiting DFU...</span><br></pre></td></tr></table></figure>
-<p>Let's try <strong>picocom</strong> directly:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">➜  openmv git:(master) picocom /dev/ttyACM0</span><br><span class="line">picocom v3.1</span><br><span class="line"></span><br><span class="line">port is        : /dev/ttyACM0</span><br><span class="line">flowcontrol    : none</span><br><span class="line">baudrate is    : 9600</span><br><span class="line">parity is      : none</span><br><span class="line">databits are   : 8</span><br><span class="line">stopbits are   : 1</span><br><span class="line">escape is      : C-a</span><br><span class="line">local echo is  : no</span><br><span class="line">noinit is      : no</span><br><span class="line">noreset is     : no</span><br><span class="line">hangup is      : no</span><br><span class="line">nolock is      : no</span><br><span class="line">send_cmd is    : sz -vv</span><br><span class="line">receive_cmd is : rz -vv -E</span><br><span class="line">imap is        : </span><br><span class="line">omap is        : </span><br><span class="line">emap is        : crcrlf,delbs,</span><br><span class="line">logfile is     : none</span><br><span class="line">initstring     : none</span><br><span class="line">exit_after is  : not set</span><br><span class="line">exit is        : no</span><br><span class="line"></span><br><span class="line">Type [C-a] [C-h] to see available commands</span><br><span class="line">Terminal ready</span><br><span class="line">6792</span><br><span class="line">18.86792</span><br><span class="line">18.86792</span><br><span class="line">18.86792</span><br><span class="line">18.86792</span><br><span class="line">18.86792</span><br><span class="line">18.86792</span><br><span class="line">......</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;/main.py&quot;, line 51, in &lt;module&gt;</span><br><span class="line">KeyboardInterrupt: </span><br><span class="line">MicroPython v1.9.4-4553-gb4eccdfe3 on 2019-05-02; OPENMV2 with STM32F427</span><br><span class="line">Type &quot;help()&quot; for more information.</span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt;</span> </span><br><span class="line">Terminating...</span><br><span class="line">Thanks for using picocom</span><br></pre></td></tr></table></figure>
-<p>Check file <strong>main.py</strong>, which starts running
-automatically while testing with <strong>picocom</strong>.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Face Detection Example</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># This example shows off the built-in face detection feature of the OpenMV Cam.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Face detection works by using the Haar Cascade feature detector on an image. A</span></span><br><span class="line"><span class="comment"># Haar Cascade is a series of simple area contrasts checks. For the built-in</span></span><br><span class="line"><span class="comment"># frontalface detector there are 25 stages of checks with each stage having</span></span><br><span class="line"><span class="comment"># hundreds of checks a piece. Haar Cascades run fast because later stages are</span></span><br><span class="line"><span class="comment"># only evaluated if previous stages pass. Additionally, your OpenMV Cam uses</span></span><br><span class="line"><span class="comment"># a data structure called the integral image to quickly execute each area</span></span><br><span class="line"><span class="comment"># contrast check in constant time (the reason for feature detection being</span></span><br><span class="line"><span class="comment"># grayscale only is because of the space requirment for the integral image).</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sensor, time, image</span><br><span class="line"></span><br><span class="line"><span class="comment"># Reset sensor</span></span><br><span class="line">sensor.reset()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Sensor settings</span></span><br><span class="line">sensor.set_contrast(<span class="number">1</span>)</span><br><span class="line">sensor.set_gainceiling(<span class="number">16</span>)</span><br><span class="line"><span class="comment"># HQVGA and GRAYSCALE are the best for face tracking.</span></span><br><span class="line">sensor.set_framesize(sensor.HQVGA)</span><br><span class="line">sensor.set_pixformat(sensor.GRAYSCALE)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load Haar Cascade</span></span><br><span class="line"><span class="comment"># By default this will use all stages, lower satges is faster but less accurate.</span></span><br><span class="line">face_cascade = image.HaarCascade(<span class="string">&quot;frontalface&quot;</span>, stages=<span class="number">25</span>)</span><br><span class="line"><span class="built_in">print</span>(face_cascade)</span><br><span class="line"></span><br><span class="line"><span class="comment"># FPS clock</span></span><br><span class="line">clock = time.clock()</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (<span class="literal">True</span>):</span><br><span class="line">    clock.tick()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Capture snapshot</span></span><br><span class="line">    img = sensor.snapshot()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Find objects.</span></span><br><span class="line">    <span class="comment"># Note: Lower scale factor scales-down the image more and detects smaller objects.</span></span><br><span class="line">    <span class="comment"># Higher threshold results in a higher detection rate, with more false positives.</span></span><br><span class="line">    objects = img.find_features(face_cascade, threshold=<span class="number">0.75</span>, scale_factor=<span class="number">1.25</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Draw objects</span></span><br><span class="line">    <span class="keyword">for</span> r <span class="keyword">in</span> objects:</span><br><span class="line">        img.draw_rectangle(r)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Print FPS.</span></span><br><span class="line">    <span class="comment"># Note: Actual FPS is higher, streaming the FB makes it slower.</span></span><br><span class="line">    <span class="built_in">print</span>(clock.fps())</span><br></pre></td></tr></table></figure>
-<h3 id="openmv-cam-m7-openmv3-with-stm32f765-1">2) OpenMV Cam M7
-(OPENMV3 with STM32F765)</h3>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">➜  openmv git:(master) python ./tools/pydfu.py -u firmware/OPENMV3/firmware.dfu</span><br><span class="line">./tools/pydfu.py:80: DeprecationWarning: inspect.getargspec() is deprecated since Python 3.0, use inspect.signature() or inspect.getfullargspec()</span><br><span class="line">  if &#x27;length&#x27; in inspect.getargspec(usb.util.get_string).args:</span><br><span class="line">File: firmware/OPENMV3/firmware.dfu</span><br><span class="line">    b&#x27;DfuSe&#x27; v1, image size: 1297173, targets: 1</span><br><span class="line">    b&#x27;Target&#x27; 0, alt setting: 0, name: &quot;ST...&quot;, size: 1296888, elements: 1</span><br><span class="line">      0, address: 0x08020000, size: 1296880</span><br><span class="line">    usb: 0483:df11, device: 0x0000, dfu: 0x011a, b&#x27;UFD&#x27;, 16, 0xeff0bf62</span><br><span class="line">Writing memory...</span><br><span class="line">0x08020000 1296880 [=========================] 100% </span><br><span class="line">Exiting DFU...</span><br></pre></td></tr></table></figure>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">➜  openmv git:(master) picocom /dev/ttyACM0</span><br><span class="line">picocom v3.1</span><br><span class="line"></span><br><span class="line">port is        : /dev/ttyACM0</span><br><span class="line">flowcontrol    : none</span><br><span class="line">baudrate is    : 9600</span><br><span class="line">parity is      : none</span><br><span class="line">databits are   : 8</span><br><span class="line">stopbits are   : 1</span><br><span class="line">escape is      : C-a</span><br><span class="line">local echo is  : no</span><br><span class="line">noinit is      : no</span><br><span class="line">noreset is     : no</span><br><span class="line">hangup is      : no</span><br><span class="line">nolock is      : no</span><br><span class="line">send_cmd is    : sz -vv</span><br><span class="line">receive_cmd is : rz -vv -E</span><br><span class="line">imap is        : </span><br><span class="line">omap is        : </span><br><span class="line">emap is        : crcrlf,delbs,</span><br><span class="line">logfile is     : none</span><br><span class="line">initstring     : none</span><br><span class="line">exit_after is  : not set</span><br><span class="line">exit is        : no</span><br><span class="line"></span><br><span class="line">Type [C-a] [C-h] to see available commands</span><br><span class="line">Terminal ready</span><br><span class="line">MicroPython v1.9.4-4553-gb4eccdfe3 on 2019-05-02; OPENMV3 with STM32F765</span><br><span class="line">Type &quot;help()&quot; for more information.</span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt;</span> </span><br><span class="line">Terminating...</span><br><span class="line">Thanks for using picocom</span><br><span class="line">➜  openmv git:(master) </span><br></pre></td></tr></table></figure>
-<p><span style="color:red"><strong>As you can see, firmware has NOW been
-updated to MicroPython v1.9.4-4553-gb4eccdfe3 on
-2019-05-02.</strong></span></p>
-<h1 id="stream-openmv-video-without-openmv-ide">Stream OpenMV Video
-without OpenMV-IDE</h1>
-<h2 id="snapshot">1. Snapshot</h2>
-<p>We <strong>FIRST</strong> test <a
-target="_blank" rel="noopener" href="https://github.com/openmv/openmv/blob/master/scripts/examples/05-Snapshot/snapshot.py">OpenMV
-snapshot code</a> on <a
-target="_blank" rel="noopener" href="https://openmv.io/collections/cams/products/openmv-cam">OpenMV Cam
-M4 V2 (OPENMV2 with STM32F427)</a>.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Snapshot Example</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Note: You will need an SD card to run this example.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># You can use your OpenMV Cam to save image files.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sensor, image, pyb</span><br><span class="line"></span><br><span class="line">RED_LED_PIN = <span class="number">1</span></span><br><span class="line">BLUE_LED_PIN = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">sensor.reset() <span class="comment"># Initialize the camera sensor.</span></span><br><span class="line">sensor.set_pixformat(sensor.RGB565) <span class="comment"># or sensor.GRAYSCALE</span></span><br><span class="line">sensor.set_framesize(sensor.QVGA) <span class="comment"># or sensor.QQVGA (or others)</span></span><br><span class="line">sensor.skip_frames(time = <span class="number">2000</span>) <span class="comment"># Let new settings take affect.</span></span><br><span class="line"></span><br><span class="line">pyb.LED(RED_LED_PIN).on()</span><br><span class="line">sensor.skip_frames(time = <span class="number">2000</span>) <span class="comment"># Give the user time to get ready.</span></span><br><span class="line"></span><br><span class="line">pyb.LED(RED_LED_PIN).off()</span><br><span class="line">pyb.LED(BLUE_LED_PIN).on()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;You&#x27;re on camera!&quot;</span>)</span><br><span class="line">sensor.snapshot().save(<span class="string">&quot;example.jpg&quot;</span>) <span class="comment"># or &quot;example.bmp&quot; (or others)</span></span><br><span class="line"></span><br><span class="line">pyb.LED(BLUE_LED_PIN).off()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Done! Reset the camera to see the saved image.&quot;</span>)</span><br></pre></td></tr></table></figure>
-<figure>
-<img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/OpenMV_Cam_M4_V2_snapshot.jpg"
-alt="Snapshot on OpenMV Cam M4 V2" />
-<figcaption aria-hidden="true">Snapshot on OpenMV Cam M4 V2</figcaption>
-</figure>
-<h2 id="video-recording">2. Video Recording</h2>
-<p>We <strong>THEN</strong> test <a
-target="_blank" rel="noopener" href="https://github.com/openmv/openmv/blob/master/scripts/examples/06-Video-Recording/mjpeg.py">OpenMV
-video recording</a> on <a
-target="_blank" rel="noopener" href="https://openmv.io/collections/cams/products/openmv-cam-m7">OpenMV
-Cam M7 (OPENMV3 with STM32F765)</a>.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># MJPEG Video Recording Example</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Note: You will need an SD card to run this demo.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># You can use your OpenMV Cam to record mjpeg files. You can either feed the</span></span><br><span class="line"><span class="comment"># recorder object JPEG frames or RGB565/Grayscale frames. Once you&#x27;ve finished</span></span><br><span class="line"><span class="comment"># recording a Mjpeg file you can use VLC to play it. If you are on Ubuntu then</span></span><br><span class="line"><span class="comment"># the built-in video player will work too.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sensor, image, time, mjpeg, pyb</span><br><span class="line"></span><br><span class="line">RED_LED_PIN = <span class="number">1</span></span><br><span class="line">BLUE_LED_PIN = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">sensor.reset() <span class="comment"># Initialize the camera sensor.</span></span><br><span class="line">sensor.set_pixformat(sensor.RGB565) <span class="comment"># or sensor.GRAYSCALE</span></span><br><span class="line">sensor.set_framesize(sensor.QVGA) <span class="comment"># or sensor.QQVGA (or others)</span></span><br><span class="line">sensor.skip_frames(time = <span class="number">2000</span>) <span class="comment"># Let new settings take affect.</span></span><br><span class="line">clock = time.clock() <span class="comment"># Tracks FPS.</span></span><br><span class="line"></span><br><span class="line">pyb.LED(RED_LED_PIN).on()</span><br><span class="line">sensor.skip_frames(time = <span class="number">2000</span>) <span class="comment"># Give the user time to get ready.</span></span><br><span class="line"></span><br><span class="line">pyb.LED(RED_LED_PIN).off()</span><br><span class="line">pyb.LED(BLUE_LED_PIN).on()</span><br><span class="line"></span><br><span class="line">m = mjpeg.Mjpeg(<span class="string">&quot;example.mjpeg&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;You&#x27;re on camera!&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">200</span>):</span><br><span class="line">    clock.tick()</span><br><span class="line">    m.add_frame(sensor.snapshot())</span><br><span class="line">    <span class="built_in">print</span>(clock.fps())</span><br><span class="line"></span><br><span class="line">m.close(clock.fps())</span><br><span class="line">pyb.LED(BLUE_LED_PIN).off()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Done! Reset the camera to see the saved recording.&quot;</span>)</span><br></pre></td></tr></table></figure>
-<figure>
-<img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/OpenMV_Cam_M7_videorecording.jpg"
-alt="Video recorded on OpenMV Cam M7" />
-<figcaption aria-hidden="true">Video recorded on OpenMV Cam
-M7</figcaption>
-</figure>
-<p><span style="color:red"><strong>It looks it's NOT easy to demo with
-the SD card. Please refer to my symptoms on the <a
-target="_blank" rel="noopener" href="http://forums.openmv.io/viewtopic.php?p=8719&amp;sid=3b3c46c30d2b65bb100deb1f07f43dd4#p8708">OpenMV
-forum</a>.</strong></span></p>
-<h2 id="wifi-module">3. Wifi Module</h2>
-<p>As expected, <a target="_blank" rel="noopener" href="https://openmv.io/">OpenMV</a> NOW also
-privides its <a
-target="_blank" rel="noopener" href="https://openmv.io/collections/shields/products/wifi-shield">Wifi
-module</a> now. Let's just test the example code from <a
-target="_blank" rel="noopener" href="https://github.com/openmv/openmv">openmv's repo</a>.</p>
-<p><a
-target="_blank" rel="noopener" href="https://github.com/openmv/openmv/blob/master/scripts/examples/14-WiFi-Shield/connect.py">OpenMV
-Wifi Shield Connection</a></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Connect Example</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># This example shows how to connect your OpenMV Cam with a WiFi shield to the net.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> network</span><br><span class="line"></span><br><span class="line">SSID=<span class="string">&#x27;&#x27;</span> <span class="comment"># Network SSID</span></span><br><span class="line">KEY=<span class="string">&#x27;&#x27;</span>  <span class="comment"># Network key</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Init wlan module and connect to network</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Trying to connect... (may take a while)...&quot;</span>)</span><br><span class="line"></span><br><span class="line">wlan = network.WINC()</span><br><span class="line">wlan.connect(SSID, key=KEY, security=wlan.WPA_PSK)</span><br><span class="line"></span><br><span class="line"><span class="comment"># We should have a valid IP now via DHCP</span></span><br><span class="line"><span class="built_in">print</span>(wlan.ifconfig())</span><br></pre></td></tr></table></figure>
-<p><span style="color:red"><strong>However, it's NOT that handy to have
-the Wifi module tested.</strong></span></p>
-<p><span style="color:red"><strong>My conclusion: Please use <a
-target="_blank" rel="noopener" href="https://www.amazon.com/s?k=esp32+cam">esp32-cam</a>
-instead.</strong></span></p>
-<!-- There several key points to be mentioned before building:
-
-* python3 but **NOT** python2
-* **NO** recursive submodule from [OpenMV-IDE](https://github.com/openmv/openmv-ide)
-  - **NEWEST** [openmv-media](https://github.com/openmv/openmv-media)
-  - **NEWEST** [qt-creator](https://github.com/qt-creator/qt-creator)
-* **NO** need to `pip install` anything, **ALL** have been manually installed beforehand
-* The **MOST** important: to build [OpenMV-IDE](https://github.com/openmv/openmv-ide) from scratch is in order to
-
-In such, **make.py** is manually modified as:
-
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">diff --git a/make.py b/make.py</span><br><span class="line">index 63bbb83..5bb2f3c 100755</span><br><span class="line">--- a/make.py</span><br><span class="line">+++ b/make.py</span><br><span class="line">@@ -114,6 +114,7 @@ def find_ifdir():</span><br><span class="line"> def make():</span><br><span class="line"> </span><br><span class="line">     __folder__ = os.path.dirname(os.path.abspath(__file__))</span><br><span class="line">+    print(&quot;__folder__=&quot;+__folder__+&quot;\n&quot;)</span><br><span class="line"> </span><br><span class="line">     parser = argparse.ArgumentParser(description =</span><br><span class="line">     &quot;Make Script&quot;)</span><br><span class="line">@@ -140,6 +141,8 @@ def make():</span><br><span class="line"> </span><br><span class="line">     builddir = os.path.join(__folder__, &quot;build&quot;)</span><br><span class="line">     installdir = os.path.join(builddir, &quot;install&quot;)</span><br><span class="line">+    print(&quot;builddir=&quot;+builddir+&quot;\n&quot;)</span><br><span class="line">+    print(&quot;installdir=&quot;+installdir+&quot;\n&quot;)</span><br><span class="line"> </span><br><span class="line">     if not os.path.exists(builddir):</span><br><span class="line">         os.mkdir(builddir)</span><br><span class="line">@@ -161,8 +164,8 @@ def make():</span><br><span class="line">         # Add setup.sh...</span><br><span class="line">         with open(os.path.join(installdir, &quot;setup.sh&quot;), &#x27;w&#x27;) as f:</span><br><span class="line">             f.write(&quot;#! /bin/sh\n\n&quot;)</span><br><span class="line">-            f.write(&quot;sudo apt-get install -y libxcb* libGLES* libts* libsqlite* libodbc* libsybdb* libusb-1.0 python-pip\n&quot;)</span><br><span class="line">-            f.write(&quot;sudo pip install pyusb\n\n&quot;)</span><br><span class="line">+#            f.write(&quot;sudo apt-get install -y libxcb* libGLES* libts* libsqlite* libodbc* libsybdb* libusb-1.0\n&quot;)</span><br><span class="line">+#            f.write(&quot;sudo pip install pyusb\n\n&quot;)</span><br><span class="line">             f.write(&quot;sudo cp $( dirname \&quot;$0\&quot; )/share/qtcreator/pydfu/50-openmv.rules /etc/udev/rules.d/50-openmv.rules\n&quot;)</span><br><span class="line">             f.write(&quot;sudo udevadm control --reload-rules\n\n&quot;)</span><br><span class="line">             f.write(&quot;if [ -z \&quot;$&#123;QT_QPA_PLATFORM&#125;\&quot; ]; then\n&quot;)</span><br><span class="line">@@ -215,19 +218,24 @@ def make():</span><br><span class="line">         # Add setup.sh...</span><br><span class="line">         with open(os.path.join(installdir, &quot;setup.sh&quot;), &#x27;w&#x27;) as f:</span><br><span class="line">             f.write(&quot;#! /bin/sh\n\n&quot;)</span><br><span class="line">-            f.write(&quot;sudo apt-get install -y libusb-1.0 python-pip\n&quot;)</span><br><span class="line">-            f.write(&quot;sudo pip install pyusb\n\n&quot;)</span><br><span class="line">+#            f.write(&quot;sudo apt-get install -y libusb-1.0 python-pip\n&quot;)</span><br><span class="line">+#            f.write(&quot;sudo pip install pyusb\n\n&quot;)</span><br><span class="line">             f.write(&quot;sudo cp $( dirname \&quot;$0\&quot; )/share/qtcreator/pydfu/50-openmv.rules /etc/udev/rules.d/50-openmv.rules\n&quot;)</span><br><span class="line">             f.write(&quot;sudo udevadm control --reload-rules\n\n&quot;)</span><br><span class="line">         os.chmod(os.path.join(installdir, &quot;setup.sh&quot;),</span><br><span class="line">             os.stat(os.path.join(installdir, &quot;setup.sh&quot;)).st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)</span><br><span class="line">         # Build...</span><br><span class="line">+        print(&quot;Start building!!! \n&quot;)</span><br><span class="line">+        print(str(cpus))</span><br><span class="line">         if os.system(&quot;cd &quot; + builddir +</span><br><span class="line">         &quot; &amp;&amp; qmake ../qt-creator/qtcreator.pro -r -spec linux-g++&quot; +</span><br><span class="line">         &quot; &amp;&amp; make -r -w -j&quot; + str(cpus) +</span><br><span class="line">-        &quot; &amp;&amp; make installer INSTALL_ROOT=&quot;+installdir + &quot; IFW_PATH=&quot;+str(ifdir)):</span><br><span class="line">+        &quot; &amp;&amp; make install INSTALL_ROOT=&quot;+installdir + &quot; IFW_PATH=&quot;+str(ifdir)):</span><br><span class="line">             sys.exit(&quot;Make Failed...&quot;)</span><br><span class="line">-        installer = glob.glob(os.path.join(builddir, &quot;openmv-ide-*.run&quot;))[0]</span><br><span class="line">+        installbindir = os.path.join(installdir, &quot;bin&quot;)</span><br><span class="line">+        print(&quot;installbindir=&quot;+installbindir+&quot;\n&quot;)</span><br><span class="line">+        print(os.path.join(installbindir, &quot;openmvide.sh&quot;))</span><br><span class="line">+        installer = glob.glob(os.path.join(installbindir, &quot;openmvide*.sh&quot;))[0]</span><br><span class="line"> </span><br><span class="line">     else:</span><br><span class="line">         sys.exit(&quot;Unknown Platform&quot;)</span><br></pre></td></tr></table></figure>
-<p>Now, let's try to build it.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">➜  openmv-ide git:(master) ✗ python make.py</span><br><span class="line">__folder__=....../openmv-ide</span><br><span class="line"></span><br><span class="line">builddir=....../openmv-ide/build</span><br><span class="line"></span><br><span class="line">installdir=....../openmv-ide/build/install</span><br><span class="line"></span><br><span class="line">Start building!!! </span><br><span class="line"></span><br><span class="line">8</span><br><span class="line">Reading ....../openmv-ide/qt-creator/src/src.pro [....../openmv-ide/build/src]</span><br><span class="line">......</span><br><span class="line">strip ....../openmv-ide/build/install/share/qtcreator/translations/qtcreator_zh_TW.qm</span><br><span class="line">strip:....../openmv-ide/build/install/share/qtcreator/translations/qtcreator_zh_TW.qm: file format not recognized</span><br><span class="line">make[2]: [Makefile:759: install_qmfiles] Error 1 (ignored)</span><br><span class="line">make[2]: Leaving directory &#x27;....../openmv-ide/build/share/qtcreator/translations&#x27;</span><br><span class="line">make[1]: Leaving directory &#x27;....../openmv-ide/build/share&#x27;</span><br><span class="line">cd bin/ &amp;&amp; ( test -e Makefile || /usr/lib/qt5/bin/qmake -o Makefile ....../openmv-ide/qt-creator/bin/bin.pro -spec linux-g++ ) &amp;&amp; make -f Makefile install</span><br><span class="line">make[1]: Entering directory &#x27;....../openmv-ide/build/bin&#x27;</span><br><span class="line">/usr/lib/qt5/bin/qmake -install qinstall -exe openmvide.sh ....../openmv-ide/build/install/bin/openmvide.sh</span><br><span class="line">make[1]: Leaving directory &#x27;....../openmv-ide/build/bin&#x27;</span><br><span class="line">/usr/lib/qt5/bin/qmake -install qinstall -exe ....../openmv-ide/qt-creator/dist/org.qt-project.qtcreator.appdata.xml ....../openmv-ide/build/install/share/metainfo/org.qt-project.qtcreator.appdata.xml</span><br><span class="line">strip ....../openmv-ide/build/install/share/metainfo/org.qt-project.qtcreator.appdata.xml</span><br><span class="line">strip:....../openmv-ide/build/install/share/metainfo/org.qt-project.qtcreator.appdata.xml: file format not recognized</span><br><span class="line">make: [Makefile:621: install_appstream] Error 1 (ignored)</span><br><span class="line">/usr/lib/qt5/bin/qmake -install qinstall -exe ....../openmv-ide/qt-creator/dist/org.qt-project.qtcreator.desktop ....../openmv-ide/build/install/share/applications/org.qt-project.qtcreator.desktop</span><br><span class="line">strip ....../openmv-ide/build/install/share/applications/org.qt-project.qtcreator.desktop</span><br><span class="line">strip:....../openmv-ide/build/install/share/applications/org.qt-project.qtcreator.desktop: file format not recognized</span><br><span class="line">make: [Makefile:631: install_desktop] Error 1 (ignored)</span><br><span class="line">installbindir=....../openmv-ide/build/install/bin</span><br><span class="line"></span><br><span class="line">....../openmv-ide/build/install/bin/openmvide.sh</span><br></pre></td></tr></table></figure>
-<p><strong>NOTHING runnable</strong> seems to be successfully built.</p>
-<h1 id="git-diff-qt-creator">git diff qt-creator</h1>
-<p>We then have to carry out a thorough comparison between <a
-target="_blank" rel="noopener" href="https://github.com/qt-creator/qt-creator">qt-creator</a> and <a
-target="_blank" rel="noopener" href="https://github.com/openmv/qt-creator/tree/b587ed9f6c93c6844782dc2e54c307878419c8e1">qt-creator
-in openmv-ide</a>. --&gt;</p>
 
       
     </div>
