@@ -19,12 +19,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="1. Symptom When I tried to build qt 5.15, I always obtain the following ERROR message: 12345678910Project ERROR: Library &#x27;assimp&#x27; is not defined.make[4]: *** [Makefile:85: sub-assimp-instal">
+    <meta name="description" content="1. Symptom When I tried to build qt 5.15, I always obtain the following ERROR message: 12345678910Project ERROR: Library &#x27;assimp&#x27; is not defined.make[4]: *** [Makefile:85: sub-assimp-install">
 <meta property="og:type" content="article">
 <meta property="og:title" content="How to build Qt5 with assimp?">
 <meta property="og:url" content="http://longervision.ca/2024/01/24/Coding/HowTo/qt5-assimp/index.html">
 <meta property="og:site_name" content="Longer Vision Technology">
-<meta property="og:description" content="1. Symptom When I tried to build qt 5.15, I always obtain the following ERROR message: 12345678910Project ERROR: Library &#x27;assimp&#x27; is not defined.make[4]: *** [Makefile:85: sub-assimp-instal">
+<meta property="og:description" content="1. Symptom When I tried to build qt 5.15, I always obtain the following ERROR message: 12345678910Project ERROR: Library &#x27;assimp&#x27; is not defined.make[4]: *** [Makefile:85: sub-assimp-install">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-01-24T08:00:00.000Z">
 <meta property="article:modified_time" content="2025-06-04T06:08:38.339Z">
@@ -106,7 +106,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-symptom"><span class="nav-number">1.</span> <span class="nav-text"> 1. Symptom</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-reason"><span class="nav-number">2.</span> <span class="nav-text"> 2. Reason</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-solution"><span class="nav-number">3.</span> <span class="nav-text"> 3. Solution</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#symptom"><span class="nav-number">1.</span> <span class="nav-text">1. Symptom</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reason"><span class="nav-number">2.</span> <span class="nav-text">2. Reason</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#solution"><span class="nav-number">3.</span> <span class="nav-text">3. Solution</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -218,15 +218,25 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h2 id="1-symptom"><a class="markdownIt-Anchor" href="#1-symptom"></a> 1. Symptom</h2>
-<p>When I tried to build <a target="_blank" rel="noopener" href="https://download.qt.io/official_releases/qt/5.15/">qt 5.15</a>, I <strong>always</strong> obtain the following <strong>ERROR</strong> message:</p>
+    <div class="post-body" itemprop="articleBody"><h2 id="symptom">1. Symptom</h2>
+<p>When I tried to build <a
+target="_blank" rel="noopener" href="https://download.qt.io/official_releases/qt/5.15/">qt 5.15</a>, I
+<strong>always</strong> obtain the following <strong>ERROR</strong>
+message:</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Project ERROR: Library &#x27;assimp&#x27; is not defined.</span><br><span class="line">make[4]: *** [Makefile:85: sub-assimp-install_subtargets] Error 3</span><br><span class="line">make[4]: Leaving directory &#x27;/opt/qt/qt-everywhere-src-5.15.12/qtquick3d/src/plugins/assetimporters&#x27;</span><br><span class="line">make[3]: *** [Makefile:59: sub-assetimporters-install_subtargets] Error 2</span><br><span class="line">make[3]: Leaving directory &#x27;/opt/qt/qt-everywhere-src-5.15.12/qtquick3d/src/plugins&#x27;</span><br><span class="line">make[2]: *** [Makefile:206: sub-plugins-install_subtargets-ordered] Error 2</span><br><span class="line">make[2]: Leaving directory &#x27;/opt/qt/qt-everywhere-src-5.15.12/qtquick3d/src&#x27;</span><br><span class="line">make[1]: *** [Makefile:62: sub-src-install_subtargets] Error 2</span><br><span class="line">make[1]: Leaving directory &#x27;/opt/qt/qt-everywhere-src-5.15.12/qtquick3d&#x27;</span><br><span class="line">make: *** [Makefile:378: module-qtquick3d-install_subtargets] Error 2</span><br></pre></td></tr></table></figure>
-<h2 id="2-reason"><a class="markdownIt-Anchor" href="#2-reason"></a> 2. Reason</h2>
-<p>Why? Please refer to <a target="_blank" rel="noopener" href="https://blog.csdn.net/Taozi825232603/article/details/132220891">QT5.15在Ubuntu22.04上编译流程</a>.</p>
-<h2 id="3-solution"><a class="markdownIt-Anchor" href="#3-solution"></a> 3. Solution</h2>
+<h2 id="reason">2. Reason</h2>
+<p>Why? Please refer to <a
+target="_blank" rel="noopener" href="https://blog.csdn.net/Taozi825232603/article/details/132220891">QT5.15在Ubuntu22.04上编译流程</a>.</p>
+<h2 id="solution">3. Solution</h2>
 <ul>
-<li>Modify <strong>line 13</strong> of <code>/opt/qt/qt-everywhere-src-5.15.12/qtquick3d/src/plugins/assetimporters/assimp/assimp.pro</code> from <code>QMAKE_USE_PRIVATE += assimp</code> to <code>QMAKE_USE_PRIVATE += quick3d-assimp</code>.</li>
-<li>Don’t use <strong>assimp-5.2.2</strong> from Ubuntu default repo, but build and install <a target="_blank" rel="noopener" href="https://github.com/assimp/assimp.git">assimp</a> (5.2.3 or above) from source.</li>
+<li>Modify <strong>line 13</strong> of
+<code>/opt/qt/qt-everywhere-src-5.15.12/qtquick3d/src/plugins/assetimporters/assimp/assimp.pro</code>
+from <code>QMAKE_USE_PRIVATE += assimp</code> to
+<code>QMAKE_USE_PRIVATE += quick3d-assimp</code>.</li>
+<li>Don't use <strong>assimp-5.2.2</strong> from Ubuntu default repo,
+but build and install <a
+target="_blank" rel="noopener" href="https://github.com/assimp/assimp.git">assimp</a> (5.2.3 or above)
+from source.</li>
 </ul>
 
     </div>
