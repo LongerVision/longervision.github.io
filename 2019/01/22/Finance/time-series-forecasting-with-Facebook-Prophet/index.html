@@ -19,22 +19,18 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Today, we are going to test out Facebook Prophet by following this DigitalOcean Tutorial.  Preparation  Required Python Packages We FIRST make sure 2 Python packages - Prophet and PyStan have been suc">
+    <meta name="description" content="Today, we are going to test out Facebook Prophet by following this DigitalOcean Tutorial. Preparation Required Python Packages We FIRST make sure 2 Python packages - Prophet and PyStan have been succe">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Time Series Forecasting with Facebook Prophet">
 <meta property="og:url" content="http://longervision.ca/2019/01/22/Finance/time-series-forecasting-with-Facebook-Prophet/index.html">
 <meta property="og:site_name" content="Longer Vision Technology">
-<meta property="og:description" content="Today, we are going to test out Facebook Prophet by following this DigitalOcean Tutorial.  Preparation  Required Python Packages We FIRST make sure 2 Python packages - Prophet and PyStan have been suc">
+<meta property="og:description" content="Today, we are going to test out Facebook Prophet by following this DigitalOcean Tutorial. Preparation Required Python Packages We FIRST make sure 2 Python packages - Prophet and PyStan have been succe">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/prophet/01_originaldata.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/prophet/02_forcast.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/prophet/03_forcast_components.jpg">
 <meta property="article:published_time" content="2019-01-22T08:00:00.000Z">
 <meta property="article:modified_time" content="2025-06-04T06:08:38.154Z">
 <meta property="article:author" content="Nobody">
 <meta property="article:tag" content="Finance, Prophet">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/prophet/01_originaldata.jpg">
 
 
 <link rel="canonical" href="http://longervision.ca/2019/01/22/Finance/time-series-forecasting-with-Facebook-Prophet/">
@@ -110,7 +106,8 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#preparation"><span class="nav-number">1.</span> <span class="nav-text"> Preparation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#required-python-packages"><span class="nav-number">1.1.</span> <span class="nav-text"> Required Python Packages</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#download-the-time-series-data"><span class="nav-number">1.2.</span> <span class="nav-text"> Download the Time Series Data</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#test"><span class="nav-number">2.</span> <span class="nav-text"> Test</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#the-code"><span class="nav-number">2.1.</span> <span class="nav-text"> The Code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#outcome"><span class="nav-number">2.2.</span> <span class="nav-text"> Outcome</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#preparation"><span class="nav-number">1.</span> <span class="nav-text">Preparation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#required-python-packages"><span class="nav-number">1.1.</span> <span class="nav-text">Required Python Packages</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#download-the-time-series-data"><span class="nav-number">1.2.</span> <span class="nav-text">Download the Time Series
+Data</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#test"><span class="nav-number">2.</span> <span class="nav-text">Test</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#the-code"><span class="nav-number">2.1.</span> <span class="nav-text">The Code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#outcome"><span class="nav-number">2.2.</span> <span class="nav-text">Outcome</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -218,22 +215,47 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>Today, we are going to test out <a target="_blank" rel="noopener" href="https://facebook.github.io/prophet/">Facebook Prophet</a> by following <a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/a-guide-to-time-series-forecasting-with-prophet-in-python-3">this DigitalOcean Tutorial</a>.</p>
-<h1 id="preparation"><a class="markdownIt-Anchor" href="#preparation"></a> Preparation</h1>
-<h2 id="required-python-packages"><a class="markdownIt-Anchor" href="#required-python-packages"></a> Required Python Packages</h2>
-<p>We <strong>FIRST</strong> make sure 2 Python packages - <a target="_blank" rel="noopener" href="https://facebook.github.io/prophet/">Prophet</a> and <a target="_blank" rel="noopener" href="https://pystan.readthedocs.io/en/latest/">PyStan</a> have been successfully installed.</p>
+    <div class="post-body" itemprop="articleBody"><p>Today, we are going to test out <a
+target="_blank" rel="noopener" href="https://facebook.github.io/prophet/">Facebook Prophet</a> by
+following <a
+target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/a-guide-to-time-series-forecasting-with-prophet-in-python-3">this
+DigitalOcean Tutorial</a>.</p>
+<h1 id="preparation">Preparation</h1>
+<h2 id="required-python-packages">Required Python Packages</h2>
+<p>We <strong>FIRST</strong> make sure 2 Python packages - <a
+target="_blank" rel="noopener" href="https://facebook.github.io/prophet/">Prophet</a> and <a
+target="_blank" rel="noopener" href="https://pystan.readthedocs.io/en/latest/">PyStan</a> have been
+successfully installed.</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip show prophet</span><br><span class="line">Name: prophet</span><br><span class="line">Version: 0.1.1</span><br><span class="line">Summary: Microframework for analyzing financial markets.</span><br><span class="line">Home-page: http://prophet.michaelsu.io/</span><br><span class="line">Author: Michael Su</span><br><span class="line">Author-email: mdasu1@gmail.com</span><br><span class="line">License: BSD</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: six, pytz, pandas</span><br><span class="line">Required-by: </span><br><span class="line">➜  ~ pip show pystan</span><br><span class="line">Name: pystan</span><br><span class="line">Version: 2.18.1.0</span><br><span class="line">Summary: Python interface to Stan, a package for Bayesian inference</span><br><span class="line">Home-page: https://github.com/stan-dev/pystan</span><br><span class="line">Author: None</span><br><span class="line">Author-email: None</span><br><span class="line">License: GPLv3</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: Cython, numpy</span><br><span class="line">Required-by: fbprophet</span><br></pre></td></tr></table></figure>
-<h2 id="download-the-time-series-data"><a class="markdownIt-Anchor" href="#download-the-time-series-data"></a> Download the Time Series Data</h2>
+<h2 id="download-the-time-series-data">Download the Time Series
+Data</h2>
 <p>We just need to download the CSV file to some directory:</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  facebookprophet curl -O https://assets.digitalocean.com/articles/eng_python/prophet/AirPassengers.csv</span><br><span class="line"><span class="meta prompt_">  % </span><span class="language-bash">Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</span></span><br><span class="line">                                 Dload  Upload   Total   Spent    Left  Speed</span><br><span class="line">100  1748  100  1748    0     0   2281      0 --:--:-- --:--:-- --:--:--  2279</span><br></pre></td></tr></table></figure>
-<h1 id="test"><a class="markdownIt-Anchor" href="#test"></a> Test</h1>
-<h2 id="the-code"><a class="markdownIt-Anchor" href="#the-code"></a> The Code</h2>
-<p>Trivial modifications have been done upon the code on <a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/a-guide-to-time-series-forecasting-with-prophet-in-python-3">this DigitalOcean Tutorial</a>, as follows:</p>
+<h1 id="test">Test</h1>
+<h2 id="the-code">The Code</h2>
+<p>Trivial modifications have been done upon the code on <a
+target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/a-guide-to-time-series-forecasting-with-prophet-in-python-3">this
+DigitalOcean Tutorial</a>, as follows:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> fbprophet <span class="keyword">import</span> Prophet</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.style.use(<span class="string">&#x27;fivethirtyeight&#x27;</span>)</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;AirPassengers.csv&#x27;</span>)</span><br><span class="line">df.head(<span class="number">5</span>)</span><br><span class="line">df.dtypes</span><br><span class="line"></span><br><span class="line">df[<span class="string">&#x27;Month&#x27;</span>] = pd.DatetimeIndex(df[<span class="string">&#x27;Month&#x27;</span>])</span><br><span class="line">df.dtypes</span><br><span class="line"></span><br><span class="line">df = df.rename(columns=&#123;<span class="string">&#x27;Month&#x27;</span>: <span class="string">&#x27;ds&#x27;</span>, <span class="string">&#x27;AirPassengers&#x27;</span>: <span class="string">&#x27;y&#x27;</span>&#125;)</span><br><span class="line">df.head(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">ax = df.set_index(<span class="string">&#x27;ds&#x27;</span>).plot(figsize=(<span class="number">12</span>, <span class="number">8</span>))</span><br><span class="line">ax.set_ylabel(<span class="string">&#x27;Monthly Number of Airline Passengers&#x27;</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">&#x27;Date&#x27;</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># set the uncertainty interval to 95% (the Prophet default is 80%)</span></span><br><span class="line">my_model = Prophet(interval_width=<span class="number">0.95</span>)</span><br><span class="line">my_model.fit(df)</span><br><span class="line">future_dates = my_model.make_future_dataframe(periods=<span class="number">36</span>, freq=<span class="string">&#x27;MS&#x27;</span>)</span><br><span class="line">future_dates.tail()</span><br><span class="line">forecast = my_model.predict(future_dates)</span><br><span class="line">forecast[[<span class="string">&#x27;ds&#x27;</span>, <span class="string">&#x27;yhat&#x27;</span>, <span class="string">&#x27;yhat_lower&#x27;</span>, <span class="string">&#x27;yhat_upper&#x27;</span>]].tail()</span><br><span class="line">fig1 = my_model.plot(forecast, uncertainty=<span class="literal">True</span>)</span><br><span class="line">fig1.show()</span><br><span class="line"></span><br><span class="line">my_model.plot_components(forecast).savefig(<span class="string">&#x27;prophet_forcast.png&#x27;</span>);</span><br></pre></td></tr></table></figure>
-<h2 id="outcome"><a class="markdownIt-Anchor" href="#outcome"></a> Outcome</h2>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/prophet/01_originaldata.jpg" alt="Original Data" /></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/prophet/02_forcast.jpg" alt="Forcast" /></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/prophet/03_forcast_components.jpg" alt="Forcast Component" /></p>
+<h2 id="outcome">Outcome</h2>
+<figure>
+<img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/prophet/01_originaldata.jpg"
+alt="Original Data" />
+<figcaption aria-hidden="true">Original Data</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/prophet/02_forcast.jpg"
+alt="Forcast" />
+<figcaption aria-hidden="true">Forcast</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/prophet/03_forcast_components.jpg"
+alt="Forcast Component" />
+<figcaption aria-hidden="true">Forcast Component</figcaption>
+</figure>
 
     </div>
 
