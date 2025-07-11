@@ -169,7 +169,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2025/07/02/SBCs/MCU/ESP32/esp32-c3-bluetooth-speaker/">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2025/07/02/SBCs/MCU/ESP32/esp32-c3-WiFi-speaker/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -187,7 +187,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/07/02/SBCs/MCU/ESP32/esp32-c3-bluetooth-speaker/" class="post-title-link" itemprop="url">ESP32-C3 Bluetooth Speaker</a>
+          <a href="/2025/07/02/SBCs/MCU/ESP32/esp32-c3-WiFi-speaker/" class="post-title-link" itemprop="url">ESP32-C3 WiFi Speaker</a>
         </h2>
 
         <div class="post-meta-container">
@@ -205,7 +205,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-07-11 11:12:57" itemprop="dateModified" datetime="2025-07-11T11:12:57-07:00">2025-07-11</time>
+      <time title="Modified: 2025-07-11 13:54:53" itemprop="dateModified" datetime="2025-07-11T13:54:53-07:00">2025-07-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -229,7 +229,7 @@
         </span>
           , 
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Single-Board-Computers/MCU/ESP32/ESP32-C3/Bluetooth/" itemprop="url" rel="index"><span itemprop="name">Bluetooth</span></a>
+          <a href="/categories/Single-Board-Computers/MCU/ESP32/ESP32-C3/BLE-Provisioning/" itemprop="url" rel="index"><span itemprop="name">BLE Provisioning</span></a>
         </span>
     </span>
 
@@ -243,54 +243,116 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="1-reference"><a class="markdownIt-Anchor" href="#1-reference"></a> 1. Reference</h1>
-<p>All well documented by <a target="_blank" rel="noopener" href="https://www.espressif.com/">Espressif</a>.</p>
+          <h1 id="reference">1. Reference</h1>
+<p>All well documented by <a
+target="_blank" rel="noopener" href="https://www.espressif.com/">Espressif</a>.</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32/index.html">ESP-IDF Programming Guide</a></li>
-<li><a target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32c3/index.html">ESP32-C3</a></li>
-<li><a target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32c3/api-reference/peripherals/i2s.html">I2S</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32/index.html">ESP-IDF
+Programming Guide</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32c3/index.html">ESP32-C3</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32c3/api-reference/peripherals/i2s.html">I2S</a></li>
 </ul>
-<p>Cited from <a target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32c3/api-reference/peripherals/i2s.html">I2S</a>,</p>
+<p>Cited from <a
+target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32c3/api-reference/peripherals/i2s.html">I2S</a>,</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">I2S (Inter-IC Sound) is a synchronous serial communication protocol usually used for transmitting audio data between two digital audio devices.</span><br><span class="line"></span><br><span class="line">ESP32-C3 contains one I2S peripheral(s). These peripherals can be configured to input and output sample data via the I2S driver.</span><br></pre></td></tr></table></figure>
 <p><strong><span style="color: red;">In sum:</span></strong></p>
-<p>Although a single <a target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32c3/api-reference/peripherals/i2s.html">I2S</a> controller is nominally full-duplex – supporting both input (recording) and output (playback), in practice, operations must be time-multiplexed. In other words, it is not truly capable of simultaneous input and output. To achieve real-time interaction – such as detecting user input and instantly interrupting playback – two independent <a target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32c3/api-reference/peripherals/i2s.html">I2S</a> controllers are required: one dedicated to continuously handling microphone input, and the other to audio output to the speaker.</p>
-<p><strong><span style="color: red;">So, today, let’s make a bluetooth speaker based on <a target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32c3/index.html">ESP32-C3</a>, which ONLY requires <a target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32c3/api-reference/peripherals/i2s.html">I2S</a> to serve as output (playback).</span></strong></p>
-<h1 id="2-components"><a class="markdownIt-Anchor" href="#2-components"></a> 2. Components</h1>
+<p>Although a single <a
+target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32c3/api-reference/peripherals/i2s.html">I2S</a>
+controller is nominally full-duplex -- supporting both input (recording)
+and output (playback), in practice, operations must be time-multiplexed.
+In other words, it is not truly capable of simultaneous input and
+output. To achieve real-time interaction -- such as detecting user input
+and instantly interrupting playback -- two independent <a
+target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32c3/api-reference/peripherals/i2s.html">I2S</a>
+controllers are required: one dedicated to continuously handling
+microphone input, and the other to audio output to the speaker.</p>
+<p><strong><span style="color: red;">So, today, let's make a bluetooth
+speaker based on <a
+target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32c3/index.html">ESP32-C3</a>,
+which ONLY requires <a
+target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32c3/api-reference/peripherals/i2s.html">I2S</a>
+to serve as output (playback).</span></strong></p>
+<h1 id="components">2. Components</h1>
 <table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
 <thead>
-<tr>
-<th>Any <a target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32c3/index.html">ESP32-C3</a> board</th>
-<th><a target="_blank" rel="noopener" href="https://www.analog.com/media/en/technical-documentation/data-sheets/max98357a-max98357b.pdf">MAX98357A</a> <a target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32c3/api-reference/peripherals/i2s.html">I2S</a> amplifier</th>
+<tr class="header">
+<th>Any <a
+target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32c3/index.html">ESP32-C3</a>
+board</th>
+<th><a
+target="_blank" rel="noopener" href="https://www.analog.com/media/en/technical-documentation/data-sheets/max98357a-max98357b.pdf">MAX98357A</a>
+<a
+target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32c3/api-reference/peripherals/i2s.html">I2S</a>
+amplifier</th>
 <th>Any speaker</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/MCU/ESP32/esp32-c3-bluetooth-speaker/ESP32-C3.jpg" alt="ESP32-C3" /></td>
-<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/MCU/ESP32/esp32-c3-bluetooth-speaker/MAX98357A.jpg" alt="MAX98357A" /></td>
-<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/MCU/ESP32/esp32-c3-bluetooth-speaker/Speaker.jpg" alt="Any Speaker" /></td>
+<tr class="odd">
+<td><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/MCU/ESP32/esp32-c3-bluetooth-speaker/ESP32-C3.jpg"
+alt="ESP32-C3" /></td>
+<td><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/MCU/ESP32/esp32-c3-bluetooth-speaker/MAX98357A.jpg"
+alt="MAX98357A" /></td>
+<td><img
+src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/MCU/ESP32/esp32-c3-bluetooth-speaker/Speaker.jpg"
+alt="Any Speaker" /></td>
 </tr>
 </tbody>
 </table>
-<h1 id="3-curcuit-connection"><a class="markdownIt-Anchor" href="#3-curcuit-connection"></a> 3. Curcuit Connection</h1>
-<h2 id="31-kicad-schematic"><a class="markdownIt-Anchor" href="#31-kicad-schematic"></a> 3.1 <a target="_blank" rel="noopener" href="https://www.kicad.org/">KiCad</a> Schematic</h2>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/0a667349e0ea7279be2b36d1918e103a8419cdbb/Embedded/MCU/ESP32/esp32-c3-bluetooth-speaker/c3-ble-speaker_schematic.svg" alt="KiCad Schematic" /></p>
-<h2 id="32-real-connection"><a class="markdownIt-Anchor" href="#32-real-connection"></a> 3.2 Real Connection</h2>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/MCU/ESP32/esp32-c3-bluetooth-speaker/c3-ble-speaker_real.jpg" alt="Real Connection" /></p>
-<h1 id="4-esp32-code"><a class="markdownIt-Anchor" href="#4-esp32-code"></a> 4. <a target="_blank" rel="noopener" href="https://www.espressif.com/en/products/socs/esp32">ESP32</a> Code</h1>
-<p>Please refer to <a target="_blank" rel="noopener" href="https://github.com/LongerVisionRobot/ESP32-C3-audio-speaker">Github LongerVisionRobot ESP32-C3-audio-speaker</a>.</p>
-<h1 id="5-demonstration"><a class="markdownIt-Anchor" href="#5-demonstration"></a> 5. Demonstration</h1>
+<h1 id="curcuit-connection">3. Curcuit Connection</h1>
+<h2 id="kicad-schematic">3.1 <a target="_blank" rel="noopener" href="https://www.kicad.org/">KiCad</a>
+Schematic</h2>
+<figure>
+<img
+src="https://raw.githubusercontent.com/LongerVision/Resource/0a667349e0ea7279be2b36d1918e103a8419cdbb/Embedded/MCU/ESP32/esp32-c3-bluetooth-speaker/c3-ble-speaker_schematic.svg"
+alt="KiCad Schematic" />
+<figcaption aria-hidden="true">KiCad Schematic</figcaption>
+</figure>
+<h2 id="real-connection">3.2 Real Connection</h2>
+<figure>
+<img
+src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/MCU/ESP32/esp32-c3-bluetooth-speaker/c3-ble-speaker_real.jpg"
+alt="Real Connection" />
+<figcaption aria-hidden="true">Real Connection</figcaption>
+</figure>
+<h1 id="esp32-code">4. <a
+target="_blank" rel="noopener" href="https://www.espressif.com/en/products/socs/esp32">ESP32</a>
+Code</h1>
+<p>Please refer to <a
+target="_blank" rel="noopener" href="https://github.com/LongerVisionRobot/ESP32-C3-audio-speaker">Github
+LongerVisionRobot ESP32-C3-audio-speaker</a>.</p>
+<h1 id="demonstration">5. Demonstration</h1>
 <table>
+<colgroup>
+<col style="width: 52%" />
+<col style="width: 47%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:center"><a target="_blank" rel="noopener" href="https://www.youtube.com/shorts/6UR2HASo54I">ESP32-C3 Playing a Tone</a></th>
-<th style="text-align:center"><a target="_blank" rel="noopener" href="https://www.youtube.com/shorts/9rQxYqBfGSE">ESP32-C3 Playing an Audio File</a></th>
+<tr class="header">
+<th style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://www.youtube.com/shorts/6UR2HASo54I">ESP32-C3 Playing a
+Tone</a></th>
+<th style="text-align: center;"><a
+target="_blank" rel="noopener" href="https://www.youtube.com/shorts/9rQxYqBfGSE">ESP32-C3 Playing an
+Audio File</a></th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:center"><iframe width="360" height="640" src="https://www.youtube.com/embed/6UR2HASo54I" title="ESP32-C3 + MAX98357A + Speaker + Tone (Do Re Mi Fa Sol La Si Do)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></td>
-<td style="text-align:center"><iframe width="360" height="640" src="https://www.youtube.com/embed/9rQxYqBfGSE" title="esp32c3 audiofile anyformat" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></td>
+<tr class="odd">
+<td
+style="text-align: center;"><iframe width="360" height="640" src="https://www.youtube.com/embed/6UR2HASo54I" title="ESP32-C3 + MAX98357A + Speaker + Tone (Do Re Mi Fa Sol La Si Do)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></td>
+<td
+style="text-align: center;"><iframe width="360" height="640" src="https://www.youtube.com/embed/9rQxYqBfGSE" title="esp32c3 audiofile anyformat" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></td>
 </tr>
 </tbody>
 </table>
