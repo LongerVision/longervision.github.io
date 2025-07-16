@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en,default">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,13 +13,14 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-
-    <meta name="description" content="I got one Jetson AGX Xavier unused for quite long. There are a couple of reasons prohibiting me from using it.  The price. I couldn’t even come up with JUST ONE application that has to use Jetson Embe">
+  <meta name="description" content="I got one Jetson AGX Xavier unused for quite long. There are a couple of reasons prohibiting me from using it.  The price. I couldn’t even come up with JUST ONE application that has to use Jetson Embe">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NVidia Jetson Xavier AGX">
 <meta property="og:url" content="http://longervision.ca/2024/07/06/SBCs/ARM/NVidia-Jetson-Xavier-AGX/index.html">
@@ -29,6 +30,13 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/Old/jetson_nano_2g.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/Old/jetson_nano_4g_muii_16g.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/Old/jetson_xavier_nx_8g_muii_16g.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/NVidia_SDK_Manager_Jetson_AGX_Xavier.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/NVidia_SDK_Manager_No_Available_Release_for_Host.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/ssh_neofetch.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/AGX_Xavier/tegrastats-jetson_release-jetson_clocks.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/AGX_Xavier/jtop_agx_xavier.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/yolov11_init.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/yolov11_gpu.png">
 <meta property="article:published_time" content="2024-07-06T07:00:00.000Z">
 <meta property="article:modified_time" content="2025-06-04T06:08:38.130Z">
 <meta property="article:author" content="Nobody">
@@ -36,18 +44,21 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/Old/jetson_nano_2g.png">
 
-
 <link rel="canonical" href="http://longervision.ca/2024/07/06/SBCs/ARM/NVidia-Jetson-Xavier-AGX/">
 
 
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://longervision.ca/2024/07/06/SBCs/ARM/NVidia-Jetson-Xavier-AGX/","path":"2024/07/06/SBCs/ARM/NVidia-Jetson-Xavier-AGX/","title":"NVidia Jetson Xavier AGX"}</script>
-
-<script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>NVidia Jetson Xavier AGX | Longer Vision Technology</title>
+  <title>NVidia Jetson Xavier AGX | Longer Vision Technology</title>
   
-
-
 
 
 
@@ -55,33 +66,56 @@
 
 
   <noscript>
-    <link rel="stylesheet" href="/css/noscript.css">
-  </noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
-  <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
 
-  <main class="main">
-    <div class="column">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <i class="logo-line"></i>
-      <p class="site-title">Longer Vision Technology</p>
-      <i class="logo-line"></i>
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Longer Vision Technology</h1>
+      <span class="logo-line-after"><i></i></span>
     </a>
       <p class="site-subtitle" itemprop="description">Github Blog</p>
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    <div class="toggle popup-trigger">
     </div>
   </div>
 </div>
@@ -89,16 +123,456 @@
 
 
 
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
 
 
 
-</header>
-        
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
   
-  <aside class="sidebar">
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2024/07/06/SBCs/ARM/NVidia-Jetson-Xavier-AGX/">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
-      <ul class="sidebar-nav">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          NVidia Jetson Xavier AGX
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-07-06 00:00:00" itemprop="dateCreated datePublished" datetime="2024-07-06T00:00:00-07:00">2024-07-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-06-03 23:08:38" itemprop="dateModified" datetime="2025-06-03T23:08:38-07:00">2025-06-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>I got one <strong>Jetson AGX Xavier</strong> unused for quite long. There are a couple of reasons prohibiting me from using it.</p>
+<ul>
+<li>The price. I couldn’t even come up with <strong>JUST ONE</strong> application that has to use <a target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/">Jetson Embedded Systems</a> without cheaper but qualified replacement.</li>
+<li>The host Ubuntu that <a target="_blank" rel="noopener" href="https://developer.nvidia.com/sdk-manager">NVidia SDK Manager</a> supports is <strong>ALWAYS</strong> one version behind. Which means: I can <strong>NEVER</strong> run <a target="_blank" rel="noopener" href="https://developer.nvidia.com/sdk-manager">NVidia SDK Manager</a> on my host desktop.</li>
+</ul>
+<h1 id="1-My-Working-Environment"><a href="#1-My-Working-Environment" class="headerlink" title="1. My Working Environment"></a>1. My Working Environment</h1><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID:	Ubuntu</span><br><span class="line">Description:	Ubuntu 24.04.1 LTS</span><br><span class="line">Release:	24.04</span><br><span class="line">Codename:	noble</span><br><span class="line"></span><br><span class="line">➜  ~ <span class="built_in">uname</span> -r</span><br><span class="line">6.8.0-47-generic</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-Jetson-Embedded-Products"><a href="#2-Jetson-Embedded-Products" class="headerlink" title="2. Jetson Embedded Products"></a>2. Jetson Embedded Products</h1><h2 id="2-1-GPU-Compute-Capability"><a href="#2-1-GPU-Compute-Capability" class="headerlink" title="2.1 GPU Compute Capability"></a>2.1 <a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-gpus">GPU Compute Capability</a></h2><table>
+<thead>
+<tr>
+<th align="left">Jetson Model</th>
+<th align="center">Compute Capability</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/">Jetson Orin Series</a> including: Jetson AGX Orin, Jetson Orin NX, Jetson Orin Nano</td>
+<td align="center">8.7</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-xavier-series/">Jetson Xavier Series</a> including: Jetson AGX Xavier, Jetson Xavier NX</td>
+<td align="center">7.2</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-tx2/">Jetson TX2</a></td>
+<td align="center">6.2</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetson-nano">Jetson Nano</a> including: default <a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetson-nano">Jetson Nano 4GB</a>, <a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-2gb-devkit">Jetson Nano 2GB</a></td>
+<td align="center">5.3</td>
+</tr>
+</tbody></table>
+<h2 id="2-2-JetPack-Version-Compatability"><a href="#2-2-JetPack-Version-Compatability" class="headerlink" title="2.2 JetPack Version Compatability"></a>2.2 JetPack Version Compatability</h2><p>Please just refer to <strong><a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetpack-archive">JetPack Archive</a></strong>.</p>
+<h3 id="2-2-1-Jetson-Nano-Series"><a href="#2-2-1-Jetson-Nano-Series" class="headerlink" title="2.2.1 Jetson Nano Series"></a>2.2.1 Jetson Nano Series</h3><table>
+<thead>
+<tr>
+<th align="center">Specification</th>
+<th align="center"><a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetson-nano">Jetson Nano 4GB</a></th>
+<th align="center"><a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-2gb-devkit">Jetson Nano 2GB</a></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">JetPack Versions</td>
+<td align="center">4.2 ~ 4.6.5</td>
+<td align="center">4.4 ~ 4.6.5</td>
+</tr>
+<tr>
+<td align="center">CUDA Cores</td>
+<td align="center">128</td>
+<td align="center">128</td>
+</tr>
+<tr>
+<td align="center">Compute Capability</td>
+<td align="center">5.3</td>
+<td align="center">5.3</td>
+</tr>
+<tr>
+<td align="center">GPU Architecture</td>
+<td align="center">Maxwell</td>
+<td align="center">Maxwell</td>
+</tr>
+<tr>
+<td align="center">Memory</td>
+<td align="center">4GB LPDDR4</td>
+<td align="center">2GB LPDDR4</td>
+</tr>
+<tr>
+<td align="center">AI Performance</td>
+<td align="center">472 GFLOPs</td>
+<td align="center">472 GFLOPs</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-2-Jetson-Xavier-Series"><a href="#2-2-2-Jetson-Xavier-Series" class="headerlink" title="2.2.2 Jetson Xavier Series"></a>2.2.2 Jetson Xavier Series</h3><table>
+<thead>
+<tr>
+<th align="center">Specification</th>
+<th align="center">Jetson AGX Xavier 32GB</th>
+<th align="center">Jetson AGX Xavier 8GB</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">JetPack Versions</td>
+<td align="center">4.2 ~ 5.1.4</td>
+<td align="center">4.4 ~ 5.1.4</td>
+</tr>
+<tr>
+<td align="center">CUDA Cores</td>
+<td align="center">512</td>
+<td align="center">512</td>
+</tr>
+<tr>
+<td align="center">Compute Capability</td>
+<td align="center">7.2</td>
+<td align="center">7.2</td>
+</tr>
+<tr>
+<td align="center">GPU Architecture</td>
+<td align="center">Volta</td>
+<td align="center">Volta</td>
+</tr>
+<tr>
+<td align="center">Memory</td>
+<td align="center">32GB LPDDR4x</td>
+<td align="center">8GB LPDDR4x</td>
+</tr>
+<tr>
+<td align="center">AI Performance</td>
+<td align="center">11 TFLOPs (FP16)</td>
+<td align="center">11 TFLOPs (FP16)</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-3-Jetson-Orin-Series"><a href="#2-2-3-Jetson-Orin-Series" class="headerlink" title="2.2.3 Jetson Orin Series"></a>2.2.3 Jetson Orin Series</h3><table>
+<thead>
+<tr>
+<th align="center">Specification</th>
+<th align="center">Jetson AGX Orin 64GB</th>
+<th align="center">Jetson AGX Orin 32GB</th>
+<th align="center">Jetson Orin NX 16GB</th>
+<th align="center">Jetson Orin NX 8GB</th>
+<th align="center">Jetson Orin Nano 8GB</th>
+<th align="center">Jetson Orin Nano 4GB</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">JetPack Versions</td>
+<td align="center">5.0 Developer Preview - 6.1</td>
+<td align="center">5.0 Developer Preview - 6.1</td>
+<td align="center">5.0 Developer Preview - 6.1</td>
+<td align="center">5.0 Developer Preview - 6.1</td>
+<td align="center">5.0 Developer Preview - 6.1</td>
+<td align="center">5.0 Developer Preview - 6.1</td>
+</tr>
+<tr>
+<td align="center">CUDA Cores</td>
+<td align="center">2048</td>
+<td align="center">2048</td>
+<td align="center">1024</td>
+<td align="center">1024</td>
+<td align="center">512</td>
+<td align="center">512</td>
+</tr>
+<tr>
+<td align="center">Compute Capability</td>
+<td align="center">8.7</td>
+<td align="center">8.7</td>
+<td align="center">8.7</td>
+<td align="center">8.7</td>
+<td align="center">8.7</td>
+<td align="center">8.7</td>
+</tr>
+<tr>
+<td align="center">GPU Architecture</td>
+<td align="center">Ampere</td>
+<td align="center">Ampere</td>
+<td align="center">Ampere</td>
+<td align="center">Ampere</td>
+<td align="center">Ampere</td>
+<td align="center">Ampere</td>
+</tr>
+<tr>
+<td align="center">Memory</td>
+<td align="center">64GB LPDDR5</td>
+<td align="center">32GB LPDDR5</td>
+<td align="center">16GB LPDDR5</td>
+<td align="center">8GB LPDDR5</td>
+<td align="center">8GB LPDDR5</td>
+<td align="center">4GB LPDDR5</td>
+</tr>
+<tr>
+<td align="center">AI Performance</td>
+<td align="center">up to 200 TOPs</td>
+<td align="center">up to 200 TOPs</td>
+<td align="center">up to 70 TOPs</td>
+<td align="center">up to 70 TOPs</td>
+<td align="center">up to 40 TOPs</td>
+<td align="center">up to 40 TOPs</td>
+</tr>
+</tbody></table>
+<h2 id="2-3-JetPack-Archive"><a href="#2-3-JetPack-Archive" class="headerlink" title="2.3 JetPack Archive"></a>2.3 <a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetpack-archive">JetPack Archive</a></h2><h2 id="2-4-Jetson-Download-Center"><a href="#2-4-Jetson-Download-Center" class="headerlink" title="2.4 Jetson Download Center"></a>2.4 <a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/downloads">Jetson Download Center</a></h2><p>A variety of software can be downloaded from <a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/downloads">Jetson Download Center</a>.</p>
+<h1 id="3-My-Jetson-Embedded-Boards"><a href="#3-My-Jetson-Embedded-Boards" class="headerlink" title="3. My Jetson Embedded Boards"></a>3. My Jetson Embedded Boards</h1><p>I actually own 4 Jetson embedded boards and am trying 1 more:</p>
+<ul>
+<li>one <a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-2gb-devkit">Jetson Nano 2GB</a>: which is purchased with <a target="_blank" rel="noopener" href="https://jetbot.org/">JetBot</a></li>
+<li>one <a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetson-nano">Jetson Nano</a>: provided by <a target="_blank" rel="noopener" href="https://www.longervision.cn/">ShenZhen Longer Vision Technology</a>, which now comes with 16G memory and 2 Wired ports.</li>
+<li>one <a target="_blank" rel="noopener" href="https://www.nvidia.com/en-gb/autonomous-machines/embedded-systems/jetson-xavier-nx/">Jetson Xavier NX</a>: provided by <a target="_blank" rel="noopener" href="https://www.longervision.cn/">ShenZhen Longer Vision Technology</a></li>
+<li>one <strong>Jetson AGX Xavier</strong>: for pure R&amp;D only, but sooooo expensive</li>
+<li>one <a target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/">Jetson Orin Nano</a>: borrowed from one of my students. <a target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/">Jetson Orin Series</a> was <strong>FIRSTLY</strong> on the market in August 2022 (Please refer to: <a target="_blank" rel="noopener" href="https://www.impulse-embedded.co.uk/news/nvidia-jetson-orin-a-breakthrough-industrial-edge-ai.htm">NVIDIA® Jetson Orin™: A Breakthrough in Industrial Edge AI</a>). It is toooo new and toooo expensive to be purchased. Ever since that time, a variety of single board computers with made-in-China <strong>NPU</strong>s are much much much cheaper than <a target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/">Jetson Orin Series</a>. Yeah, 10 times cheaper guaranteed.</li>
+</ul>
+<h2 id="3-1-Jetson-Nano-2GB-for-JetBot"><a href="#3-1-Jetson-Nano-2GB-for-JetBot" class="headerlink" title="3.1 Jetson Nano 2GB for JetBot"></a>3.1 <a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-2gb-devkit">Jetson Nano 2GB</a> for <a target="_blank" rel="noopener" href="https://jetbot.org/">JetBot</a></h2><div align="center">
+  <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/Old/jetson_nano_2g.png">
+    <img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/Old/jetson_nano_2g.png" alt="Neofetch Jetson Nano 2G">
+  </a>
+</div>
+
+
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ <span class="built_in">cat</span> /proc/cpuinfo</span><br><span class="line">processor	: 0</span><br><span class="line">model name	: ARMv8 Processor rev 1 (v8l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32</span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x1</span><br><span class="line">CPU part	: 0xd07</span><br><span class="line">CPU revision	: 1</span><br><span class="line"></span><br><span class="line">processor	: 1</span><br><span class="line">model name	: ARMv8 Processor rev 1 (v8l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32</span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x1</span><br><span class="line">CPU part	: 0xd07</span><br><span class="line">CPU revision	: 1</span><br><span class="line"></span><br><span class="line">processor	: 2</span><br><span class="line">model name	: ARMv8 Processor rev 1 (v8l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32</span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x1</span><br><span class="line">CPU part	: 0xd07</span><br><span class="line">CPU revision	: 1</span><br><span class="line"></span><br><span class="line">processor	: 3</span><br><span class="line">model name	: ARMv8 Processor rev 1 (v8l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32</span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x1</span><br><span class="line">CPU part	: 0xd07</span><br><span class="line">CPU revision	: 1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ <span class="built_in">cat</span> /proc/meminfo</span><br><span class="line">MemTotal:        2027240 kB</span><br><span class="line">MemFree:          304868 kB</span><br><span class="line">MemAvailable:    1619252 kB</span><br><span class="line">Buffers:          301640 kB</span><br><span class="line">Cached:           978212 kB</span><br><span class="line">SwapCached:            0 kB</span><br><span class="line">Active:           591384 kB</span><br><span class="line">Inactive:         838300 kB</span><br><span class="line">Active(anon):      77428 kB</span><br><span class="line">Inactive(anon):   112776 kB</span><br><span class="line">Active(file):     513956 kB</span><br><span class="line">Inactive(file):   725524 kB</span><br><span class="line">Unevictable:         828 kB</span><br><span class="line">Mlocked:               0 kB</span><br><span class="line">SwapTotal:       5207916 kB</span><br><span class="line">SwapFree:        5207796 kB</span><br><span class="line">Dirty:               272 kB</span><br><span class="line">Writeback:             0 kB</span><br><span class="line">AnonPages:        143560 kB</span><br><span class="line">Mapped:           168900 kB</span><br><span class="line">Shmem:             39548 kB</span><br><span class="line">Slab:             217244 kB</span><br><span class="line">SReclaimable:     162968 kB</span><br><span class="line">SUnreclaim:        54276 kB</span><br><span class="line">KernelStack:        4384 kB</span><br><span class="line">PageTables:         3520 kB</span><br><span class="line">NFS_Unstable:          0 kB</span><br><span class="line">Bounce:                0 kB</span><br><span class="line">WritebackTmp:          0 kB</span><br><span class="line">CommitLimit:     6221536 kB</span><br><span class="line">Committed_AS:    1029676 kB</span><br><span class="line">VmallocTotal:   263061440 kB</span><br><span class="line">VmallocUsed:           0 kB</span><br><span class="line">VmallocChunk:          0 kB</span><br><span class="line">AnonHugePages:     40960 kB</span><br><span class="line">ShmemHugePages:        0 kB</span><br><span class="line">ShmemPmdMapped:        0 kB</span><br><span class="line">NvMapMemFree:       2048 kB</span><br><span class="line">NvMapMemUsed:      21324 kB</span><br><span class="line">CmaTotal:          65536 kB</span><br><span class="line">CmaFree:           13236 kB</span><br><span class="line">HugePages_Total:       0</span><br><span class="line">HugePages_Free:        0</span><br><span class="line">HugePages_Rsvd:        0</span><br><span class="line">HugePages_Surp:        0</span><br><span class="line">Hugepagesize:       2048 kB</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ <span class="built_in">df</span> -h</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/mmcblk0p1   58G   29G   28G  51% /</span><br><span class="line">none            951M     0  951M   0% /dev</span><br><span class="line">tmpfs           990M  4.0K  990M   1% /dev/shm</span><br><span class="line">tmpfs           990M   38M  953M   4% /run</span><br><span class="line">tmpfs           5.0M  4.0K  5.0M   1% /run/lock</span><br><span class="line">tmpfs           990M     0  990M   0% /sys/fs/cgroup</span><br><span class="line">tmpfs           198M  4.0K  198M   1% /run/user/121</span><br><span class="line">tmpfs           198M     0  198M   0% /run/user/1000</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="3-2-Jetson-Nano-from-ShenZhen-Longer-Vision-Technology"><a href="#3-2-Jetson-Nano-from-ShenZhen-Longer-Vision-Technology" class="headerlink" title="3.2 Jetson Nano from ShenZhen Longer Vision Technology"></a>3.2 <a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetson-nano">Jetson Nano</a> from <a target="_blank" rel="noopener" href="https://www.longervision.cn/">ShenZhen Longer Vision Technology</a></h2><div align="center">
+  <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/Old/jetson_nano_4g_muii_16g.png">
+    <img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/Old/jetson_nano_4g_muii_16g.png" alt="Neofetch Jetson Nano 2G">
+  </a>
+</div>
+
+
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ <span class="built_in">cat</span> /proc/cpuinfo</span><br><span class="line">processor	: 0</span><br><span class="line">model name	: ARMv8 Processor rev 1 (v8l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32</span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x1</span><br><span class="line">CPU part	: 0xd07</span><br><span class="line">CPU revision	: 1</span><br><span class="line"></span><br><span class="line">processor	: 1</span><br><span class="line">model name	: ARMv8 Processor rev 1 (v8l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32</span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x1</span><br><span class="line">CPU part	: 0xd07</span><br><span class="line">CPU revision	: 1</span><br><span class="line"></span><br><span class="line">processor	: 2</span><br><span class="line">model name	: ARMv8 Processor rev 1 (v8l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32</span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x1</span><br><span class="line">CPU part	: 0xd07</span><br><span class="line">CPU revision	: 1</span><br><span class="line"></span><br><span class="line">processor	: 3</span><br><span class="line">model name	: ARMv8 Processor rev 1 (v8l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32</span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x1</span><br><span class="line">CPU part	: 0xd07</span><br><span class="line">CPU revision	: 1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ <span class="built_in">cat</span> /proc/meminfo</span><br><span class="line">MemTotal:        4059260 kB</span><br><span class="line">MemFree:         1409344 kB</span><br><span class="line">MemAvailable:    2538768 kB</span><br><span class="line">Buffers:           30120 kB</span><br><span class="line">Cached:          1254004 kB</span><br><span class="line">SwapCached:            0 kB</span><br><span class="line">Active:          1017736 kB</span><br><span class="line">Inactive:        1170840 kB</span><br><span class="line">Active(anon):     905764 kB</span><br><span class="line">Inactive(anon):    45076 kB</span><br><span class="line">Active(file):     111972 kB</span><br><span class="line">Inactive(file):  1125764 kB</span><br><span class="line">Unevictable:           0 kB</span><br><span class="line">Mlocked:               0 kB</span><br><span class="line">SwapTotal:       2029616 kB</span><br><span class="line">SwapFree:        2029616 kB</span><br><span class="line">Dirty:               152 kB</span><br><span class="line">Writeback:             0 kB</span><br><span class="line">AnonPages:        898652 kB</span><br><span class="line">Mapped:           560276 kB</span><br><span class="line">Shmem:             46388 kB</span><br><span class="line">Slab:             102792 kB</span><br><span class="line">SReclaimable:      46832 kB</span><br><span class="line">SUnreclaim:        55960 kB</span><br><span class="line">KernelStack:        6160 kB</span><br><span class="line">PageTables:         7752 kB</span><br><span class="line">NFS_Unstable:          0 kB</span><br><span class="line">Bounce:                0 kB</span><br><span class="line">WritebackTmp:          0 kB</span><br><span class="line">CommitLimit:     4059244 kB</span><br><span class="line">Committed_AS:    2500320 kB</span><br><span class="line">VmallocTotal:   263061440 kB</span><br><span class="line">VmallocUsed:           0 kB</span><br><span class="line">VmallocChunk:          0 kB</span><br><span class="line">AnonHugePages:    131072 kB</span><br><span class="line">ShmemHugePages:        0 kB</span><br><span class="line">ShmemPmdMapped:        0 kB</span><br><span class="line">NvMapMemFree:          0 kB</span><br><span class="line">NvMapMemUsed:     258692 kB</span><br><span class="line">CmaTotal:         475136 kB</span><br><span class="line">CmaFree:          441280 kB</span><br><span class="line">HugePages_Total:       0</span><br><span class="line">HugePages_Free:        0</span><br><span class="line">HugePages_Rsvd:        0</span><br><span class="line">HugePages_Surp:        0</span><br><span class="line">Hugepagesize:       2048 kB</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ <span class="built_in">df</span> -h</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/mmcblk0p1   14G   12G  1.2G  92% /</span><br><span class="line">none            1.8G     0  1.8G   0% /dev</span><br><span class="line">tmpfs           2.0G   19M  2.0G   1% /dev/shm</span><br><span class="line">tmpfs           2.0G   28M  2.0G   2% /run</span><br><span class="line">tmpfs           5.0M  4.0K  5.0M   1% /run/lock</span><br><span class="line">tmpfs           2.0G     0  2.0G   0% /sys/fs/cgroup</span><br><span class="line">tmpfs           397M   12K  397M   1% /run/user/120</span><br><span class="line">tmpfs           397M     0  397M   0% /run/user/1000</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="3-3-Jetson-Xavier-NX-from-ShenZhen-Longer-Vision-Technology"><a href="#3-3-Jetson-Xavier-NX-from-ShenZhen-Longer-Vision-Technology" class="headerlink" title="3.3 Jetson Xavier NX from ShenZhen Longer Vision Technology"></a>3.3 <a target="_blank" rel="noopener" href="https://www.nvidia.com/en-gb/autonomous-machines/embedded-systems/jetson-xavier-nx/">Jetson Xavier NX</a> from <a target="_blank" rel="noopener" href="https://www.longervision.cn/">ShenZhen Longer Vision Technology</a></h2><div align="center">
+  <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/Old/jetson_xavier_nx_8g_muii_16g.png">
+    <img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/Old/jetson_xavier_nx_8g_muii_16g.png" alt="Neofetch Jetson Nano 2G">
+  </a>
+</div>
+
+
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ <span class="built_in">cat</span> /proc/cpuinfo</span><br><span class="line">processor	: 0</span><br><span class="line">model name	: ARMv8 Processor rev 0 (v8l)</span><br><span class="line">BogoMIPS	: 62.50</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp</span><br><span class="line">CPU implementer	: 0x4e</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0x004</span><br><span class="line">CPU revision	: 0</span><br><span class="line">MTS version	: 50168445</span><br><span class="line"></span><br><span class="line">processor	: 1</span><br><span class="line">model name	: ARMv8 Processor rev 0 (v8l)</span><br><span class="line">BogoMIPS	: 62.50</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp</span><br><span class="line">CPU implementer	: 0x4e</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0x004</span><br><span class="line">CPU revision	: 0</span><br><span class="line">MTS version	: 50168445</span><br><span class="line"></span><br><span class="line">processor	: 2</span><br><span class="line">model name	: ARMv8 Processor rev 0 (v8l)</span><br><span class="line">BogoMIPS	: 62.50</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp</span><br><span class="line">CPU implementer	: 0x4e</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0x004</span><br><span class="line">CPU revision	: 0</span><br><span class="line">MTS version	: 50168445</span><br><span class="line"></span><br><span class="line">processor	: 3</span><br><span class="line">model name	: ARMv8 Processor rev 0 (v8l)</span><br><span class="line">BogoMIPS	: 62.50</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp</span><br><span class="line">CPU implementer	: 0x4e</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0x004</span><br><span class="line">CPU revision	: 0</span><br><span class="line">MTS version	: 50168445</span><br><span class="line"></span><br><span class="line">processor	: 4</span><br><span class="line">model name	: ARMv8 Processor rev 0 (v8l)</span><br><span class="line">BogoMIPS	: 62.50</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp</span><br><span class="line">CPU implementer	: 0x4e</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0x004</span><br><span class="line">CPU revision	: 0</span><br><span class="line">MTS version	: 50168445</span><br><span class="line"></span><br><span class="line">processor	: 5</span><br><span class="line">model name	: ARMv8 Processor rev 0 (v8l)</span><br><span class="line">BogoMIPS	: 62.50</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp</span><br><span class="line">CPU implementer	: 0x4e</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0x004</span><br><span class="line">CPU revision	: 0</span><br><span class="line">MTS version	: 50168445</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ <span class="built_in">cat</span> /proc/meminfo</span><br><span class="line">MemTotal:        7958064 kB</span><br><span class="line">MemFree:         6376676 kB</span><br><span class="line">MemAvailable:    6968608 kB</span><br><span class="line">Buffers:           31648 kB</span><br><span class="line">Cached:           706620 kB</span><br><span class="line">SwapCached:            0 kB</span><br><span class="line">Active:           422156 kB</span><br><span class="line">Inactive:         581804 kB</span><br><span class="line">Active(anon):     267236 kB</span><br><span class="line">Inactive(anon):    27908 kB</span><br><span class="line">Active(file):     154920 kB</span><br><span class="line">Inactive(file):   553896 kB</span><br><span class="line">Unevictable:           0 kB</span><br><span class="line">Mlocked:               0 kB</span><br><span class="line">SwapTotal:       3979008 kB</span><br><span class="line">SwapFree:        3979008 kB</span><br><span class="line">Dirty:                 0 kB</span><br><span class="line">Writeback:             0 kB</span><br><span class="line">AnonPages:        254048 kB</span><br><span class="line">Mapped:           187980 kB</span><br><span class="line">Shmem:             29456 kB</span><br><span class="line">Slab:             132884 kB</span><br><span class="line">SReclaimable:      60592 kB</span><br><span class="line">SUnreclaim:        72292 kB</span><br><span class="line">KernelStack:        6640 kB</span><br><span class="line">PageTables:         5892 kB</span><br><span class="line">NFS_Unstable:          0 kB</span><br><span class="line">Bounce:                0 kB</span><br><span class="line">WritebackTmp:          0 kB</span><br><span class="line">CommitLimit:     7958040 kB</span><br><span class="line">Committed_AS:    1977692 kB</span><br><span class="line">VmallocTotal:   263061440 kB</span><br><span class="line">VmallocUsed:           0 kB</span><br><span class="line">VmallocChunk:          0 kB</span><br><span class="line">AnonHugePages:     90112 kB</span><br><span class="line">ShmemHugePages:        0 kB</span><br><span class="line">ShmemPmdMapped:        0 kB</span><br><span class="line">NvMapMemFree:        704 kB</span><br><span class="line">NvMapMemUsed:      27852 kB</span><br><span class="line">CmaTotal:         753664 kB</span><br><span class="line">CmaFree:          704152 kB</span><br><span class="line">HugePages_Total:       0</span><br><span class="line">HugePages_Free:        0</span><br><span class="line">HugePages_Rsvd:        0</span><br><span class="line">HugePages_Surp:        0</span><br><span class="line">Hugepagesize:       2048 kB</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ <span class="built_in">df</span> -h</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/mmcblk0p1   14G   13G  253M  99% /</span><br><span class="line">none            3.5G     0  3.5G   0% /dev</span><br><span class="line">tmpfs           3.8G  4.0K  3.8G   1% /dev/shm</span><br><span class="line">tmpfs           3.8G   29M  3.8G   1% /run</span><br><span class="line">tmpfs           5.0M  4.0K  5.0M   1% /run/lock</span><br><span class="line">tmpfs           3.8G     0  3.8G   0% /sys/fs/cgroup</span><br><span class="line">tmpfs           778M   12K  778M   1% /run/user/120</span><br><span class="line">tmpfs           778M     0  778M   0% /run/user/1000</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="3-4-Jetson-AGX-Xavier"><a href="#3-4-Jetson-AGX-Xavier" class="headerlink" title="3.4 Jetson AGX Xavier"></a>3.4 Jetson AGX Xavier</h2><h3 id="3-4-1-Entering-Recovery-Mode"><a href="#3-4-1-Entering-Recovery-Mode" class="headerlink" title="3.4.1 Entering Recovery Mode"></a>3.4.1 Entering Recovery Mode</h3><p>After recovery mode is entered, you’ll see:</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ lsusb | grep NVIDIA</span><br><span class="line">Bus 009 Device 031: ID 0955:7019 NVIDIA Corp. APX</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="3-4-2-Failed-to-Flash-via-NVidia-SDK-Manager"><a href="#3-4-2-Failed-to-Flash-via-NVidia-SDK-Manager" class="headerlink" title="3.4.2 Failed to Flash via NVidia SDK Manager"></a>3.4.2 Failed to Flash via <a target="_blank" rel="noopener" href="https://developer.nvidia.com/sdk-manager">NVidia SDK Manager</a></h3><table>
+<thead>
+<tr>
+<th align="center">Select Jetson AGX Xavier</th>
+<th align="center">No available releases for host OS: Ubuntu 24.04</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/NVidia_SDK_Manager_Jetson_AGX_Xavier.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/NVidia_SDK_Manager_Jetson_AGX_Xavier.png" alt="NVidia SDK Manager Jetson AGX Xavier"></a></td>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/NVidia_SDK_Manager_No_Available_Release_for_Host.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/NVidia_SDK_Manager_No_Available_Release_for_Host.png" alt="NVidia SDK Manager No Available Release for Host"></a></td>
+</tr>
+</tbody></table>
+<h3 id="3-4-3-Try-SD-Car-Image"><a href="#3-4-3-Try-SD-Car-Image" class="headerlink" title="3.4.3 Try SD Car Image"></a>3.4.3 Try SD Car Image</h3><p>Download <a target="_blank" rel="noopener" href="https://developer.nvidia.com/downloads/embedded/l4t/r35_release_v6.0/JP514-xnx-sd-card-image_b11.zip">JP514-xnx-sd-card-image_b11.zip</a>.</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">sudo</span> <span class="built_in">dd</span> <span class="keyword">if</span>=./sd-blob.img of=/dev/sdb bs=1M status=progress conv=fsync </span><br><span class="line">[<span class="built_in">sudo</span>] password <span class="keyword">for</span> lvision: </span><br><span class="line">17746100224 bytes (18 GB, 17 GiB) copied, 26 s, 683 MB/s18153996288 bytes (18 GB, 17 GiB) copied, 26.5595 s, 684 MB/s</span><br><span class="line"></span><br><span class="line">17313+0 records <span class="keyword">in</span></span><br><span class="line">17313+0 records out</span><br><span class="line">18153996288 bytes (18 GB, 17 GiB) copied, 1617.17 s, 11.2 MB/s</span><br></pre></td></tr></table></figure>
+
+
+<p>However, <strong>Jetson AGX Xavier</strong> is <strong>NOT</strong> booting, but <strong>ONLY</strong> black screen.</p>
+<p>The answer is at <a target="_blank" rel="noopener" href="https://forums.developer.nvidia.com/t/black-screen/189348/">NVidia Forum Issue 189348 - Black Screen</a>: <span style="color:red"><strong>Do you know that you are talking about AGX Xavier but not NX? Only NX and Nano have and support sdcard image. Other platforms do not.</strong></span><br>It’s also clearly clarified in the table on NVidia’s official page: <a target="_blank" rel="noopener" href="https://developer.nvidia.com/sdk-manager">NVidia SDK Manager</a>.</p>
+<h3 id="3-4-4-Negotiated-to-Use-Ubuntu-20-04"><a href="#3-4-4-Negotiated-to-Use-Ubuntu-20-04" class="headerlink" title="3.4.4 Negotiated to Use Ubuntu 20.04"></a>3.4.4 Negotiated to Use <a target="_blank" rel="noopener" href="https://ubuntu.com/download/desktop">Ubuntu 20.04</a></h3><p><strong><span style="color:red">Still problemabic. Two main issues:</span></strong></p>
+<ul>
+<li>That IP: <code>192.168.55.1</code> won’t let me flash successfully</li>
+<li><code>CUDA</code> is not able to be installed successfully</li>
+</ul>
+<h4 id="3-4-4-2-Again-Jetson-Linux-Developer-Guide-Quick-Start"><a href="#3-4-4-2-Again-Jetson-Linux-Developer-Guide-Quick-Start" class="headerlink" title="3.4.4.2 Again: Jetson Linux Developer Guide Quick Start"></a>3.4.4.2 Again: <a target="_blank" rel="noopener" href="https://docs.nvidia.com/jetson/archives/r36.4/DeveloperGuide/IN/QuickStart.html">Jetson Linux Developer Guide Quick Start</a></h4><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ./flash.sh jetson-agx-xavier-devkit internal</span><br></pre></td></tr></table></figure>
+<p>works for me.</p>
+<h4 id="3-4-4-3-ssh-and-neofetch"><a href="#3-4-4-3-ssh-and-neofetch" class="headerlink" title="3.4.4.3 ssh and neofetch"></a>3.4.4.3 <code>ssh</code> and <code>neofetch</code></h4><p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/ssh_neofetch.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/ssh_neofetch.png" alt="ssh into Jetson AGX Xavier Nano and neofetch"></a></p>
+<h1 id="4-Demonstrate-GPU-On-Jetson-AGX-Xavier"><a href="#4-Demonstrate-GPU-On-Jetson-AGX-Xavier" class="headerlink" title="4. Demonstrate GPU On Jetson AGX Xavier"></a>4. Demonstrate GPU On Jetson AGX Xavier</h1><h2 id="4-1-tegrastats-jetson-release-jetson-clocks"><a href="#4-1-tegrastats-jetson-release-jetson-clocks" class="headerlink" title="4.1 tegrastats, jetson_release, jetson_clocks"></a>4.1 <code>tegrastats</code>, <code>jetson_release</code>, <code>jetson_clocks</code></h2><p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/AGX_Xavier/tegrastats-jetson_release-jetson_clocks.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/AGX_Xavier/tegrastats-jetson_release-jetson_clocks.png" alt="tegrastats + jetson_release + jetson_clocks"></a></p>
+<h2 id="4-2-jtop-from-jetson-stats"><a href="#4-2-jtop-from-jetson-stats" class="headerlink" title="4.2 jtop from jetson-stats"></a>4.2 <code>jtop</code> from <a target="_blank" rel="noopener" href="https://github.com/rbonghi/jetson_stats">jetson-stats</a></h2><p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/AGX_Xavier/jtop_agx_xavier.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/AGX_Xavier/jtop_agx_xavier.png" alt="JTop Jetson AGX Xavier"></a></p>
+<h1 id="5-YOLOv11-On-Jetson-AGX-Xavier"><a href="#5-YOLOv11-On-Jetson-AGX-Xavier" class="headerlink" title="5. YOLOv11 On Jetson AGX Xavier"></a>5. <a target="_blank" rel="noopener" href="https://docs.ultralytics.com/models/yolo11/">YOLOv11</a> On Jetson AGX Xavier</h1><p>Similar difficulties happened on this board <strong>Jetson AGX Xavier</strong>, which is clearly elaborated in one of my blogs <a href="../../../../../../2024/10/15/SBCs/ARM/NVidia-Jetson-Orin-Nano-8G-Dev-Kit/">NVidia-Jetson-Orin-Nano-8G-Dev-Kit.md</a>.</p>
+<p><strong><span style="color:red">Solution:</span></strong></p>
+<ul>
+<li><code>pip install ultralytics</code></li>
+<li>Overwrite <code>torch</code> installed with <code>ultralytics</code> by <a target="_blank" rel="noopener" href="https://developer.download.nvidia.com/compute/redist/jp/v512/pytorch/torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl">PyTorch for JetPack 5.1.2</a></li>
+<li>Build <a target="_blank" rel="noopener" href="https://github.com/pytorch/vision">torchvision</a> from source</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center"><a target="_blank" rel="noopener" href="https://docs.ultralytics.com/models/yolo11/">YOLOv11</a> Initialization</th>
+<th align="center"><a target="_blank" rel="noopener" href="https://docs.ultralytics.com/models/yolo11/">YOLOv11</a> GPU</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/yolov11_init.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/yolov11_init.png" alt="YOLO v11 Initialization"></a></td>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/yolov11_gpu.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/yolov11_gpu.png" alt="YOLO v11 GPU"></a></td>
+</tr>
+</tbody></table>
+<p>One of my blogs <a href="../../../../../../2024/10/09/AI/DeepLearning/YOLOv11">YOLOv11.md</a> didn’t talk about which model to use. And today, let’s try them out.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/NVidia-Jetson-Xavier-AGX-JetPack/" rel="tag"># NVidia, Jetson Xavier AGX, JetPack</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/07/05/MachineVision/RGBD/RealSense-LiDAR-D43X/" rel="prev" title="Intel RealSense LiDAR Camera D435/D430">
+      <i class="fa fa-chevron-left"></i> Intel RealSense LiDAR Camera D435/D430
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/07/08/MachineVision/RGBD/Kinect-2/" rel="next" title="Kinect 2 on Jetson AGX Xavier">
+      Kinect 2 on Jetson AGX Xavier <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
           Table of Contents
         </li>
@@ -107,659 +581,96 @@
         </li>
       </ul>
 
-      <div class="sidebar-panel-container">
-        <!--noindex-->
-        <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#my-working-environment"><span class="nav-number">1.</span> <span class="nav-text">1. My Working Environment</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jetson-embedded-products"><span class="nav-number">2.</span> <span class="nav-text">2. Jetson Embedded Products</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#gpu-compute-capability"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 GPU Compute
-Capability</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jetpack-version-compatability"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 JetPack Version
-Compatability</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jetson-nano-series"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.2.1 Jetson Nano Series</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jetson-xavier-series"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2.2 Jetson Xavier Series</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jetson-orin-series"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.2.3 Jetson Orin Series</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jetpack-archive"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 JetPack
-Archive</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jetson-download-center"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 Jetson Download
-Center</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#my-jetson-embedded-boards"><span class="nav-number">3.</span> <span class="nav-text">3. My Jetson Embedded Boards</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#jetson-nano-2gb-for-jetbot"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Jetson
-Nano 2GB for JetBot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jetson-nano-from-shenzhen-longer-vision-technology"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 Jetson Nano
-from ShenZhen Longer Vision
-Technology</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jetson-xavier-nx-from-shenzhen-longer-vision-technology"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 Jetson
-Xavier NX from ShenZhen Longer
-Vision Technology</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jetson-agx-xavier"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 Jetson AGX Xavier</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#entering-recovery-mode"><span class="nav-number">3.4.1.</span> <span class="nav-text">3.4.1 Entering Recovery Mode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#failed-to-flash-via-nvidia-sdk-manager"><span class="nav-number">3.4.2.</span> <span class="nav-text">3.4.2 Failed to Flash
-via NVidia SDK
-Manager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#try-sd-car-image"><span class="nav-number">3.4.3.</span> <span class="nav-text">3.4.3 Try SD Car Image</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#negotiated-to-use-ubuntu-20.04"><span class="nav-number">3.4.4.</span> <span class="nav-text">3.4.4 Negotiated to Use Ubuntu 20.04</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#again-jetson-linux-developer-guide-quick-start"><span class="nav-number">3.4.4.1.</span> <span class="nav-text">3.4.4.2 Again:
-Jetson
-Linux Developer Guide Quick Start</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ssh-and-neofetch"><span class="nav-number">3.4.4.2.</span> <span class="nav-text">3.4.4.3 ssh and
-neofetch</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#demonstrate-gpu-on-jetson-agx-xavier"><span class="nav-number">4.</span> <span class="nav-text">4. Demonstrate GPU On
-Jetson AGX Xavier</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#tegrastats-jetson_release-jetson_clocks"><span class="nav-number">4.1.</span> <span class="nav-text">4.1
-tegrastats, jetson_release,
-jetson_clocks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jtop-from-jetson-stats"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 jtop from jetson-stats</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#yolov11-on-jetson-agx-xavier"><span class="nav-number">5.</span> <span class="nav-text">5. YOLOv11 On Jetson
-AGX Xavier</span></a></li></ol></div>
-        </div>
-        <!--/noindex-->
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-My-Working-Environment"><span class="nav-number">1.</span> <span class="nav-text">1. My Working Environment</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Jetson-Embedded-Products"><span class="nav-number">2.</span> <span class="nav-text">2. Jetson Embedded Products</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-GPU-Compute-Capability"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 GPU Compute Capability</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-JetPack-Version-Compatability"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 JetPack Version Compatability</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-Jetson-Nano-Series"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.2.1 Jetson Nano Series</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-Jetson-Xavier-Series"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2.2 Jetson Xavier Series</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3-Jetson-Orin-Series"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.2.3 Jetson Orin Series</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-JetPack-Archive"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 JetPack Archive</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-Jetson-Download-Center"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 Jetson Download Center</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-My-Jetson-Embedded-Boards"><span class="nav-number">3.</span> <span class="nav-text">3. My Jetson Embedded Boards</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Jetson-Nano-2GB-for-JetBot"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Jetson Nano 2GB for JetBot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-Jetson-Nano-from-ShenZhen-Longer-Vision-Technology"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 Jetson Nano from ShenZhen Longer Vision Technology</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-Jetson-Xavier-NX-from-ShenZhen-Longer-Vision-Technology"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 Jetson Xavier NX from ShenZhen Longer Vision Technology</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-Jetson-AGX-Xavier"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 Jetson AGX Xavier</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-1-Entering-Recovery-Mode"><span class="nav-number">3.4.1.</span> <span class="nav-text">3.4.1 Entering Recovery Mode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-2-Failed-to-Flash-via-NVidia-SDK-Manager"><span class="nav-number">3.4.2.</span> <span class="nav-text">3.4.2 Failed to Flash via NVidia SDK Manager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-3-Try-SD-Car-Image"><span class="nav-number">3.4.3.</span> <span class="nav-text">3.4.3 Try SD Car Image</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-4-Negotiated-to-Use-Ubuntu-20-04"><span class="nav-number">3.4.4.</span> <span class="nav-text">3.4.4 Negotiated to Use Ubuntu 20.04</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-4-2-Again-Jetson-Linux-Developer-Guide-Quick-Start"><span class="nav-number">3.4.4.1.</span> <span class="nav-text">3.4.4.2 Again: Jetson Linux Developer Guide Quick Start</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-4-3-ssh-and-neofetch"><span class="nav-number">3.4.4.2.</span> <span class="nav-text">3.4.4.3 ssh and neofetch</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Demonstrate-GPU-On-Jetson-AGX-Xavier"><span class="nav-number">4.</span> <span class="nav-text">4. Demonstrate GPU On Jetson AGX Xavier</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-tegrastats-jetson-release-jetson-clocks"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 tegrastats, jetson_release, jetson_clocks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-jtop-from-jetson-stats"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 jtop from jetson-stats</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-YOLOv11-On-Jetson-AGX-Xavier"><span class="nav-number">5.</span> <span class="nav-text">5. YOLOv11 On Jetson AGX Xavier</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
 
-        <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Nobody</p>
   <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
 </div>
-<div class="site-state-wrap animated">
+<div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-        <a href="/archives/">
+          <a href="/archives/">
+        
           <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-          <a href="/categories/">
+            <a href="/categories/">
         <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-          <a href="/tags/">
+            <a href="/tags/">
         <span class="site-state-item-count">144</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
 
-        </div>
+
+
       </div>
-    </div>
 
-    
+    </div>
   </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-    </div>
+      </div>
+    </main>
 
-    <div class="main-inner post posts-expand">
-
-
-  
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2024/07/06/SBCs/ARM/NVidia-Jetson-Xavier-AGX/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="NVidia Jetson Xavier AGX | Longer Vision Technology">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          NVidia Jetson Xavier AGX
-        </h1>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2024-07-06 00:00:00" itemprop="dateCreated datePublished" datetime="2024-07-06T00:00:00-07:00">2024-07-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-06-03 23:08:38" itemprop="dateModified" datetime="2025-06-03T23:08:38-07:00">2025-06-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody"><p>I got one <strong>Jetson AGX Xavier</strong> unused for quite long.
-There are a couple of reasons prohibiting me from using it.</p>
-<ul>
-<li>The price. I couldn’t even come up with <strong>JUST ONE</strong>
-application that has to use <a
-target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/">Jetson
-Embedded Systems</a> without cheaper but qualified replacement.</li>
-<li>The host Ubuntu that <a
-target="_blank" rel="noopener" href="https://developer.nvidia.com/sdk-manager">NVidia SDK Manager</a>
-supports is <strong>ALWAYS</strong> one version behind. Which means: I
-can <strong>NEVER</strong> run <a
-target="_blank" rel="noopener" href="https://developer.nvidia.com/sdk-manager">NVidia SDK Manager</a>
-on my host desktop.</li>
-</ul>
-<h1 id="my-working-environment">1. My Working Environment</h1>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID:	Ubuntu</span><br><span class="line">Description:	Ubuntu 24.04.1 LTS</span><br><span class="line">Release:	24.04</span><br><span class="line">Codename:	noble</span><br><span class="line"></span><br><span class="line">➜  ~ uname -r</span><br><span class="line">6.8.0-47-generic</span><br></pre></td></tr></table></figure>
-<h1 id="jetson-embedded-products">2. Jetson Embedded Products</h1>
-<h2 id="gpu-compute-capability">2.1 <a
-target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-gpus">GPU Compute
-Capability</a></h2>
-<table>
-<colgroup>
-<col style="width: 68%" />
-<col style="width: 31%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Jetson Model</th>
-<th style="text-align: center;">Compute Capability</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><a
-target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/">Jetson
-Orin Series</a> including: Jetson AGX Orin, Jetson Orin NX, Jetson Orin
-Nano</td>
-<td style="text-align: center;">8.7</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><a
-target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-xavier-series/">Jetson
-Xavier Series</a> including: Jetson AGX Xavier, Jetson Xavier NX</td>
-<td style="text-align: center;">7.2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><a
-target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-tx2/">Jetson
-TX2</a></td>
-<td style="text-align: center;">6.2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><a
-target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetson-nano">Jetson Nano</a>
-including: default <a
-target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetson-nano">Jetson Nano
-4GB</a>, <a
-target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-2gb-devkit">Jetson
-Nano 2GB</a></td>
-<td style="text-align: center;">5.3</td>
-</tr>
-</tbody>
-</table>
-<h2 id="jetpack-version-compatability">2.2 JetPack Version
-Compatability</h2>
-<p>Please just refer to <strong><a
-target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetpack-archive">JetPack
-Archive</a></strong>.</p>
-<h3 id="jetson-nano-series">2.2.1 Jetson Nano Series</h3>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Specification</th>
-<th style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetson-nano">Jetson Nano
-4GB</a></th>
-<th style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-2gb-devkit">Jetson
-Nano 2GB</a></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">JetPack Versions</td>
-<td style="text-align: center;">4.2 ~ 4.6.5</td>
-<td style="text-align: center;">4.4 ~ 4.6.5</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">CUDA Cores</td>
-<td style="text-align: center;">128</td>
-<td style="text-align: center;">128</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Compute Capability</td>
-<td style="text-align: center;">5.3</td>
-<td style="text-align: center;">5.3</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">GPU Architecture</td>
-<td style="text-align: center;">Maxwell</td>
-<td style="text-align: center;">Maxwell</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Memory</td>
-<td style="text-align: center;">4GB LPDDR4</td>
-<td style="text-align: center;">2GB LPDDR4</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">AI Performance</td>
-<td style="text-align: center;">472 GFLOPs</td>
-<td style="text-align: center;">472 GFLOPs</td>
-</tr>
-</tbody>
-</table>
-<h3 id="jetson-xavier-series">2.2.2 Jetson Xavier Series</h3>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Specification</th>
-<th style="text-align: center;">Jetson AGX Xavier 32GB</th>
-<th style="text-align: center;">Jetson AGX Xavier 8GB</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">JetPack Versions</td>
-<td style="text-align: center;">4.2 ~ 5.1.4</td>
-<td style="text-align: center;">4.4 ~ 5.1.4</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">CUDA Cores</td>
-<td style="text-align: center;">512</td>
-<td style="text-align: center;">512</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Compute Capability</td>
-<td style="text-align: center;">7.2</td>
-<td style="text-align: center;">7.2</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">GPU Architecture</td>
-<td style="text-align: center;">Volta</td>
-<td style="text-align: center;">Volta</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Memory</td>
-<td style="text-align: center;">32GB LPDDR4x</td>
-<td style="text-align: center;">8GB LPDDR4x</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">AI Performance</td>
-<td style="text-align: center;">11 TFLOPs (FP16)</td>
-<td style="text-align: center;">11 TFLOPs (FP16)</td>
-</tr>
-</tbody>
-</table>
-<h3 id="jetson-orin-series">2.2.3 Jetson Orin Series</h3>
-<table style="width:100%;">
-<colgroup>
-<col style="width: 14%" />
-<col style="width: 14%" />
-<col style="width: 14%" />
-<col style="width: 14%" />
-<col style="width: 14%" />
-<col style="width: 14%" />
-<col style="width: 14%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Specification</th>
-<th style="text-align: center;">Jetson AGX Orin 64GB</th>
-<th style="text-align: center;">Jetson AGX Orin 32GB</th>
-<th style="text-align: center;">Jetson Orin NX 16GB</th>
-<th style="text-align: center;">Jetson Orin NX 8GB</th>
-<th style="text-align: center;">Jetson Orin Nano 8GB</th>
-<th style="text-align: center;">Jetson Orin Nano 4GB</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">JetPack Versions</td>
-<td style="text-align: center;">5.0 Developer Preview - 6.1</td>
-<td style="text-align: center;">5.0 Developer Preview - 6.1</td>
-<td style="text-align: center;">5.0 Developer Preview - 6.1</td>
-<td style="text-align: center;">5.0 Developer Preview - 6.1</td>
-<td style="text-align: center;">5.0 Developer Preview - 6.1</td>
-<td style="text-align: center;">5.0 Developer Preview - 6.1</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">CUDA Cores</td>
-<td style="text-align: center;">2048</td>
-<td style="text-align: center;">2048</td>
-<td style="text-align: center;">1024</td>
-<td style="text-align: center;">1024</td>
-<td style="text-align: center;">512</td>
-<td style="text-align: center;">512</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Compute Capability</td>
-<td style="text-align: center;">8.7</td>
-<td style="text-align: center;">8.7</td>
-<td style="text-align: center;">8.7</td>
-<td style="text-align: center;">8.7</td>
-<td style="text-align: center;">8.7</td>
-<td style="text-align: center;">8.7</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">GPU Architecture</td>
-<td style="text-align: center;">Ampere</td>
-<td style="text-align: center;">Ampere</td>
-<td style="text-align: center;">Ampere</td>
-<td style="text-align: center;">Ampere</td>
-<td style="text-align: center;">Ampere</td>
-<td style="text-align: center;">Ampere</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Memory</td>
-<td style="text-align: center;">64GB LPDDR5</td>
-<td style="text-align: center;">32GB LPDDR5</td>
-<td style="text-align: center;">16GB LPDDR5</td>
-<td style="text-align: center;">8GB LPDDR5</td>
-<td style="text-align: center;">8GB LPDDR5</td>
-<td style="text-align: center;">4GB LPDDR5</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">AI Performance</td>
-<td style="text-align: center;">up to 200 TOPs</td>
-<td style="text-align: center;">up to 200 TOPs</td>
-<td style="text-align: center;">up to 70 TOPs</td>
-<td style="text-align: center;">up to 70 TOPs</td>
-<td style="text-align: center;">up to 40 TOPs</td>
-<td style="text-align: center;">up to 40 TOPs</td>
-</tr>
-</tbody>
-</table>
-<h2 id="jetpack-archive">2.3 <a
-target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetpack-archive">JetPack
-Archive</a></h2>
-<h2 id="jetson-download-center">2.4 <a
-target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/downloads">Jetson Download
-Center</a></h2>
-<p>A variety of software can be downloaded from <a
-target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/downloads">Jetson Download
-Center</a>.</p>
-<h1 id="my-jetson-embedded-boards">3. My Jetson Embedded Boards</h1>
-<p>I actually own 4 Jetson embedded boards and am trying 1 more:</p>
-<ul>
-<li>one <a
-target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-2gb-devkit">Jetson
-Nano 2GB</a>: which is purchased with <a
-target="_blank" rel="noopener" href="https://jetbot.org">JetBot</a></li>
-<li>one <a
-target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetson-nano">Jetson
-Nano</a>: provided by <a target="_blank" rel="noopener" href="https://www.longervision.cn">ShenZhen
-Longer Vision Technology</a>, which now comes with 16G memory and 2
-Wired ports.</li>
-<li>one <a
-target="_blank" rel="noopener" href="https://www.nvidia.com/en-gb/autonomous-machines/embedded-systems/jetson-xavier-nx/">Jetson
-Xavier NX</a>: provided by <a
-target="_blank" rel="noopener" href="https://www.longervision.cn">ShenZhen Longer Vision
-Technology</a></li>
-<li>one <strong>Jetson AGX Xavier</strong>: for pure R&amp;D only, but
-sooooo expensive</li>
-<li>one <a
-target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/">Jetson
-Orin Nano</a>: borrowed from one of my students. <a
-target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/">Jetson
-Orin Series</a> was <strong>FIRSTLY</strong> on the market in August
-2022 (Please refer to: <a
-target="_blank" rel="noopener" href="https://www.impulse-embedded.co.uk/news/nvidia-jetson-orin-a-breakthrough-industrial-edge-ai.htm">NVIDIA®
-Jetson Orin™: A Breakthrough in Industrial Edge AI</a>). It is toooo new
-and toooo expensive to be purchased. Ever since that time, a variety of
-single board computers with made-in-China <strong>NPU</strong>s are much
-much much cheaper than <a
-target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/">Jetson
-Orin Series</a>. Yeah, 10 times cheaper guaranteed.</li>
-</ul>
-<h2 id="jetson-nano-2gb-for-jetbot">3.1 <a
-target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-2gb-devkit">Jetson
-Nano 2GB</a> for <a target="_blank" rel="noopener" href="https://jetbot.org">JetBot</a></h2>
-<div data-align="center">
-<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/Old/jetson_nano_2g.png">
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/Old/jetson_nano_2g.png" alt="Neofetch Jetson Nano 2G">
-</a></p>
-</div>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ cat /proc/cpuinfo</span><br><span class="line">processor	: 0</span><br><span class="line">model name	: ARMv8 Processor rev 1 (v8l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32</span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x1</span><br><span class="line">CPU part	: 0xd07</span><br><span class="line">CPU revision	: 1</span><br><span class="line"></span><br><span class="line">processor	: 1</span><br><span class="line">model name	: ARMv8 Processor rev 1 (v8l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32</span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x1</span><br><span class="line">CPU part	: 0xd07</span><br><span class="line">CPU revision	: 1</span><br><span class="line"></span><br><span class="line">processor	: 2</span><br><span class="line">model name	: ARMv8 Processor rev 1 (v8l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32</span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x1</span><br><span class="line">CPU part	: 0xd07</span><br><span class="line">CPU revision	: 1</span><br><span class="line"></span><br><span class="line">processor	: 3</span><br><span class="line">model name	: ARMv8 Processor rev 1 (v8l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32</span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x1</span><br><span class="line">CPU part	: 0xd07</span><br><span class="line">CPU revision	: 1</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ cat /proc/meminfo</span><br><span class="line">MemTotal:        2027240 kB</span><br><span class="line">MemFree:          304868 kB</span><br><span class="line">MemAvailable:    1619252 kB</span><br><span class="line">Buffers:          301640 kB</span><br><span class="line">Cached:           978212 kB</span><br><span class="line">SwapCached:            0 kB</span><br><span class="line">Active:           591384 kB</span><br><span class="line">Inactive:         838300 kB</span><br><span class="line">Active(anon):      77428 kB</span><br><span class="line">Inactive(anon):   112776 kB</span><br><span class="line">Active(file):     513956 kB</span><br><span class="line">Inactive(file):   725524 kB</span><br><span class="line">Unevictable:         828 kB</span><br><span class="line">Mlocked:               0 kB</span><br><span class="line">SwapTotal:       5207916 kB</span><br><span class="line">SwapFree:        5207796 kB</span><br><span class="line">Dirty:               272 kB</span><br><span class="line">Writeback:             0 kB</span><br><span class="line">AnonPages:        143560 kB</span><br><span class="line">Mapped:           168900 kB</span><br><span class="line">Shmem:             39548 kB</span><br><span class="line">Slab:             217244 kB</span><br><span class="line">SReclaimable:     162968 kB</span><br><span class="line">SUnreclaim:        54276 kB</span><br><span class="line">KernelStack:        4384 kB</span><br><span class="line">PageTables:         3520 kB</span><br><span class="line">NFS_Unstable:          0 kB</span><br><span class="line">Bounce:                0 kB</span><br><span class="line">WritebackTmp:          0 kB</span><br><span class="line">CommitLimit:     6221536 kB</span><br><span class="line">Committed_AS:    1029676 kB</span><br><span class="line">VmallocTotal:   263061440 kB</span><br><span class="line">VmallocUsed:           0 kB</span><br><span class="line">VmallocChunk:          0 kB</span><br><span class="line">AnonHugePages:     40960 kB</span><br><span class="line">ShmemHugePages:        0 kB</span><br><span class="line">ShmemPmdMapped:        0 kB</span><br><span class="line">NvMapMemFree:       2048 kB</span><br><span class="line">NvMapMemUsed:      21324 kB</span><br><span class="line">CmaTotal:          65536 kB</span><br><span class="line">CmaFree:           13236 kB</span><br><span class="line">HugePages_Total:       0</span><br><span class="line">HugePages_Free:        0</span><br><span class="line">HugePages_Rsvd:        0</span><br><span class="line">HugePages_Surp:        0</span><br><span class="line">Hugepagesize:       2048 kB</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ df -h</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/mmcblk0p1   58G   29G   28G  51% /</span><br><span class="line">none            951M     0  951M   0% /dev</span><br><span class="line">tmpfs           990M  4.0K  990M   1% /dev/shm</span><br><span class="line">tmpfs           990M   38M  953M   4% /run</span><br><span class="line">tmpfs           5.0M  4.0K  5.0M   1% /run/lock</span><br><span class="line">tmpfs           990M     0  990M   0% /sys/fs/cgroup</span><br><span class="line">tmpfs           198M  4.0K  198M   1% /run/user/121</span><br><span class="line">tmpfs           198M     0  198M   0% /run/user/1000</span><br></pre></td></tr></table></figure>
-<h2 id="jetson-nano-from-shenzhen-longer-vision-technology">3.2 <a
-target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/jetson-nano">Jetson Nano</a>
-from <a target="_blank" rel="noopener" href="https://www.longervision.cn">ShenZhen Longer Vision
-Technology</a></h2>
-<div data-align="center">
-<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/Old/jetson_nano_4g_muii_16g.png">
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/Old/jetson_nano_4g_muii_16g.png" alt="Neofetch Jetson Nano 2G">
-</a></p>
-</div>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ cat /proc/cpuinfo</span><br><span class="line">processor	: 0</span><br><span class="line">model name	: ARMv8 Processor rev 1 (v8l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32</span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x1</span><br><span class="line">CPU part	: 0xd07</span><br><span class="line">CPU revision	: 1</span><br><span class="line"></span><br><span class="line">processor	: 1</span><br><span class="line">model name	: ARMv8 Processor rev 1 (v8l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32</span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x1</span><br><span class="line">CPU part	: 0xd07</span><br><span class="line">CPU revision	: 1</span><br><span class="line"></span><br><span class="line">processor	: 2</span><br><span class="line">model name	: ARMv8 Processor rev 1 (v8l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32</span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x1</span><br><span class="line">CPU part	: 0xd07</span><br><span class="line">CPU revision	: 1</span><br><span class="line"></span><br><span class="line">processor	: 3</span><br><span class="line">model name	: ARMv8 Processor rev 1 (v8l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32</span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x1</span><br><span class="line">CPU part	: 0xd07</span><br><span class="line">CPU revision	: 1</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ cat /proc/meminfo</span><br><span class="line">MemTotal:        4059260 kB</span><br><span class="line">MemFree:         1409344 kB</span><br><span class="line">MemAvailable:    2538768 kB</span><br><span class="line">Buffers:           30120 kB</span><br><span class="line">Cached:          1254004 kB</span><br><span class="line">SwapCached:            0 kB</span><br><span class="line">Active:          1017736 kB</span><br><span class="line">Inactive:        1170840 kB</span><br><span class="line">Active(anon):     905764 kB</span><br><span class="line">Inactive(anon):    45076 kB</span><br><span class="line">Active(file):     111972 kB</span><br><span class="line">Inactive(file):  1125764 kB</span><br><span class="line">Unevictable:           0 kB</span><br><span class="line">Mlocked:               0 kB</span><br><span class="line">SwapTotal:       2029616 kB</span><br><span class="line">SwapFree:        2029616 kB</span><br><span class="line">Dirty:               152 kB</span><br><span class="line">Writeback:             0 kB</span><br><span class="line">AnonPages:        898652 kB</span><br><span class="line">Mapped:           560276 kB</span><br><span class="line">Shmem:             46388 kB</span><br><span class="line">Slab:             102792 kB</span><br><span class="line">SReclaimable:      46832 kB</span><br><span class="line">SUnreclaim:        55960 kB</span><br><span class="line">KernelStack:        6160 kB</span><br><span class="line">PageTables:         7752 kB</span><br><span class="line">NFS_Unstable:          0 kB</span><br><span class="line">Bounce:                0 kB</span><br><span class="line">WritebackTmp:          0 kB</span><br><span class="line">CommitLimit:     4059244 kB</span><br><span class="line">Committed_AS:    2500320 kB</span><br><span class="line">VmallocTotal:   263061440 kB</span><br><span class="line">VmallocUsed:           0 kB</span><br><span class="line">VmallocChunk:          0 kB</span><br><span class="line">AnonHugePages:    131072 kB</span><br><span class="line">ShmemHugePages:        0 kB</span><br><span class="line">ShmemPmdMapped:        0 kB</span><br><span class="line">NvMapMemFree:          0 kB</span><br><span class="line">NvMapMemUsed:     258692 kB</span><br><span class="line">CmaTotal:         475136 kB</span><br><span class="line">CmaFree:          441280 kB</span><br><span class="line">HugePages_Total:       0</span><br><span class="line">HugePages_Free:        0</span><br><span class="line">HugePages_Rsvd:        0</span><br><span class="line">HugePages_Surp:        0</span><br><span class="line">Hugepagesize:       2048 kB</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ df -h</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/mmcblk0p1   14G   12G  1.2G  92% /</span><br><span class="line">none            1.8G     0  1.8G   0% /dev</span><br><span class="line">tmpfs           2.0G   19M  2.0G   1% /dev/shm</span><br><span class="line">tmpfs           2.0G   28M  2.0G   2% /run</span><br><span class="line">tmpfs           5.0M  4.0K  5.0M   1% /run/lock</span><br><span class="line">tmpfs           2.0G     0  2.0G   0% /sys/fs/cgroup</span><br><span class="line">tmpfs           397M   12K  397M   1% /run/user/120</span><br><span class="line">tmpfs           397M     0  397M   0% /run/user/1000</span><br></pre></td></tr></table></figure>
-<h2 id="jetson-xavier-nx-from-shenzhen-longer-vision-technology">3.3 <a
-target="_blank" rel="noopener" href="https://www.nvidia.com/en-gb/autonomous-machines/embedded-systems/jetson-xavier-nx/">Jetson
-Xavier NX</a> from <a target="_blank" rel="noopener" href="https://www.longervision.cn">ShenZhen Longer
-Vision Technology</a></h2>
-<div data-align="center">
-<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/Old/jetson_xavier_nx_8g_muii_16g.png">
-<img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/Old/jetson_xavier_nx_8g_muii_16g.png" alt="Neofetch Jetson Nano 2G">
-</a></p>
-</div>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ cat /proc/cpuinfo</span><br><span class="line">processor	: 0</span><br><span class="line">model name	: ARMv8 Processor rev 0 (v8l)</span><br><span class="line">BogoMIPS	: 62.50</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp</span><br><span class="line">CPU implementer	: 0x4e</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0x004</span><br><span class="line">CPU revision	: 0</span><br><span class="line">MTS version	: 50168445</span><br><span class="line"></span><br><span class="line">processor	: 1</span><br><span class="line">model name	: ARMv8 Processor rev 0 (v8l)</span><br><span class="line">BogoMIPS	: 62.50</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp</span><br><span class="line">CPU implementer	: 0x4e</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0x004</span><br><span class="line">CPU revision	: 0</span><br><span class="line">MTS version	: 50168445</span><br><span class="line"></span><br><span class="line">processor	: 2</span><br><span class="line">model name	: ARMv8 Processor rev 0 (v8l)</span><br><span class="line">BogoMIPS	: 62.50</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp</span><br><span class="line">CPU implementer	: 0x4e</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0x004</span><br><span class="line">CPU revision	: 0</span><br><span class="line">MTS version	: 50168445</span><br><span class="line"></span><br><span class="line">processor	: 3</span><br><span class="line">model name	: ARMv8 Processor rev 0 (v8l)</span><br><span class="line">BogoMIPS	: 62.50</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp</span><br><span class="line">CPU implementer	: 0x4e</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0x004</span><br><span class="line">CPU revision	: 0</span><br><span class="line">MTS version	: 50168445</span><br><span class="line"></span><br><span class="line">processor	: 4</span><br><span class="line">model name	: ARMv8 Processor rev 0 (v8l)</span><br><span class="line">BogoMIPS	: 62.50</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp</span><br><span class="line">CPU implementer	: 0x4e</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0x004</span><br><span class="line">CPU revision	: 0</span><br><span class="line">MTS version	: 50168445</span><br><span class="line"></span><br><span class="line">processor	: 5</span><br><span class="line">model name	: ARMv8 Processor rev 0 (v8l)</span><br><span class="line">BogoMIPS	: 62.50</span><br><span class="line">Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp</span><br><span class="line">CPU implementer	: 0x4e</span><br><span class="line">CPU architecture: 8</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0x004</span><br><span class="line">CPU revision	: 0</span><br><span class="line">MTS version	: 50168445</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ cat /proc/meminfo</span><br><span class="line">MemTotal:        7958064 kB</span><br><span class="line">MemFree:         6376676 kB</span><br><span class="line">MemAvailable:    6968608 kB</span><br><span class="line">Buffers:           31648 kB</span><br><span class="line">Cached:           706620 kB</span><br><span class="line">SwapCached:            0 kB</span><br><span class="line">Active:           422156 kB</span><br><span class="line">Inactive:         581804 kB</span><br><span class="line">Active(anon):     267236 kB</span><br><span class="line">Inactive(anon):    27908 kB</span><br><span class="line">Active(file):     154920 kB</span><br><span class="line">Inactive(file):   553896 kB</span><br><span class="line">Unevictable:           0 kB</span><br><span class="line">Mlocked:               0 kB</span><br><span class="line">SwapTotal:       3979008 kB</span><br><span class="line">SwapFree:        3979008 kB</span><br><span class="line">Dirty:                 0 kB</span><br><span class="line">Writeback:             0 kB</span><br><span class="line">AnonPages:        254048 kB</span><br><span class="line">Mapped:           187980 kB</span><br><span class="line">Shmem:             29456 kB</span><br><span class="line">Slab:             132884 kB</span><br><span class="line">SReclaimable:      60592 kB</span><br><span class="line">SUnreclaim:        72292 kB</span><br><span class="line">KernelStack:        6640 kB</span><br><span class="line">PageTables:         5892 kB</span><br><span class="line">NFS_Unstable:          0 kB</span><br><span class="line">Bounce:                0 kB</span><br><span class="line">WritebackTmp:          0 kB</span><br><span class="line">CommitLimit:     7958040 kB</span><br><span class="line">Committed_AS:    1977692 kB</span><br><span class="line">VmallocTotal:   263061440 kB</span><br><span class="line">VmallocUsed:           0 kB</span><br><span class="line">VmallocChunk:          0 kB</span><br><span class="line">AnonHugePages:     90112 kB</span><br><span class="line">ShmemHugePages:        0 kB</span><br><span class="line">ShmemPmdMapped:        0 kB</span><br><span class="line">NvMapMemFree:        704 kB</span><br><span class="line">NvMapMemUsed:      27852 kB</span><br><span class="line">CmaTotal:         753664 kB</span><br><span class="line">CmaFree:          704152 kB</span><br><span class="line">HugePages_Total:       0</span><br><span class="line">HugePages_Free:        0</span><br><span class="line">HugePages_Rsvd:        0</span><br><span class="line">HugePages_Surp:        0</span><br><span class="line">Hugepagesize:       2048 kB</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ df -h</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/mmcblk0p1   14G   13G  253M  99% /</span><br><span class="line">none            3.5G     0  3.5G   0% /dev</span><br><span class="line">tmpfs           3.8G  4.0K  3.8G   1% /dev/shm</span><br><span class="line">tmpfs           3.8G   29M  3.8G   1% /run</span><br><span class="line">tmpfs           5.0M  4.0K  5.0M   1% /run/lock</span><br><span class="line">tmpfs           3.8G     0  3.8G   0% /sys/fs/cgroup</span><br><span class="line">tmpfs           778M   12K  778M   1% /run/user/120</span><br><span class="line">tmpfs           778M     0  778M   0% /run/user/1000</span><br></pre></td></tr></table></figure>
-<h2 id="jetson-agx-xavier">3.4 Jetson AGX Xavier</h2>
-<h3 id="entering-recovery-mode">3.4.1 Entering Recovery Mode</h3>
-<p>After recovery mode is entered, you'll see:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ lsusb | grep NVIDIA</span><br><span class="line">Bus 009 Device 031: ID 0955:7019 NVIDIA Corp. APX</span><br></pre></td></tr></table></figure>
-<h3 id="failed-to-flash-via-nvidia-sdk-manager">3.4.2 Failed to Flash
-via <a target="_blank" rel="noopener" href="https://developer.nvidia.com/sdk-manager">NVidia SDK
-Manager</a></h3>
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Select Jetson AGX Xavier</th>
-<th style="text-align: center;">No available releases for host OS:
-Ubuntu 24.04</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/NVidia_SDK_Manager_Jetson_AGX_Xavier.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/NVidia_SDK_Manager_Jetson_AGX_Xavier.png"
-alt="NVidia SDK Manager Jetson AGX Xavier" /></a></td>
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/NVidia_SDK_Manager_No_Available_Release_for_Host.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/NVidia_SDK_Manager_No_Available_Release_for_Host.png"
-alt="NVidia SDK Manager No Available Release for Host" /></a></td>
-</tr>
-</tbody>
-</table>
-<h3 id="try-sd-car-image">3.4.3 Try SD Car Image</h3>
-<p>Download <a
-target="_blank" rel="noopener" href="https://developer.nvidia.com/downloads/embedded/l4t/r35_release_v6.0/JP514-xnx-sd-card-image_b11.zip">JP514-xnx-sd-card-image_b11.zip</a>.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dd if=./sd-blob.img of=/dev/sdb bs=1M status=progress conv=fsync </span><br><span class="line">[sudo] password for lvision: </span><br><span class="line">17746100224 bytes (18 GB, 17 GiB) copied, 26 s, 683 MB/s18153996288 bytes (18 GB, 17 GiB) copied, 26.5595 s, 684 MB/s</span><br><span class="line"></span><br><span class="line">17313+0 records in</span><br><span class="line">17313+0 records out</span><br><span class="line">18153996288 bytes (18 GB, 17 GiB) copied, 1617.17 s, 11.2 MB/s</span><br></pre></td></tr></table></figure>
-<p>However, <strong>Jetson AGX Xavier</strong> is <strong>NOT</strong>
-booting, but <strong>ONLY</strong> black screen.</p>
-<p>The answer is at <a
-target="_blank" rel="noopener" href="https://forums.developer.nvidia.com/t/black-screen/189348/">NVidia
-Forum Issue 189348 - Black Screen</a>: <span
-style="color:red"><strong>Do you know that you are talking about AGX
-Xavier but not NX? Only NX and Nano have and support sdcard image. Other
-platforms do not.</strong></span> It’s also clearly clarified in the
-table on NVidia’s official page: <a
-target="_blank" rel="noopener" href="https://developer.nvidia.com/sdk-manager">NVidia SDK
-Manager</a>.</p>
-<h3 id="negotiated-to-use-ubuntu-20.04">3.4.4 Negotiated to Use <a
-target="_blank" rel="noopener" href="https://ubuntu.com/download/desktop">Ubuntu 20.04</a></h3>
-<p><strong><span style="color:red">Still problemabic. Two main
-issues:</span></strong></p>
-<ul>
-<li>That IP: <code>192.168.55.1</code> won't let me flash
-successfully</li>
-<li><code>CUDA</code> is not able to be installed successfully</li>
-</ul>
-<h4 id="again-jetson-linux-developer-guide-quick-start">3.4.4.2 Again:
-<a
-target="_blank" rel="noopener" href="https://docs.nvidia.com/jetson/archives/r36.4/DeveloperGuide/IN/QuickStart.html">Jetson
-Linux Developer Guide Quick Start</a></h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./flash.sh jetson-agx-xavier-devkit internal</span><br></pre></td></tr></table></figure>
-<p>works for me.</p>
-<h4 id="ssh-and-neofetch">3.4.4.3 <code>ssh</code> and
-<code>neofetch</code></h4>
-<p><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/ssh_neofetch.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/ssh_neofetch.png"
-alt="ssh into Jetson AGX Xavier Nano and neofetch" /></a></p>
-<h1 id="demonstrate-gpu-on-jetson-agx-xavier">4. Demonstrate GPU On
-Jetson AGX Xavier</h1>
-<h2 id="tegrastats-jetson_release-jetson_clocks">4.1
-<code>tegrastats</code>, <code>jetson_release</code>,
-<code>jetson_clocks</code></h2>
-<p><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/AGX_Xavier/tegrastats-jetson_release-jetson_clocks.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/AGX_Xavier/tegrastats-jetson_release-jetson_clocks.png"
-alt="tegrastats + jetson_release + jetson_clocks" /></a></p>
-<h2 id="jtop-from-jetson-stats">4.2 <code>jtop</code> from <a
-target="_blank" rel="noopener" href="https://github.com/rbonghi/jetson_stats">jetson-stats</a></h2>
-<p><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/AGX_Xavier/jtop_agx_xavier.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/Jetson/AGX_Xavier/jtop_agx_xavier.png"
-alt="JTop Jetson AGX Xavier" /></a></p>
-<h1 id="yolov11-on-jetson-agx-xavier">5. <a
-target="_blank" rel="noopener" href="https://docs.ultralytics.com/models/yolo11/">YOLOv11</a> On Jetson
-AGX Xavier</h1>
-<p>Similar difficulties happened on this board <strong>Jetson AGX
-Xavier</strong>, which is clearly elaborated in one of my blogs <a
-href="../../../../../../2024/10/15/SBCs/ARM/NVidia-Jetson-Orin-Nano-8G-Dev-Kit/">NVidia-Jetson-Orin-Nano-8G-Dev-Kit.md</a>.</p>
-<p><strong><span style="color:red">Solution:</span></strong></p>
-<ul>
-<li><code>pip install ultralytics</code></li>
-<li>Overwrite <code>torch</code> installed with <code>ultralytics</code>
-by <a
-target="_blank" rel="noopener" href="https://developer.download.nvidia.com/compute/redist/jp/v512/pytorch/torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl">PyTorch
-for JetPack 5.1.2</a></li>
-<li>Build <a target="_blank" rel="noopener" href="https://github.com/pytorch/vision">torchvision</a>
-from source</li>
-</ul>
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://docs.ultralytics.com/models/yolo11/">YOLOv11</a>
-Initialization</th>
-<th style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://docs.ultralytics.com/models/yolo11/">YOLOv11</a> GPU</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/yolov11_init.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/yolov11_init.png"
-alt="YOLO v11 Initialization" /></a></td>
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/yolov11_gpu.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/yolov11_gpu.png"
-alt="YOLO v11 GPU" /></a></td>
-</tr>
-</tbody>
-</table>
-<p>One of my blogs <a
-href="../../../../../../2024/10/09/AI/DeepLearning/YOLOv11">YOLOv11.md</a>
-didn't talk about which model to use. And today, let's try them out.</p>
-
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/NVidia-Jetson-Xavier-AGX-JetPack/" rel="tag"># NVidia, Jetson Xavier AGX, JetPack</a>
-          </div>
+    <footer class="footer">
+      <div class="footer-inner">
+        
 
         
 
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2024/07/05/MachineVision/RGBD/RealSense-LiDAR-D43X/" rel="prev" title="Intel RealSense LiDAR Camera D435/D430">
-                  <i class="fa fa-angle-left"></i> Intel RealSense LiDAR Camera D435/D430
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/2024/07/08/MachineVision/RGBD/Kinect-2/" rel="next" title="Kinect 2 on Jetson AGX Xavier">
-                  Kinect 2 on Jetson AGX Xavier <i class="fa fa-angle-right"></i>
-                </a>
-            </div>
-          </div>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nobody</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
     </footer>
-  </article>
-</div>
-
-
-
-
-
-
-</div>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-inner">
-
-  <div class="copyright">
-    &copy; 
-    <span itemprop="copyrightYear">2025</span>
-    <span class="with-love">
-      <i class="fa fa-heart"></i>
-    </span>
-    <span class="author" itemprop="copyrightHolder">Nobody</span>
   </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
-  </div>
-
-    </div>
-  </footer>
 
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-  <div class="sidebar-dimmer"></div>
-  <div class="back-to-top" role="button" aria-label="Back to top">
-    <i class="fa fa-arrow-up fa-lg"></i>
-    <span>0%</span>
-  </div>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
 
 
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
-
-  
+<script src="/js/schemes/muse.js"></script>
 
 
+<script src="/js/next-boot.js"></script>
 
 
 
@@ -769,6 +680,20 @@ didn't talk about which model to use. And today, let's try them out.</p>
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
 
 </body>
 </html>

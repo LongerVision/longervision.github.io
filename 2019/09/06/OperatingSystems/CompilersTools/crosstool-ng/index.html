@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en,default">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,37 +13,43 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-
-    <meta name="description" content="Today, we’re going to build our own toolchain using crosstool-NG. There are so many cases that we want to build a particular toolchain for a specific embedded system development board. One MOST import">
+  <meta name="description" content="Today, we’re going to build our own toolchain using crosstool-NG. There are so many cases that we want to build a particular toolchain for a specific embedded system development board. One MOST import">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Build Toolchain Using Crosstool-NG">
 <meta property="og:url" content="http://longervision.ca/2019/09/06/OperatingSystems/CompilersTools/crosstool-ng/index.html">
 <meta property="og:site_name" content="Longer Vision Technology">
 <meta property="og:description" content="Today, we’re going to build our own toolchain using crosstool-NG. There are so many cases that we want to build a particular toolchain for a specific embedded system development board. One MOST import">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/OperatingSystems/crosscompile/crosstool-ng.png">
 <meta property="article:published_time" content="2019-09-06T07:00:00.000Z">
 <meta property="article:modified_time" content="2025-06-04T06:08:38.069Z">
 <meta property="article:author" content="Nobody">
 <meta property="article:tag" content="Linux, Crosstool-NG, Toolchain">
 <meta name="twitter:card" content="summary">
-
+<meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/OperatingSystems/crosscompile/crosstool-ng.png">
 
 <link rel="canonical" href="http://longervision.ca/2019/09/06/OperatingSystems/CompilersTools/crosstool-ng/">
 
 
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://longervision.ca/2019/09/06/OperatingSystems/CompilersTools/crosstool-ng/","path":"2019/09/06/OperatingSystems/CompilersTools/crosstool-ng/","title":"Build Toolchain Using Crosstool-NG"}</script>
-
-<script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Build Toolchain Using Crosstool-NG | Longer Vision Technology</title>
+  <title>Build Toolchain Using Crosstool-NG | Longer Vision Technology</title>
   
-
-
 
 
 
@@ -51,33 +57,56 @@
 
 
   <noscript>
-    <link rel="stylesheet" href="/css/noscript.css">
-  </noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
-  <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
 
-  <main class="main">
-    <div class="column">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <i class="logo-line"></i>
-      <p class="site-title">Longer Vision Technology</p>
-      <i class="logo-line"></i>
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Longer Vision Technology</h1>
+      <span class="logo-line-after"><i></i></span>
     </a>
       <p class="site-subtitle" itemprop="description">Github Blog</p>
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    <div class="toggle popup-trigger">
     </div>
   </div>
 </div>
@@ -85,16 +114,344 @@
 
 
 
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
 
 
 
-</header>
-        
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
   
-  <aside class="sidebar">
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/09/06/OperatingSystems/CompilersTools/crosstool-ng/">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
-      <ul class="sidebar-nav">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Build Toolchain Using Crosstool-NG
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-09-06 00:00:00" itemprop="dateCreated datePublished" datetime="2019-09-06T00:00:00-07:00">2019-09-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-06-03 23:08:38" itemprop="dateModified" datetime="2025-06-03T23:08:38-07:00">2025-06-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Operating-System/" itemprop="url" rel="index"><span itemprop="name">Operating System</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Operating-System/Compiler/" itemprop="url" rel="index"><span itemprop="name">Compiler</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Today, we’re going to build our own toolchain using <a target="_blank" rel="noopener" href="https://crosstool-ng.github.io/">crosstool-NG</a>. There are so many cases that we want to build a particular <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Toolchain">toolchain</a> for a specific embedded system development board. One <span style="color:red"><strong>MOST important</strong></span> reason for that is probably because the specific development board has limited resource to build upon, therefore, the time-consumption to build some software on the development board is <span style="color:red"><strong>VERY inefficient</strong></span>. In the other way around, <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cross_compiler">cross compiling</a> on the host PC is <span style="color:red"><strong>MORE efficient</strong></span> with respective to the time-consumption.</p>
+<p>In this blog, for simplicity, we take <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry Pi 3B</a> as our demo development board, for which we are building the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cross_compiler">cross compiler</a>. Some references can be found at:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://crosstool-ng.github.io/docs/">crosstool-ng Official Documentation</a></li>
+<li><a target="_blank" rel="noopener" href="https://elinux.org/RPi_Linaro_GCC_Compilation">elinux: RPi Linaro GCC Compilation</a></li>
+</ul>
+<h1 id="1-Installation"><a href="#1-Installation" class="headerlink" title="1. Installation"></a>1. Installation</h1><p>How to install <a target="_blank" rel="noopener" href="https://crosstool-ng.github.io/">crosstool-NG</a> are thoroughly summarized at its <a target="_blank" rel="noopener" href="https://crosstool-ng.github.io/docs/install/">official website</a>. In my case, I had it installed under folder <strong>&#x2F;opt&#x2F;compilers&#x2F;crosstool-ng</strong>. Let’s take a look:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash"><span class="built_in">pwd</span></span></span><br><span class="line">/opt/compilers/crosstool-ng</span><br><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash"><span class="built_in">ls</span></span></span><br><span class="line">bin  libexec  share</span><br><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash"><span class="built_in">ls</span> bin</span></span><br><span class="line">ct-ng</span><br></pre></td></tr></table></figure>
+
+<p>And make sure <code>/opt/compilers/crosstool-ng/bin</code> is under environment variable <strong>PATH</strong>.</p>
+<h1 id="2-Configuration"><a href="#2-Configuration" class="headerlink" title="2. Configuration"></a>2. Configuration</h1><p>Under any directory that you want to save your <code>.config</code> file, we can configure our target <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cross_compiler">cross compiler</a>.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">ct-ng menuconfig</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/OperatingSystems/crosscompile/crosstool-ng.png" alt="crosstool-NG menuconfig"></p>
+<p>According to elinux: <a target="_blank" rel="noopener" href="https://elinux.org/RPi_Linaro_GCC_Compilation">RPi Linaro GCC Compilation</a>, we need to do the following selections:</p>
+<ul>
+<li><strong>Paths and misc options</strong>:<ul>
+<li><strong>Try features marked as EXPERIMENTAL</strong>: ticked</li>
+<li><strong>Prefix directory</strong>: input the full path where you want to save the built toolchains</li>
+<li><strong>Number of parallel jobs</strong>: 4. Sorry that I’ve <strong>NO</strong> idea if this is the number of cores on <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry Pi 3B</a>, but <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry Pi 3B</a> does have 4 cores.</li>
+</ul>
+</li>
+<li><strong>Target options</strong>:<ul>
+<li><strong>Target Architecture</strong>: arm</li>
+<li><strong>Default instruction set mode</strong>: arm</li>
+<li><strong>Use EABI</strong>: ticked</li>
+<li><strong>append hf to the tuple (EXPERIMENTAL)</strong>: ticked</li>
+<li><strong><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Endianness">Endianness</a></strong>: Little endian</li>
+<li><strong>Bitness</strong>: 32-bit</li>
+<li><strong>Emit assembly for CPU</strong>: cortex-a53</li>
+<li><strong>Use specific FPU</strong>: vfp</li>
+<li><strong>Floating point</strong>: hardware (FPU)</li>
+</ul>
+</li>
+<li><strong>Toolchain options</strong>:<ul>
+<li><strong>Tuple’s vendor string</strong>: rpi</li>
+</ul>
+</li>
+<li><strong>Operating System</strong><ul>
+<li><strong>Target OS</strong>: linux</li>
+<li><strong>Version of Linux</strong>: 4.20.8. Currently, I flashed <a target="_blank" rel="noopener" href="https://downloads.raspberrypi.org/raspbian_full_latest">Raspbian Buster with desktop and recommended software, 2019-07-10</a> onto my <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry Pi 3B</a>, it comes with kernel of version <strong>4.19.66</strong>, which is <strong>NOT</strong> in the list. That’s why I decided to select <strong>4.20.8</strong> and try my luck.</li>
+</ul>
+</li>
+</ul>
+<div style="text-align: center; font-size: 3em;">
+    😝
+</div>
+
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ uname -a</span><br><span class="line">    Linux raspberrypi 4.19.66-v7+ #1253 SMP Thu Aug 15 11:49:46 BST 2019 armv7l GNU/Linux</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>Binary utilities</strong>:<ul>
+<li><strong>Binary format</strong>: ELF</li>
+<li><strong>Version of binutils</strong>: 2.31.1</li>
+</ul>
+  <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ apt show binutils</span><br><span class="line">Package: binutils</span><br><span class="line">Version: 2.31.1-16+rpi1</span><br><span class="line">Priority: optional</span><br><span class="line">Section: devel</span><br><span class="line">Maintainer: Matthias Klose &lt;doko@debian.org&gt;</span><br><span class="line">Installed-Size: 95.2 kB</span><br><span class="line">Provides: binutils-gold, elf-binutils</span><br><span class="line">Depends: binutils-common (= 2.31.1-16+rpi1), libbinutils (= 2.31.1-16+rpi1), binutils-arm-linux-gnueabihf (= 2.31.1-16+rpi1)</span><br><span class="line">Suggests: binutils-doc (&gt;= 2.31.1-16+rpi1)</span><br><span class="line">Conflicts: binutils-multiarch (&lt;&lt; 2.27-8), modutils (&lt;&lt; 2.4.19-1)</span><br><span class="line">Homepage: https://www.gnu.org/software/binutils/</span><br><span class="line">Download-Size: 56.9 kB</span><br><span class="line">APT-Manual-Installed: no</span><br><span class="line">APT-Sources: http://raspbian.raspberrypi.org/raspbian buster/main armhf Packages</span><br><span class="line">Description: GNU assembler, linker and binary utilities</span><br><span class="line">The programs in this package are used to assemble, link and manipulate</span><br><span class="line">binary and object files.  They may be used in conjunction with a compiler</span><br><span class="line">and various libraries to build programs.</span><br></pre></td></tr></table></figure></li>
+<li><strong>C-library</strong>:<ul>
+<li><strong>C library</strong>: glibc</li>
+<li><strong>Version of glibc</strong>: 2.28</li>
+</ul>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ apt show libc-bin</span><br><span class="line">Package: libc-bin</span><br><span class="line">Version: 2.28-10+rpi1</span><br><span class="line">Priority: required</span><br><span class="line">Essential: yes</span><br><span class="line">Section: libs</span><br><span class="line">Source: glibc</span><br><span class="line">Maintainer: GNU Libc Maintainers &lt;debian-glibc@lists.debian.org&gt;</span><br><span class="line">Installed-Size: 3,015 kB</span><br><span class="line">Depends: libc6 (&gt;&gt; 2.28), libc6 (&lt;&lt; 2.29)</span><br><span class="line">Recommends: manpages</span><br><span class="line">Homepage: https://www.gnu.org/software/libc/libc.html</span><br><span class="line">Download-Size: 657 kB</span><br><span class="line">APT-Manual-Installed: yes</span><br><span class="line">APT-Sources: http://raspbian.raspberrypi.org/raspbian buster/main armhf Packages</span><br><span class="line">Description: GNU C Library: Binaries</span><br><span class="line">This package contains utility programs related to the GNU C Library.</span><br><span class="line">.</span><br><span class="line">* catchsegv: catch segmentation faults in programs</span><br><span class="line">* getconf: query system configuration variables</span><br><span class="line">* getent: get entries from administrative databases</span><br><span class="line">* iconv, iconvconfig: convert between character encodings</span><br><span class="line">* ldd, ldconfig: print/configure shared library dependencies</span><br><span class="line">* locale, localedef: show/generate locale definitions</span><br><span class="line">* tzselect, zdump, zic: select/dump/compile time zones</span><br></pre></td></tr></table></figure></li>
+<li><strong>C compiler</strong>:<ul>
+<li><strong>Show gcc versions from</strong>: GNU</li>
+<li><strong>Version of gcc</strong>: 8.3.0</li>
+<li><strong>gcc extra config</strong>: –with-float&#x3D;hard</li>
+<li><strong>Link libstdc++ statically into the gcc binary</strong>: tick</li>
+<li><strong>C++</strong>: tick</li>
+</ul>
+  <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ apt show gcc</span><br><span class="line">Package: gcc</span><br><span class="line">Version: 4:8.3.0-1+rpi2</span><br><span class="line">Priority: optional</span><br><span class="line">Section: devel</span><br><span class="line">Source: gcc-defaults (1.181+rpi2)</span><br><span class="line">Maintainer: Debian GCC Maintainers &lt;debian-gcc@lists.debian.org&gt;</span><br><span class="line">Installed-Size: 46.1 kB</span><br><span class="line">Provides: c-compiler, gcc-arm-linux-gnueabihf (= 4:8.3.0-1+rpi2)</span><br><span class="line">Depends: cpp (= 4:8.3.0-1+rpi2), gcc-8 (&gt;= 8.3.0-1~)</span><br><span class="line">Recommends: libc6-dev | libc-dev</span><br><span class="line">Suggests: gcc-multilib, make, manpages-dev, autoconf, automake, libtool, flex, bison, gdb, gcc-doc</span><br><span class="line">Conflicts: gcc-doc (&lt;&lt; 1:2.95.3)</span><br><span class="line">Download-Size: 5,200 B</span><br><span class="line">APT-Manual-Installed: no</span><br><span class="line">APT-Sources: http://raspbian.raspberrypi.org/raspbian buster/main armhf Packages</span><br><span class="line">Description: GNU C compiler</span><br><span class="line">This is the GNU C compiler, a fairly portable optimizing compiler for C.</span><br><span class="line">.</span><br><span class="line">This is a dependency package providing the default GNU C compiler.</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>After we save the configuration to file <strong>.config</strong>, we <strong>Exit</strong> the <strong>crosstool-NG</strong> configuration dialog.</p>
+<h1 id="3-Build"><a href="#3-Build" class="headerlink" title="3. Build"></a>3. Build</h1><p><span style="color:red"><strong>Please remember to</strong></span>:</p>
+<ul>
+<li><code>unset LD_LIBRARY_PATH</code> before building. Otherwise, you’ll meet some <strong>ERROR</strong> messages.</li>
+<li><code>mkdir ~/src</code> before building. Otherwise, whenever you tried to rerun <code>ct-ng build</code>, you’ll have to download <strong>ALL</strong> required packages from scratch.</li>
+</ul>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">ct-ng build</span></span><br><span class="line">[INFO ]  Performing some trivial sanity checks</span><br><span class="line">[WARN ]  Number of open files 1024 may not be sufficient to build the toolchain; increasing to 2048</span><br><span class="line">[INFO ]  Build started 20190906.014128</span><br><span class="line">[INFO ]  Building environment variables</span><br><span class="line">[EXTRA]  Preparing working directories</span><br><span class="line">[EXTRA]  Installing user-supplied crosstool-NG configuration</span><br><span class="line">[EXTRA]  =================================================================</span><br><span class="line">[EXTRA]  Dumping internal crosstool-NG configuration</span><br><span class="line">[EXTRA]    Building a toolchain for:</span><br><span class="line">[EXTRA]      build  = x86_64-pc-linux-gnu</span><br><span class="line">[EXTRA]      host   = x86_64-pc-linux-gnu</span><br><span class="line">[EXTRA]      target = arm-rpi-linux-gnueabihf</span><br><span class="line">[EXTRA]  Dumping internal crosstool-NG configuration: done in 0.07s (at 00:01)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Retrieving needed toolchain components&#x27; tarballs</span><br><span class="line">[EXTRA]    Retrieving &#x27;ncurses-6.1&#x27;</span><br><span class="line">[EXTRA]    Verifying SHA512 checksum for &#x27;ncurses-6.1.tar.gz&#x27;</span><br><span class="line">[EXTRA]    Saving &#x27;ncurses-6.1.tar.gz&#x27; to local storage</span><br><span class="line">[EXTRA]    Retrieving &#x27;libiconv-1.15&#x27;</span><br><span class="line">[EXTRA]    Verifying SHA512 checksum for &#x27;libiconv-1.15.tar.gz&#x27;</span><br><span class="line">[EXTRA]    Saving &#x27;libiconv-1.15.tar.gz&#x27; to local storage</span><br><span class="line">[EXTRA]    Retrieving &#x27;gettext-0.19.8.1&#x27;</span><br><span class="line">[EXTRA]    Verifying SHA512 checksum for &#x27;gettext-0.19.8.1.tar.xz&#x27;</span><br><span class="line">[EXTRA]    Saving &#x27;gettext-0.19.8.1.tar.xz&#x27; to local storage</span><br><span class="line">[EXTRA]    Retrieving &#x27;binutils-2.31.1&#x27;</span><br><span class="line">[EXTRA]    Verifying SHA512 checksum for &#x27;binutils-2.31.1.tar.xz&#x27;</span><br><span class="line">[EXTRA]    Saving &#x27;binutils-2.31.1.tar.xz&#x27; to local storage</span><br><span class="line">[EXTRA]    Retrieving &#x27;gcc-8.3.0&#x27;</span><br><span class="line">[EXTRA]    Verifying SHA512 checksum for &#x27;gcc-8.3.0.tar.xz&#x27;</span><br><span class="line">[EXTRA]    Saving &#x27;gcc-8.3.0.tar.xz&#x27; to local storage</span><br><span class="line">[EXTRA]    Retrieving &#x27;glibc-2.28&#x27;</span><br><span class="line">[EXTRA]    Verifying SHA512 checksum for &#x27;glibc-2.28.tar.xz&#x27;</span><br><span class="line">[EXTRA]    Saving &#x27;glibc-2.28.tar.xz&#x27; to local storage</span><br><span class="line">[INFO ]  Retrieving needed toolchain components&#x27; tarballs: done in 130.35s (at 02:12)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Extracting and patching toolchain components</span><br><span class="line">[EXTRA]    Extracting linux-4.20.8</span><br><span class="line">[EXTRA]    Patching linux-4.20.8</span><br><span class="line">[EXTRA]    Extracting zlib-1.2.11</span><br><span class="line">[EXTRA]    Patching zlib-1.2.11</span><br><span class="line">[EXTRA]    Extracting gmp-6.1.2</span><br><span class="line">[EXTRA]    Patching gmp-6.1.2</span><br><span class="line">[EXTRA]    Extracting mpfr-4.0.2</span><br><span class="line">[EXTRA]    Patching mpfr-4.0.2</span><br><span class="line">[EXTRA]    Extracting isl-0.20</span><br><span class="line">[EXTRA]    Patching isl-0.20</span><br><span class="line">[EXTRA]    Extracting mpc-1.1.0</span><br><span class="line">[EXTRA]    Patching mpc-1.1.0</span><br><span class="line">[EXTRA]    Extracting ncurses-6.1</span><br><span class="line">[EXTRA]    Patching ncurses-6.1</span><br><span class="line">[EXTRA]    Extracting libiconv-1.15</span><br><span class="line">[EXTRA]    Patching libiconv-1.15</span><br><span class="line">[EXTRA]    Extracting gettext-0.19.8.1</span><br><span class="line">[EXTRA]    Patching gettext-0.19.8.1</span><br><span class="line">[EXTRA]    Extracting binutils-2.31.1</span><br><span class="line">[EXTRA]    Patching binutils-2.31.1</span><br><span class="line">[EXTRA]    Extracting gcc-8.3.0</span><br><span class="line">[EXTRA]    Patching gcc-8.3.0</span><br><span class="line">[EXTRA]    Extracting glibc-2.28</span><br><span class="line">[EXTRA]    Patching glibc-2.28</span><br><span class="line">[INFO ]  Extracting and patching toolchain components: done in 33.39s (at 02:45)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing ncurses for build</span><br><span class="line">[EXTRA]    Configuring ncurses</span><br><span class="line">[EXTRA]    Building ncurses</span><br><span class="line">[EXTRA]    Installing ncurses</span><br><span class="line">[INFO ]  Installing ncurses for build: done in 14.62s (at 03:00)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing zlib for host</span><br><span class="line">[EXTRA]    Configuring zlib</span><br><span class="line">[EXTRA]    Building zlib</span><br><span class="line">[EXTRA]    Installing zlib</span><br><span class="line">[INFO ]  Installing zlib for host: done in 1.12s (at 03:01)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing GMP for host</span><br><span class="line">[EXTRA]    Configuring GMP</span><br><span class="line">[EXTRA]    Building GMP</span><br><span class="line">[EXTRA]    Installing GMP</span><br><span class="line">[INFO ]  Installing GMP for host: done in 30.12s (at 03:31)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing MPFR for host</span><br><span class="line">[EXTRA]    Configuring MPFR</span><br><span class="line">[EXTRA]    Building MPFR</span><br><span class="line">[EXTRA]    Installing MPFR</span><br><span class="line">[INFO ]  Installing MPFR for host: done in 17.35s (at 03:48)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing ISL for host</span><br><span class="line">[EXTRA]    Configuring ISL</span><br><span class="line">[EXTRA]    Building ISL</span><br><span class="line">[EXTRA]    Installing ISL</span><br><span class="line">[INFO ]  Installing ISL for host: done in 17.73s (at 04:06)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing MPC for host</span><br><span class="line">[EXTRA]    Configuring MPC</span><br><span class="line">[EXTRA]    Building MPC</span><br><span class="line">[EXTRA]    Installing MPC</span><br><span class="line">[INFO ]  Installing MPC for host: done in 5.47s (at 04:12)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing ncurses for host</span><br><span class="line">[EXTRA]    Configuring ncurses</span><br><span class="line">[EXTRA]    Building ncurses</span><br><span class="line">[EXTRA]    Installing ncurses</span><br><span class="line">[INFO ]  Installing ncurses for host: done in 13.64s (at 04:25)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing libiconv for host</span><br><span class="line">[EXTRA]    Skipping (included in GNU C library)</span><br><span class="line">[INFO ]  Installing libiconv for host: done in 0.01s (at 04:25)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing gettext for host</span><br><span class="line">[EXTRA]    Skipping (included in GNU C library)</span><br><span class="line">[INFO ]  Installing gettext for host: done in 0.01s (at 04:25)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing binutils for host</span><br><span class="line">[EXTRA]    Configuring binutils</span><br><span class="line">[EXTRA]    Building binutils</span><br><span class="line">[EXTRA]    Installing binutils</span><br><span class="line">[INFO ]  Installing binutils for host: done in 46.89s (at 05:12)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing pass-1 core C gcc compiler</span><br><span class="line">[EXTRA]    Configuring core C gcc compiler</span><br><span class="line">[EXTRA]    Building gcc</span><br><span class="line">[EXTRA]    Installing gcc</span><br><span class="line">[EXTRA]    Housekeeping for core gcc compiler</span><br><span class="line">[EXTRA]       &#x27;&#x27; --&gt; lib (gcc)   lib (os)</span><br><span class="line">[INFO ]  Installing pass-1 core C gcc compiler: done in 285.36s (at 09:58)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing kernel headers</span><br><span class="line">[EXTRA]    Installing kernel headers</span><br><span class="line">[EXTRA]    Checking installed headers</span><br><span class="line">[INFO ]  Installing kernel headers: done in 6.47s (at 10:04)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing C library headers &amp; start files</span><br><span class="line">[INFO ]    =================================================================</span><br><span class="line">[INFO ]    Building for multilib 1/1: &#x27;&#x27;</span><br><span class="line">[EXTRA]      Configuring C library</span><br><span class="line">[EXTRA]      Installing C library headers</span><br><span class="line">[EXTRA]      Installing C library start files</span><br><span class="line">[INFO ]    Building for multilib 1/1: &#x27;&#x27;: done in 7.65s (at 10:12)</span><br><span class="line">[INFO ]  Installing C library headers &amp; start files: done in 7.72s (at 10:12)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing pass-2 core C gcc compiler</span><br><span class="line">[EXTRA]    Configuring core C gcc compiler</span><br><span class="line">[EXTRA]    Building gcc</span><br><span class="line">[EXTRA]    Installing gcc</span><br><span class="line">[EXTRA]    Housekeeping for core gcc compiler</span><br><span class="line">[EXTRA]       &#x27;&#x27; --&gt; lib (gcc)   lib (os)</span><br><span class="line">[INFO ]  Installing pass-2 core C gcc compiler: done in 354.87s (at 16:07)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing C library</span><br><span class="line">[INFO ]    =================================================================</span><br><span class="line">[INFO ]    Building for multilib 1/1: &#x27;&#x27;</span><br><span class="line">[EXTRA]      Cleaning up start files</span><br><span class="line">[EXTRA]      Configuring C library</span><br><span class="line">[EXTRA]      Building C library</span><br><span class="line">[EXTRA]      Configuring C library</span><br><span class="line">[EXTRA]      Building C library</span><br><span class="line">[EXTRA]      Installing C library</span><br><span class="line">[INFO ]    Building for multilib 1/1: &#x27;&#x27;: done in 184.69s (at 19:12)</span><br><span class="line">[INFO ]  Installing C library: done in 184.78s (at 19:12)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing final gcc compiler</span><br><span class="line">[EXTRA]    Configuring final gcc compiler</span><br><span class="line">[EXTRA]    Building final gcc compiler</span><br><span class="line">[EXTRA]    Installing final gcc compiler</span><br><span class="line">[EXTRA]    Housekeeping for final gcc compiler</span><br><span class="line">[EXTRA]       &#x27;&#x27; --&gt; lib (gcc)   lib (os)</span><br><span class="line">[INFO ]  Installing final gcc compiler: done in 339.13s (at 24:51)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Finalizing the toolchain&#x27;s directory</span><br><span class="line">[INFO ]    Stripping all toolchain executables</span><br><span class="line">[EXTRA]    Installing the populate helper</span><br><span class="line">[EXTRA]    Installing a cross-ldd helper</span><br><span class="line">[EXTRA]    Creating toolchain aliases</span><br><span class="line">[EXTRA]    Removing installed documentation</span><br><span class="line">[EXTRA]    Collect license information from: ~/Crosscompile/.build/arm-rpi-linux-gnueabihf/src</span><br><span class="line">[EXTRA]    Put the license information to: ~/....../RPi/share/licenses</span><br><span class="line">[INFO ]  Finalizing the toolchain&#x27;s directory: done in 1.80s (at 24:52)</span><br><span class="line">[INFO ]  Build completed at 20190906.020619</span><br><span class="line">[INFO ]  (elapsed: 24:51.86)</span><br><span class="line">[INFO ]  Finishing installation (may take a few seconds)...</span><br><span class="line">[24:52] / %                                                                                                                                                              longervision-GT72-6QE%</span><br><span class="line">                                           </span><br></pre></td></tr></table></figure>
+
+<p>This process may take a while. I’m going to sleep tonight. Continue tomorrow…</p>
+<p><span style="color:blue"><strong>Alright, let’s continue today. Glad to know it’s built successfully.</strong></span></p>
+<div style="text-align: center; font-size: 3em;">
+    😄
+</div>
+
+<p>Let’s <strong>FIRST</strong> take a look at what’s under the current folder.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash"><span class="built_in">ls</span></span></span><br><span class="line">build.log  rpi.config</span><br></pre></td></tr></table></figure>
+
+<p>And then, let’s take a look at what’s built under the specified destination folder.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash"><span class="built_in">ls</span> ~/....../CrossCompile/RPi</span></span><br><span class="line">arm-rpi-linux-gnueabihf  bin  build.log.bz2  include  lib  libexec  share</span><br><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash"><span class="built_in">ls</span> ~/....../CrossCompile/RPi/bin</span></span><br><span class="line">arm-rpi-linux-gnueabihf-addr2line  arm-rpi-linux-gnueabihf-cpp           arm-rpi-linux-gnueabihf-gcc-ar      arm-rpi-linux-gnueabihf-gprof    arm-rpi-linux-gnueabihf-objdump   arm-rpi-linux-gnueabihf-strip</span><br><span class="line">arm-rpi-linux-gnueabihf-ar         arm-rpi-linux-gnueabihf-ct-ng.config  arm-rpi-linux-gnueabihf-gcc-nm      arm-rpi-linux-gnueabihf-ld       arm-rpi-linux-gnueabihf-populate</span><br><span class="line">arm-rpi-linux-gnueabihf-as         arm-rpi-linux-gnueabihf-elfedit       arm-rpi-linux-gnueabihf-gcc-ranlib  arm-rpi-linux-gnueabihf-ld.bfd   arm-rpi-linux-gnueabihf-ranlib</span><br><span class="line">arm-rpi-linux-gnueabihf-c++        arm-rpi-linux-gnueabihf-g++           arm-rpi-linux-gnueabihf-gcov        arm-rpi-linux-gnueabihf-ldd      arm-rpi-linux-gnueabihf-readelf</span><br><span class="line">arm-rpi-linux-gnueabihf-cc         arm-rpi-linux-gnueabihf-gcc           arm-rpi-linux-gnueabihf-gcov-dump   arm-rpi-linux-gnueabihf-nm       arm-rpi-linux-gnueabihf-size</span><br><span class="line">arm-rpi-linux-gnueabihf-c++filt    arm-rpi-linux-gnueabihf-gcc-8.3.0     arm-rpi-linux-gnueabihf-gcov-tool   arm-rpi-linux-gnueabihf-objcopy  arm-rpi-linux-gnueabihf-strings</span><br><span class="line"><span class="meta prompt_">longervision-GT72-6QE%</span></span><br></pre></td></tr></table></figure>
+
+<p>Finally, let’s take a look at the version of our built cross compilers for <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry Pi 3B</a>.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">arm-rpi-linux-gnueabihf-gcc --version</span></span><br><span class="line">zsh: command not found: arm-rpi-linux-gnueabihf-gcc</span><br><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">./arm-rpi-linux-gnueabihf-gcc --version</span></span><br><span class="line">arm-rpi-linux-gnueabihf-gcc (crosstool-NG 1.24.0.6-afaf7b9) 8.3.0</span><br><span class="line">Copyright (C) 2018 Free Software Foundation, Inc.</span><br><span class="line">This is free software; see the source for copying conditions.  There is NO</span><br><span class="line">warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">./arm-rpi-linux-gnueabihf-g++ --version</span></span><br><span class="line">arm-rpi-linux-gnueabihf-g++ (crosstool-NG 1.24.0.6-afaf7b9) 8.3.0</span><br><span class="line">Copyright (C) 2018 Free Software Foundation, Inc.</span><br><span class="line">This is free software; see the source for copying conditions.  There is NO</span><br><span class="line">warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span><br></pre></td></tr></table></figure>
+
+<p><strong><span style="color:red">Additional issue: It seems current <a target="_blank" rel="noopener" href="https://crosstool-ng.github.io/">crosstool-NG</a> does NOT officially support <a target="_blank" rel="noopener" href="https://www.python.org/">Python</a>. Please refer to <a target="_blank" rel="noopener" href="https://github.com/crosstool-ng/crosstool-ng/issues/1235">my issue at crosstool-NG</a>.</span></strong></p>
+<h1 id="4-Compile-Build-a-Package-with-Generated-Toolchain"><a href="#4-Compile-Build-a-Package-with-Generated-Toolchain" class="headerlink" title="4. Compile&#x2F;Build a Package with Generated Toolchain"></a>4. Compile&#x2F;Build a Package with Generated Toolchain</h1><p>For most of the packages nowadays, they are</p>
+<ul>
+<li>either supported by <a target="_blank" rel="noopener" href="https://www.gnu.org/software/make/">make</a>: <code>./configure -&gt; make -&gt; make install</code></li>
+<li>or supported by <a target="_blank" rel="noopener" href="https://cmake.org/">CMake</a>: <code>mkdir build -&gt; cd build -&gt; ccmake ../ -&gt; make -&gt; make install</code></li>
+</ul>
+<p>How to use our generated toolchain to compile&#x2F;build our target packages?</p>
+<ul>
+<li>For the <strong>FIRST</strong> option, you can follow the <a target="_blank" rel="noopener" href="https://crosstool-ng.github.io/docs/toolchain-usage/">crosstool-NG Using the toolchain</a>.</li>
+<li>For the <strong>SECOND</strong> option, you are welcome to follow <a target="_blank" rel="noopener" href="https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html">CMake Toolchains</a>.</li>
+</ul>
+<p>Today, we’re going to take the package <a target="_blank" rel="noopener" href="https://github.com/mariusmuja/flann">flann</a> as an example, which are to be built with <a target="_blank" rel="noopener" href="https://cmake.org/">CMake</a>.</p>
+<h2 id="4-1-CMakeLists-txt-Modification"><a href="#4-1-CMakeLists-txt-Modification" class="headerlink" title="4.1 CMakeLists.txt Modification"></a>4.1 CMakeLists.txt Modification</h2><h3 id="4-1-1-CMake-Toolchains-Cross-Compiling-for-Linux"><a href="#4-1-1-CMake-Toolchains-Cross-Compiling-for-Linux" class="headerlink" title="4.1.1 CMake Toolchains - Cross Compiling for Linux"></a>4.1.1 CMake Toolchains - Cross Compiling for Linux</h3><p>By following <a target="_blank" rel="noopener" href="https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html#cross-compiling-for-linux">CMake Toolchains - Cross Compiling for Linux</a>, we <strong>FIRST</strong> modify <a target="_blank" rel="noopener" href="https://github.com/mariusmuja/flann/blob/master/CMakeLists.txt">flann CMakeLists.txt</a> a bit by adding the following lines before <code>project(flann)</code>.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 2.6)</span><br><span class="line"></span><br><span class="line">if(COMMAND cmake_policy)</span><br><span class="line">    cmake_policy(SET CMP0003 NEW)</span><br><span class="line">endif(COMMAND cmake_policy)</span><br><span class="line"></span><br><span class="line">set(CMAKE_SYSTEM_NAME Linux)</span><br><span class="line">set(CMAKE_SYSTEM_PROCESSOR arm)</span><br><span class="line"></span><br><span class="line">set(CMAKE_SYSROOT ....../arm-rpi-linux-gnueabihf/sysroot)</span><br><span class="line">set(CMAKE_STAGING_PREFIX ....../stage)</span><br><span class="line"></span><br><span class="line">set(tools /opt/compilers/RPi)</span><br><span class="line">set(CMAKE_C_COMPILER $&#123;tools&#125;/bin/arm-rpi-linux-gnueabihf-gcc)</span><br><span class="line">set(CMAKE_CXX_COMPILER $&#123;tools&#125;/bin/arm-rpi-linux-gnueabihf-g++)</span><br><span class="line"></span><br><span class="line">set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)</span><br><span class="line">set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)</span><br><span class="line">set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)</span><br><span class="line">set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)</span><br><span class="line"></span><br><span class="line">set(CMAKE_TRY_COMPILE_TARGET_TYPE &quot;STATIC_LIBRARY&quot;)</span><br><span class="line"></span><br><span class="line">project(flann)</span><br><span class="line">string(TOLOWER $&#123;PROJECT_NAME&#125; PROJECT_NAME_LOWER)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>CMAKE_SYSROOT</strong> specify the sysroot directory which emulate your target environment, here, <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry Pi 3B</a></li>
+<li><strong>CMAKE_STAGING_PREFIX</strong> is where the <strong>STAGING</strong> results store, for the reason that final results may require to be built in multiple stages. You may refer to <a target="_blank" rel="noopener" href="http://www.linuxfromscratch.org/">Linux From Scratch</a> for further background knowledge about that.</li>
+<li><strong>tools</strong> actually specify the building tool directory. Making sure all generated cross compiling tools are under folder <code>$&#123;tools&#125;/bin</code>.</li>
+</ul>
+<h3 id="4-1-2-Ignore-hdf5"><a href="#4-1-2-Ignore-hdf5" class="headerlink" title="4.1.2 Ignore hdf5"></a>4.1.2 Ignore hdf5</h3><p>In addition, for the emulated <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry Pi 3B</a> sysroot, <a target="_blank" rel="noopener" href="https://www.hdfgroup.org/solutions/hdf5/">hdf5</a> is NOT supported. Therefore, let’s simply comment out the following line in <a target="_blank" rel="noopener" href="https://github.com/mariusmuja/flann/blob/master/CMakeLists.txt">flann CMakeLists.txt</a>.</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#find_hdf5()</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="4-2-Cross-Compile"><a href="#4-2-Cross-Compile" class="headerlink" title="4.2 Cross Compile"></a>4.2 Cross Compile</h2><p>Now, let’s start cross-compiling <a target="_blank" rel="noopener" href="https://github.com/mariusmuja/flann">flann</a>.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash"><span class="built_in">mkdir</span> build</span></span><br><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash"><span class="built_in">cd</span> build</span></span><br><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">ccmake ../</span></span><br></pre></td></tr></table></figure>
+
+<p>and press <strong>c</strong> and then <strong>t</strong>, you’ll see the cross compiling toolchains have been automatically configured as:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">BUILD_CUDA_LIB                  *OFF</span><br><span class="line">BUILD_C_BINDINGS                *ON</span><br><span class="line">BUILD_DOC                       *OFF</span><br><span class="line">BUILD_EXAMPLES                  *OFF</span><br><span class="line">BUILD_MATLAB_BINDINGS           *OFF</span><br><span class="line">BUILD_PYTHON_BINDINGS           *ON</span><br><span class="line">BUILD_TESTS                     *OFF</span><br><span class="line">CMAKE_AR                        */opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-ar</span><br><span class="line">CMAKE_BUILD_TYPE                *RelWithDebInfo</span><br><span class="line">CMAKE_COLOR_MAKEFILE            *ON</span><br><span class="line">CMAKE_CXX_COMPILER_AR           */opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-gcc-ar</span><br><span class="line">CMAKE_CXX_COMPILER_RANLIB       */opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-gcc-ranlib</span><br><span class="line">CMAKE_CXX_FLAGS                 *-I/usr/include</span><br><span class="line">CMAKE_CXX_FLAGS_DEBUG           *-g</span><br><span class="line">CMAKE_CXX_FLAGS_MINSIZEREL      *-Os -DNDEBUG</span><br><span class="line">CMAKE_CXX_FLAGS_RELEASE         *-O3 -DNDEBUG</span><br><span class="line">CMAKE_CXX_FLAGS_RELWITHDEBINFO  *-O2 -g -DNDEBUG</span><br><span class="line">CMAKE_C_COMPILER_AR             */opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-gcc-ar</span><br><span class="line">CMAKE_C_COMPILER_RANLIB         */opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-gcc-ranlib</span><br><span class="line">CMAKE_C_FLAGS                   *-I/usr/include</span><br><span class="line">CMAKE_C_FLAGS_DEBUG             *-g</span><br><span class="line">CMAKE_C_FLAGS_MINSIZEREL        *-Os -DNDEBUG</span><br><span class="line">CMAKE_C_FLAGS_RELEASE           *-O3 -DNDEBUG</span><br><span class="line">CMAKE_C_FLAGS_RELWITHDEBINFO    *-O2 -g -DNDEBUG</span><br><span class="line">CMAKE_EXE_LINKER_FLAGS          *</span><br><span class="line">CMAKE_EXE_LINKER_FLAGS_DEBUG    *</span><br><span class="line">CMAKE_EXE_LINKER_FLAGS_MINSIZE  *  </span><br><span class="line">CMAKE_EXE_LINKER_FLAGS_RELEASE  *     </span><br><span class="line">CMAKE_EXE_LINKER_FLAGS_RELWITH  *</span><br><span class="line">CMAKE_EXPORT_COMPILE_COMMANDS   *OFF</span><br><span class="line">CMAKE_INSTALL_PREFIX            */usr/local</span><br><span class="line">CMAKE_LINKER                    */opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-ld</span><br><span class="line">CMAKE_MAKE_PROGRAM              */usr/bin/make</span><br><span class="line">CMAKE_MODULE_LINKER_FLAGS       *    </span><br><span class="line">CMAKE_MODULE_LINKER_FLAGS_DEBU  *  </span><br><span class="line">CMAKE_MODULE_LINKER_FLAGS_MINS  *   </span><br><span class="line">CMAKE_MODULE_LINKER_FLAGS_RELE  *    </span><br><span class="line">CMAKE_MODULE_LINKER_FLAGS_RELW  * </span><br><span class="line">CMAKE_NM                        */opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-nm</span><br><span class="line">CMAKE_OBJCOPY                   */opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-objcopy</span><br><span class="line">CMAKE_OBJDUMP                   */opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-objdump</span><br><span class="line">CMAKE_RANLIB                    */opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-ranlib</span><br><span class="line">CMAKE_SHARED_LINKER_FLAGS       *    </span><br><span class="line">CMAKE_SHARED_LINKER_FLAGS_DEBU  *</span><br><span class="line">CMAKE_SHARED_LINKER_FLAGS_MINS  *   </span><br><span class="line">CMAKE_SHARED_LINKER_FLAGS_RELE  *</span><br><span class="line">CMAKE_SHARED_LINKER_FLAGS_RELW  *   </span><br><span class="line">CMAKE_SKIP_INSTALL_RPATH        *OFF</span><br><span class="line">CMAKE_SKIP_RPATH                *OFF</span><br><span class="line">CMAKE_STATIC_LINKER_FLAGS       *</span><br><span class="line">CMAKE_STATIC_LINKER_FLAGS_DEBU  *</span><br><span class="line">CMAKE_STATIC_LINKER_FLAGS_MINS  * </span><br><span class="line">CMAKE_STATIC_LINKER_FLAGS_RELE  *</span><br><span class="line">CMAKE_STATIC_LINKER_FLAGS_RELW  *</span><br><span class="line">CMAKE_STRIP                     */opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-strip</span><br><span class="line">CMAKE_VERBOSE_MAKEFILE          *ON</span><br><span class="line">CPACK_SOURCE_RPM                *OFF</span><br><span class="line">CPACK_SOURCE_TBZ2               *ON</span><br><span class="line">CPACK_SOURCE_TGZ                *ON</span><br><span class="line">CPACK_SOURCE_TXZ                *ON </span><br><span class="line">CPACK_SOURCE_TZ                 *ON</span><br><span class="line">CPACK_SOURCE_ZIP                *OFF</span><br><span class="line">DPKG_PROGRAM                    */usr/bin/dpkg</span><br><span class="line">NSIS_PROGRAM                    */usr/bin/makensis</span><br><span class="line">NVCC_COMPILER_BINDIR            *</span><br><span class="line">PACKAGE_MAKER_PROGRAM           *PACKAGE_MAKER_PROGRAM-NOTFOUND</span><br><span class="line">PKG_CONFIG_EXECUTABLE           */usr/bin/pkg-config</span><br><span class="line">PYTHON_EXECUTABLE               */usr/bin/python</span><br><span class="line">RPM_PROGRAM                     *RPM_PROGRAM-NOTFOUND</span><br><span class="line">USE_MPI                         *OFF</span><br><span class="line">USE_OPENMP                      *OFF</span><br></pre></td></tr></table></figure>
+
+<p>The <strong>LAST</strong> step before make is to modify some of the parameters accordingly, in my case:</p>
+<ul>
+<li><strong>BUILD_PYTHON_BINDINGS</strong>: ON -&gt; OFF</li>
+<li><strong>CMAKE_CXX_FLAGS</strong>: <code>-I/usr/include</code> (for lz4.h from my host <a target="_blank" rel="noopener" href="http://releases.ubuntu.com/19.04/">Ubuntu 19.04</a>)</li>
+<li><strong>CMAKE_C_FLAGS</strong>: <code>-I/usr/include</code> (for lz4.h from my host <a target="_blank" rel="noopener" href="http://releases.ubuntu.com/19.04/">Ubuntu 19.04</a>)</li>
+<li><strong>CMAKE_VERBOSE_MAKEFILE</strong>: OFF -&gt; ON</li>
+<li><strong>CMAKE_INSTALL_PREFIX</strong>: <code>/usr/local/</code> -&gt; under which directory you want to install, which can be <strong>IGNORED</strong> for now</li>
+</ul>
+<p>Now, press <strong>c</strong>, you’ll see:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CMake Warning at CMakeLists.txt:<span class="number">99</span> (<span class="keyword">message</span>):</span><br><span class="line">  hdf5 library <span class="keyword">not</span> found, some tests will <span class="keyword">not</span> be run</span><br></pre></td></tr></table></figure>
+
+<p>A warining of missing <a target="_blank" rel="noopener" href="https://www.hdfgroup.org/solutions/hdf5/">hdf5</a> is clearly reasonable and acceptable. Then press <strong>g</strong>.</p>
+<p>Finally, it’s the time for us to cross build <a target="_blank" rel="noopener" href="https://github.com/mariusmuja/flann">flann</a>.</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">make -j8</span></span><br><span class="line">/usr/bin/cmake -S....../flann -B....../flann/build --check-build-system CMakeFiles/Makefile.cmake 0</span><br><span class="line">/usr/bin/cmake -E cmake_progress_start ....../flann/build/CMakeFiles ....../flann/build/CMakeFiles/progress.marks</span><br><span class="line">make -f CMakeFiles/Makefile2 all</span><br><span class="line">make[1]: Entering directory &#x27;....../flann/build&#x27;</span><br><span class="line">make -f src/cpp/CMakeFiles/flann_s.dir/build.make src/cpp/CMakeFiles/flann_s.dir/depend</span><br><span class="line">make -f src/cpp/CMakeFiles/flann_cpp_s.dir/build.make src/cpp/CMakeFiles/flann_cpp_s.dir/depend</span><br><span class="line">make[2]: Entering directory &#x27;....../flann/build&#x27;</span><br><span class="line">cd ....../flann/build &amp;&amp; /usr/bin/cmake -E cmake_depends &quot;Unix Makefiles&quot; ....../flann ....../flann/src/cpp ....../flann/build ....../flann/build/src/cpp ....../flann/build/src/cpp/CMakeFiles/flann_s.dir/DependInfo.cmake --color=</span><br><span class="line">make[2]: Entering directory &#x27;....../flann/build&#x27;</span><br><span class="line">cd ....../flann/build &amp;&amp; /usr/bin/cmake -E cmake_depends &quot;Unix Makefiles&quot; ....../flann ....../flann/src/cpp ....../flann/build ....../flann/build/src/cpp ....../flann/build/src/cpp/CMakeFiles/flann_cpp_s.dir/DependInfo.cmake --color=</span><br><span class="line">Scanning dependencies of target flann_cpp_s</span><br><span class="line">make[2]: Leaving directory &#x27;....../flann/build&#x27;</span><br><span class="line">make -f src/cpp/CMakeFiles/flann_s.dir/build.make src/cpp/CMakeFiles/flann_s.dir/build</span><br><span class="line">make[2]: Entering directory &#x27;....../flann/build&#x27;</span><br><span class="line">make[2]: Leaving directory &#x27;....../flann/build&#x27;</span><br><span class="line">make -f src/cpp/CMakeFiles/flann_cpp_s.dir/build.make src/cpp/CMakeFiles/flann_cpp_s.dir/build</span><br><span class="line">make[2]: Entering directory &#x27;....../flann/build&#x27;</span><br><span class="line">[ 12%] Building CXX object src/cpp/CMakeFiles/flann_s.dir/flann/flann.cpp.o</span><br><span class="line">cd ....../flann/build/src/cpp &amp;&amp; /opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-g++ --sysroot=....../RPi/arm-rpi-linux-gnueabihf/sysroot  -DFLANN_STATIC -D_FLANN_VERSION=1.9.1 -I....../flann/src/cpp  -I/usr/include -O2 -g -DNDEBUG   -Wall -Wno-unknown-pragmas -Wno-unused-function -fPIC -o CMakeFiles/flann_s.dir/flann/flann.cpp.o -c ....../flann/src/cpp/flann/flann.cpp</span><br><span class="line">[ 25%] Building CXX object src/cpp/CMakeFiles/flann_cpp_s.dir/flann/flann_cpp.cpp.o</span><br><span class="line">cd ....../flann/build/src/cpp &amp;&amp; /opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-g++ --sysroot=....../RPi/arm-rpi-linux-gnueabihf/sysroot  -DFLANN_STATIC -DFLANN_USE_CUDA -D_FLANN_VERSION=1.9.1 -I....../flann/src/cpp  -I/usr/include -O2 -g -DNDEBUG   -Wall -Wno-unknown-pragmas -Wno-unused-function -fPIC -o CMakeFiles/flann_cpp_s.dir/flann/flann_cpp.cpp.o -c ....../flann/src/cpp/flann/flann_cpp.cpp</span><br><span class="line">In file included from ....../flann/src/cpp/flann/util/params.h:33,</span><br><span class="line">                 from ....../flann/src/cpp/flann/flann.hpp:42,</span><br><span class="line">                 from ....../flann/src/cpp/flann/flann.h:603,</span><br><span class="line">                 from ....../flann/src/cpp/flann/flann.cpp:31:</span><br><span class="line">....../flann/src/cpp/flann/util/any.h: In member function &#x27;virtual void flann::anyimpl::big_any_policy&lt;T&gt;::static_delete(void**)&#x27;:</span><br><span class="line">....../flann/src/cpp/flann/util/any.h:81:9: warning: this &#x27;if&#x27; clause does not guard... [-Wmisleading-indentation]</span><br><span class="line">         if (* x) delete (* reinterpret_cast&lt;T**&gt;(x)); *x = NULL;</span><br><span class="line">         ^~</span><br><span class="line">....../flann/src/cpp/flann/util/any.h:81:55: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the &#x27;if&#x27;</span><br><span class="line">         if (* x) delete (* reinterpret_cast&lt;T**&gt;(x)); *x = NULL;</span><br><span class="line">                                                       ^</span><br><span class="line">In file included from ....../flann/src/cpp/flann/util/params.h:33,</span><br><span class="line">                 from ....../flann/src/cpp/flann/flann.hpp:42,</span><br><span class="line">                 from ....../flann/src/cpp/flann/flann_cpp.cpp:30:</span><br><span class="line">....../flann/src/cpp/flann/util/any.h: In member function &#x27;virtual void flann::anyimpl::big_any_policy&lt;T&gt;::static_delete(void**)&#x27;:</span><br><span class="line">....../flann/src/cpp/flann/util/any.h:81:9: warning: this &#x27;if&#x27; clause does not guard... [-Wmisleading-indentation]</span><br><span class="line">         if (* x) delete (* reinterpret_cast&lt;T**&gt;(x)); *x = NULL;</span><br><span class="line">         ^~</span><br><span class="line">....../flann/src/cpp/flann/util/any.h:81:55: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the &#x27;if&#x27;</span><br><span class="line">         if (* x) delete (* reinterpret_cast&lt;T**&gt;(x)); *x = NULL;</span><br><span class="line">                                                       ^</span><br><span class="line">[ 37%] Linking CXX static library ../../lib/libflann_cpp_s.a</span><br><span class="line">cd ....../flann/build/src/cpp &amp;&amp; /usr/bin/cmake -P CMakeFiles/flann_cpp_s.dir/cmake_clean_target.cmake</span><br><span class="line">cd ....../flann/build/src/cpp &amp;&amp; /usr/bin/cmake -E cmake_link_script CMakeFiles/flann_cpp_s.dir/link.txt --verbose=1</span><br><span class="line">/opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-ar qc ../../lib/libflann_cpp_s.a  CMakeFiles/flann_cpp_s.dir/flann/flann_cpp.cpp.o</span><br><span class="line">/opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-ranlib ../../lib/libflann_cpp_s.a</span><br><span class="line">make[2]: Leaving directory &#x27;....../flann/build&#x27;</span><br><span class="line">[ 37%] Built target flann_cpp_s</span><br><span class="line">make -f src/cpp/CMakeFiles/flann_cpp.dir/build.make src/cpp/CMakeFiles/flann_cpp.dir/depend</span><br><span class="line">make[2]: Entering directory &#x27;....../flann/build&#x27;</span><br><span class="line">cd ....../flann/build &amp;&amp; /usr/bin/cmake -E cmake_depends &quot;Unix Makefiles&quot; ....../flann ....../flann/src/cpp ....../flann/build ....../flann/build/src/cpp ....../flann/build/src/cpp/CMakeFiles/flann_cpp.dir/DependInfo.cmake --color=</span><br><span class="line">Scanning dependencies of target flann_cpp</span><br><span class="line">make[2]: Leaving directory &#x27;....../flann/build&#x27;</span><br><span class="line">make -f src/cpp/CMakeFiles/flann_cpp.dir/build.make src/cpp/CMakeFiles/flann_cpp.dir/build</span><br><span class="line">make[2]: Entering directory &#x27;....../flann/build&#x27;</span><br><span class="line">[ 50%] Building CXX object src/cpp/CMakeFiles/flann_cpp.dir/empty.cpp.o</span><br><span class="line">cd ....../flann/build/src/cpp &amp;&amp; /opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-g++ --sysroot=....../RPi/arm-rpi-linux-gnueabihf/sysroot  -DFLANN_EXPORTS -D_FLANN_VERSION=1.9.1 -I....../flann/src/cpp  -I/usr/include -O2 -g -DNDEBUG -fPIC   -Wall -Wno-unknown-pragmas -Wno-unused-function -o CMakeFiles/flann_cpp.dir/empty.cpp.o -c ....../flann/src/cpp/empty.cpp</span><br><span class="line">[ 62%] Linking CXX shared library ../../lib/libflann_cpp.so</span><br><span class="line">cd ....../flann/build/src/cpp &amp;&amp; /usr/bin/cmake -E cmake_link_script CMakeFiles/flann_cpp.dir/link.txt --verbose=1</span><br><span class="line">/opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-g++ --sysroot=....../RPi/arm-rpi-linux-gnueabihf/sysroot -fPIC -I/usr/include -O2 -g -DNDEBUG  -shared -Wl,-soname,libflann_cpp.so.1.9 -o ../../lib/libflann_cpp.so.1.9.1 CMakeFiles/flann_cpp.dir/empty.cpp.o -Wl,-whole-archive ../../lib/libflann_cpp_s.a -Wl,-no-whole-archive </span><br><span class="line">cd ....../flann/build/src/cpp &amp;&amp; /usr/bin/cmake -E cmake_symlink_library ../../lib/libflann_cpp.so.1.9.1 ../../lib/libflann_cpp.so.1.9 ../../lib/libflann_cpp.so</span><br><span class="line">make[2]: Leaving directory &#x27;....../flann/build&#x27;</span><br><span class="line">[ 62%] Built target flann_cpp</span><br><span class="line">In file included from ....../flann/src/cpp/flann/algorithms/all_indices.h:35,</span><br><span class="line">                 from ....../flann/src/cpp/flann/flann.hpp:45,</span><br><span class="line">                 from ....../flann/src/cpp/flann/flann.h:603,</span><br><span class="line">                 from ....../flann/src/cpp/flann/flann.cpp:31:</span><br></pre></td></tr></table></figure>
+
+<p><span style="color:red"><strong>VERY Important:</strong></p>
+<ul>
+<li>If you build <a target="_blank" rel="noopener" href="https://github.com/mariusmuja/flann">flann</a> from source on a <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry Pi 3B</a>, your system is going to hang HERE, possibly due to lack of memory..</li>
+<li><a target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry Pi 3B</a> has 4 cores <strong>ONLY</strong>, but now you can use <strong>MORE</strong> cores on your host PC, which is clearly one advantage of using cross compiling.</span></li>
+</ul>
+<p>Finally, you’ll see <a target="_blank" rel="noopener" href="https://github.com/mariusmuja/flann">flann</a> has been successfully cross compiled as:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">....../flann/src/cpp/flann/algorithms/autotuned_index.h: In member function &#x27;void flann::AutotunedIndex&lt;Distance&gt;::optimizeKMeans(std::vector&lt;flann::AutotunedIndex&lt;Distance&gt;::CostData&gt;&amp;) [with Distance = flann::L2&lt;double&gt;]&#x27;:</span><br><span class="line">....../flann/src/cpp/flann/algorithms/autotuned_index.h:379:31: note: parameter passing for argument of type &#x27;flann::L2&lt;double&gt;&#x27; changed in GCC 7.1</span><br><span class="line">         KMeansIndex&lt;Distance&gt; kmeans(sampledDataset_, cost.params, distance_);</span><br><span class="line">                               ^~~~~~</span><br><span class="line">[ 75%] Linking CXX static library ../../lib/libflann_s.a</span><br><span class="line">cd ....../flann/build/src/cpp &amp;&amp; /usr/bin/cmake -P CMakeFiles/flann_s.dir/cmake_clean_target.cmake</span><br><span class="line">cd ....../flann/build/src/cpp &amp;&amp; /usr/bin/cmake -E cmake_link_script CMakeFiles/flann_s.dir/link.txt --verbose=1</span><br><span class="line">/opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-ar qc ../../lib/libflann_s.a  CMakeFiles/flann_s.dir/flann/flann.cpp.o</span><br><span class="line">/opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-ranlib ../../lib/libflann_s.a</span><br><span class="line">make[2]: Leaving directory &#x27;....../flann/build&#x27;</span><br><span class="line">[ 75%] Built target flann_s</span><br><span class="line">make -f src/cpp/CMakeFiles/flann.dir/build.make src/cpp/CMakeFiles/flann.dir/depend</span><br><span class="line">make[2]: Entering directory &#x27;....../flann/build&#x27;</span><br><span class="line">cd ....../flann/build &amp;&amp; /usr/bin/cmake -E cmake_depends &quot;Unix Makefiles&quot; ....../flann ....../flann/src/cpp ....../flann/build ....../flann/build/src/cpp ....../flann/build/src/cpp/CMakeFiles/flann.dir/DependInfo.cmake --color=</span><br><span class="line">Scanning dependencies of target flann</span><br><span class="line">make[2]: Leaving directory &#x27;....../flann/build&#x27;</span><br><span class="line">make -f src/cpp/CMakeFiles/flann.dir/build.make src/cpp/CMakeFiles/flann.dir/build</span><br><span class="line">make[2]: Entering directory &#x27;....../flann/build&#x27;</span><br><span class="line">[ 87%] Building CXX object src/cpp/CMakeFiles/flann.dir/empty.cpp.o</span><br><span class="line">cd ....../flann/build/src/cpp &amp;&amp; /opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-g++ --sysroot=....../RPi/arm-rpi-linux-gnueabihf/sysroot  -DFLANN_EXPORTS -D_FLANN_VERSION=1.9.1 -I....../flann/src/cpp  -I/usr/include -O2 -g -DNDEBUG -fPIC   -Wall -Wno-unknown-pragmas -Wno-unused-function -o CMakeFiles/flann.dir/empty.cpp.o -c ....../flann/src/cpp/empty.cpp</span><br><span class="line"><span class="meta prompt_">[100%</span><span class="language-bash">] Linking CXX shared library ../../lib/libflann.so</span></span><br><span class="line">cd ....../flann/build/src/cpp &amp;&amp; /usr/bin/cmake -E cmake_link_script CMakeFiles/flann.dir/link.txt --verbose=1</span><br><span class="line">/opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-g++ --sysroot=....../RPi/arm-rpi-linux-gnueabihf/sysroot -fPIC -I/usr/include -O2 -g -DNDEBUG  -shared -Wl,-soname,libflann.so.1.9 -o ../../lib/libflann.so.1.9.1 CMakeFiles/flann.dir/empty.cpp.o -Wl,-whole-archive ../../lib/libflann_s.a -Wl,-no-whole-archive -Wl,--push-state,--no-as-needed -Wl,--pop-state </span><br><span class="line">cd ....../flann/build/src/cpp &amp;&amp; /usr/bin/cmake -E cmake_symlink_library ../../lib/libflann.so.1.9.1 ../../lib/libflann.so.1.9 ../../lib/libflann.so</span><br><span class="line">make[2]: Leaving directory &#x27;....../flann/build&#x27;</span><br><span class="line"><span class="meta prompt_">[100%</span><span class="language-bash">] Built target flann</span></span><br><span class="line">make[1]: Leaving directory &#x27;....../flann/build&#x27;</span><br><span class="line">/usr/bin/cmake -E cmake_progress_start ....../flann/build/CMakeFiles 0</span><br></pre></td></tr></table></figure>
+
+<p>You can now:</p>
+<ul>
+<li><code>make install</code> to install the built&#x2F;generated libraries installed under <strong>CMAKE_INSTALL_PREFIX</strong></li>
+<li>copy and paste the built&#x2F;generated libraries onto <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry Pi 3B</a> and use it directly.</li>
+</ul>
+<p><strong>BTW</strong>: do <strong>NOT</strong> forget to install the header files.</p>
+<h1 id="5-Additional-Issues"><a href="#5-Additional-Issues" class="headerlink" title="5. Additional Issues"></a>5. Additional Issues</h1><p><strong>Multilib&#x2F;multiarch</strong> seems to be problematic nowadays. Please pay attention to <strong>Multilib&#x2F;multiarch</strong>. Some related issues are enumuated as the end of this blog.</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://crosstool-ng.github.io/docs/caveats-features/">Multilib caveats from Official Notes on specific toolchain features</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/crosstool-ng/crosstool-ng/issues/1239">fatal error: gnu&#x2F;stubs-hard.h: No such file or directory from crosstool-NG</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/pwaring/gcc-cross-compiler/issues/11">fatal error: gnu&#x2F;stubs-hard.h: No such file or directory from gcc-cross-compiler</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/riscv/riscv-tools/issues/186">Build error: “features.h: No such file or directory” from risc-v tools</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/crosstool-ng/crosstool-ng/issues/945">crosstool-NG risc-v linux multilib issue</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/raspberrypi/tools/issues/50">raspberrypi toolchain issue</a></li>
+</ul>
+<p>Alright, that’s all for today. Let me go to bed. Good bye…</p>
+<div style="text-align: center; font-size: 3em;">
+    😪
+    😴
+</div>
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linux-Crosstool-NG-Toolchain/" rel="tag"># Linux, Crosstool-NG, Toolchain</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/08/30/MachineVision/FPGA/vc-zynq-7010-stereo-1/" rel="prev" title="Stereo Vision on VCSBC nano Z-RH-2 - PART I">
+      <i class="fa fa-chevron-left"></i> Stereo Vision on VCSBC nano Z-RH-2 - PART I
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/01/20/AI/EdgeComputing/huawei-HiSilicon-hikey970-Shunya-desktop/" rel="next" title="HiSilicon Hikey 970 - Shunya Desktop Image For HiKey970">
+      HiSilicon Hikey 970 - Shunya Desktop Image For HiKey970 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
           Table of Contents
         </li>
@@ -103,504 +460,96 @@
         </li>
       </ul>
 
-      <div class="sidebar-panel-container">
-        <!--noindex-->
-        <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#installation"><span class="nav-number">1.</span> <span class="nav-text">1. Installation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#configuration"><span class="nav-number">2.</span> <span class="nav-text">2. Configuration</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#build"><span class="nav-number">3.</span> <span class="nav-text">3. Build</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#compilebuild-a-package-with-generated-toolchain"><span class="nav-number">4.</span> <span class="nav-text">4.
-Compile&#x2F;Build a Package with Generated Toolchain</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#cmakelists.txt-modification"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 CMakeLists.txt
-Modification</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cmake-toolchains---cross-compiling-for-linux"><span class="nav-number">4.1.1.</span> <span class="nav-text">4.1.1 CMake
-Toolchains - Cross Compiling for Linux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ignore-hdf5"><span class="nav-number">4.1.2.</span> <span class="nav-text">4.1.2 Ignore hdf5</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cross-compile"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 Cross Compile</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#additional-issues"><span class="nav-number">5.</span> <span class="nav-text">5. Additional Issues</span></a></li></ol></div>
-        </div>
-        <!--/noindex-->
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Installation"><span class="nav-number">1.</span> <span class="nav-text">1. Installation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Configuration"><span class="nav-number">2.</span> <span class="nav-text">2. Configuration</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Build"><span class="nav-number">3.</span> <span class="nav-text">3. Build</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Compile-Build-a-Package-with-Generated-Toolchain"><span class="nav-number">4.</span> <span class="nav-text">4. Compile&#x2F;Build a Package with Generated Toolchain</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-CMakeLists-txt-Modification"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 CMakeLists.txt Modification</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-1-CMake-Toolchains-Cross-Compiling-for-Linux"><span class="nav-number">4.1.1.</span> <span class="nav-text">4.1.1 CMake Toolchains - Cross Compiling for Linux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-2-Ignore-hdf5"><span class="nav-number">4.1.2.</span> <span class="nav-text">4.1.2 Ignore hdf5</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-Cross-Compile"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 Cross Compile</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-Additional-Issues"><span class="nav-number">5.</span> <span class="nav-text">5. Additional Issues</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
 
-        <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Nobody</p>
   <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
 </div>
-<div class="site-state-wrap animated">
+<div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-        <a href="/archives/">
+          <a href="/archives/">
+        
           <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-          <a href="/categories/">
+            <a href="/categories/">
         <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-          <a href="/tags/">
+            <a href="/tags/">
         <span class="site-state-item-count">144</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
 
-        </div>
+
+
       </div>
-    </div>
 
-    
+    </div>
   </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-    </div>
+      </div>
+    </main>
 
-    <div class="main-inner post posts-expand">
-
-
-  
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/09/06/OperatingSystems/CompilersTools/crosstool-ng/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Build Toolchain Using Crosstool-NG | Longer Vision Technology">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Build Toolchain Using Crosstool-NG
-        </h1>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2019-09-06 00:00:00" itemprop="dateCreated datePublished" datetime="2019-09-06T00:00:00-07:00">2019-09-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-06-03 23:08:38" itemprop="dateModified" datetime="2025-06-03T23:08:38-07:00">2025-06-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Operating-System/" itemprop="url" rel="index"><span itemprop="name">Operating System</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Operating-System/Compiler/" itemprop="url" rel="index"><span itemprop="name">Compiler</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody"><p>Today, we’re going to build our own toolchain using <a
-target="_blank" rel="noopener" href="https://crosstool-ng.github.io/">crosstool-NG</a>. There are so
-many cases that we want to build a particular <a
-target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Toolchain">toolchain</a> for a
-specific embedded system development board. One <span
-style="color:red"><strong>MOST important</strong></span> reason for that
-is probably because the specific development board has limited resource
-to build upon, therefore, the time-consumption to build some software on
-the development board is <span style="color:red"><strong>VERY
-inefficient</strong></span>. In the other way around, <a
-target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cross_compiler">cross compiling</a>
-on the host PC is <span style="color:red"><strong>MORE
-efficient</strong></span> with respective to the time-consumption.</p>
-<p>In this blog, for simplicity, we take <a
-target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry
-Pi 3B</a> as our demo development board, for which we are building the
-<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cross_compiler">cross
-compiler</a>. Some references can be found at:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://crosstool-ng.github.io/docs/">crosstool-ng Official
-Documentation</a></li>
-<li><a target="_blank" rel="noopener" href="https://elinux.org/RPi_Linaro_GCC_Compilation">elinux: RPi
-Linaro GCC Compilation</a></li>
-</ul>
-<h1 id="installation">1. Installation</h1>
-<p>How to install <a
-target="_blank" rel="noopener" href="https://crosstool-ng.github.io/">crosstool-NG</a> are thoroughly
-summarized at its <a
-target="_blank" rel="noopener" href="https://crosstool-ng.github.io/docs/install/">official
-website</a>. In my case, I had it installed under folder
-<strong>/opt/compilers/crosstool-ng</strong>. Let’s take a look:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash"><span class="built_in">pwd</span></span></span><br><span class="line">/opt/compilers/crosstool-ng</span><br><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash"><span class="built_in">ls</span></span></span><br><span class="line">bin  libexec  share</span><br><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash"><span class="built_in">ls</span> bin</span></span><br><span class="line">ct-ng</span><br></pre></td></tr></table></figure>
-<p>And make sure <code>/opt/compilers/crosstool-ng/bin</code> is under
-environment variable <strong>PATH</strong>.</p>
-<h1 id="configuration">2. Configuration</h1>
-<p>Under any directory that you want to save your <code>.config</code>
-file, we can configure our target <a
-target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cross_compiler">cross
-compiler</a>.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">ct-ng menuconfig</span></span><br></pre></td></tr></table></figure>
-<figure>
-<img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/OperatingSystems/crosscompile/crosstool-ng.png"
-alt="crosstool-NG menuconfig" />
-<figcaption aria-hidden="true">crosstool-NG menuconfig</figcaption>
-</figure>
-<p>According to elinux: <a
-target="_blank" rel="noopener" href="https://elinux.org/RPi_Linaro_GCC_Compilation">RPi Linaro GCC
-Compilation</a>, we need to do the following selections:</p>
-<ul>
-<li><strong>Paths and misc options</strong>:
-<ul>
-<li><strong>Try features marked as EXPERIMENTAL</strong>: ticked</li>
-<li><strong>Prefix directory</strong>: input the full path where you
-want to save the built toolchains</li>
-<li><strong>Number of parallel jobs</strong>: 4. Sorry that I’ve
-<strong>NO</strong> idea if this is the number of cores on <a
-target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry
-Pi 3B</a>, but <a
-target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry
-Pi 3B</a> does have 4 cores.</li>
-</ul></li>
-<li><strong>Target options</strong>:
-<ul>
-<li><strong>Target Architecture</strong>: arm</li>
-<li><strong>Default instruction set mode</strong>: arm</li>
-<li><strong>Use EABI</strong>: ticked</li>
-<li><strong>append hf to the tuple (EXPERIMENTAL)</strong>: ticked</li>
-<li><strong><a
-target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Endianness">Endianness</a></strong>:
-Little endian</li>
-<li><strong>Bitness</strong>: 32-bit</li>
-<li><strong>Emit assembly for CPU</strong>: cortex-a53</li>
-<li><strong>Use specific FPU</strong>: vfp</li>
-<li><strong>Floating point</strong>: hardware (FPU)</li>
-</ul></li>
-<li><strong>Toolchain options</strong>:
-<ul>
-<li><strong>Tuple’s vendor string</strong>: rpi</li>
-</ul></li>
-<li><strong>Operating System</strong>
-<ul>
-<li><strong>Target OS</strong>: linux</li>
-<li><strong>Version of Linux</strong>: 4.20.8. Currently, I flashed <a
-target="_blank" rel="noopener" href="https://downloads.raspberrypi.org/raspbian_full_latest">Raspbian
-Buster with desktop and recommended software, 2019-07-10</a> onto my <a
-target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry
-Pi 3B</a>, it comes with kernel of version <strong>4.19.66</strong>,
-which is <strong>NOT</strong> in the list. That’s why I decided to
-select <strong>4.20.8</strong> and try my luck.
-<div style="text-align: center; font-size: 3em;">
-<p>😝</p>
-</div></li>
-</ul></li>
-</ul>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ uname -a</span><br><span class="line">    Linux raspberrypi 4.19.66-v7+ #1253 SMP Thu Aug 15 11:49:46 BST 2019 armv7l GNU/Linux</span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>Binary utilities</strong>:
-<ul>
-<li><strong>Binary format</strong>: ELF</li>
-<li><strong>Version of binutils</strong>: 2.31.1 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ apt show binutils</span><br><span class="line">Package: binutils</span><br><span class="line">Version: 2.31.1-16+rpi1</span><br><span class="line">Priority: optional</span><br><span class="line">Section: devel</span><br><span class="line">Maintainer: Matthias Klose &lt;doko@debian.org&gt;</span><br><span class="line">Installed-Size: 95.2 kB</span><br><span class="line">Provides: binutils-gold, elf-binutils</span><br><span class="line">Depends: binutils-common (= 2.31.1-16+rpi1), libbinutils (= 2.31.1-16+rpi1), binutils-arm-linux-gnueabihf (= 2.31.1-16+rpi1)</span><br><span class="line">Suggests: binutils-doc (&gt;= 2.31.1-16+rpi1)</span><br><span class="line">Conflicts: binutils-multiarch (&lt;&lt; 2.27-8), modutils (&lt;&lt; 2.4.19-1)</span><br><span class="line">Homepage: https://www.gnu.org/software/binutils/</span><br><span class="line">Download-Size: 56.9 kB</span><br><span class="line">APT-Manual-Installed: no</span><br><span class="line">APT-Sources: http://raspbian.raspberrypi.org/raspbian buster/main armhf Packages</span><br><span class="line">Description: GNU assembler, linker and binary utilities</span><br><span class="line">The programs in this package are used to assemble, link and manipulate</span><br><span class="line">binary and object files.  They may be used in conjunction with a compiler</span><br><span class="line">and various libraries to build programs.</span><br></pre></td></tr></table></figure></li>
-</ul></li>
-<li><strong>C-library</strong>:
-<ul>
-<li><strong>C library</strong>: glibc</li>
-<li><strong>Version of glibc</strong>: 2.28 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ apt show libc-bin</span><br><span class="line">Package: libc-bin</span><br><span class="line">Version: 2.28-10+rpi1</span><br><span class="line">Priority: required</span><br><span class="line">Essential: yes</span><br><span class="line">Section: libs</span><br><span class="line">Source: glibc</span><br><span class="line">Maintainer: GNU Libc Maintainers &lt;debian-glibc@lists.debian.org&gt;</span><br><span class="line">Installed-Size: 3,015 kB</span><br><span class="line">Depends: libc6 (&gt;&gt; 2.28), libc6 (&lt;&lt; 2.29)</span><br><span class="line">Recommends: manpages</span><br><span class="line">Homepage: https://www.gnu.org/software/libc/libc.html</span><br><span class="line">Download-Size: 657 kB</span><br><span class="line">APT-Manual-Installed: yes</span><br><span class="line">APT-Sources: http://raspbian.raspberrypi.org/raspbian buster/main armhf Packages</span><br><span class="line">Description: GNU C Library: Binaries</span><br><span class="line">This package contains utility programs related to the GNU C Library.</span><br><span class="line">.</span><br><span class="line">* catchsegv: catch segmentation faults in programs</span><br><span class="line">* getconf: query system configuration variables</span><br><span class="line">* getent: get entries from administrative databases</span><br><span class="line">* iconv, iconvconfig: convert between character encodings</span><br><span class="line">* ldd, ldconfig: print/configure shared library dependencies</span><br><span class="line">* locale, localedef: show/generate locale definitions</span><br><span class="line">* tzselect, zdump, zic: select/dump/compile time zones</span><br></pre></td></tr></table></figure></li>
-</ul></li>
-<li><strong>C compiler</strong>:
-<ul>
-<li><strong>Show gcc versions from</strong>: GNU</li>
-<li><strong>Version of gcc</strong>: 8.3.0</li>
-<li><strong>gcc extra config</strong>: --with-float=hard</li>
-<li><strong>Link libstdc++ statically into the gcc binary</strong>:
-tick</li>
-<li><strong>C++</strong>: tick <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ apt show gcc</span><br><span class="line">Package: gcc</span><br><span class="line">Version: 4:8.3.0-1+rpi2</span><br><span class="line">Priority: optional</span><br><span class="line">Section: devel</span><br><span class="line">Source: gcc-defaults (1.181+rpi2)</span><br><span class="line">Maintainer: Debian GCC Maintainers &lt;debian-gcc@lists.debian.org&gt;</span><br><span class="line">Installed-Size: 46.1 kB</span><br><span class="line">Provides: c-compiler, gcc-arm-linux-gnueabihf (= 4:8.3.0-1+rpi2)</span><br><span class="line">Depends: cpp (= 4:8.3.0-1+rpi2), gcc-8 (&gt;= 8.3.0-1~)</span><br><span class="line">Recommends: libc6-dev | libc-dev</span><br><span class="line">Suggests: gcc-multilib, make, manpages-dev, autoconf, automake, libtool, flex, bison, gdb, gcc-doc</span><br><span class="line">Conflicts: gcc-doc (&lt;&lt; 1:2.95.3)</span><br><span class="line">Download-Size: 5,200 B</span><br><span class="line">APT-Manual-Installed: no</span><br><span class="line">APT-Sources: http://raspbian.raspberrypi.org/raspbian buster/main armhf Packages</span><br><span class="line">Description: GNU C compiler</span><br><span class="line">This is the GNU C compiler, a fairly portable optimizing compiler for C.</span><br><span class="line">.</span><br><span class="line">This is a dependency package providing the default GNU C compiler.</span><br></pre></td></tr></table></figure></li>
-</ul></li>
-</ul>
-<p>After we save the configuration to file <strong>.config</strong>, we
-<strong>Exit</strong> the <strong>crosstool-NG</strong> configuration
-dialog.</p>
-<h1 id="build">3. Build</h1>
-<p><span style="color:red"><strong>Please remember
-to</strong></span>:</p>
-<ul>
-<li><code>unset LD_LIBRARY_PATH</code> before building. Otherwise,
-you’ll meet some <strong>ERROR</strong> messages.</li>
-<li><code>mkdir ~/src</code> before building. Otherwise, whenever you
-tried to rerun <code>ct-ng build</code>, you’ll have to download
-<strong>ALL</strong> required packages from scratch.</li>
-</ul>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">ct-ng build</span></span><br><span class="line">[INFO ]  Performing some trivial sanity checks</span><br><span class="line">[WARN ]  Number of open files 1024 may not be sufficient to build the toolchain; increasing to 2048</span><br><span class="line">[INFO ]  Build started 20190906.014128</span><br><span class="line">[INFO ]  Building environment variables</span><br><span class="line">[EXTRA]  Preparing working directories</span><br><span class="line">[EXTRA]  Installing user-supplied crosstool-NG configuration</span><br><span class="line">[EXTRA]  =================================================================</span><br><span class="line">[EXTRA]  Dumping internal crosstool-NG configuration</span><br><span class="line">[EXTRA]    Building a toolchain for:</span><br><span class="line">[EXTRA]      build  = x86_64-pc-linux-gnu</span><br><span class="line">[EXTRA]      host   = x86_64-pc-linux-gnu</span><br><span class="line">[EXTRA]      target = arm-rpi-linux-gnueabihf</span><br><span class="line">[EXTRA]  Dumping internal crosstool-NG configuration: done in 0.07s (at 00:01)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Retrieving needed toolchain components&#x27; tarballs</span><br><span class="line">[EXTRA]    Retrieving &#x27;ncurses-6.1&#x27;</span><br><span class="line">[EXTRA]    Verifying SHA512 checksum for &#x27;ncurses-6.1.tar.gz&#x27;</span><br><span class="line">[EXTRA]    Saving &#x27;ncurses-6.1.tar.gz&#x27; to local storage</span><br><span class="line">[EXTRA]    Retrieving &#x27;libiconv-1.15&#x27;</span><br><span class="line">[EXTRA]    Verifying SHA512 checksum for &#x27;libiconv-1.15.tar.gz&#x27;</span><br><span class="line">[EXTRA]    Saving &#x27;libiconv-1.15.tar.gz&#x27; to local storage</span><br><span class="line">[EXTRA]    Retrieving &#x27;gettext-0.19.8.1&#x27;</span><br><span class="line">[EXTRA]    Verifying SHA512 checksum for &#x27;gettext-0.19.8.1.tar.xz&#x27;</span><br><span class="line">[EXTRA]    Saving &#x27;gettext-0.19.8.1.tar.xz&#x27; to local storage</span><br><span class="line">[EXTRA]    Retrieving &#x27;binutils-2.31.1&#x27;</span><br><span class="line">[EXTRA]    Verifying SHA512 checksum for &#x27;binutils-2.31.1.tar.xz&#x27;</span><br><span class="line">[EXTRA]    Saving &#x27;binutils-2.31.1.tar.xz&#x27; to local storage</span><br><span class="line">[EXTRA]    Retrieving &#x27;gcc-8.3.0&#x27;</span><br><span class="line">[EXTRA]    Verifying SHA512 checksum for &#x27;gcc-8.3.0.tar.xz&#x27;</span><br><span class="line">[EXTRA]    Saving &#x27;gcc-8.3.0.tar.xz&#x27; to local storage</span><br><span class="line">[EXTRA]    Retrieving &#x27;glibc-2.28&#x27;</span><br><span class="line">[EXTRA]    Verifying SHA512 checksum for &#x27;glibc-2.28.tar.xz&#x27;</span><br><span class="line">[EXTRA]    Saving &#x27;glibc-2.28.tar.xz&#x27; to local storage</span><br><span class="line">[INFO ]  Retrieving needed toolchain components&#x27; tarballs: done in 130.35s (at 02:12)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Extracting and patching toolchain components</span><br><span class="line">[EXTRA]    Extracting linux-4.20.8</span><br><span class="line">[EXTRA]    Patching linux-4.20.8</span><br><span class="line">[EXTRA]    Extracting zlib-1.2.11</span><br><span class="line">[EXTRA]    Patching zlib-1.2.11</span><br><span class="line">[EXTRA]    Extracting gmp-6.1.2</span><br><span class="line">[EXTRA]    Patching gmp-6.1.2</span><br><span class="line">[EXTRA]    Extracting mpfr-4.0.2</span><br><span class="line">[EXTRA]    Patching mpfr-4.0.2</span><br><span class="line">[EXTRA]    Extracting isl-0.20</span><br><span class="line">[EXTRA]    Patching isl-0.20</span><br><span class="line">[EXTRA]    Extracting mpc-1.1.0</span><br><span class="line">[EXTRA]    Patching mpc-1.1.0</span><br><span class="line">[EXTRA]    Extracting ncurses-6.1</span><br><span class="line">[EXTRA]    Patching ncurses-6.1</span><br><span class="line">[EXTRA]    Extracting libiconv-1.15</span><br><span class="line">[EXTRA]    Patching libiconv-1.15</span><br><span class="line">[EXTRA]    Extracting gettext-0.19.8.1</span><br><span class="line">[EXTRA]    Patching gettext-0.19.8.1</span><br><span class="line">[EXTRA]    Extracting binutils-2.31.1</span><br><span class="line">[EXTRA]    Patching binutils-2.31.1</span><br><span class="line">[EXTRA]    Extracting gcc-8.3.0</span><br><span class="line">[EXTRA]    Patching gcc-8.3.0</span><br><span class="line">[EXTRA]    Extracting glibc-2.28</span><br><span class="line">[EXTRA]    Patching glibc-2.28</span><br><span class="line">[INFO ]  Extracting and patching toolchain components: done in 33.39s (at 02:45)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing ncurses for build</span><br><span class="line">[EXTRA]    Configuring ncurses</span><br><span class="line">[EXTRA]    Building ncurses</span><br><span class="line">[EXTRA]    Installing ncurses</span><br><span class="line">[INFO ]  Installing ncurses for build: done in 14.62s (at 03:00)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing zlib for host</span><br><span class="line">[EXTRA]    Configuring zlib</span><br><span class="line">[EXTRA]    Building zlib</span><br><span class="line">[EXTRA]    Installing zlib</span><br><span class="line">[INFO ]  Installing zlib for host: done in 1.12s (at 03:01)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing GMP for host</span><br><span class="line">[EXTRA]    Configuring GMP</span><br><span class="line">[EXTRA]    Building GMP</span><br><span class="line">[EXTRA]    Installing GMP</span><br><span class="line">[INFO ]  Installing GMP for host: done in 30.12s (at 03:31)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing MPFR for host</span><br><span class="line">[EXTRA]    Configuring MPFR</span><br><span class="line">[EXTRA]    Building MPFR</span><br><span class="line">[EXTRA]    Installing MPFR</span><br><span class="line">[INFO ]  Installing MPFR for host: done in 17.35s (at 03:48)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing ISL for host</span><br><span class="line">[EXTRA]    Configuring ISL</span><br><span class="line">[EXTRA]    Building ISL</span><br><span class="line">[EXTRA]    Installing ISL</span><br><span class="line">[INFO ]  Installing ISL for host: done in 17.73s (at 04:06)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing MPC for host</span><br><span class="line">[EXTRA]    Configuring MPC</span><br><span class="line">[EXTRA]    Building MPC</span><br><span class="line">[EXTRA]    Installing MPC</span><br><span class="line">[INFO ]  Installing MPC for host: done in 5.47s (at 04:12)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing ncurses for host</span><br><span class="line">[EXTRA]    Configuring ncurses</span><br><span class="line">[EXTRA]    Building ncurses</span><br><span class="line">[EXTRA]    Installing ncurses</span><br><span class="line">[INFO ]  Installing ncurses for host: done in 13.64s (at 04:25)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing libiconv for host</span><br><span class="line">[EXTRA]    Skipping (included in GNU C library)</span><br><span class="line">[INFO ]  Installing libiconv for host: done in 0.01s (at 04:25)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing gettext for host</span><br><span class="line">[EXTRA]    Skipping (included in GNU C library)</span><br><span class="line">[INFO ]  Installing gettext for host: done in 0.01s (at 04:25)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing binutils for host</span><br><span class="line">[EXTRA]    Configuring binutils</span><br><span class="line">[EXTRA]    Building binutils</span><br><span class="line">[EXTRA]    Installing binutils</span><br><span class="line">[INFO ]  Installing binutils for host: done in 46.89s (at 05:12)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing pass-1 core C gcc compiler</span><br><span class="line">[EXTRA]    Configuring core C gcc compiler</span><br><span class="line">[EXTRA]    Building gcc</span><br><span class="line">[EXTRA]    Installing gcc</span><br><span class="line">[EXTRA]    Housekeeping for core gcc compiler</span><br><span class="line">[EXTRA]       &#x27;&#x27; --&gt; lib (gcc)   lib (os)</span><br><span class="line">[INFO ]  Installing pass-1 core C gcc compiler: done in 285.36s (at 09:58)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing kernel headers</span><br><span class="line">[EXTRA]    Installing kernel headers</span><br><span class="line">[EXTRA]    Checking installed headers</span><br><span class="line">[INFO ]  Installing kernel headers: done in 6.47s (at 10:04)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing C library headers &amp; start files</span><br><span class="line">[INFO ]    =================================================================</span><br><span class="line">[INFO ]    Building for multilib 1/1: &#x27;&#x27;</span><br><span class="line">[EXTRA]      Configuring C library</span><br><span class="line">[EXTRA]      Installing C library headers</span><br><span class="line">[EXTRA]      Installing C library start files</span><br><span class="line">[INFO ]    Building for multilib 1/1: &#x27;&#x27;: done in 7.65s (at 10:12)</span><br><span class="line">[INFO ]  Installing C library headers &amp; start files: done in 7.72s (at 10:12)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing pass-2 core C gcc compiler</span><br><span class="line">[EXTRA]    Configuring core C gcc compiler</span><br><span class="line">[EXTRA]    Building gcc</span><br><span class="line">[EXTRA]    Installing gcc</span><br><span class="line">[EXTRA]    Housekeeping for core gcc compiler</span><br><span class="line">[EXTRA]       &#x27;&#x27; --&gt; lib (gcc)   lib (os)</span><br><span class="line">[INFO ]  Installing pass-2 core C gcc compiler: done in 354.87s (at 16:07)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing C library</span><br><span class="line">[INFO ]    =================================================================</span><br><span class="line">[INFO ]    Building for multilib 1/1: &#x27;&#x27;</span><br><span class="line">[EXTRA]      Cleaning up start files</span><br><span class="line">[EXTRA]      Configuring C library</span><br><span class="line">[EXTRA]      Building C library</span><br><span class="line">[EXTRA]      Configuring C library</span><br><span class="line">[EXTRA]      Building C library</span><br><span class="line">[EXTRA]      Installing C library</span><br><span class="line">[INFO ]    Building for multilib 1/1: &#x27;&#x27;: done in 184.69s (at 19:12)</span><br><span class="line">[INFO ]  Installing C library: done in 184.78s (at 19:12)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Installing final gcc compiler</span><br><span class="line">[EXTRA]    Configuring final gcc compiler</span><br><span class="line">[EXTRA]    Building final gcc compiler</span><br><span class="line">[EXTRA]    Installing final gcc compiler</span><br><span class="line">[EXTRA]    Housekeeping for final gcc compiler</span><br><span class="line">[EXTRA]       &#x27;&#x27; --&gt; lib (gcc)   lib (os)</span><br><span class="line">[INFO ]  Installing final gcc compiler: done in 339.13s (at 24:51)</span><br><span class="line">[INFO ]  =================================================================</span><br><span class="line">[INFO ]  Finalizing the toolchain&#x27;s directory</span><br><span class="line">[INFO ]    Stripping all toolchain executables</span><br><span class="line">[EXTRA]    Installing the populate helper</span><br><span class="line">[EXTRA]    Installing a cross-ldd helper</span><br><span class="line">[EXTRA]    Creating toolchain aliases</span><br><span class="line">[EXTRA]    Removing installed documentation</span><br><span class="line">[EXTRA]    Collect license information from: ~/Crosscompile/.build/arm-rpi-linux-gnueabihf/src</span><br><span class="line">[EXTRA]    Put the license information to: ~/....../RPi/share/licenses</span><br><span class="line">[INFO ]  Finalizing the toolchain&#x27;s directory: done in 1.80s (at 24:52)</span><br><span class="line">[INFO ]  Build completed at 20190906.020619</span><br><span class="line">[INFO ]  (elapsed: 24:51.86)</span><br><span class="line">[INFO ]  Finishing installation (may take a few seconds)...</span><br><span class="line">[24:52] / %                                                                                                                                                              longervision-GT72-6QE%</span><br><span class="line">                                           </span><br></pre></td></tr></table></figure>
-<p>This process may take a while. I’m going to sleep tonight. Continue
-tomorrow…</p>
-<p><span style="color:blue"><strong>Alright, let’s continue today. Glad
-to know it’s built successfully.</strong></span></p>
-<div style="text-align: center; font-size: 3em;">
-<pre><code>😄</code></pre>
-</div>
-<p>Let’s <strong>FIRST</strong> take a look at what’s under the current
-folder.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash"><span class="built_in">ls</span></span></span><br><span class="line">build.log  rpi.config</span><br></pre></td></tr></table></figure>
-<p>And then, let’s take a look at what’s built under the specified
-destination folder.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash"><span class="built_in">ls</span> ~/....../CrossCompile/RPi</span></span><br><span class="line">arm-rpi-linux-gnueabihf  bin  build.log.bz2  include  lib  libexec  share</span><br><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash"><span class="built_in">ls</span> ~/....../CrossCompile/RPi/bin</span></span><br><span class="line">arm-rpi-linux-gnueabihf-addr2line  arm-rpi-linux-gnueabihf-cpp           arm-rpi-linux-gnueabihf-gcc-ar      arm-rpi-linux-gnueabihf-gprof    arm-rpi-linux-gnueabihf-objdump   arm-rpi-linux-gnueabihf-strip</span><br><span class="line">arm-rpi-linux-gnueabihf-ar         arm-rpi-linux-gnueabihf-ct-ng.config  arm-rpi-linux-gnueabihf-gcc-nm      arm-rpi-linux-gnueabihf-ld       arm-rpi-linux-gnueabihf-populate</span><br><span class="line">arm-rpi-linux-gnueabihf-as         arm-rpi-linux-gnueabihf-elfedit       arm-rpi-linux-gnueabihf-gcc-ranlib  arm-rpi-linux-gnueabihf-ld.bfd   arm-rpi-linux-gnueabihf-ranlib</span><br><span class="line">arm-rpi-linux-gnueabihf-c++        arm-rpi-linux-gnueabihf-g++           arm-rpi-linux-gnueabihf-gcov        arm-rpi-linux-gnueabihf-ldd      arm-rpi-linux-gnueabihf-readelf</span><br><span class="line">arm-rpi-linux-gnueabihf-cc         arm-rpi-linux-gnueabihf-gcc           arm-rpi-linux-gnueabihf-gcov-dump   arm-rpi-linux-gnueabihf-nm       arm-rpi-linux-gnueabihf-size</span><br><span class="line">arm-rpi-linux-gnueabihf-c++filt    arm-rpi-linux-gnueabihf-gcc-8.3.0     arm-rpi-linux-gnueabihf-gcov-tool   arm-rpi-linux-gnueabihf-objcopy  arm-rpi-linux-gnueabihf-strings</span><br><span class="line"><span class="meta prompt_">longervision-GT72-6QE%</span></span><br></pre></td></tr></table></figure>
-<p>Finally, let’s take a look at the version of our built cross
-compilers for <a
-target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry
-Pi 3B</a>.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">arm-rpi-linux-gnueabihf-gcc --version</span></span><br><span class="line">zsh: command not found: arm-rpi-linux-gnueabihf-gcc</span><br><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">./arm-rpi-linux-gnueabihf-gcc --version</span></span><br><span class="line">arm-rpi-linux-gnueabihf-gcc (crosstool-NG 1.24.0.6-afaf7b9) 8.3.0</span><br><span class="line">Copyright (C) 2018 Free Software Foundation, Inc.</span><br><span class="line">This is free software; see the source for copying conditions.  There is NO</span><br><span class="line">warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">./arm-rpi-linux-gnueabihf-g++ --version</span></span><br><span class="line">arm-rpi-linux-gnueabihf-g++ (crosstool-NG 1.24.0.6-afaf7b9) 8.3.0</span><br><span class="line">Copyright (C) 2018 Free Software Foundation, Inc.</span><br><span class="line">This is free software; see the source for copying conditions.  There is NO</span><br><span class="line">warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span><br></pre></td></tr></table></figure>
-<p><strong><span style="color:red">Additional issue: It seems current <a
-target="_blank" rel="noopener" href="https://crosstool-ng.github.io/">crosstool-NG</a> does NOT
-officially support <a target="_blank" rel="noopener" href="https://www.python.org/">Python</a>. Please
-refer to <a
-target="_blank" rel="noopener" href="https://github.com/crosstool-ng/crosstool-ng/issues/1235">my issue
-at crosstool-NG</a>.</span></strong></p>
-<h1 id="compilebuild-a-package-with-generated-toolchain">4.
-Compile/Build a Package with Generated Toolchain</h1>
-<p>For most of the packages nowadays, they are</p>
-<ul>
-<li>either supported by <a
-target="_blank" rel="noopener" href="https://www.gnu.org/software/make/">make</a>:
-<code>./configure -&gt; make -&gt; make install</code></li>
-<li>or supported by <a target="_blank" rel="noopener" href="https://cmake.org/">CMake</a>:
-<code>mkdir build -&gt; cd build -&gt; ccmake ../ -&gt; make -&gt; make install</code></li>
-</ul>
-<p>How to use our generated toolchain to compile/build our target
-packages?</p>
-<ul>
-<li>For the <strong>FIRST</strong> option, you can follow the <a
-target="_blank" rel="noopener" href="https://crosstool-ng.github.io/docs/toolchain-usage/">crosstool-NG
-Using the toolchain</a>.</li>
-<li>For the <strong>SECOND</strong> option, you are welcome to follow <a
-target="_blank" rel="noopener" href="https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html">CMake
-Toolchains</a>.</li>
-</ul>
-<p>Today, we’re going to take the package <a
-target="_blank" rel="noopener" href="https://github.com/mariusmuja/flann">flann</a> as an example,
-which are to be built with <a target="_blank" rel="noopener" href="https://cmake.org/">CMake</a>.</p>
-<h2 id="cmakelists.txt-modification">4.1 CMakeLists.txt
-Modification</h2>
-<h3 id="cmake-toolchains---cross-compiling-for-linux">4.1.1 CMake
-Toolchains - Cross Compiling for Linux</h3>
-<p>By following <a
-target="_blank" rel="noopener" href="https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html#cross-compiling-for-linux">CMake
-Toolchains - Cross Compiling for Linux</a>, we <strong>FIRST</strong>
-modify <a
-target="_blank" rel="noopener" href="https://github.com/mariusmuja/flann/blob/master/CMakeLists.txt">flann
-CMakeLists.txt</a> a bit by adding the following lines before
-<code>project(flann)</code>.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 2.6)</span><br><span class="line"></span><br><span class="line">if(COMMAND cmake_policy)</span><br><span class="line">    cmake_policy(SET CMP0003 NEW)</span><br><span class="line">endif(COMMAND cmake_policy)</span><br><span class="line"></span><br><span class="line">set(CMAKE_SYSTEM_NAME Linux)</span><br><span class="line">set(CMAKE_SYSTEM_PROCESSOR arm)</span><br><span class="line"></span><br><span class="line">set(CMAKE_SYSROOT ....../arm-rpi-linux-gnueabihf/sysroot)</span><br><span class="line">set(CMAKE_STAGING_PREFIX ....../stage)</span><br><span class="line"></span><br><span class="line">set(tools /opt/compilers/RPi)</span><br><span class="line">set(CMAKE_C_COMPILER $&#123;tools&#125;/bin/arm-rpi-linux-gnueabihf-gcc)</span><br><span class="line">set(CMAKE_CXX_COMPILER $&#123;tools&#125;/bin/arm-rpi-linux-gnueabihf-g++)</span><br><span class="line"></span><br><span class="line">set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)</span><br><span class="line">set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)</span><br><span class="line">set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)</span><br><span class="line">set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)</span><br><span class="line"></span><br><span class="line">set(CMAKE_TRY_COMPILE_TARGET_TYPE &quot;STATIC_LIBRARY&quot;)</span><br><span class="line"></span><br><span class="line">project(flann)</span><br><span class="line">string(TOLOWER $&#123;PROJECT_NAME&#125; PROJECT_NAME_LOWER)</span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>CMAKE_SYSROOT</strong> specify the sysroot directory which
-emulate your target environment, here, <a
-target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry
-Pi 3B</a></li>
-<li><strong>CMAKE_STAGING_PREFIX</strong> is where the
-<strong>STAGING</strong> results store, for the reason that final
-results may require to be built in multiple stages. You may refer to <a
-target="_blank" rel="noopener" href="http://www.linuxfromscratch.org/">Linux From Scratch</a> for
-further background knowledge about that.</li>
-<li><strong>tools</strong> actually specify the building tool directory.
-Making sure all generated cross compiling tools are under folder
-<code>$&#123;tools&#125;/bin</code>.</li>
-</ul>
-<h3 id="ignore-hdf5">4.1.2 Ignore hdf5</h3>
-<p>In addition, for the emulated <a
-target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry
-Pi 3B</a> sysroot, <a
-target="_blank" rel="noopener" href="https://www.hdfgroup.org/solutions/hdf5/">hdf5</a> is NOT
-supported. Therefore, let’s simply comment out the following line in <a
-target="_blank" rel="noopener" href="https://github.com/mariusmuja/flann/blob/master/CMakeLists.txt">flann
-CMakeLists.txt</a>.</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#find_hdf5()</span></span><br></pre></td></tr></table></figure>
-<h2 id="cross-compile">4.2 Cross Compile</h2>
-<p>Now, let’s start cross-compiling <a
-target="_blank" rel="noopener" href="https://github.com/mariusmuja/flann">flann</a>.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash"><span class="built_in">mkdir</span> build</span></span><br><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash"><span class="built_in">cd</span> build</span></span><br><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">ccmake ../</span></span><br></pre></td></tr></table></figure>
-<p>and press <strong>c</strong> and then <strong>t</strong>, you’ll see
-the cross compiling toolchains have been automatically configured
-as:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">BUILD_CUDA_LIB                  *OFF</span><br><span class="line">BUILD_C_BINDINGS                *ON</span><br><span class="line">BUILD_DOC                       *OFF</span><br><span class="line">BUILD_EXAMPLES                  *OFF</span><br><span class="line">BUILD_MATLAB_BINDINGS           *OFF</span><br><span class="line">BUILD_PYTHON_BINDINGS           *ON</span><br><span class="line">BUILD_TESTS                     *OFF</span><br><span class="line">CMAKE_AR                        */opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-ar</span><br><span class="line">CMAKE_BUILD_TYPE                *RelWithDebInfo</span><br><span class="line">CMAKE_COLOR_MAKEFILE            *ON</span><br><span class="line">CMAKE_CXX_COMPILER_AR           */opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-gcc-ar</span><br><span class="line">CMAKE_CXX_COMPILER_RANLIB       */opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-gcc-ranlib</span><br><span class="line">CMAKE_CXX_FLAGS                 *-I/usr/include</span><br><span class="line">CMAKE_CXX_FLAGS_DEBUG           *-g</span><br><span class="line">CMAKE_CXX_FLAGS_MINSIZEREL      *-Os -DNDEBUG</span><br><span class="line">CMAKE_CXX_FLAGS_RELEASE         *-O3 -DNDEBUG</span><br><span class="line">CMAKE_CXX_FLAGS_RELWITHDEBINFO  *-O2 -g -DNDEBUG</span><br><span class="line">CMAKE_C_COMPILER_AR             */opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-gcc-ar</span><br><span class="line">CMAKE_C_COMPILER_RANLIB         */opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-gcc-ranlib</span><br><span class="line">CMAKE_C_FLAGS                   *-I/usr/include</span><br><span class="line">CMAKE_C_FLAGS_DEBUG             *-g</span><br><span class="line">CMAKE_C_FLAGS_MINSIZEREL        *-Os -DNDEBUG</span><br><span class="line">CMAKE_C_FLAGS_RELEASE           *-O3 -DNDEBUG</span><br><span class="line">CMAKE_C_FLAGS_RELWITHDEBINFO    *-O2 -g -DNDEBUG</span><br><span class="line">CMAKE_EXE_LINKER_FLAGS          *</span><br><span class="line">CMAKE_EXE_LINKER_FLAGS_DEBUG    *</span><br><span class="line">CMAKE_EXE_LINKER_FLAGS_MINSIZE  *  </span><br><span class="line">CMAKE_EXE_LINKER_FLAGS_RELEASE  *     </span><br><span class="line">CMAKE_EXE_LINKER_FLAGS_RELWITH  *</span><br><span class="line">CMAKE_EXPORT_COMPILE_COMMANDS   *OFF</span><br><span class="line">CMAKE_INSTALL_PREFIX            */usr/local</span><br><span class="line">CMAKE_LINKER                    */opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-ld</span><br><span class="line">CMAKE_MAKE_PROGRAM              */usr/bin/make</span><br><span class="line">CMAKE_MODULE_LINKER_FLAGS       *    </span><br><span class="line">CMAKE_MODULE_LINKER_FLAGS_DEBU  *  </span><br><span class="line">CMAKE_MODULE_LINKER_FLAGS_MINS  *   </span><br><span class="line">CMAKE_MODULE_LINKER_FLAGS_RELE  *    </span><br><span class="line">CMAKE_MODULE_LINKER_FLAGS_RELW  * </span><br><span class="line">CMAKE_NM                        */opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-nm</span><br><span class="line">CMAKE_OBJCOPY                   */opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-objcopy</span><br><span class="line">CMAKE_OBJDUMP                   */opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-objdump</span><br><span class="line">CMAKE_RANLIB                    */opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-ranlib</span><br><span class="line">CMAKE_SHARED_LINKER_FLAGS       *    </span><br><span class="line">CMAKE_SHARED_LINKER_FLAGS_DEBU  *</span><br><span class="line">CMAKE_SHARED_LINKER_FLAGS_MINS  *   </span><br><span class="line">CMAKE_SHARED_LINKER_FLAGS_RELE  *</span><br><span class="line">CMAKE_SHARED_LINKER_FLAGS_RELW  *   </span><br><span class="line">CMAKE_SKIP_INSTALL_RPATH        *OFF</span><br><span class="line">CMAKE_SKIP_RPATH                *OFF</span><br><span class="line">CMAKE_STATIC_LINKER_FLAGS       *</span><br><span class="line">CMAKE_STATIC_LINKER_FLAGS_DEBU  *</span><br><span class="line">CMAKE_STATIC_LINKER_FLAGS_MINS  * </span><br><span class="line">CMAKE_STATIC_LINKER_FLAGS_RELE  *</span><br><span class="line">CMAKE_STATIC_LINKER_FLAGS_RELW  *</span><br><span class="line">CMAKE_STRIP                     */opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-strip</span><br><span class="line">CMAKE_VERBOSE_MAKEFILE          *ON</span><br><span class="line">CPACK_SOURCE_RPM                *OFF</span><br><span class="line">CPACK_SOURCE_TBZ2               *ON</span><br><span class="line">CPACK_SOURCE_TGZ                *ON</span><br><span class="line">CPACK_SOURCE_TXZ                *ON </span><br><span class="line">CPACK_SOURCE_TZ                 *ON</span><br><span class="line">CPACK_SOURCE_ZIP                *OFF</span><br><span class="line">DPKG_PROGRAM                    */usr/bin/dpkg</span><br><span class="line">NSIS_PROGRAM                    */usr/bin/makensis</span><br><span class="line">NVCC_COMPILER_BINDIR            *</span><br><span class="line">PACKAGE_MAKER_PROGRAM           *PACKAGE_MAKER_PROGRAM-NOTFOUND</span><br><span class="line">PKG_CONFIG_EXECUTABLE           */usr/bin/pkg-config</span><br><span class="line">PYTHON_EXECUTABLE               */usr/bin/python</span><br><span class="line">RPM_PROGRAM                     *RPM_PROGRAM-NOTFOUND</span><br><span class="line">USE_MPI                         *OFF</span><br><span class="line">USE_OPENMP                      *OFF</span><br></pre></td></tr></table></figure>
-<p>The <strong>LAST</strong> step before make is to modify some of the
-parameters accordingly, in my case:</p>
-<ul>
-<li><strong>BUILD_PYTHON_BINDINGS</strong>: ON -&gt; OFF</li>
-<li><strong>CMAKE_CXX_FLAGS</strong>: <code>-I/usr/include</code> (for
-lz4.h from my host <a target="_blank" rel="noopener" href="http://releases.ubuntu.com/19.04/">Ubuntu
-19.04</a>)</li>
-<li><strong>CMAKE_C_FLAGS</strong>: <code>-I/usr/include</code> (for
-lz4.h from my host <a target="_blank" rel="noopener" href="http://releases.ubuntu.com/19.04/">Ubuntu
-19.04</a>)</li>
-<li><strong>CMAKE_VERBOSE_MAKEFILE</strong>: OFF -&gt; ON</li>
-<li><strong>CMAKE_INSTALL_PREFIX</strong>: <code>/usr/local/</code>
--&gt; under which directory you want to install, which can be
-<strong>IGNORED</strong> for now</li>
-</ul>
-<p>Now, press <strong>c</strong>, you’ll see:</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CMake Warning at CMakeLists.txt:<span class="number">99</span> (<span class="keyword">message</span>):</span><br><span class="line">  hdf5 library <span class="keyword">not</span> found, some tests will <span class="keyword">not</span> be run</span><br></pre></td></tr></table></figure>
-<p>A warining of missing <a
-target="_blank" rel="noopener" href="https://www.hdfgroup.org/solutions/hdf5/">hdf5</a> is clearly
-reasonable and acceptable. Then press <strong>g</strong>.</p>
-<p>Finally, it’s the time for us to cross build <a
-target="_blank" rel="noopener" href="https://github.com/mariusmuja/flann">flann</a>.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">longervision-GT72-6QE% </span><span class="language-bash">make -j8</span></span><br><span class="line">/usr/bin/cmake -S....../flann -B....../flann/build --check-build-system CMakeFiles/Makefile.cmake 0</span><br><span class="line">/usr/bin/cmake -E cmake_progress_start ....../flann/build/CMakeFiles ....../flann/build/CMakeFiles/progress.marks</span><br><span class="line">make -f CMakeFiles/Makefile2 all</span><br><span class="line">make[1]: Entering directory &#x27;....../flann/build&#x27;</span><br><span class="line">make -f src/cpp/CMakeFiles/flann_s.dir/build.make src/cpp/CMakeFiles/flann_s.dir/depend</span><br><span class="line">make -f src/cpp/CMakeFiles/flann_cpp_s.dir/build.make src/cpp/CMakeFiles/flann_cpp_s.dir/depend</span><br><span class="line">make[2]: Entering directory &#x27;....../flann/build&#x27;</span><br><span class="line">cd ....../flann/build &amp;&amp; /usr/bin/cmake -E cmake_depends &quot;Unix Makefiles&quot; ....../flann ....../flann/src/cpp ....../flann/build ....../flann/build/src/cpp ....../flann/build/src/cpp/CMakeFiles/flann_s.dir/DependInfo.cmake --color=</span><br><span class="line">make[2]: Entering directory &#x27;....../flann/build&#x27;</span><br><span class="line">cd ....../flann/build &amp;&amp; /usr/bin/cmake -E cmake_depends &quot;Unix Makefiles&quot; ....../flann ....../flann/src/cpp ....../flann/build ....../flann/build/src/cpp ....../flann/build/src/cpp/CMakeFiles/flann_cpp_s.dir/DependInfo.cmake --color=</span><br><span class="line">Scanning dependencies of target flann_cpp_s</span><br><span class="line">make[2]: Leaving directory &#x27;....../flann/build&#x27;</span><br><span class="line">make -f src/cpp/CMakeFiles/flann_s.dir/build.make src/cpp/CMakeFiles/flann_s.dir/build</span><br><span class="line">make[2]: Entering directory &#x27;....../flann/build&#x27;</span><br><span class="line">make[2]: Leaving directory &#x27;....../flann/build&#x27;</span><br><span class="line">make -f src/cpp/CMakeFiles/flann_cpp_s.dir/build.make src/cpp/CMakeFiles/flann_cpp_s.dir/build</span><br><span class="line">make[2]: Entering directory &#x27;....../flann/build&#x27;</span><br><span class="line">[ 12%] Building CXX object src/cpp/CMakeFiles/flann_s.dir/flann/flann.cpp.o</span><br><span class="line">cd ....../flann/build/src/cpp &amp;&amp; /opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-g++ --sysroot=....../RPi/arm-rpi-linux-gnueabihf/sysroot  -DFLANN_STATIC -D_FLANN_VERSION=1.9.1 -I....../flann/src/cpp  -I/usr/include -O2 -g -DNDEBUG   -Wall -Wno-unknown-pragmas -Wno-unused-function -fPIC -o CMakeFiles/flann_s.dir/flann/flann.cpp.o -c ....../flann/src/cpp/flann/flann.cpp</span><br><span class="line">[ 25%] Building CXX object src/cpp/CMakeFiles/flann_cpp_s.dir/flann/flann_cpp.cpp.o</span><br><span class="line">cd ....../flann/build/src/cpp &amp;&amp; /opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-g++ --sysroot=....../RPi/arm-rpi-linux-gnueabihf/sysroot  -DFLANN_STATIC -DFLANN_USE_CUDA -D_FLANN_VERSION=1.9.1 -I....../flann/src/cpp  -I/usr/include -O2 -g -DNDEBUG   -Wall -Wno-unknown-pragmas -Wno-unused-function -fPIC -o CMakeFiles/flann_cpp_s.dir/flann/flann_cpp.cpp.o -c ....../flann/src/cpp/flann/flann_cpp.cpp</span><br><span class="line">In file included from ....../flann/src/cpp/flann/util/params.h:33,</span><br><span class="line">                 from ....../flann/src/cpp/flann/flann.hpp:42,</span><br><span class="line">                 from ....../flann/src/cpp/flann/flann.h:603,</span><br><span class="line">                 from ....../flann/src/cpp/flann/flann.cpp:31:</span><br><span class="line">....../flann/src/cpp/flann/util/any.h: In member function &#x27;virtual void flann::anyimpl::big_any_policy&lt;T&gt;::static_delete(void**)&#x27;:</span><br><span class="line">....../flann/src/cpp/flann/util/any.h:81:9: warning: this &#x27;if&#x27; clause does not guard... [-Wmisleading-indentation]</span><br><span class="line">         if (* x) delete (* reinterpret_cast&lt;T**&gt;(x)); *x = NULL;</span><br><span class="line">         ^~</span><br><span class="line">....../flann/src/cpp/flann/util/any.h:81:55: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the &#x27;if&#x27;</span><br><span class="line">         if (* x) delete (* reinterpret_cast&lt;T**&gt;(x)); *x = NULL;</span><br><span class="line">                                                       ^</span><br><span class="line">In file included from ....../flann/src/cpp/flann/util/params.h:33,</span><br><span class="line">                 from ....../flann/src/cpp/flann/flann.hpp:42,</span><br><span class="line">                 from ....../flann/src/cpp/flann/flann_cpp.cpp:30:</span><br><span class="line">....../flann/src/cpp/flann/util/any.h: In member function &#x27;virtual void flann::anyimpl::big_any_policy&lt;T&gt;::static_delete(void**)&#x27;:</span><br><span class="line">....../flann/src/cpp/flann/util/any.h:81:9: warning: this &#x27;if&#x27; clause does not guard... [-Wmisleading-indentation]</span><br><span class="line">         if (* x) delete (* reinterpret_cast&lt;T**&gt;(x)); *x = NULL;</span><br><span class="line">         ^~</span><br><span class="line">....../flann/src/cpp/flann/util/any.h:81:55: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the &#x27;if&#x27;</span><br><span class="line">         if (* x) delete (* reinterpret_cast&lt;T**&gt;(x)); *x = NULL;</span><br><span class="line">                                                       ^</span><br><span class="line">[ 37%] Linking CXX static library ../../lib/libflann_cpp_s.a</span><br><span class="line">cd ....../flann/build/src/cpp &amp;&amp; /usr/bin/cmake -P CMakeFiles/flann_cpp_s.dir/cmake_clean_target.cmake</span><br><span class="line">cd ....../flann/build/src/cpp &amp;&amp; /usr/bin/cmake -E cmake_link_script CMakeFiles/flann_cpp_s.dir/link.txt --verbose=1</span><br><span class="line">/opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-ar qc ../../lib/libflann_cpp_s.a  CMakeFiles/flann_cpp_s.dir/flann/flann_cpp.cpp.o</span><br><span class="line">/opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-ranlib ../../lib/libflann_cpp_s.a</span><br><span class="line">make[2]: Leaving directory &#x27;....../flann/build&#x27;</span><br><span class="line">[ 37%] Built target flann_cpp_s</span><br><span class="line">make -f src/cpp/CMakeFiles/flann_cpp.dir/build.make src/cpp/CMakeFiles/flann_cpp.dir/depend</span><br><span class="line">make[2]: Entering directory &#x27;....../flann/build&#x27;</span><br><span class="line">cd ....../flann/build &amp;&amp; /usr/bin/cmake -E cmake_depends &quot;Unix Makefiles&quot; ....../flann ....../flann/src/cpp ....../flann/build ....../flann/build/src/cpp ....../flann/build/src/cpp/CMakeFiles/flann_cpp.dir/DependInfo.cmake --color=</span><br><span class="line">Scanning dependencies of target flann_cpp</span><br><span class="line">make[2]: Leaving directory &#x27;....../flann/build&#x27;</span><br><span class="line">make -f src/cpp/CMakeFiles/flann_cpp.dir/build.make src/cpp/CMakeFiles/flann_cpp.dir/build</span><br><span class="line">make[2]: Entering directory &#x27;....../flann/build&#x27;</span><br><span class="line">[ 50%] Building CXX object src/cpp/CMakeFiles/flann_cpp.dir/empty.cpp.o</span><br><span class="line">cd ....../flann/build/src/cpp &amp;&amp; /opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-g++ --sysroot=....../RPi/arm-rpi-linux-gnueabihf/sysroot  -DFLANN_EXPORTS -D_FLANN_VERSION=1.9.1 -I....../flann/src/cpp  -I/usr/include -O2 -g -DNDEBUG -fPIC   -Wall -Wno-unknown-pragmas -Wno-unused-function -o CMakeFiles/flann_cpp.dir/empty.cpp.o -c ....../flann/src/cpp/empty.cpp</span><br><span class="line">[ 62%] Linking CXX shared library ../../lib/libflann_cpp.so</span><br><span class="line">cd ....../flann/build/src/cpp &amp;&amp; /usr/bin/cmake -E cmake_link_script CMakeFiles/flann_cpp.dir/link.txt --verbose=1</span><br><span class="line">/opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-g++ --sysroot=....../RPi/arm-rpi-linux-gnueabihf/sysroot -fPIC -I/usr/include -O2 -g -DNDEBUG  -shared -Wl,-soname,libflann_cpp.so.1.9 -o ../../lib/libflann_cpp.so.1.9.1 CMakeFiles/flann_cpp.dir/empty.cpp.o -Wl,-whole-archive ../../lib/libflann_cpp_s.a -Wl,-no-whole-archive </span><br><span class="line">cd ....../flann/build/src/cpp &amp;&amp; /usr/bin/cmake -E cmake_symlink_library ../../lib/libflann_cpp.so.1.9.1 ../../lib/libflann_cpp.so.1.9 ../../lib/libflann_cpp.so</span><br><span class="line">make[2]: Leaving directory &#x27;....../flann/build&#x27;</span><br><span class="line">[ 62%] Built target flann_cpp</span><br><span class="line">In file included from ....../flann/src/cpp/flann/algorithms/all_indices.h:35,</span><br><span class="line">                 from ....../flann/src/cpp/flann/flann.hpp:45,</span><br><span class="line">                 from ....../flann/src/cpp/flann/flann.h:603,</span><br><span class="line">                 from ....../flann/src/cpp/flann/flann.cpp:31:</span><br></pre></td></tr></table></figure>
-<p><span style="color:red"><strong>VERY Important:</strong></p>
-<ul>
-<li>If you build <a target="_blank" rel="noopener" href="https://github.com/mariusmuja/flann">flann</a>
-from source on a <a
-target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry
-Pi 3B</a>, your system is going to hang HERE, possibly due to lack of
-memory..</li>
-<li><a
-target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry
-Pi 3B</a> has 4 cores <strong>ONLY</strong>, but now you can use
-<strong>MORE</strong> cores on your host PC, which is clearly one
-advantage of using cross compiling.</span></li>
-</ul>
-<p>Finally, you’ll see <a
-target="_blank" rel="noopener" href="https://github.com/mariusmuja/flann">flann</a> has been
-successfully cross compiled as:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">....../flann/src/cpp/flann/algorithms/autotuned_index.h: In member function &#x27;void flann::AutotunedIndex&lt;Distance&gt;::optimizeKMeans(std::vector&lt;flann::AutotunedIndex&lt;Distance&gt;::CostData&gt;&amp;) [with Distance = flann::L2&lt;double&gt;]&#x27;:</span><br><span class="line">....../flann/src/cpp/flann/algorithms/autotuned_index.h:379:31: note: parameter passing for argument of type &#x27;flann::L2&lt;double&gt;&#x27; changed in GCC 7.1</span><br><span class="line">         KMeansIndex&lt;Distance&gt; kmeans(sampledDataset_, cost.params, distance_);</span><br><span class="line">                               ^~~~~~</span><br><span class="line">[ 75%] Linking CXX static library ../../lib/libflann_s.a</span><br><span class="line">cd ....../flann/build/src/cpp &amp;&amp; /usr/bin/cmake -P CMakeFiles/flann_s.dir/cmake_clean_target.cmake</span><br><span class="line">cd ....../flann/build/src/cpp &amp;&amp; /usr/bin/cmake -E cmake_link_script CMakeFiles/flann_s.dir/link.txt --verbose=1</span><br><span class="line">/opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-ar qc ../../lib/libflann_s.a  CMakeFiles/flann_s.dir/flann/flann.cpp.o</span><br><span class="line">/opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-ranlib ../../lib/libflann_s.a</span><br><span class="line">make[2]: Leaving directory &#x27;....../flann/build&#x27;</span><br><span class="line">[ 75%] Built target flann_s</span><br><span class="line">make -f src/cpp/CMakeFiles/flann.dir/build.make src/cpp/CMakeFiles/flann.dir/depend</span><br><span class="line">make[2]: Entering directory &#x27;....../flann/build&#x27;</span><br><span class="line">cd ....../flann/build &amp;&amp; /usr/bin/cmake -E cmake_depends &quot;Unix Makefiles&quot; ....../flann ....../flann/src/cpp ....../flann/build ....../flann/build/src/cpp ....../flann/build/src/cpp/CMakeFiles/flann.dir/DependInfo.cmake --color=</span><br><span class="line">Scanning dependencies of target flann</span><br><span class="line">make[2]: Leaving directory &#x27;....../flann/build&#x27;</span><br><span class="line">make -f src/cpp/CMakeFiles/flann.dir/build.make src/cpp/CMakeFiles/flann.dir/build</span><br><span class="line">make[2]: Entering directory &#x27;....../flann/build&#x27;</span><br><span class="line">[ 87%] Building CXX object src/cpp/CMakeFiles/flann.dir/empty.cpp.o</span><br><span class="line">cd ....../flann/build/src/cpp &amp;&amp; /opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-g++ --sysroot=....../RPi/arm-rpi-linux-gnueabihf/sysroot  -DFLANN_EXPORTS -D_FLANN_VERSION=1.9.1 -I....../flann/src/cpp  -I/usr/include -O2 -g -DNDEBUG -fPIC   -Wall -Wno-unknown-pragmas -Wno-unused-function -o CMakeFiles/flann.dir/empty.cpp.o -c ....../flann/src/cpp/empty.cpp</span><br><span class="line"><span class="meta prompt_">[100%</span><span class="language-bash">] Linking CXX shared library ../../lib/libflann.so</span></span><br><span class="line">cd ....../flann/build/src/cpp &amp;&amp; /usr/bin/cmake -E cmake_link_script CMakeFiles/flann.dir/link.txt --verbose=1</span><br><span class="line">/opt/compilers/RPi/bin/arm-rpi-linux-gnueabihf-g++ --sysroot=....../RPi/arm-rpi-linux-gnueabihf/sysroot -fPIC -I/usr/include -O2 -g -DNDEBUG  -shared -Wl,-soname,libflann.so.1.9 -o ../../lib/libflann.so.1.9.1 CMakeFiles/flann.dir/empty.cpp.o -Wl,-whole-archive ../../lib/libflann_s.a -Wl,-no-whole-archive -Wl,--push-state,--no-as-needed -Wl,--pop-state </span><br><span class="line">cd ....../flann/build/src/cpp &amp;&amp; /usr/bin/cmake -E cmake_symlink_library ../../lib/libflann.so.1.9.1 ../../lib/libflann.so.1.9 ../../lib/libflann.so</span><br><span class="line">make[2]: Leaving directory &#x27;....../flann/build&#x27;</span><br><span class="line"><span class="meta prompt_">[100%</span><span class="language-bash">] Built target flann</span></span><br><span class="line">make[1]: Leaving directory &#x27;....../flann/build&#x27;</span><br><span class="line">/usr/bin/cmake -E cmake_progress_start ....../flann/build/CMakeFiles 0</span><br></pre></td></tr></table></figure>
-<p>You can now:</p>
-<ul>
-<li><code>make install</code> to install the built/generated libraries
-installed under <strong>CMAKE_INSTALL_PREFIX</strong></li>
-<li>copy and paste the built/generated libraries onto <a
-target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry
-Pi 3B</a> and use it directly.</li>
-</ul>
-<p><strong>BTW</strong>: do <strong>NOT</strong> forget to install the
-header files.</p>
-<h1 id="additional-issues">5. Additional Issues</h1>
-<p><strong>Multilib/multiarch</strong> seems to be problematic nowadays.
-Please pay attention to <strong>Multilib/multiarch</strong>. Some
-related issues are enumuated as the end of this blog.</p>
-<ul>
-<li><a
-target="_blank" rel="noopener" href="https://crosstool-ng.github.io/docs/caveats-features/">Multilib
-caveats from Official Notes on specific toolchain features</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://github.com/crosstool-ng/crosstool-ng/issues/1239">fatal
-error: gnu/stubs-hard.h: No such file or directory from
-crosstool-NG</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://github.com/pwaring/gcc-cross-compiler/issues/11">fatal
-error: gnu/stubs-hard.h: No such file or directory from
-gcc-cross-compiler</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/riscv/riscv-tools/issues/186">Build
-error: “features.h: No such file or directory” from risc-v
-tools</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://github.com/crosstool-ng/crosstool-ng/issues/945">crosstool-NG
-risc-v linux multilib issue</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/raspberrypi/tools/issues/50">raspberrypi
-toolchain issue</a></li>
-</ul>
-<p>Alright, that’s all for today. Let me go to bed. Good bye…</p>
-<div style="text-align: center; font-size: 3em;">
-<pre><code>😪
-😴</code></pre>
-</div>
-
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/Linux-Crosstool-NG-Toolchain/" rel="tag"># Linux, Crosstool-NG, Toolchain</a>
-          </div>
+    <footer class="footer">
+      <div class="footer-inner">
+        
 
         
 
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2019/08/30/MachineVision/FPGA/vc-zynq-7010-stereo-1/" rel="prev" title="Stereo Vision on VCSBC nano Z-RH-2 - PART I">
-                  <i class="fa fa-angle-left"></i> Stereo Vision on VCSBC nano Z-RH-2 - PART I
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/2020/01/20/AI/EdgeComputing/huawei-HiSilicon-hikey970-Shunya-desktop/" rel="next" title="HiSilicon Hikey 970 - Shunya Desktop Image For HiKey970">
-                  HiSilicon Hikey 970 - Shunya Desktop Image For HiKey970 <i class="fa fa-angle-right"></i>
-                </a>
-            </div>
-          </div>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nobody</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
     </footer>
-  </article>
-</div>
-
-
-
-
-
-
-</div>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-inner">
-
-  <div class="copyright">
-    &copy; 
-    <span itemprop="copyrightYear">2025</span>
-    <span class="with-love">
-      <i class="fa fa-heart"></i>
-    </span>
-    <span class="author" itemprop="copyrightHolder">Nobody</span>
   </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
-  </div>
-
-    </div>
-  </footer>
 
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-  <div class="sidebar-dimmer"></div>
-  <div class="back-to-top" role="button" aria-label="Back to top">
-    <i class="fa fa-arrow-up fa-lg"></i>
-    <span>0%</span>
-  </div>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
 
 
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
-
-  
+<script src="/js/schemes/muse.js"></script>
 
 
+<script src="/js/next-boot.js"></script>
 
 
 
@@ -610,6 +559,20 @@ toolchain issue</a></li>
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
 
 </body>
 </html>

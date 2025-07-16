@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en,default">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,37 +13,50 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-
-    <meta name="description" content="Continue, the Arduino UNO R4. 1. Introduction 1.1 lsusb 123......Bus 011 Device 058: ID 2341:1002 Arduino SA UNO WiFi R4 CMSIS-DAP...... 1.2 Spec What I purchased is an Arduino UNO R4 WiFi. Detailed s">
+  <meta name="description" content="Continue, the Arduino UNO R4. 1. Introduction1.1 lsusb123......Bus 011 Device 058: ID 2341:1002 Arduino SA UNO WiFi R4 CMSIS-DAP......  1.2 SpecWhat I purchased is an Arduino UNO R4 WiFi. Detailed spe">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Arduino Uno R4">
 <meta property="og:url" content="http://longervision.ca/2023/11/11/SBCs/MCU/arduino-uno-r4/index.html">
 <meta property="og:site_name" content="Longer Vision Technology">
-<meta property="og:description" content="Continue, the Arduino UNO R4. 1. Introduction 1.1 lsusb 123......Bus 011 Device 058: ID 2341:1002 Arduino SA UNO WiFi R4 CMSIS-DAP...... 1.2 Spec What I purchased is an Arduino UNO R4 WiFi. Detailed s">
+<meta property="og:description" content="Continue, the Arduino UNO R4. 1. Introduction1.1 lsusb123......Bus 011 Device 058: ID 2341:1002 Arduino SA UNO WiFi R4 CMSIS-DAP......  1.2 SpecWhat I purchased is an Arduino UNO R4 WiFi. Detailed spe">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Renesas_1.0.5_Output.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_esp32_installation.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_esp32_package_upgrades.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_esp32_package.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_esp32_boards_package.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Wifi_Web_Client_Upload.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Wifi_Web_Client_Running.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_UNO_R4_Wifi_ChatGPT.png">
 <meta property="article:published_time" content="2023-11-12T03:25:30.000Z">
 <meta property="article:modified_time" content="2025-06-04T06:08:38.074Z">
 <meta property="article:author" content="Nobody">
 <meta property="article:tag" content="Arduino, Arduino UNO R4 WiFi, Renesas, ESP32, Wifi, ChatGPT">
 <meta name="twitter:card" content="summary">
-
+<meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Renesas_1.0.5_Output.png">
 
 <link rel="canonical" href="http://longervision.ca/2023/11/11/SBCs/MCU/arduino-uno-r4/">
 
 
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://longervision.ca/2023/11/11/SBCs/MCU/arduino-uno-r4/","path":"2023/11/11/SBCs/MCU/arduino-uno-r4/","title":"Arduino Uno R4"}</script>
-
-<script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Arduino Uno R4 | Longer Vision Technology</title>
+  <title>Arduino Uno R4 | Longer Vision Technology</title>
   
-
-
 
 
 
@@ -51,33 +64,56 @@
 
 
   <noscript>
-    <link rel="stylesheet" href="/css/noscript.css">
-  </noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
-  <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
 
-  <main class="main">
-    <div class="column">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <i class="logo-line"></i>
-      <p class="site-title">Longer Vision Technology</p>
-      <i class="logo-line"></i>
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Longer Vision Technology</h1>
+      <span class="logo-line-after"><i></i></span>
     </a>
       <p class="site-subtitle" itemprop="description">Github Blog</p>
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    <div class="toggle popup-trigger">
     </div>
   </div>
 </div>
@@ -85,16 +121,218 @@
 
 
 
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
 
 
 
-</header>
-        
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
   
-  <aside class="sidebar">
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/11/11/SBCs/MCU/arduino-uno-r4/">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
-      <ul class="sidebar-nav">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Arduino Uno R4
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-11-11 19:25:30" itemprop="dateCreated datePublished" datetime="2023-11-11T19:25:30-08:00">2023-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-06-03 23:08:38" itemprop="dateModified" datetime="2025-06-03T23:08:38-07:00">2025-06-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Continue, the <a target="_blank" rel="noopener" href="https://store-usa.arduino.cc/pages/uno-r4">Arduino UNO R4</a>.</p>
+<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h1><h2 id="1-1-lsusb"><a href="#1-1-lsusb" class="headerlink" title="1.1 lsusb"></a>1.1 lsusb</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">Bus 011 Device 058: ID 2341:1002 Arduino SA UNO WiFi R4 CMSIS-DAP</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-2-Spec"><a href="#1-2-Spec" class="headerlink" title="1.2 Spec"></a>1.2 Spec</h2><p>What I purchased is an <a target="_blank" rel="noopener" href="https://store-usa.arduino.cc/products/uno-r4-wifi?selectedStore=us">Arduino UNO R4 WiFi</a>. Detailed specification about it can be found on <a target="_blank" rel="noopener" href="https://docs.arduino.cc/hardware/uno-r4-wifi">Arduino UNO R4 Wifi Doc</a>.</p>
+<h2 id="1-3-Github-Source-Code"><a href="#1-3-Github-Source-Code" class="headerlink" title="1.3 Github Source Code"></a>1.3 Github Source Code</h2><p>Typically, there’s no need to rebuild your project from the ground up. However, when needed, <a target="_blank" rel="noopener" href="https://github.com/arduino/uno-r4-wifi-usb-bridge">Arduino UNO R4 Wifi USB Bridge</a> offers open-source resource that you can utilize as a foundation for further development.</p>
+<h1 id="2-Demonstrate-Arduino-Examples"><a href="#2-Demonstrate-Arduino-Examples" class="headerlink" title="2. Demonstrate Arduino Examples"></a>2. Demonstrate Arduino Examples</h1><h2 id="2-1-Environment-Configuration"><a href="#2-1-Environment-Configuration" class="headerlink" title="2.1 Environment Configuration"></a>2.1 Environment Configuration</h2><ul>
+<li><p><strong>Install Arduino Environment</strong><br>When I tried to run the <a target="_blank" rel="noopener" href="https://github.com/arduino/arduino-examples/blob/main/examples/01.Basics/Blink/Blink.ino">basic example blink</a>, I was asked to install the package <strong><a href="mailto:&#x72;&#x65;&#x6e;&#101;&#x73;&#x61;&#115;&#95;&#x75;&#110;&#111;&#x40;&#x31;&#x2e;&#x30;&#46;&#x35;">renesas_uno@1.0.5</a></strong>, as shown in the Output console of <a target="_blank" rel="noopener" href="https://www.arduino.cc/en/software">Arduino IDE</a>:</p>
+<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Renesas_1.0.5_Output.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Renesas_1.0.5_Output.png" alt="Arduino UNO R4 Wifi Output"></a></p>
+</li>
+</ul>
+<h2 id="2-2-Flash-a-Sketch"><a href="#2-2-Flash-a-Sketch" class="headerlink" title="2.2 Flash a Sketch"></a>2.2 Flash a Sketch</h2><ul>
+<li><strong>Sketch Verify&#x2F;Compile</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Sketch uses 51488 bytes (19%) of program storage space. Maximum is 262144 bytes.</span><br><span class="line">Global variables use 6744 bytes (20%) of dynamic memory, leaving 26024 bytes for local variables. Maximum is 32768 bytes.</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>Upload</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Sketch uses 51488 bytes (19%) of program storage space. Maximum is 262144 bytes.</span><br><span class="line">Global variables use 6744 bytes (20%) of dynamic memory, leaving 26024 bytes for local variables. Maximum is 32768 bytes.</span><br><span class="line">Erase flash</span><br><span class="line"></span><br><span class="line">Done in 0.001 seconds</span><br><span class="line">Write 51496 bytes to flash (13 pages)</span><br><span class="line"></span><br><span class="line">[                              ] 0% (0/13 pages)</span><br><span class="line">[==                            ] 7% (1/13 pages)</span><br><span class="line">[====                          ] 15% (2/13 pages)</span><br><span class="line">[======                        ] 23% (3/13 pages)</span><br><span class="line">[=========                     ] 30% (4/13 pages)</span><br><span class="line">[===========                   ] 38% (5/13 pages)</span><br><span class="line">[=============                 ] 46% (6/13 pages)</span><br><span class="line">[================              ] 53% (7/13 pages)</span><br><span class="line">[==================            ] 61% (8/13 pages)</span><br><span class="line">[====================          ] 69% (9/13 pages)</span><br><span class="line">[=======================       ] 76% (10/13 pages)</span><br><span class="line">[=========================     ] 84% (11/13 pages)</span><br><span class="line">[===========================   ] 92% (12/13 pages)</span><br><span class="line">[==============================] 100% (13/13 pages)</span><br><span class="line">Done in 3.480 seconds</span><br></pre></td></tr></table></figure>
+
+<p>Now, one LED starts blinking successfully.</p>
+<h1 id="3-Arduino-UNO-R4-WiFi-Examples"><a href="#3-Arduino-UNO-R4-WiFi-Examples" class="headerlink" title="3. Arduino UNO R4 WiFi Examples"></a>3. Arduino UNO R4 WiFi Examples</h1><h2 id="3-1-Wi-Fi-Web-Server"><a href="#3-1-Wi-Fi-Web-Server" class="headerlink" title="3.1 Wi-Fi Web Server"></a>3.1 Wi-Fi Web Server</h2><p>First, let me test the example <strong>Wi-Fi® Web Server</strong> on Arduino official tutorial <a target="_blank" rel="noopener" href="https://docs.arduino.cc/tutorials/uno-r4-wifi/wifi-examples">UNO R4 WiFi Network Examples</a>. The code can be found on <a target="_blank" rel="noopener" href="https://github.com/arduino/ArduinoCore-renesas/blob/main/libraries/WiFiS3/examples/WiFiWebServer/WiFiWebServer.ino">Github Arduino WiFiWebServer</a>. And the following is printed in the Output console of <a target="_blank" rel="noopener" href="https://www.arduino.cc/en/software">Arduino IDE</a>.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Please upgrade the firmware</span><br><span class="line">Attempting to connect to SSID: TELUSXXXX</span><br><span class="line">SSID: TELUSXXXX</span><br><span class="line">IP Address: 192.168.1.YY</span><br><span class="line">signal strength (RSSI):-52 dBm</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-2-Upgrade-Firmware-of-UNO-R4-Wifi"><a href="#3-2-Upgrade-Firmware-of-UNO-R4-Wifi" class="headerlink" title="3.2 Upgrade Firmware of UNO R4 Wifi"></a>3.2 Upgrade Firmware of UNO R4 Wifi</h2><p>It’s confusing that I received the error message <strong>Please upgrade the firmware</strong>, right after I installed&#x2F;upgraded <strong><a href="mailto:&#x72;&#101;&#110;&#x65;&#x73;&#x61;&#x73;&#x5f;&#x75;&#110;&#x6f;&#64;&#x31;&#46;&#48;&#46;&#x35;">renesas_uno@1.0.5</a></strong> from within <a target="_blank" rel="noopener" href="https://www.arduino.cc/en/software">Arduino IDE</a>.</p>
+<p>In the end, I noticed there are 2 main chips on <a target="_blank" rel="noopener" href="https://store-usa.arduino.cc/products/uno-r4-wifi?selectedStore=us">Arduino UNO R4 WiFi</a>, and <strong>renesas</strong>‘s firmware is installed&#x2F;upgraded, but <strong>ESP32</strong>‘s firmware hasn’t yet. Therefore, I proceeded with upgrading <strong>ESP32</strong>‘s firmware by following <a target="_blank" rel="noopener" href="https://docs.arduino.cc/tutorials/uno-r4-wifi/esp32-upload">Arduino UNO R4 WiFi Upload to ESP32</a>.</p>
+<p>Different from <a href="#1-1-lsusb">1.1</a>, by shorting the <strong>download pin</strong> and <strong>GND</strong>, now we have a different <strong>lsusb</strong> result:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">Bus 011 Device 007: ID 303a:1001 Espressif USB JTAG/serial debug unit</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+<p>Again, I was asked to install the <strong>esp32</strong> package(s), as shown:</p>
+<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_esp32_installation.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_esp32_installation.png" alt="esp32 installation"></a></p>
+<p>Click <strong>YES</strong> and continue the installation:</p>
+<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_esp32_package_upgrades.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_esp32_package_upgrades.png" alt="esp32 packages to upgrade"></a></p>
+<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_esp32_package.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_esp32_package.png" alt="install esp32 package"></a></p>
+<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_esp32_boards_package.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_esp32_boards_package.png" alt="install esp32 boards package"></a></p>
+<h2 id="3-3-Wi-Fi-Web-Client"><a href="#3-3-Wi-Fi-Web-Client" class="headerlink" title="3.3 Wi-Fi Web Client"></a>3.3 Wi-Fi Web Client</h2><p>Now, let me test the example Wi-Fi® Web Client on Arduino official tutorial <a target="_blank" rel="noopener" href="https://docs.arduino.cc/tutorials/uno-r4-wifi/wifi-examples">UNO R4 WiFi Network Examples</a>. The code can be found on <a target="_blank" rel="noopener" href="https://github.com/arduino/ArduinoCore-renesas/blob/main/libraries/WiFiS3/examples/WiFiWebClient/WiFiWebClient.ino">Github Arduino WiFiWebClient</a>. And a bunch of communication info with <a href="www.google.com">www.google.com</a> are printed on the Output console of <a target="_blank" rel="noopener" href="https://www.arduino.cc/en/software">Arduino IDE</a>.</p>
+<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Wifi_Web_Client_Upload.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Wifi_Web_Client_Upload.png" alt="Arduino Wifi Web Client Upload"></a></p>
+<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Wifi_Web_Client_Running.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Wifi_Web_Client_Running.png" alt="Arduino Wifi Web Client Running"></a></p>
+<h1 id="4-Arduino-UNO-R4-WiFi-ChatGPT"><a href="#4-Arduino-UNO-R4-WiFi-ChatGPT" class="headerlink" title="4. Arduino UNO R4 WiFi - ChatGPT"></a>4. Arduino UNO R4 WiFi - ChatGPT</h1><p>Finally, let’s extend a bit. Let’s finish our demonstration of the day by chatting with <a target="_blank" rel="noopener" href="https://openai.com/">OpenAI</a>‘s <a target="_blank" rel="noopener" href="https://chat.openai.com/">ChatGPT</a> on this <a target="_blank" rel="noopener" href="https://store-usa.arduino.cc/products/uno-r4-wifi?selectedStore=us">Arduino UNO R4 WiFi</a>.</p>
+<p>My source code is provided at <a target="_blank" rel="noopener" href="https://github.com/LongerVisionRobot/Examples_Arduino/blob/master/arduino_uno_r4_wifi/chatgpt_arduino_uno_r4_wifi/chatgpt_arduino_uno_r4_wifi.ino">Longer Vision Robot Arduino Examples</a>.</p>
+<p>And its demonstration can be seen by this screenshot.</p>
+<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_UNO_R4_Wifi_ChatGPT.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_UNO_R4_Wifi_ChatGPT.png" alt="Arduino UNO R4 WiFi ChatGPT"></a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Arduino-Arduino-UNO-R4-WiFi-Renesas-ESP32-Wifi-ChatGPT/" rel="tag"># Arduino, Arduino UNO R4 WiFi, Renesas, ESP32, Wifi, ChatGPT</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/10/20/Coding/HowTo/llvm/" rel="prev" title="Build LLVM From Source">
+      <i class="fa fa-chevron-left"></i> Build LLVM From Source
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/11/14/SBCs/RISC-V/VisionFive2-01/" rel="next" title="VisionFive2 - 01">
+      VisionFive2 - 01 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
           Table of Contents
         </li>
@@ -103,328 +341,96 @@
         </li>
       </ul>
 
-      <div class="sidebar-panel-container">
-        <!--noindex-->
-        <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">1. Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#lsusb"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 lsusb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spec"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Spec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#github-source-code"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 Github Source Code</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#demonstrate-arduino-examples"><span class="nav-number">2.</span> <span class="nav-text">2. Demonstrate Arduino
-Examples</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#environment-configuration"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Environment Configuration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flash-a-sketch"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 Flash a Sketch</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#arduino-uno-r4-wifi-examples"><span class="nav-number">3.</span> <span class="nav-text">3. Arduino UNO R4 WiFi
-Examples</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#wi-fi-web-server"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Wi-Fi Web Server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#upgrade-firmware-of-uno-r4-wifi"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 Upgrade Firmware of UNO R4
-Wifi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wi-fi-web-client"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 Wi-Fi Web Client</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#arduino-uno-r4-wifi---chatgpt"><span class="nav-number">4.</span> <span class="nav-text">4. Arduino UNO R4 WiFi -
-ChatGPT</span></a></li></ol></div>
-        </div>
-        <!--/noindex-->
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Introduction"><span class="nav-number">1.</span> <span class="nav-text">1. Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-lsusb"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 lsusb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-Spec"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Spec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-Github-Source-Code"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 Github Source Code</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Demonstrate-Arduino-Examples"><span class="nav-number">2.</span> <span class="nav-text">2. Demonstrate Arduino Examples</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Environment-Configuration"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Environment Configuration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Flash-a-Sketch"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 Flash a Sketch</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Arduino-UNO-R4-WiFi-Examples"><span class="nav-number">3.</span> <span class="nav-text">3. Arduino UNO R4 WiFi Examples</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Wi-Fi-Web-Server"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Wi-Fi Web Server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-Upgrade-Firmware-of-UNO-R4-Wifi"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 Upgrade Firmware of UNO R4 Wifi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-Wi-Fi-Web-Client"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 Wi-Fi Web Client</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Arduino-UNO-R4-WiFi-ChatGPT"><span class="nav-number">4.</span> <span class="nav-text">4. Arduino UNO R4 WiFi - ChatGPT</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
 
-        <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Nobody</p>
   <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
 </div>
-<div class="site-state-wrap animated">
+<div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-        <a href="/archives/">
+          <a href="/archives/">
+        
           <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-          <a href="/categories/">
+            <a href="/categories/">
         <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-          <a href="/tags/">
+            <a href="/tags/">
         <span class="site-state-item-count">144</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
 
-        </div>
+
+
       </div>
-    </div>
 
-    
+    </div>
   </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-    </div>
+      </div>
+    </main>
 
-    <div class="main-inner post posts-expand">
-
-
-  
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/11/11/SBCs/MCU/arduino-uno-r4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Arduino Uno R4 | Longer Vision Technology">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Arduino Uno R4
-        </h1>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2023-11-11 19:25:30" itemprop="dateCreated datePublished" datetime="2023-11-11T19:25:30-08:00">2023-11-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-06-03 23:08:38" itemprop="dateModified" datetime="2025-06-03T23:08:38-07:00">2025-06-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Single-Board-Computers/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody"><p>Continue, the <a
-target="_blank" rel="noopener" href="https://store-usa.arduino.cc/pages/uno-r4">Arduino UNO R4</a>.</p>
-<h1 id="introduction">1. Introduction</h1>
-<h2 id="lsusb">1.1 lsusb</h2>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">Bus 011 Device 058: ID 2341:1002 Arduino SA UNO WiFi R4 CMSIS-DAP</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-<h2 id="spec">1.2 Spec</h2>
-<p>What I purchased is an <a
-target="_blank" rel="noopener" href="https://store-usa.arduino.cc/products/uno-r4-wifi?selectedStore=us">Arduino
-UNO R4 WiFi</a>. Detailed specification about it can be found on <a
-target="_blank" rel="noopener" href="https://docs.arduino.cc/hardware/uno-r4-wifi">Arduino UNO R4 Wifi
-Doc</a>.</p>
-<h2 id="github-source-code">1.3 Github Source Code</h2>
-<p>Typically, there's no need to rebuild your project from the ground
-up. However, when needed, <a
-target="_blank" rel="noopener" href="https://github.com/arduino/uno-r4-wifi-usb-bridge">Arduino UNO R4
-Wifi USB Bridge</a> offers open-source resource that you can utilize as
-a foundation for further development.</p>
-<h1 id="demonstrate-arduino-examples">2. Demonstrate Arduino
-Examples</h1>
-<h2 id="environment-configuration">2.1 Environment Configuration</h2>
-<ul>
-<li><p><strong>Install Arduino Environment</strong> When I tried to run
-the <a
-target="_blank" rel="noopener" href="https://github.com/arduino/arduino-examples/blob/main/examples/01.Basics/Blink/Blink.ino">basic
-example blink</a>, I was asked to install the package
-<strong>renesas_uno@1.0.5</strong>, as shown in the Output console of <a
-target="_blank" rel="noopener" href="https://www.arduino.cc/en/software">Arduino IDE</a>:</p>
-<p><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Renesas_1.0.5_Output.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Renesas_1.0.5_Output.png"
-alt="Arduino UNO R4 Wifi Output" /></a></p></li>
-</ul>
-<h2 id="flash-a-sketch">2.2 Flash a Sketch</h2>
-<ul>
-<li><strong>Sketch Verify/Compile</strong></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Sketch uses 51488 bytes (19%) of program storage space. Maximum is 262144 bytes.</span><br><span class="line">Global variables use 6744 bytes (20%) of dynamic memory, leaving 26024 bytes for local variables. Maximum is 32768 bytes.</span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>Upload</strong></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Sketch uses 51488 bytes (19%) of program storage space. Maximum is 262144 bytes.</span><br><span class="line">Global variables use 6744 bytes (20%) of dynamic memory, leaving 26024 bytes for local variables. Maximum is 32768 bytes.</span><br><span class="line">Erase flash</span><br><span class="line"></span><br><span class="line">Done in 0.001 seconds</span><br><span class="line">Write 51496 bytes to flash (13 pages)</span><br><span class="line"></span><br><span class="line">[                              ] 0% (0/13 pages)</span><br><span class="line">[==                            ] 7% (1/13 pages)</span><br><span class="line">[====                          ] 15% (2/13 pages)</span><br><span class="line">[======                        ] 23% (3/13 pages)</span><br><span class="line">[=========                     ] 30% (4/13 pages)</span><br><span class="line">[===========                   ] 38% (5/13 pages)</span><br><span class="line">[=============                 ] 46% (6/13 pages)</span><br><span class="line">[================              ] 53% (7/13 pages)</span><br><span class="line">[==================            ] 61% (8/13 pages)</span><br><span class="line">[====================          ] 69% (9/13 pages)</span><br><span class="line">[=======================       ] 76% (10/13 pages)</span><br><span class="line">[=========================     ] 84% (11/13 pages)</span><br><span class="line">[===========================   ] 92% (12/13 pages)</span><br><span class="line">[==============================] 100% (13/13 pages)</span><br><span class="line">Done in 3.480 seconds</span><br></pre></td></tr></table></figure>
-<p>Now, one LED starts blinking successfully.</p>
-<h1 id="arduino-uno-r4-wifi-examples">3. Arduino UNO R4 WiFi
-Examples</h1>
-<h2 id="wi-fi-web-server">3.1 Wi-Fi Web Server</h2>
-<p>First, let me test the example <strong>Wi-Fi® Web Server</strong> on
-Arduino official tutorial <a
-target="_blank" rel="noopener" href="https://docs.arduino.cc/tutorials/uno-r4-wifi/wifi-examples">UNO
-R4 WiFi Network Examples</a>. The code can be found on <a
-target="_blank" rel="noopener" href="https://github.com/arduino/ArduinoCore-renesas/blob/main/libraries/WiFiS3/examples/WiFiWebServer/WiFiWebServer.ino">Github
-Arduino WiFiWebServer</a>. And the following is printed in the Output
-console of <a target="_blank" rel="noopener" href="https://www.arduino.cc/en/software">Arduino
-IDE</a>.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Please upgrade the firmware</span><br><span class="line">Attempting to connect to SSID: TELUSXXXX</span><br><span class="line">SSID: TELUSXXXX</span><br><span class="line">IP Address: 192.168.1.YY</span><br><span class="line">signal strength (RSSI):-52 dBm</span><br></pre></td></tr></table></figure>
-<h2 id="upgrade-firmware-of-uno-r4-wifi">3.2 Upgrade Firmware of UNO R4
-Wifi</h2>
-<p>It's confusing that I received the error message <strong>Please
-upgrade the firmware</strong>, right after I installed/upgraded
-<strong>renesas_uno@1.0.5</strong> from within <a
-target="_blank" rel="noopener" href="https://www.arduino.cc/en/software">Arduino IDE</a>.</p>
-<p>In the end, I noticed there are 2 main chips on <a
-target="_blank" rel="noopener" href="https://store-usa.arduino.cc/products/uno-r4-wifi?selectedStore=us">Arduino
-UNO R4 WiFi</a>, and <strong>renesas</strong>'s firmware is
-installed/upgraded, but <strong>ESP32</strong>'s firmware hasn't yet.
-Therefore, I proceeded with upgrading <strong>ESP32</strong>'s firmware
-by following <a
-target="_blank" rel="noopener" href="https://docs.arduino.cc/tutorials/uno-r4-wifi/esp32-upload">Arduino
-UNO R4 WiFi Upload to ESP32</a>.</p>
-<p>Different from <a href="#1-1-lsusb">1.1</a>, by shorting the
-<strong>download pin</strong> and <strong>GND</strong>, now we have a
-different <strong>lsusb</strong> result:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">Bus 011 Device 007: ID 303a:1001 Espressif USB JTAG/serial debug unit</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-<p>Again, I was asked to install the <strong>esp32</strong> package(s),
-as shown:</p>
-<p><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_esp32_installation.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_esp32_installation.png"
-alt="esp32 installation" /></a></p>
-<p>Click <strong>YES</strong> and continue the installation:</p>
-<p><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_esp32_package_upgrades.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_esp32_package_upgrades.png"
-alt="esp32 packages to upgrade" /></a></p>
-<p><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_esp32_package.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_esp32_package.png"
-alt="install esp32 package" /></a></p>
-<p><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_esp32_boards_package.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_esp32_boards_package.png"
-alt="install esp32 boards package" /></a></p>
-<h2 id="wi-fi-web-client">3.3 Wi-Fi Web Client</h2>
-<p>Now, let me test the example Wi-Fi® Web Client on Arduino official
-tutorial <a
-target="_blank" rel="noopener" href="https://docs.arduino.cc/tutorials/uno-r4-wifi/wifi-examples">UNO
-R4 WiFi Network Examples</a>. The code can be found on <a
-target="_blank" rel="noopener" href="https://github.com/arduino/ArduinoCore-renesas/blob/main/libraries/WiFiS3/examples/WiFiWebClient/WiFiWebClient.ino">Github
-Arduino WiFiWebClient</a>. And a bunch of communication info with <a
-href="www.google.com">www.google.com</a> are printed on the Output
-console of <a target="_blank" rel="noopener" href="https://www.arduino.cc/en/software">Arduino
-IDE</a>.</p>
-<p><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Wifi_Web_Client_Upload.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Wifi_Web_Client_Upload.png"
-alt="Arduino Wifi Web Client Upload" /></a></p>
-<p><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Wifi_Web_Client_Running.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Wifi_Web_Client_Running.png"
-alt="Arduino Wifi Web Client Running" /></a></p>
-<h1 id="arduino-uno-r4-wifi---chatgpt">4. Arduino UNO R4 WiFi -
-ChatGPT</h1>
-<p>Finally, let's extend a bit. Let's finish our demonstration of the
-day by chatting with <a target="_blank" rel="noopener" href="https://openai.com/">OpenAI</a>'s <a
-target="_blank" rel="noopener" href="https://chat.openai.com/">ChatGPT</a> on this <a
-target="_blank" rel="noopener" href="https://store-usa.arduino.cc/products/uno-r4-wifi?selectedStore=us">Arduino
-UNO R4 WiFi</a>.</p>
-<p>My source code is provided at <a
-target="_blank" rel="noopener" href="https://github.com/LongerVisionRobot/Examples_Arduino/blob/master/arduino_uno_r4_wifi/chatgpt_arduino_uno_r4_wifi/chatgpt_arduino_uno_r4_wifi.ino">Longer
-Vision Robot Arduino Examples</a>.</p>
-<p>And its demonstration can be seen by this screenshot.</p>
-<p><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_UNO_R4_Wifi_ChatGPT.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_UNO_R4_Wifi_ChatGPT.png"
-alt="Arduino UNO R4 WiFi ChatGPT" /></a></p>
-
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/Arduino-Arduino-UNO-R4-WiFi-Renesas-ESP32-Wifi-ChatGPT/" rel="tag"># Arduino, Arduino UNO R4 WiFi, Renesas, ESP32, Wifi, ChatGPT</a>
-          </div>
+    <footer class="footer">
+      <div class="footer-inner">
+        
 
         
 
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2023/10/20/Coding/HowTo/llvm/" rel="prev" title="Build LLVM From Source">
-                  <i class="fa fa-angle-left"></i> Build LLVM From Source
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/2023/11/14/SBCs/RISC-V/VisionFive2-01/" rel="next" title="VisionFive2 - 01">
-                  VisionFive2 - 01 <i class="fa fa-angle-right"></i>
-                </a>
-            </div>
-          </div>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nobody</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
     </footer>
-  </article>
-</div>
-
-
-
-
-
-
-</div>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-inner">
-
-  <div class="copyright">
-    &copy; 
-    <span itemprop="copyrightYear">2025</span>
-    <span class="with-love">
-      <i class="fa fa-heart"></i>
-    </span>
-    <span class="author" itemprop="copyrightHolder">Nobody</span>
   </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
-  </div>
-
-    </div>
-  </footer>
 
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-  <div class="sidebar-dimmer"></div>
-  <div class="back-to-top" role="button" aria-label="Back to top">
-    <i class="fa fa-arrow-up fa-lg"></i>
-    <span>0%</span>
-  </div>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
 
 
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
-
-  
+<script src="/js/schemes/muse.js"></script>
 
 
+<script src="/js/next-boot.js"></script>
 
 
 
@@ -434,6 +440,20 @@ alt="Arduino UNO R4 WiFi ChatGPT" /></a></p>
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
 
 </body>
 </html>
