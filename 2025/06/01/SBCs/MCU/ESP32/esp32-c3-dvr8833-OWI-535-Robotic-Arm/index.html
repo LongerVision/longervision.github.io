@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="It is another International Children’s Day. Today, let’s have some fun of using ESP32 to control an OWI-535 robotic arm.   Finally, my DRV8833 arrived around Surrey Canada Day. Let’s FIRST carry out a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ESP32-C3 DVR8833 Controlled OWI-535 Robotic Arm">
+<meta property="og:url" content="http://longervision.ca/2025/06/01/SBCs/MCU/ESP32/esp32-c3-dvr8833-OWI-535-Robotic-Arm/index.html">
+<meta property="og:site_name" content="Longer Vision Technology">
+<meta property="og:description" content="It is another International Children’s Day. Today, let’s have some fun of using ESP32 to control an OWI-535 robotic arm.   Finally, my DRV8833 arrived around Surrey Canada Day. Let’s FIRST carry out a">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Robots/Arms/OWI-535/OWI_535.jpg">
+<meta property="article:published_time" content="2025-06-01T07:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-16T07:15:26.589Z">
+<meta property="article:author" content="Nobody">
+<meta property="article:tag" content="ESP32, ESP32-C3, DVR8833, OWI-535, Robotic Arm">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Robots/Arms/OWI-535/OWI_535.jpg">
+
+<link rel="canonical" href="http://longervision.ca/2025/06/01/SBCs/MCU/ESP32/esp32-c3-dvr8833-OWI-535-Robotic-Arm/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>ESP32-C3 DVR8833 Controlled OWI-535 Robotic Arm | Longer Vision Technology</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Longer Vision Technology</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Github Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2025/06/01/SBCs/MCU/ESP32/esp32-c3-dvr8833-OWI-535-Robotic-Arm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ESP32-C3 DVR8833 Controlled OWI-535 Robotic Arm
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-06-01 00:00:00" itemprop="dateCreated datePublished" datetime="2025-06-01T00:00:00-07:00">2025-06-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-07-16 00:15:26" itemprop="dateModified" datetime="2025-07-16T00:15:26-07:00">2025-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/MCU/ESP32/" itemprop="url" rel="index"><span itemprop="name">ESP32</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/MCU/ESP32/ESP32-C3/" itemprop="url" rel="index"><span itemprop="name">ESP32-C3</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>It is another <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%85%AD%E4%B8%80%E5%9B%BD%E9%99%85%E5%84%BF%E7%AB%A5%E8%8A%82">International Children’s Day</a>. Today, let’s have some fun of using <a target="_blank" rel="noopener" href="https://www.espressif.com/en/products/socs/esp32">ESP32</a> to control an <a target="_blank" rel="noopener" href="https://www.amazon.com/OWI-Robotic-Soldering-Required-Extensive/dp/B0017OFRCY">OWI-535</a> robotic arm. </p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Robots/Arms/OWI-535/OWI_535.jpg" alt="OWI 535"></p>
+<p>Finally, my <a target="_blank" rel="noopener" href="https://www.ti.com/lit/ds/symlink/drv8833.pdf">DRV8833</a> arrived around <a target="_blank" rel="noopener" href="https://surreycanadaday.ca/">Surrey Canada Day</a>. Let’s <strong>FIRST</strong> carry out a simple comparison, well, using <a target="_blank" rel="noopener" href="https://chat.deepseek.com/">Deepseek</a> (might be <strong>incorrect</strong>).</p>
+<h1 id="0-Comparisons-of-Popular-Motors-of-Year-2025"><a href="#0-Comparisons-of-Popular-Motors-of-Year-2025" class="headerlink" title="0. Comparisons of Popular Motors of Year 2025"></a>0. Comparisons of Popular Motors of Year 2025</h1><h2 id="0-1-Motor-Driver-IC-Module-Comparison-Table"><a href="#0-1-Motor-Driver-IC-Module-Comparison-Table" class="headerlink" title="0.1. Motor Driver IC&#x2F;Module Comparison Table"></a>0.1. Motor Driver IC&#x2F;Module Comparison Table</h2><table>
+<thead>
+<tr>
+<th>Comparison Item</th>
+<th><a target="_blank" rel="noopener" href="https://www.handsontec.com/dataspecs/L298N%20Motor%20Driver.pdf">L298N</a></th>
+<th>DRV1508S (<a target="_blank" rel="noopener" href="https://components101.com/modules/mx1508-dc-motor-driver-pinout-features-datasheet">MX1508</a>)</th>
+<th><a target="_blank" rel="noopener" href="https://www.ti.com/lit/ds/symlink/drv8833.pdf">DRV8833</a></th>
+<th><a target="_blank" rel="noopener" href="https://www.alldatasheet.com/view_datasheet.jsp?Searchword=CS9016C">CS9016C</a> (Replacing <a target="_blank" rel="noopener" href="https://cdn.sparkfun.com/assets/0/1/b/b/3/TB6612FNG.pdf">TB6612</a>)</th>
+<th><a target="_blank" rel="noopener" href="https://www.heroic.com.cn/en/product/motor/motor1/hr4988-150.html">HR4988</a></th>
+<th>2025 Trends</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Motor Type</strong></td>
+<td>DC (Brushed)</td>
+<td>DC (Brushed)</td>
+<td>DC (Brushed)</td>
+<td>DC (Brushed)</td>
+<td>Stepper (Bipolar)</td>
+<td>BLDC&#x2F;Stepper&#x2F;Servo</td>
+</tr>
+<tr>
+<td><strong>Commutation</strong></td>
+<td>Mechanical</td>
+<td>Mechanical</td>
+<td>Mechanical</td>
+<td>Mechanical</td>
+<td>Electronic</td>
+<td>Electronic</td>
+</tr>
+<tr>
+<td><strong>Voltage Range</strong></td>
+<td>4.5V~46V</td>
+<td>5V~18V</td>
+<td>2.7V~10.8V</td>
+<td>2.5V~15V</td>
+<td>8V~35V</td>
+<td>5V~48V</td>
+</tr>
+<tr>
+<td><strong>Continuous Current</strong></td>
+<td>2A&#x2F;ch (Peak 3A)</td>
+<td>0.5~1A</td>
+<td>1.5A&#x2F;ch (Peak 2A)</td>
+<td>1.5A&#x2F;ch (Peak 4A)</td>
+<td>2A&#x2F;phase</td>
+<td>1A~30A</td>
+</tr>
+<tr>
+<td><strong>Control Method</strong></td>
+<td>PWM + DIR</td>
+<td>PWM + DIR</td>
+<td>PWM + DIR</td>
+<td>PWM + DIR</td>
+<td>STEP + DIR</td>
+<td>FOC&#x2F;STEP&#x2F;DIR</td>
+</tr>
+<tr>
+<td><strong>Microstepping</strong></td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>Up to 1&#x2F;16</td>
+<td>Up to 1&#x2F;256</td>
+</tr>
+<tr>
+<td><strong>Efficiency</strong></td>
+<td>Low (BJT)</td>
+<td>Medium (MOSFET)</td>
+<td>High</td>
+<td>Very High</td>
+<td>High</td>
+<td>Very High (FOC)</td>
+</tr>
+<tr>
+<td><strong>Protection</strong></td>
+<td>External Diode</td>
+<td>Basic</td>
+<td>Comprehensive</td>
+<td>Auto-Recovery</td>
+<td>Comprehensive</td>
+<td>Full Protection</td>
+</tr>
+<tr>
+<td><strong>Package</strong></td>
+<td>Module</td>
+<td>SOP-8</td>
+<td>HTSSOP-16</td>
+<td>TSSOP-16</td>
+<td>QFN-28</td>
+<td>Module</td>
+</tr>
+<tr>
+<td><strong>Applications</strong></td>
+<td>Robot Cars</td>
+<td>Toys</td>
+<td>Battery Devices</td>
+<td>Smart Cars&#x2F;Drones</td>
+<td>3D Printers&#x2F;CNC</td>
+<td>Open-Source Robots</td>
+</tr>
+<tr>
+<td><strong>Open-Source</strong></td>
+<td>No</td>
+<td>No</td>
+<td>Partial</td>
+<td>Yes</td>
+<td>Partial</td>
+<td>Fully Open</td>
+</tr>
+<tr>
+<td><strong>Price (USD)</strong></td>
+<td>$0.7~1.4</td>
+<td>$0.3~0.4</td>
+<td>$0.35~0.7</td>
+<td>$0.3~0.6</td>
+<td>$0.4~0.8</td>
+<td>$1.5~15</td>
+</tr>
+</tbody></table>
+<h2 id="0-2-2025-Recommendation-Guide"><a href="#0-2-2025-Recommendation-Guide" class="headerlink" title="0.2. 2025 Recommendation Guide:"></a>0.2. 2025 Recommendation Guide:</h2><table>
+<thead>
+<tr>
+<th>Application</th>
+<th>Best Choice</th>
+<th>Why?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ultra-low cost (≤1A)</td>
+<td>DRV1508S</td>
+<td>Cheapest ($0.3)</td>
+</tr>
+<tr>
+<td>Balanced performance</td>
+<td><a target="_blank" rel="noopener" href="https://www.ti.com/lit/ds/symlink/drv8833.pdf">DRV8833</a>&#x2F;<a target="_blank" rel="noopener" href="https://www.alldatasheet.com/view_datasheet.jsp?Searchword=CS9016C">CS9016C</a></td>
+<td><a target="_blank" rel="noopener" href="https://www.alldatasheet.com/view_datasheet.jsp?Searchword=CS9016C">CS9016C</a> for current, DRV8833 for voltage range</td>
+</tr>
+<tr>
+<td>High-power DC (≥2A)</td>
+<td><a target="_blank" rel="noopener" href="https://www.ti.com/product/DRV8871">DRV8871</a></td>
+<td>Handles up to 3.6A continuous</td>
+</tr>
+<tr>
+<td>Stepper motors</td>
+<td><a target="_blank" rel="noopener" href="https://www.heroic.com.cn/en/product/motor/motor1/hr4988-150.html">HR4988</a> (budget)</td>
+<td>Or <a target="_blank" rel="noopener" href="https://www.analog.com/media/en/technical-documentation/data-sheets/tmc2209_datasheet_rev1.09.pdf">TMC2209</a> for silent operation</td>
+</tr>
+<tr>
+<td>BLDC motors</td>
+<td>VESC</td>
+<td>Open-source FOC control</td>
+</tr>
+</tbody></table>
+<p><strong><span style="color: red;">In this particular blog, <a target="_blank" rel="noopener" href="https://www.ti.com/lit/ds/symlink/drv8833.pdf">DVR8833</a> is adoptted, rather than <a target="_blank" rel="noopener" href="https://www.handsontec.com/dataspecs/L298N%20Motor%20Driver.pdf">L298N</a>. Without circuit protection, <a target="_blank" rel="noopener" href="https://www.handsontec.com/dataspecs/L298N%20Motor%20Driver.pdf">L298N</a> is more prone to being damaged or burned out.</span></strong></p>
+<h1 id="1-Five-DOFs-of-OWI-535"><a href="#1-Five-DOFs-of-OWI-535" class="headerlink" title="1. Five DOFs of OWI-535"></a>1. Five DOFs of <a target="_blank" rel="noopener" href="https://www.amazon.com/OWI-Robotic-Soldering-Required-Extensive/dp/B0017OFRCY">OWI-535</a></h1><p>Refer to <a target="_blank" rel="noopener" href="https://www.pololu.com/">Pololu</a>‘s <a target="_blank" rel="noopener" href="https://www.pololu.com/product/947">OWI-535 Robotic Arm Edge Kit</a>:</p>
+<ul>
+<li>a gripper</li>
+<li>120° wrist motion</li>
+<li>300° elbow motion</li>
+<li>180° shoulder motion</li>
+<li>270° base motion</li>
+</ul>
+<h1 id="2-Reference-About-ESP32"><a href="#2-Reference-About-ESP32" class="headerlink" title="2. Reference - About ESP32"></a>2. Reference - About <a target="_blank" rel="noopener" href="https://www.espressif.com/en/products/socs/esp32">ESP32</a></h1><p>Please refer to my blogs: </p>
+<ul>
+<li><a href="../../../../../2019/08/22/MachineVision/MCU/esp32cam/">ESP32 EYE</a></li>
+<li><a href="../../../../../2024/02/03/SBCs/MCU/ESP32/esp32-s3-eye/">ESP32 S3 EYE</a></li>
+<li><a href="../../../../../2025/07/02/SBCs/MCU/ESP32/esp32-c3-WiFi-speaker/">ESP32-C3 WiFi Speaker</a></li>
+</ul>
+<h1 id="3-Hardware-Components"><a href="#3-Hardware-Components" class="headerlink" title="3. Hardware Components"></a>3. Hardware Components</h1><table>
+<thead>
+<tr>
+<th>Any <a target="_blank" rel="noopener" href="https://www.espressif.com/sites/default/files/documentation/esp32-c3_datasheet_en.pdf">ESP32-C3</a> board</th>
+<th><a target="_blank" rel="noopener" href="https://www.ti.com/lit/ds/symlink/drv8833.pdf">DRV8833</a> H-bridge Motor Driver</th>
+<th><a target="_blank" rel="noopener" href="https://www.amazon.com/OWI-Robotic-Soldering-Required-Extensive/dp/B0017OFRCY">OWI-535</a></th>
+</tr>
+</thead>
+</table>
+<h1 id="4-Curcuit-Connection"><a href="#4-Curcuit-Connection" class="headerlink" title="4. Curcuit Connection"></a>4. Curcuit Connection</h1><h1 id="5-ESP32-Code"><a href="#5-ESP32-Code" class="headerlink" title="5. ESP32 Code"></a>5. <a target="_blank" rel="noopener" href="https://www.espressif.com/en/products/socs/esp32">ESP32</a> Code</h1><p>Please refer to <a target="_blank" rel="noopener" href="https://github.com/LongerVisionRobot/ESP32-C3-WiFi-OWI-535-Robotic-Arm">Github LongerVisionRobot ESP32-C3-WiFi-OWI-535-Robotic-Arm</a>.</p>
+<h1 id="6-Demonstration"><a href="#6-Demonstration" class="headerlink" title="6. Demonstration"></a>6. Demonstration</h1>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ESP32-ESP32-C3-DVR8833-OWI-535-Robotic-Arm/" rel="tag"># ESP32, ESP32-C3, DVR8833, OWI-535, Robotic Arm</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/10/28/AI/EdgeComputing/raspberry-pi-5-hailo/" rel="prev" title="Raspberry Pi 5 + Hailo AI">
+      <i class="fa fa-chevron-left"></i> Raspberry Pi 5 + Hailo AI
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/06/20/SBCs/RISC-V/MaixBit/" rel="next" title="Maix Bit - SiPeed Risc-V 64bit SBC">
+      Maix Bit - SiPeed Risc-V 64bit SBC <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0-Comparisons-of-Popular-Motors-of-Year-2025"><span class="nav-number">1.</span> <span class="nav-text">0. Comparisons of Popular Motors of Year 2025</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-1-Motor-Driver-IC-Module-Comparison-Table"><span class="nav-number">1.1.</span> <span class="nav-text">0.1. Motor Driver IC&#x2F;Module Comparison Table</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-2-2025-Recommendation-Guide"><span class="nav-number">1.2.</span> <span class="nav-text">0.2. 2025 Recommendation Guide:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Five-DOFs-of-OWI-535"><span class="nav-number">2.</span> <span class="nav-text">1. Five DOFs of OWI-535</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Reference-About-ESP32"><span class="nav-number">3.</span> <span class="nav-text">2. Reference - About ESP32</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Hardware-Components"><span class="nav-number">4.</span> <span class="nav-text">3. Hardware Components</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Curcuit-Connection"><span class="nav-number">5.</span> <span class="nav-text">4. Curcuit Connection</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-ESP32-Code"><span class="nav-number">6.</span> <span class="nav-text">5. ESP32 Code</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-Demonstration"><span class="nav-number">7.</span> <span class="nav-text">6. Demonstration</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Nobody</p>
+  <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">154</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">144</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nobody</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

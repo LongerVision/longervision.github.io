@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en,default">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,37 +13,51 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"longervision.ca","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-
-    <meta name="description" content="Try a media center on a Raspberry Pi. 1. Overview 1.1 What is LibreELEC? What is Kodi?  What is LibreELEC? Directly cited from LibreELEC Wiki: LibreELEC is a minimalist &#39;Just enough OS&#39; Linux distribu">
+  <meta name="description" content="Try a media center on a Raspberry Pi. 1. Overview1.1 What is LibreELEC? What is Kodi? What is LibreELEC? Directly cited from LibreELEC Wiki: LibreELEC is a minimalist &#39;Just enough OS&#39; Linux di">
 <meta property="og:type" content="article">
 <meta property="og:title" content="libreELEC on A Raspberry Pi">
 <meta property="og:url" content="http://longervision.ca/2024/07/27/OperatingSystems/RaspberryPi/libreELEC/index.html">
 <meta property="og:site_name" content="Longer Vision Technology">
-<meta property="og:description" content="Try a media center on a Raspberry Pi. 1. Overview 1.1 What is LibreELEC? What is Kodi?  What is LibreELEC? Directly cited from LibreELEC Wiki: LibreELEC is a minimalist &#39;Just enough OS&#39; Linux distribu">
+<meta property="og:description" content="Try a media center on a Raspberry Pi. 1. Overview1.1 What is LibreELEC? What is Kodi? What is LibreELEC? Directly cited from LibreELEC Wiki: LibreELEC is a minimalist &#39;Just enough OS&#39; Linux di">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/01_Welcome.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/02_Kodi.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/03_EnableSSH.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/04_AllowHTTP.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/09_Web.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/07_connmanctl.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/08_connmanctl_services_outcome.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/05_LibreELEC_Configuration.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/06_Connections_WiFi.jpg">
 <meta property="article:published_time" content="2024-07-27T17:14:18.000Z">
 <meta property="article:modified_time" content="2025-06-04T06:08:38.069Z">
 <meta property="article:author" content="Nobody">
 <meta property="article:tag" content="RaspberryPi, libreELEC, Kodi">
 <meta name="twitter:card" content="summary">
-
+<meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/01_Welcome.jpg">
 
 <link rel="canonical" href="http://longervision.ca/2024/07/27/OperatingSystems/RaspberryPi/libreELEC/">
 
 
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://longervision.ca/2024/07/27/OperatingSystems/RaspberryPi/libreELEC/","path":"2024/07/27/OperatingSystems/RaspberryPi/libreELEC/","title":"libreELEC on A Raspberry Pi"}</script>
-
-<script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>libreELEC on A Raspberry Pi | Longer Vision Technology</title>
+  <title>libreELEC on A Raspberry Pi | Longer Vision Technology</title>
   
-
-
 
 
 
@@ -51,33 +65,56 @@
 
 
   <noscript>
-    <link rel="stylesheet" href="/css/noscript.css">
-  </noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
-  <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
 
-  <main class="main">
-    <div class="column">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <i class="logo-line"></i>
-      <p class="site-title">Longer Vision Technology</p>
-      <i class="logo-line"></i>
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Longer Vision Technology</h1>
+      <span class="logo-line-after"><i></i></span>
     </a>
       <p class="site-subtitle" itemprop="description">Github Blog</p>
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    <div class="toggle popup-trigger">
     </div>
   </div>
 </div>
@@ -85,135 +122,93 @@
 
 
 
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
 
 
 
-</header>
-        
-  
-  <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
-      <ul class="sidebar-nav">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <div class="sidebar-panel-container">
-        <!--noindex-->
-        <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#overview"><span class="nav-number">1.</span> <span class="nav-text">1. Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-libreelec-what-is-kodi"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 What is LibreELEC? What is Kodi?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flash-libreelec-onto-raspberry-pi"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Flash LibreELEC Onto Raspberry Pi</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#demonstration"><span class="nav-number">2.</span> <span class="nav-text">2. Demonstration</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#first-view"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 First View</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#enable-ssh-and-allow-http"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 Enable SSH and Allow HTTP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ssh-into-libreelec-via-wired-connection"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 ssh
-Into LibreELEC via Wired
-Connection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#view-libreelec-over-http"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 View LibreELEC Over HTTP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#configure-wi-fi"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 Configure Wi-Fi</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#passphrase-is-just-your-wifi-password"><span class="nav-number">2.5.1.</span> <span class="nav-text">2.5.1 Passphrase is Just
-Your Wifi Password!!</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#important-commands"><span class="nav-number">2.5.2.</span> <span class="nav-text">2.5.2 Important Commands</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#libreelec-configuration"><span class="nav-number">2.5.3.</span> <span class="nav-text">2.5.3 LibreELEC Configuration</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#upgrade-libreelec"><span class="nav-number">3.</span> <span class="nav-text">3. Upgrade LibreELEC</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#check-current-version"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Check Current Version</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#libreelec-for-raspberry-pi-4"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 LibreELEC For Raspberry Pi 4</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#two-source-of-libreelec-builds"><span class="nav-number">3.2.1.</span> <span class="nav-text">3.2.1 Two Source of LibreELEC Builds</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#upgrade"><span class="nav-number">3.2.2.</span> <span class="nav-text">3.2.2 Upgrade</span></a></li></ol></li></ol></li></ol></div>
-        </div>
-        <!--/noindex-->
-
-        <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Nobody</p>
-  <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
 </div>
-<div class="site-state-wrap animated">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-        <a href="/archives/">
-          <span class="site-state-item-count">154</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-          <a href="/categories/">
-        <span class="site-state-item-count">43</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-          <a href="/tags/">
-        <span class="site-state-item-count">144</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-
-        </div>
-      </div>
-    </div>
+    </header>
 
     
-  </aside>
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
 
-    </div>
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
 
-    <div class="main-inner post posts-expand">
+          <div class="content post posts-expand">
+            
 
-
+    
   
-
-
-<div class="post-block">
   
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2024/07/27/OperatingSystems/RaspberryPi/libreELEC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Longer Vision Technology">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="libreELEC on A Raspberry Pi | Longer Vision Technology">
-      <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           libreELEC on A Raspberry Pi
         </h1>
 
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2024-07-27 10:14:18" itemprop="dateCreated datePublished" datetime="2024-07-27T10:14:18-07:00">2024-07-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-06-03 23:08:38" itemprop="dateModified" datetime="2025-06-03T23:08:38-07:00">2025-06-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Operating-System/" itemprop="url" rel="index"><span itemprop="name">Operating System</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Operating-System/Raspberry-Pi/" itemprop="url" rel="index"><span itemprop="name">Raspberry Pi</span></a>
-        </span>
-    </span>
+              <time title="Created: 2024-07-27 10:14:18" itemprop="dateCreated datePublished" datetime="2024-07-27T10:14:18-07:00">2024-07-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-06-03 23:08:38" itemprop="dateModified" datetime="2025-06-03T23:08:38-07:00">2025-06-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Operating-System/" itemprop="url" rel="index"><span itemprop="name">Operating System</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Operating-System/Raspberry-Pi/" itemprop="url" rel="index"><span itemprop="name">Raspberry Pi</span></a>
+                </span>
+            </span>
 
-  
-</div>
+          
 
         </div>
       </header>
@@ -221,154 +216,66 @@ Your Wifi Password!!</span></a></li><li class="nav-item nav-level-3"><a class="n
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>Try a media center on a <a
-target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a>.</p>
-<h1 id="overview">1. Overview</h1>
-<h2 id="what-is-libreelec-what-is-kodi">1.1 What is <a
-target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a>? What is <a
-target="_blank" rel="noopener" href="https://kodi.tv/">Kodi</a>?</h2>
-<ul>
-<li>What is <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a>? Directly
-cited from <a target="_blank" rel="noopener" href="https://wiki.libreelec.tv/">LibreELEC Wiki</a>:
-<code>LibreELEC is a minimalist 'Just enough OS' Linux distribution for running Kodi</code>.</li>
-<li>What is <a target="_blank" rel="noopener" href="https://kodi.tv/">Kodi</a>? Directly cited from <a
-target="_blank" rel="noopener" href="https://kodi.tv/about/">About Kodi</a>:
-<code>Kodi is an award-winning free and open source (GPL) software media player and entertainment hub that can be installed on Linux, OSX, Windows, iOS, tvOS and Android. It is designed around a "10-foot user interface" for use with televisions and remote controls</code>.</li>
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Try a media center on a <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a>.</p>
+<h1 id="1-Overview"><a href="#1-Overview" class="headerlink" title="1. Overview"></a>1. Overview</h1><h2 id="1-1-What-is-LibreELEC-What-is-Kodi"><a href="#1-1-What-is-LibreELEC-What-is-Kodi" class="headerlink" title="1.1 What is LibreELEC? What is Kodi?"></a>1.1 What is <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a>? What is <a target="_blank" rel="noopener" href="https://kodi.tv/">Kodi</a>?</h2><ul>
+<li>What is <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a>? Directly cited from <a target="_blank" rel="noopener" href="https://wiki.libreelec.tv/">LibreELEC Wiki</a>: <code>LibreELEC is a minimalist &#39;Just enough OS&#39; Linux distribution for running Kodi</code>.</li>
+<li>What is <a target="_blank" rel="noopener" href="https://kodi.tv/">Kodi</a>? Directly cited from <a target="_blank" rel="noopener" href="https://kodi.tv/about/">About Kodi</a>: <code>Kodi is an award-winning free and open source (GPL) software media player and entertainment hub that can be installed on Linux, OSX, Windows, iOS, tvOS and Android. It is designed around a &quot;10-foot user interface&quot; for use with televisions and remote controls</code>.</li>
 </ul>
-<h2 id="flash-libreelec-onto-raspberry-pi">1.2 Flash <a
-target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Onto <a
-target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a></h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dd if=./LibreELEC-RPi4.aarch64-12.0.0.img of=/dev/sdb bs=1M status=progress conv=fsync</span><br><span class="line">[sudo] password for lvision: </span><br><span class="line">549+0 records in</span><br><span class="line">549+0 records out</span><br><span class="line">575668224 bytes (576 MB, 549 MiB) copied, 68.3918 s, 8.4 MB/s</span><br></pre></td></tr></table></figure>
-<h1 id="demonstration">2. Demonstration</h1>
-<h2 id="first-view">2.1 First View</h2>
-<p>You’ll be automatically led to the following two pages after direct
-reboot. The <strong>ONLY</strong> thing you need to do is to connect
-your <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a> (already
-installed with <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a>) with HDMI
-cable and connect to your <strong>Smart TV</strong>.</p>
+<h2 id="1-2-Flash-LibreELEC-Onto-Raspberry-Pi"><a href="#1-2-Flash-LibreELEC-Onto-Raspberry-Pi" class="headerlink" title="1.2 Flash LibreELEC Onto Raspberry Pi"></a>1.2 Flash <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Onto <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a></h2><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">sudo</span> <span class="built_in">dd</span> <span class="keyword">if</span>=./LibreELEC-RPi4.aarch64-12.0.0.img of=/dev/sdb bs=1M status=progress conv=fsync</span><br><span class="line">[<span class="built_in">sudo</span>] password <span class="keyword">for</span> lvision: </span><br><span class="line">549+0 records <span class="keyword">in</span></span><br><span class="line">549+0 records out</span><br><span class="line">575668224 bytes (576 MB, 549 MiB) copied, 68.3918 s, 8.4 MB/s</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="2-Demonstration"><a href="#2-Demonstration" class="headerlink" title="2. Demonstration"></a>2. Demonstration</h1><h2 id="2-1-First-View"><a href="#2-1-First-View" class="headerlink" title="2.1 First View"></a>2.1 First View</h2><p>You’ll be automatically led to the following two pages after direct reboot. The <strong>ONLY</strong> thing you need to do is to connect your <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a> (already installed with <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a>) with HDMI cable and connect to your <strong>Smart TV</strong>.</p>
 <table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
 <thead>
-<tr class="header">
-<th style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Welcome</th>
-<th style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> <a
-target="_blank" rel="noopener" href="https://kodi.tv/">Kodi</a></th>
+<tr>
+<th align="center"><a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Welcome</th>
+<th align="center"><a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> <a target="_blank" rel="noopener" href="https://kodi.tv/">Kodi</a></th>
 </tr>
 </thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/01_Welcome.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/01_Welcome.jpg"
-alt="LibreELEC Welcome" /></a></td>
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/02_Kodi.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/02_Kodi.jpg"
-alt="LibreELEC Kodi" /></a></td>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/01_Welcome.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/01_Welcome.jpg" alt="LibreELEC Welcome"></a></td>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/02_Kodi.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/02_Kodi.jpg" alt="LibreELEC Kodi"></a></td>
 </tr>
-</tbody>
-</table>
-<h2 id="enable-ssh-and-allow-http">2.2 Enable SSH and Allow HTTP</h2>
-<p>Same as <a
-target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a> discussed
-in my previous blog <a
-href="../../../../../../2024/07/25/OperatingSystems/RaspberryPi/OctoPrint/">OctoPrint
-on A Raspberry Pi</a>, <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a>'s
-Wi-Fi is <strong>NOT</strong> started by default. Therefore, we’ll have
-to access <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> via Wired
-connection for the <strong>FIRST</strong> time.</p>
-<p>In fact, you’ll even have to enable <strong>SSH</strong> from within
-<a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> smart TV configuration
-before you’re able to <strong>SSH</strong> into <a
-target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> on the <a
-target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a>. Better allow
-<strong>HTTP</strong> at the same time. As follows:</p>
+</tbody></table>
+<h2 id="2-2-Enable-SSH-and-Allow-HTTP"><a href="#2-2-Enable-SSH-and-Allow-HTTP" class="headerlink" title="2.2 Enable SSH and Allow HTTP"></a>2.2 Enable SSH and Allow HTTP</h2><p>Same as <a target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a> discussed in my previous blog <a href="../../../../../../2024/07/25/OperatingSystems/RaspberryPi/OctoPrint/">OctoPrint on A Raspberry Pi</a>, <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a>‘s Wi-Fi is <strong>NOT</strong> started by default. Therefore, we’ll have to access <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> via Wired connection for the <strong>FIRST</strong> time.</p>
+<p>In fact, you’ll even have to enable <strong>SSH</strong> from within <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> smart TV configuration before you’re able to <strong>SSH</strong> into <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> on the <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a>. Better allow <strong>HTTP</strong> at the same time. As follows:</p>
 <table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
 <thead>
-<tr class="header">
-<th style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Enable SSH</th>
-<th style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Allow HTTP</th>
+<tr>
+<th align="center"><a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Enable SSH</th>
+<th align="center"><a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Allow HTTP</th>
 </tr>
 </thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/03_EnableSSH.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/03_EnableSSH.jpg"
-alt="LibreELEC Enable SSH" /></a></td>
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/04_AllowHTTP.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/04_AllowHTTP.jpg"
-alt="LibreELEC Allow HTTP" /></a></td>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/03_EnableSSH.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/03_EnableSSH.jpg" alt="LibreELEC Enable SSH"></a></td>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/04_AllowHTTP.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/04_AllowHTTP.jpg" alt="LibreELEC Allow HTTP"></a></td>
 </tr>
-</tbody>
-</table>
-<h2 id="ssh-into-libreelec-via-wired-connection">2.3 <code>ssh</code>
-Into <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> via Wired
-Connection</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ ssh root@192.168.1.75</span><br><span class="line">root@192.168.1.75&#x27;s password: </span><br><span class="line">##############################################</span><br><span class="line">#                 LibreELEC                  #</span><br><span class="line">#            https://libreelec.tv            #</span><br><span class="line">##############################################</span><br><span class="line"></span><br><span class="line">LibreELEC (official): 12.0.0 (RPi4.aarch64)</span><br></pre></td></tr></table></figure>
-<p>Now, you’re able to <strong>SSH</strong> into <a
-target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> through <strong>Wired
-Connection</strong>.</p>
-<h2 id="view-libreelec-over-http">2.4 View <a
-target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Over HTTP</h2>
-<p><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/09_Web.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/09_Web.png"
-alt="LibreELEC Web" /></a></p>
-<p>And, you’re able to browse content of <a
-target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> via <strong>HTTP</strong>
-remotely.</p>
-<h2 id="configure-wi-fi">2.5 Configure Wi-Fi</h2>
-<p>You’ll have to use the command <a
-target="_blank" rel="noopener" href="https://manpages.debian.org/testing/connman/connmanctl.1.en.html">connmanctl</a>.</p>
+</tbody></table>
+<h2 id="2-3-ssh-Into-LibreELEC-via-Wired-Connection"><a href="#2-3-ssh-Into-LibreELEC-via-Wired-Connection" class="headerlink" title="2.3 ssh Into LibreELEC via Wired Connection"></a>2.3 <code>ssh</code> Into <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> via Wired Connection</h2><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ ssh root@192.168.1.75</span><br><span class="line">root@192.168.1.75<span class="string">&#x27;s password: </span></span><br><span class="line"><span class="string">##############################################</span></span><br><span class="line"><span class="string">#                 LibreELEC                  #</span></span><br><span class="line"><span class="string">#            https://libreelec.tv            #</span></span><br><span class="line"><span class="string">##############################################</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">LibreELEC (official): 12.0.0 (RPi4.aarch64)</span></span><br></pre></td></tr></table></figure>
+
+<p>Now, you’re able to <strong>SSH</strong> into <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> through <strong>Wired Connection</strong>.</p>
+<h2 id="2-4-View-LibreELEC-Over-HTTP"><a href="#2-4-View-LibreELEC-Over-HTTP" class="headerlink" title="2.4 View LibreELEC Over HTTP"></a>2.4 View <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Over HTTP</h2><p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/09_Web.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/09_Web.png" alt="LibreELEC Web"></a></p>
+<p>And, you’re able to browse content of <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> via <strong>HTTP</strong> remotely.</p>
+<h2 id="2-5-Configure-Wi-Fi"><a href="#2-5-Configure-Wi-Fi" class="headerlink" title="2.5 Configure Wi-Fi"></a>2.5 Configure Wi-Fi</h2><p>You’ll have to use the command <a target="_blank" rel="noopener" href="https://manpages.debian.org/testing/connman/connmanctl.1.en.html">connmanctl</a>.</p>
 <table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
 <thead>
-<tr class="header">
-<th style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://manpages.debian.org/testing/connman/connmanctl.1.en.html">connmanctl</a>
-How?</th>
-<th style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://manpages.debian.org/testing/connman/connmanctl.1.en.html">connmanctl</a>
-Outcome</th>
+<tr>
+<th align="center"><a target="_blank" rel="noopener" href="https://manpages.debian.org/testing/connman/connmanctl.1.en.html">connmanctl</a> How?</th>
+<th align="center"><a target="_blank" rel="noopener" href="https://manpages.debian.org/testing/connman/connmanctl.1.en.html">connmanctl</a> Outcome</th>
 </tr>
 </thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/07_connmanctl.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/07_connmanctl.png"
-alt="connmanctl How?" /></a></td>
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/08_connmanctl_services_outcome.png"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/08_connmanctl_services_outcome.png"
-alt="connmanctl Outcome" /></a></td>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/07_connmanctl.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/07_connmanctl.png" alt="connmanctl How?"></a></td>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/08_connmanctl_services_outcome.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/08_connmanctl_services_outcome.png" alt="connmanctl Outcome"></a></td>
 </tr>
-</tbody>
-</table>
-<h3 id="passphrase-is-just-your-wifi-password">2.5.1 Passphrase is Just
-Your Wifi Password!!</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">connmanctl&gt; connect wifi_&lt;my_network_service_id&gt;</span><br><span class="line">Agent RequestInput wifi_&lt;my_network_service_id&gt;</span><br><span class="line">  Passphrase = [ Type=psk, Requirement=mandatory ]</span><br><span class="line">Passphrase? </span><br></pre></td></tr></table></figure>
-<p>When you meet the above question (<strong>Passphrase</strong>?),
-please input your Wifi password.</p>
-<h3 id="important-commands">2.5.2 Important Commands</h3>
-<p>You may use the following commands from time to time during Wifi
-configuration.</p>
+</tbody></table>
+<h3 id="2-5-1-Passphrase-is-Just-Your-Wifi-Password"><a href="#2-5-1-Passphrase-is-Just-Your-Wifi-Password" class="headerlink" title="2.5.1 Passphrase is Just Your Wifi Password!!"></a>2.5.1 Passphrase is Just Your Wifi Password!!</h3><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">connmanctl&gt; connect wifi_&lt;my_network_service_id&gt;</span><br><span class="line">Agent RequestInput wifi_&lt;my_network_service_id&gt;</span><br><span class="line">  Passphrase = [ Type=psk, Requirement=mandatory ]</span><br><span class="line">Passphrase? </span><br></pre></td></tr></table></figure>
+
+<p>When you meet the above question (<strong>Passphrase</strong>?), please input your Wifi password.</p>
+<h3 id="2-5-2-Important-Commands"><a href="#2-5-2-Important-Commands" class="headerlink" title="2.5.2 Important Commands"></a>2.5.2 Important Commands</h3><p>You may use the following commands from time to time during Wifi configuration.</p>
 <ul>
 <li><code>systemctl status connman</code></li>
 <li><code>systemctl restart connman</code></li>
@@ -377,62 +284,35 @@ configuration.</p>
 <li><code>connmanctl services</code></li>
 <li>etc.</li>
 </ul>
-<h3 id="libreelec-configuration">2.5.3 <a
-target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Configuration</h3>
-<p>And, you should be able to doublecheck your Wifi configuration via <a
-target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Configuration as:</p>
+<h3 id="2-5-3-LibreELEC-Configuration"><a href="#2-5-3-LibreELEC-Configuration" class="headerlink" title="2.5.3 LibreELEC Configuration"></a>2.5.3 <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Configuration</h3><p>And, you should be able to doublecheck your Wifi configuration via <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Configuration as:</p>
 <table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
 <thead>
-<tr class="header">
-<th style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Configuration</th>
-<th style="text-align: center;">Connections Wifi</th>
+<tr>
+<th align="center"><a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Configuration</th>
+<th align="center">Connections Wifi</th>
 </tr>
 </thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/05_LibreELEC_Configuration.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/05_LibreELEC_Configuration.jpg"
-alt="LibreELEC Configuration" /></a></td>
-<td style="text-align: center;"><a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/06_Connections_WiFi.jpg"><img
-src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/06_Connections_WiFi.jpg"
-alt="Connections Wifi" /></a></td>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/05_LibreELEC_Configuration.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/05_LibreELEC_Configuration.jpg" alt="LibreELEC Configuration"></a></td>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/06_Connections_WiFi.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/06_Connections_WiFi.jpg" alt="Connections Wifi"></a></td>
 </tr>
-</tbody>
-</table>
-<p>Now, you’re good to go. You can put your videos, pictures, etc. under
-respective folder of <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> as a
-real media center.</p>
-<h1 id="upgrade-libreelec">3. Upgrade <a
-target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a></h1>
-<h2 id="check-current-version">3.1 Check Current Version</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">LibreELEC:~ # cat /etc/os-release</span><br><span class="line">NAME=&quot;LibreELEC&quot;</span><br><span class="line">VERSION=&quot;12.0.0&quot;</span><br><span class="line">ID=&quot;libreelec&quot;</span><br><span class="line">VERSION_ID=&quot;12.0&quot;</span><br><span class="line">PRETTY_NAME=&quot;LibreELEC (official): 12.0.0&quot;</span><br><span class="line">HOME_URL=&quot;https://libreelec.tv&quot;</span><br><span class="line">BUG_REPORT_URL=&quot;https://github.com/LibreELEC/LibreELEC.tv&quot;</span><br><span class="line">BUILD_ID=&quot;451387894ba86fd65079fcba21f5b30392f6435d&quot;</span><br><span class="line">LIBREELEC_ARCH=&quot;RPi4.aarch64&quot;</span><br><span class="line">LIBREELEC_BUILD=&quot;official&quot;</span><br><span class="line">LIBREELEC_PROJECT=&quot;RPi&quot;</span><br><span class="line">LIBREELEC_DEVICE=&quot;RPi4&quot;</span><br></pre></td></tr></table></figure>
-<h2 id="libreelec-for-raspberry-pi-4">3.2 <a
-target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> For <a
-target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a> 4</h2>
-<h3 id="two-source-of-libreelec-builds">3.2.1 Two Source of <a
-target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Builds</h3>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://libreelec.tv/downloads/raspberry/">LibreELEC
-Raspberry Official Release</a></li>
+</tbody></table>
+<p>Now, you’re good to go. You can put your videos, pictures, etc. under respective folder of <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> as a real media center.</p>
+<h1 id="3-Upgrade-LibreELEC"><a href="#3-Upgrade-LibreELEC" class="headerlink" title="3. Upgrade LibreELEC"></a>3. Upgrade <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a></h1><h2 id="3-1-Check-Current-Version"><a href="#3-1-Check-Current-Version" class="headerlink" title="3.1 Check Current Version"></a>3.1 Check Current Version</h2><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">LibreELEC:~ <span class="comment"># cat /etc/os-release</span></span><br><span class="line">NAME=<span class="string">&quot;LibreELEC&quot;</span></span><br><span class="line">VERSION=<span class="string">&quot;12.0.0&quot;</span></span><br><span class="line">ID=<span class="string">&quot;libreelec&quot;</span></span><br><span class="line">VERSION_ID=<span class="string">&quot;12.0&quot;</span></span><br><span class="line">PRETTY_NAME=<span class="string">&quot;LibreELEC (official): 12.0.0&quot;</span></span><br><span class="line">HOME_URL=<span class="string">&quot;https://libreelec.tv&quot;</span></span><br><span class="line">BUG_REPORT_URL=<span class="string">&quot;https://github.com/LibreELEC/LibreELEC.tv&quot;</span></span><br><span class="line">BUILD_ID=<span class="string">&quot;451387894ba86fd65079fcba21f5b30392f6435d&quot;</span></span><br><span class="line">LIBREELEC_ARCH=<span class="string">&quot;RPi4.aarch64&quot;</span></span><br><span class="line">LIBREELEC_BUILD=<span class="string">&quot;official&quot;</span></span><br><span class="line">LIBREELEC_PROJECT=<span class="string">&quot;RPi&quot;</span></span><br><span class="line">LIBREELEC_DEVICE=<span class="string">&quot;RPi4&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-2-LibreELEC-For-Raspberry-Pi-4"><a href="#3-2-LibreELEC-For-Raspberry-Pi-4" class="headerlink" title="3.2 LibreELEC For Raspberry Pi 4"></a>3.2 <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> For <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a> 4</h2><h3 id="3-2-1-Two-Source-of-LibreELEC-Builds"><a href="#3-2-1-Two-Source-of-LibreELEC-Builds" class="headerlink" title="3.2.1 Two Source of LibreELEC Builds"></a>3.2.1 Two Source of <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Builds</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://libreelec.tv/downloads/raspberry/">LibreELEC Raspberry Official Release</a></li>
 <li><a target="_blank" rel="noopener" href="https://test.libreelec.tv/">LibreELEC Nighly Build</a></li>
 </ul>
-<p>I'll upgrade my current <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a>
-from <strong>12.0.0</strong> to <strong>12.0.1</strong>.</p>
-<h3 id="upgrade">3.2.2 Upgrade</h3>
-<p>The <strong><span style="color:red">ONLY</span></strong> thing you
-need to do is to put <a
-target="_blank" rel="noopener" href="https://releases.libreelec.tv/LibreELEC-RPi4.aarch64-12.0.1.img.gz">LibreELEC-RPi4.aarch64-12.0.1.img.gz</a>
-under folder <code>/storage/.update</code>. And then, reboot.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ssh root@192.168.1.74</span><br><span class="line">root@192.168.1.74&#x27;s password: </span><br><span class="line">##############################################</span><br><span class="line">#                 LibreELEC                  #</span><br><span class="line">#            https://libreelec.tv            #</span><br><span class="line">##############################################</span><br><span class="line"></span><br><span class="line">LibreELEC (official): 12.0.1 (RPi4.aarch64)</span><br></pre></td></tr></table></figure>
+<p>I’ll upgrade my current <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> from <strong>12.0.0</strong> to <strong>12.0.1</strong>.</p>
+<h3 id="3-2-2-Upgrade"><a href="#3-2-2-Upgrade" class="headerlink" title="3.2.2 Upgrade"></a>3.2.2 Upgrade</h3><p>The <strong><span style="color:red">ONLY</span></strong> thing you need to do is to put <a target="_blank" rel="noopener" href="https://releases.libreelec.tv/LibreELEC-RPi4.aarch64-12.0.1.img.gz">LibreELEC-RPi4.aarch64-12.0.1.img.gz</a> under folder <code>/storage/.update</code>. And then, reboot.</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ssh root@192.168.1.74</span><br><span class="line">root@192.168.1.74<span class="string">&#x27;s password: </span></span><br><span class="line"><span class="string">##############################################</span></span><br><span class="line"><span class="string">#                 LibreELEC                  #</span></span><br><span class="line"><span class="string">#            https://libreelec.tv            #</span></span><br><span class="line"><span class="string">##############################################</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">LibreELEC (official): 12.0.1 (RPi4.aarch64)</span></span><br></pre></td></tr></table></figure>
+
 <p>and</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">LibreELEC:~ # cat /etc/os-release </span><br><span class="line">NAME=&quot;LibreELEC&quot;</span><br><span class="line">VERSION=&quot;12.0.1&quot;</span><br><span class="line">ID=&quot;libreelec&quot;</span><br><span class="line">VERSION_ID=&quot;12.0&quot;</span><br><span class="line">PRETTY_NAME=&quot;LibreELEC (official): 12.0.1&quot;</span><br><span class="line">HOME_URL=&quot;https://libreelec.tv&quot;</span><br><span class="line">BUG_REPORT_URL=&quot;https://github.com/LibreELEC/LibreELEC.tv&quot;</span><br><span class="line">BUILD_ID=&quot;7e0b15d49ae7beb086bd2fd00fbf5d107aa9f251&quot;</span><br><span class="line">LIBREELEC_ARCH=&quot;RPi4.aarch64&quot;</span><br><span class="line">LIBREELEC_BUILD=&quot;official&quot;</span><br><span class="line">LIBREELEC_PROJECT=&quot;RPi&quot;</span><br><span class="line">LIBREELEC_DEVICE=&quot;RPi4&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">LibreELEC:~ <span class="comment"># cat /etc/os-release </span></span><br><span class="line">NAME=<span class="string">&quot;LibreELEC&quot;</span></span><br><span class="line">VERSION=<span class="string">&quot;12.0.1&quot;</span></span><br><span class="line">ID=<span class="string">&quot;libreelec&quot;</span></span><br><span class="line">VERSION_ID=<span class="string">&quot;12.0&quot;</span></span><br><span class="line">PRETTY_NAME=<span class="string">&quot;LibreELEC (official): 12.0.1&quot;</span></span><br><span class="line">HOME_URL=<span class="string">&quot;https://libreelec.tv&quot;</span></span><br><span class="line">BUG_REPORT_URL=<span class="string">&quot;https://github.com/LibreELEC/LibreELEC.tv&quot;</span></span><br><span class="line">BUILD_ID=<span class="string">&quot;7e0b15d49ae7beb086bd2fd00fbf5d107aa9f251&quot;</span></span><br><span class="line">LIBREELEC_ARCH=<span class="string">&quot;RPi4.aarch64&quot;</span></span><br><span class="line">LIBREELEC_BUILD=<span class="string">&quot;official&quot;</span></span><br><span class="line">LIBREELEC_PROJECT=<span class="string">&quot;RPi&quot;</span></span><br><span class="line">LIBREELEC_DEVICE=<span class="string">&quot;RPi4&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
 
     </div>
 
@@ -440,87 +320,193 @@ under folder <code>/storage/.update</code>. And then, reboot.</p>
     
     
 
-    <footer class="post-footer">
+      <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/RaspberryPi-libreELEC-Kodi/" rel="tag"># RaspberryPi, libreELEC, Kodi</a>
           </div>
 
         
 
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2024/07/25/OperatingSystems/RaspberryPi/OctoPrint/" rel="prev" title="OctoPrint on A Raspberry Pi">
-                  <i class="fa fa-angle-left"></i> OctoPrint on A Raspberry Pi
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/2024/07/28/AI/EdgeComputing/Intel-Movidius-NCS1-NCS2/" rel="next" title="Intel NCS2 vs. Intel NCS1">
-                  Intel NCS2 vs. Intel NCS1 <i class="fa fa-angle-right"></i>
-                </a>
-            </div>
-          </div>
-    </footer>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/07/25/OperatingSystems/RaspberryPi/OctoPrint/" rel="prev" title="OctoPrint on A Raspberry Pi">
+      <i class="fa fa-chevron-left"></i> OctoPrint on A Raspberry Pi
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/07/28/AI/EdgeComputing/Intel-Movidius-NCS1-NCS2/" rel="next" title="Intel NCS2 vs. Intel NCS1">
+      Intel NCS2 vs. Intel NCS1 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Overview"><span class="nav-number">1.</span> <span class="nav-text">1. Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-What-is-LibreELEC-What-is-Kodi"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 What is LibreELEC? What is Kodi?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-Flash-LibreELEC-Onto-Raspberry-Pi"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Flash LibreELEC Onto Raspberry Pi</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Demonstration"><span class="nav-number">2.</span> <span class="nav-text">2. Demonstration</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-First-View"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 First View</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Enable-SSH-and-Allow-HTTP"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 Enable SSH and Allow HTTP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-ssh-Into-LibreELEC-via-Wired-Connection"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 ssh Into LibreELEC via Wired Connection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-View-LibreELEC-Over-HTTP"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 View LibreELEC Over HTTP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-Configure-Wi-Fi"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 Configure Wi-Fi</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-1-Passphrase-is-Just-Your-Wifi-Password"><span class="nav-number">2.5.1.</span> <span class="nav-text">2.5.1 Passphrase is Just Your Wifi Password!!</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-2-Important-Commands"><span class="nav-number">2.5.2.</span> <span class="nav-text">2.5.2 Important Commands</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-3-LibreELEC-Configuration"><span class="nav-number">2.5.3.</span> <span class="nav-text">2.5.3 LibreELEC Configuration</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Upgrade-LibreELEC"><span class="nav-number">3.</span> <span class="nav-text">3. Upgrade LibreELEC</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Check-Current-Version"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Check Current Version</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-LibreELEC-For-Raspberry-Pi-4"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 LibreELEC For Raspberry Pi 4</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-Two-Source-of-LibreELEC-Builds"><span class="nav-number">3.2.1.</span> <span class="nav-text">3.2.1 Two Source of LibreELEC Builds</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-Upgrade"><span class="nav-number">3.2.2.</span> <span class="nav-text">3.2.2 Upgrade</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Nobody</p>
+  <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">154</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">144</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
 </div>
 
 
 
-
-
-
-</div>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-inner">
-
-  <div class="copyright">
-    &copy; 
-    <span itemprop="copyrightYear">2025</span>
-    <span class="with-love">
-      <i class="fa fa-heart"></i>
-    </span>
-    <span class="author" itemprop="copyrightHolder">Nobody</span>
-  </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
-  </div>
+      </div>
 
     </div>
-  </footer>
+  </aside>
+  <div id="sidebar-dimmer"></div>
 
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nobody</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
-  <div class="sidebar-dimmer"></div>
-  <div class="back-to-top" role="button" aria-label="Back to top">
-    <i class="fa fa-arrow-up fa-lg"></i>
-    <span>0%</span>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
   </div>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
 
 
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   
 
-
-
-
-
-
   
-
-
-
-
 
 </body>
 </html>
