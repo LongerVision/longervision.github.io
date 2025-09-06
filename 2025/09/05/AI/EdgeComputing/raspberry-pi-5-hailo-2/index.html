@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Hailo Technologies Ltd. is indeed a semiconductor high-tech company based in Tel Aviv, Israel. Although this blog focuses on the Israeli product Hailo-8L Entry-Level AI Accelerator, I would like to ta">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Raspberry Pi 5 + Hailo AI - (2)">
+<meta property="og:url" content="http://longervision.ca/2025/09/05/AI/EdgeComputing/raspberry-pi-5-hailo-2/index.html">
+<meta property="og:site_name" content="Longer Vision Technology">
+<meta property="og:description" content="Hailo Technologies Ltd. is indeed a semiconductor high-tech company based in Tel Aviv, Israel. Although this blog focuses on the Israeli product Hailo-8L Entry-Level AI Accelerator, I would like to ta">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/Hailo/RaspberryPi5_Environment.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/Hailo/Release_versions_compatibility.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/Hailo/Hailo_Installed.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/Hailo/Hailo_Version.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/Hailo/Hailomz_Info_Resnet_v1_18.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/Hailo/Hailomz_Info_Yolov11m.png">
+<meta property="article:published_time" content="2025-09-06T05:10:44.000Z">
+<meta property="article:modified_time" content="2025-09-06T20:33:27.912Z">
+<meta property="article:author" content="Nobody">
+<meta property="article:tag" content="AI, Edge Computing, Raspberry Pi 5, Hailo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/Hailo/RaspberryPi5_Environment.png">
+
+<link rel="canonical" href="http://longervision.ca/2025/09/05/AI/EdgeComputing/raspberry-pi-5-hailo-2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Raspberry Pi 5 + Hailo AI - (2) | Longer Vision Technology</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Longer Vision Technology</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Github Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2025/09/05/AI/EdgeComputing/raspberry-pi-5-hailo-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Raspberry Pi 5 + Hailo AI - (2)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-09-05 22:10:44" itemprop="dateCreated datePublished" datetime="2025-09-05T22:10:44-07:00">2025-09-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-09-06 13:33:27" itemprop="dateModified" datetime="2025-09-06T13:33:27-07:00">2025-09-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AI/Edge-Computing/" itemprop="url" rel="index"><span itemprop="name">Edge Computing</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a target="_blank" rel="noopener" href="https://hailo.ai/">Hailo Technologies Ltd.</a> is indeed a semiconductor high-tech company based in <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Tel_Aviv">Tel Aviv, Israel</a>. Although this blog focuses on the Israeli product <a target="_blank" rel="noopener" href="https://hailo.ai/products/ai-accelerators/hailo-8l-ai-accelerator-for-ai-light-applications/">Hailo-8L Entry-Level AI Accelerator</a>, I would like to take this opportunity to celebrate the successful holding of <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/2025_China_Victory_Day_Parade">2025 China Victory Day Parade</a>.</p>
+<p>In my <a href="../../../../../../2024/10/28/AI/EdgeComputing/raspberry-pi-5-hailo-1/">first blog post about Hailo</a> last year, not using a <a target="_blank" rel="noopener" href="https://www.docker.com/">Docker</a> container to create a <a target="_blank" rel="noopener" href="https://www.python.org/downloads/release/python-3100/">Python 3.10</a> environment caused me significant troubles, and I actually failed to complete the demonstration. Today, we are going to walk through the entire <a target="_blank" rel="noopener" href="https://hailo.ai/">Hailo</a> process again.</p>
+<h1 id="1-Raspberry-Pi-5-Enviroment"><a href="#1-Raspberry-Pi-5-Enviroment" class="headerlink" title="1. Raspberry Pi 5 Enviroment"></a>1. <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/raspberry-pi-5/">Raspberry Pi 5</a> Enviroment</h1><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/Hailo/RaspberryPi5_Environment.png" alt="Raspberry Pi 5 Environment"></p>
+<p>Please strictly follow the <a target="_blank" rel="noopener" href="https://github.com/hailo-ai/hailo-rpi5-examples/blob/main/doc/install-raspberry-pi5.md">How to Set Up Raspberry Pi 5 and Hailo</a> guide to fix any bugs that have already appeared or to prevent potential ones.</p>
+<h1 id="2-Docker-Container-On-Ubuntu-Hosting-Machine"><a href="#2-Docker-Container-On-Ubuntu-Hosting-Machine" class="headerlink" title="2. Docker Container On Ubuntu Hosting Machine"></a>2. Docker Container On Ubuntu Hosting Machine</h1><h2 id="2-1-Software-Installation"><a href="#2-1-Software-Installation" class="headerlink" title="2.1 Software Installation"></a>2.1 Software Installation</h2><p>Please refer to the following official documentations:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://hailo.ai/developer-zone/documentation/2025-07-for-hailo-8-8l/?sp_referrer=suite/versions_compatibility.html#id5">Hailo Software Suite 2025-07 (for Hailo-8&#x2F;8L) Manual installation</a>.</li>
+<li><a target="_blank" rel="noopener" href="https://hailo.ai/developer-zone/documentation/2025-07-for-hailo-8-8l/?sp_referrer=suite/versions_compatibility.html%23sw-versions-compatibility#release-versions-compatibility">Release versions compatibility</a><br><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/Hailo/Release_versions_compatibility.png" alt="Release versions compatibility"></li>
+<li>Inside the docker container:<br><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/Hailo/Hailo_Installed.png" alt="Hailo Installed"></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/Hailo/Hailo_Version.png" alt="Hailo Version"></p>
+<h2 id="2-2-Identify-Device-Architecture"><a href="#2-2-Identify-Device-Architecture" class="headerlink" title="2.2 Identify Device Architecture"></a>2.2 Identify Device Architecture</h2><p>This is a <strong><span style="color: red;">MUST</span></strong> step to do.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ hailortcli fw-control identify</span><br><span class="line"></span><br><span class="line">Executing on device: 0001:03:00.0</span><br><span class="line">Identifying board</span><br><span class="line">Control Protocol Version: 2</span><br><span class="line">Firmware Version: 4.22.0 (release,app,extended context switch buffer)</span><br><span class="line">Logger Version: 0</span><br><span class="line">Board Name: Hailo-8</span><br><span class="line">Device Architecture: HAILO8L</span><br><span class="line">Serial Number: HLDDLBB243201887</span><br><span class="line">Part Number: HM21LB1C2LAE</span><br><span class="line">Product Name: HAILO-8L AI ACC M.2 B+M KEY MODULE EXT TMP</span><br><span class="line"></span><br><span class="line">➜  ~ </span><br></pre></td></tr></table></figure>
+
+<p>Mine is a <strong><span style="color: red;">HAILO8L</span></strong>.</p>
+<h2 id="2-3-Model-Check"><a href="#2-3-Model-Check" class="headerlink" title="2.3 Model Check"></a>2.3 Model Check</h2><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/Hailo/Hailomz_Info_Resnet_v1_18.png" alt="Hailomz Info Resnet_v1_18"></p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/Hailo/Hailomz_Info_Yolov11m.png" alt="Hailomz Info Yolov11m"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/AI-Edge-Computing-Raspberry-Pi-5-Hailo/" rel="tag"># AI, Edge Computing, Raspberry Pi 5, Hailo</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/07/02/SBCs/MCU/ESP32/esp32-c3-max98357-wifi-speaker/" rel="prev" title="ESP32-C3 MAX98357A WiFi Speaker">
+      <i class="fa fa-chevron-left"></i> ESP32-C3 MAX98357A WiFi Speaker
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Raspberry-Pi-5-Enviroment"><span class="nav-number">1.</span> <span class="nav-text">1. Raspberry Pi 5 Enviroment</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Docker-Container-On-Ubuntu-Hosting-Machine"><span class="nav-number">2.</span> <span class="nav-text">2. Docker Container On Ubuntu Hosting Machine</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Software-Installation"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Software Installation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Identify-Device-Architecture"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 Identify Device Architecture</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-Model-Check"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 Model Check</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Nobody</p>
+  <div class="site-description" itemprop="description">Longer Vision Technology Github Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">155</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">144</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nobody</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
