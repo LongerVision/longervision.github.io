@@ -180,7 +180,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-09-07 15:38:46" itemprop="dateModified" datetime="2025-09-07T15:38:46-07:00">2025-09-07</time>
+                <time title="Modified: 2025-09-07 16:46:56" itemprop="dateModified" datetime="2025-09-07T16:46:56-07:00">2025-09-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -273,7 +273,25 @@
 <iframe width="1280" height="720" src="https://www.youtube.com/embed/rxc4LtZzEmE" title="Raspberry Pi 5 + Hailo-8L Detect and Track Road Traffic" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 
-<h2 id="3-3-Detection-and-Tracking-Live-Camera-RTSP"><a href="#3-3-Detection-and-Tracking-Live-Camera-RTSP" class="headerlink" title="3.3 Detection and Tracking - Live Camera RTSP"></a>3.3 Detection and Tracking - Live Camera <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Real-Time_Streaming_Protocol">RTSP</a></h2><!-- 
+<h2 id="3-3-Detection-and-Tracking-Live-Camera-RTSP"><a href="#3-3-Detection-and-Tracking-Live-Camera-RTSP" class="headerlink" title="3.3 Detection and Tracking - Live Camera RTSP"></a>3.3 Detection and Tracking - Live Camera <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Real-Time_Streaming_Protocol">RTSP</a></h2><h3 id="3-3-1-On-Server-Raspberry-Pi-5"><a href="#3-3-1-On-Server-Raspberry-Pi-5" class="headerlink" title="3.3.1 On Server Raspberry Pi 5"></a>3.3.1 On Server <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/raspberry-pi-5/">Raspberry Pi 5</a></h3><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">✗ python3 camera_ai_rtsp.py</span><br><span class="line"></span><br><span class="line">[1:50:26.068253200] [7893]  INFO Camera camera_manager.cpp:326 libcamera v0.5.1+100-e53bdf1f</span><br><span class="line">[1:50:26.075415015] [7907]  INFO RPI pisp.cpp:720 libpisp version v1.2.1 981977ff21f3 29-04-2025 (14:13:50)</span><br><span class="line">[1:50:26.076215774] [7907]  WARN CameraSensorProperties camera_sensor_properties.cpp:473 No static properties available <span class="keyword">for</span> <span class="string">&#x27;imx708_noir&#x27;</span></span><br><span class="line">[1:50:26.076235959] [7907]  WARN CameraSensorProperties camera_sensor_properties.cpp:475 Please consider updating the camera sensor properties database</span><br><span class="line">[1:50:26.085411941] [7907]  WARN CameraSensor camera_sensor_legacy.cpp:501 <span class="string">&#x27;imx708_noir&#x27;</span>: No sensor delays found <span class="keyword">in</span> static properties. Assuming unverified defaults.</span><br><span class="line">[1:50:26.085847404] [7907]  INFO RPI pisp.cpp:1179 Registered camera /base/axi/pcie@1000120000/rp1/i2c@88000/imx708@1a to CFE device /dev/media0 and ISP device /dev/media2 using PiSP variant BCM2712_C0</span><br><span class="line">[1:50:26.088843719] [7893]  INFO Camera camera.cpp:1205 configuring streams: (0) 1280x720-RGB888/Rec709/Rec709/None/Full (1) 1536x864-BGGR_PISP_COMP1/RAW</span><br><span class="line">[1:50:26.088947294] [7907]  INFO RPI pisp.cpp:1483 Sensor: /base/axi/pcie@1000120000/rp1/i2c@88000/imx708@1a - Selected sensor format: 1536x864-SBGGR10_1X10 - Selected CFE format: 1536x864-PC1B</span><br><span class="line">✅ RTSP server running at rtsp://&lt;RPi5-IP&gt;:8554/ai</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-2-On-Any-Client"><a href="#3-3-2-On-Any-Client" class="headerlink" title="3.3.2 On Any Client"></a>3.3.2 On Any Client</h3><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffplay -rtsp_transport tcp rtsp://192.168.1.90:8554/ai</span><br></pre></td></tr></table></figure>
+
+
+<table>
+<thead>
+<tr>
+<th>Live Stream <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Real-Time_Streaming_Protocol">RTSP</a> Broadcasted After Processed by <a target="_blank" rel="noopener" href="https://hailo.ai/">Hailo</a> on <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/raspberry-pi-5/">Raspberry Pi 5</a></th>
+<th><strong>ffplay</strong> the Processed Live Stream on <strong>Server</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/Hailo/Hailo_RPi5_RTSP_from_Remote.png" alt="Hailo Object Detection using yolov11s.hef"></td>
+<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/Hailo/Hailo_RPi5_RTSP_from_Remote_ffplay.png" alt="Hailo Image Segmentation using yolov8s_seg.hef"></td>
+</tr>
+</tbody></table>
+<h1 id="4-Compilation"><a href="#4-Compilation" class="headerlink" title="4. Compilation"></a>4. Compilation</h1><p>Like other dedicated AI hardware platforms, <a target="_blank" rel="noopener" href="https://hailo.ai/">Hailo</a>‘s software stack involves compiling a trained model, converting it from the standard <a target="_blank" rel="noopener" href="https://onnx.ai/">ONNX</a> format into its proprietary HEF (Hailo Executable Format) file optimized for its own architecture.</p>
+<!-- 
 # 2. Docker Container On Ubuntu Hosting Machine
 
 ## 2.1 Software Installation
