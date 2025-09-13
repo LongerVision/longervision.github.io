@@ -149,6 +149,106 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/09/Coding/Bugs/matplotlib-path-home/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/01/09/Coding/Bugs/matplotlib-path-home/" class="post-title-link" itemprop="url">Matplotlib.pyplot - AttributeError - type object 'Path' has no attribute 'home'</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-01-09 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-09T00:00:00-08:00">2019-01-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-06-03 23:08:38" itemprop="dateModified" datetime="2025-06-03T23:08:38-07:00">2025-06-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Coding/Bugs/" itemprop="url" rel="index"><span itemprop="name">Bugs</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="AttributeError-type-object-‘Path’-has-no-attribute-‘home’"><a href="#AttributeError-type-object-‘Path’-has-no-attribute-‘home’" class="headerlink" title="AttributeError: type object ‘Path’ has no attribute ‘home’"></a>AttributeError: type object ‘Path’ has no attribute ‘home’</h1><p>This error message is found while I was trying to <strong>from matplotlib.pyplot as plt</strong> today. I’ve got <strong>NO</strong> idea what had happened to my <strong>python</strong>. But, it seems this issue had been met and solved in some public posts. For instance:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/addok/addok/issues/280">github addok</a></li>
+</ul>
+<h1 id="Solutions"><a href="#Solutions" class="headerlink" title="Solutions:"></a>Solutions:</h1><p>In my case, I need to manually modify 3 files under folder <strong>~&#x2F;.local&#x2F;lib&#x2F;python3.6&#x2F;site-packages&#x2F;matplotlib</strong>.</p>
+<h2 id="Path-home-os-path-expanduser-‘-’"><a href="#Path-home-os-path-expanduser-‘-’" class="headerlink" title="Path.home() -&gt; os.path.expanduser(‘~’)"></a>Path.home() -&gt; os.path.expanduser(‘~’)</h2><ul>
+<li>In file <strong>~&#x2F;.local&#x2F;lib&#x2F;python3.6&#x2F;site-packages&#x2F;matplotlib&#x2F;font_manager.py</strong>, around line 135, change</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> USE_FONTCONFIG <span class="keyword">and</span> sys.platform != <span class="string">&#x27;win32&#x27;</span>:</span><br><span class="line">    OSXFontDirectories.append(<span class="built_in">str</span>(Path.home() / <span class="string">&quot;Library/Fonts&quot;</span>))</span><br><span class="line">    X11FontDirectories.append(<span class="built_in">str</span>(Path.home() / <span class="string">&quot;.fonts&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<p>to</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> USE_FONTCONFIG <span class="keyword">and</span> sys.platform != <span class="string">&#x27;win32&#x27;</span>:</span><br><span class="line">    OSXFontDirectories.append(<span class="built_in">str</span>(os.path.expanduser(<span class="string">&#x27;~&#x27;</span>)+<span class="string">&#x27;/&#x27;</span>+<span class="string">&quot;Library/Fonts&quot;</span>))</span><br><span class="line">    X11FontDirectories.append(<span class="built_in">str</span>(os.path.expanduser(<span class="string">&#x27;~&#x27;</span>)+<span class="string">&#x27;/&#x27;</span>+<span class="string">&quot;.fonts&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Remove-exist-ok-True-in-function-mkdir"><a href="#Remove-exist-ok-True-in-function-mkdir" class="headerlink" title="Remove exist_ok&#x3D;True in function mkdir()"></a>Remove exist_ok&#x3D;True in function mkdir()</h2><ul>
+<li>In file <strong>~&#x2F;.local&#x2F;lib&#x2F;python3.6&#x2F;site-packages&#x2F;matplotlib&#x2F;<strong>init</strong>.py</strong>, around line 615</li>
+<li>In file <strong>~&#x2F;.local&#x2F;lib&#x2F;python3.6&#x2F;site-packages&#x2F;matplotlib&#x2F;texmanager.py</strong>, around line 56 and 104</li>
+</ul>
+<p>change all</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir(parents=<span class="literal">True</span>, exist_ok=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<p>to</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir(parents=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/06/Coding/Bugs/flownet2-pytorch-vid2vid/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1275,167 +1375,6 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2018/10/17/SBCs/ARM/huawei-HiSilicon-hikey970-Lebuntu/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/10/17/SBCs/ARM/huawei-HiSilicon-hikey970-Lebuntu/" class="post-title-link" itemprop="url">HiSilicon Hikey 970 - Flash Lebuntu</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-10-17 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-17T00:00:00-07:00">2018-10-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-06-03 23:08:38" itemprop="dateModified" datetime="2025-06-03T23:08:38-07:00">2025-06-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Hi, everyone… I’ve been so busy and haven’t written anything for a bit. My previous boss at <a target="_blank" rel="noopener" href="https://www.lenovo.com/">Lenovo</a> is now in Vancouver for annual executive meeting. She brought me a <a target="_blank" rel="noopener" href="https://www.huawei.com/">Huawei</a> <a target="_blank" rel="noopener" href="http://www.hisilicon.com/">HiSilicon</a> <a target="_blank" rel="noopener" href="https://www.96boards.org/product/hikey970/">Hikey 970</a>.</p>
-<p>Several things before testing:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.lenovo.com/">Lenovo</a> and <a target="_blank" rel="noopener" href="https://www.huawei.com/">Huawei</a> are two <strong>BIGGEST</strong> and possibly <strong>BEST</strong> IT companies from China.</li>
-<li><a target="_blank" rel="noopener" href="http://www.hisilicon.com/">HiSilicon</a> is a chip design and manufacturing company spinned off from <a target="_blank" rel="noopener" href="https://www.huawei.com/">Huawei</a>.</li>
-<li><a target="_blank" rel="noopener" href="https://www.96boards.org/">96Boards</a> hosts various SBCs (Single Board Computers), including <a target="_blank" rel="noopener" href="https://www.96boards.org/product/hikey970/">Hikey 970</a>.</li>
-<li>A lot more resource can be found on <a target="_blank" rel="noopener" href="http://www.lemaker.org/">LeMaker</a>, who has designed several low-cost single board computers (SBCs).<ul>
-<li><a target="_blank" rel="noopener" href="http://www.lemaker.org/product-hikey970-index.html">LeMaker Hikey 970 Home Page</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.lemaker.org/product-hikey970-specification.html">LeMaker Hikey 970 Specification</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.lemaker.org/product-hikey970-resource.html">LeMaker Hikey 970 Resource</a></li>
-</ul>
-</li>
-</ul>
-<p>Now, let’s start today’s journey.</p>
-<h1 id="PART-A-Introduction"><a href="#PART-A-Introduction" class="headerlink" title="PART A: Introduction"></a>PART A: Introduction</h1><h2 id="1-Layout-of-Hikey-970"><a href="#1-Layout-of-Hikey-970" class="headerlink" title="1. Layout of Hikey 970"></a>1. Layout of Hikey 970</h2><p><a target="_blank" rel="noopener" href="https://www.96boards.org/product/hikey970/">Hikey 970</a> looks like (cited from <a target="_blank" rel="noopener" href="https://www.96boards.org/product/hikey970/">Hikey 970</a> ):</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/HiSilicon/Hikey-970-Board.jpg" alt="HiSilicon Hikey 970"></p>
-<h2 id="2-Connection-of-Hikey-970"><a href="#2-Connection-of-Hikey-970" class="headerlink" title="2. Connection of Hikey 970"></a>2. Connection of Hikey 970</h2><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/HiSilicon/Hikey-970-Connection.jpg" alt="HiSilicon Hikey 970"></p>
-<p>Please pay attention to that pink rectangle, where 4 <strong>TINY</strong> switches are located and will be adjusted while flashing. </p>
-<h1 id="PART-B-Install-Lebuntu-onto-Hikey-970"><a href="#PART-B-Install-Lebuntu-onto-Hikey-970" class="headerlink" title="PART B: Install Lebuntu onto Hikey 970"></a>PART B: Install Lebuntu onto Hikey 970</h1><h2 id="1-Download-Lebuntu-for-Hikey-970"><a href="#1-Download-Lebuntu-for-Hikey-970" class="headerlink" title="1. Download Lebuntu for Hikey 970"></a>1. Download Lebuntu for Hikey 970</h2><p>We <strong>FIRST</strong> go visiting the website <a target="_blank" rel="noopener" href="http://www.lemaker.org/product-hikey970-download-84.html">http://www.lemaker.org/product-hikey970-download-84.html</a> and click <strong>Download</strong> icon, a file named <a target="_blank" rel="noopener" href="http://mirror.lemaker.org/Hikey%20970%20Lebuntu.rar"><strong>Hikey 970 Lebuntu.rar</strong></a> will be automatically downloaded. After the extraction, a folder named <strong>hikey970-lebuntu-16.04</strong> will be generated.</p>
-<h2 id="2-Preparations-for-Making-Full-Use-of-Flash-Memony-On-Hikey-970"><a href="#2-Preparations-for-Making-Full-Use-of-Flash-Memony-On-Hikey-970" class="headerlink" title="2. Preparations for Making Full Use of Flash Memony On Hikey 970"></a>2. Preparations for Making Full Use of Flash Memony On Hikey 970</h2><p>By integrating the following 2 contents:</p>
-<ul>
-<li><strong>lebuntu-rfs_flashing_guide.txt</strong> under folder <strong>hikey970-lebuntu-16.04</strong></li>
-<li><a target="_blank" rel="noopener" href="https://discuss.96boards.org/t/help-for-hikey970-beginner/5318/28">https://discuss.96boards.org/t/help-for-hikey970-beginner/5318/28</a></li>
-</ul>
-<p>we should be able to successfully install Lebuntu, and make <strong>FULL</strong> use of the whole flash memory on board.</p>
-<h3 id="2-1-Mount-Boot-Image"><a href="#2-1-Mount-Boot-Image" class="headerlink" title="2.1 Mount Boot Image"></a>2.1 Mount Boot Image</h3><p>Make sure the current path is <strong>hikey970-lebuntu-16.04</strong>, then:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> /mnt/boot-hikey970</span><br><span class="line"><span class="built_in">sudo</span> mount -o loop boot-hikey970.uefi.img /mnt/boot-hikey970</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="2-2-Edit-grub-cfg"><a href="#2-2-Edit-grub-cfg" class="headerlink" title="2.2 Edit grub.cfg"></a>2.2 Edit grub.cfg</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> vim /mnt/boot-hikey970/boot/grub/grub.cfg</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>sdd12 -&gt; sdd15</li>
-<li>gpt12 -&gt; gpt15</li>
-</ul>
-<h3 id="2-3-Edit-flash-scripts"><a href="#2-3-Edit-flash-scripts" class="headerlink" title="2.3 Edit flash scripts"></a>2.3 Edit flash scripts</h3><p>There are 3 flash scripts:</p>
-<ul>
-<li>flash-all-binaries.sh</li>
-<li>flash-minimum-binaries.sh</li>
-<li>binaries&#x2F;recovery-flash.sh</li>
-</ul>
-<p>Change all cases in the above 3 files:</p>
-<ul>
-<li><code>sudo fastboot flash system leubuntu-16.04.img</code> -&gt; <code>sudo fastboot flash userdata leubuntu-16.04.img</code>.</li>
-</ul>
-<h2 id="3-Flash-Lebuntu-onto-Hikey-970"><a href="#3-Flash-Lebuntu-onto-Hikey-970" class="headerlink" title="3 Flash Lebuntu onto Hikey 970"></a>3 Flash Lebuntu onto Hikey 970</h2><h3 id="3-1-Adjust-the-Switches"><a href="#3-1-Adjust-the-Switches" class="headerlink" title="3.1 Adjust the Switches"></a>3.1 Adjust the Switches</h3><ul>
-<li>Switch 1 : ON</li>
-<li>Switch 2 : ON</li>
-<li>Switch 3 : ON</li>
-<li>Switch 4 : OFF</li>
-</ul>
-<h3 id="3-2-Connect-Type-C-USB-cable-and-Power-Adapter"><a href="#3-2-Connect-Type-C-USB-cable-and-Power-Adapter" class="headerlink" title="3.2 Connect Type C USB cable and Power Adapter"></a>3.2 Connect Type C USB cable and Power Adapter</h3><ul>
-<li>Connect Type C USB cable between the host computer and <a target="_blank" rel="noopener" href="https://www.96boards.org/product/hikey970/">Hikey 970</a>.</li>
-<li>Connect power adapter.</li>
-<li>Make sure <a target="_blank" rel="noopener" href="https://www.96boards.org/product/hikey970/">Hikey 970</a> is configured as ttyUSB0.</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span> -<span class="built_in">ls</span> /dev/ttyUSB0</span><br></pre></td></tr></table></figure>
-<h3 id="3-3-System-Installation"><a href="#3-3-System-Installation" class="headerlink" title="3.3 System Installation"></a>3.3 System Installation</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./binaries/recovery-flash.sh</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-4-Unplug-Power-Supply-then-Re-adjust-the-Switches"><a href="#3-4-Unplug-Power-Supply-then-Re-adjust-the-Switches" class="headerlink" title="3.4 Unplug Power Supply then Re-adjust the Switches"></a>3.4 Unplug Power Supply then Re-adjust the Switches</h3><p>Unplug the power adapter, and then re-adjust the switches:</p>
-<ul>
-<li>Switch 1 : ON</li>
-<li>Switch 2 : OFF</li>
-<li>Switch 3 : OFF</li>
-<li>Switch 4 : OFF</li>
-</ul>
-<h3 id="3-5-Connect-HDMI-Cable-then-Power-Adapter"><a href="#3-5-Connect-HDMI-Cable-then-Power-Adapter" class="headerlink" title="3.5 Connect HDMI Cable then Power Adapter"></a>3.5 Connect HDMI Cable then Power Adapter</h3><ul>
-<li>Connect HDMI cable.</li>
-<li>Connect the Power Adapter.</li>
-</ul>
-<p><span style="color:red"><strong>NOTE: Plug the HDMI cable before powering up. Lebuntu may NOT boot up without plugging in the HDMI.</strong> </span></p>
-<h3 id="3-6-Boot-up"><a href="#3-6-Boot-up" class="headerlink" title="3.6 Boot up"></a>3.6 Boot up</h3><p>You may have to re-plug in the power adapter multiple times, in order to boot up Lebuntu. <strong>Username</strong> and <strong>password</strong> are respectively:</p>
-<ul>
-<li>Username: shunya</li>
-<li>Password: shunya</li>
-</ul>
-<h3 id="Expand-the-Partition"><a href="#Expand-the-Partition" class="headerlink" title="Expand the Partition"></a>Expand the Partition</h3><p>In order to make full use of the partition, we need to resize the file system as:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shunya@hikey970:~$ sudo resize2fs /dev/sdd15</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="PART-C-Waiting-for-HuaWei-HiAI"><a href="#PART-C-Waiting-for-HuaWei-HiAI" class="headerlink" title="PART C: Waiting for HuaWei HiAI"></a>PART C: Waiting for HuaWei HiAI</h1><p><a target="_blank" rel="noopener" href="http://www.longervision.cn/">Longer Vision Technology</a> is waiting for <a target="_blank" rel="noopener" href="https://developer.huawei.com/consumer/en/hiai">HuaWei Developer</a> account activation:</p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/HiSilicon/HuaWei_Developer.jpg" alt="HuaWei Developer Account Activation"></p>
-<p>I may talk about <a href="../../../../../../2018/10/30/SBCs/ARM/huawei-HiSilicon-hikey970-Lebian-TensorFlow/">Lebian with Pre-built Tensorflow</a> some time later.</p>
-<p>So tired these days… Nice dream…</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1505,7 +1444,7 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">155</span>
+          <span class="site-state-item-count">156</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1516,7 +1455,7 @@ Exception has occurred: pandas_datareader.exceptions.ImmediateDeprecationError
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">144</span>
+        <span class="site-state-item-count">145</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

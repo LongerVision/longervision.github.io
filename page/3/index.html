@@ -149,6 +149,167 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2024/07/05/MachineVision/RGBD/RealSense-LiDAR-D43X/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/07/05/MachineVision/RGBD/RealSense-LiDAR-D43X/" class="post-title-link" itemprop="url">Intel RealSense LiDAR Camera D435/D430</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-07-05 00:00:00" itemprop="dateCreated datePublished" datetime="2024-07-05T00:00:00-07:00">2024-07-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-06-03 23:08:38" itemprop="dateModified" datetime="2025-06-03T23:08:38-07:00">2025-06-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Vision/" itemprop="url" rel="index"><span itemprop="name">Machine Vision</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Vision/RGBD/" itemprop="url" rel="index"><span itemprop="name">RGBD</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Today, we’re playing <a target="_blank" rel="noopener" href="https://www.intelrealsense.com/depth-camera-d435/">Intel RealSense Depth Camera D435</a> and<br><a target="_blank" rel="noopener" href="https://www.intelrealsense.com/stereo-depth-modules-and-processors/">Intel RealSense Depth Modules and Processors</a>.</p>
+<h1 id="1-My-Working-Environment"><a href="#1-My-Working-Environment" class="headerlink" title="1. My Working Environment"></a>1. My Working Environment</h1><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ lsb_release -a             </span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID:	Ubuntu</span><br><span class="line">Description:	Ubuntu 24.04 LTS</span><br><span class="line">Release:	24.04</span><br><span class="line">Codename:	noble</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">uname</span> -r                             </span><br><span class="line">6.8.0-36-generic</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-Intel-RealSense"><a href="#2-Intel-RealSense" class="headerlink" title="2. Intel RealSense"></a>2. <a target="_blank" rel="noopener" href="https://www.intelrealsense.com/">Intel RealSense</a></h1><h2 id="2-1-Overview"><a href="#2-1-Overview" class="headerlink" title="2.1 Overview"></a>2.1 Overview</h2><p><a target="_blank" rel="noopener" href="https://www.intelrealsense.com/wp-content/uploads/2019/02/stereo_DT_d435_front-crop1a.png"><img src="https://www.intelrealsense.com/wp-content/uploads/2019/02/stereo_DT_d435_front-crop1a.png" alt="Intel RealSense D435 Frontal"></a></p>
+<h2 id="2-2-Hardware-Specification"><a href="#2-2-Hardware-Specification" class="headerlink" title="2.2 Hardware Specification"></a>2.2 Hardware Specification</h2><p>Refer to <a target="_blank" rel="noopener" href="https://www.intelrealsense.com/download/21345/?tmstv=1697035582">Tech Specs pdf</a>.</p>
+<h1 id="3-lsusb-and-Demonstration"><a href="#3-lsusb-and-Demonstration" class="headerlink" title="3. lsusb and Demonstration"></a>3. <code>lsusb</code> and Demonstration</h1><h2 id="3-1-lsusb"><a href="#3-1-lsusb" class="headerlink" title="3.1 lsusb"></a>3.1 <code>lsusb</code></h2><p>Respectively, I got:</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ lsusb | grep -i RealSense</span><br><span class="line">Bus 010 Device 012: ID 8086:0b07 Intel Corp. RealSense D435</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ lsusb | grep -i RealSense</span><br><span class="line">Bus 010 Device 004: ID 8086:0ad4 Intel Corp. Intel(R) RealSense(TM) Depth Camera 430 </span><br></pre></td></tr></table></figure>
+
+
+<h2 id="3-2-realsense-viewer"><a href="#3-2-realsense-viewer" class="headerlink" title="3.2 realsense-viewer"></a>3.2 <code>realsense-viewer</code></h2><h3 id="3-2-1-Intel-RealSense-Depth-Camera-D435"><a href="#3-2-1-Intel-RealSense-Depth-Camera-D435" class="headerlink" title="3.2.1 Intel RealSense Depth Camera D435"></a>3.2.1 <a target="_blank" rel="noopener" href="https://www.intelrealsense.com/depth-camera-d435/">Intel RealSense Depth Camera D435</a></h3><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$ realsense-viewer</span><br><span class="line"> 05/07 15:16:42,021 INFO [135660990636032] (backend-v4l2.cpp:753) Enumerating UVC video0 <span class="built_in">realpath</span>=/sys/devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:46:00.3/usb10/10-4/10-4:1.0/video4linux/video0</span><br><span class="line"> 05/07 15:16:42,099 INFO [135660990636032] (backend-v4l2.cpp:753) Enumerating UVC video1 <span class="built_in">realpath</span>=/sys/devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:46:00.3/usb10/10-4/10-4:1.0/video4linux/video1</span><br><span class="line"> 05/07 15:16:42,101 INFO [135660990636032] (backend-v4l2.cpp:753) Enumerating UVC video2 <span class="built_in">realpath</span>=/sys/devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:46:00.3/usb10/10-4/10-4:1.0/video4linux/video2</span><br><span class="line"> 05/07 15:16:42,103 INFO [135660990636032] (backend-v4l2.cpp:753) Enumerating UVC video3 <span class="built_in">realpath</span>=/sys/devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:46:00.3/usb10/10-4/10-4:1.0/video4linux/video3</span><br><span class="line"> 05/07 15:16:42,104 INFO [135660990636032] (backend-v4l2.cpp:753) Enumerating UVC video4 <span class="built_in">realpath</span>=/sys/devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:46:00.3/usb10/10-4/10-4:1.3/video4linux/video4</span><br><span class="line"> 05/07 15:16:42,106 INFO [135660990636032] (backend-v4l2.cpp:753) Enumerating UVC video5 <span class="built_in">realpath</span>=/sys/devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:46:00.3/usb10/10-4/10-4:1.3/video4linux/video5</span><br><span class="line"> 05/07 15:16:42,108 INFO [135660990636032] (backend-v4l2.cpp:753) Enumerating UVC video6 <span class="built_in">realpath</span>=/sys/devices/pci0000:00/0000:00:08.1/0000:05:00.3/usb1/1-2/1-2:1.0/video4linux/video6</span><br><span class="line"> 05/07 15:16:42,211 INFO [135660990636032] (backend-v4l2.cpp:753) Enumerating UVC video7 <span class="built_in">realpath</span>=/sys/devices/pci0000:00/0000:00:08.1/0000:05:00.3/usb1/1-2/1-2:1.0/video4linux/video7</span><br><span class="line"> 05/07 15:16:42,498 INFO [135660990636032] (backend-v4l2.cpp:753) Enumerating UVC video0 <span class="built_in">realpath</span>=/sys/devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:46:00.3/usb10/10-4/10-4:1.0/video4linux/video0</span><br><span class="line"> 05/07 15:16:42,499 INFO [135660990636032] (backend-v4l2.cpp:753) Enumerating UVC video1 <span class="built_in">realpath</span>=/sys/devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:46:00.3/usb10/10-4/10-4:1.0/video4linux/video1</span><br><span class="line"> 05/07 15:16:42,500 INFO [135660990636032] (backend-v4l2.cpp:753) Enumerating UVC video2 <span class="built_in">realpath</span>=/sys/devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:46:00.3/usb10/10-4/10-4:1.0/video4linux/video2</span><br><span class="line"> 05/07 15:16:42,501 INFO [135660990636032] (backend-v4l2.cpp:753) Enumerating UVC video3 <span class="built_in">realpath</span>=/sys/devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:46:00.3/usb10/10-4/10-4:1.0/video4linux/video3</span><br><span class="line"> 05/07 15:16:42,502 INFO [135660990636032] (backend-v4l2.cpp:753) Enumerating UVC video4 <span class="built_in">realpath</span>=/sys/devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:46:00.3/usb10/10-4/10-4:1.3/video4linux/video4</span><br><span class="line"> 05/07 15:16:42,503 INFO [135660990636032] (backend-v4l2.cpp:753) Enumerating UVC video5 <span class="built_in">realpath</span>=/sys/devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:46:00.3/usb10/10-4/10-4:1.3/video4linux/video5</span><br><span class="line"> 05/07 15:16:42,504 INFO [135660990636032] (backend-v4l2.cpp:753) Enumerating UVC video6 <span class="built_in">realpath</span>=/sys/devices/pci0000:00/0000:00:08.1/0000:05:00.3/usb1/1-2/1-2:1.0/video4linux/video6</span><br><span class="line"> 05/07 15:16:42,505 INFO [135660990636032] (backend-v4l2.cpp:753) Enumerating UVC video7 <span class="built_in">realpath</span>=/sys/devices/pci0000:00/0000:00:08.1/0000:05:00.3/usb1/1-2/1-2:1.0/video4linux/video7</span><br><span class="line"> 05/07 15:16:42,506 INFO [135660990636032] (context.cpp:116) ... /sys/devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:46:00.3/usb10/10-4/10-4:1.0/video4linux/video0</span><br><span class="line"> 05/07 15:16:42,506 INFO [135660990636032] (context.cpp:116) ... /sys/devices/pci0000:00/0000:00:08.1/0000:05:00.3/usb1/1-2/1-2:1.0/video4linux/video6</span><br><span class="line"> 05/07 15:16:42,506 INFO [135660990636032] (context.cpp:128) Found 2 RealSense devices (0xff requested &amp; 0xff from device-mask <span class="keyword">in</span> settings)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center"><code>realsense-viewer</code> GUI</th>
+<th align="center">Firmware Upgrading from within <code>realsense-viewer</code> GUI</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/Intel/RealSenseD43X/RealSense_Viewer.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/Intel/RealSenseD43X/RealSense_Viewer.png" alt="D435 RealSense Viewer"></a></td>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/MachineVision/Intel/RealSenseD43X/D435_Firmware_Upgrading.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/MachineVision/Intel/RealSenseD43X/D435_Firmware_Upgrading.png" alt="D435 Firmware Upgrading"></a></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">Viewing Depth Image in 2D</th>
+<th align="center">Viewing Depth Image in 3D</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/Intel/RealSenseD43X/D435_Depth_2D.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/Intel/RealSenseD43X/D435_Depth_2D.png" alt="D435 Depth 2D"></a></td>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/Intel/RealSenseD43X/D435_Depth_3D.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/Intel/RealSenseD43X/D435_Depth_3D.png" alt="D435 Depth 3D"></a></td>
+</tr>
+</tbody></table>
+<h3 id="3-2-2-Intel-RealSense-Depth-Modules-and-Processors-D430"><a href="#3-2-2-Intel-RealSense-Depth-Modules-and-Processors-D430" class="headerlink" title="3.2.2 Intel RealSense Depth Modules and Processors D430"></a>3.2.2 <a target="_blank" rel="noopener" href="https://www.intelrealsense.com/stereo-depth-modules-and-processors/">Intel RealSense Depth Modules and Processors</a> D430</h3><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ realsense-viewer  </span><br><span class="line"> 05/07 17:00:55,958 INFO [133348205735936] (backend-v4l2.cpp:753) Enumerating UVC video0 <span class="built_in">realpath</span>=/sys/devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:46:00.3/usb10/10-3/10-3:1.0/video4linux/video0</span><br><span class="line"> 05/07 17:00:56,036 INFO [133348205735936] (backend-v4l2.cpp:753) Enumerating UVC video1 <span class="built_in">realpath</span>=/sys/devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:46:00.3/usb10/10-3/10-3:1.0/video4linux/video1</span><br><span class="line"> 05/07 17:00:56,039 INFO [133348205735936] (backend-v4l2.cpp:753) Enumerating UVC video2 <span class="built_in">realpath</span>=/sys/devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:46:00.3/usb10/10-3/10-3:1.0/video4linux/video2</span><br><span class="line"> 05/07 17:00:56,041 INFO [133348205735936] (backend-v4l2.cpp:753) Enumerating UVC video3 <span class="built_in">realpath</span>=/sys/devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:46:00.3/usb10/10-3/10-3:1.0/video4linux/video3</span><br><span class="line"> 05/07 17:00:56,043 INFO [133348205735936] (backend-v4l2.cpp:753) Enumerating UVC video6 <span class="built_in">realpath</span>=/sys/devices/pci0000:00/0000:00:08.1/0000:05:00.3/usb1/1-2/1-2:1.0/video4linux/video6</span><br><span class="line"> 05/07 17:00:56,146 INFO [133348205735936] (backend-v4l2.cpp:753) Enumerating UVC video7 <span class="built_in">realpath</span>=/sys/devices/pci0000:00/0000:00:08.1/0000:05:00.3/usb1/1-2/1-2:1.0/video4linux/video7</span><br><span class="line"> 05/07 17:00:56,387 INFO [133348205735936] (backend-v4l2.cpp:753) Enumerating UVC video0 <span class="built_in">realpath</span>=/sys/devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:46:00.3/usb10/10-3/10-3:1.0/video4linux/video0</span><br><span class="line"> 05/07 17:00:56,389 INFO [133348205735936] (backend-v4l2.cpp:753) Enumerating UVC video1 <span class="built_in">realpath</span>=/sys/devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:46:00.3/usb10/10-3/10-3:1.0/video4linux/video1</span><br><span class="line"> 05/07 17:00:56,390 INFO [133348205735936] (backend-v4l2.cpp:753) Enumerating UVC video2 <span class="built_in">realpath</span>=/sys/devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:46:00.3/usb10/10-3/10-3:1.0/video4linux/video2</span><br><span class="line"> 05/07 17:00:56,391 INFO [133348205735936] (backend-v4l2.cpp:753) Enumerating UVC video3 <span class="built_in">realpath</span>=/sys/devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:46:00.3/usb10/10-3/10-3:1.0/video4linux/video3</span><br><span class="line"> 05/07 17:00:56,392 INFO [133348205735936] (backend-v4l2.cpp:753) Enumerating UVC video6 <span class="built_in">realpath</span>=/sys/devices/pci0000:00/0000:00:08.1/0000:05:00.3/usb1/1-2/1-2:1.0/video4linux/video6</span><br><span class="line"> 05/07 17:00:56,393 INFO [133348205735936] (backend-v4l2.cpp:753) Enumerating UVC video7 <span class="built_in">realpath</span>=/sys/devices/pci0000:00/0000:00:08.1/0000:05:00.3/usb1/1-2/1-2:1.0/video4linux/video7</span><br><span class="line"> 05/07 17:00:56,394 INFO [133348205735936] (context.cpp:116) ... /sys/devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:46:00.3/usb10/10-3/10-3:1.0/video4linux/video0</span><br><span class="line"> 05/07 17:00:56,394 INFO [133348205735936] (context.cpp:116) ... /sys/devices/pci0000:00/0000:00:08.1/0000:05:00.3/usb1/1-2/1-2:1.0/video4linux/video6</span><br><span class="line"> 05/07 17:00:56,394 INFO [133348205735936] (context.cpp:128) Found 2 RealSense devices (0xff requested &amp; 0xff from device-mask <span class="keyword">in</span> settings)</span><br></pre></td></tr></table></figure>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">D430 Depth Camera 1 - 2D IR Sparse Pattern</th>
+<th align="center">D430 Depth Camera 1 - 3D</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/Intel/RealSenseD43X/D430_1_Depth_2D_SparsePattern.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/Intel/RealSenseD43X/D430_1_Depth_2D_SparsePattern.png" alt="D430 Depth 2D Sparse Pattern"></a></td>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/Intel/RealSenseD43X/D430_1_Depth_3D.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/Intel/RealSenseD43X/D430_1_Depth_3D.png" alt="D430 Depth 3D"></a></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">D430 Depth Camera 2 - 2D IR Sparse Pattern</th>
+<th align="center">D430 Depth Camera 2 - 3D</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/Intel/RealSenseD43X/D430_2_Depth_2D_SparsePattern.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/Intel/RealSenseD43X/D430_2_Depth_2D_SparsePattern.png" alt="D430 Depth 2D Sparse Pattern"></a></td>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/Intel/RealSenseD43X/D430_2_Depth_3D.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/Intel/RealSenseD43X/D430_2_Depth_3D.png" alt="D430 Depth 3D"></a></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">Firmware To Upgrade</th>
+<th align="center">Firmware Upgraded Successfully</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/Intel/RealSenseD43X/D430_Firmware_ToUpgrade.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/Intel/RealSenseD43X/D430_Firmware_ToUpgrade.png" alt="D430 Firmware To Upgrade"></a></td>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/Intel/RealSenseD43X/D430_Firmware_Upgraded_Successfully.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/Intel/RealSenseD43X/D430_Firmware_Upgraded_Successfully.png" alt="D430 Firmware Upgraded Successfully"></a></td>
+</tr>
+</tbody></table>
+<h2 id="3-3-rs-hello-realsense"><a href="#3-3-rs-hello-realsense" class="headerlink" title="3.3 rs-hello-realsense"></a>3.3 <code>rs-hello-realsense</code></h2><div align="center">
+  <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/Intel/RealSenseD43X/rs-hello-realsense.png">
+    <img src="https://raw.githubusercontent.com/LongerVision/Resource/master/MachineVision/Intel/RealSenseD43X/rs-hello-realsense.png" alt="Neofetch Jetson Nano 2G">
+  </a>
+</div>
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2024/07/01/MachineVision/RGBD/Azure-Kinect-DK/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1410,130 +1571,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/12/18/OperatingSystems/LinuxKenerl/riscv/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/18/OperatingSystems/LinuxKenerl/riscv/" class="post-title-link" itemprop="url">RISC-V</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-12-18 22:43:00" itemprop="dateCreated datePublished" datetime="2023-12-18T22:43:00-08:00">2023-12-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-06-03 23:08:38" itemprop="dateModified" datetime="2025-06-03T23:08:38-07:00">2025-06-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Operating-System/" itemprop="url" rel="index"><span itemprop="name">Operating System</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Operating-System/Linux-Kernel/" itemprop="url" rel="index"><span itemprop="name">Linux Kernel</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Today, I would disclose <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/RISC-V">RISC-V</a>. Let’s save my word and dive into it directly. As of today, December 18, 2023, <strong>MOST</strong> of <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/RISC-V">RISC-V</a> chips are designed and manufactured by Chinese companies.</p>
-<h1 id="1-Related-Companies"><a href="#1-Related-Companies" class="headerlink" title="1. Related Companies"></a>1. Related Companies</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://www.andestech.com/">Andes Tech</a> - headquarter in Taiwan</li>
-<li><a target="_blank" rel="noopener" href="https://www.sifive.com/">SiFive</a> - headquarter in Santa Clara, USA</li>
-<li><a target="_blank" rel="noopener" href="https://www.starfivetech.com/">StarFive</a> - headquarter in Shanghai, China</li>
-<li><a target="_blank" rel="noopener" href="https://www.canaan.io/">Canaan</a> - headquarter in Beijing, China</li>
-<li><a target="_blank" rel="noopener" href="https://www.microchip.com/">Microchip</a> - headquarter in Arizona, USA</li>
-<li><a target="_blank" rel="noopener" href="https://www.allwinnertech.com/">All Winner Tech</a> - headquarter in Zhuhai, China</li>
-<li><a target="_blank" rel="noopener" href="https://www.t-head.cn/">T-Head</a> - headquarter in Hangzhou, China. An <a target="_blank" rel="noopener" href="https://www.alibaba.com/">Alibaba</a> company</li>
-</ul>
-<h1 id="2-U-Boot"><a href="#2-U-Boot" class="headerlink" title="2. U-Boot"></a>2. <a target="_blank" rel="noopener" href="https://github.com/u-boot/u-boot">U-Boot</a></h1><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">➜  u-boot git:(master) ✗ <span class="built_in">ls</span> <span class="built_in">arch</span></span><br><span class="line">arc  arm  Kconfig  Kconfig.nxp  m68k  microblaze  mips  nios2  powerpc  riscv  sandbox  sh  u-boot-elf.lds  x86  xtensa</span><br><span class="line">➜  u-boot git:(master) ✗ <span class="built_in">cd</span> <span class="built_in">arch</span>/riscv </span><br><span class="line">➜  riscv git:(master) ✗ <span class="built_in">ls</span> cpu</span><br><span class="line">andesv5     cpu.c  cpu.su  fu740    jh7110    mtrap.o  start.o  u-boot.lds</span><br><span class="line">built-in.o  cpu.o  fu540   generic  Makefile  mtrap.S  start.S  u-boot-spl.lds</span><br><span class="line">➜  riscv git:(master) ✗ <span class="built_in">ls</span> dts</span><br><span class="line">ae350_32.dts                         hifive-unmatched-a00.dts                  mpfs-icicle-kit.dts</span><br><span class="line">ae350_64.dts                         hifive-unmatched-a00-u-boot.dtsi          mpfs-icicle-kit-fabric.dtsi</span><br><span class="line">ae350-u-boot.dtsi                    jh7110.dtsi                               mpfs-icicle-kit-u-boot.dtsi</span><br><span class="line">binman.dtsi                          jh7110-starfive-visionfive-2.dtb          openpiton-riscv64.dts</span><br><span class="line">fu540-c000.dtsi                      jh7110-starfive-visionfive-2.dts          qemu-virt32.dts</span><br><span class="line">fu540-c000-u-boot.dtsi               jh7110-starfive-visionfive-2.dtsi         qemu-virt64.dts</span><br><span class="line">fu540-hifive-unleashed-a00-ddr.dtsi  jh7110-starfive-visionfive-2-u-boot.dtsi  sunxi-d1s-t113.dtsi</span><br><span class="line">fu740-c000.dtsi                      jh7110-u-boot.dtsi                        sunxi-d1-t113.dtsi</span><br><span class="line">fu740-c000-u-boot.dtsi               k210.dtsi                                 th1520.dtsi</span><br><span class="line">fu740-hifive-unmatched-a00-ddr.dtsi  k210-maix-bit.dts                         th1520-lichee-module-4a.dtsi</span><br><span class="line">hifive-unleashed-a00.dts             Makefile                                  th1520-lichee-pi-4a.dts</span><br><span class="line">hifive-unleashed-a00-u-boot.dtsi     mpfs.dtsi</span><br><span class="line">➜  riscv git:(master) ✗ </span><br></pre></td></tr></table></figure>
-
-<h2 id="2-1-CPU"><a href="#2-1-CPU" class="headerlink" title="2.1 CPU"></a>2.1 CPU</h2><p>Let’s simple analyze all 5 folders under subfolder <strong>cpu</strong>.</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.andestech.com/en/2022/07/20/andes-technology-risc-v-processors-reveal-outstanding-performance-and-efficiency-in-mlperf-tiny/">andesv5</a> - designed by <a target="_blank" rel="noopener" href="https://www.andestech.com/">Andes Tech</a></li>
-<li><a target="_blank" rel="noopener" href="https://static.dev.sifive.com/FU540-C000-v1.0.pdf">fu540</a> - designed by <a target="_blank" rel="noopener" href="https://www.sifive.com/">SiFive</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.sifive.com/boards/hifive-unmatched">fu740</a> - designed by <a target="_blank" rel="noopener" href="https://www.sifive.com/">SiFive</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.starfivetech.com/en/site/soc">jh7110</a> - designed by <a target="_blank" rel="noopener" href="https://www.starfivetech.com/">StarFive</a></li>
-<li>generic</li>
-</ul>
-<h2 id="2-2-DTS"><a href="#2-2-DTS" class="headerlink" title="2.2 DTS"></a>2.2 DTS</h2><p>Let’s further analyze all device trees under subfolder <strong>dts</strong>.</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.andestech.com/en/products-solutions/andeshape-platforms/ae350-axi-based-platform-pre-integrated-with-n25f-nx25f-a25-ax25/">ae350</a> - designed by <a target="_blank" rel="noopener" href="https://www.andestech.com/">Andes Tech</a></li>
-<li><a target="_blank" rel="noopener" href="https://static.dev.sifive.com/FU540-C000-v1.0.pdf">fu540</a> - designed by <a target="_blank" rel="noopener" href="https://www.sifive.com/">SiFive</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.sifive.com/boards/hifive-unmatched">fu740</a> - designed by <a target="_blank" rel="noopener" href="https://www.sifive.com/">SiFive</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.sifive.com/boards/hifive1-rev-b">hifive</a> - designed by <a target="_blank" rel="noopener" href="https://www.sifive.com/">SiFive</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.starfivetech.com/en/site/soc">jh7110</a> - designed by <a target="_blank" rel="noopener" href="https://www.starfivetech.com/">StarFive</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.canaan.io/product/kendryteai">k210</a> - designed by <a target="_blank" rel="noopener" href="https://www.canaan.io/">Canaan</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.microchip.com/en-us/products/fpgas-and-plds/system-on-chip-fpgas/polarfire-soc-fpgas">mpfs</a> - designed by <a target="_blank" rel="noopener" href="https://www.microchip.com/">Microchip</a></li>
-<li><a target="_blank" rel="noopener" href="https://parallel.princeton.edu/openpiton/">openpiton</a> - designed by <a target="_blank" rel="noopener" href="https://parallel.princeton.edu/openpiton/">Princeton OpenPiton</a></li>
-<li><a target="_blank" rel="noopener" href="https://linux-sunxi.org/D1">sunxi</a> - designed by <a target="_blank" rel="noopener" href="https://www.allwinnertech.com/">All Winner Tech</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cnx-software.com/2022/10/04/alibaba-t-head-th1520-risc-v-processor-to-power-the-roma-laptop/">th1520</a> - designed by <a target="_blank" rel="noopener" href="https://www.t-head.cn/">T-Head</a>, it’s just <a target="_blank" rel="noopener" href="https://www.t-head.cn/product/c910?lang=en">Xuantie C910</a></li>
-</ul>
-<h1 id="3-Linux-Kernel"><a href="#3-Linux-Kernel" class="headerlink" title="3. Linux Kernel"></a>3. <a target="_blank" rel="noopener" href="https://www.kernel.org/">Linux Kernel</a></h1><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">➜  linux <span class="built_in">ls</span> <span class="built_in">arch</span></span><br><span class="line">alpha  arm    csky     ia64     loongarch  microblaze  nios2     parisc   riscv  sh     um   xtensa</span><br><span class="line">arc    arm64  hexagon  Kconfig  m68k       mips        openrisc  powerpc  s390   sparc  x86</span><br><span class="line">➜  linux <span class="built_in">cd</span> <span class="built_in">arch</span>/riscv </span><br><span class="line">➜  riscv <span class="built_in">ls</span> configs</span><br><span class="line">32-bit.config  defconfig             nommu_k210_sdcard_defconfig  rv32_defconfig</span><br><span class="line">64-bit.config  nommu_k210_defconfig  nommu_virt_defconfig</span><br><span class="line">➜  riscv <span class="built_in">ls</span> boot/dts </span><br><span class="line">allwinner  canaan  Makefile  microchip  renesas  sifive  starfive  thead</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-1-DTS"><a href="#3-1-DTS" class="headerlink" title="3.1 DTS"></a>3.1 DTS</h2><p>Again, let’s analyze all 5 folders under subfolder <strong>dts</strong>.</p>
-<ul>
-<li>allwinner - <a target="_blank" rel="noopener" href="https://www.allwinnertech.com/">All Winner Tech</a></li>
-<li>canaan - <a target="_blank" rel="noopener" href="https://www.canaan.io/">Canaan</a></li>
-<li>microchip - <a target="_blank" rel="noopener" href="https://www.microchip.com/">Microchip</a></li>
-<li>renesas - <a target="_blank" rel="noopener" href="https://www.renesas.com/">Renesas</a></li>
-<li>sifive - <a target="_blank" rel="noopener" href="https://www.sifive.com/">SiFive</a></li>
-<li>starfive - <a target="_blank" rel="noopener" href="https://www.starfivetech.com/">StarFive</a></li>
-<li>thead - <a target="_blank" rel="noopener" href="https://www.t-head.cn/">T-Head</a></li>
-</ul>
-<p>By the way: recent <a target="_blank" rel="noopener" href="https://store-usa.arduino.cc/pages/uno-r4?selectedStore=us">Arduino UNO R4</a> uses a <a target="_blank" rel="noopener" href="https://www.renesas.com/us/en/products/microcontrollers-microprocessors/ra-cortex-m-mcus/ra4m1-32-bit-microcontrollers-48mhz-arm-cortex-m4-and-lcd-controller-and-cap-touch-hmi">Renesas RA4M1</a>, a <strong>32-bit Arm® Cortex®-M4</strong> MCU.</p>
-<p><strong><span style="color:red">Conclusion: MOST of recent RISC-V chips are supported, designed, and manufactured by China.</span></strong></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1603,7 +1640,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">155</span>
+          <span class="site-state-item-count">156</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1614,7 +1651,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">144</span>
+        <span class="site-state-item-count">145</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
