@@ -149,6 +149,135 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/06/20/OperatingSystems/CompilersTools/build-gcc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/20/OperatingSystems/CompilersTools/build-gcc/" class="post-title-link" itemprop="url">Build GCC</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-06-20 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-20T00:00:00-07:00">2019-06-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-06-03 23:08:38" itemprop="dateModified" datetime="2025-06-03T23:08:38-07:00">2025-06-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Operating-System/" itemprop="url" rel="index"><span itemprop="name">Operating System</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Operating-System/Compiler/" itemprop="url" rel="index"><span itemprop="name">Compiler</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Today, let’s try to build the <strong>MOST RECENT</strong> <a target="_blank" rel="noopener" href="https://gcc.gnu.org/gcc-9/">GCC 9.1</a>. We strictly follow the <strong>TERRIFIC</strong> blog <a target="_blank" rel="noopener" href="https://preshing.com/20141119/how-to-build-a-gcc-cross-compiler/">How to Build a GCC Cross-Compiler</a> with trivial modifications for my <strong>x86_64</strong> desktop instead of <strong>aarch64</strong> cross compile.</p>
+<h1 id="Preparations"><a href="#Preparations" class="headerlink" title="Preparations"></a>Preparations</h1><h2 id="Packages-Required-on-HOST"><a href="#Packages-Required-on-HOST" class="headerlink" title="Packages Required on HOST"></a>Packages Required on HOST</h2><p>Some packages are required to install on the host computer, including:</p>
+<ul>
+<li>g++</li>
+<li>make</li>
+<li>gawk</li>
+<li>bison</li>
+<li>flex</li>
+<li>expect</li>
+<li>gnat<br>etc.</li>
+</ul>
+<h2 id="Get-ALL-Packages-for-Building-GCC"><a href="#Get-ALL-Packages-for-Building-GCC" class="headerlink" title="Get ALL Packages for Building GCC"></a>Get ALL Packages for Building GCC</h2><p>A <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/OperatingSystems/wget-list.txt">wget-list.txt</a> file is provided to download <strong>ALL</strong> required packages up-to-date. After having downloaded this single text file, the <strong>UNIQUE</strong> command to download all files is as follows:</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc ✗ wget -i wget-list.txt</span><br></pre></td></tr></table></figure>
+
+<p>You can of course download the files one by one. All concerned files are listed below:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://gnu.freemirror.org/gnu/binutils/binutils-2.32.tar.gz">https://gnu.freemirror.org/gnu/binutils/binutils-2.32.tar.gz</a></li>
+<li><a target="_blank" rel="noopener" href="https://gnu.freemirror.org/gnu//gcc/gcc-9.1.0/gcc-9.1.0.tar.gz">https://gnu.freemirror.org/gnu//gcc/gcc-9.1.0/gcc-9.1.0.tar.gz</a></li>
+<li><a target="_blank" rel="noopener" href="https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-5.1.12.tar.gz">https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-5.1.12.tar.gz</a></li>
+<li><a target="_blank" rel="noopener" href="https://ftp.gnu.org/glibc/glibc-2.29.tar.xz">https://ftp.gnu.org/glibc/glibc-2.29.tar.xz</a></li>
+<li><a target="_blank" rel="noopener" href="https://ftp.gnu.org/mpfr/mpfr-4.0.2.tar.xz">https://ftp.gnu.org/mpfr/mpfr-4.0.2.tar.xz</a></li>
+<li><a target="_blank" rel="noopener" href="https://ftp.gnu.org/gmp/gmp-6.1.2.tar.xz">https://ftp.gnu.org/gmp/gmp-6.1.2.tar.xz</a></li>
+<li><a target="_blank" rel="noopener" href="https://ftp.gnu.org/mpc/mpc-1.1.0.tar.gz">https://ftp.gnu.org/mpc/mpc-1.1.0.tar.gz</a></li>
+<li><a href="ftp://gcc.gnu.org/pub/gcc/infrastructure/isl-0.18.tar.bz2">ftp://gcc.gnu.org/pub/gcc/infrastructure/isl-0.18.tar.bz2</a></li>
+<li><a href="ftp://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz">ftp://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz</a></li>
+</ul>
+<p>Then, we extract all <strong>.tar</strong> files in whatever way you prefer.</p>
+<h2 id="Prepare-Symbolic-Links"><a href="#Prepare-Symbolic-Links" class="headerlink" title="Prepare Symbolic Links"></a>Prepare Symbolic Links</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜  cd gcc-9.1.0</span><br><span class="line">➜  gcc-9.1.0 ln -s ../mpfr-4.0.2 mpfr</span><br><span class="line">➜  gcc-9.1.0 ln -s ../gmp-6.1.2 gmp</span><br><span class="line">➜  gcc-9.1.0 ln -s ../mpc-1.1.0 mpc</span><br><span class="line">➜  gcc-9.1.0 ln -s ../isl-0.18 isl</span><br><span class="line">➜  gcc-9.1.0 ln -s ../cloog-0.18.1 cloog</span><br><span class="line">➜  gcc-9.1.0 cd ..</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Prepare-Build-Target-Folder"><a href="#Prepare-Build-Target-Folder" class="headerlink" title="Prepare Build Target Folder"></a>Prepare Build Target Folder</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc mkdir -p /opt/native</span><br><span class="line">➜  gcc export PATH=/opt/native/bin:$PATH</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="Start-Building"><a href="#Start-Building" class="headerlink" title="Start Building"></a>Start Building</h1><h2 id="Binutils"><a href="#Binutils" class="headerlink" title="Binutils"></a>Binutils</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc mkdir build-binutils</span><br><span class="line">➜  gcc cd build-binutils</span><br><span class="line">➜  build-binutils ../binutils-2.32/configure --prefix=/opt/native --target=x86_64-linux-gnu --enable-vtable-verify</span><br><span class="line">checking build system type... x86_64-pc-linux-gnu</span><br><span class="line">checking host system type... x86_64-pc-linux-gnu</span><br><span class="line">checking target system type... x86_64-pc-linux-gnu</span><br><span class="line">checking for a BSD-compatible install... /usr/bin/install -c</span><br><span class="line">checking whether ln works... yes</span><br><span class="line">checking whether ln -s works... yes</span><br><span class="line">checking for a sed that does not truncate output... /usr/bin/sed</span><br><span class="line">checking for gawk... gawk</span><br><span class="line">checking for gcc... gcc</span><br><span class="line">checking whether the C compiler works... yes</span><br><span class="line">checking for C compiler default output file name... a.out</span><br><span class="line">checking for suffix of executables... </span><br><span class="line">checking whether we are cross compiling... no</span><br><span class="line">checking for suffix of object files... o</span><br><span class="line">checking whether we are using the GNU C compiler... yes</span><br><span class="line">checking whether gcc accepts -g... yes</span><br><span class="line">checking for gcc option to accept ISO C89... none needed</span><br><span class="line">checking for g++... g++</span><br><span class="line">checking whether we are using the GNU C++ compiler... yes</span><br><span class="line">checking whether g++ accepts -g... yes</span><br><span class="line">checking whether g++ accepts -static-libstdc++ -static-libgcc... yes</span><br><span class="line">checking for gnatbind... gnatbind</span><br><span class="line">checking for gnatmake... gnatmake</span><br><span class="line">checking whether compiler driver understands Ada... yes</span><br><span class="line">checking how to compare bootstrapped objects... cmp --ignore-initial=16 $$f1 $$f2</span><br><span class="line">checking for objdir... .libs</span><br><span class="line">checking for isl 0.15 or later... no</span><br><span class="line">required isl version is 0.15 or later</span><br><span class="line">checking for default BUILD_CONFIG... </span><br><span class="line">checking for --enable-vtable-verify... yes</span><br><span class="line">checking for bison... bison -y</span><br><span class="line">checking for bison... bison</span><br><span class="line">checking for gm4... no</span><br><span class="line">checking for gnum4... no</span><br><span class="line">checking for m4... m4</span><br><span class="line">checking for flex... flex</span><br><span class="line">checking for flex... flex</span><br><span class="line">checking for makeinfo... makeinfo</span><br><span class="line">checking for expect... expect</span><br><span class="line">checking for runtest... no</span><br><span class="line">checking for ar... ar</span><br><span class="line">checking for as... as</span><br><span class="line">checking for dlltool... no</span><br><span class="line">checking for ld... ld</span><br><span class="line">checking for lipo... no</span><br><span class="line">checking for nm... nm</span><br><span class="line">checking for ranlib... ranlib</span><br><span class="line">checking for strip... strip</span><br><span class="line">checking for windres... no</span><br><span class="line">checking for windmc... no</span><br><span class="line">checking for objcopy... objcopy</span><br><span class="line">checking for objdump... objdump</span><br><span class="line">checking for readelf... readelf</span><br><span class="line">checking for x86_64-linux-gnu-cc... no</span><br><span class="line">checking for cc... cc</span><br><span class="line">checking for x86_64-linux-gnu-c++... no</span><br><span class="line">checking for c++... c++</span><br><span class="line">checking for x86_64-linux-gnu-gcc... x86_64-linux-gnu-gcc</span><br><span class="line">checking for x86_64-linux-gnu-gfortran... x86_64-linux-gnu-gfortran</span><br><span class="line">checking for x86_64-linux-gnu-gccgo... no</span><br><span class="line">checking for gccgo... no</span><br><span class="line">checking for x86_64-linux-gnu-ar... x86_64-linux-gnu-ar</span><br><span class="line">checking for x86_64-linux-gnu-as... x86_64-linux-gnu-as</span><br><span class="line">checking for x86_64-linux-gnu-dlltool... no</span><br><span class="line">checking for dlltool... no</span><br><span class="line">checking for x86_64-linux-gnu-ld... x86_64-linux-gnu-ld</span><br><span class="line">checking for x86_64-linux-gnu-lipo... no</span><br><span class="line">checking for lipo... no</span><br><span class="line">checking for x86_64-linux-gnu-nm... x86_64-linux-gnu-nm</span><br><span class="line">checking for x86_64-linux-gnu-objcopy... x86_64-linux-gnu-objcopy</span><br><span class="line">checking for x86_64-linux-gnu-objdump... x86_64-linux-gnu-objdump</span><br><span class="line">checking for x86_64-linux-gnu-ranlib... x86_64-linux-gnu-ranlib</span><br><span class="line">checking for x86_64-linux-gnu-readelf... x86_64-linux-gnu-readelf</span><br><span class="line">checking for x86_64-linux-gnu-strip... x86_64-linux-gnu-strip</span><br><span class="line">checking for x86_64-linux-gnu-windres... no</span><br><span class="line">checking for windres... no</span><br><span class="line">checking for x86_64-linux-gnu-windmc... no</span><br><span class="line">checking for windmc... no</span><br><span class="line">checking where to find the target ar... just compiled</span><br><span class="line">checking where to find the target as... just compiled</span><br><span class="line">checking where to find the target cc... host tool</span><br><span class="line">checking where to find the target c++... host tool</span><br><span class="line">checking where to find the target c++ for libstdc++... host tool</span><br><span class="line">checking where to find the target dlltool... just compiled</span><br><span class="line">checking where to find the target gcc... host tool</span><br><span class="line">checking where to find the target gfortran... host tool</span><br><span class="line">checking where to find the target gccgo... host tool</span><br><span class="line">checking where to find the target ld... just compiled</span><br><span class="line">checking where to find the target lipo... host tool</span><br><span class="line">checking where to find the target nm... just compiled</span><br><span class="line">checking where to find the target objcopy... just compiled</span><br><span class="line">checking where to find the target objdump... just compiled</span><br><span class="line">checking where to find the target ranlib... just compiled</span><br><span class="line">checking where to find the target readelf... just compiled</span><br><span class="line">checking where to find the target strip... just compiled</span><br><span class="line">checking where to find the target windres... just compiled</span><br><span class="line">checking where to find the target windmc... just compiled</span><br><span class="line">checking whether to enable maintainer-specific portions of Makefiles... no</span><br><span class="line">configure: creating ./config.status</span><br><span class="line">config.status: creating Makefile</span><br><span class="line">➜  build-binutils make -j4</span><br><span class="line">......</span><br><span class="line">➜  build-binutils make install</span><br><span class="line">➜  build-binutils cd ..</span><br></pre></td></tr></table></figure>
+
+<h2 id="Linux-Kernel-Headers"><a href="#Linux-Kernel-Headers" class="headerlink" title="Linux Kernel Headers"></a>Linux Kernel Headers</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc cd linux-5.1.12</span><br><span class="line">➜  linux-5.1.12 make ARCH=x86 INSTALL_HDR_PATH=/opt/native/linux headers_install</span><br><span class="line">➜  linux-5.1.12 cd ..</span><br></pre></td></tr></table></figure>
+
+<h2 id="C-C-Compilers"><a href="#C-C-Compilers" class="headerlink" title="C&#x2F;C++ Compilers"></a>C&#x2F;C++ Compilers</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc mkdir -p build-gcc</span><br><span class="line">➜  gcc cd build-gcc</span><br><span class="line">➜  build-gcc ../gcc-9.1.0/configure --prefix=/opt/native --target=x86_64-linux-gnu --enable-languages=c,c++,fortran,go --disable-multilib --enable-vtable-verify</span><br><span class="line">➜  build-gcc make -j4 all-gcc</span><br><span class="line">➜  build-gcc make install-gcc</span><br><span class="line">➜  build-gcc cd ..</span><br></pre></td></tr></table></figure>
+
+<h2 id="GLibc"><a href="#GLibc" class="headerlink" title="GLibc"></a>GLibc</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc mkdir -p build-glibc</span><br><span class="line">➜  gcc cd build-glibc</span><br><span class="line">➜  build-glibc ../glibc-2.29/configure --prefix=/opt/native/linux --build=$MACHTYPE --host=x86_64-linux-gnu --target=x86_64-linux-gnu --with-headers=/opt/native/linux/include --disable-multilib --with-selinux=no --enable-vtable-verify libc_cv_forced_unwind=yes</span><br><span class="line">➜  build-glibc make install-bootstrap-headers=yes install-headers</span><br><span class="line">➜  build-glibc make -j4 csu/subdir_lib</span><br><span class="line">➜  build-glibc mkdir /opt/native/linux/lib</span><br><span class="line">➜  build-glibc install csu/crt1.o csu/crti.o csu/crtn.o /opt/native/linux/lib</span><br><span class="line">➜  build-glibc /opt/native/bin/x86_64-linux-gnu-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o /opt/native/linux/lib/libc.so</span><br><span class="line">➜  build-glibc touch /opt/native/linux/include/gnu/stubs.h</span><br><span class="line">➜  build-glibc cd ..</span><br></pre></td></tr></table></figure>
+
+<h2 id="Compiler-Support-Library"><a href="#Compiler-Support-Library" class="headerlink" title="Compiler Support Library"></a>Compiler Support Library</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc cd build-gcc</span><br><span class="line">➜  build-gcc make -j4 all-target-libgcc</span><br><span class="line">➜  build-gcc make install-target-libgcc</span><br><span class="line">➜  build-gcc cd ..</span><br></pre></td></tr></table></figure>
+
+<h2 id="Build-Standard-C-Library"><a href="#Build-Standard-C-Library" class="headerlink" title="Build Standard C Library"></a>Build Standard C Library</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc cd build-glibc</span><br><span class="line">➜  build-glibc make -j4</span><br><span class="line">➜  build-glibc make install</span><br><span class="line">➜  build-glibc cd ..</span><br></pre></td></tr></table></figure>
+
+<h2 id="Build-Standard-C-Library-1"><a href="#Build-Standard-C-Library-1" class="headerlink" title="Build Standard C++ Library"></a>Build Standard C++ Library</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc cd build-gcc</span><br><span class="line">➜  build-gcc make -j4</span><br><span class="line">➜  build-gcc make install</span><br><span class="line">➜  build-gcc cd ..</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="Finishing-and-Test"><a href="#Finishing-and-Test" class="headerlink" title="Finishing and Test"></a>Finishing and Test</h1><h2 id="Check-GCC-Version"><a href="#Check-GCC-Version" class="headerlink" title="Check GCC Version"></a>Check GCC Version</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  build-gcc x86_64-linux-gnu-c++ -v</span><br><span class="line">Using built-in specs.</span><br><span class="line">COLLECT_GCC=x86_64-linux-gnu-c++</span><br><span class="line">COLLECT_LTO_WRAPPER=/opt/native/libexec/gcc/x86_64-linux-gnu/9.1.0/lto-wrapper</span><br><span class="line">Target: x86_64-linux-gnu</span><br><span class="line">Configured with: ../gcc-9.1.0/configure --prefix=/opt/native --target=x86_64-linux-gnu --enable-languages=c,c++,python,fortran,go --disable-multilib --enable-vtable-verify</span><br><span class="line">Thread model: posix</span><br><span class="line">gcc version 9.1.0 (GCC) </span><br></pre></td></tr></table></figure>
+
+<h2 id="Run-Hello-World"><a href="#Run-Hello-World" class="headerlink" title="Run Hello World"></a>Run Hello World</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">➜  GCC cat test.cpp </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">include &lt;iostream&gt;</span></span><br><span class="line"></span><br><span class="line">int main(int argc, char** argv)</span><br><span class="line">&#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;Hello World!&quot; &lt;&lt; std::endl;</span><br><span class="line">    return EXIT_SUCCESS;</span><br><span class="line">&#125;</span><br><span class="line">➜  GCC x86_64-linux-gnu-c++ -std=c++17 test.cpp</span><br><span class="line">➜  GCC x86_64-linux-gnu-c++ -std=c++17 test.cpp -o test</span><br><span class="line">➜  GCC ls</span><br><span class="line">a.out  test  test.cpp</span><br><span class="line">➜  GCC ./test</span><br><span class="line">Hello World!</span><br><span class="line">➜  GCC </span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/06/05/SBCs/ARM/orange-pi-3-official/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1270,93 +1399,6 @@ Please refer to [Armbian docs - How to set fixed IP?](https://docs.armbian.com/U
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/01/22/Finance/time-series-forecasting-with-Facebook-Prophet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/01/22/Finance/time-series-forecasting-with-Facebook-Prophet/" class="post-title-link" itemprop="url">Time Series Forecasting with Facebook Prophet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-01-22 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-22T00:00:00-08:00">2019-01-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-06-03 23:08:38" itemprop="dateModified" datetime="2025-06-03T23:08:38-07:00">2025-06-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Finance/" itemprop="url" rel="index"><span itemprop="name">Finance</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Today, we are going to test out <a target="_blank" rel="noopener" href="https://facebook.github.io/prophet/">Facebook Prophet</a> by following <a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/a-guide-to-time-series-forecasting-with-prophet-in-python-3">this DigitalOcean Tutorial</a>.</p>
-<h1 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h1><h2 id="Required-Python-Packages"><a href="#Required-Python-Packages" class="headerlink" title="Required Python Packages"></a>Required Python Packages</h2><p>We <strong>FIRST</strong> make sure 2 Python packages - <a target="_blank" rel="noopener" href="https://facebook.github.io/prophet/">Prophet</a> and <a target="_blank" rel="noopener" href="https://pystan.readthedocs.io/en/latest/">PyStan</a> have been successfully installed.</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pip show prophet</span><br><span class="line">Name: prophet</span><br><span class="line">Version: 0.1.1</span><br><span class="line">Summary: Microframework for analyzing financial markets.</span><br><span class="line">Home-page: http://prophet.michaelsu.io/</span><br><span class="line">Author: Michael Su</span><br><span class="line">Author-email: mdasu1@gmail.com</span><br><span class="line">License: BSD</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: six, pytz, pandas</span><br><span class="line">Required-by: </span><br><span class="line">➜  ~ pip show pystan</span><br><span class="line">Name: pystan</span><br><span class="line">Version: 2.18.1.0</span><br><span class="line">Summary: Python interface to Stan, a package for Bayesian inference</span><br><span class="line">Home-page: https://github.com/stan-dev/pystan</span><br><span class="line">Author: None</span><br><span class="line">Author-email: None</span><br><span class="line">License: GPLv3</span><br><span class="line">Location: /home/jiapei/.local/lib/python3.6/site-packages</span><br><span class="line">Requires: Cython, numpy</span><br><span class="line">Required-by: fbprophet</span><br></pre></td></tr></table></figure>
-
-<h2 id="Download-the-Time-Series-Data"><a href="#Download-the-Time-Series-Data" class="headerlink" title="Download the Time Series Data"></a>Download the Time Series Data</h2><p>We just need to download the CSV file to some directory:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  facebookprophet curl -O https://assets.digitalocean.com/articles/eng_python/prophet/AirPassengers.csv</span><br><span class="line"><span class="meta prompt_">  % </span><span class="language-bash">Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</span></span><br><span class="line">                                 Dload  Upload   Total   Spent    Left  Speed</span><br><span class="line">100  1748  100  1748    0     0   2281      0 --:--:-- --:--:-- --:--:--  2279</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h1><h2 id="The-Code"><a href="#The-Code" class="headerlink" title="The Code"></a>The Code</h2><p>Trivial modifications have been done upon the code on <a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/a-guide-to-time-series-forecasting-with-prophet-in-python-3">this DigitalOcean Tutorial</a>, as follows:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> fbprophet <span class="keyword">import</span> Prophet</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.style.use(<span class="string">&#x27;fivethirtyeight&#x27;</span>)</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;AirPassengers.csv&#x27;</span>)</span><br><span class="line">df.head(<span class="number">5</span>)</span><br><span class="line">df.dtypes</span><br><span class="line"></span><br><span class="line">df[<span class="string">&#x27;Month&#x27;</span>] = pd.DatetimeIndex(df[<span class="string">&#x27;Month&#x27;</span>])</span><br><span class="line">df.dtypes</span><br><span class="line"></span><br><span class="line">df = df.rename(columns=&#123;<span class="string">&#x27;Month&#x27;</span>: <span class="string">&#x27;ds&#x27;</span>, <span class="string">&#x27;AirPassengers&#x27;</span>: <span class="string">&#x27;y&#x27;</span>&#125;)</span><br><span class="line">df.head(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">ax = df.set_index(<span class="string">&#x27;ds&#x27;</span>).plot(figsize=(<span class="number">12</span>, <span class="number">8</span>))</span><br><span class="line">ax.set_ylabel(<span class="string">&#x27;Monthly Number of Airline Passengers&#x27;</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">&#x27;Date&#x27;</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># set the uncertainty interval to 95% (the Prophet default is 80%)</span></span><br><span class="line">my_model = Prophet(interval_width=<span class="number">0.95</span>)</span><br><span class="line">my_model.fit(df)</span><br><span class="line">future_dates = my_model.make_future_dataframe(periods=<span class="number">36</span>, freq=<span class="string">&#x27;MS&#x27;</span>)</span><br><span class="line">future_dates.tail()</span><br><span class="line">forecast = my_model.predict(future_dates)</span><br><span class="line">forecast[[<span class="string">&#x27;ds&#x27;</span>, <span class="string">&#x27;yhat&#x27;</span>, <span class="string">&#x27;yhat_lower&#x27;</span>, <span class="string">&#x27;yhat_upper&#x27;</span>]].tail()</span><br><span class="line">fig1 = my_model.plot(forecast, uncertainty=<span class="literal">True</span>)</span><br><span class="line">fig1.show()</span><br><span class="line"></span><br><span class="line">my_model.plot_components(forecast).savefig(<span class="string">&#x27;prophet_forcast.png&#x27;</span>);</span><br></pre></td></tr></table></figure>
-
-<h2 id="Outcome"><a href="#Outcome" class="headerlink" title="Outcome"></a>Outcome</h2><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/prophet/01_originaldata.jpg" alt="Original Data"></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/prophet/02_forcast.jpg" alt="Forcast"></p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/finance/prophet/03_forcast_components.jpg" alt="Forcast Component"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1426,7 +1468,7 @@ Please refer to [Armbian docs - How to set fixed IP?](https://docs.armbian.com/U
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">156</span>
+          <span class="site-state-item-count">157</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
