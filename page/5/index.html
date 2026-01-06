@@ -149,6 +149,120 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/12/01/SBCs/MCU/raspberry-pi-pico-rp2040/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/12/01/SBCs/MCU/raspberry-pi-pico-rp2040/" class="post-title-link" itemprop="url">Raspberry Pi Pico RP2040</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-12-01 01:26:30" itemprop="dateCreated datePublished" datetime="2023-12-01T01:26:30-08:00">2023-12-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-06-03 23:08:38" itemprop="dateModified" datetime="2025-06-03T23:08:38-07:00">2025-06-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/raspberry-pi-pico/">Raspberry Pi Pico</a> is a <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Microcontroller">MCU</a>, which adopts <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a>‘s chip <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/rp2040/">RP2040</a>.</p>
+<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h1><h2 id="1-1-lsusb"><a href="#1-1-lsusb" class="headerlink" title="1.1 lsusb"></a>1.1 lsusb</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">Bus 011 Device 021: ID 2e8a:000a Raspberry Pi Pico</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-2-Spec"><a href="#1-2-Spec" class="headerlink" title="1.2 Spec"></a>1.2 Spec</h2><ul>
+<li>All details can be found at <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/documentation/microcontrollers/">Raspberry Pi Documentation Microcontrollers</a>. Particularly:<ul>
+<li>the <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/documentation/microcontrollers/rp2040.html">Chip RP2040</a></li>
+<li>Two types of Picos <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html">Raspberry Pi Pico and Pico W</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="1-3-Github-Source-Code"><a href="#1-3-Github-Source-Code" class="headerlink" title="1.3 Github Source Code"></a>1.3 Github Source Code</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/raspberrypi/pico-sdk">Raspberry Pi Pico SDK</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/raspberrypi/pico-examples">Raspberry Pi Pico SDK Examples</a></li>
+</ul>
+<h1 id="2-Flash-the-Firmware"><a href="#2-Flash-the-Firmware" class="headerlink" title="2. Flash the Firmware"></a>2. Flash the Firmware</h1><h2 id="2-1-Micropython"><a href="#2-1-Micropython" class="headerlink" title="2.1 Micropython"></a>2.1 Micropython</h2><h3 id="2-1-1-How-to"><a href="#2-1-1-How-to" class="headerlink" title="2.1.1 How to?"></a>2.1.1 How to?</h3><p>The official way to flash a <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/raspberry-pi-pico/">Raspberry Pi Pico</a> is just to <strong>drag-and-drop</strong> the <strong>Micropython UF2 file</strong> onto it. Please follow:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a>‘s official documentation <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/documentation/microcontrollers/micropython.html">Flash Raspberry Pi Pico Using MicroPython UF2</a>.</li>
+<li><a target="_blank" rel="noopener" href="https://micropython.org/">MicroPython</a>‘s official download page <a target="_blank" rel="noopener" href="https://micropython.org/download/RPI_PICO/">MicroPython Download RPI_PICO</a></li>
+</ul>
+<h3 id="2-1-2-Demonstration"><a href="#2-1-2-Demonstration" class="headerlink" title="2.1.2 Demonstration"></a>2.1.2 Demonstration</h3><p>By connecting from my Ubuntu desktop using command</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ minicom -b 115200 -o -D /dev/ttyACM0</span><br></pre></td></tr></table></figure>
+
+<p>we can easily connect to <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/raspberry-pi-pico/">Raspberry Pi Pico</a>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Welcome to minicom 2.8</span><br><span class="line"></span><br><span class="line">OPTIONS: I18n </span><br><span class="line">Port /dev/ttyACM0, 02:38:32</span><br><span class="line"></span><br><span class="line">Press CTRL-A Z for help on special keys</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; import os</span><br><span class="line">&gt;&gt;&gt; os.uname()</span><br><span class="line">(sysname=&#x27;rp2&#x27;, nodename=&#x27;rp2&#x27;, release=&#x27;1.21.0&#x27;, version=&#x27;v1.21.0 on 2023-10-06 (GNU 13.2.0 MinSizeRel)&#x27;, machine=&#x27;Raspberry Pi Pico with RP2040&#x27;)</span><br><span class="line">&gt;&gt;&gt; import sys</span><br><span class="line">&gt;&gt;&gt; sys.implementation</span><br><span class="line">(name=&#x27;micropython&#x27;, version=(1, 21, 0), _machine=&#x27;Raspberry Pi Pico with RP2040&#x27;, _mpy=4358)</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="2-2-Arduino"><a href="#2-2-Arduino" class="headerlink" title="2.2 Arduino"></a>2.2 Arduino</h2><h3 id="2-2-1-Using-Arduino-IDE"><a href="#2-2-1-Using-Arduino-IDE" class="headerlink" title="2.2.1 Using Arduino IDE"></a>2.2.1 Using Arduino IDE</h3><p>Since <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/products/raspberry-pi-pico/">Raspberry Pi Pico</a> is an <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Microcontroller">MCU</a>, it is of course able to be connected using the popular <a target="_blank" rel="noopener" href="https://www.arduino.cc/en/software">Arduino IDE</a>.</p>
+<p>I actually strictly follow this blog <a target="_blank" rel="noopener" href="https://randomnerdtutorials.com/programming-raspberry-pi-pico-w-arduino-ide">Programming Raspberry Pi Pico with Arduino IDE</a>.</p>
+<h3 id="2-2-2-Flash-with-BOOTSEL-Pressed"><a href="#2-2-2-Flash-with-BOOTSEL-Pressed" class="headerlink" title="2.2.2 Flash with BOOTSEL Pressed"></a>2.2.2 Flash with BOOTSEL Pressed</h3><p>In my test, no matter <a target="_blank" rel="noopener" href="https://micropython.org/download/RPI_PICO/">MicroPython Download RPI_PICO</a> is <strong>dragged-and-dropped</strong>, or a customized program is <strong>uploaded via Arduino IDE</strong> as in the following picture:</p>
+<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/pico/Arduino_IDE_RaspberryPi_Pico.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/pico/Arduino_IDE_RaspberryPi_Pico.png" alt="Arduino IDE Raspberry Pi Pico"></a></p>
+<p> <span style="color:red;bold">I ALWAYS hold the <strong>BOOTSEL</strong> button.</span></p>
+<h1 id="3-More-to-Talk"><a href="#3-More-to-Talk" class="headerlink" title="3. More to Talk"></a>3. More to Talk</h1><h2 id="3-1-LED-Example-Demo"><a href="#3-1-LED-Example-Demo" class="headerlink" title="3.1 LED Example Demo"></a>3.1 LED Example Demo</h2><iframe width="680" height="1208" src="https://www.youtube.com/embed/PdPgAnwjeyY" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+<h2 id="3-2-Please-Try-Out-Raspberry-Pi-Pico-W-and-Pico-WH-Yourself"><a href="#3-2-Please-Try-Out-Raspberry-Pi-Pico-W-and-Pico-WH-Yourself" class="headerlink" title="3.2 Please Try Out Raspberry Pi Pico W and Pico WH Yourself"></a>3.2 Please Try Out <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html#raspberry-pi-pico-w-and-pico-wh">Raspberry Pi Pico W and Pico WH</a> Yourself</h2><p>Recommended tutorials:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://projects.raspberrypi.org/en/projects/get-started-pico-w">Getting started with your Raspberry Pi Pico W</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2023/11/15/Tools/window-manager/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -394,7 +508,7 @@
 <h2 id="1-2-Spec"><a href="#1-2-Spec" class="headerlink" title="1.2 Spec"></a>1.2 Spec</h2><p>What I purchased is an <a target="_blank" rel="noopener" href="https://store-usa.arduino.cc/products/uno-r4-wifi?selectedStore=us">Arduino UNO R4 WiFi</a>. Detailed specification about it can be found on <a target="_blank" rel="noopener" href="https://docs.arduino.cc/hardware/uno-r4-wifi">Arduino UNO R4 Wifi Doc</a>.</p>
 <h2 id="1-3-Github-Source-Code"><a href="#1-3-Github-Source-Code" class="headerlink" title="1.3 Github Source Code"></a>1.3 Github Source Code</h2><p>Typically, there’s no need to rebuild your project from the ground up. However, when needed, <a target="_blank" rel="noopener" href="https://github.com/arduino/uno-r4-wifi-usb-bridge">Arduino UNO R4 Wifi USB Bridge</a> offers open-source resource that you can utilize as a foundation for further development.</p>
 <h1 id="2-Demonstrate-Arduino-Examples"><a href="#2-Demonstrate-Arduino-Examples" class="headerlink" title="2. Demonstrate Arduino Examples"></a>2. Demonstrate Arduino Examples</h1><h2 id="2-1-Environment-Configuration"><a href="#2-1-Environment-Configuration" class="headerlink" title="2.1 Environment Configuration"></a>2.1 Environment Configuration</h2><ul>
-<li><p><strong>Install Arduino Environment</strong><br>When I tried to run the <a target="_blank" rel="noopener" href="https://github.com/arduino/arduino-examples/blob/main/examples/01.Basics/Blink/Blink.ino">basic example blink</a>, I was asked to install the package <strong><a href="mailto:&#114;&#x65;&#110;&#101;&#115;&#x61;&#x73;&#95;&#117;&#x6e;&#111;&#x40;&#49;&#46;&#48;&#46;&#x35;">renesas_uno@1.0.5</a></strong>, as shown in the Output console of <a target="_blank" rel="noopener" href="https://www.arduino.cc/en/software">Arduino IDE</a>:</p>
+<li><p><strong>Install Arduino Environment</strong><br>When I tried to run the <a target="_blank" rel="noopener" href="https://github.com/arduino/arduino-examples/blob/main/examples/01.Basics/Blink/Blink.ino">basic example blink</a>, I was asked to install the package <strong><a href="mailto:&#x72;&#101;&#x6e;&#x65;&#x73;&#97;&#115;&#95;&#117;&#110;&#x6f;&#64;&#49;&#x2e;&#x30;&#x2e;&#x35;">renesas_uno@1.0.5</a></strong>, as shown in the Output console of <a target="_blank" rel="noopener" href="https://www.arduino.cc/en/software">Arduino IDE</a>:</p>
 <p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Renesas_1.0.5_Output.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Renesas_1.0.5_Output.png" alt="Arduino UNO R4 Wifi Output"></a></p>
 </li>
 </ul>
@@ -412,7 +526,7 @@
 <h1 id="3-Arduino-UNO-R4-WiFi-Examples"><a href="#3-Arduino-UNO-R4-WiFi-Examples" class="headerlink" title="3. Arduino UNO R4 WiFi Examples"></a>3. Arduino UNO R4 WiFi Examples</h1><h2 id="3-1-Wi-Fi-Web-Server"><a href="#3-1-Wi-Fi-Web-Server" class="headerlink" title="3.1 Wi-Fi Web Server"></a>3.1 Wi-Fi Web Server</h2><p>First, let me test the example <strong>Wi-Fi® Web Server</strong> on Arduino official tutorial <a target="_blank" rel="noopener" href="https://docs.arduino.cc/tutorials/uno-r4-wifi/wifi-examples">UNO R4 WiFi Network Examples</a>. The code can be found on <a target="_blank" rel="noopener" href="https://github.com/arduino/ArduinoCore-renesas/blob/main/libraries/WiFiS3/examples/WiFiWebServer/WiFiWebServer.ino">Github Arduino WiFiWebServer</a>. And the following is printed in the Output console of <a target="_blank" rel="noopener" href="https://www.arduino.cc/en/software">Arduino IDE</a>.</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Please upgrade the firmware</span><br><span class="line">Attempting to connect to SSID: TELUSXXXX</span><br><span class="line">SSID: TELUSXXXX</span><br><span class="line">IP Address: 192.168.1.YY</span><br><span class="line">signal strength (RSSI):-52 dBm</span><br></pre></td></tr></table></figure>
 
-<h2 id="3-2-Upgrade-Firmware-of-UNO-R4-Wifi"><a href="#3-2-Upgrade-Firmware-of-UNO-R4-Wifi" class="headerlink" title="3.2 Upgrade Firmware of UNO R4 Wifi"></a>3.2 Upgrade Firmware of UNO R4 Wifi</h2><p>It’s confusing that I received the error message <strong>Please upgrade the firmware</strong>, right after I installed&#x2F;upgraded <strong><a href="mailto:&#114;&#x65;&#110;&#x65;&#115;&#97;&#x73;&#95;&#117;&#x6e;&#x6f;&#x40;&#49;&#46;&#x30;&#46;&#x35;">renesas_uno@1.0.5</a></strong> from within <a target="_blank" rel="noopener" href="https://www.arduino.cc/en/software">Arduino IDE</a>.</p>
+<h2 id="3-2-Upgrade-Firmware-of-UNO-R4-Wifi"><a href="#3-2-Upgrade-Firmware-of-UNO-R4-Wifi" class="headerlink" title="3.2 Upgrade Firmware of UNO R4 Wifi"></a>3.2 Upgrade Firmware of UNO R4 Wifi</h2><p>It’s confusing that I received the error message <strong>Please upgrade the firmware</strong>, right after I installed&#x2F;upgraded <strong><a href="mailto:&#x72;&#101;&#x6e;&#101;&#115;&#x61;&#115;&#x5f;&#117;&#x6e;&#x6f;&#64;&#49;&#46;&#48;&#46;&#53;">renesas_uno@1.0.5</a></strong> from within <a target="_blank" rel="noopener" href="https://www.arduino.cc/en/software">Arduino IDE</a>.</p>
 <p>In the end, I noticed there are 2 main chips on <a target="_blank" rel="noopener" href="https://store-usa.arduino.cc/products/uno-r4-wifi?selectedStore=us">Arduino UNO R4 WiFi</a>, and <strong>renesas</strong>‘s firmware is installed&#x2F;upgraded, but <strong>ESP32</strong>‘s firmware hasn’t yet. Therefore, I proceeded with upgrading <strong>ESP32</strong>‘s firmware by following <a target="_blank" rel="noopener" href="https://docs.arduino.cc/tutorials/uno-r4-wifi/esp32-upload">Arduino UNO R4 WiFi Upload to ESP32</a>.</p>
 <p>Different from <a href="#1-1-lsusb">1.1</a>, by shorting the <strong>download pin</strong> and <strong>GND</strong>, now we have a different <strong>lsusb</strong> result:</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">Bus 011 Device 007: ID 303a:1001 Espressif USB JTAG/serial debug unit</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
@@ -946,85 +1060,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2022/06/19/Coding/HowTo/cmake/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/19/Coding/HowTo/cmake/" class="post-title-link" itemprop="url">CMake</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-06-19 00:00:00" itemprop="dateCreated datePublished" datetime="2022-06-19T00:00:00-07:00">2022-06-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-06-03 23:08:38" itemprop="dateModified" datetime="2025-06-03T23:08:38-07:00">2025-06-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Coding/HowTo/" itemprop="url" rel="index"><span itemprop="name">HowTo</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="1-CMake-External-From-Git"><a href="#1-CMake-External-From-Git" class="headerlink" title="1. CMake External From Git"></a>1. CMake External From Git</h2><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/38006584/how-to-clone-and-integrate-external-from-git-cmake-project-into-local-one">How to clone and integrate external (from git) cmake project into local one
-</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1094,7 +1129,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">158</span>
+          <span class="site-state-item-count">159</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1132,7 +1167,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
