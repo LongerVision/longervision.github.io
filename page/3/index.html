@@ -149,6 +149,130 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2024/07/25/OperatingSystems/RaspberryPi/OctoPrint/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/07/25/OperatingSystems/RaspberryPi/OctoPrint/" class="post-title-link" itemprop="url">OctoPrint on A Raspberry Pi</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-07-25 10:14:18" itemprop="dateCreated datePublished" datetime="2024-07-25T10:14:18-07:00">2024-07-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-06-03 23:08:38" itemprop="dateModified" datetime="2025-06-03T23:08:38-07:00">2025-06-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Operating-System/" itemprop="url" rel="index"><span itemprop="name">Operating System</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Operating-System/Raspberry-Pi/" itemprop="url" rel="index"><span itemprop="name">Raspberry Pi</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Finally, I got some time for <a target="_blank" rel="noopener" href="https://octoprint.org/">OctoPrint</a>, another specific operating system for <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a>, as <a target="_blank" rel="noopener" href="https://www.home-assistant.io/">Home Assistant</a> talked in my previous blog <a target="_blank" rel="noopener" href="https://longervision.github.io/2024/2024/05/30/OperatingSystems/OSForRaspberryPi/home-assistant/">Home Assistant on A Raspberry Pi</a>.</p>
+<h1 id="1-Overview"><a href="#1-Overview" class="headerlink" title="1. Overview"></a>1. Overview</h1><h2 id="1-1-What-is-OctoPrint"><a href="#1-1-What-is-OctoPrint" class="headerlink" title="1.1 What is OctoPrint?"></a>1.1 What is <a target="_blank" rel="noopener" href="https://octoprint.org/">OctoPrint</a>?</h2><p>From its official website, clearly, <a target="_blank" rel="noopener" href="https://octoprint.org/">OctoPrint</a> is an operating system for <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/3D_printing">3D Printing</a>. Its capabilities can be extended to other manufacturing fields. Specifically, <a target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a> will work on a <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a>.</p>
+<h2 id="1-2-Flash-OctoPi-Onto-Raspberry-Pi"><a href="#1-2-Flash-OctoPi-Onto-Raspberry-Pi" class="headerlink" title="1.2 Flash OctoPi Onto Raspberry Pi"></a>1.2 Flash <a target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a> Onto <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a></h2><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">sudo</span> <span class="built_in">dd</span> <span class="keyword">if</span>=./octopi-1.0.0-1.10.2-20240618101629.img of=/dev/sdb bs=1M status=progress conv=fsync </span><br><span class="line">[<span class="built_in">sudo</span>] password <span class="keyword">for</span> lvision: </span><br><span class="line">2357198848 bytes (2.4 GB, 2.2 GiB) copied, 2 s, 1.2 GB/s2906653696 bytes (2.9 GB, 2.7 GiB) copied, 2.4707 s, 1.2 GB/s</span><br><span class="line"></span><br><span class="line">2772+1 records <span class="keyword">in</span></span><br><span class="line">2772+1 records out</span><br><span class="line">2906653696 bytes (2.9 GB, 2.7 GiB) copied, 248.633 s, 11.7 MB/s</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="2-ssh-Into-OctoPi"><a href="#2-ssh-Into-OctoPi" class="headerlink" title="2. ssh Into OctoPi"></a>2. <code>ssh</code> Into <a target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a></h1><h2 id="2-1-FIRST-Login"><a href="#2-1-FIRST-Login" class="headerlink" title="2.1 FIRST Login"></a>2.1 FIRST Login</h2><p>You got to login <a target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a> locally for the <strong>FIRST</strong> time, instead of remotely, for the <a target="_blank" rel="noopener" href="https://networkmanager.dev/">NetworkManager</a> service is <strong>NOT</strong> started by default. Namely, there is <strong>NO</strong> Wi-Fi by default. Well, you can <strong>ALWAYS</strong> use the wired connection of course.</p>
+<h3 id="2-1-1-Start-NetworkManager-Whenever-Reboot"><a href="#2-1-1-Start-NetworkManager-Whenever-Reboot" class="headerlink" title="2.1.1 Start NetworkManager Whenever Reboot"></a>2.1.1 Start <a target="_blank" rel="noopener" href="https://networkmanager.dev/">NetworkManager</a> Whenever Reboot</h3><p>Use the following commands:</p>
+<ul>
+<li><code>sudo systemctl status NetworkManager</code></li>
+<li><code>sudo systemctl enable NetworkManager</code></li>
+<li><code>sudo systemctl start NetworkManager</code></li>
+<li><code>sudo systemctl status NetworkManager</code> for double check</li>
+<li><code>sudo reboot reboot to ensure NetworkManager</code> is started by default</li>
+<li><code>sudo systemctl status NetworkManager</code> check again</li>
+</ul>
+<h3 id="2-1-2-nmcli-to-Set-Up-Wi-Fi"><a href="#2-1-2-nmcli-to-Set-Up-Wi-Fi" class="headerlink" title="2.1.2 nmcli to Set Up Wi-Fi"></a>2.1.2 <a target="_blank" rel="noopener" href="https://networkmanager.dev/docs/api/latest/nmcli.html">nmcli</a> to Set Up Wi-Fi</h3><p>Use the following commands:</p>
+<ul>
+<li><code>nmcli dev wifi list</code></li>
+<li><code>nmcli dev wifi connect NetworkName password WiFiPassword</code> (You don’t need to quote or double-quote <strong>NetworkName</strong> or <strong>WiFiPassword</strong>)</li>
+</ul>
+<p>Now, you’re good to go.</p>
+<h2 id="2-2-ssh-Into-OctoPi-Via-Wi-Fi-Connection"><a href="#2-2-ssh-Into-OctoPi-Via-Wi-Fi-Connection" class="headerlink" title="2.2 ssh Into OctoPi Via Wi-Fi Connection"></a>2.2 <code>ssh</code> Into <a target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a> Via Wi-Fi Connection</h2><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">$ ssh lvision@192.168.1.76</span><br><span class="line">lvision@192.168.1.76<span class="string">&#x27;s password: </span></span><br><span class="line"><span class="string">Linux octopi 6.1.21-v7+ #1642 SMP Mon Apr  3 17:20:52 BST 2023 armv7l</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">The programs included with the Debian GNU/Linux system are free software;</span></span><br><span class="line"><span class="string">the exact distribution terms for each program are described in the</span></span><br><span class="line"><span class="string">individual files in /usr/share/doc/*/copyright.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent</span></span><br><span class="line"><span class="string">permitted by applicable law.</span></span><br><span class="line"><span class="string">Last login: Thu Jul 25 20:23:51 2024 from 192.168.1.1</span></span><br><span class="line"><span class="string">➜  ~ neofetch</span></span><br><span class="line"><span class="string">  `.::///+:/-.        --///+//-:``    lvision@octopi </span></span><br><span class="line"><span class="string"> `+oooooooooooo:   `+oooooooooooo:    -------------- </span></span><br><span class="line"><span class="string">  /oooo++//ooooo:  ooooo+//+ooooo.    OS: Raspbian GNU/Linux 11 (bullseye) armv7l </span></span><br><span class="line"><span class="string">  `+ooooooo:-:oo-  +o+::/ooooooo:     Host: Raspberry Pi 3 Model B Rev 1.2 </span></span><br><span class="line"><span class="string">   `:oooooooo+``    `.oooooooo+-      Kernel: 6.1.21-v7+ </span></span><br><span class="line"><span class="string">     `:++ooo/.        :+ooo+/.`       Uptime: 5 mins </span></span><br><span class="line"><span class="string">        ...`  `.----.` ``..           Packages: 816 (dpkg) </span></span><br><span class="line"><span class="string">     .::::-``:::::::::.`-:::-`        Shell: zsh 5.8 </span></span><br><span class="line"><span class="string">    -:::-`   .:::::::-`  `-:::-       Terminal: /dev/pts/0 </span></span><br><span class="line"><span class="string">   `::.  `.--.`  `` `.---.``.::`      CPU: BCM2835 (4) @ 1.200GHz </span></span><br><span class="line"><span class="string">       .::::::::`  -::::::::` `       Memory: 111MiB / 870MiB </span></span><br><span class="line"><span class="string"> .::` .:::::::::- `::::::::::``::.</span></span><br><span class="line"><span class="string">-:::` ::::::::::.  ::::::::::.`:::-                           </span></span><br><span class="line"><span class="string">::::  -::::::::.   `-::::::::  ::::                           </span></span><br><span class="line"><span class="string">-::-   .-:::-.``....``.-::-.   -::-</span></span><br><span class="line"><span class="string"> .. ``       .::::::::.     `..`..</span></span><br><span class="line"><span class="string">   -:::-`   -::::::::::`  .:::::`</span></span><br><span class="line"><span class="string">   :::::::` -::::::::::` :::::::.</span></span><br><span class="line"><span class="string">   .:::::::  -::::::::. ::::::::</span></span><br><span class="line"><span class="string">    `-:::::`   ..--.`   ::::::.</span></span><br><span class="line"><span class="string">      `...`  `...--..`  `...`</span></span><br><span class="line"><span class="string">            .::::::::::</span></span><br><span class="line"><span class="string">             `.-::::-`</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="3-OctoPrint-on-OctoPi"><a href="#3-OctoPrint-on-OctoPi" class="headerlink" title="3. OctoPrint on OctoPi"></a>3. <a target="_blank" rel="noopener" href="https://octoprint.org/">OctoPrint</a> on <a target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a></h1><table>
+<thead>
+<tr>
+<th align="center">octopi.local Setup Wizard</th>
+<th align="center"><a target="_blank" rel="noopener" href="https://octoprint.org/">OctoPrint</a> 3D Printer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OctoPi/OctoPrint_octopi.local.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OctoPi/OctoPrint_octopi.local.png" alt="OctoPrint"></a></td>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OctoPi/OctoPrint_3DPrinter.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OctoPi/OctoPrint_3DPrinter.png" alt="OctoPi"></a></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center"><a target="_blank" rel="noopener" href="https://octoprint.org/">OctoPrint</a> Server Reload</th>
+<th align="center"><a target="_blank" rel="noopener" href="https://octoprint.org/">OctoPrint</a> Webcam</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OctoPi/OctoPrint_ServerReload.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OctoPi/OctoPrint_ServerReload.png" alt="OctoPrint Server Reload"></a></td>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OctoPi/OctoPrint_Webcam.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/OctoPi/OctoPrint_Webcam.png" alt="OctoPrint Webcam"></a></td>
+</tr>
+</tbody></table>
+<h1 id="4-LaserGRBL-and-LightBurn"><a href="#4-LaserGRBL-and-LightBurn" class="headerlink" title="4. LaserGRBL and LightBurn"></a>4. <a target="_blank" rel="noopener" href="https://lasergrbl.com/">LaserGRBL</a> and <a target="_blank" rel="noopener" href="https://lightburnsoftware.com/">LightBurn</a></h1>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2024/07/08/MachineVision/RGBD/Kinect-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1904,92 +2028,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2024/01/24/Coding/HowTo/qt5-assimp/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/01/24/Coding/HowTo/qt5-assimp/" class="post-title-link" itemprop="url">How to build Qt5 with assimp?</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-01-24 00:00:00" itemprop="dateCreated datePublished" datetime="2024-01-24T00:00:00-08:00">2024-01-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-06-03 23:08:38" itemprop="dateModified" datetime="2025-06-03T23:08:38-07:00">2025-06-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Coding/HowTo/" itemprop="url" rel="index"><span itemprop="name">HowTo</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="1-Symptom"><a href="#1-Symptom" class="headerlink" title="1. Symptom"></a>1. Symptom</h2><p>When I tried to build <a target="_blank" rel="noopener" href="https://download.qt.io/official_releases/qt/5.15/">qt 5.15</a>, I <strong>always</strong> obtain the following <strong>ERROR</strong> message:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Project ERROR: Library &#x27;assimp&#x27; is not defined.</span><br><span class="line">make[4]: *** [Makefile:85: sub-assimp-install_subtargets] Error 3</span><br><span class="line">make[4]: Leaving directory &#x27;/opt/qt/qt-everywhere-src-5.15.12/qtquick3d/src/plugins/assetimporters&#x27;</span><br><span class="line">make[3]: *** [Makefile:59: sub-assetimporters-install_subtargets] Error 2</span><br><span class="line">make[3]: Leaving directory &#x27;/opt/qt/qt-everywhere-src-5.15.12/qtquick3d/src/plugins&#x27;</span><br><span class="line">make[2]: *** [Makefile:206: sub-plugins-install_subtargets-ordered] Error 2</span><br><span class="line">make[2]: Leaving directory &#x27;/opt/qt/qt-everywhere-src-5.15.12/qtquick3d/src&#x27;</span><br><span class="line">make[1]: *** [Makefile:62: sub-src-install_subtargets] Error 2</span><br><span class="line">make[1]: Leaving directory &#x27;/opt/qt/qt-everywhere-src-5.15.12/qtquick3d&#x27;</span><br><span class="line">make: *** [Makefile:378: module-qtquick3d-install_subtargets] Error 2</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="2-Reason"><a href="#2-Reason" class="headerlink" title="2. Reason"></a>2. Reason</h2><p>Why? Please refer to <a target="_blank" rel="noopener" href="https://blog.csdn.net/Taozi825232603/article/details/132220891">QT5.15在Ubuntu22.04上编译流程</a>.</p>
-<h2 id="3-Solution"><a href="#3-Solution" class="headerlink" title="3. Solution"></a>3. Solution</h2><ul>
-<li>Modify <strong>line 13</strong> of <code>/opt/qt/qt-everywhere-src-5.15.12/qtquick3d/src/plugins/assetimporters/assimp/assimp.pro</code> from <code>QMAKE_USE_PRIVATE += assimp</code> to <code>QMAKE_USE_PRIVATE += quick3d-assimp</code>.</li>
-<li>Don’t use <strong>assimp-5.2.2</strong> from Ubuntu default repo, but build and install <a target="_blank" rel="noopener" href="https://github.com/assimp/assimp.git">assimp</a> (5.2.3 or above) from source.</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2059,7 +2097,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">158</span>
+          <span class="site-state-item-count">159</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -2097,7 +2135,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
