@@ -149,6 +149,177 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2024/07/27/OperatingSystems/RaspberryPi/libreELEC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/07/27/OperatingSystems/RaspberryPi/libreELEC/" class="post-title-link" itemprop="url">libreELEC on A Raspberry Pi</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-07-27 10:14:18" itemprop="dateCreated datePublished" datetime="2024-07-27T10:14:18-07:00">2024-07-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-06-03 23:08:38" itemprop="dateModified" datetime="2025-06-03T23:08:38-07:00">2025-06-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Operating-System/" itemprop="url" rel="index"><span itemprop="name">Operating System</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Operating-System/Raspberry-Pi/" itemprop="url" rel="index"><span itemprop="name">Raspberry Pi</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Try a media center on a <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a>.</p>
+<h1 id="1-Overview"><a href="#1-Overview" class="headerlink" title="1. Overview"></a>1. Overview</h1><h2 id="1-1-What-is-LibreELEC-What-is-Kodi"><a href="#1-1-What-is-LibreELEC-What-is-Kodi" class="headerlink" title="1.1 What is LibreELEC? What is Kodi?"></a>1.1 What is <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a>? What is <a target="_blank" rel="noopener" href="https://kodi.tv/">Kodi</a>?</h2><ul>
+<li>What is <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a>? Directly cited from <a target="_blank" rel="noopener" href="https://wiki.libreelec.tv/">LibreELEC Wiki</a>: <code>LibreELEC is a minimalist &#39;Just enough OS&#39; Linux distribution for running Kodi</code>.</li>
+<li>What is <a target="_blank" rel="noopener" href="https://kodi.tv/">Kodi</a>? Directly cited from <a target="_blank" rel="noopener" href="https://kodi.tv/about/">About Kodi</a>: <code>Kodi is an award-winning free and open source (GPL) software media player and entertainment hub that can be installed on Linux, OSX, Windows, iOS, tvOS and Android. It is designed around a &quot;10-foot user interface&quot; for use with televisions and remote controls</code>.</li>
+</ul>
+<h2 id="1-2-Flash-LibreELEC-Onto-Raspberry-Pi"><a href="#1-2-Flash-LibreELEC-Onto-Raspberry-Pi" class="headerlink" title="1.2 Flash LibreELEC Onto Raspberry Pi"></a>1.2 Flash <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Onto <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a></h2><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">sudo</span> <span class="built_in">dd</span> <span class="keyword">if</span>=./LibreELEC-RPi4.aarch64-12.0.0.img of=/dev/sdb bs=1M status=progress conv=fsync</span><br><span class="line">[<span class="built_in">sudo</span>] password <span class="keyword">for</span> lvision: </span><br><span class="line">549+0 records <span class="keyword">in</span></span><br><span class="line">549+0 records out</span><br><span class="line">575668224 bytes (576 MB, 549 MiB) copied, 68.3918 s, 8.4 MB/s</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="2-Demonstration"><a href="#2-Demonstration" class="headerlink" title="2. Demonstration"></a>2. Demonstration</h1><h2 id="2-1-First-View"><a href="#2-1-First-View" class="headerlink" title="2.1 First View"></a>2.1 First View</h2><p>You’ll be automatically led to the following two pages after direct reboot. The <strong>ONLY</strong> thing you need to do is to connect your <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a> (already installed with <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a>) with HDMI cable and connect to your <strong>Smart TV</strong>.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Welcome</th>
+<th align="center"><a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> <a target="_blank" rel="noopener" href="https://kodi.tv/">Kodi</a></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/01_Welcome.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/01_Welcome.jpg" alt="LibreELEC Welcome"></a></td>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/02_Kodi.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/02_Kodi.jpg" alt="LibreELEC Kodi"></a></td>
+</tr>
+</tbody></table>
+<h2 id="2-2-Enable-SSH-and-Allow-HTTP"><a href="#2-2-Enable-SSH-and-Allow-HTTP" class="headerlink" title="2.2 Enable SSH and Allow HTTP"></a>2.2 Enable SSH and Allow HTTP</h2><p>Same as <a target="_blank" rel="noopener" href="https://github.com/OctoPrint/OctoPi-UpToDate">OctoPi</a> discussed in my previous blog <a href="../../../../../../2024/07/25/OperatingSystems/RaspberryPi/OctoPrint/">OctoPrint on A Raspberry Pi</a>, <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a>‘s Wi-Fi is <strong>NOT</strong> started by default. Therefore, we’ll have to access <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> via Wired connection for the <strong>FIRST</strong> time.</p>
+<p>In fact, you’ll even have to enable <strong>SSH</strong> from within <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> smart TV configuration before you’re able to <strong>SSH</strong> into <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> on the <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a>. Better allow <strong>HTTP</strong> at the same time. As follows:</p>
+<table>
+<thead>
+<tr>
+<th align="center"><a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Enable SSH</th>
+<th align="center"><a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Allow HTTP</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/03_EnableSSH.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/03_EnableSSH.jpg" alt="LibreELEC Enable SSH"></a></td>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/04_AllowHTTP.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/04_AllowHTTP.jpg" alt="LibreELEC Allow HTTP"></a></td>
+</tr>
+</tbody></table>
+<h2 id="2-3-ssh-Into-LibreELEC-via-Wired-Connection"><a href="#2-3-ssh-Into-LibreELEC-via-Wired-Connection" class="headerlink" title="2.3 ssh Into LibreELEC via Wired Connection"></a>2.3 <code>ssh</code> Into <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> via Wired Connection</h2><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ ssh root@192.168.1.75</span><br><span class="line">root@192.168.1.75<span class="string">&#x27;s password: </span></span><br><span class="line"><span class="string">##############################################</span></span><br><span class="line"><span class="string">#                 LibreELEC                  #</span></span><br><span class="line"><span class="string">#            https://libreelec.tv            #</span></span><br><span class="line"><span class="string">##############################################</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">LibreELEC (official): 12.0.0 (RPi4.aarch64)</span></span><br></pre></td></tr></table></figure>
+
+<p>Now, you’re able to <strong>SSH</strong> into <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> through <strong>Wired Connection</strong>.</p>
+<h2 id="2-4-View-LibreELEC-Over-HTTP"><a href="#2-4-View-LibreELEC-Over-HTTP" class="headerlink" title="2.4 View LibreELEC Over HTTP"></a>2.4 View <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Over HTTP</h2><p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/09_Web.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/09_Web.png" alt="LibreELEC Web"></a></p>
+<p>And, you’re able to browse content of <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> via <strong>HTTP</strong> remotely.</p>
+<h2 id="2-5-Configure-Wi-Fi"><a href="#2-5-Configure-Wi-Fi" class="headerlink" title="2.5 Configure Wi-Fi"></a>2.5 Configure Wi-Fi</h2><p>You’ll have to use the command <a target="_blank" rel="noopener" href="https://manpages.debian.org/testing/connman/connmanctl.1.en.html">connmanctl</a>.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><a target="_blank" rel="noopener" href="https://manpages.debian.org/testing/connman/connmanctl.1.en.html">connmanctl</a> How?</th>
+<th align="center"><a target="_blank" rel="noopener" href="https://manpages.debian.org/testing/connman/connmanctl.1.en.html">connmanctl</a> Outcome</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/07_connmanctl.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/07_connmanctl.png" alt="connmanctl How?"></a></td>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/08_connmanctl_services_outcome.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/08_connmanctl_services_outcome.png" alt="connmanctl Outcome"></a></td>
+</tr>
+</tbody></table>
+<h3 id="2-5-1-Passphrase-is-Just-Your-Wifi-Password"><a href="#2-5-1-Passphrase-is-Just-Your-Wifi-Password" class="headerlink" title="2.5.1 Passphrase is Just Your Wifi Password!!"></a>2.5.1 Passphrase is Just Your Wifi Password!!</h3><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">connmanctl&gt; connect wifi_&lt;my_network_service_id&gt;</span><br><span class="line">Agent RequestInput wifi_&lt;my_network_service_id&gt;</span><br><span class="line">  Passphrase = [ Type=psk, Requirement=mandatory ]</span><br><span class="line">Passphrase? </span><br></pre></td></tr></table></figure>
+
+<p>When you meet the above question (<strong>Passphrase</strong>?), please input your Wifi password.</p>
+<h3 id="2-5-2-Important-Commands"><a href="#2-5-2-Important-Commands" class="headerlink" title="2.5.2 Important Commands"></a>2.5.2 Important Commands</h3><p>You may use the following commands from time to time during Wifi configuration.</p>
+<ul>
+<li><code>systemctl status connman</code></li>
+<li><code>systemctl restart connman</code></li>
+<li><code>journalctl -u connman</code></li>
+<li><code>connmanctl state</code></li>
+<li><code>connmanctl services</code></li>
+<li>etc.</li>
+</ul>
+<h3 id="2-5-3-LibreELEC-Configuration"><a href="#2-5-3-LibreELEC-Configuration" class="headerlink" title="2.5.3 LibreELEC Configuration"></a>2.5.3 <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Configuration</h3><p>And, you should be able to doublecheck your Wifi configuration via <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Configuration as:</p>
+<table>
+<thead>
+<tr>
+<th align="center"><a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Configuration</th>
+<th align="center">Connections Wifi</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/05_LibreELEC_Configuration.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/05_LibreELEC_Configuration.jpg" alt="LibreELEC Configuration"></a></td>
+<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/06_Connections_WiFi.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/ti/raspberrypi/libreELEC/06_Connections_WiFi.jpg" alt="Connections Wifi"></a></td>
+</tr>
+</tbody></table>
+<p>Now, you’re good to go. You can put your videos, pictures, etc. under respective folder of <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> as a real media center.</p>
+<h1 id="3-Upgrade-LibreELEC"><a href="#3-Upgrade-LibreELEC" class="headerlink" title="3. Upgrade LibreELEC"></a>3. Upgrade <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a></h1><h2 id="3-1-Check-Current-Version"><a href="#3-1-Check-Current-Version" class="headerlink" title="3.1 Check Current Version"></a>3.1 Check Current Version</h2><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">LibreELEC:~ <span class="comment"># cat /etc/os-release</span></span><br><span class="line">NAME=<span class="string">&quot;LibreELEC&quot;</span></span><br><span class="line">VERSION=<span class="string">&quot;12.0.0&quot;</span></span><br><span class="line">ID=<span class="string">&quot;libreelec&quot;</span></span><br><span class="line">VERSION_ID=<span class="string">&quot;12.0&quot;</span></span><br><span class="line">PRETTY_NAME=<span class="string">&quot;LibreELEC (official): 12.0.0&quot;</span></span><br><span class="line">HOME_URL=<span class="string">&quot;https://libreelec.tv&quot;</span></span><br><span class="line">BUG_REPORT_URL=<span class="string">&quot;https://github.com/LibreELEC/LibreELEC.tv&quot;</span></span><br><span class="line">BUILD_ID=<span class="string">&quot;451387894ba86fd65079fcba21f5b30392f6435d&quot;</span></span><br><span class="line">LIBREELEC_ARCH=<span class="string">&quot;RPi4.aarch64&quot;</span></span><br><span class="line">LIBREELEC_BUILD=<span class="string">&quot;official&quot;</span></span><br><span class="line">LIBREELEC_PROJECT=<span class="string">&quot;RPi&quot;</span></span><br><span class="line">LIBREELEC_DEVICE=<span class="string">&quot;RPi4&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-2-LibreELEC-For-Raspberry-Pi-4"><a href="#3-2-LibreELEC-For-Raspberry-Pi-4" class="headerlink" title="3.2 LibreELEC For Raspberry Pi 4"></a>3.2 <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> For <a target="_blank" rel="noopener" href="https://www.raspberrypi.com/">Raspberry Pi</a> 4</h2><h3 id="3-2-1-Two-Source-of-LibreELEC-Builds"><a href="#3-2-1-Two-Source-of-LibreELEC-Builds" class="headerlink" title="3.2.1 Two Source of LibreELEC Builds"></a>3.2.1 Two Source of <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> Builds</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://libreelec.tv/downloads/raspberry/">LibreELEC Raspberry Official Release</a></li>
+<li><a target="_blank" rel="noopener" href="https://test.libreelec.tv/">LibreELEC Nighly Build</a></li>
+</ul>
+<p>I’ll upgrade my current <a target="_blank" rel="noopener" href="https://libreelec.tv/">LibreELEC</a> from <strong>12.0.0</strong> to <strong>12.0.1</strong>.</p>
+<h3 id="3-2-2-Upgrade"><a href="#3-2-2-Upgrade" class="headerlink" title="3.2.2 Upgrade"></a>3.2.2 Upgrade</h3><p>The <strong><span style="color:red">ONLY</span></strong> thing you need to do is to put <a target="_blank" rel="noopener" href="https://releases.libreelec.tv/LibreELEC-RPi4.aarch64-12.0.1.img.gz">LibreELEC-RPi4.aarch64-12.0.1.img.gz</a> under folder <code>/storage/.update</code>. And then, reboot.</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ssh root@192.168.1.74</span><br><span class="line">root@192.168.1.74<span class="string">&#x27;s password: </span></span><br><span class="line"><span class="string">##############################################</span></span><br><span class="line"><span class="string">#                 LibreELEC                  #</span></span><br><span class="line"><span class="string">#            https://libreelec.tv            #</span></span><br><span class="line"><span class="string">##############################################</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">LibreELEC (official): 12.0.1 (RPi4.aarch64)</span></span><br></pre></td></tr></table></figure>
+
+<p>and</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">LibreELEC:~ <span class="comment"># cat /etc/os-release </span></span><br><span class="line">NAME=<span class="string">&quot;LibreELEC&quot;</span></span><br><span class="line">VERSION=<span class="string">&quot;12.0.1&quot;</span></span><br><span class="line">ID=<span class="string">&quot;libreelec&quot;</span></span><br><span class="line">VERSION_ID=<span class="string">&quot;12.0&quot;</span></span><br><span class="line">PRETTY_NAME=<span class="string">&quot;LibreELEC (official): 12.0.1&quot;</span></span><br><span class="line">HOME_URL=<span class="string">&quot;https://libreelec.tv&quot;</span></span><br><span class="line">BUG_REPORT_URL=<span class="string">&quot;https://github.com/LibreELEC/LibreELEC.tv&quot;</span></span><br><span class="line">BUILD_ID=<span class="string">&quot;7e0b15d49ae7beb086bd2fd00fbf5d107aa9f251&quot;</span></span><br><span class="line">LIBREELEC_ARCH=<span class="string">&quot;RPi4.aarch64&quot;</span></span><br><span class="line">LIBREELEC_BUILD=<span class="string">&quot;official&quot;</span></span><br><span class="line">LIBREELEC_PROJECT=<span class="string">&quot;RPi&quot;</span></span><br><span class="line">LIBREELEC_DEVICE=<span class="string">&quot;RPi4&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2024/07/25/OperatingSystems/RaspberryPi/OctoPrint/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1913,121 +2084,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2024/02/03/SBCs/MCU/ESP32/esp32-s3-eye/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/02/03/SBCs/MCU/ESP32/esp32-s3-eye/" class="post-title-link" itemprop="url">ESP32 S3 EYE</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-02-03 16:29:13" itemprop="dateCreated datePublished" datetime="2024-02-03T16:29:13-08:00">2024-02-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-07-02 12:54:32" itemprop="dateModified" datetime="2025-07-02T12:54:32-07:00">2025-07-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/MCU/" itemprop="url" rel="index"><span itemprop="name">MCU</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/MCU/ESP32/" itemprop="url" rel="index"><span itemprop="name">ESP32</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Finally, in China, I setup my old laptop.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ neofetch</span><br><span class="line">            .-/+oossssoo+/-.               lvision@lvision-GT72-6QE </span><br><span class="line">        `:+ssssssssssssssssss+:`           ------------------------ </span><br><span class="line">      -+ssssssssssssssssssyyssss+-         OS: Ubuntu 22.04.3 LTS x86_64 </span><br><span class="line">    .ossssssssssssssssssdMMMNysssso.       Host: GT72 6QE REV:1.0 </span><br><span class="line">   /ssssssssssshdmmNNmmyNMMMMhssssss/      Kernel: 6.5.0-15-generic </span><br><span class="line">  +ssssssssshmydMMMMMMMNddddyssssssss+     Uptime: 26 mins </span><br><span class="line"> /sssssssshNMMMyhhyyyyhmNMMMNhssssssss/    Packages: 3057 (dpkg), 13 (snap) </span><br><span class="line">.ssssssssdMMMNhsssssssssshNMMMdssssssss.   Shell: zsh 5.8.1 </span><br><span class="line">+sssshhhyNMMNyssssssssssssyNMMMysssssss+   Resolution: 1920x1080 </span><br><span class="line">ossyNMMMNyMMhsssssssssssssshmmmhssssssso   DE: GNOME 42.9 </span><br><span class="line">ossyNMMMNyMMhsssssssssssssshmmmhssssssso   WM: Mutter </span><br><span class="line">+sssshhhyNMMNyssssssssssssyNMMMysssssss+   WM Theme: Adwaita </span><br><span class="line">.ssssssssdMMMNhsssssssssshNMMMdssssssss.   Theme: Yaru [GTK2/3] </span><br><span class="line"> /sssssssshNMMMyhhyyyyhdNMMMNhssssssss/    Icons: Yaru [GTK2/3] </span><br><span class="line">  +sssssssssdmydMMMMMMMMddddyssssssss+     Terminal: gnome-terminal </span><br><span class="line">   /ssssssssssshdmNNNNmyNMMMMhssssss/      CPU: Intel i7-6700HQ (8) @ 3.500GHz </span><br><span class="line">    .ossssssssssssssssssdMMMNysssso.       GPU: NVIDIA GeForce GTX 980M </span><br><span class="line">      -+sssssssssssssssssyyyssss+-         Memory: 3075MiB / 64254MiB </span><br><span class="line">        `:+ssssssssssssssssss+:`</span><br><span class="line">            .-/+oossssoo+/-.                                       </span><br><span class="line">                                                                   </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">➜  ~ </span><br></pre></td></tr></table></figure>
-
-
-<h1 id="1-Overview"><a href="#1-Overview" class="headerlink" title="1. Overview"></a>1. Overview</h1><h2 id="1-1-What-Is-ESP32-S3"><a href="#1-1-What-Is-ESP32-S3" class="headerlink" title="1.1 What Is ESP32-S3"></a>1.1 What Is <a target="_blank" rel="noopener" href="https://www.espressif.com/en/products/socs/esp32-s3">ESP32-S3</a></h2><p><a target="_blank" rel="noopener" href="https://www.espressif.com/en/products/socs/esp32-s3">ESP32-S3</a> <code>is a dual-core XTensa LX7 MCU, capable of running at 240 MHz. Apart from its 512 KB of internal SRAM, it also comes with integrated 2.4 GHz, 802.11 b/g/n Wi-Fi and Bluetooth 5 (LE) connectivity that provides long-range support.</code> (Cite from <a target="_blank" rel="noopener" href="https://www.espressif.com/">Espressif</a>‘s official online doc <a target="_blank" rel="noopener" href="https://www.espressif.com/en/products/socs/esp32-s3">ESP32-S3</a>).</p>
-<p>In this blog, I’m going to heavily follow <a target="_blank" rel="noopener" href="https://github.com/espressif/esp-who/blob/master/docs/en/get-started/ESP32-S3-EYE_Getting_Started_Guide.md">ESP32-S3-EYE Getting Started Guide</a>.</p>
-<h2 id="1-2-Directly-Plug-In-USB-Type-C"><a href="#1-2-Directly-Plug-In-USB-Type-C" class="headerlink" title="1.2 Directly Plug-In USB Type C"></a>1.2 Directly Plug-In USB Type C</h2><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ lsusb | grep Espressif  </span><br><span class="line">Bus 009 Device 034: ID 303a:700f Espressif ESP32-S3-EYE</span><br><span class="line">➜  ~ </span><br></pre></td></tr></table></figure>
-
-<h2 id="1-3-Entering-Flash-Mode"><a href="#1-3-Entering-Flash-Mode" class="headerlink" title="1.3 Entering Flash Mode"></a>1.3 Entering Flash Mode</h2><p>Steps to enter flash mode:</p>
-<ul>
-<li>Plug out USB Type C</li>
-<li>Press <code>BOOT</code> button</li>
-<li>Plug in USB Type C</li>
-<li>Release <code>BOOT</code> button</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ lsusb| grep Espressif</span><br><span class="line">Bus 009 Device 035: ID 303a:1001 Espressif USB JTAG/serial debug unit</span><br><span class="line">➜  ~ </span><br></pre></td></tr></table></figure>
-
-<h2 id="1-4-Flash-Default-Firmware-esp32-s3-eye-v2-2-firmware-v0-2-0-en-bin"><a href="#1-4-Flash-Default-Firmware-esp32-s3-eye-v2-2-firmware-v0-2-0-en-bin" class="headerlink" title="1.4 Flash Default Firmware esp32-s3-eye-v2.2-firmware-v0.2.0-en.bin"></a>1.4 Flash Default Firmware <a target="_blank" rel="noopener" href="https://github.com/espressif/esp-who/blob/master/default_bin/esp32-s3-eye/v2.2/esp32-s3-eye-v2.2-firmware-v0.2.0-en.bin">esp32-s3-eye-v2.2-firmware-v0.2.0-en.bin</a></h2><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">➜  v2.2 git:(master) esptool.py --chip esp32s3 --port /dev/ttyACM0 --baud 460800 write_flash -z 0x0 esp32-s3-eye-v2.2-firmware-v0.2.0-en.bin</span><br><span class="line">esptool.py v4.8.1</span><br><span class="line">Serial port /dev/ttyACM0</span><br><span class="line">Connecting...</span><br><span class="line">Chip is ESP32-S3 (QFN56) (revision v0.2)</span><br><span class="line">Features: WiFi, BLE, Embedded PSRAM 8MB (AP_3v3)</span><br><span class="line">Crystal is 40MHz</span><br><span class="line">MAC: ec:da:3b:9d:58:18</span><br><span class="line">Uploading stub...</span><br><span class="line">Running stub...</span><br><span class="line">Stub running...</span><br><span class="line">Changing baud rate to 460800</span><br><span class="line">Changed.</span><br><span class="line">Configuring flash size...</span><br><span class="line">Flash will be erased from 0x00000000 to 0x00762fff...</span><br><span class="line">Compressed 7745536 bytes to 4981103...</span><br><span class="line">Wrote 7745536 bytes (4981103 compressed) at 0x00000000 <span class="keyword">in</span> 48.0 seconds (effective 1292.1 kbit/s)...</span><br><span class="line">Hash of data verified.</span><br><span class="line"></span><br><span class="line">Leaving...</span><br><span class="line">Hard resetting via RTS pin...</span><br><span class="line">➜  v2.2 git:(master) </span><br></pre></td></tr></table></figure>
-
-<h2 id="1-5-Demonstration"><a href="#1-5-Demonstration" class="headerlink" title="1.5 Demonstration"></a>1.5 Demonstration</h2><table>
-<thead>
-<tr>
-<th align="center"><a target="_blank" rel="noopener" href="https://www.espressif.com/en/products/devkits/esp-eye/resourceswww.espressif.com2">ESP-S3-EYE</a> Booting</th>
-<th align="center"><a target="_blank" rel="noopener" href="https://www.espressif.com/en/products/devkits/esp-eye/resourceswww.espressif.com2">ESP-S3-EYE</a> Camera</th>
-<th align="center"><a target="_blank" rel="noopener" href="https://www.espressif.com/en/products/devkits/esp-eye/resourceswww.espressif.com2">ESP-S3-EYE</a> Face Detection</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/MCU/ESP32/esp32-s3-eye/booting.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/MCU/ESP32/esp32-s3-eye/booting.jpg" alt="Luckfox Pico Ultra W Enable CSI"></a></td>
-<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/MCU/ESP32/esp32-s3-eye/video.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/MCU/ESP32/esp32-s3-eye/video.jpg" alt="Luckfox Pico Ultra W CSI Enabled"></a></td>
-<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/MCU/ESP32/esp32-s3-eye/facedetection.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/MCU/ESP32/esp32-s3-eye/facedetection.jpg" alt="Luckfox Pico Ultra W CSI Enabled"></a></td>
-</tr>
-</tbody></table>
-<h1 id="2-WiFi"><a href="#2-WiFi" class="headerlink" title="2. WiFi"></a>2. WiFi</h1><p>For simplicity, you can just use the Google app <a target="_blank" rel="noopener" href="https://play.google.com/store/apps/details?id=com.espressif.provble">ESP BLE Provisioning</a>.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2097,7 +2153,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">159</span>
+          <span class="site-state-item-count">160</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -2108,7 +2164,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">146</span>
+        <span class="site-state-item-count">147</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
