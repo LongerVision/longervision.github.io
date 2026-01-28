@@ -20,20 +20,28 @@
     var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="In my previous blog about Maix Bit, WiFi is NOT covered.">
+  <meta name="description" content="In my previous blog about Maix Bit, we covered camera sensor, lcd display, and SPI with logic analyzer. However, WiFi is NEVER talked about. 1. Cable Connection1.1 Pin Definitions of ESP32-C3 Super Mi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Maix Bit 2 - WiFi">
 <meta property="og:url" content="http://longervision.ca/2026/01/26/SBCs/RISC-V/MaixBit-2/index.html">
 <meta property="og:site_name" content="Longer Vision Technology">
-<meta property="og:description" content="In my previous blog about Maix Bit, WiFi is NOT covered.">
+<meta property="og:description" content="In my previous blog about Maix Bit, we covered camera sensor, lcd display, and SPI with logic analyzer. However, WiFi is NEVER talked about. 1. Cable Connection1.1 Pin Definitions of ESP32-C3 Super Mi">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://sigmdel.ca/michel/ha/esp8266/img/pinout_top_big_logo.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixbit_esp32c3/00_Cable_Connection.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixbit_esp32c3/08_kflash_esptool.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixbit_esp32c3/10_MaixPy-v1_kflash_MaixBit.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixbit_esp32c3/esp32c3_flash/01_set-target.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixbit_esp32c3/esp32c3_flash/02_partitions.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixbit_esp32c3/esp32c3_flash/03_build.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixbit_esp32c3/esp32c3_flash/04_idf_flash.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixbit_esp32c3/esp32c3_flash/05_idf_monitor.png">
 <meta property="article:published_time" content="2026-01-26T23:08:30.000Z">
-<meta property="article:modified_time" content="2026-01-26T23:26:41.626Z">
+<meta property="article:modified_time" content="2026-01-28T13:19:30.812Z">
 <meta property="article:author" content="Nobody">
 <meta property="article:tag" content="Risc-V, SiPeed, MaixBit, WiFi">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixbit_esp32c3/00_Cable_Connection.jpg">
+<meta name="twitter:image" content="https://sigmdel.ca/michel/ha/esp8266/img/pinout_top_big_logo.png">
 
 <link rel="canonical" href="http://longervision.ca/2026/01/26/SBCs/RISC-V/MaixBit-2/">
 
@@ -176,10 +184,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2026-01-26 15:08:30 / Modified: 15:26:41" itemprop="dateCreated datePublished" datetime="2026-01-26T15:08:30-08:00">2026-01-26</time>
+              <time title="Created: 2026-01-26 15:08:30" itemprop="dateCreated datePublished" datetime="2026-01-26T15:08:30-08:00">2026-01-26</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-01-28 05:19:30" itemprop="dateModified" datetime="2026-01-28T05:19:30-08:00">2026-01-28</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -205,8 +219,148 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>In my previous blog about <a target="_blank" rel="noopener" href="https://wiki.sipeed.com/soft/maixpy/en/develop_kit_board/maix_bit.html">Maix Bit</a>, WiFi is <strong>NOT</strong> covered.</p>
+        <p>In my previous blog about <a target="_blank" rel="noopener" href="https://wiki.sipeed.com/soft/maixpy/en/develop_kit_board/maix_bit.html">Maix Bit</a>, we covered camera sensor, lcd display, and SPI with logic analyzer. However, WiFi is <strong>NEVER</strong> talked about.</p>
+<h1 id="1-Cable-Connection"><a href="#1-Cable-Connection" class="headerlink" title="1. Cable Connection"></a>1. Cable Connection</h1><h2 id="1-1-Pin-Definitions-of-ESP32-C3-Super-Mini"><a href="#1-1-Pin-Definitions-of-ESP32-C3-Super-Mini" class="headerlink" title="1.1 Pin Definitions of ESP32-C3 Super Mini"></a>1.1 Pin Definitions of <a target="_blank" rel="noopener" href="https://sigmdel.ca/michel/ha/esp8266/super_mini_esp32c3_en.html">ESP32-C3 Super Mini</a></h2><p><em>Cited from <a target="_blank" rel="noopener" href="https://sigmdel.ca/michel/ha/esp8266/super_mini_esp32c3_en.html">First Look at the Super Mini ESP32-C3</a></em>:</p>
+<p><img src="https://sigmdel.ca/michel/ha/esp8266/img/pinout_top_big_logo.png" alt="Pin Definitions of ESP32-C3 Super Mini"></p>
+<h2 id="1-2-Sipeed-MaixBit-Datasheet"><a href="#1-2-Sipeed-MaixBit-Datasheet" class="headerlink" title="1.2 Sipeed MaixBit Datasheet"></a>1.2 Sipeed MaixBit Datasheet</h2><p>Please refer to <a target="_blank" rel="noopener" href="https://files.waveshare.com/upload/3/34/Sipeed_MaixBit_Datasheet_V2.0.pdf">Sipeed MaixBit Datasheet V2.0</a>.</p>
+<p>The <strong>key</strong> thing to keep in mind is: pin <code>26, 27, 28, 29</code> are reserved for <strong>TF card</strong> by default. <em>Cited from <a target="_blank" rel="noopener" href="https://files.waveshare.com/upload/3/34/Sipeed_MaixBit_Datasheet_V2.0.pdf">Sipeed MaixBit Datasheet V2.0</a></em> as:</p>
+<table>
+<thead>
+<tr>
+<th><a target="_blank" rel="noopener" href="https://wiki.sipeed.com/soft/maixpy/en/develop_kit_board/maix_bit.html">Maix Bit</a> V2.0 Slik</th>
+<th><a target="_blank" rel="noopener" href="https://www.kendryte.com/zh/proDetail/210">K210</a> IO</th>
+<th>Function</th>
+<th>Remark</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>26</td>
+<td>IO26</td>
+<td>SPI0_MISO</td>
+<td>Reserved for <strong>TF Card</strong></td>
+</tr>
+<tr>
+<td>27</td>
+<td>IO27</td>
+<td>SPI0_SCLK</td>
+<td>Reserved for <strong>TF Card</strong></td>
+</tr>
+<tr>
+<td>28</td>
+<td>IO28</td>
+<td>SPI0_MOSI</td>
+<td>Reserved for <strong>TF Card</strong></td>
+</tr>
+<tr>
+<td>29</td>
+<td>IO29</td>
+<td>SPI0_CS0</td>
+<td>Reserved for <strong>TF Card</strong></td>
+</tr>
+</tbody></table>
+<p>Therefore, in my test, I’m going to use the pins <code>22,23,24,25</code> and <code>21</code> (optional) instead, and summarized in the <strong>NEXT</strong> section.</p>
+<h2 id="1-3-Wired-Connection-Between-Maix-Bit-board-and-ESP32-C3-Super-Mini"><a href="#1-3-Wired-Connection-Between-Maix-Bit-board-and-ESP32-C3-Super-Mini" class="headerlink" title="1.3 Wired Connection Between Maix Bit board and ESP32-C3 Super Mini"></a>1.3 Wired Connection Between <a target="_blank" rel="noopener" href="https://wiki.sipeed.com/soft/maixpy/en/develop_kit_board/maix_bit.html">Maix Bit board</a> and <a target="_blank" rel="noopener" href="https://sigmdel.ca/michel/ha/esp8266/super_mini_esp32c3_en.html">ESP32-C3 Super Mini</a></h2><table>
+<thead>
+<tr>
+<th>Signal</th>
+<th align="center"><a target="_blank" rel="noopener" href="https://wiki.sipeed.com/soft/maixpy/en/develop_kit_board/maix_bit.html">Maix Bit</a></th>
+<th align="center">Direction</th>
+<th align="center"><a target="_blank" rel="noopener" href="https://sigmdel.ca/michel/ha/esp8266/super_mini_esp32c3_en.html">ESP32-C3 Super Mini</a></th>
+<th>Description</th>
+<th>Typical Wire Color</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GND</td>
+<td align="center">GND</td>
+<td align="center">Shared</td>
+<td align="center">GND</td>
+<td>Ground reference</td>
+<td><strong>Black</strong></td>
+<td>Must be common between boards</td>
+</tr>
+<tr>
+<td>SCLK (SCK)</td>
+<td align="center">22</td>
+<td align="center">&#x3D;&#x3D;&gt;</td>
+<td align="center">4</td>
+<td>SPI clock</td>
+<td><strong><span style="color:yellow">yellow</span></strong></td>
+<td>Clock lines are often yellow</td>
+</tr>
+<tr>
+<td>MISO</td>
+<td align="center">23</td>
+<td align="center">&lt;&#x3D;&#x3D;</td>
+<td align="center">5</td>
+<td>Master In, Slave Out</td>
+<td><strong><span style="color:green">green</span></strong></td>
+<td>Data from <a target="_blank" rel="noopener" href="https://sigmdel.ca/michel/ha/esp8266/super_mini_esp32c3_en.html">ESP32-C3 Super Mini</a> to MaixBit</td>
+</tr>
+<tr>
+<td>MOSI</td>
+<td align="center">24</td>
+<td align="center">&#x3D;&#x3D;&gt;</td>
+<td align="center">6</td>
+<td>Master Out, Slave In</td>
+<td><strong><span style="color:blue">blue</span></strong></td>
+<td>Data from MaixBit to <a target="_blank" rel="noopener" href="https://sigmdel.ca/michel/ha/esp8266/super_mini_esp32c3_en.html">ESP32-C3 Super Mini</a></td>
+</tr>
+<tr>
+<td>CS (SS)</td>
+<td align="center">25</td>
+<td align="center">&#x3D;&#x3D;&gt;</td>
+<td align="center">7</td>
+<td>Chip Select (active low)</td>
+<td><strong><span style="color:purple">purple</span></strong></td>
+<td>One CS per SPI slave</td>
+</tr>
+<tr>
+<td>RDY</td>
+<td align="center">21</td>
+<td align="center">&lt;&#x3D;&#x3D;</td>
+<td align="center">10</td>
+<td>Ready &#x2F; Flow-control signal</td>
+<td><strong>white</strong></td>
+<td>Optional but recommended</td>
+</tr>
+</tbody></table>
 <p><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixbit_esp32c3/00_Cable_Connection.jpg" alt="Cable Connection - Maix Bit"></p>
+<h1 id="2-Hardware-Info"><a href="#2-Hardware-Info" class="headerlink" title="2. Hardware Info"></a>2. Hardware Info</h1><h2 id="2-1-lsusb"><a href="#2-1-lsusb" class="headerlink" title="2.1 lsusb"></a>2.1 <code>lsusb</code></h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Bus 009 Device 033: ID 303a:1001 Espressif USB JTAG/serial debug unit</span><br><span class="line">Bus 009 Device 034: ID 0403:6001 Future Technology Devices International, Ltd FT232 Serial (UART) IC</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-kflash-and-esptool"><a href="#2-2-kflash-and-esptool" class="headerlink" title="2.2 kflash and esptool"></a>2.2 <code>kflash</code> and <code>esptool</code></h2><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixbit_esp32c3/08_kflash_esptool.png" alt="kflash and esptool"></p>
+<p>Clearly,</p>
+<ul>
+<li><code>/dev/ttyUSB0</code>: <a target="_blank" rel="noopener" href="https://wiki.sipeed.com/soft/maixpy/en/develop_kit_board/maix_bit.html">Maix Bit</a></li>
+<li><code>/dev/ttyACM0</code>: <a target="_blank" rel="noopener" href="https://sigmdel.ca/michel/ha/esp8266/super_mini_esp32c3_en.html">ESP32-C3 Super Mini</a></li>
+</ul>
+<h1 id="3-Flash"><a href="#3-Flash" class="headerlink" title="3. Flash"></a>3. Flash</h1><h2 id="3-1-kflash-MaixPy-v1-onto-Maix-Bit"><a href="#3-1-kflash-MaixPy-v1-onto-Maix-Bit" class="headerlink" title="3.1 kflash MaixPy-v1 onto Maix Bit"></a>3.1 kflash <a target="_blank" rel="noopener" href="https://github.com/sipeed/MaixPy-v1">MaixPy-v1</a> onto <a target="_blank" rel="noopener" href="https://wiki.sipeed.com/soft/maixpy/en/develop_kit_board/maix_bit.html">Maix Bit</a></h2><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixbit_esp32c3/10_MaixPy-v1_kflash_MaixBit.png" alt="kflash MaixPy-v1 onto Maix Bit"></p>
+<h2 id="3-2-esptool-onto-ESP32-C3-Super-Mini"><a href="#3-2-esptool-onto-ESP32-C3-Super-Mini" class="headerlink" title="3.2 esptool onto ESP32-C3 Super Mini"></a>3.2 <code>esptool</code> onto <a target="_blank" rel="noopener" href="https://sigmdel.ca/michel/ha/esp8266/super_mini_esp32c3_en.html">ESP32-C3 Super Mini</a></h2><table>
+<thead>
+<tr>
+<th align="center"><code>idf.py set-target esp32c3</code></th>
+<th align="center"><strong>partitions.csv</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixbit_esp32c3/esp32c3_flash/01_set-target.png" alt="set-target"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixbit_esp32c3/esp32c3_flash/02_partitions.png" alt="partitions.csv"></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center"><code>idf.py build</code></th>
+<th align="center"><strong>flash and monitor</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixbit_esp32c3/esp32c3_flash/03_build.png" alt="set-target"></td>
+<td align="center"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixbit_esp32c3/esp32c3_flash/04_idf_flash.png" alt="flash"></td>
+</tr>
+</tbody></table>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixbit_esp32c3/esp32c3_flash/05_idf_monitor.png" alt="monitor"></p>
 
     </div>
 
@@ -287,6 +441,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Cable-Connection"><span class="nav-number">1.</span> <span class="nav-text">1. Cable Connection</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-Pin-Definitions-of-ESP32-C3-Super-Mini"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Pin Definitions of ESP32-C3 Super Mini</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-Sipeed-MaixBit-Datasheet"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Sipeed MaixBit Datasheet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-Wired-Connection-Between-Maix-Bit-board-and-ESP32-C3-Super-Mini"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 Wired Connection Between Maix Bit board and ESP32-C3 Super Mini</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Hardware-Info"><span class="nav-number">2.</span> <span class="nav-text">2. Hardware Info</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-lsusb"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 lsusb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-kflash-and-esptool"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 kflash and esptool</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Flash"><span class="nav-number">3.</span> <span class="nav-text">3. Flash</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-kflash-MaixPy-v1-onto-Maix-Bit"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 kflash MaixPy-v1 onto Maix Bit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-esptool-onto-ESP32-C3-Super-Mini"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 esptool onto ESP32-C3 Super Mini</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
