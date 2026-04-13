@@ -149,6 +149,115 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2026/04/10/SBCs/ARM/DshanPi-A1-RK3576/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/04/10/SBCs/ARM/DshanPi-A1-RK3576/" class="post-title-link" itemprop="url">OpenClaw On A DshanPi-A1 (RK3576)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-04-10 00:00:00" itemprop="dateCreated datePublished" datetime="2026-04-10T00:00:00-07:00">2026-04-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-04-13 04:58:48" itemprop="dateModified" datetime="2026-04-13T04:58:48-07:00">2026-04-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Single-Board-Computers/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>DshanPi-A1</strong> has been out for quite a while. Some rather baffling legal matters have slowed down my pace of writing blog posts, but they cannot hinder the steady progress of scientific research in China. Today, let’s have some fun exploring this SBC <strong>DshanPi-A1</strong>.</p>
+<h1 id="1-Wiki"><a href="#1-Wiki" class="headerlink" title="1. Wiki"></a>1. Wiki</h1><p>There is a wealth of documentation and learning materials available online. Here, a few examples are provided as:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://wiki.dshanpi.org/blog">DshanPi-A1 Wiki</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.100ask.net/rockchip/docs/DshanPi-A1/">DshanPi-A1 On 100ask</a></li>
+<li><a target="_blank" rel="noopener" href="https://dl.100ask.net/Hardware/MPU/RK3576-DshanPi-A1/DshanPi-A1-RK3576-SCH_V1.1.pdf">DshanPi-A1 Schematics V1.1</a></li>
+</ul>
+<h1 id="2-Flash-Armbian-for-DshanPi-A1"><a href="#2-Flash-Armbian-for-DshanPi-A1" class="headerlink" title="2. Flash Armbian for DshanPi-A1"></a>2. Flash <a target="_blank" rel="noopener" href="https://www.armbian.com/boards/dshanpi-a1">Armbian for DshanPi-A1</a></h1><h2 id="2-1-Preparation"><a href="#2-1-Preparation" class="headerlink" title="2.1 Preparation"></a>2.1 Preparation</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.armbian.com/boards/dshanpi-a1">Armbian for DshanPi-A1</a>: 3 options are provided on <a target="_blank" rel="noopener" href="https://www.armbian.com/">Armbian</a>‘s website. I chose <strong>Debian 13</strong> for my  <a target="_blank" rel="noopener" href="https://docs.100ask.net/rockchip/docs/DshanPi-A1/">DshanPi-A1</a>.</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/rockchip-linux/rkdeveloptool">rkdeveloptool</a>: manually built from source on my host desktop</li>
+<li><a target="_blank" rel="noopener" href="https://dl.100ask.net/Hardware/MPU/RK3576-DshanPi-A1/rk3576_spl_loader_v1.09.107.bin">rk3576_spl_loader_v1.09.107.bin</a>: directly downloaded from <a target="_blank" rel="noopener" href="https://docs.100ask.net/rockchip/docs/DshanPi-A1/">DshanPi-A1 On 100ask</a></li>
+</ul>
+<h2 id="2-2-Flash-In-3-Steps"><a href="#2-2-Flash-In-3-Steps" class="headerlink" title="2.2 Flash In 3 Steps"></a>2.2 Flash In 3 Steps</h2><h3 id="2-2-1-Step-1-Download-Bootloader"><a href="#2-2-1-Step-1-Download-Bootloader" class="headerlink" title="2.2.1 Step 1: Download Bootloader"></a>2.2.1 Step 1: Download Bootloader</h3><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  DshanPi <span class="built_in">sudo</span> rkdeveloptool db rk3576_spl_loader_v1.09.107.bin</span><br><span class="line">[<span class="built_in">sudo</span>] password <span class="keyword">for</span> lvision: </span><br><span class="line">Downloading bootloader succeeded.</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-2-Step-2-Flash-OS"><a href="#2-2-2-Step-2-Flash-OS" class="headerlink" title="2.2.2 Step 2: Flash OS"></a>2.2.2 Step 2: Flash OS</h3><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  Armbian <span class="built_in">sudo</span> rkdeveloptool wl 0 Armbian_community_26.2.0-trunk.703_Dshanpi-a1_trixie_vendor_6.1.115_minimal.img</span><br><span class="line">[<span class="built_in">sudo</span>] password <span class="keyword">for</span> lvision: </span><br><span class="line">Write LBA from file (100%)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-3-Step-3-Reset-DshanPi-A1"><a href="#2-2-3-Step-3-Reset-DshanPi-A1" class="headerlink" title="2.2.3 Step 3: Reset DshanPi-A1"></a>2.2.3 Step 3: Reset <a target="_blank" rel="noopener" href="https://docs.100ask.net/rockchip/docs/DshanPi-A1/">DshanPi-A1</a></h3><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  Armbian <span class="built_in">sudo</span> rkdeveloptool rd</span><br><span class="line">Reset Device OK.</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="3-Boot-And-Have-Fun"><a href="#3-Boot-And-Have-Fun" class="headerlink" title="3. Boot And Have Fun"></a>3. Boot And Have Fun</h1><p>I’m <strong>NOT</strong> going to repeat those duplicate process for every <strong>SBC</strong>, but simply demonstrate it directly.</p>
+<table>
+<thead>
+<tr>
+<th><a target="_blank" rel="noopener" href="https://www.armbian.com/boards/dshanpi-a1">Armbian for DshanPi-A1</a></th>
+<th><a target="_blank" rel="noopener" href="https://docs.100ask.net/rockchip/docs/DshanPi-A1/">DshanPi-A1</a> has 32G eMMC</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Rockchip/DshanPi-A1/fastfetch.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Rockchip/DshanPi-A1/fastfetch.png"></a></td>
+<td><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Rockchip/DshanPi-A1/df-h.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Rockchip/DshanPi-A1/df-h.png"></a></td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2026/01/26/SBCs/RISC-V/MaixBit-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1498,156 +1607,6 @@ Please refer to the following official documentations:
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2025/06/20/SBCs/RISC-V/MaixBit-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/06/20/SBCs/RISC-V/MaixBit-1/" class="post-title-link" itemprop="url">Maix Bit 1 - SiPeed Risc-V 64bit SBC</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-06-20 18:36:30" itemprop="dateCreated datePublished" datetime="2025-06-20T18:36:30-07:00">2025-06-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-01-27 02:25:29" itemprop="dateModified" datetime="2026-01-27T02:25:29-08:00">2026-01-27</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/" itemprop="url" rel="index"><span itemprop="name">Single Board Computers</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Single-Board-Computers/Risc-V/" itemprop="url" rel="index"><span itemprop="name">Risc-V</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Happy Friday… And, how I miss my beloved son… God bless… Today, I’ll talk about <a target="_blank" rel="noopener" href="https://wiki.sipeed.com/soft/maixpy/en/develop_kit_board/maix_bit.html">Maix Bit board</a>.</p>
-<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h1><h2 id="1-1-lsusb"><a href="#1-1-lsusb" class="headerlink" title="1.1 lsusb"></a>1.1 <code>lsusb</code></h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">Bus 009 Device 112: ID 0403:6001 Future Technology Devices International, Ltd FT232 Serial (UART) IC</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-
-<h2 id="1-2-Hardware-Wiki"><a href="#1-2-Hardware-Wiki" class="headerlink" title="1.2 Hardware Wiki"></a>1.2 Hardware Wiki</h2><p>Detailed specification about <a target="_blank" rel="noopener" href="https://wiki.sipeed.com/soft/maixpy/en/develop_kit_board/maix_bit.html">Maix Bit board</a> can be found on <a target="_blank" rel="noopener" href="https://wiki.sipeed.com/hardware/en/maix/maixpy_develop_kit_board/maix_bit.html">MaixBit Wiki</a>. </p>
-<h2 id="1-3-Software"><a href="#1-3-Software" class="headerlink" title="1.3 Software"></a>1.3 Software</h2><p>And, I am using <a target="_blank" rel="noopener" href="https://github.com/sipeed/MaixPy-v1">MaixPy-v1</a> (Please refer to <a target="_blank" rel="noopener" href="https://wiki.sipeed.com/soft/maixpy/zh/index.html">Introduction of MaixPy-v1</a>).</p>
-<h1 id="2-Kendryte-Toolchain-Preparatio"><a href="#2-Kendryte-Toolchain-Preparatio" class="headerlink" title="2. Kendryte Toolchain Preparatio"></a>2. <a target="_blank" rel="noopener" href="https://www.kendryte.com/">Kendryte</a> Toolchain Preparatio</h1><p>You <strong>first</strong> need to build the executable toolchains out from the provided <a target="_blank" rel="noopener" href="https://github.com/kendryte/kendryte-gnu-toolchain">Kendryte RISC-V GNU Compiler Toolchain</a>. </p>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/riscv64_kendryte_toolchain.png" alt="Kendryte RISC-V GNU Toolchain Built"></p>
-<p><span style="color:red">In order to successfully build out the <a target="_blank" rel="noopener" href="https://www.kendryte.com/">Kendryte</a> toolchain, please handle the same <strong>ERROR</strong> in the following <strong>four</strong> files under <a target="_blank" rel="noopener" href="https://github.com/riscvarchive/riscv-binutils-gdb">riscv-binutils-gdb</a>:</span></p>
-<ul>
-<li><code>./riscv-binutils-gdb/readline/complete.c</code></li>
-<li><code>./riscv-binutils-gdb/readline/display.c</code></li>
-<li><code>./riscv-binutils-gdb/readline/histfile.c</code></li>
-<li><code>./riscv-binutils-gdb/readline/mbutil.c</code></li>
-</ul>
-<p><strong><span style="color:red">And modify the above 4 files as follows:</span></strong></p>
-<ul>
-<li>Add</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#ifndef _XOPEN_SOURCE</span><br><span class="line">#define _XOPEN_SOURCE 600</span><br><span class="line">#endif</span><br><span class="line">#ifndef _POSIX_SOURCE</span><br><span class="line">#define _POSIX_SOURCE</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
-<p>at the very top for each file.</p>
-<ul>
-<li>Add <code>#include &lt;wchar.h&gt;</code> before line <code>#include &lt;sys/types.h&gt;</code> for each file.</li>
-</ul>
-<h1 id="3-Build-and-Flash-maixpy-k210"><a href="#3-Build-and-Flash-maixpy-k210" class="headerlink" title="3. Build and Flash maixpy_k210"></a>3. Build and Flash <a target="_blank" rel="noopener" href="https://github.com/sipeed/MaixPy-v1/tree/master/projects/maixpy_k210">maixpy_k210</a></h1><h2 id="3-1-To-Build-3-Commands"><a href="#3-1-To-Build-3-Commands" class="headerlink" title="3.1 To Build - 3 Commands"></a>3.1 To Build - 3 Commands</h2><ul>
-<li><code>python3 project.py --toolchain /opt/toolchains/kendryte/kendryte-toolchain/bin --toolchain-prefix riscv64-unknown-elf- config</code></li>
-<li><code>python3 project.py menuconfig</code></li>
-<li><code>python3 project.py build</code></li>
-</ul>
-<h2 id="3-2-To-Flash-Key-Points"><a href="#3-2-To-Flash-Key-Points" class="headerlink" title="3.2 To Flash - Key Points"></a>3.2 To Flash - Key Points</h2><ul>
-<li>Find a good USB Type-C cable</li>
-<li>You may need to flash at a lower baud rate.</li>
-<li>Two commands:<ul>
-<li><code>python3 project.py flash -B dan -b 1500000 -p /dev/ttyUSB0 -t</code></li>
-<li>In my case: <code>kflash -p /dev/ttyUSB0 -b 9600 -t ./build/maixpy.bin</code></li>
-</ul>
-</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixpy_k210_flash.png" alt="maixpy_k210 flashed"></p>
-<h1 id="4-Camera-and-LCD"><a href="#4-Camera-and-LCD" class="headerlink" title="4. Camera and LCD"></a>4. Camera and LCD</h1><table>
-<thead>
-<tr>
-<th>OV2640</th>
-<th>Camera Live Stream with LCD Display</th>
-<th>FPS at The End</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixbit_esp32c3/05_OV2640.jpg" alt="OV2640"></td>
-<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixbit_esp32c3/06_Camera_Live_Streaming_LCD_Display.jpg" alt="Camera Live Streaming with LCD Display"></td>
-<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixbit_esp32c3/07_The_End_FPS.jpg" alt="FPS at The End"></td>
-</tr>
-</tbody></table>
-<h1 id="5-SPI-Test"><a href="#5-SPI-Test" class="headerlink" title="5. SPI Test"></a>5. SPI Test</h1><table>
-<thead>
-<tr>
-<th>My Logic Analyzer</th>
-<th>Driver <a target="_blank" rel="noopener" href="https://github.com/sigrokproject/sigrok-firmware-fx2lafw">sigrok-firmware-fx2lafw</a></th>
-</tr>
-</thead>
-<tbody><tr>
-<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixbit_esp32c3/01_My_Logic_Analyzer.jpg" alt="My Logic Analyzer "></td>
-<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixbit_esp32c3/02_pulseview_sudo.png" alt="PulseView fx2lafw Driver"></td>
-</tr>
-</tbody></table>
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixbit_esp32c3/03_pulseview_add_spi.png" alt="SPI Signal Analysis GUI - PulseView Adding SPI Decoder"> </p>
-<p align="center">SPI Signal Analysis GUI - PulseView Adding SPI Decoder</p>
-
-<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/maixbit_esp32c3/04_pulseview_spi_started.png" alt="PulseView SPI Signal Analysis GUI Logic Analyzer"></p>
-<p align="center">SPI Signal Analysis GUI - PulseView Logic Analyzer</p>
-
-
-
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1717,7 +1676,7 @@ Please refer to the following official documentations:
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">162</span>
+          <span class="site-state-item-count">163</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1728,7 +1687,7 @@ Please refer to the following official documentations:
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">149</span>
+        <span class="site-state-item-count">150</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
