@@ -180,7 +180,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-04-13 05:13:58" itemprop="dateModified" datetime="2026-04-13T05:13:58-07:00">2026-04-13</time>
+                <time title="Modified: 2026-04-13 05:23:45" itemprop="dateModified" datetime="2026-04-13T05:23:45-07:00">2026-04-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -207,7 +207,39 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <p><strong>DshanPi-A1</strong> has been out for quite a while. Some rather baffling legal matters have slowed down my pace of writing blog posts, but they cannot hinder the steady progress of scientific research in China. Today, let’s have some fun exploring this SBC <strong>DshanPi-A1</strong>.</p>
+<h1 id="1-Wiki"><a href="#1-Wiki" class="headerlink" title="1. Wiki"></a>1. Wiki</h1><p>There is a wealth of documentation and learning materials available online. Here, a few examples are provided as:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://wiki.dshanpi.org/blog">DshanPi-A1 Wiki</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.100ask.net/rockchip/docs/DshanPi-A1/">DshanPi-A1 On 100ask</a></li>
+<li><a target="_blank" rel="noopener" href="https://dl.100ask.net/Hardware/MPU/RK3576-DshanPi-A1/DshanPi-A1-RK3576-SCH_V1.1.pdf">DshanPi-A1 Schematics V1.1</a></li>
+</ul>
+<h1 id="2-Flash-Armbian-for-DshanPi-A1"><a href="#2-Flash-Armbian-for-DshanPi-A1" class="headerlink" title="2. Flash Armbian for DshanPi-A1"></a>2. Flash <a target="_blank" rel="noopener" href="https://www.armbian.com/boards/dshanpi-a1">Armbian for DshanPi-A1</a></h1><h2 id="2-1-Preparation"><a href="#2-1-Preparation" class="headerlink" title="2.1 Preparation"></a>2.1 Preparation</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.armbian.com/boards/dshanpi-a1">Armbian for DshanPi-A1</a>: 3 options are provided on <a target="_blank" rel="noopener" href="https://www.armbian.com/">Armbian</a>‘s website. I chose <strong>Debian 13</strong> for my  <a target="_blank" rel="noopener" href="https://docs.100ask.net/rockchip/docs/DshanPi-A1/">DshanPi-A1</a>.</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/rockchip-linux/rkdeveloptool">rkdeveloptool</a>: manually built from source on my host desktop</li>
+<li><a target="_blank" rel="noopener" href="https://dl.100ask.net/Hardware/MPU/RK3576-DshanPi-A1/rk3576_spl_loader_v1.09.107.bin">rk3576_spl_loader_v1.09.107.bin</a>: directly downloaded from <a target="_blank" rel="noopener" href="https://docs.100ask.net/rockchip/docs/DshanPi-A1/">DshanPi-A1 On 100ask</a></li>
+</ul>
+<h2 id="2-2-Flash-In-3-Steps"><a href="#2-2-Flash-In-3-Steps" class="headerlink" title="2.2 Flash In 3 Steps"></a>2.2 Flash In 3 Steps</h2><h3 id="2-2-1-Step-1-Download-Bootloader"><a href="#2-2-1-Step-1-Download-Bootloader" class="headerlink" title="2.2.1 Step 1: Download Bootloader"></a>2.2.1 Step 1: Download Bootloader</h3><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  DshanPi <span class="built_in">sudo</span> rkdeveloptool db rk3576_spl_loader_v1.09.107.bin</span><br><span class="line">[<span class="built_in">sudo</span>] password <span class="keyword">for</span> lvision: </span><br><span class="line">Downloading bootloader succeeded.</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-2-Step-2-Flash-OS"><a href="#2-2-2-Step-2-Flash-OS" class="headerlink" title="2.2.2 Step 2: Flash OS"></a>2.2.2 Step 2: Flash OS</h3><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  Armbian <span class="built_in">sudo</span> rkdeveloptool wl 0 Armbian_community_26.2.0-trunk.703_Dshanpi-a1_trixie_vendor_6.1.115_minimal.img</span><br><span class="line">[<span class="built_in">sudo</span>] password <span class="keyword">for</span> lvision: </span><br><span class="line">Write LBA from file (100%)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-3-Step-3-Reset-DshanPi-A1"><a href="#2-2-3-Step-3-Reset-DshanPi-A1" class="headerlink" title="2.2.3 Step 3: Reset DshanPi-A1"></a>2.2.3 Step 3: Reset <a target="_blank" rel="noopener" href="https://docs.100ask.net/rockchip/docs/DshanPi-A1/">DshanPi-A1</a></h3><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  Armbian <span class="built_in">sudo</span> rkdeveloptool rd</span><br><span class="line">Reset Device OK.</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="3-Boot-And-Have-Fun"><a href="#3-Boot-And-Have-Fun" class="headerlink" title="3. Boot And Have Fun"></a>3. Boot And Have Fun</h1><p>I’m <strong>NOT</strong> going to repeat those duplicate process for every <strong>SBC</strong>, but simply demonstrate it directly.</p>
+<table>
+<thead>
+<tr>
+<th><a target="_blank" rel="noopener" href="https://www.armbian.com/boards/dshanpi-a1">Armbian for DshanPi-A1</a></th>
+<th><a target="_blank" rel="noopener" href="https://docs.100ask.net/rockchip/docs/DshanPi-A1/">DshanPi-A1</a> has 32G eMMC</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Rockchip/DshanPi-A1/fastfetch.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Rockchip/DshanPi-A1/fastfetch.png"></a></td>
+<td><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Rockchip/DshanPi-A1/df-h.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Rockchip/DshanPi-A1/df-h.png"></a></td>
+</tr>
+</tbody></table>
+
       
     </div>
 
