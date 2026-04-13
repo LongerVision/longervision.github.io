@@ -20,21 +20,18 @@
     var CONFIG = {"hostname":"longervision.ca","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="DshanPi-A1 has been out for quite a while. Some rather baffling legal matters have slowed down my pace of writing blog posts, but they cannot hinder the steady progress of scientific research in China">
+  <meta name="description" content="Longer Vision Technology Github Blog">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OpenClaw On A DshanPi-A1 (RK3576)">
 <meta property="og:url" content="http://longervision.ca/2026/04/10/SBCs/ARM/DshanPi-A1-RK3576/index.html">
 <meta property="og:site_name" content="Longer Vision Technology">
-<meta property="og:description" content="DshanPi-A1 has been out for quite a while. Some rather baffling legal matters have slowed down my pace of writing blog posts, but they cannot hinder the steady progress of scientific research in China">
+<meta property="og:description" content="Longer Vision Technology Github Blog">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Rockchip/DshanPi-A1/fastfetch.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Rockchip/DshanPi-A1/df-h.png">
 <meta property="article:published_time" content="2026-04-10T07:00:00.000Z">
-<meta property="article:modified_time" content="2026-04-13T11:58:48.369Z">
+<meta property="article:modified_time" content="2026-04-13T12:13:58.672Z">
 <meta property="article:author" content="Nobody">
 <meta property="article:tag" content="DshanPi-A1, RK3576, Rockchip, ARM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Rockchip/DshanPi-A1/fastfetch.png">
 
 <link rel="canonical" href="http://longervision.ca/2026/04/10/SBCs/ARM/DshanPi-A1-RK3576/">
 
@@ -185,7 +182,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-04-13 04:58:48" itemprop="dateModified" datetime="2026-04-13T04:58:48-07:00">2026-04-13</time>
+                <time title="Modified: 2026-04-13 05:13:58" itemprop="dateModified" datetime="2026-04-13T05:13:58-07:00">2026-04-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -212,39 +209,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><strong>DshanPi-A1</strong> has been out for quite a while. Some rather baffling legal matters have slowed down my pace of writing blog posts, but they cannot hinder the steady progress of scientific research in China. Today, let’s have some fun exploring this SBC <strong>DshanPi-A1</strong>.</p>
-<h1 id="1-Wiki"><a href="#1-Wiki" class="headerlink" title="1. Wiki"></a>1. Wiki</h1><p>There is a wealth of documentation and learning materials available online. Here, a few examples are provided as:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://wiki.dshanpi.org/blog">DshanPi-A1 Wiki</a></li>
-<li><a target="_blank" rel="noopener" href="https://docs.100ask.net/rockchip/docs/DshanPi-A1/">DshanPi-A1 On 100ask</a></li>
-<li><a target="_blank" rel="noopener" href="https://dl.100ask.net/Hardware/MPU/RK3576-DshanPi-A1/DshanPi-A1-RK3576-SCH_V1.1.pdf">DshanPi-A1 Schematics V1.1</a></li>
-</ul>
-<h1 id="2-Flash-Armbian-for-DshanPi-A1"><a href="#2-Flash-Armbian-for-DshanPi-A1" class="headerlink" title="2. Flash Armbian for DshanPi-A1"></a>2. Flash <a target="_blank" rel="noopener" href="https://www.armbian.com/boards/dshanpi-a1">Armbian for DshanPi-A1</a></h1><h2 id="2-1-Preparation"><a href="#2-1-Preparation" class="headerlink" title="2.1 Preparation"></a>2.1 Preparation</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://www.armbian.com/boards/dshanpi-a1">Armbian for DshanPi-A1</a>: 3 options are provided on <a target="_blank" rel="noopener" href="https://www.armbian.com/">Armbian</a>‘s website. I chose <strong>Debian 13</strong> for my  <a target="_blank" rel="noopener" href="https://docs.100ask.net/rockchip/docs/DshanPi-A1/">DshanPi-A1</a>.</li>
-<li><a target="_blank" rel="noopener" href="https://github.com/rockchip-linux/rkdeveloptool">rkdeveloptool</a>: manually built from source on my host desktop</li>
-<li><a target="_blank" rel="noopener" href="https://dl.100ask.net/Hardware/MPU/RK3576-DshanPi-A1/rk3576_spl_loader_v1.09.107.bin">rk3576_spl_loader_v1.09.107.bin</a>: directly downloaded from <a target="_blank" rel="noopener" href="https://docs.100ask.net/rockchip/docs/DshanPi-A1/">DshanPi-A1 On 100ask</a></li>
-</ul>
-<h2 id="2-2-Flash-In-3-Steps"><a href="#2-2-Flash-In-3-Steps" class="headerlink" title="2.2 Flash In 3 Steps"></a>2.2 Flash In 3 Steps</h2><h3 id="2-2-1-Step-1-Download-Bootloader"><a href="#2-2-1-Step-1-Download-Bootloader" class="headerlink" title="2.2.1 Step 1: Download Bootloader"></a>2.2.1 Step 1: Download Bootloader</h3><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  DshanPi <span class="built_in">sudo</span> rkdeveloptool db rk3576_spl_loader_v1.09.107.bin</span><br><span class="line">[<span class="built_in">sudo</span>] password <span class="keyword">for</span> lvision: </span><br><span class="line">Downloading bootloader succeeded.</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-2-2-Step-2-Flash-OS"><a href="#2-2-2-Step-2-Flash-OS" class="headerlink" title="2.2.2 Step 2: Flash OS"></a>2.2.2 Step 2: Flash OS</h3><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  Armbian <span class="built_in">sudo</span> rkdeveloptool wl 0 Armbian_community_26.2.0-trunk.703_Dshanpi-a1_trixie_vendor_6.1.115_minimal.img</span><br><span class="line">[<span class="built_in">sudo</span>] password <span class="keyword">for</span> lvision: </span><br><span class="line">Write LBA from file (100%)</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-2-3-Step-3-Reset-DshanPi-A1"><a href="#2-2-3-Step-3-Reset-DshanPi-A1" class="headerlink" title="2.2.3 Step 3: Reset DshanPi-A1"></a>2.2.3 Step 3: Reset <a target="_blank" rel="noopener" href="https://docs.100ask.net/rockchip/docs/DshanPi-A1/">DshanPi-A1</a></h3><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  Armbian <span class="built_in">sudo</span> rkdeveloptool rd</span><br><span class="line">Reset Device OK.</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="3-Boot-And-Have-Fun"><a href="#3-Boot-And-Have-Fun" class="headerlink" title="3. Boot And Have Fun"></a>3. Boot And Have Fun</h1><p>I’m <strong>NOT</strong> going to repeat those duplicate process for every <strong>SBC</strong>, but simply demonstrate it directly.</p>
-<table>
-<thead>
-<tr>
-<th><a target="_blank" rel="noopener" href="https://www.armbian.com/boards/dshanpi-a1">Armbian for DshanPi-A1</a></th>
-<th><a target="_blank" rel="noopener" href="https://docs.100ask.net/rockchip/docs/DshanPi-A1/">DshanPi-A1</a> has 32G eMMC</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Rockchip/DshanPi-A1/fastfetch.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Rockchip/DshanPi-A1/fastfetch.png"></a></td>
-<td><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Rockchip/DshanPi-A1/df-h.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Rockchip/DshanPi-A1/df-h.png"></a></td>
-</tr>
-</tbody></table>
-
+        
     </div>
 
     
@@ -324,7 +289,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Wiki"><span class="nav-number">1.</span> <span class="nav-text">1. Wiki</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Flash-Armbian-for-DshanPi-A1"><span class="nav-number">2.</span> <span class="nav-text">2. Flash Armbian for DshanPi-A1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Preparation"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Preparation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Flash-In-3-Steps"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 Flash In 3 Steps</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-Step-1-Download-Bootloader"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.2.1 Step 1: Download Bootloader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-Step-2-Flash-OS"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2.2 Step 2: Flash OS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3-Step-3-Reset-DshanPi-A1"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.2.3 Step 3: Reset DshanPi-A1</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Boot-And-Have-Fun"><span class="nav-number">3.</span> <span class="nav-text">3. Boot And Have Fun</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
