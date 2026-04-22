@@ -180,7 +180,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-04-20 22:10:03" itemprop="dateModified" datetime="2026-04-20T22:10:03-07:00">2026-04-20</time>
+                <time title="Modified: 2026-04-21 01:31:22" itemprop="dateModified" datetime="2026-04-21T01:31:22-07:00">2026-04-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -246,7 +246,47 @@
 <h2 id="3-5-List-Applications-In-Serial"><a href="#3-5-List-Applications-In-Serial" class="headerlink" title="3.5 List Applications In Serial"></a>3.5 List Applications In Serial</h2><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/K230/K230_ListAPPs_Picocom.png" alt="List Applications In Serial Port"></p>
 <p><span style="color:red">Well, this time, we can see <a target="_blank" rel="noopener" href="https://github.com/canmv-k230/k230_rtsmart_examples/tree/canmv_k230/ai/triple_camera_ai">triple_camera_ai</a> is already built in the firmware <a target="_blank" rel="noopener" href="https://kendryte-download.canaan-creative.com/developer/releases/rtos_k230/v0.7/RtSmart-K230_LCKFB_rtsmart_v0.7-0-g0946d74_nncase_v2.9.0.img.gz">RtSmart-K230_LCKFB_rtsmart_v0.7-0-g0946d74_nncase_v2.9.0.img.gz</a> and flashed into <a target="_blank" rel="noopener" href="https://wiki.lckfb.com/zh-hans/lushan-pi-k230/quick-start.html">LCKFB Lushan Pi</a> with binary <strong>.elf</strong>. However, without a display directly connected to <a target="_blank" rel="noopener" href="https://wiki.lckfb.com/zh-hans/lushan-pi-k230/quick-start.html">LCKFB Lushan Pi</a>, it’s better to demonstrate with display on a remote PC. Therefore, let’s build <a target="_blank" rel="noopener" href="https://github.com/canmv-k230/k230_rtsmart_examples/tree/canmv_k230/ai/triple_camera_ai_rtsp">triple_camera_ai_rtsp</a> from source.</span> </p>
 <h2 id="3-6-Demonstrate-triple-camera-ai"><a href="#3-6-Demonstrate-triple-camera-ai" class="headerlink" title="3.6 Demonstrate triple_camera_ai"></a>3.6 Demonstrate <a target="_blank" rel="noopener" href="https://github.com/canmv-k230/k230_rtsmart_examples/tree/canmv_k230/ai/triple_camera_ai">triple_camera_ai</a></h2><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/K230/triple_camera_ai_run.png" alt="Run triple_camera_ai"></p>
-<h1 id="4-Build-triple-camera-ai-rtsp-From-Source"><a href="#4-Build-triple-camera-ai-rtsp-From-Source" class="headerlink" title="4. Build triple_camera_ai_rtsp From Source"></a>4. Build <a target="_blank" rel="noopener" href="https://github.com/canmv-k230/k230_rtsmart_examples/tree/canmv_k230/ai/triple_camera_ai_rtsp">triple_camera_ai_rtsp</a> From Source</h1><h2 id="4-1-Environmental-Configuration"><a href="#4-1-Environmental-Configuration" class="headerlink" title="4.1 Environmental Configuration"></a>4.1 Environmental Configuration</h2><h2 id="4-2"><a href="#4-2" class="headerlink" title="4.2"></a>4.2</h2>
+<h1 id="4-Build-triple-camera-ai-rtsp-From-Source"><a href="#4-Build-triple-camera-ai-rtsp-From-Source" class="headerlink" title="4. Build triple_camera_ai_rtsp From Source"></a>4. Build <a target="_blank" rel="noopener" href="https://github.com/canmv-k230/k230_rtsmart_examples/tree/canmv_k230/ai/triple_camera_ai_rtsp">triple_camera_ai_rtsp</a> From Source</h1><h2 id="4-1-Environmental-Configuration"><a href="#4-1-Environmental-Configuration" class="headerlink" title="4.1 Environmental Configuration"></a>4.1 Environmental Configuration</h2><p>Please refer to <a target="_blank" rel="noopener" href="https://www.kendryte.com/k230_rtos/zh/main/userguide/how_to_build.html">K230 RTOS How to Build</a>. </p>
+<p>What I’ve done are shown as the following screenshots:</p>
+<table>
+<thead>
+<tr>
+<th>Prepare the source code using <strong>repo</strong></th>
+<th>k230_canmv_lckfb_defconfig</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/K230/repo_k230_rtos.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/K230/repo_k230_rtos.png" alt="Repo the Source"></a></td>
+<td><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/K230/defconfig_lckfb.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/K230/defconfig_lckfb.png" alt="Config k230_canmv_lckfb_defconfig"></a></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Deselect <a target="_blank" rel="noopener" href="https://github.com/kendryte/canmv">CanMV</a> and Select UserSpace Examples</th>
+<th>Enable RTSP from Middleware</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/K230/config_deselect_canmv_components_select_examples.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/K230/config_deselect_canmv_components_select_examples.png" alt="Repo the Source"></a></td>
+<td><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/K230/config_middleware.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/K230/config_middleware.png" alt="Config k230_canmv_lckfb_defconfig"></a></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Enable Build Triple Camera AI Programs</th>
+<th>Entire Process of Configuration</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/K230/config_enable_triple_camera_ai_programs.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/K230/config_enable_triple_camera_ai_programs.png" alt="Repo the Source"></a></td>
+<td><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/K230/config_entire_processes.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/K230/config_entire_processes.png" alt="Config k230_canmv_lckfb_defconfig"></a></td>
+</tr>
+</tbody></table>
+<h2 id="4-2-Build-K230-RTOS-SDK"><a href="#4-2-Build-K230-RTOS-SDK" class="headerlink" title="4.2 Build K230 RTOS SDK"></a>4.2 Build <a target="_blank" rel="noopener" href="https://github.com/kendryte/k230_rtos_sdk">K230 RTOS SDK</a></h2><h3 id="4-2-1-Toolchain-Preparation"><a href="#4-2-1-Toolchain-Preparation" class="headerlink" title="4.2.1 Toolchain Preparation"></a>4.2.1 Toolchain Preparation</h3><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/RISC-V/Kendryte/K230/prepare_toolchains.png" alt="Toolchain Preparation"></p>
+<p>The most up-to-date <a target="_blank" rel="noopener" href="https://www.kendryte.com/zh/proDetail/230">K230</a> toolchain can be found on <a target="_blank" rel="noopener" href="https://kendryte-download.canaan-creative.com/k230/toolchain/">Kendryte Download</a></p>
+<h3 id="4-2-2-Build"><a href="#4-2-2-Build" class="headerlink" title="4.2.2 Build"></a>4.2.2 Build</h3>
       
     </div>
 
