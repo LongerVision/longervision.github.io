@@ -149,6 +149,156 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
+    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2025/09/12/AI/EdgeComputing/NVidia-Jetson-AGX-Xavier-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nobody">
+      <meta itemprop="description" content="Longer Vision Technology Github Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Longer Vision Technology">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/09/12/AI/EdgeComputing/NVidia-Jetson-AGX-Xavier-2/" class="post-title-link" itemprop="url">NVidia Jetson AGX Xavier - Deepstream (2)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-09-12 00:00:00" itemprop="dateCreated datePublished" datetime="2025-09-12T00:00:00-07:00">2025-09-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-12-15 15:44:37" itemprop="dateModified" datetime="2025-12-15T15:44:37-08:00">2025-12-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AI/Edge-Computing/" itemprop="url" rel="index"><span itemprop="name">Edge Computing</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Good new. I’m flying back to China for some traditional Chinese food - <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%83%AD%E5%B9%B2%E9%9D%A2">热干面</a>  😍❤️😊<br>In my <a href="../../../../../../2021/08/12/AI/EdgeComputing/NVidia-Jetson-AGX-Xavier-1/">first blog post about Jetson AGX Xavier</a> early in year 2021, I just did a very simple demo with any industrial camera using <a target="_blank" rel="noopener" href="https://github.com/AravisProject/aravis">Aravis</a>. Today, I’m going to make full use of the <a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-gpus">CUDA GPU Compute Capability</a> of my <a target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-agx-xavier/">Jetson AGX Xavier</a>, running <a target="_blank" rel="noopener" href="https://developer.nvidia.com/deepstream-sdk">DeepStream</a> to live cam stream the city of <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Vancouver">Vancouver</a> and twitter it out.</p>
+<p>By the way, I forget to mention my this blog <a href="../../../../../../2024/07/08/MachineVision/RGBD/Kinect-2/">Kinect 2 on Jetson AGX Xavier</a>.</p>
+<h1 id="1-Environment"><a href="#1-Environment" class="headerlink" title="1. Environment"></a>1. Environment</h1><h2 id="1-1-neofetch"><a href="#1-1-neofetch" class="headerlink" title="1.1 neofetch"></a>1.1 <code>neofetch</code></h2><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/2025/neofetch.png" alt="Neofetch"></p>
+<h2 id="1-2-jtop"><a href="#1-2-jtop" class="headerlink" title="1.2 jtop"></a>1.2 <code>jtop</code></h2><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/2025/jtop.png" alt="jtop"></p>
+<h2 id="1-3-tegrastats-and-jetson-release"><a href="#1-3-tegrastats-and-jetson-release" class="headerlink" title="1.3 tegrastats and jetson_release"></a>1.3 <code>tegrastats and jetson_release</code></h2><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/2025/tegrastats_jetson_release.png" alt="tegrastats and jetson_release"></p>
+<h1 id="2-DeepStream"><a href="#2-DeepStream" class="headerlink" title="2. DeepStream"></a>2. <a target="_blank" rel="noopener" href="https://developer.nvidia.com/deepstream-sdk">DeepStream</a></h1><h2 id="2-1-Install-DeepStream-On-Jetson-AGX-Xavier"><a href="#2-1-Install-DeepStream-On-Jetson-AGX-Xavier" class="headerlink" title="2.1 Install DeepStream On Jetson AGX Xavier"></a>2.1 Install <a target="_blank" rel="noopener" href="https://developer.nvidia.com/deepstream-sdk">DeepStream</a> On <a target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-agx-xavier/">Jetson AGX Xavier</a></h2><p>You <strong>first</strong> have to find the corresponding <a target="_blank" rel="noopener" href="https://developer.nvidia.com/deepstream-sdk">DeepStream</a> version from its official website <a target="_blank" rel="noopener" href="https://developer.nvidia.com/deepstream-sdk">DeepStream</a>. Since I’m using a <a target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-agx-xavier/">Jetson AGX Xavier</a>, I’d choose <a target="_blank" rel="noopener" href="https://catalog.ngc.nvidia.com/orgs/nvidia/resources/deepstream/files?version=6.3">DeepStream 6.3</a> and have it installed on my device.</p>
+<p><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/DeepStream/deepstream-6.3.png" alt="DeepStream 6.3"></p>
+<h2 id="2-2-Set-Up-Configuration"><a href="#2-2-Set-Up-Configuration" class="headerlink" title="2.2 Set Up Configuration"></a>2.2 Set Up Configuration</h2><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/DeepStream/configuration.png" alt="Configuration"></p>
+<h2 id="2-3-Model-Configuration"><a href="#2-3-Model-Configuration" class="headerlink" title="2.3 Model Configuration"></a>2.3 Model Configuration</h2><p><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/DeepStream/model_configuration.png" alt="Model Configuration"></p>
+<h2 id="2-4-Demonstration"><a href="#2-4-Demonstration" class="headerlink" title="2.4 Demonstration"></a>2.4 Demonstration</h2><table>
+<thead>
+<tr>
+<th>Process On a Video without Using <strong>deepstream</strong> Command</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/DeepStream/gst-luanch.png" alt="Run It"></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Results of Detection</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/DeepStream/detection.png" alt="One Resultant Frame"></td>
+</tr>
+</tbody></table>
+<h2 id="2-5-Conclusion"><a href="#2-5-Conclusion" class="headerlink" title="2.5 Conclusion"></a>2.5 Conclusion</h2><p><a target="_blank" rel="noopener" href="https://catalog.ngc.nvidia.com/orgs/nvidia/resources/deepstream/files?version=6.3">DeepStream 6.3</a> does not provide an out-of-the-box sample for rendering different object classes with different bounding box colors. </p>
+<p>In <a target="_blank" rel="noopener" href="https://catalog.ngc.nvidia.com/orgs/nvidia/resources/deepstream/files?version=6.3">DeepStream 6.3</a>, <strong>deepstream-app</strong> uses the default <strong>nvdsosd</strong> behavior, which applies a single bounding box style to <strong>ALL</strong> detected objects.</p>
+<p>The application-level configuration parser does <strong>not</strong> support class-wise color mapping, and <strong>nvdsosd</strong> color customization is not exposed through <strong>deepstream-app</strong> config files.</p>
+<p>As a result, rendering different colors for different object classes requires custom <strong>OSD</strong> logic or a modified application, rather than configuration-only changes.</p>
+<!-- ## 2.2 Prepare [YOLO11] Using [DeepStream-Yolo]
+
+Please strictly follow [DeepStream-Yolo YOLO11 usage].
+
+![DeepStream Yolo11s Converted to ONNX](https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/Embedded/Jetson/AGX_Xavier/2025/deepstream_yolo11s_onnx.png)
+
+**<span style="color: red;">And this step is recommended to be done on your desktop, instead of [Jetson AGX Xavier].</span>**
+
+
+## 2.3 Convert from ONNX to Engine for [Jetson AGX Xavier] Using [TensorRT]
+
+```console
+➜  trtexec \
+  --onnx=/opt/nvidia/deepstream/deepstream-6.3/samples/models/yolo/yolo11s_960x544.onnx \
+  --saveEngine=/opt/nvidia/deepstream/deepstream-6.3/samples/models/yolo/yolo11s_960x544_fp16.engine \
+  --fp16 --workspace=4096
+&&&& RUNNING TensorRT.trtexec [TensorRT v8502] # trtexec --onnx=/opt/nvidia/deepstream/deepstream-6.3/samples/models/yolo/yolo11s_960x544.onnx --saveEngine=/opt/nvidia/deepstream/deepstream-6.3/samples/models/yolo/yolo11s_960x544_fp16.engine --fp16 --workspace=4096
+[09/13/2025-05:01:04] [W] --workspace flag has been deprecated by --memPoolSize flag.
+[09/13/2025-05:01:04] [I] === Model Options ===
+[09/13/2025-05:01:04] [I] Format: ONNX
+[09/13/2025-05:01:04] [I] Model: /opt/nvidia/deepstream/deepstream-6.3/samples/models/yolo/yolo11s_960x544.onnx
+[09/13/2025-05:01:04] [I] Output:
+[09/13/2025-05:01:04] [I] === Build Options ===
+[09/13/2025-05:01:04] [I] Max batch: explicit batch
+[09/13/2025-05:01:04] [I] Memory Pools: workspace: 4096 MiB, dlaSRAM: default, dlaLocalDRAM: default, dlaGlobalDRAM: default
+[09/13/2025-05:01:04] [I] minTiming: 1
+[09/13/2025-05:01:04] [I] avgTiming: 8
+[09/13/2025-05:01:04] [I] Precision: FP32+FP16
+[09/13/2025-05:01:04] [I] LayerPrecisions: 
+[09/13/2025-05:01:04] [I] Calibration: 
+[09/13/2025-05:01:04] [I] Refit: Disabled
+[09/13/2025-05:01:04] [I] Sparsity: Disabled
+[09/13/2025-05:01:04] [I] Safe mode: Disabled
+[09/13/2025-05:01:04] [I] DirectIO mode: Disabled
+[09/13/2025-05:01:04] [I] Restricted mode: Disabled
+[09/13/2025-05:01:04] [I] Build only: Disabled
+......
+``` -->
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
     <link itemprop="mainEntityOfPage" href="http://longervision.ca/2025/09/05/AI/EdgeComputing/raspberry-pi-5-hailo-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1639,125 +1789,6 @@ Please refer to the following official documentations:
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en,default">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2024/10/09/AI/DeepLearning/YOLOv11/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nobody">
-      <meta itemprop="description" content="Longer Vision Technology Github Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Longer Vision Technology">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/10/09/AI/DeepLearning/YOLOv11/" class="post-title-link" itemprop="url">YOLOv11</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-10-09 01:09:17" itemprop="dateCreated datePublished" datetime="2024-10-09T01:09:17-07:00">2024-10-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-06-03 23:08:38" itemprop="dateModified" datetime="2025-06-03T23:08:38-07:00">2025-06-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AI/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="https://docs.ultralytics.com/models/yolo11/">YOLOv11</a> was just out for a couple of days. People keep talking about its terrrific performance. Today, let me have some fun.</p>
-<h1 id="1-YOLOv11-Server-App"><a href="#1-YOLOv11-Server-App" class="headerlink" title="1. YOLOv11 Server App"></a>1. <a target="_blank" rel="noopener" href="https://docs.ultralytics.com/models/yolo11/">YOLOv11</a> Server App</h1><p>A <a target="_blank" rel="noopener" href="https://flask.palletsprojects.com/en">Flask</a> implementation is obtained from <a target="_blank" rel="noopener" href="https://chatgpt.com/">ChatGPT</a>:</p>
-<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/YOLO/lvt_yolo11_server_app.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/YOLO/lvt_yolo11_server_app.png" alt="LVT YOLOv11 Server App"></a></p>
-<h1 id="2-Demonstration-From-Client-Requests"><a href="#2-Demonstration-From-Client-Requests" class="headerlink" title="2. Demonstration From Client Requests"></a>2. Demonstration From Client Requests</h1><h2 id="2-1-Commands"><a href="#2-1-Commands" class="headerlink" title="2.1 Commands"></a>2.1 Commands</h2><p>Corresponding to the 5 tasks summarized on <a target="_blank" rel="noopener" href="https://docs.ultralytics.com/models/yolo11/">YOLOv11</a>, the results of client requests are demonstrated as:</p>
-<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/YOLO/yolov_5endpoints.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/YOLO/yolov_5endpoints.png" alt="LVT YOLOv11 5 EndPoints Requests"></a></p>
-<h2 id="2-2-Resultant-Images-On-Server"><a href="#2-2-Resultant-Images-On-Server" class="headerlink" title="2.2 Resultant Images On Server"></a>2.2 Resultant Images On Server</h2><table>
-<thead>
-<tr>
-<th align="center">Original Image</th>
-<th align="center"><a target="_blank" rel="noopener" href="https://docs.ultralytics.com/tasks/detect/">YOLO Detection</a></th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/YOLO/bus.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/YOLO/bus.jpg" alt="Original Image"></a></td>
-<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/YOLO/detect_result_20241009_012854.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/YOLO/detect_result_20241009_012854.jpg" alt="Detection Result"></a></td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th align="center"><a target="_blank" rel="noopener" href="https://docs.ultralytics.com/tasks/segment/">YOLO Segmentation</a></th>
-<th align="center"><a target="_blank" rel="noopener" href="https://docs.ultralytics.com/tasks/pose/">YOLO Pose</a></th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/YOLO/segment_result_20241009_012835.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/YOLO/segment_result_20241009_012835.jpg" alt="Segmentation Boundaries"></a></td>
-<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/YOLO/keypoints_result_20241009_012908.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/YOLO/keypoints_result_20241009_012908.jpg" alt="Pose Keypoints"></a></td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th align="center"><a target="_blank" rel="noopener" href="https://docs.ultralytics.com/tasks/obb/">YOLO Oriented Detection</a></th>
-<th align="center"><a target="_blank" rel="noopener" href="https://docs.ultralytics.com/tasks/classify/">YOLO Classification</a></th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/YOLO/oriented_detect_result_20241009_012916.jpg"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/YOLO/oriented_detect_result_20241009_012916.jpg" alt="Oriented Detection"></a></td>
-<td align="center"><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/YOLO/endpoint_classify.png"><img src="https://raw.githubusercontent.com/LongerVision/Resource/refs/heads/main/AI/YOLO/endpoint_classify.png" alt="Classfication Json"></a></td>
-</tr>
-</tbody></table>
-<p><strong><span style="color:red">Let me try to provide such a service as public asap.</span></strong>.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1827,7 +1858,7 @@ Please refer to the following official documentations:
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1838,7 +1869,7 @@ Please refer to the following official documentations:
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">151</span>
+        <span class="site-state-item-count">152</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
