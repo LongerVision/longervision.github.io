@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 7.3.0">
+<meta name="generator" content="Hexo 8.1.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -23,7 +23,7 @@
   <meta name="description" content="Hello, everybody. I’m now back in ShenZhen, China, and testing several types of Single Board Computers. I’ve got to say: Made In China is amazing. Banana Pi M3 is a SBC with AllWinner A83T ARM CPU, w">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Install Armbian Ubuntu Desktop With Kernel 5.0 onto Banana Pi M3">
-<meta property="og:url" content="http://longervision.ca/2019/04/16/SBCs/ARM/banana-pi-m3-armbian/index.html">
+<meta property="og:url" content="https://longervision.ca/2019/04/16/SBCs/ARM/banana-pi-m3-armbian/index.html">
 <meta property="og:site_name" content="Longer Vision Technology">
 <meta property="og:description" content="Hello, everybody. I’m now back in ShenZhen, China, and testing several types of Single Board Computers. I’ve got to say: Made In China is amazing. Banana Pi M3 is a SBC with AllWinner A83T ARM CPU, w">
 <meta property="og:locale" content="en_US">
@@ -37,7 +37,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/AllWinner/bananapi/M3_A83T.jpg">
 
-<link rel="canonical" href="http://longervision.ca/2019/04/16/SBCs/ARM/banana-pi-m3-armbian/">
+<link rel="canonical" href="https://longervision.ca/2019/04/16/SBCs/ARM/banana-pi-m3-armbian/">
 
 
 <script id="page-configurations">
@@ -156,7 +156,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/04/16/SBCs/ARM/banana-pi-m3-armbian/">
+    <link itemprop="mainEntityOfPage" href="https://longervision.ca/2019/04/16/SBCs/ARM/banana-pi-m3-armbian/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -283,13 +283,53 @@
 
 Please refer to [Armbian docs - How to set fixed IP?](https://docs.armbian.com/User-Guide_Getting-Started/#how-to-set-fixed-ip), and modify the file **/etc/network/interfaces** as follows:
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">root@bananapim3:~$ vim /etc/network/interfaces</span><br><span class="line"><span class="built_in">source</span> /etc/network/interfaces.d/*</span><br><span class="line"><span class="comment"># Network is managed by Network manager</span></span><br><span class="line">auto lo</span><br><span class="line">iface lo inet loopback</span><br><span class="line"></span><br><span class="line"><span class="comment"># Wifi</span></span><br><span class="line">auto wlan0</span><br><span class="line">iface wlan0 inet static</span><br><span class="line">    address 192.168.0.82</span><br><span class="line">    netmask 255.255.255.0</span><br><span class="line">    network 192.168.0.0</span><br><span class="line">    broadcast 192.168.0.1</span><br><span class="line">    gateway 192.168.0.1</span><br><span class="line">    dns-nameservers 192.168.0.1 8.8.8.8</span><br><span class="line">    wpa-ssid XXXXXXXX</span><br><span class="line">    wpa-psk YYYYYYYY</span><br></pre></td></tr></table></figure>
+```bash
+root@bananapim3:~$ vim /etc/network/interfaces
+source /etc/network/interfaces.d/*
+# Network is managed by Network manager
+auto lo
+iface lo inet loopback
 
-<p>Afterwards, a reboot (meanwhile, you may have to set up your own router for a fixed IP) will bring your <a target="_blank" rel="noopener" href="http://www.banana-pi.org/m3.html">Banana Pi M3</a> a fixed IP address. Here in my case: <strong>192.168.0.82</strong>.</p>
-<h3 id="3-Check-IP-Address"><a href="#3-Check-IP-Address" class="headerlink" title="3). Check IP Address"></a>3). Check IP Address</h3><p>And, let’s have a look at current IP of <a target="_blank" rel="noopener" href="http://www.banana-pi.org/m3.html">Banana Pi M3</a>.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">root@bananapim3:~# ip -c address</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    <span class="built_in">link</span>/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: dummy0: &lt;BROADCAST,NOARP&gt; mtu 1500 qdisc noop state DOWN group default qlen 1000</span><br><span class="line">    <span class="built_in">link</span>/ether 06:ff:e9:32:<span class="built_in">fc</span>:5d brd ff:ff:ff:ff:ff:ff</span><br><span class="line">3: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000</span><br><span class="line">    <span class="built_in">link</span>/ether 02:01:06:95:68:<span class="built_in">df</span> brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.1.80/24 brd 192.168.1.255 scope global dynamic noprefixroute eth0</span><br><span class="line">       valid_lft 3069402692sec preferred_lft 3069402692sec</span><br><span class="line">    inet6 fe80::60f6:8ba6:4238:f3ca/64 scope <span class="built_in">link</span> noprefixroute</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+# Wifi
+auto wlan0
+iface wlan0 inet static
+    address 192.168.0.82
+    netmask 255.255.255.0
+    network 192.168.0.0
+    broadcast 192.168.0.1
+    gateway 192.168.0.1
+    dns-nameservers 192.168.0.1 8.8.8.8
+    wpa-ssid XXXXXXXX
+    wpa-psk YYYYYYYY
+```
 
-<p>–&gt;</p>
+Afterwards, a reboot (meanwhile, you may have to set up your own router for a fixed IP) will bring your [Banana Pi M3](http://www.banana-pi.org/m3.html) a fixed IP address. Here in my case: **192.168.0.82**.
+
+
+### 3). Check IP Address
+
+And, let's have a look at current IP of [Banana Pi M3](http://www.banana-pi.org/m3.html).
+
+```bash
+root@bananapim3:~# ip -c address
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: dummy0: <BROADCAST,NOARP> mtu 1500 qdisc noop state DOWN group default qlen 1000
+    link/ether 06:ff:e9:32:fc:5d brd ff:ff:ff:ff:ff:ff
+3: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether 02:01:06:95:68:df brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.80/24 brd 192.168.1.255 scope global dynamic noprefixroute eth0
+       valid_lft 3069402692sec preferred_lft 3069402692sec
+    inet6 fe80::60f6:8ba6:4238:f3ca/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+```
+
+-->
+
 
     </div>
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 7.3.0">
+<meta name="generator" content="Hexo 8.1.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -23,7 +23,7 @@
   <meta name="description" content="Today, I got a very BAD news: one of my BEST classmates in my senior middle school has been staying in the hospital for OVER 3 months. The very serious pancreatitis has used up ALL his family’s saving">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SiFive HiFive1 Rev B">
-<meta property="og:url" content="http://longervision.ca/2019/08/02/SBCs/RISC-V/SiFive-HiFive1-rev-b/index.html">
+<meta property="og:url" content="https://longervision.ca/2019/08/02/SBCs/RISC-V/SiFive-HiFive1-rev-b/index.html">
 <meta property="og:site_name" content="Longer Vision Technology">
 <meta property="og:description" content="Today, I got a very BAD news: one of my BEST classmates in my senior middle school has been staying in the hospital for OVER 3 months. The very serious pancreatitis has used up ALL his family’s saving">
 <meta property="og:locale" content="en_US">
@@ -37,7 +37,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/LongerVision/Resource/master/chips/RISC-V/SiFive/HiFive.jpg">
 
-<link rel="canonical" href="http://longervision.ca/2019/08/02/SBCs/RISC-V/SiFive-HiFive1-rev-b/">
+<link rel="canonical" href="https://longervision.ca/2019/08/02/SBCs/RISC-V/SiFive-HiFive1-rev-b/">
 
 
 <script id="page-configurations">
@@ -156,7 +156,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://longervision.ca/2019/08/02/SBCs/RISC-V/SiFive-HiFive1-rev-b/">
+    <link itemprop="mainEntityOfPage" href="https://longervision.ca/2019/08/02/SBCs/RISC-V/SiFive-HiFive1-rev-b/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -273,10 +273,10 @@
 <h4 id="Solution-1-Temporary-Solution"><a href="#Solution-1-Temporary-Solution" class="headerlink" title="Solution 1: Temporary Solution"></a>Solution 1: Temporary Solution</h4><p><span style="color:red">Reset <strong>DTC</strong> to value <strong>&#x2F;usr&#x2F;bin&#x2F;dtc</strong> in file <strong>build&#x2F;CMakeCache.txt</strong></span></p>
 <h4 id="Solution-2-Permanent-Solution"><a href="#Solution-2-Permanent-Solution" class="headerlink" title="Solution 2: Permanent Solution"></a>Solution 2: Permanent Solution</h4><p><span style="color:red">Modify file <strong>.&#x2F;cmake&#x2F;toolchain&#x2F;zephyr&#x2F;0.10.1&#x2F;host-tools.cmake</strong> as follows</span></p>
 <ul>
-<li>Replace <code>set(HOST_TOOLS_HOME $&#123;ZEPHYR_SDK_INSTALL_DIR&#125;/sysroots/$&#123;TOOLCHAIN_ARCH&#125;-pokysdk-linux)</code> with <code>set(HOST_TOOLS_HOME /usr)</code></li>
-<li>Remove <code>list(APPEND CMAKE_PREFIX_PATH $&#123;HOST_TOOLS_HOME&#125;/usr)</code></li>
-<li>Replace <code>set_ifndef(QEMU_BIOS            $&#123;HOST_TOOLS_HOME&#125;/usr/share/qemu)</code> with <code>set_ifndef(QEMU_BIOS            /usr/local/share/qemu)</code></li>
-<li>Replace <code>set_ifndef(OPENOCD_DEFAULT_PATH $&#123;HOST_TOOLS_HOME&#125;/usr/share/openocd/scripts)</code> with <code>set_ifndef(OPENOCD_DEFAULT_PATH /usr/local/share/openocd/scripts)</code></li>
+<li>Replace <code>set(HOST_TOOLS_HOME ${ZEPHYR_SDK_INSTALL_DIR}/sysroots/${TOOLCHAIN_ARCH}-pokysdk-linux)</code> with <code>set(HOST_TOOLS_HOME /usr)</code></li>
+<li>Remove <code>list(APPEND CMAKE_PREFIX_PATH ${HOST_TOOLS_HOME}/usr)</code></li>
+<li>Replace <code>set_ifndef(QEMU_BIOS            ${HOST_TOOLS_HOME}/usr/share/qemu)</code> with <code>set_ifndef(QEMU_BIOS            /usr/local/share/qemu)</code></li>
+<li>Replace <code>set_ifndef(OPENOCD_DEFAULT_PATH ${HOST_TOOLS_HOME}/usr/share/openocd/scripts)</code> with <code>set_ifndef(OPENOCD_DEFAULT_PATH /usr/local/share/openocd/scripts)</code></li>
 </ul>
 <p>Then, rebuild everything with <code>west build -b hifive1_revb samples/hello_world</code>.</p>
 <h1 id="2-Running-Zephyr-on-SiFive-HiFive1-Rev-B01"><a href="#2-Running-Zephyr-on-SiFive-HiFive1-Rev-B01" class="headerlink" title="2. Running Zephyr on SiFive HiFive1 Rev B01"></a>2. Running Zephyr on SiFive HiFive1 Rev B01</h1><h2 id="2-1-Connect-SiFive-HiFive1-Rev-B01"><a href="#2-1-Connect-SiFive-HiFive1-Rev-B01" class="headerlink" title="2.1 Connect SiFive HiFive1 Rev B01"></a>2.1 Connect SiFive HiFive1 Rev B01</h2><p>Now, let’s plug in <a target="_blank" rel="noopener" href="https://www.sifive.com/boards/hifive1-rev-b">SiFive HiFive1 Rev B01</a> with a <span style="color:red"><strong>QUALIFIED</strong></span> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/USB_hardware#Micro_connectors">Micro-B USB</a> to <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/USB">USB Type A</a> cable. <a target="_blank" rel="noopener" href="https://www.sifive.com/boards/hifive1-rev-b">SiFive HiFive1 Rev B01</a> will be prompted as a massive storage hard drive as:</p>
